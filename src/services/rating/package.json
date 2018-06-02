@@ -1,0 +1,24 @@
+{
+  "name": "rating-service",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vietnam-devs/coolstore-microservice.git"
+  },
+  "author": "thangchung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vietnam-devs/coolstore-microservice/issues"
+  },
+  "homepage": "https://github.com/vietnam-devs/coolstore-microservice#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "npm": "^6.0.0"
+  }
+}
