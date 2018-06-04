@@ -30,6 +30,9 @@ spec:
       - name: inventory
         image: vietnamdevsgroup/coolstore-inventory-service:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: "ASPNETCORE_BASEPATH"
+          value: "/"
         ports:
         - containerPort: 80
 ---
