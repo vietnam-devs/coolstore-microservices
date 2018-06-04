@@ -1,0 +1,35 @@
+##################################################################################################
+# Inventory service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory
+  labels:
+    app: inventory
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: inventory
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: inventory-v1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: inventory
+        version: v1
+    spec:
+      containers:
+      - name: inventory
+        image: vietnamdevsgroup/coolstore-inventory-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+---
