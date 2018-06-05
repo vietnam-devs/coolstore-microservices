@@ -34,12 +34,12 @@ namespace Idp
             });
 
             var builder = services.AddIdentityServer(options =>
-            {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-            })
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                })
                 .AddTestUsers(TestUsers.Users);
 
             // in-memory, code config
@@ -52,14 +52,17 @@ namespace Idp
             builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
             builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
-            if (Environment.IsDevelopment())
-            {
-                builder.AddDeveloperSigningCredential();
-            }
-            else
-            {
-                throw new Exception("need to configure key material");
-            }
+//            if (Environment.IsDevelopment())
+//            {
+
+            //TODO: lets it works temporary
+            builder.AddDeveloperSigningCredential();
+
+//            }
+//            else
+//            {
+//                throw new Exception("need to configure key material");
+//            }
 
             services.AddAuthentication()
                 .AddGoogle(options =>

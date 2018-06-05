@@ -1,8 +1,8 @@
-FROM microsoft/aspnetcore:2.0.7 AS base
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/aspnetcore-build:2.0.7-2.1.105 AS build
+FROM microsoft/dotnet:2.1-sdk-alpine AS build
 WORKDIR /src
 COPY . .
 WORKDIR /src/src/services/cart

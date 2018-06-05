@@ -36,17 +36,13 @@ namespace VND.Services.Inventory
             services.AddSwaggerGen(
                 options =>
                 {
-                    // resolve the IApiVersionDescriptionProvider service
-                    // note: that we have to build a temporary service provider here because one has not been created yet
                     var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
-                    // add a swagger document for each discovered API version
-                    // note: you might choose to skip or document deprecated API versions differently
                     foreach (var description in provider.ApiVersionDescriptions)
                     {
                         options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
                     }
-                    // integrate xml comments
+
                     // options.IncludeXmlComments (XmlCommentsFilePath);
                 });
 
