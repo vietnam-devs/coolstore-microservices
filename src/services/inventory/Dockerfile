@@ -1,19 +1,15 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS base
-WORKDIR /app
-EXPOSE 80
-
 FROM microsoft/dotnet:2.1-sdk-alpine AS build
-WORKDIR /src
-COPY . .
-WORKDIR /src/src/services/inventory
-RUN dotnet restore -nowarn:msb3202,nu1503
-RUN dotnet build --no-restore -c Release -o /app
+WORKDIR /build
+COPY ./src/services/inventory/VND.Services.Inventory.csproj ./src/services/inventory/VND.Services.Inventory.csproj
+COPY ./global.json ./global.json
+RUN dotnet restore ./src/services/inventory/VND.Services.Inventory.csproj --force --no-cache
+COPY ./src/services/inventory/ ./src/services/inventory/
+RUN dotnet build ./src/services/inventory/VND.Services.Inventory.csproj --configuration Release --no-restore
+RUN dotnet publish ./src/services/inventory/VND.Services.Inventory.csproj --configuration Release --no-restore --no-build --output "../dist"
 
-FROM build AS publish
-RUN dotnet publish --no-restore -c Release -o /app
-
-FROM base AS final
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS app
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=build /build/dist .
+ENV ASPNETCORE_URLS http://+:80
 
 ENTRYPOINT ["dotnet", "Inventory.dll"]
