@@ -2,14 +2,21 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /
   name: coolstore-ingress
   namespace: default
 spec:
+  backend:
+    serviceName: inventory-service
+    servicePort: 80
   rules:
   - http:
       paths:
-      - path: /
+      - path: /inventory
         backend:
           serviceName: inventory-service
+          servicePort: 80
+      - path: /idp
+        backend:
+          serviceName: idp-service
           servicePort: 80

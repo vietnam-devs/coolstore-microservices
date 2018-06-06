@@ -1,0 +1,40 @@
+##################################################################################################
+# Idp service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: idp-service
+  labels:
+    app: idp-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: idp
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: idp-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: idp
+        version: v1
+    spec:
+      containers:
+      - name: idp
+        image: vietnamdevsgroup/coolstore-idp-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: "ASPNETCORE_BASEPATH"
+          value: "/idp"
+        ports:
+        - containerPort: 80
+---
