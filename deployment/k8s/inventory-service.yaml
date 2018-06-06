@@ -32,7 +32,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: "ASPNETCORE_BASEPATH"
-          value: "/"
+          value: "/inventory"
         ports:
         - containerPort: 80
 ---
