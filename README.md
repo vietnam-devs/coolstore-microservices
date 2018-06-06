@@ -22,9 +22,20 @@ There are several individual microservices and infrastructure components that ma
 
 # Prerequisites
 
-TODO
+- Ubuntu Server
+- minikube
+- kubectl
+- VirtualBox
+- helm
 
 # Deploy CoolStore Microservices Application
+
+### nginx-ingress
+
+```
+> helm init
+> helm install stable/nginx-ingress
+```
 
 TODO
 
