@@ -2,16 +2,14 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: 'true'
+    ingress.kubernetes.io/rewrite-target: /
   name: coolstore-ingress
   namespace: default
 spec:
   rules:
-    - host: coolstore-ingress.kube.local
-      http:
-        paths:
-          - path: /inventory/
-            backend:
-              serviceName: inventory-service
-              servicePort: 80
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: inventory-service
+          servicePort: 80
