@@ -1,19 +1,25 @@
-FROM microsoft/aspnetcore:2.0.7 AS base
+FROM microsoft/dotnet:2.1-sdk-alpine AS build
+WORKDIR /build
+
+# Copy the global and csproj files
+COPY ./src/services/idp/VND.Services.Idp.csproj ./src/services/idp/VND.Services.Idp.csproj
+COPY ./global.json ./global.json
+
+# Restore all packages
+RUN dotnet restore ./src/services/idp/VND.Services.Idp.csproj --force --no-cache
+
+# Copy the remaining source
+COPY ./src/services/idp/ ./src/services/idp/
+
+# Build the source code
+RUN dotnet build ./src/services/idp/VND.Services.Idp.csproj --configuration Release --no-restore
+
+# Publish application
+RUN dotnet publish ./src/services/idp/VND.Services.Idp.csproj --configuration Release --no-restore --no-build --output "../../../dist"
+
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS app
 WORKDIR /app
-EXPOSE 80
+COPY --from=build /build/dist .
+ENV ASPNETCORE_URLS http://+:5000
 
-FROM microsoft/aspnetcore-build:2.0.7-2.1.105 AS build
-WORKDIR /src
-COPY . .
-WORKDIR /src/src/services/idp
-RUN dotnet restore -nowarn:msb3202,nu1503
-RUN dotnet build --no-restore -c Release -o /app
-
-FROM build AS publish
-RUN dotnet publish --no-restore -c Release -o /app
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app .
-
-ENTRYPOINT ["dotnet", "Idp.dll"]
+ENTRYPOINT ["dotnet", "VND.Services.Idp.dll"]

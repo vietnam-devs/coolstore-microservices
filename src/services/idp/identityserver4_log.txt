@@ -9,3 +9,9 @@
 2018-06-05 19:09:35.250 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
 2018-06-05 19:09:35.261 +07:00 [DBG] Start discovery request
 2018-06-05 19:09:46.322 +07:00 [INF] AuthenticationScheme: idsrv was challenged.
+2018-06-06 22:25:31.252 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-06 22:25:32.527 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-06 22:25:32.535 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-06 22:25:32.535 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-06 22:25:32.535 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-06 22:25:32.535 +07:00 [DBG] Using idsrv as default scheme for forbid

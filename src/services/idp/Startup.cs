@@ -81,6 +81,16 @@ namespace Idp
                 app.UseDeveloperExceptionPage();
             }
 
+            string basePath = System.Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
+            if (!string.IsNullOrEmpty(basePath))
+            {
+                app.Use(async (context, next) =>
+                {
+                    context.Request.PathBase = basePath;
+                    await next.Invoke();
+                });
+            }
+
             app.UseIdentityServer();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();

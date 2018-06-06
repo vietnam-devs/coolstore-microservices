@@ -8,15 +8,15 @@ metadata:
 spec:
   backend:
     serviceName: inventory-service
-    servicePort: 80
+    servicePort: 5000
   rules:
   - http:
       paths:
       - path: /inventory
         backend:
           serviceName: inventory-service
-          servicePort: 80
+          servicePort: 5000
       - path: /idp
         backend:
           serviceName: idp-service
-          servicePort: 80
+          servicePort: 5000
