@@ -3,13 +3,13 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
-  name: nginx-ingress
+  name: coolstore-ingress
   namespace: default
 spec:
   rules:
     - http:
         paths:
-          - backend:
-              serviceName: inventory
+          - path: /inventory
+            backend:
+              serviceName: inventory-service
               servicePort: 80
-            path: /inventory
