@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: 'true'
   name: coolstore-ingress
   namespace: default
 spec:
@@ -10,7 +11,7 @@ spec:
     - host: coolstore-ingress.kube.local
       http:
         paths:
-          - path: /inventory
+          - path: /inventory/
             backend:
               serviceName: inventory-service
               servicePort: 80
