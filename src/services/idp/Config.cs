@@ -7,116 +7,96 @@ using System.Collections.Generic;
 
 namespace Idp
 {
-  public static class Config
-  {
-    public static IEnumerable<IdentityResource> GetIdentityResources()
-    {
-      return new IdentityResource[]
-      {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
-      };
-    }
+	public static class Config
+	{
+		public static IEnumerable<IdentityResource> GetIdentityResources()
+		{
+			return new IdentityResource[]
+			{
+				new IdentityResources.OpenId(),
+				new IdentityResources.Profile()
+			};
+		}
 
-    public static IEnumerable<ApiResource> GetApis()
-    {
-      return new ApiResource[]
-      {
-            new ApiResource("api1", "My API #1"),
-            new ApiResource
-            {
-                Name = "inventory_api",
-                DisplayName = "Inventory API",
-                Scopes =
-                {
-                    new Scope
-                    {
-                        Name = "inventory_api_scope",
-                        Description = "inventory_api_scope"
-                    }
-                }
-            }
-      };
-    }
+		public static IEnumerable<ApiResource> GetApis()
+		{
+			return new ApiResource[]
+			{
+			new ApiResource("api1", "My API #1"),
+			new ApiResource
+			{
+				Name = "inventory_api",
+				DisplayName = "Inventory API",
+				Scopes =
+				{
+					new Scope
+					{
+						Name = "inventory_api_scope",
+						Description = "inventory_api_scope"
+					}
+				}
+			}
+			};
+		}
 
-    public static IEnumerable<Client> GetClients()
-    {
-      return new[]
-      {
-                // client credentials flow client
-                new Client
-                {
-                    ClientId = "client",
-                    ClientName = "Client Credentials Client",
-
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-
-                    AllowedScopes = { "api1" }
-                },
-
-                // MVC client using hybrid flow
-                new Client
-                {
-                    ClientId = "mvc",
-                    ClientName = "MVC Client",
-
-                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-
-                    RedirectUris = { "http://localhost:5001/signin-oidc" },
-                    FrontChannelLogoutUri = "http://localhost:5001/signout-oidc",
-                    PostLogoutRedirectUris = { "http://localhost:5001/signout-callback-oidc" },
-
-                    AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "api1" }
-                },
-
+		public static IEnumerable<Client> GetClients()
+		{
+			return new[]
+			{
                 // SPA client using implicit flow
                 new Client
-                {
-                    ClientId = "spa",
-                    ClientName = "SPA Client",
-                    ClientUri = "http://identityserver.io",
+				{
+					ClientId = "spa",
+					ClientName = "SPA Client",
+					ClientUri = "http://identityserver.io",
 
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowAccessTokensViaBrowser = true,
+					AllowedGrantTypes = GrantTypes.Implicit,
+					AllowAccessTokensViaBrowser = true,
 
-                    RedirectUris =
-                    {
-                        "http://localhost:5002/index.html",
-                        "http://localhost:5002/callback.html",
-                        "http://localhost:5002/silent.html",
-                        "http://localhost:5002/popup.html",
-                    },
+					RedirectUris =
+					{
+						"http://localhost:5002/index.html",
+						"http://localhost:5002/callback.html",
+						"http://localhost:5002/silent.html",
+						"http://localhost:5002/popup.html",
+					},
 
-                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                    AllowedCorsOrigins = { "http://localhost:5002" },
+					PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
+					AllowedCorsOrigins = { "http://localhost:5002" },
 
-                    AllowedScopes = { "openid", "profile", "api1" }
-                },
-                // inventory swagger UI
+					AllowedScopes = { "openid", "profile", "api1" }
+				},
+
+                // Inventory Swagger UI
                 new Client
-                {
-                    ClientId = "inventory_swagger_id",
-                    ClientName = "inventory_swagger_app",
-                    ClientSecrets = new List<Secret> {new Secret("secret".Sha256())},
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowAccessTokensViaBrowser = true,
-                    RedirectUris =
-                    {
-                        //"https://localhost:8443/inventory/swagger/o2c.html"
-                        "http://localhost:51033/swagger/oauth2-redirect.html"
-                    },
-                    PostLogoutRedirectUris = {"http://localhost:51033/swagger"},
-                    AllowedCorsOrigins = {"http://localhost:51033"},
-                    AccessTokenLifetime = 300,
-                    AllowedScopes =
-                    {
-                        "inventory_api_scope"
-                    }
-                }
-            };
-    }
-  }
+				{
+					ClientId = "inventory_swagger_id",
+					ClientName = "inventory_swagger_app",
+					ClientSecrets = new List<Secret> {new Secret("secret".Sha256())},
+					AllowedGrantTypes = GrantTypes.Implicit,
+					AllowAccessTokensViaBrowser = true,
+					RedirectUris =
+					{
+                        "http://localhost:51033/swagger/oauth2-redirect.html",
+						"https://localhost:8443/inventory/swagger/oauth2-redirect.html"
+					},
+					PostLogoutRedirectUris =
+					{
+						"http://localhost:51033/swagger",
+						"https://localhost:8443/inventory/swagger"
+					},
+					AllowedCorsOrigins =
+					{
+						"http://localhost:51033",
+						"https://localhost:8443"
+					},
+					AccessTokenLifetime = 300,
+					AllowedScopes =
+					{
+						"inventory_api_scope"
+					}
+				}
+			};
+		}
+	}
 }
