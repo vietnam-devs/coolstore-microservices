@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEE9CA98-802A-4F8F-B9D7-2AE2758BA21F}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		global.json = global.json
 		LICENSE = LICENSE
