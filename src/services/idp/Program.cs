@@ -3,12 +3,14 @@
 
 
 using System;
+using System.Net;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
+using VND.Services.Idp.Certificate;
 
 namespace Idp
 {
@@ -24,7 +26,17 @@ namespace Idp
 		public static IWebHost BuildWebHost(string[] args)
 		{
 			return WebHost.CreateDefaultBuilder(args)
-					.UseKestrel()
+					.UseKestrel(options =>
+					{
+						// listen for HTTP
+						options.Listen(IPAddress.Parse("127.0.0.1"), 5000);
+
+						// listen for HTTPS
+						options.Listen(IPAddress.Parse("127.0.0.1"), 5001, listenOptions =>
+						{
+							listenOptions.UseHttps(Certificate.Get());
+						});
+					})
 					.UseStartup<Startup>()
 					.UseSerilog((context, configuration) =>
 					{
