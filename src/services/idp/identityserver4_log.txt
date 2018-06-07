@@ -15,3 +15,3040 @@
 2018-06-06 22:25:32.535 +07:00 [DBG] Using idsrv as default scheme for sign-out
 2018-06-06 22:25:32.535 +07:00 [DBG] Using idsrv as default scheme for challenge
 2018-06-06 22:25:32.535 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 11:49:29.912 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 11:49:30.021 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 11:49:30.037 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 11:49:30.039 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 11:49:30.042 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 11:49:30.046 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 11:50:00.497 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 11:50:00.524 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 11:50:00.528 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 11:50:00.542 +07:00 [DBG] Start authorize request
+2018-06-07 11:50:00.578 +07:00 [DBG] No user present in authorize request
+2018-06-07 11:50:00.593 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 11:50:00.667 +07:00 [ERR] Unknown client or not enabled: inventory_swagger
+{
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjQ5OjU5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+    "realm": "inventory_swagger"
+  }
+}
+2018-06-07 11:50:00.682 +07:00 [ERR] Request validation failed
+2018-06-07 11:50:00.685 +07:00 [INF] {
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjQ5OjU5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+    "realm": "inventory_swagger"
+  }
+}
+2018-06-07 11:50:00.746 +07:00 [INF] {
+  "Name": "Token Issued Failure",
+  "Category": "Token",
+  "EventType": "Failure",
+  "Id": 2001,
+  "ClientId": "inventory_swagger",
+  "Endpoint": "Authorize",
+  "Scopes": "",
+  "Error": "unauthorized_client",
+  "ActivityId": "0HLEC68FVLJQH:00000001",
+  "TimeStamp": "2018-06-07T04:50:00Z",
+  "ProcessId": 11824,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 11:51:04.369 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 11:51:04.477 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 11:51:04.491 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 11:51:04.493 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 11:51:04.496 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 11:51:04.498 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 11:51:23.334 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 11:51:23.366 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 11:51:23.375 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 11:51:23.402 +07:00 [DBG] Start authorize request
+2018-06-07 11:51:23.426 +07:00 [DBG] No user present in authorize request
+2018-06-07 11:51:23.441 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 11:51:23.520 +07:00 [ERR] Unknown client or not enabled: inventory_swagger
+{
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjUxOjIyIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+    "realm": "inventory_swagger"
+  }
+}
+2018-06-07 11:51:23.528 +07:00 [ERR] Request validation failed
+2018-06-07 11:51:23.532 +07:00 [INF] {
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjUxOjIyIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+    "realm": "inventory_swagger"
+  }
+}
+2018-06-07 11:51:23.580 +07:00 [INF] {
+  "Name": "Token Issued Failure",
+  "Category": "Token",
+  "EventType": "Failure",
+  "Id": 2001,
+  "ClientId": "inventory_swagger",
+  "Endpoint": "Authorize",
+  "Scopes": "",
+  "Error": "unauthorized_client",
+  "ActivityId": "0HLEC698N24H4:00000001",
+  "TimeStamp": "2018-06-07T04:51:23Z",
+  "ProcessId": 15584,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 11:53:50.991 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 11:53:51.088 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 11:53:51.100 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 11:53:51.104 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 11:53:51.107 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 11:53:51.115 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 11:54:11.202 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 11:54:11.231 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 11:54:11.249 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 11:54:11.267 +07:00 [DBG] Start authorize request
+2018-06-07 11:54:11.315 +07:00 [DBG] No user present in authorize request
+2018-06-07 11:54:11.336 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 11:54:11.375 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 11:54:11.439 +07:00 [ERR] Invalid redirect_uri: http://localhost:51033/swagger/oauth2-redirect.html
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/o2c.html"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjU0OjEwIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+    "realm": "inventory_swagger"
+  }
+}
+2018-06-07 11:54:11.458 +07:00 [ERR] Request validation failed
+2018-06-07 11:54:11.460 +07:00 [INF] {
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/o2c.html"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjU0OjEwIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+    "realm": "inventory_swagger"
+  }
+}
+2018-06-07 11:54:11.535 +07:00 [INF] {
+  "Name": "Token Issued Failure",
+  "Category": "Token",
+  "EventType": "Failure",
+  "Id": 2001,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "Endpoint": "Authorize",
+  "Scopes": "",
+  "Error": "unauthorized_client",
+  "ErrorDescription": "Invalid redirect_uri",
+  "ActivityId": "0HLEC6AQNFUOQ:00000001",
+  "TimeStamp": "2018-06-07T04:54:11Z",
+  "ProcessId": 12116,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 11:55:06.043 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 11:55:06.125 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 11:55:06.152 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 11:55:06.157 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 11:55:06.163 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 11:55:06.166 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 11:55:19.174 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 11:55:19.198 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 11:55:19.201 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 11:55:19.211 +07:00 [DBG] Start authorize request
+2018-06-07 11:55:19.241 +07:00 [DBG] No user present in authorize request
+2018-06-07 11:55:19.260 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 11:55:19.304 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 11:55:19.354 +07:00 [ERR] Invalid redirect_uri: http://localhost:51033/swagger/oauth2-redirect.html
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/index.html"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjU1OjE4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+    "realm": "inventory_swagger"
+  }
+}
+2018-06-07 11:55:19.370 +07:00 [ERR] Request validation failed
+2018-06-07 11:55:19.380 +07:00 [INF] {
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/index.html"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjU1OjE4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+    "realm": "inventory_swagger"
+  }
+}
+2018-06-07 11:55:19.438 +07:00 [INF] {
+  "Name": "Token Issued Failure",
+  "Category": "Token",
+  "EventType": "Failure",
+  "Id": 2001,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "Endpoint": "Authorize",
+  "Scopes": "",
+  "Error": "unauthorized_client",
+  "ErrorDescription": "Invalid redirect_uri",
+  "ActivityId": "0HLEC6BEV1M59:00000001",
+  "TimeStamp": "2018-06-07T04:55:19Z",
+  "ProcessId": 18172,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 11:58:57.610 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 11:58:57.708 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 11:58:57.726 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 11:58:57.737 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 11:58:57.749 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 11:58:57.756 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 11:59:06.921 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 11:59:06.941 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 11:59:06.949 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 11:59:06.959 +07:00 [DBG] Start authorize request
+2018-06-07 11:59:06.986 +07:00 [DBG] No user present in authorize request
+2018-06-07 11:59:07.000 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 11:59:07.036 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 11:59:07.081 +07:00 [ERR] Invalid redirect_uri: http://localhost:51033/swagger/o2c.html
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/o2c.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjU5OjA2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 11:59:07.093 +07:00 [ERR] Request validation failed
+2018-06-07 11:59:07.095 +07:00 [INF] {
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/o2c.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDExOjU5OjA2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 11:59:07.145 +07:00 [INF] {
+  "Name": "Token Issued Failure",
+  "Category": "Token",
+  "EventType": "Failure",
+  "Id": 2001,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "Endpoint": "Authorize",
+  "Scopes": "",
+  "Error": "unauthorized_client",
+  "ErrorDescription": "Invalid redirect_uri",
+  "ActivityId": "0HLEC6DIRPQ2A:00000001",
+  "TimeStamp": "2018-06-07T04:59:07Z",
+  "ProcessId": 7292,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:00:22.965 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:00:23.043 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:00:23.056 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:00:23.059 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:00:23.064 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:00:23.069 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:00:46.065 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:00:46.087 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:00:46.090 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:00:46.100 +07:00 [DBG] Start authorize request
+2018-06-07 12:00:46.129 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:00:46.144 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:00:46.182 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:46.318 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:00:46.362 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjAwOjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjAwOjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:00:46.388 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:00:46.888 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:00:46.890 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:46.894 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:00:46.900 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:52.620 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:00:52.729 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:00:52.732 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:52.737 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:00:52.796 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC6EGCOCB3:00000003",
+  "TimeStamp": "2018-06-07T05:00:52Z",
+  "ProcessId": 9876,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:00:52.837 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:00:52.845 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:00:52.849 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:00:52.879 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:00:52.887 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:52.910 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:00:52.915 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:00:52.918 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:00:52.933 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:00:52.944 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:00:52.946 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:00:52.948 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:52.951 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:00:52.953 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjAwOjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "0522fd2ea6d50a2d2f459bb46f5df8f6",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjAwOjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:00:52.962 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:00:52.990 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:00:52.993 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:00:52.994 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:00:53.044 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:00:53.046 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:53.048 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:00:53.051 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:57.517 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:00:57.549 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:00:57.551 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:57.554 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:00:57.570 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC6EGCOCB3:00000007",
+  "TimeStamp": "2018-06-07T05:00:57Z",
+  "ProcessId": 9876,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:00:57.611 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:57.634 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:00:57.638 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:00:57.640 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:00:57.646 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:00:57.659 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:00:57.665 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:00:57.668 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:00:57.671 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:00:57.675 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjAwOjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "0522fd2ea6d50a2d2f459bb46f5df8f6",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjAwOjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:00:57.692 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:00:57.696 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:00:57.699 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:00:57.718 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:00:57.752 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:00:57.762 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:00:57.811 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:00:57.846 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:00:57.850 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:00:57.864 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:00:57.873 +07:00 [DBG] Issued claims: []
+2018-06-07 12:00:58.078 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****xjoQ"
+    }
+  ],
+  "ActivityId": "0HLEC6EGCOCB3:00000008",
+  "TimeStamp": "2018-06-07T05:00:58Z",
+  "ProcessId": 9876,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:00:58.096 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjAwOjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:00:58.141 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:00:58.148 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:02:28.649 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:02:28.703 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:02:28.712 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:02:28.728 +07:00 [DBG] Start authorize request
+2018-06-07 12:02:28.742 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:02:28.746 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:02:28.748 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:02:28.764 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:02:28.773 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjAyOjI4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "0522fd2ea6d50a2d2f459bb46f5df8f6",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjAyOjI4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:02:28.792 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:02:28.802 +07:00 [DBG] Consent found in consent store is same as current request, consent is not required
+2018-06-07 12:02:28.804 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:02:28.806 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:02:28.811 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:02:28.813 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:02:28.821 +07:00 [DBG] Issued claims: []
+2018-06-07 12:02:28.829 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****IitQ"
+    }
+  ],
+  "ActivityId": "0HLEC6EGCOCB3:00000009",
+  "TimeStamp": "2018-06-07T05:02:28Z",
+  "ProcessId": 9876,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:02:28.836 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjAyOjI4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:04:09.229 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:04:09.312 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:04:09.326 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:04:09.329 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:04:09.331 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:04:09.337 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:05:18.109 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:05:18.126 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:05:18.133 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:05:18.151 +07:00 [DBG] Start authorize request
+2018-06-07 12:05:18.198 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:05:18.215 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:05:18.264 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:18.395 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:05:18.448 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/o2c.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/o2c.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjA1OjE3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/o2c.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjA1OjE3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:05:18.481 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:05:19.002 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:05:19.005 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:19.008 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:05:19.017 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:25.739 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:05:25.885 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:05:25.890 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:25.899 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:05:25.964 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC6H1G3LM0:00000005",
+  "TimeStamp": "2018-06-07T05:05:25Z",
+  "ProcessId": 20128,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:05:26.016 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:05:26.022 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:05:26.028 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:05:26.064 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:05:26.072 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:26.080 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:05:26.084 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:05:26.090 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:05:26.108 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:05:26.124 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:05:26.131 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:05:26.134 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:26.137 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:05:26.142 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/o2c.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/o2c.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjA1OjE3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "64e78454b89f234ff7ed180747c3dc92",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/o2c.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjA1OjE3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:05:26.154 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:05:26.191 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:05:26.201 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:05:26.205 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:05:26.264 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:05:26.266 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:26.269 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:05:26.271 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:27.966 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:05:28.023 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:05:28.031 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:28.034 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:05:28.076 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC6H1G3LM0:00000009",
+  "TimeStamp": "2018-06-07T05:05:28Z",
+  "ProcessId": 20128,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:05:28.149 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:28.160 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:05:28.165 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:05:28.169 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:05:28.174 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:05:28.197 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:05:28.202 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:05:28.206 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:05:28.209 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:05:28.220 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/o2c.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/o2c.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjA1OjE3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "64e78454b89f234ff7ed180747c3dc92",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/o2c.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjA1OjE3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:05:28.232 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:05:28.240 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:05:28.245 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:05:28.270 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:05:28.301 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:05:28.312 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:05:28.353 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:05:28.390 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:05:28.394 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:05:28.408 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:05:28.418 +07:00 [DBG] Issued claims: []
+2018-06-07 12:05:28.642 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/o2c.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****mOKA"
+    }
+  ],
+  "ActivityId": "0HLEC6H1G3LM0:0000000A",
+  "TimeStamp": "2018-06-07T05:05:28Z",
+  "ProcessId": 20128,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:05:28.655 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/o2c.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjA1OjE3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:05:28.716 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:05:28.718 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:07:15.310 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:07:15.426 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:07:15.441 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:07:15.445 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:07:15.447 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:07:15.465 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:08:08.044 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:08:08.064 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:08:08.071 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:08:08.081 +07:00 [DBG] Start authorize request
+2018-06-07 12:08:08.111 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:08:08.124 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:08:08.158 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:08:08.210 +07:00 [ERR] Invalid redirect_uri: http://localhost:51033/oauth2-redirect.html
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/o2c.html"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjA4OjA3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:08:08.219 +07:00 [ERR] Request validation failed
+2018-06-07 12:08:08.224 +07:00 [INF] {
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/o2c.html"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjA4OjA3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:08:08.291 +07:00 [INF] {
+  "Name": "Token Issued Failure",
+  "Category": "Token",
+  "EventType": "Failure",
+  "Id": 2001,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "Endpoint": "Authorize",
+  "Scopes": "",
+  "Error": "unauthorized_client",
+  "ErrorDescription": "Invalid redirect_uri",
+  "ActivityId": "0HLEC6IK51S94:00000001",
+  "TimeStamp": "2018-06-07T05:08:08Z",
+  "ProcessId": 12232,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:09:09.090 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:09:09.195 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:09:09.211 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:09:09.214 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:09:09.217 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:09:09.220 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:09:38.193 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:09:38.211 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:09:38.214 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:09:38.232 +07:00 [DBG] Start authorize request
+2018-06-07 12:09:38.265 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:09:38.276 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:09:38.309 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:09:38.387 +07:00 [ERR] Invalid redirect_uri: http://localhost:51033/oauth2-redirect.html
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/o2c.html"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjA5OjM3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:09:38.413 +07:00 [ERR] Request validation failed
+2018-06-07 12:09:38.423 +07:00 [INF] {
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/o2c.html"
+  ],
+  "SubjectId": "anonymous",
+  "RequestedScopes": "",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjA5OjM3IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:09:38.478 +07:00 [INF] {
+  "Name": "Token Issued Failure",
+  "Category": "Token",
+  "EventType": "Failure",
+  "Id": 2001,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "Endpoint": "Authorize",
+  "Scopes": "",
+  "Error": "unauthorized_client",
+  "ErrorDescription": "Invalid redirect_uri",
+  "ActivityId": "0HLEC6JF135EN:00000001",
+  "TimeStamp": "2018-06-07T05:09:38Z",
+  "ProcessId": 8128,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:11:22.649 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:11:22.744 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:11:22.755 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:11:22.757 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:11:22.760 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:11:22.762 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:11:36.874 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:11:36.898 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:11:36.901 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:11:36.911 +07:00 [DBG] Start authorize request
+2018-06-07 12:11:36.941 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:11:36.963 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:11:37.004 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:37.146 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:11:37.189 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjExOjM2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjExOjM2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:11:37.239 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:11:37.676 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:11:37.683 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:37.685 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:11:37.693 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:41.254 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:11:41.353 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:11:41.355 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:41.358 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:11:41.405 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC6KICHCH7:00000003",
+  "TimeStamp": "2018-06-07T05:11:41Z",
+  "ProcessId": 3412,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:11:41.449 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:11:41.457 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:11:41.460 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:11:41.486 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:11:41.492 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:41.501 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:11:41.505 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:11:41.510 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:11:41.523 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:11:41.534 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:11:41.538 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:11:41.540 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:41.543 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:11:41.553 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjExOjM2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "775ca4eef1c6758eec3b833e6616a37c",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjExOjM2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:11:41.561 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:11:41.604 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:11:41.608 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:11:41.614 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:11:41.653 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:11:41.656 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:41.659 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:11:41.661 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:43.296 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:11:43.342 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:11:43.344 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:43.348 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:11:43.367 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC6KICHCH7:00000007",
+  "TimeStamp": "2018-06-07T05:11:43Z",
+  "ProcessId": 3412,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:11:43.412 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:43.419 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:11:43.426 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:11:43.434 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:11:43.441 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:11:43.455 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:11:43.458 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:11:43.460 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:11:43.466 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:11:43.468 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjExOjM2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "775ca4eef1c6758eec3b833e6616a37c",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjExOjM2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:11:43.475 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:11:43.477 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:11:43.482 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:11:43.506 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:11:43.530 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:11:43.538 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:11:43.575 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:11:43.612 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:11:43.615 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:11:43.630 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:11:43.639 +07:00 [DBG] Issued claims: []
+2018-06-07 12:11:43.833 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****IczQ"
+    }
+  ],
+  "ActivityId": "0HLEC6KICHCH7:00000008",
+  "TimeStamp": "2018-06-07T05:11:43Z",
+  "ProcessId": 3412,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:11:43.861 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjExOjM2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:11:43.918 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:11:43.922 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:12:22.048 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:12:22.054 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:12:22.085 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:12:22.088 +07:00 [DBG] Start authorize request
+2018-06-07 12:12:22.090 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:12:22.097 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:12:22.100 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:12:22.104 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:12:22.108 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjEyOjIxIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "775ca4eef1c6758eec3b833e6616a37c",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjEyOjIxIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:12:22.114 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:12:22.130 +07:00 [DBG] Consent found in consent store is same as current request, consent is not required
+2018-06-07 12:12:22.134 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:12:22.137 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:12:22.139 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:12:22.141 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:12:22.148 +07:00 [DBG] Issued claims: []
+2018-06-07 12:12:22.159 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****uXFw"
+    }
+  ],
+  "ActivityId": "0HLEC6KICHCH7:00000009",
+  "TimeStamp": "2018-06-07T05:12:22Z",
+  "ProcessId": 3412,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:12:22.166 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjEyOjIxIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:18:30.313 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:18:30.419 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:18:30.433 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:18:30.435 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:18:30.438 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:18:30.441 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:18:45.608 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:18:45.635 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:18:45.638 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:18:45.648 +07:00 [DBG] Start authorize request
+2018-06-07 12:18:45.675 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:18:45.694 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:18:45.733 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:18:45.864 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:18:45.920 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjE4OjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "775ca4eef1c6758eec3b833e6616a37c",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjE4OjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:18:45.952 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:18:45.998 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:18:46.001 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:18:46.003 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:18:46.455 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:18:46.467 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:18:46.473 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:18:46.479 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:18:48.358 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:18:48.447 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:18:48.452 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:18:48.455 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:18:48.518 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC6OI5BBK7:00000003",
+  "TimeStamp": "2018-06-07T05:18:48Z",
+  "ProcessId": 18884,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:18:48.567 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:18:48.581 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:18:48.592 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:18:48.599 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:18:48.617 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:18:48.632 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:18:48.635 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:18:48.638 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:18:48.645 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:18:48.647 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjE4OjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "775ca4eef1c6758eec3b833e6616a37c",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjE4OjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:18:48.657 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:18:48.659 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:18:48.666 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:18:48.690 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:18:48.720 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:18:48.733 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:18:48.777 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:18:48.804 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:18:48.808 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:18:48.818 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:18:48.830 +07:00 [DBG] Issued claims: []
+2018-06-07 12:18:49.003 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****sGOA"
+    }
+  ],
+  "ActivityId": "0HLEC6OI5BBK7:00000004",
+  "TimeStamp": "2018-06-07T05:18:48Z",
+  "ProcessId": 18884,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:18:49.015 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjE4OjQ1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:21:16.750 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:21:16.842 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:21:16.859 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:21:16.865 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:21:16.872 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:21:16.874 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:21:52.867 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:21:52.906 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:21:52.911 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:21:52.937 +07:00 [DBG] Start authorize request
+2018-06-07 12:21:52.980 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:21:52.998 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:21:53.037 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:21:53.171 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:21:53.220 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIxOjUyIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjIxOjUyIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:21:53.247 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:21:53.767 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:21:53.770 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:21:53.773 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:21:53.781 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:21:58.138 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:21:58.231 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:21:58.233 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:21:58.238 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:21:58.288 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC6Q9V5THM:00000004",
+  "TimeStamp": "2018-06-07T05:21:58Z",
+  "ProcessId": 8708,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:21:58.335 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:21:58.341 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:21:58.350 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:21:58.370 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:21:58.379 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:21:58.386 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:21:58.392 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:21:58.394 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:21:58.412 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:21:58.424 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:21:58.429 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:21:58.434 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:21:58.437 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:21:58.445 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIxOjUyIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "39211087fbe1f3244d1cd4b6b17aa6d7",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjIxOjUyIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:21:58.455 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:21:58.486 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:21:58.489 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:21:58.492 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:21:58.533 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:21:58.536 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:21:58.538 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:21:58.540 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:21:59.988 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:22:00.037 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:22:00.042 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:22:00.044 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:22:00.062 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC6Q9V5THM:00000008",
+  "TimeStamp": "2018-06-07T05:22:00Z",
+  "ProcessId": 8708,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:22:00.108 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:22:00.115 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:22:00.124 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:22:00.131 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:22:00.139 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:22:00.149 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:22:00.154 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:22:00.158 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:22:00.162 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:22:00.166 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIxOjUyIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "39211087fbe1f3244d1cd4b6b17aa6d7",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjIxOjUyIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:22:00.171 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:22:00.175 +07:00 [DBG] user_consent grant with value: inventory_swagger|88421113 not found in store.
+2018-06-07 12:22:00.179 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:22:00.205 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:22:00.233 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:22:00.246 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:22:00.290 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:22:00.311 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:22:00.313 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:22:00.327 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:22:00.344 +07:00 [DBG] Issued claims: []
+2018-06-07 12:22:00.501 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****qtJw"
+    }
+  ],
+  "ActivityId": "0HLEC6Q9V5THM:00000009",
+  "TimeStamp": "2018-06-07T05:22:00Z",
+  "ProcessId": 8708,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:22:00.523 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIxOjUyIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:22:00.558 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:22:00.561 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:22:16.397 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:22:16.401 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:22:16.414 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:22:16.421 +07:00 [DBG] Start authorize request
+2018-06-07 12:22:16.430 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:22:16.438 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:22:16.463 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:22:16.477 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:22:16.484 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjE2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "39211087fbe1f3244d1cd4b6b17aa6d7",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjE2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:22:16.498 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:22:16.520 +07:00 [DBG] Consent found in consent store is same as current request, consent is not required
+2018-06-07 12:22:16.525 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:22:16.527 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:22:16.529 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:22:16.532 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:22:16.542 +07:00 [DBG] Issued claims: []
+2018-06-07 12:22:16.554 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****sTQQ"
+    }
+  ],
+  "ActivityId": "0HLEC6Q9V5THM:0000000A",
+  "TimeStamp": "2018-06-07T05:22:16Z",
+  "ProcessId": 8708,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:22:16.568 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjE2IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:22:39.020 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:22:39.031 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:22:39.042 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:22:39.049 +07:00 [DBG] Start authorize request
+2018-06-07 12:22:39.061 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:22:39.071 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:22:39.074 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:22:39.079 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:22:39.082 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjM4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "39211087fbe1f3244d1cd4b6b17aa6d7",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjM4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:22:39.095 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:22:39.110 +07:00 [DBG] Consent found in consent store is same as current request, consent is not required
+2018-06-07 12:22:39.112 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:22:39.120 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:22:39.124 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:22:39.127 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:22:39.132 +07:00 [DBG] Issued claims: []
+2018-06-07 12:22:39.149 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****Is7w"
+    }
+  ],
+  "ActivityId": "0HLEC6Q9V5THM:0000000B",
+  "TimeStamp": "2018-06-07T05:22:39Z",
+  "ProcessId": 8708,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:22:39.156 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjM4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:22:55.266 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:22:55.271 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:22:55.278 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:22:55.284 +07:00 [DBG] Start authorize request
+2018-06-07 12:22:55.289 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:22:55.296 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:22:55.301 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:22:55.310 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:22:55.312 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjU1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjU1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:22:55.320 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:22:55.324 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:22:55.329 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:22:55.332 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:22:55.336 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:23:00.641 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:23:00.654 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:23:00.661 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:23:00.666 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:23:00.670 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC6Q9V5THN:00000006",
+  "TimeStamp": "2018-06-07T05:23:00Z",
+  "ProcessId": 8708,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:23:00.676 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:23:00.678 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:23:00.681 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:23:00.684 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:23:00.692 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:23:00.698 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:23:00.702 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:23:00.707 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:23:00.710 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:23:00.712 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:23:00.716 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:23:00.718 +07:00 [DBG] client configuration validation for client inventory_swagger succeeded.
+2018-06-07 12:23:00.720 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:23:00.723 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjU1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "ba631479b59d1cb91719a31e639ffc9e",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjU1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:23:00.740 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:23:00.754 +07:00 [DBG] Consent found in consent store is same as current request, consent is not required
+2018-06-07 12:23:00.758 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:23:00.760 +07:00 [DBG] Getting claims for access token for client: inventory_swagger
+2018-06-07 12:23:00.764 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:23:00.769 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger with claim types ["role","admin","user"] via ClaimsProviderAccessToken
+2018-06-07 12:23:00.776 +07:00 [DBG] Issued claims: []
+2018-06-07 12:23:00.784 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger",
+  "ClientName": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****y5HA"
+    }
+  ],
+  "ActivityId": "0HLEC6Q9V5THN:00000007",
+  "TimeStamp": "2018-06-07T05:23:00Z",
+  "ProcessId": 8708,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:23:00.795 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjIyOjU1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:23:00.798 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:23:00.800 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:34:47.480 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:34:47.578 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:34:47.594 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:34:47.600 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:34:47.604 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:34:47.608 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:35:08.946 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:35:08.979 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:35:08.988 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:35:09.005 +07:00 [DBG] Start authorize request
+2018-06-07 12:35:09.048 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:35:09.063 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:35:09.106 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:09.259 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:35:09.316 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjM1OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjM1OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:35:09.344 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:35:09.807 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:35:09.811 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:09.816 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:35:09.828 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:14.533 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:35:14.718 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:35:14.721 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:14.724 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:35:14.819 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC71N6I7S3:00000003",
+  "TimeStamp": "2018-06-07T05:35:14Z",
+  "ProcessId": 14532,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:35:14.899 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:35:14.909 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:35:14.911 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:35:14.948 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:35:14.955 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:14.967 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:35:14.975 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:35:14.977 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:35:15.006 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:35:15.019 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:35:15.022 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:35:15.024 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:15.029 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:35:15.036 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjM1OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "dd4856e4bce0902437079b6a868ef2fd",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjM1OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:35:15.043 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:35:15.097 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:35:15.104 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:35:15.106 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:35:15.165 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:35:15.168 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:15.171 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:35:15.177 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:18.903 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:35:18.948 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:35:18.951 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:18.956 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:35:18.985 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC71N6I7S3:00000007",
+  "TimeStamp": "2018-06-07T05:35:18Z",
+  "ProcessId": 14532,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:35:19.031 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:19.042 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:35:19.047 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:35:19.052 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:35:19.058 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:35:19.091 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:35:19.093 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:35:19.096 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:35:19.100 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:35:19.105 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjM1OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "dd4856e4bce0902437079b6a868ef2fd",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjM1OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:35:19.111 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:35:19.116 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:35:19.126 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:35:19.149 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:35:19.189 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:35:19.209 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:35:19.267 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:35:19.302 +07:00 [DBG] Getting claims for access token for client: inventory_swagger_id
+2018-06-07 12:35:19.307 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:35:19.319 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger_app with claim types [] via ClaimsProviderAccessToken
+2018-06-07 12:35:19.328 +07:00 [DBG] Issued claims: []
+2018-06-07 12:35:19.537 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****vthA"
+    }
+  ],
+  "ActivityId": "0HLEC71N6I7S3:00000008",
+  "TimeStamp": "2018-06-07T05:35:19Z",
+  "ProcessId": 14532,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:35:19.551 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjM1OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:35:19.601 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:35:19.606 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:36:39.209 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:36:39.314 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:36:39.332 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:36:39.337 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:36:39.342 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:36:39.351 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:37:05.542 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:37:05.570 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:37:05.576 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:37:05.587 +07:00 [DBG] Start authorize request
+2018-06-07 12:37:05.623 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:37:05.637 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:37:05.676 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:05.814 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:37:05.851 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjM3OjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjM3OjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:37:05.880 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:37:06.325 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:37:06.328 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:06.335 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:37:06.345 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:09.232 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:37:09.335 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:37:09.337 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:09.340 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:37:09.384 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC72PUT7LN:00000003",
+  "TimeStamp": "2018-06-07T05:37:09Z",
+  "ProcessId": 1556,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:37:09.424 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:37:09.435 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:37:09.437 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:37:09.471 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:37:09.475 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:09.486 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:37:09.493 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:37:09.495 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:37:09.514 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:37:09.528 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:37:09.530 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:37:09.534 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:09.537 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:37:09.540 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjM3OjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "4fcd5b7b1886705235c980d9b24cc728",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjM3OjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:37:09.549 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:37:09.594 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:37:09.598 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:37:09.600 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:37:09.638 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:37:09.641 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:09.646 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:37:09.651 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:12.658 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:37:12.708 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:37:12.719 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:12.722 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:37:12.745 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC72PUT7LN:00000007",
+  "TimeStamp": "2018-06-07T05:37:12Z",
+  "ProcessId": 1556,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:37:12.794 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:12.802 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:37:12.806 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:37:12.809 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:37:12.818 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:37:12.829 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:37:12.832 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:37:12.838 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:37:12.842 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:37:12.845 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjM3OjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "4fcd5b7b1886705235c980d9b24cc728",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjM3OjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:37:12.852 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:37:12.854 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:37:12.858 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:37:12.880 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:37:12.913 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:37:12.923 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:37:12.968 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:37:12.995 +07:00 [DBG] Getting claims for access token for client: inventory_swagger_id
+2018-06-07 12:37:12.999 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:37:13.010 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger_app with claim types [] via ClaimsProviderAccessToken
+2018-06-07 12:37:13.016 +07:00 [DBG] Issued claims: []
+2018-06-07 12:37:13.228 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****qa-g"
+    }
+  ],
+  "ActivityId": "0HLEC72PUT7LN:00000008",
+  "TimeStamp": "2018-06-07T05:37:13Z",
+  "ProcessId": 1556,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:37:13.241 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjM3OjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:37:13.291 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:37:13.301 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:39:24.153 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:39:24.256 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:39:24.265 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:39:24.269 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:39:24.278 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:39:24.284 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:40:06.090 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:40:06.116 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:40:06.120 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:40:06.134 +07:00 [DBG] Start authorize request
+2018-06-07 12:40:06.161 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:40:06.174 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:40:06.203 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:06.277 +07:00 [ERR] scope is missing
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:40:06.291 +07:00 [ERR] Request validation failed
+2018-06-07 12:40:06.297 +07:00 [INF] {
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjA1IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:40:06.369 +07:00 [INF] {
+  "Name": "Token Issued Failure",
+  "Category": "Token",
+  "EventType": "Failure",
+  "Id": 2001,
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "Scopes": "",
+  "GrantType": "implicit",
+  "Error": "invalid_request",
+  "ErrorDescription": "Invalid scope",
+  "ActivityId": "0HLEC74FO3V0G:00000001",
+  "TimeStamp": "2018-06-07T05:40:06Z",
+  "ProcessId": 6024,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:40:10.454 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:40:10.457 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:40:10.467 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:40:10.478 +07:00 [DBG] Start authorize request
+2018-06-07 12:40:10.485 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:40:10.492 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:40:10.496 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:10.606 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:40:10.616 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjEwIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjEwIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:40:10.648 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:40:10.711 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:40:10.715 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:10.721 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:40:10.741 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:14.010 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:40:14.093 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:40:14.102 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:14.105 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:40:14.125 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC74FO3V0J:00000004",
+  "TimeStamp": "2018-06-07T05:40:14Z",
+  "ProcessId": 6024,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:40:14.163 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:40:14.171 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:40:14.174 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:40:14.199 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:40:14.205 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:14.215 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:40:14.221 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:40:14.228 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:40:14.245 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:40:14.255 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:40:14.259 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:40:14.261 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:14.265 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:40:14.267 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjEwIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "ef0b9eb2c50cd885fbcb741545c1ee24",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjEwIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:40:14.274 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:40:14.316 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:40:14.327 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:40:14.330 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:40:14.377 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:40:14.380 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:14.386 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:40:14.392 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:15.949 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:40:15.997 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:40:15.999 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:16.003 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:40:16.024 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC74FO3V0J:00000008",
+  "TimeStamp": "2018-06-07T05:40:16Z",
+  "ProcessId": 6024,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:40:16.074 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:16.082 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:40:16.089 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:40:16.097 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:40:16.104 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:40:16.112 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:40:16.122 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:40:16.128 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:40:16.131 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:40:16.138 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjEwIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "ef0b9eb2c50cd885fbcb741545c1ee24",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjEwIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:40:16.146 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:40:16.149 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:40:16.153 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:40:16.175 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:40:16.205 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:40:16.216 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:40:16.263 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:40:16.293 +07:00 [DBG] Getting claims for access token for client: inventory_swagger_id
+2018-06-07 12:40:16.296 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:40:16.310 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger_app with claim types [] via ClaimsProviderAccessToken
+2018-06-07 12:40:16.320 +07:00 [DBG] Issued claims: []
+2018-06-07 12:40:16.534 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****vHEA"
+    }
+  ],
+  "ActivityId": "0HLEC74FO3V0J:00000009",
+  "TimeStamp": "2018-06-07T05:40:16Z",
+  "ProcessId": 6024,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:40:16.552 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQwOjEwIEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:40:16.590 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:40:16.593 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:46:46.370 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:46:46.482 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:46:46.494 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:46:46.497 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:46:46.499 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:46:46.502 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:47:09.911 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:47:09.930 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:47:09.940 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:47:09.948 +07:00 [DBG] Start authorize request
+2018-06-07 12:47:09.974 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:47:09.988 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:47:10.022 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:10.136 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:47:10.187 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQ3OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQ3OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:47:10.212 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:47:10.618 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:47:10.622 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:10.624 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:47:10.630 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:14.184 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:47:14.278 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:47:14.281 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:14.283 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:47:14.328 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC78E337U4:00000005",
+  "TimeStamp": "2018-06-07T05:47:14Z",
+  "ProcessId": 4552,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:47:14.364 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:47:14.373 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:47:14.376 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:47:14.398 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:47:14.405 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:14.419 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:47:14.425 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:47:14.432 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:47:14.447 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:47:14.460 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:47:14.465 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:47:14.471 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:14.474 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:47:14.477 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQ3OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "4052e639319ff06766fa23621b02af16",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQ3OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:47:14.487 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:47:14.524 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:47:14.527 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:47:14.532 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:47:14.581 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:47:14.584 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:14.586 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:47:14.589 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:16.389 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:47:16.435 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:47:16.444 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:16.467 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:47:16.500 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC78E337U4:00000009",
+  "TimeStamp": "2018-06-07T05:47:16Z",
+  "ProcessId": 4552,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:47:16.557 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:16.565 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:47:16.571 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:47:16.577 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:47:16.591 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:47:16.601 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:47:16.604 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:47:16.606 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:47:16.610 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:47:16.613 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQ3OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "4052e639319ff06766fa23621b02af16",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQ3OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:47:16.619 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:47:16.622 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:47:16.624 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:47:16.649 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:47:16.681 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:47:16.695 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:47:16.735 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:47:16.766 +07:00 [DBG] Getting claims for access token for client: inventory_swagger_id
+2018-06-07 12:47:16.771 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:47:16.785 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger_app with claim types [] via ClaimsProviderAccessToken
+2018-06-07 12:47:16.791 +07:00 [DBG] Issued claims: []
+2018-06-07 12:47:16.989 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****0Rtg"
+    }
+  ],
+  "ActivityId": "0HLEC78E337U4:0000000A",
+  "TimeStamp": "2018-06-07T05:47:16Z",
+  "ProcessId": 4552,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:47:17.004 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQ3OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:47:17.054 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:47:17.057 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:49:09.848 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:49:09.859 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:49:09.875 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:49:09.884 +07:00 [DBG] Start authorize request
+2018-06-07 12:49:09.892 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:49:09.894 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:49:09.897 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:49:09.903 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:49:09.906 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQ5OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQ5OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:49:09.914 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:49:09.923 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:49:09.925 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:49:09.935 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:49:09.940 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:49:12.943 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:49:12.950 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:49:12.955 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:49:12.960 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:49:12.965 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC78E337U7:00000005",
+  "TimeStamp": "2018-06-07T05:49:12Z",
+  "ProcessId": 4552,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:49:12.969 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:49:12.971 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:49:12.980 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:49:12.984 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:49:12.987 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:49:12.995 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:49:12.998 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:49:13.002 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:49:13.007 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:49:13.009 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:49:13.013 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:49:13.020 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:49:13.024 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:49:13.027 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQ5OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "00349d0db6627ca8ca02d427e37def59",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjQ5OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:49:13.033 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:49:13.049 +07:00 [DBG] Consent found in consent store is same as current request, consent is not required
+2018-06-07 12:49:13.051 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:49:13.053 +07:00 [DBG] Getting claims for access token for client: inventory_swagger_id
+2018-06-07 12:49:13.056 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:49:13.058 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger_app with claim types [] via ClaimsProviderAccessToken
+2018-06-07 12:49:13.062 +07:00 [DBG] Issued claims: []
+2018-06-07 12:49:13.071 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****d7GQ"
+    }
+  ],
+  "ActivityId": "0HLEC78E337U7:00000006",
+  "TimeStamp": "2018-06-07T05:49:13Z",
+  "ProcessId": 4552,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:49:13.077 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjQ5OjA5IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:49:13.082 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:49:13.084 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:58:45.394 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 12:58:45.574 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 12:58:45.605 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 12:58:45.613 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 12:58:45.623 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 12:58:45.630 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 12:59:09.328 +07:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2018-06-07 12:59:09.359 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2018-06-07 12:59:09.366 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2018-06-07 12:59:09.378 +07:00 [DBG] Start authorize request
+2018-06-07 12:59:09.427 +07:00 [DBG] No user present in authorize request
+2018-06-07 12:59:09.443 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:59:09.470 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:09.622 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:59:09.674 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "anonymous",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjU5OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjU5OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:59:09.705 +07:00 [INF] Showing login: User is not authenticated
+2018-06-07 12:59:10.149 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:59:10.161 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:10.164 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:59:10.178 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:13.807 +07:00 [DBG] CORS request made for path: /account/login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:59:13.919 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:59:13.923 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:13.926 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:59:13.980 +07:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Username": "bob",
+  "SubjectId": "88421113",
+  "DisplayName": "bob",
+  "Endpoint": "UI",
+  "ActivityId": "0HLEC7F4FGAQ1:00000002",
+  "TimeStamp": "2018-06-07T05:59:13Z",
+  "ProcessId": 17216,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:59:14.030 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:59:14.036 +07:00 [DBG] Adding idp claim with value: local
+2018-06-07 12:59:14.041 +07:00 [DBG] Adding amr claim with value: pwd
+2018-06-07 12:59:14.075 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:59:14.082 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:14.107 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:59:14.116 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:59:14.148 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:59:14.168 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:59:14.187 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:59:14.196 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:59:14.203 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:14.210 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:59:14.217 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjU5OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "f2471e31b6930dd8630c999a4b6f19f5",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjU5OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:59:14.230 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:59:14.270 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:59:14.277 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:59:14.279 +07:00 [INF] Showing consent: User has not yet consented
+2018-06-07 12:59:14.326 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:59:14.330 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:14.334 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:59:14.340 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:16.079 +07:00 [DBG] CORS request made for path: /consent from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-06-07 12:59:16.130 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:59:16.135 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:16.149 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:59:16.214 +07:00 [INF] {
+  "Name": "Consent granted",
+  "Category": "Grants",
+  "EventType": "Information",
+  "Id": 4000,
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RequestedScopes": [
+    "inventory_api_scope"
+  ],
+  "GrantedScopes": [
+    "inventory_api_scope"
+  ],
+  "ConsentRemembered": true,
+  "ActivityId": "0HLEC7F4FGAQ1:00000006",
+  "TimeStamp": "2018-06-07T05:59:16Z",
+  "ProcessId": 17216,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:59:16.263 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:16.272 +07:00 [DBG] Request path /connect/authorize/callback matched to endpoint type Authorize
+2018-06-07 12:59:16.277 +07:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+2018-06-07 12:59:16.280 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+2018-06-07 12:59:16.304 +07:00 [DBG] Start authorize callback request
+2018-06-07 12:59:16.313 +07:00 [DBG] User in authorize request: 88421113
+2018-06-07 12:59:16.315 +07:00 [DBG] Start authorize request protocol validation
+2018-06-07 12:59:16.319 +07:00 [DBG] client configuration validation for client inventory_swagger_id succeeded.
+2018-06-07 12:59:16.326 +07:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2018-06-07 12:59:16.330 +07:00 [INF] ValidatedAuthorizeRequest
+{
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "AllowedRedirectUris": [
+    "http://localhost:51033/swagger/oauth2-redirect.html"
+  ],
+  "SubjectId": "88421113",
+  "ResponseType": "token",
+  "ResponseMode": "fragment",
+  "GrantType": "implicit",
+  "RequestedScopes": "inventory_api_scope",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjU5OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "SessionId": "f2471e31b6930dd8630c999a4b6f19f5",
+  "Raw": {
+    "response_type": "token",
+    "client_id": "inventory_swagger_id",
+    "redirect_uri": "http://localhost:51033/swagger/oauth2-redirect.html",
+    "scope": "inventory_api_scope",
+    "state": "VGh1IEp1biAwNyAyMDE4IDEyOjU5OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp"
+  }
+}
+2018-06-07 12:59:16.351 +07:00 [DBG] IsActive called from: AuthorizeEndpoint
+2018-06-07 12:59:16.358 +07:00 [DBG] user_consent grant with value: inventory_swagger_id|88421113 not found in store.
+2018-06-07 12:59:16.361 +07:00 [DBG] Found no prior consent from consent store, consent is required
+2018-06-07 12:59:16.384 +07:00 [INF] User consented to scopes: ["inventory_api_scope"]
+2018-06-07 12:59:16.413 +07:00 [DBG] User indicated to remember consent for scopes: ["inventory_api_scope"]
+2018-06-07 12:59:16.426 +07:00 [DBG] Client allows remembering consent, and consent given. Updating consent store for subject: 88421113
+2018-06-07 12:59:16.483 +07:00 [DBG] Creating Implicit Flow response.
+2018-06-07 12:59:16.521 +07:00 [DBG] Getting claims for access token for client: inventory_swagger_id
+2018-06-07 12:59:16.523 +07:00 [DBG] Getting claims for access token for subject: 88421113
+2018-06-07 12:59:16.540 +07:00 [DBG] Get profile called for subject 88421113 from client inventory_swagger_app with claim types [] via ClaimsProviderAccessToken
+2018-06-07 12:59:16.546 +07:00 [DBG] Issued claims: []
+2018-06-07 12:59:16.793 +07:00 [INF] {
+  "Name": "Token Issued Success",
+  "Category": "Token",
+  "EventType": "Success",
+  "Id": 2000,
+  "ClientId": "inventory_swagger_id",
+  "ClientName": "inventory_swagger_app",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "Endpoint": "Authorize",
+  "SubjectId": "88421113",
+  "Scopes": "inventory_api_scope",
+  "GrantType": "implicit",
+  "Tokens": [
+    {
+      "TokenType": "access_token",
+      "TokenValue": "****mOlA"
+    }
+  ],
+  "ActivityId": "0HLEC7F4FGAQ1:00000007",
+  "TimeStamp": "2018-06-07T05:59:16Z",
+  "ProcessId": 17216,
+  "LocalIpAddress": "::1:5000",
+  "RemoteIpAddress": "::1"
+}
+2018-06-07 12:59:16.823 +07:00 [INF] Authorize endpoint response
+{
+  "SubjectId": "88421113",
+  "ClientId": "inventory_swagger_id",
+  "RedirectUri": "http://localhost:51033/swagger/oauth2-redirect.html",
+  "State": "VGh1IEp1biAwNyAyMDE4IDEyOjU5OjA4IEdNVCswNzAwIChTRSBBc2lhIFN0YW5kYXJkIFRpbWUp",
+  "Scope": "inventory_api_scope"
+}
+2018-06-07 12:59:16.906 +07:00 [DBG] Augmenting SignInContext
+2018-06-07 12:59:16.915 +07:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-06-07 12:59:36.414 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2018-06-07 12:59:36.462 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryEndpoint
+2018-06-07 12:59:36.464 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2018-06-07 12:59:36.486 +07:00 [DBG] Start discovery request
+2018-06-07 12:59:36.688 +07:00 [DBG] Request path /.well-known/openid-configuration/jwks matched to endpoint type Discovery
+2018-06-07 12:59:36.694 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryKeyEndpoint
+2018-06-07 12:59:36.697 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+2018-06-07 12:59:36.710 +07:00 [DBG] Start key discovery request

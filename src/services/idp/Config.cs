@@ -7,29 +7,42 @@ using System.Collections.Generic;
 
 namespace Idp
 {
-    public static class Config
+  public static class Config
+  {
+    public static IEnumerable<IdentityResource> GetIdentityResources()
     {
-        public static IEnumerable<IdentityResource> GetIdentityResources()
-        {
-            return new IdentityResource[]
-            {
+      return new IdentityResource[]
+      {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-            };
-        }
+                new IdentityResources.Profile()
+      };
+    }
 
-        public static IEnumerable<ApiResource> GetApis()
-        {
-            return new ApiResource[]
+    public static IEnumerable<ApiResource> GetApis()
+    {
+      return new ApiResource[]
+      {
+            new ApiResource("api1", "My API #1"),
+            new ApiResource
             {
-                new ApiResource("api1", "My API #1")
-            };
-        }
+                Name = "inventory_api",
+                DisplayName = "Inventory API",
+                Scopes =
+                {
+                    new Scope
+                    {
+                        Name = "inventory_api_scope",
+                        Description = "inventory_api_scope"
+                    }
+                }
+            }
+      };
+    }
 
-        public static IEnumerable<Client> GetClients()
-        {
-            return new[]
-            {
+    public static IEnumerable<Client> GetClients()
+    {
+      return new[]
+      {
                 // client credentials flow client
                 new Client
                 {
@@ -81,8 +94,29 @@ namespace Idp
                     AllowedCorsOrigins = { "http://localhost:5002" },
 
                     AllowedScopes = { "openid", "profile", "api1" }
+                },
+                // inventory swagger UI
+                new Client
+                {
+                    ClientId = "inventory_swagger_id",
+                    ClientName = "inventory_swagger_app",
+                    ClientSecrets = new List<Secret> {new Secret("secret".Sha256())},
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris =
+                    {
+                        //"https://localhost:8443/inventory/swagger/o2c.html"
+                        "http://localhost:51033/swagger/oauth2-redirect.html"
+                    },
+                    PostLogoutRedirectUris = {"http://localhost:51033/swagger"},
+                    AllowedCorsOrigins = {"http://localhost:51033"},
+                    AccessTokenLifetime = 300,
+                    AllowedScopes =
+                    {
+                        "inventory_api_scope"
+                    }
                 }
             };
-        }
     }
+  }
 }
