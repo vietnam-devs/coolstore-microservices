@@ -29,12 +29,12 @@ namespace Idp
 					.UseKestrel(options =>
 					{
 						// listen for HTTP
-						options.Listen(IPAddress.Parse("127.0.0.1"), 5000);
+						options.Listen(IPAddress.Loopback, 5000);
 
 						// listen for HTTPS
-						options.Listen(IPAddress.Parse("127.0.0.1"), 5001, listenOptions =>
+						options.Listen(IPAddress.Loopback, 5001, listenOptions =>
 						{
-							listenOptions.UseHttps(Certificate.Get());
+							listenOptions.UseHttps("Certificate/idsrv3test.pfx", "idsrv3test");
 						});
 					})
 					.UseStartup<Startup>()

@@ -19,4 +19,4 @@ spec:
       - path: /idp
         backend:
           serviceName: idp-service
-          servicePort: 5000
+          servicePort: 5001
