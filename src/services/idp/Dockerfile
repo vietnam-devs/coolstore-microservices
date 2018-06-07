@@ -23,7 +23,7 @@ COPY --from=build /build/dist .
 
 ENV ASPNETCORE_URLS https://+:5001;http://+:5000
 ENV ASPNETCORE_HTTPS_PORT=5001
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path ./Certificate/aspnetapp.pfx
-ENV ASPNETCORE_Kestrel__Certificates__Default__Password "crypticpassword"
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path ./Certificate/idsrv3test.pfx
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password "idsrv3test"
 
 ENTRYPOINT ["dotnet", "VND.Services.Idp.dll"]
