@@ -6,6 +6,7 @@ using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using VND.Services.Idp.Certificate;
@@ -25,7 +26,7 @@ namespace Idp
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc();
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.Configure<IISOptions>(options =>
 			{
@@ -78,6 +79,10 @@ namespace Idp
 			{
 				app.UseDeveloperExceptionPage();
 			}
+			else
+			{
+				app.UseHsts();
+			}
 
 			string basePath = System.Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
 			if (!string.IsNullOrEmpty(basePath))
@@ -89,6 +94,7 @@ namespace Idp
 				});
 			}
 
+			app.UseHttpsRedirection();
 			app.UseIdentityServer();
 			app.UseStaticFiles();
 			app.UseMvcWithDefaultRoute();

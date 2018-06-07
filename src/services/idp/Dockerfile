@@ -20,6 +20,10 @@ RUN dotnet publish ./src/services/idp/VND.Services.Idp.csproj --configuration Re
 FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS app
 WORKDIR /app
 COPY --from=build /build/dist .
-ENV ASPNETCORE_URLS http://+:5000
+
+ENV ASPNETCORE_URLS https://+:5001;http://+:5000
+ENV ASPNETCORE_HTTPS_PORT=5001
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path ./Certificate/aspnetapp.pfx
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password "crypticpassword"
 
 ENTRYPOINT ["dotnet", "VND.Services.Idp.dll"]
