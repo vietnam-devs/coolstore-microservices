@@ -220,3 +220,13 @@
 2018-06-07 14:59:34.083 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryKeyEndpoint
 2018-06-07 14:59:34.086 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
 2018-06-07 14:59:34.108 +07:00 [DBG] Start key discovery request
+2018-06-07 15:42:48.668 +07:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-06-07 15:42:48.808 +07:00 [DBG] Using idsrv as default scheme for authentication
+2018-06-07 15:42:48.824 +07:00 [DBG] Using idsrv as default scheme for sign-in
+2018-06-07 15:42:48.826 +07:00 [DBG] Using idsrv as default scheme for sign-out
+2018-06-07 15:42:48.829 +07:00 [DBG] Using idsrv as default scheme for challenge
+2018-06-07 15:42:48.839 +07:00 [DBG] Using idsrv as default scheme for forbid
+2018-06-07 15:43:30.029 +07:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2018-06-07 15:43:30.075 +07:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryEndpoint
+2018-06-07 15:43:30.086 +07:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2018-06-07 15:43:30.114 +07:00 [DBG] Start discovery request

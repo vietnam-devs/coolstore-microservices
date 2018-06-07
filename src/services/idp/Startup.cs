@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using VND.Services.Idp.Certificate;
 
 namespace Idp
 {
@@ -51,17 +52,15 @@ namespace Idp
 			// builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
 			// builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
-			//            if (Environment.IsDevelopment())
-			//            {
-
-			//TODO: lets it works temporary
-			builder.AddDeveloperSigningCredential();
-
-			//            }
-			//            else
-			//            {
-			//                throw new Exception("need to configure key material");
-			//            }
+			if (Environment.IsDevelopment())
+			{
+				builder.AddDeveloperSigningCredential();
+			}
+			else
+			{
+				//throw new Exception("need to configure key material");
+				builder.AddSigningCredential(Certificate.Get());
+			}
 
 			services.AddAuthentication()
 			  .AddGoogle(options =>
