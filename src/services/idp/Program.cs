@@ -4,6 +4,7 @@
 
 using System;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
@@ -28,14 +29,22 @@ namespace Idp
 			return WebHost.CreateDefaultBuilder(args)
 					.UseKestrel(options =>
 					{
-						// listen for HTTP
-						options.Listen(IPAddress.Loopback, 5000);
-
-						// listen for HTTPS
-						options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+						try
 						{
-							listenOptions.UseHttps("coolstore.pfx", "vietnam");
-						});
+							// listen for HTTP
+							options.Listen(IPAddress.Loopback, 5000);
+
+							// listen for HTTPS
+							options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+							{
+								var byteCert = Convert.FromBase64String("coolstore.pfx");
+								listenOptions.UseHttps(new X509Certificate2(byteCert, "vietnam"));
+							});
+						}
+						catch (Exception e)
+						{
+							throw;
+						}
 					})
 					.UseStartup<Startup>()
 					.UseSerilog((context, configuration) =>
