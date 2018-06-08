@@ -34,7 +34,7 @@ namespace Idp
 						// listen for HTTPS
 						options.Listen(IPAddress.Loopback, 5001, listenOptions =>
 						{
-							listenOptions.UseHttps("idsrv3test.pfx", "idsrv3test");
+							listenOptions.UseHttps("coolstore.pfx", "vietnam");
 						});
 					})
 					.UseStartup<Startup>()
