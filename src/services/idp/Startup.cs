@@ -6,6 +6,7 @@ using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,12 @@ namespace Idp
 			{
 				options.AutomaticAuthentication = false;
 				options.AuthenticationDisplayName = "Windows";
+			});
+
+			services.AddHttpsRedirection(options =>
+			{
+				options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
+				options.HttpsPort = 5001;
 			});
 
 			var builder = services.AddIdentityServer(options =>
