@@ -15,7 +15,7 @@ namespace VND.Services.Inventory
 
 		public static IWebHost BuildWebHost(string[] args) =>
 			WebHost.CreateDefaultBuilder(args)
-				.UseKestrel(options =>
+				.UseKestrel(/*options =>
 				{
 					options.Listen(IPAddress.Any, 5000, listenOptions =>
 					{
@@ -29,7 +29,7 @@ namespace VND.Services.Inventory
 
 						listenOptions.UseHttps(httpsConnectionAdapterOptions);
 					});
-				})
+				}*/)
 				.UseStartup<Startup>()
 				.Build();
 	}
