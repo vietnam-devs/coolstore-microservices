@@ -37,8 +37,9 @@ namespace Idp
 							// listen for HTTPS
 							options.Listen(IPAddress.Loopback, 5001, listenOptions =>
 							{
-								var byteCert = Convert.FromBase64String("coolstore.pfx");
-								listenOptions.UseHttps(new X509Certificate2(byteCert, "vietnam"));
+								// var byteCert = Convert.FromBase64String("coolstore.pfx");
+								// listenOptions.UseHttps(new X509Certificate2(byteCert, "vietnam"));
+								listenOptions.UseHttps("coolstore.pfx", "vietnam");
 							});
 						}
 						catch (Exception e)
