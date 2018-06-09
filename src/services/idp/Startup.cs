@@ -27,7 +27,7 @@ namespace Idp
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc()/*.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)*/;
 
 			services.Configure<IISOptions>(options =>
 			{
