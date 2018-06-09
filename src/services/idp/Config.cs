@@ -77,17 +77,17 @@ namespace Idp
 					AllowAccessTokensViaBrowser = true,
 					RedirectUris =
 					{
-                        "http://localhost:51033/swagger/oauth2-redirect.html",
+						"http://localhost:51032/swagger/oauth2-redirect.html",
 						"https://192.168.1.4:8443/inventory/swagger/oauth2-redirect.html",
 					},
 					PostLogoutRedirectUris =
 					{
-						"http://localhost:51033/swagger",
+						"http://localhost:51032/swagger",
 						"https://192.168.1.4:8443/inventory/swagger"
 					},
 					AllowedCorsOrigins =
 					{
-						"http://localhost:51033",
+						"http://localhost:51032",
 						"https://192.168.1.4:8443"
 					},
 					AccessTokenLifetime = 300,

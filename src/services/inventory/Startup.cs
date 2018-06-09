@@ -20,15 +20,17 @@ namespace VND.Services.Inventory
 {
 	public class Startup
 	{
-		public Startup(IConfiguration configuration)
+		public Startup(IConfiguration configuration, IHostingEnvironment env)
 		{
 			Configuration = configuration;
+			HostingEnvironment = env;
 			IdentityModelEventSource.ShowPII = true;
 		}
 
 		public IConfiguration Configuration { get; }
+		public IHostingEnvironment HostingEnvironment { get; }
 
-		public void ConfigureServices(IServiceCollection services, IHostingEnvironment env)
+		public void ConfigureServices(IServiceCollection services)
 		{
 			var authorityServer = Environment.GetEnvironmentVariable("AUTHORITY_HOST_URI");
 
@@ -39,7 +41,7 @@ namespace VND.Services.Inventory
 				.AddIdentityServerAuthentication(c =>
 				{
 					c.Authority = authorityServer;
-					c.RequireHttpsMetadata = env.IsDevelopment() ? false : true;
+					c.RequireHttpsMetadata = HostingEnvironment.IsDevelopment() ? false : true;
 					c.ApiName = "inventory_api";
 					c.SaveToken = true;
 				});

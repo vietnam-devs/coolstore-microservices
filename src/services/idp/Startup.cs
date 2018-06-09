@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System;
+using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
@@ -71,7 +72,8 @@ namespace Idp
 				builder.AddSigningCredential(Certificate.Get());
 			} */
 
-			builder.AddDeveloperSigningCredential();
+			// builder.AddDeveloperSigningCredential();
+			builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
 
 			services.AddAuthentication()
 			  .AddGoogle(options =>
