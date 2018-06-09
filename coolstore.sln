@@ -31,6 +31,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{CB8885DA-CA9C-41
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.FW.Infrastructure.AspNetCore", "src\framework\VND.FW.Infrastructure.AspNetCore\VND.FW.Infrastructure.AspNetCore.csproj", "{6AD7EFCF-A6CB-4D1D-8C2B-B5721D186747}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{30180908-0481-4AC5-BD71-DDB5CACF57A1}"
+	ProjectSection(SolutionItems) = preProject
+		deployment\k8s\idp-service.yaml = deployment\k8s\idp-service.yaml
+		deployment\k8s\inventory-service.yaml = deployment\k8s\inventory-service.yaml
+		deployment\k8s\nginx-ingress.yaml = deployment\k8s\nginx-ingress.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

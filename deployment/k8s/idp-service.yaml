@@ -9,10 +9,14 @@ metadata:
     app: idp-service
 spec:
   ports:
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+    name: http
   - port: 5001
     targetPort: 5001
     protocol: TCP
-    name: http
+    name: https
   selector:
     app: idp
 ---
@@ -36,5 +40,8 @@ spec:
         - name: "ASPNETCORE_BASEPATH"
           value: "/idp/"
         ports:
-        - containerPort: 5001
+        - name: http
+          containerPort: 5000
+        - name: https
+          containerPort: 5001
 ---
