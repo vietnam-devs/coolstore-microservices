@@ -35,11 +35,11 @@ namespace Idp
 				options.AuthenticationDisplayName = "Windows";
 			});
 
-			services.AddHttpsRedirection(options =>
+			/*services.AddHttpsRedirection(options =>
 			{
 				options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
 				options.HttpsPort = 5001;
-			});
+			});*/
 
 			var builder = services.AddIdentityServer(options =>
 			  {
@@ -60,7 +60,7 @@ namespace Idp
 			// builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
 			// builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
-			if (Environment.IsDevelopment())
+			/*if (Environment.IsDevelopment())
 			{
 				builder.AddDeveloperSigningCredential();
 			}
@@ -68,7 +68,9 @@ namespace Idp
 			{
 				//throw new Exception("need to configure key material");
 				builder.AddSigningCredential(Certificate.Get());
-			}
+			} */
+
+			builder.AddDeveloperSigningCredential();
 
 			services.AddAuthentication()
 			  .AddGoogle(options =>
@@ -88,7 +90,7 @@ namespace Idp
 			}
 			else
 			{
-				app.UseHsts();
+				// app.UseHsts();
 			}
 
 			string basePath = System.Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
@@ -101,7 +103,7 @@ namespace Idp
 				});
 			}
 
-			app.UseHttpsRedirection();
+			// app.UseHttpsRedirection();
 			app.UseIdentityServer();
 			app.UseStaticFiles();
 			app.UseMvcWithDefaultRoute();

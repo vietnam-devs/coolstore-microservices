@@ -27,7 +27,7 @@ namespace Idp
 		public static IWebHost BuildWebHost(string[] args)
 		{
 			return WebHost.CreateDefaultBuilder(args)
-					.UseKestrel(options =>
+					/*.UseKestrel(options =>
 					{
 						try
 						{
@@ -50,7 +50,7 @@ namespace Idp
 						{
 							throw;
 						}
-					})
+					}) */
 					.UseStartup<Startup>()
 					.UseSerilog((context, configuration) =>
 					{
