@@ -31,6 +31,8 @@ namespace Idp
 					{
 						try
 						{
+							options.AddServerHeader = false;
+
 							// listen for HTTP
 							options.Listen(IPAddress.Loopback, 5000);
 
@@ -39,7 +41,9 @@ namespace Idp
 							{
 								// var byteCert = Convert.FromBase64String("coolstore.pfx");
 								// listenOptions.UseHttps(new X509Certificate2(byteCert, "vietnam"));
-								listenOptions.UseHttps("coolstore.pfx", "vietnam");
+
+								var cert = new X509Certificate2("coolstore.pfx", "vietnam");
+								listenOptions.UseHttps(cert);
 							});
 						}
 						catch (Exception e)
