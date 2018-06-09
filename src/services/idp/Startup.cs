@@ -7,6 +7,7 @@ using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -102,6 +103,15 @@ namespace Idp
 					await next.Invoke();
 				});
 			}
+
+			var fordwardedHeaderOptions = new ForwardedHeadersOptions
+			{
+				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+			};
+			fordwardedHeaderOptions.KnownNetworks.Clear();
+			fordwardedHeaderOptions.KnownProxies.Clear();
+
+			app.UseForwardedHeaders(fordwardedHeaderOptions);
 
 			// app.UseHttpsRedirection();
 			app.UseIdentityServer();
