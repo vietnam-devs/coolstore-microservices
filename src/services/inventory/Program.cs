@@ -12,7 +12,14 @@ namespace VND.Services.Inventory
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+	            .UseKestrel(options =>
+	            {
+		            options.ConfigureHttpsDefaults(httpsConfig =>
+		            {
+			            httpsConfig.CheckCertificateRevocation = false;
+		            });
+	            })
+				.UseStartup<Startup>()
                 .Build();
     }
 }

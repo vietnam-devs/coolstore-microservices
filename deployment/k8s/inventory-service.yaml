@@ -36,9 +36,9 @@ spec:
         - name: "ASPNETCORE_BASEPATH"
           value: "/inventory/"
         - name: "CURRENT_HOST_URI"
-          value: "https://192.168.169.22:8433/inventory"
+          value: "https://192.168.1.4:8433/inventory"
         - name: "AUTHORITY_HOST_URI"
-          value: "https://192.168.169.22:8433/idp"
+          value: "https://192.168.1.4:8433/idp"
         ports:
         - containerPort: 5000
 ---

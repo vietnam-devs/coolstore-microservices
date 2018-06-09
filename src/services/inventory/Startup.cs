@@ -28,7 +28,7 @@ namespace VND.Services.Inventory
 
 		public IConfiguration Configuration { get; }
 
-		public void ConfigureServices(IServiceCollection services)
+		public void ConfigureServices(IServiceCollection services, IHostingEnvironment env)
 		{
 			var authorityServer = Environment.GetEnvironmentVariable("AUTHORITY_HOST_URI");
 
@@ -39,8 +39,9 @@ namespace VND.Services.Inventory
 				.AddIdentityServerAuthentication(c =>
 				{
 					c.Authority = authorityServer;
-					c.RequireHttpsMetadata = false;
+					c.RequireHttpsMetadata = env.IsDevelopment() ? false : true;
 					c.ApiName = "inventory_api";
+					c.SaveToken = true;
 				});
 
 			services.AddAuthorization(
@@ -107,14 +108,14 @@ namespace VND.Services.Inventory
 				});
 			}
 
-			var fordwardedHeaderOptions = new ForwardedHeadersOptions
+			/*var fordwardedHeaderOptions = new ForwardedHeadersOptions
 			{
 				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 			};
 			fordwardedHeaderOptions.KnownNetworks.Clear();
 			fordwardedHeaderOptions.KnownProxies.Clear();
 
-			app.UseForwardedHeaders(fordwardedHeaderOptions);
+			app.UseForwardedHeaders(fordwardedHeaderOptions); */
 
 			app.UseAuthentication();
 
@@ -140,7 +141,7 @@ namespace VND.Services.Inventory
 					c.OAuth2RedirectUrl($"{currentHostUri}/swagger/oauth2-redirect.html");
 				});
 
-			app.UseReDoc(c =>
+			/*app.UseReDoc(c =>
             {
 				var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
 
@@ -151,7 +152,7 @@ namespace VND.Services.Inventory
 				{
 					c.SpecUrl = $"{basePath}swagger/{description.GroupName}/swagger.json";
 				}
-            });
+            });*/
 		}
 
 		static Info CreateInfoForApiVersion(ApiVersionDescription description)
