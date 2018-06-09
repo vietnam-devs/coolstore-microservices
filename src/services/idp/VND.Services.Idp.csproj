@@ -17,6 +17,9 @@
     <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="coolstore.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="idsrv3test.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
