@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using VND.Services.Inventory.Swagger;
 using VND.Services.Inventory.v1.Service;
@@ -22,6 +23,7 @@ namespace VND.Services.Inventory
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
+			IdentityModelEventSource.ShowPII = true;
 		}
 
 		public IConfiguration Configuration { get; }
