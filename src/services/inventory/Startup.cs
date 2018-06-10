@@ -105,6 +105,7 @@ namespace VND.Services.Inventory
 			{
 				app.Use(async (context, next) =>
 				{
+					context.Request.Scheme = "http";
 					context.Request.PathBase = basePath;
 					await next.Invoke();
 				});
