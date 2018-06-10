@@ -27,7 +27,7 @@ namespace Idp
 		public static IWebHost BuildWebHost(string[] args)
 		{
 			return WebHost.CreateDefaultBuilder(args)
-					.UseKestrel(options =>
+					/*.UseKestrel(options =>
 					{
 						options.AddServerHeader = false;
 
@@ -40,7 +40,7 @@ namespace Idp
 							var cert = new X509Certificate2("coolstore.pfx", "vietnam");
 							listenOptions.UseHttps(cert);
 						});
-					})
+					})*/
 					.UseStartup<Startup>()
 					.UseSerilog((context, configuration) =>
 					{

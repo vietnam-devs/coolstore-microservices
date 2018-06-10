@@ -37,11 +37,11 @@ namespace Idp
 				options.AuthenticationDisplayName = "Windows";
 			});
 
-			services.AddHttpsRedirection(options =>
+			/*services.AddHttpsRedirection(options =>
 			{
 				options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
 				options.HttpsPort = 5001; // TODO: hard code
-			});
+			});*/
 
 			var builder = services.AddIdentityServer(options =>
 			  {
@@ -76,8 +76,8 @@ namespace Idp
 				builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
 			} */
 
-			// builder.AddDeveloperSigningCredential();
-			builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
+			builder.AddDeveloperSigningCredential();
+			// builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
 
 			services.AddAuthentication()
 			  .AddGoogle(options =>
@@ -97,7 +97,7 @@ namespace Idp
 			}
 			else
 			{
-				app.UseHsts();
+				// app.UseHsts();
 			}
 
 			string basePath = System.Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
@@ -120,7 +120,7 @@ namespace Idp
 			fordwardedHeaderOptions.KnownProxies.Clear();
 			app.UseForwardedHeaders(fordwardedHeaderOptions);
 
-			app.UseHttpsRedirection();
+			// app.UseHttpsRedirection();
 			app.UseIdentityServer();
 			app.UseStaticFiles();
 			app.UseMvcWithDefaultRoute();

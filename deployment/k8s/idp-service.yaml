@@ -21,10 +21,6 @@ spec:
     targetPort: 5000
     protocol: TCP
     name: http
-  - port: 5001
-    targetPort: 5001
-    protocol: TCP
-    name: https
   selector:
     app: idp
 ---
@@ -50,6 +46,4 @@ spec:
         ports:
         - name: http
           containerPort: 5000
-        - name: https
-          containerPort: 5001
 ---

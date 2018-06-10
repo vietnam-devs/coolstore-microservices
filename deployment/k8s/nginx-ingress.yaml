@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/secure-backends: "true"
   name: coolstore-ingress
   namespace: default
 spec:
@@ -21,4 +19,4 @@ spec:
       - path: /idp
         backend:
           serviceName: idp-service
-          servicePort: 5001
+          servicePort: 5000
