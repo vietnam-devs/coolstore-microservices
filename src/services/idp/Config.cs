@@ -22,20 +22,19 @@ namespace Idp
 		{
 			return new ApiResource[]
 			{
-			new ApiResource("api1", "My API #1"),
-			new ApiResource
-			{
-				Name = "inventory_api",
-				DisplayName = "Inventory API",
-				Scopes =
+				new ApiResource
 				{
-					new Scope
+					Name = "inventory_api",
+					DisplayName = "Inventory API",
+					Scopes =
 					{
-						Name = "inventory_api_scope",
-						Description = "inventory_api_scope"
+						new Scope
+						{
+							Name = "inventory_api_scope",
+							Description = "inventory_api_scope"
+						}
 					}
 				}
-			}
 			};
 		}
 
@@ -78,17 +77,17 @@ namespace Idp
 					RedirectUris =
 					{
 						"http://localhost:51032/swagger/oauth2-redirect.html",
-						"https://192.168.1.4:8443/inventory/swagger/oauth2-redirect.html",
+						"https://192.168.1.5:8443/inventory/swagger/oauth2-redirect.html",
 					},
 					PostLogoutRedirectUris =
 					{
 						"http://localhost:51032/swagger",
-						"https://192.168.1.4:8443/inventory/swagger"
+						"https://192.168.1.5:8443/inventory/swagger"
 					},
 					AllowedCorsOrigins =
 					{
 						"http://localhost:51032",
-						"https://192.168.1.4:8443"
+						"https://192.168.1.5:8443"
 					},
 					AccessTokenLifetime = 300,
 					AllowedScopes =

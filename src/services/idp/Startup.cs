@@ -29,7 +29,7 @@ namespace Idp
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc()/*.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)*/;
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.Configure<IISOptions>(options =>
 			{
@@ -37,11 +37,11 @@ namespace Idp
 				options.AuthenticationDisplayName = "Windows";
 			});
 
-			/*services.AddHttpsRedirection(options =>
+			services.AddHttpsRedirection(options =>
 			{
 				options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
-				options.HttpsPort = 5001;
-			});*/
+				options.HttpsPort = 5001; // TODO: hard code
+			});
 
 			var builder = services.AddIdentityServer(options =>
 			  {
@@ -62,18 +62,18 @@ namespace Idp
 			// builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
 			// builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
-			/*if (Environment.IsDevelopment())
+			if (Environment.IsDevelopment())
 			{
 				builder.AddDeveloperSigningCredential();
 			}
 			else
 			{
-				//throw new Exception("need to configure key material");
-				builder.AddSigningCredential(Certificate.Get());
-			} */
+				// throw new Exception("need to configure key material");
+				// builder.AddSigningCredential(Certificate.Get());
 
-			// builder.AddDeveloperSigningCredential();
-			builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
+				// TODO: hard code
+				builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
+			}
 
 			services.AddAuthentication()
 			  .AddGoogle(options =>
@@ -93,7 +93,7 @@ namespace Idp
 			}
 			else
 			{
-				// app.UseHsts();
+				app.UseHsts();
 			}
 
 			string basePath = System.Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
@@ -115,7 +115,7 @@ namespace Idp
 
 			app.UseForwardedHeaders(fordwardedHeaderOptions);
 
-			// app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 			app.UseIdentityServer();
 			app.UseStaticFiles();
 			app.UseMvcWithDefaultRoute();

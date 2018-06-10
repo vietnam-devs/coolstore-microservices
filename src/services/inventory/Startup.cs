@@ -41,7 +41,7 @@ namespace VND.Services.Inventory
 				.AddIdentityServerAuthentication(c =>
 				{
 					c.Authority = authorityServer;
-					c.RequireHttpsMetadata = HostingEnvironment.IsDevelopment() ? false : true;
+					c.RequireHttpsMetadata = false;
 					c.ApiName = "inventory_api";
 					c.SaveToken = true;
 				});

@@ -27,30 +27,22 @@ namespace Idp
 		public static IWebHost BuildWebHost(string[] args)
 		{
 			return WebHost.CreateDefaultBuilder(args)
-					/*.UseKestrel(options =>
+					.UseKestrel(options =>
 					{
-						try
+						options.AddServerHeader = false;
+
+						// listen for HTTP
+						options.Listen(IPAddress.Loopback, 5000);
+
+						// listen for HTTPS
+						options.Listen(IPAddress.Loopback, 5001, listenOptions =>
 						{
-							options.AddServerHeader = false;
-
-							// listen for HTTP
-							options.Listen(IPAddress.Loopback, 5000);
-
-							// listen for HTTPS
-							options.Listen(IPAddress.Loopback, 5001, listenOptions =>
-							{
-								// var byteCert = Convert.FromBase64String("coolstore.pfx");
-								// listenOptions.UseHttps(new X509Certificate2(byteCert, "vietnam"));
-
-								var cert = new X509Certificate2("coolstore.pfx", "vietnam");
-								listenOptions.UseHttps(cert);
-							});
-						}
-						catch (Exception e)
-						{
-							throw;
-						}
-					}) */
+							// var byteCert = Convert.FromBase64String("coolstore.pfx");
+							// listenOptions.UseHttps(new X509Certificate2(byteCert, "vietnam"));
+							var cert = new X509Certificate2("coolstore.pfx", "vietnam");
+							listenOptions.UseHttps(cert);
+						});
+					})
 					.UseStartup<Startup>()
 					.UseSerilog((context, configuration) =>
 					{
