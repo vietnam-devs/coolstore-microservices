@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.org/ssl-services: "idp-service"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
   name: coolstore-ingress
   namespace: default
 spec:
