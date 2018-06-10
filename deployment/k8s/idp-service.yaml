@@ -16,18 +16,11 @@ metadata:
   labels:
     app: idp-service
 spec:
-  type: NodePort
   ports:
   - port: 5000
-    nodePort: 32766
     targetPort: 5000
     protocol: TCP
     name: http
-  - port: 5001
-    nodePort: 32767
-    targetPort: 5001
-    protocol: TCP
-    name: https
   selector:
     app: idp
 ---
@@ -53,6 +46,4 @@ spec:
         ports:
         - name: http
           containerPort: 5000
-        - name: https
-          containerPort: 5001
 ---

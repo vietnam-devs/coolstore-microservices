@@ -37,11 +37,11 @@ namespace Idp
 				options.AuthenticationDisplayName = "Windows";
 			});
 
-			services.AddHttpsRedirection(options =>
+			/*services.AddHttpsRedirection(options =>
 			{
 				options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
 				options.HttpsPort = 5001; // TODO: hard code
-			});
+			});*/
 
 			var builder = services.AddIdentityServer(options =>
 			  {
@@ -62,7 +62,7 @@ namespace Idp
 			// builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
 			// builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
-			if (Environment.IsDevelopment())
+			/*if (Environment.IsDevelopment())
 			{
 				builder.AddDeveloperSigningCredential();
 			}
@@ -73,7 +73,9 @@ namespace Idp
 
 				// TODO: hard code
 				builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
-			}
+			} */
+
+			builder.AddDeveloperSigningCredential();
 
 			services.AddAuthentication()
 			  .AddGoogle(options =>
@@ -87,14 +89,16 @@ namespace Idp
 
 		public void Configure(IApplicationBuilder app)
 		{
-			if (Environment.IsDevelopment())
+			/*if (Environment.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
 			else
 			{
 				app.UseHsts();
-			}
+			} */
+
+			app.UseDeveloperExceptionPage();
 
 			string basePath = System.Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
 			if (!string.IsNullOrEmpty(basePath))
@@ -110,12 +114,12 @@ namespace Idp
 			{
 				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 			};
+
 			fordwardedHeaderOptions.KnownNetworks.Clear();
 			fordwardedHeaderOptions.KnownProxies.Clear();
-
 			app.UseForwardedHeaders(fordwardedHeaderOptions);
 
-			app.UseHttpsRedirection();
+			// app.UseHttpsRedirection();
 			app.UseIdentityServer();
 			app.UseStaticFiles();
 			app.UseMvcWithDefaultRoute();
