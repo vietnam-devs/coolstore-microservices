@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using IdentityServer4.AccessTokenValidation;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,20 +36,6 @@ namespace VND.Services.Inventory
 
 			services.AddScoped<IInventoryService, InventoryService>();
 
-			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-				.AddCookie()
-				.AddIdentityServerAuthentication(c =>
-				{
-					c.Authority = authorityServer;
-					c.RequireHttpsMetadata = false;
-					c.ApiName = "inventory_api";
-					c.SaveToken = true;
-				});
-
-			services.AddAuthorization(
-				c => { c.AddPolicy("inventory_api_scope", p => p.RequireClaim("scope", "inventory_api_scope")); }
-			);
-
 			services.AddMvcCore().AddVersionedApiExplorer(
 				options =>
 				{
@@ -59,7 +45,27 @@ namespace VND.Services.Inventory
 
 			services.AddMvc();
 
+			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
 			services.AddApiVersioning(o => o.ReportApiVersions = true);
+
+			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+				.AddCookie()
+				.AddIdentityServerAuthentication(c =>
+				{
+					c.Authority = authorityServer;
+					c.RequireHttpsMetadata = false;
+					c.ApiName = "inventory_api";
+					c.SaveToken = true;
+					c.JwtBackChannelHandler = new HttpClientHandler()
+					{
+						ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+					};
+				});
+
+			services.AddAuthorization(
+				c => { c.AddPolicy("inventory_api_scope", p => p.RequireClaim("scope", "inventory_api_scope")); }
+			);
 
 			services.AddSwaggerGen(
 				c =>
@@ -110,15 +116,6 @@ namespace VND.Services.Inventory
 					await next.Invoke();
 				});
 			}
-
-			/*var fordwardedHeaderOptions = new ForwardedHeadersOptions
-			{
-				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-			};
-			fordwardedHeaderOptions.KnownNetworks.Clear();
-			fordwardedHeaderOptions.KnownProxies.Clear();
-
-			app.UseForwardedHeaders(fordwardedHeaderOptions); */
 
 			app.UseAuthentication();
 

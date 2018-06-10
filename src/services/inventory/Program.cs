@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -15,21 +16,22 @@ namespace VND.Services.Inventory
 
 		public static IWebHost BuildWebHost(string[] args) =>
 			WebHost.CreateDefaultBuilder(args)
-				.UseKestrel(/*options =>
+				.UseKestrel(options =>
 				{
-					options.Listen(IPAddress.Any, 5000, listenOptions =>
+					/*options.Listen(IPAddress.Any, 51032, listenOptions =>
 					{
 						var httpsConnectionAdapterOptions = new HttpsConnectionAdapterOptions()
 						{
-							ServerCertificate = new X509Certificate2("coolstore.pfx", "vietnam"),
-							ClientCertificateMode = ClientCertificateMode.AllowCertificate,
+							// ServerCertificate = new X509Certificate2("coolstore.pfx", "vietnam"),
+							// ClientCertificateMode = ClientCertificateMode.AllowCertificate,
 							CheckCertificateRevocation = false,
-							ClientCertificateValidation = (certificate2, chain, arg3) => true
+							ClientCertificateValidation = (certificate2, chain, arg3) => false
 						};
 
 						listenOptions.UseHttps(httpsConnectionAdapterOptions);
-					});
-				}*/)
+					});*/
+				})
+				.UseIISIntegration()
 				.UseStartup<Startup>()
 				.Build();
 	}

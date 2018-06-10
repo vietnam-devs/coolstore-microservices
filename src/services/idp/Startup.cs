@@ -37,11 +37,11 @@ namespace Idp
 				options.AuthenticationDisplayName = "Windows";
 			});
 
-			/*services.AddHttpsRedirection(options =>
+			services.AddHttpsRedirection(options =>
 			{
 				options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
 				options.HttpsPort = 5001; // TODO: hard code
-			});*/
+			});
 
 			var builder = services.AddIdentityServer(options =>
 			  {
@@ -50,7 +50,8 @@ namespace Idp
 				  options.Events.RaiseFailureEvents = true;
 				  options.Events.RaiseSuccessEvents = true;
 			  })
-			  .AddTestUsers(TestUsers.Users);
+			  .AddTestUsers(TestUsers.Users)
+			.AddJwtBearerClientAuthentication();
 
 			// in-memory, code config
 			builder.AddInMemoryIdentityResources(Config.GetIdentityResources());
@@ -75,7 +76,8 @@ namespace Idp
 				builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
 			} */
 
-			builder.AddDeveloperSigningCredential();
+			// builder.AddDeveloperSigningCredential();
+			builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
 
 			services.AddAuthentication()
 			  .AddGoogle(options =>
@@ -89,16 +91,14 @@ namespace Idp
 
 		public void Configure(IApplicationBuilder app)
 		{
-			/*if (Environment.IsDevelopment())
+			if (Environment.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
 			else
 			{
 				app.UseHsts();
-			} */
-
-			app.UseDeveloperExceptionPage();
+			}
 
 			string basePath = System.Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
 			if (!string.IsNullOrEmpty(basePath))
@@ -112,14 +112,15 @@ namespace Idp
 
 			var fordwardedHeaderOptions = new ForwardedHeadersOptions
 			{
-				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+				RequireHeaderSymmetry = false
 			};
 
 			fordwardedHeaderOptions.KnownNetworks.Clear();
 			fordwardedHeaderOptions.KnownProxies.Clear();
 			app.UseForwardedHeaders(fordwardedHeaderOptions);
 
-			// app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 			app.UseIdentityServer();
 			app.UseStaticFiles();
 			app.UseMvcWithDefaultRoute();
