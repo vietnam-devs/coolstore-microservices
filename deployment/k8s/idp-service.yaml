@@ -2,13 +2,13 @@
 # Idp configuration
 ##################################################################################################
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: tcp-configmap-idp-service
-data:
-  5001: "default/idp-service:5001"
----
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: tcp-configmap-idp-service
+#data:
+#  5001: "default/idp-service:5001"
+#---
 apiVersion: v1
 kind: Service
 metadata:
@@ -16,12 +16,15 @@ metadata:
   labels:
     app: idp-service
 spec:
+  type: NodePort
   ports:
   - port: 5000
+    nodePort: 32766
     targetPort: 5000
     protocol: TCP
     name: http
   - port: 5001
+    nodePort: 32767
     targetPort: 5001
     protocol: TCP
     name: https

@@ -17,7 +17,3 @@ spec:
         backend:
           serviceName: inventory-service
           servicePort: 5000
-      - path: /idp
-        backend:
-          serviceName: idp-service
-          servicePort: 5001
