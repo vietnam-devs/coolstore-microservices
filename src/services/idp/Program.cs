@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
@@ -22,7 +24,7 @@ namespace Idp
 		public static IWebHost BuildWebHost(string[] args)
 		{
 			return WebHost.CreateDefaultBuilder(args)
-					/*.UseKestrel(options =>
+					.UseKestrel(options =>
 					{
 						options.AddServerHeader = false;
 
@@ -35,7 +37,7 @@ namespace Idp
 							var cert = new X509Certificate2("coolstore.pfx", "vietnam");
 							listenOptions.UseHttps(cert);
 						});
-					})*/
+					})
 					.UseStartup<Startup>()
 					.UseSerilog((context, configuration) =>
 					{
