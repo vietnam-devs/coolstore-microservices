@@ -76,8 +76,8 @@ namespace Idp
 				builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
 			} */
 
-			builder.AddDeveloperSigningCredential();
-			// builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
+			// builder.AddDeveloperSigningCredential();
+			builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
 
 			services.AddAuthentication()
 			  .AddGoogle(options =>
