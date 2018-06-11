@@ -1,14 +1,6 @@
 ##################################################################################################
 # Idp configuration
 ##################################################################################################
-
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: tcp-configmap-idp-service
-#data:
-#  5001: "default/idp-service:5001"
-#---
 apiVersion: v1
 kind: Service
 metadata:
@@ -21,10 +13,6 @@ spec:
     targetPort: 5000
     protocol: TCP
     name: http
-  - port: 5001
-    targetPort: 5001
-    protocol: TCP
-    name: https
   selector:
     app: idp
 ---
@@ -50,6 +38,4 @@ spec:
         ports:
         - name: http
           containerPort: 5000
-        - name: https
-          containerPort: 5001
 ---

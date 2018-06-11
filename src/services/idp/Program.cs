@@ -3,7 +3,6 @@
 
 using System;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Serilog;
@@ -24,19 +23,21 @@ namespace Idp
 		public static IWebHost BuildWebHost(string[] args)
 		{
 			return WebHost.CreateDefaultBuilder(args)
-					.UseKestrel(options =>
+					.UseKestrel( (context, options) =>
 					{
-						options.AddServerHeader = false;
-
-						// listen for HTTP
-						options.Listen(IPAddress.Loopback, 5000);
-
-						// listen for HTTPS
-						options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+						if (context.HostingEnvironment.IsDevelopment())
 						{
-							var cert = new X509Certificate2("coolstore.pfx", "vietnam");
-							listenOptions.UseHttps(cert);
-						});
+							options.AddServerHeader = false;
+
+							// listen for HTTP
+							options.Listen(IPAddress.Loopback, 5000);
+
+							// listen for HTTPS
+							options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+							{
+								listenOptions.UseHttps(VND.Services.Idp.Certificate.Certificate.Get());
+							});
+						}
 					})
 					.UseStartup<Startup>()
 					.UseSerilog((context, configuration) =>

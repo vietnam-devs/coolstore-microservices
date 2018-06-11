@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using System;
-using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
@@ -37,11 +35,14 @@ namespace Idp
 				options.AuthenticationDisplayName = "Windows";
 			});
 
-			services.AddHttpsRedirection(options =>
+			if (Environment.IsDevelopment())
 			{
-				options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
-				options.HttpsPort = 5001; // TODO: hard code
-			});
+				services.AddHttpsRedirection(options =>
+				{
+					options.RedirectStatusCode = StatusCodes.Status301MovedPermanently;
+					options.HttpsPort = 5001; // TODO: hard code
+				});
+			}
 
 			var builder = services.AddIdentityServer(options =>
 			  {
@@ -63,21 +64,12 @@ namespace Idp
 			// builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
 			// builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
-			/*if (Environment.IsDevelopment())
+			builder.AddDeveloperSigningCredential();
+
+			if (Environment.IsDevelopment())
 			{
-				builder.AddDeveloperSigningCredential();
+				builder.AddSigningCredential(Certificate.Get());
 			}
-			else
-			{
-				// throw new Exception("need to configure key material");
-				// builder.AddSigningCredential(Certificate.Get());
-
-				// TODO: hard code
-				builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
-			} */
-
-			// builder.AddDeveloperSigningCredential();
-			builder.AddSigningCredential(new X509Certificate2("coolstore.pfx", "vietnam"));
 
 			services.AddAuthentication()
 			  .AddGoogle(options =>
@@ -94,9 +86,6 @@ namespace Idp
 			if (Environment.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-			}
-			else
-			{
 				app.UseHsts();
 			}
 
@@ -110,17 +99,24 @@ namespace Idp
 				});
 			}
 
-			var fordwardedHeaderOptions = new ForwardedHeadersOptions
+			if (!Environment.IsDevelopment())
 			{
-				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
-				RequireHeaderSymmetry = false
-			};
+				var fordwardedHeaderOptions = new ForwardedHeadersOptions
+				{
+					ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+					                   ForwardedHeaders.XForwardedProto,
+				};
 
-			fordwardedHeaderOptions.KnownNetworks.Clear();
-			fordwardedHeaderOptions.KnownProxies.Clear();
-			app.UseForwardedHeaders(fordwardedHeaderOptions);
+				fordwardedHeaderOptions.KnownNetworks.Clear();
+				fordwardedHeaderOptions.KnownProxies.Clear();
+				app.UseForwardedHeaders(fordwardedHeaderOptions);
+			}
 
-			app.UseHttpsRedirection();
+			if (Environment.IsDevelopment())
+			{
+				app.UseHttpsRedirection();
+			}
+
 			app.UseIdentityServer();
 			app.UseStaticFiles();
 			app.UseMvcWithDefaultRoute();

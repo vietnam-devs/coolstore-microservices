@@ -21,10 +21,10 @@ FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS app
 WORKDIR /app
 COPY --from=build /build/dist .
 
-ENV ASPNETCORE_URLS https://+:5001;http://+:5000
-ENV ASPNETCORE_HTTPS_PORT=5001
+ENV ASPNETCORE_URLS http://+:5000
+# ENV ASPNETCORE_HTTPS_PORT=5001
 
-# ENV ASPNETCORE_Kestrel__Certificates__Default__Path ./Certificate/idsrv3test.pfx
-# ENV ASPNETCORE_Kestrel__Certificates__Default__Password "idsrv3test"
+# ENV ASPNETCORE_Kestrel__Certificates__Default__Path ./Certificate/coolstore.pfx
+# ENV ASPNETCORE_Kestrel__Certificates__Default__Password "vietnam"
 
 ENTRYPOINT ["dotnet", "VND.Services.Idp.dll"]

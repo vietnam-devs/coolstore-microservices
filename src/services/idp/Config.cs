@@ -93,16 +93,19 @@ namespace Idp
 					RedirectUris =
 					{
 						"http://localhost:51032/swagger/oauth2-redirect.html",
-						"https://192.168.1.5:8443/inventory/swagger/oauth2-redirect.html",
+						"https://192.168.169.12:8443/inventory/swagger/oauth2-redirect.html",
+						"https://192.168.1.5:8443/inventory/swagger/oauth2-redirect.html"
 					},
 					PostLogoutRedirectUris =
 					{
 						"http://localhost:51032/swagger",
+						"https://192.168.169.12:8443/inventory/swagger",
 						"https://192.168.1.5:8443/inventory/swagger"
 					},
 					AllowedCorsOrigins =
 					{
 						"http://localhost:51032",
+						"https://192.168.169.12:8443",
 						"https://192.168.1.5:8443"
 					},
 					AccessTokenLifetime = 300,
