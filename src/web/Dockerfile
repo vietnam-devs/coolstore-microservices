@@ -1,10 +1,11 @@
 FROM node:10.0.0-slim
 
-RUN mkdir -p /opt/web
-COPY ./ /opt/web/
-RUN cd /opt/web; yarn install
+RUN mkdir -p /usr/src/web
+WORKDIR /usr/src/web
+
+COPY . /usr/src/web
+RUN yarn && yarn build
 
 EXPOSE 3000
-WORKDIR /opt/web
 
 CMD ["yarn","start"]
