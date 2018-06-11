@@ -7,11 +7,15 @@ metadata:
   namespace: default
 spec:
   backend:
-    serviceName: inventory-service
-    servicePort: 5000
+    serviceName: web-service
+    servicePort: 3000
   rules:
   - http:
       paths:
+      - path: /
+        backend:
+          serviceName: web-service
+          servicePort: 3000
       - path: /inventory
         backend:
           serviceName: inventory-service
