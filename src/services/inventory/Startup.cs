@@ -45,8 +45,6 @@ namespace VND.Services.Inventory
 
 			services.AddMvc();
 
-			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
 			services.AddApiVersioning(o => o.ReportApiVersions = true);
 
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -55,11 +53,12 @@ namespace VND.Services.Inventory
 				{
 					c.Authority = authorityServer;
 					c.RequireHttpsMetadata = false;
-					c.ApiName = "inventory_api";
 					c.SaveToken = true;
+					c.ApiName = "inventory_api";
 					c.JwtBackChannelHandler = new HttpClientHandler()
 					{
-						ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+						ServerCertificateCustomValidationCallback = 
+							HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
 					};
 				});
 
@@ -111,7 +110,6 @@ namespace VND.Services.Inventory
 			{
 				app.Use(async (context, next) =>
 				{
-					context.Request.Scheme = "http";
 					context.Request.PathBase = basePath;
 					await next.Invoke();
 				});
