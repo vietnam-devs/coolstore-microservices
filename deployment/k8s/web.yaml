@@ -9,8 +9,8 @@ metadata:
     app: web-service
 spec:
   ports:
-  - port: 3000
-    targetPort: 3000
+  - port: 8080
+    targetPort: 8080
     protocol: TCP
     name: http
   selector:
@@ -33,5 +33,5 @@ spec:
         image: vietnamdevsgroup/coolstore-web:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
 ---

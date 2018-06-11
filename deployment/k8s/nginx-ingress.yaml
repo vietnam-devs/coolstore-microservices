@@ -8,14 +8,14 @@ metadata:
 spec:
   backend:
     serviceName: web-service
-    servicePort: 3000
+    servicePort: 8080
   rules:
   - http:
       paths:
       - path: /
         backend:
           serviceName: web-service
-          servicePort: 3000
+          servicePort: 8080
       - path: /inventory
         backend:
           serviceName: inventory-service

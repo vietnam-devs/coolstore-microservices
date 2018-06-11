@@ -9,6 +9,6 @@ RUN yarn install
 COPY ./ /usr/src/web/
 RUN yarn build
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["yarn","start"]
