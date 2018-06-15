@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using VND.Services.Inventory.v1.Service;
+using VND.Services.Inventory.UseCases.Service;
 
-namespace VND.Services.Inventory.v1.Controllers
+namespace VND.Services.Inventory.UseCases.v1
 {
     [ApiVersion("1.0")]
     [Route("api/v{api-version:apiVersion}/[controller]")]

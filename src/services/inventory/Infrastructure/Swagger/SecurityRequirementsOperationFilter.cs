@@ -1,10 +1,10 @@
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace VND.Services.Inventory.Swagger
+namespace VND.Services.Inventory.Infrastructure.Swagger
 {
   public class SecurityRequirementsOperationFilter : IOperationFilter
   {

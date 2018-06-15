@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -12,9 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Swashbuckle.AspNetCore.Swagger;
-using VND.Services.Inventory.Swagger;
-using VND.Services.Inventory.v1.Service;
-using VND.Services.Inventory.v1.Service.Impl;
+using VND.Services.Inventory.Infrastructure.Middlewares;
+using VND.Services.Inventory.Infrastructure.Swagger;
+using VND.Services.Inventory.UseCases.Service;
+using VND.Services.Inventory.UseCases.Service.Impl;
 
 namespace VND.Services.Inventory
 {
@@ -32,7 +32,7 @@ namespace VND.Services.Inventory
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var authorityServer = Environment.GetEnvironmentVariable("AUTHORITY_HOST_URI");
+			var (authorityServer, _, __) = GetEnvironmentVariables();
 
 			services.AddScoped<IInventoryService, InventoryService>();
 
@@ -95,8 +95,7 @@ namespace VND.Services.Inventory
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
-			var basePath = Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
-			var currentHostUri = Environment.GetEnvironmentVariable("CURRENT_HOST_URI");
+			var (_, basePath, currentHostUri) = GetEnvironmentVariables();
 
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
@@ -116,6 +115,8 @@ namespace VND.Services.Inventory
 			}
 
 			app.UseAuthentication();
+
+			app.UseMiddleware<LoggingMiddleware>();
 
 			app.UseMvc();
 
@@ -171,6 +172,15 @@ namespace VND.Services.Inventory
 			}
 
 			return info;
+		}
+
+		private (string, string, string) GetEnvironmentVariables()
+		{
+			var authorityServer = Environment.GetEnvironmentVariable("AUTHORITY_HOST_URI");
+			var basePath = Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
+			var currentHostUri = Environment.GetEnvironmentVariable("CURRENT_HOST_URI");
+
+			return (authorityServer, basePath, currentHostUri);
 		}
 	}
 }

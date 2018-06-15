@@ -3,6 +3,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Application\" />
+    <Folder Include="Model\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>

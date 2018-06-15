@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace VND.Services.Inventory.v2
+namespace VND.Services.Inventory.UseCases.v2
 {
   [ApiVersion("2.0")]
   [Route("api/v{api-version:apiVersion}/[controller]")]

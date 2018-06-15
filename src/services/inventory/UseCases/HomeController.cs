@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace VND.Services.Inventory.Shared
+namespace VND.Services.Inventory.UseCases
 {
     [Route("")]
     [ApiVersionNeutral]

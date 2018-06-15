@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VND.Services.Inventory.v1.Entity
+namespace VND.Services.Inventory.UseCases.Entity
 {
     public class Inventory
     {

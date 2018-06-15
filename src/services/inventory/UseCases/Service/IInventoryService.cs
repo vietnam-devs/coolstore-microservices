@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VND.Services.Inventory.v1.Service
+namespace VND.Services.Inventory.UseCases.Service
 {
     public interface IInventoryService
     {
