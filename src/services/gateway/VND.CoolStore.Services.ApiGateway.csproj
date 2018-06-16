@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\framework\VND.FW.Domain\VND.Fw.Domain.csproj" />
+    <ProjectReference Include="..\..\framework\VND.FW.Domain\VND.Fw.Domain.csproj" />
   </ItemGroup>
 
 </Project>

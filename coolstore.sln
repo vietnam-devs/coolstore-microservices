@@ -44,7 +44,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Utils", "src\framewo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.FW.Infrastructure.EfCore", "src\framework\VND.FW.Infrastructure.EfCore\VND.FW.Infrastructure.EfCore.csproj", "{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Services.ApiGateway", "src\services\gateway\VND.CoolStore.Services.ApiGateway\VND.CoolStore.Services.ApiGateway.csproj", "{C4722C4F-DBD3-4101-A99A-88ABC10912E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Services.ApiGateway", "src\services\gateway\VND.CoolStore.Services.ApiGateway.csproj", "{C4722C4F-DBD3-4101-A99A-88ABC10912E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

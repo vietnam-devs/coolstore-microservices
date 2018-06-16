@@ -8,6 +8,9 @@ using VND.Fw.Domain;
 
 namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 {
+	/// <summary>
+	/// Reference at https://github.com/FabianGosebrink/ASPNETCore-WebAPI-Sample/blob/master/SampleWebApiAspNetCore/Controllers/v1/FoodsController.cs
+	/// </summary>
 	[ApiVersion("2.0")]
 	[Route("api/v{api-version:apiVersion}/products")]
 	public class ProductController : Controller
