@@ -5,7 +5,9 @@ namespace VND.Fw.Domain
 {
     public class Criterion : ValueObjectBase
     {
-        public Criterion(int currentPage, int pageSize, PaginationOption defaultPagingOption, string sortBy = "", string sortOrder = "")
+	    private const int maxPageSize = 50;
+
+		/*public Criterion(int currentPage, int pageSize, PaginationOption defaultPagingOption, string sortBy = "", string sortOrder = "")
         {
             if (currentPage <= 0)
                 throw new Exception("CurrentPage could not be less than zero.");
@@ -18,11 +20,18 @@ namespace VND.Fw.Domain
             DefaultPagingOption = defaultPagingOption;
             SortBy = sortBy;
             SortOrder = sortOrder;
-        }
+        } */
 
-        public int CurrentPage { get; private set; }
-        public int PageSize { get; private set; }
-        public string SortBy { get; private set; }
+        public int CurrentPage { get; set; } = 1;
+
+	    private int _pageSize = maxPageSize;
+		public int PageSize
+		{
+			get { return _pageSize; }
+			set { _pageSize = (value > maxPageSize) ? maxPageSize : value; }
+		}
+
+		public string SortBy { get; private set; }
         public string SortOrder { get; private set; }
         public PaginationOption DefaultPagingOption { get; private set; }
 

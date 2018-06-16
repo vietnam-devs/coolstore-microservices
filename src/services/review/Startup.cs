@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace VND.Services.Review
+namespace VND.CoolStore.Services.Review
 {
     public class Startup
     {

@@ -9,7 +9,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 
-namespace Idp
+namespace IdentityServer4
 {
 	public class Program
 	{

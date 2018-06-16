@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace VND.Services.Cart
+namespace VND.CoolStore.Services.Cart
 {
     public class Program
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace VND.Services.Inventory.UseCases
+namespace VND.CoolStore.Services.ApiGateway.UseCases
 {
     [Route("")]
     [ApiVersionNeutral]

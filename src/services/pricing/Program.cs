@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace VND.Services.Pricing
+namespace VND.CoolStore.Services.Pricing
 {
     public class Program
     {

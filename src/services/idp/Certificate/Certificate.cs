@@ -19,7 +19,7 @@ namespace VND.Services.Idp.Certificate
 			 *  real environment the certificate should be created and stored in a secure way, which is out
 			 *  of the scope of this project.
 			 **********************************************************************************************/
-			using (var stream = assembly.GetManifestResourceStream("VND.Services.Idp.Certificate.coolstore.pfx"))
+			using (var stream = assembly.GetManifestResourceStream("VND.CoolStore.Services.Idp.Certificate.coolstore.pfx"))
 			{
 				return new X509Certificate2(ReadStream(stream), "vietnam");
 			}

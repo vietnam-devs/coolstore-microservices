@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace VND.Services.Inventory.UseCases.Service.Impl
+namespace VND.CoolStore.Services.Inventory.UseCases.Service.Impl
 {
     public class InventoryService : IInventoryService
     {
-        public Entity.Inventory GetInventory(Guid itemId)
+        public Domain.Inventory GetInventory(Guid itemId)
         {
-            return new Entity.Inventory
+            return new Domain.Inventory
             {
                 ItemId = new Guid("6be1ec2b-3056-42e2-bb1e-2adcf5979a50"),
                 Location = "465 Cong Hoa",

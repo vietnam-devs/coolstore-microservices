@@ -19,9 +19,6 @@ namespace VND.Fw.Domain
 
     public interface IQueryRepository<TEntity> where TEntity : IEntity
     {
-        IQueryFluent<TEntity, TResponse> Return<TResponse>(IQueryObject<TEntity> queryObject);
-        IQueryFluent<TEntity, TResponse> Return<TResponse>(Expression<Func<TEntity, bool>> query);
-        IQueryFluent<TEntity, TResponse> Return<TResponse>();
         IQueryable<TEntity> Queryable();
     }
 }

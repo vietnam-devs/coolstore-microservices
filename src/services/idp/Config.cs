@@ -5,7 +5,7 @@
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
-namespace Idp
+namespace IdentityServer4
 {
 	public static class Config
 	{
@@ -24,14 +24,29 @@ namespace Idp
 			{
 				new ApiResource
 				{
-					Name = "inventory_api",
-					DisplayName = "Inventory API",
+					Name = "api",
+					DisplayName = "API",
 					Scopes =
 					{
 						new Scope
 						{
 							Name = "inventory_api_scope",
-							Description = "inventory_api_scope"
+							Description = "Inventory API scope"
+						},
+						new Scope
+						{
+							Name = "cart_api_scope",
+							Description = "Cart API Scope"
+						},
+						new Scope
+						{
+							Name = "pricing_api_scope",
+							Description = "Pricing API Scope"
+						},
+						new Scope
+						{
+							Name = "review_api_scope",
+							Description = "Review API Scope"
 						}
 					}
 				}
@@ -85,33 +100,36 @@ namespace Idp
                 // Inventory Swagger UI
                 new Client
 				{
-					ClientId = "inventory_swagger_id",
-					ClientName = "inventory_swagger_app",
+					ClientId = "swagger_id",
+					ClientName = "swagger_app",
 					ClientSecrets = new List<Secret> {new Secret("secret".Sha256())},
 					AllowedGrantTypes = GrantTypes.Implicit,
 					AllowAccessTokensViaBrowser = true,
 					RedirectUris =
 					{
-						"http://localhost:51032/swagger/oauth2-redirect.html",
-						"https://192.168.169.12:8443/inventory/swagger/oauth2-redirect.html",
-						"https://192.168.1.5:8443/inventory/swagger/oauth2-redirect.html"
+						"https://localhost:44367/swagger/oauth2-redirect.html",
+						"https://192.168.169.12:8443/api/swagger/oauth2-redirect.html",
+						"https://192.168.1.5:8443/api/swagger/oauth2-redirect.html"
 					},
 					PostLogoutRedirectUris =
 					{
-						"http://localhost:51032/swagger",
-						"https://192.168.169.12:8443/inventory/swagger",
-						"https://192.168.1.5:8443/inventory/swagger"
+						"https://localhost:44367/swagger",
+						"https://192.168.169.12:8443/api/swagger",
+						"https://192.168.1.5:8443/api/swagger"
 					},
 					AllowedCorsOrigins =
 					{
-						"http://localhost:51032",
+						"https://localhost:44367",
 						"https://192.168.169.12:8443",
 						"https://192.168.1.5:8443"
 					},
 					AccessTokenLifetime = 300,
 					AllowedScopes =
 					{
-						"inventory_api_scope"
+						"inventory_api_scope",
+						"cart_api_scope",
+						"pricing_api_scope",
+						"review_api_scope"
 					}
 				}
 			};

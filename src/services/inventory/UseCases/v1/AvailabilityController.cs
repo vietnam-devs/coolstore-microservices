@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using VND.Services.Inventory.UseCases.Service;
+using VND.CoolStore.Services.Inventory.UseCases.Service;
 
-namespace VND.Services.Inventory.UseCases.v1
+namespace VND.CoolStore.Services.Inventory.UseCases.v1
 {
     [ApiVersion("1.0")]
     [Route("api/v{api-version:apiVersion}/[controller]")]
@@ -16,7 +16,7 @@ namespace VND.Services.Inventory.UseCases.v1
         }
 
         [HttpGet("{id}")]
-        public Entity.Inventory Get(Guid id)
+        public Domain.Inventory Get(Guid id)
         {
             return _inventoryService.GetInventory(id);
         }

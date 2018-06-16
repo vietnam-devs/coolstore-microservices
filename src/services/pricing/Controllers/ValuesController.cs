@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace VND.Services.Pricing.Controllers
+namespace VND.CoolStore.Services.Pricing.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller

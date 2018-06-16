@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VND.Services.Inventory.UseCases.Entity
+namespace VND.CoolStore.Services.Inventory.Domain
 {
     public class Inventory
     {

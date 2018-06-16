@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace VND.Services.Inventory.Infrastructure.Swagger
+namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger
 {
   public class SecurityRequirementsOperationFilter : IOperationFilter
   {

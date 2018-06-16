@@ -6,7 +6,6 @@
     <EmbeddedResource Include="Certificate\coolstore.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Certificate\idsrv3test.pfx" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />

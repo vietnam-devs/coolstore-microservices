@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 
-namespace VND.Services.Inventory.Infrastructure.Middlewares
+namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Middlewares
 {
 	public class LoggingMiddleware
 	{

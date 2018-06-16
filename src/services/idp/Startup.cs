@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using VND.Services.Idp.Certificate;
 
-namespace Idp
+namespace IdentityServer4
 {
 	public class Startup
 	{
