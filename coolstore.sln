@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Services.Idp"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Services.Cart", "src\services\cart\VND.CoolStore.Services.Cart.csproj", "{40F083E3-9524-4E5F-8036-DCE1FC3C504A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A0F90A99-CAD3-491F-9079-D1680D659A9B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{A0F90A99-CAD3-491F-9079-D1680D659A9B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fw", "Fw", "{368570BE-6D1B-451B-9C04-FD610C0E81B8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fw", "fw", "{368570BE-6D1B-451B-9C04-FD610C0E81B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEE9CA98-802A-4F8F-B9D7-2AE2758BA21F}"
 	ProjectSection(SolutionItems) = preProject
@@ -44,7 +44,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Utils", "src\framewo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.FW.Infrastructure.EfCore", "src\framework\VND.FW.Infrastructure.EfCore\VND.FW.Infrastructure.EfCore.csproj", "{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Services.ApiGateway", "src\services\gateway\VND.CoolStore.Services.ApiGateway.csproj", "{C4722C4F-DBD3-4101-A99A-88ABC10912E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Services.ApiGateway", "src\services\gateway\VND.CoolStore.Services.ApiGateway.csproj", "{C4722C4F-DBD3-4101-A99A-88ABC10912E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chart", "chart", "{4A75EB7F-10BD-4284-A8F8-6F1B87C800BF}"
+	ProjectSection(SolutionItems) = preProject
+		deployment\charts\coolstore\.helmignore = deployment\charts\coolstore\.helmignore
+		deployment\charts\coolstore\Chart.yaml = deployment\charts\coolstore\Chart.yaml
+		deployment\charts\coolstore\values.yaml = deployment\charts\coolstore\values.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{955CB2AD-E42E-4DFD-BF74-A15143CD1CCF}"
+	ProjectSection(SolutionItems) = preProject
+		deployment\charts\coolstore\templates\_helpers.tpl = deployment\charts\coolstore\templates\_helpers.tpl
+		deployment\charts\coolstore\templates\deployment.yaml = deployment\charts\coolstore\templates\deployment.yaml
+		deployment\charts\coolstore\templates\ingress.yaml = deployment\charts\coolstore\templates\ingress.yaml
+		deployment\charts\coolstore\templates\NOTES.txt = deployment\charts\coolstore\templates\NOTES.txt
+		deployment\charts\coolstore\templates\secrets.yaml = deployment\charts\coolstore\templates\secrets.yaml
+		deployment\charts\coolstore\templates\service.yaml = deployment\charts\coolstore\templates\service.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +125,7 @@ Global
 		{45A63B09-7BF7-4886-8A31-52148EF8B59A} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
 		{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
 		{C4722C4F-DBD3-4101-A99A-88ABC10912E3} = {A0F90A99-CAD3-491F-9079-D1680D659A9B}
+		{955CB2AD-E42E-4DFD-BF74-A15143CD1CCF} = {4A75EB7F-10BD-4284-A8F8-6F1B87C800BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277B7E0A-BA8E-4DF8-ABD5-890801FC76F8}
