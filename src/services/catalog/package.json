@@ -19,6 +19,7 @@
   "homepage": "https://github.com/vietnam-devs/coolstore-microservice#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "mongodb": "^3.0.10",
     "npm": "^6.0.0"
   }
 }

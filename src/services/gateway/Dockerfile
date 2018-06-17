@@ -3,12 +3,14 @@ WORKDIR /build
 
 # Copy the global and csproj files
 COPY ./src/services/gateway/VND.CoolStore.Services.ApiGateway.csproj ./src/services/gateway/VND.CoolStore.Services.ApiGateway.csproj
+COPY ./src/framework/VND.FW.Domain/VND.Fw.Domain.csproj ./src/framework/VND.FW.Domain/VND.Fw.Domain.csproj
 COPY ./global.json ./global.json
 
 # Restore all packages
 RUN dotnet restore ./src/services/gateway/VND.CoolStore.Services.ApiGateway.csproj --force --no-cache
 
 # Copy the remaining source
+COPY ./src/framework/VND.FW.Domain/ ./src/framework/VND.FW.Domain/
 COPY ./src/services/gateway/ ./src/services/gateway/
 
 # Build the source code
