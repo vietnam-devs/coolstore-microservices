@@ -25,7 +25,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-    - chart-coolstore.local
+    - coolstore.local
   tls: []
     # - secretName: chart-coolstore-tls
     #   hosts:

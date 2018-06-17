@@ -1,21 +1,3 @@
-##################################################################################################
-# Inventory service
-##################################################################################################
-apiVersion: v1
-kind: Service
-metadata:
-  name: inventory-service
-  labels:
-    app: inventory-service
-spec:
-  ports:
-  - port: 5000
-    targetPort: 5000
-    protocol: TCP
-    name: http
-  selector:
-    app: inventory
----
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:

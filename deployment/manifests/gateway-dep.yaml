@@ -1,21 +1,3 @@
-##################################################################################################
-# Gateway service
-##################################################################################################
-apiVersion: v1
-kind: Service
-metadata:
-  name: gateway-service
-  labels:
-    app: gateway-service
-spec:
-  ports:
-  - port: 5000
-    targetPort: 5000
-    protocol: TCP
-    name: http
-  selector:
-    app: gateway
----
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:

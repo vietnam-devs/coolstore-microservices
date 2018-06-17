@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web
+        version: v1
+    spec:
+      containers:
+      - name: web
+        image: vietnamdevsgroup/coolstore-web:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---

@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gateway-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gateway
+        version: v1
+    spec:
+      containers:
+      - name: gateway
+        image: vietnamdevsgroup/coolstore-gateway-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: "ASPNETCORE_BASEPATH"
+          value: "/api/"
+        - name: "CURRENT_HOST_URI"
+          value: "https://192.168.1.5:8443/api"
+        - name: "AUTHORITY_HOST_URI"
+          value: "https://192.168.1.5:8443/idp"
+        ports:
+        - containerPort: 5000
+---
