@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: spa-service
+  name: catalog-service
   labels:
-    app: spa-service
+    app: catalog-service
 spec:
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 3000
+    targetPort: 3000
     protocol: TCP
     name: http
   selector:
-    app: spa
+    app: catalog
 ---

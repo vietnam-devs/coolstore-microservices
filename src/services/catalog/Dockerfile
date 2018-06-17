@@ -1,13 +1,16 @@
-FROM node:10.0.0-slim
+FROM node:alpine
 
-COPY ./src/services/catalog/package.json /opt/microservices/
-COPY ./src/services/catalog/app.js /opt/microservices/
-RUN cd /opt/microservices; yarn install
+RUN mkdir -p /usr/src/services/catalog
+WORKDIR /usr/src/services/catalog
+
+COPY ./src/services/catalog/package.json /usr/src/services/catalog/
+RUN yarn --network-timeout 100000 install
 
 ARG service_version
 ENV SERVICE_VERSION ${service_version:-v1}
 
-EXPOSE 3000
-WORKDIR /opt/microservices
+COPY ./src/services/catalog/ /usr/src/services/catalog/
 
-CMD ["yarn","start"]
+EXPOSE 3000
+
+CMD ["yarn", "start"]
