@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -185,9 +186,10 @@ namespace VND.CoolStore.Services.ApiGateway
 
 		private (string, string, string) GetEnvironmentVariables()
 		{
+			var basePath = Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
+
 			var config = Configuration.GetSection("HostSettings");
 			var currentHostUri = config.GetValue<string>("CurrentHostUri");
-			var basePath = config.GetValue<string>("AspNetCoreBasePath");
 			var authorityServer = config.GetValue<string>("AuthorityHostUri");
 
 			return (authorityServer, currentHostUri, basePath);

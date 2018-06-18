@@ -64,7 +64,6 @@ applicationInsights:
   InstrumentationKey: VALUE_TO_BE_OVERRIDDEN
 
 gatewaySettings:
-  HostSettings__AspNetCoreBasePath: "/api/"
   HostSettings__CurrentHostUri: "https://192.168.1.3:8443/api"
   HostSettings__AuthorityHostUri: "https://192.168.1.3:8443/idp"
 

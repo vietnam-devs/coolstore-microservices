@@ -15,8 +15,8 @@ spec:
         image: vietnamdevsgroup/coolstore-gateway-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "HostSettings__AspNetCoreBasePath"
-          value: {{ .Values.gatewaySettings.HostSettings__AspNetCoreBasePath | quote }}
+        - name: "ASPNETCORE_BASEPATH"
+          value: "/api/"
         - name: "HostSettings__CurrentHostUri"
           value: {{ .Values.gatewaySettings.HostSettings__CurrentHostUri | quote }}
         - name: "HostSettings__AuthorityHostUri"
