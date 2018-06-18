@@ -57,6 +57,35 @@ namespace IdentityServer4
 		{
 			return new[]
 			{
+				// Inventory Swagger UI
+				new Client
+				{
+					ClientId = "swagger_id",
+					ClientName = "swagger_app",
+					ClientSecrets = new List<Secret> {new Secret("secret".Sha256())},
+					AllowedGrantTypes = GrantTypes.Implicit,
+					AllowAccessTokensViaBrowser = true,
+					RedirectUris =
+					{
+						"https://localhost:44367/swagger/oauth2-redirect.html"
+					},
+					PostLogoutRedirectUris =
+					{
+						"https://localhost:44367/swagger"
+					},
+					AllowedCorsOrigins =
+					{
+						"https://localhost:44367"
+					},
+					AccessTokenLifetime = 300,
+					AllowedScopes =
+					{
+						"inventory_api_scope",
+						"cart_api_scope",
+						"pricing_api_scope",
+						"review_api_scope"
+					}
+				},
 				// MVC client using hybrid flow
 				new Client
 				{
@@ -95,42 +124,6 @@ namespace IdentityServer4
 					AllowedCorsOrigins = { "http://localhost:5002" },
 
 					AllowedScopes = { "openid", "profile", "api1" }
-				},
-
-                // Inventory Swagger UI
-                new Client
-				{
-					ClientId = "swagger_id",
-					ClientName = "swagger_app",
-					ClientSecrets = new List<Secret> {new Secret("secret".Sha256())},
-					AllowedGrantTypes = GrantTypes.Implicit,
-					AllowAccessTokensViaBrowser = true,
-					RedirectUris =
-					{
-						"https://localhost:44367/swagger/oauth2-redirect.html",
-						"https://192.168.169.12:8443/api/swagger/oauth2-redirect.html",
-						"https://192.168.1.5:8443/api/swagger/oauth2-redirect.html"
-					},
-					PostLogoutRedirectUris =
-					{
-						"https://localhost:44367/swagger",
-						"https://192.168.169.12:8443/api/swagger",
-						"https://192.168.1.5:8443/api/swagger"
-					},
-					AllowedCorsOrigins =
-					{
-						"https://localhost:44367",
-						"https://192.168.169.12:8443",
-						"https://192.168.1.5:8443"
-					},
-					AccessTokenLifetime = 300,
-					AllowedScopes =
-					{
-						"inventory_api_scope",
-						"cart_api_scope",
-						"pricing_api_scope",
-						"review_api_scope"
-					}
 				}
 			};
 		}

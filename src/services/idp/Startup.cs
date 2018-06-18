@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System.Linq;
 using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,15 +55,25 @@ namespace IdentityServer4
 			.AddJwtBearerClientAuthentication();
 
 			// in-memory, code config
+			var clients = Config.GetClients().ToList();
+
+			// get swagger and process it
+			var hostSettings = Configuration.GetSection("HostSettings");
+			if (hostSettings != null)
+			{
+				clients[0].RedirectUris.Add(hostSettings.GetValue<string>("SwaggerRedirectUri"));
+				clients[0].PostLogoutRedirectUris.Add(hostSettings.GetValue<string>("SwaggerPostLogoutRedirectUri"));
+				clients[0].AllowedCorsOrigins.Add(hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"));
+			}
+
 			builder.AddInMemoryIdentityResources(Config.GetIdentityResources());
 			builder.AddInMemoryApiResources(Config.GetApis());
-
-			// builder.AddInMemoryClients(Config.GetClients());
+			builder.AddInMemoryClients(clients);
 
 			// in-memory, json config
 			// builder.AddInMemoryIdentityResources(Configuration.GetSection("IdentityResources"));
 			// builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
-			builder.AddInMemoryClients(Configuration.GetSection("clients"));
+			// builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
 			builder.AddDeveloperSigningCredential();
 

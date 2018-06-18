@@ -17,6 +17,12 @@ spec:
         env:
         - name: "ASPNETCORE_BASEPATH"
           value: "/idp/"
+        - name: "HostSettings__SwaggerRedirectUri"
+          value: {{ .Values.idpSettings.HostSettings__SwaggerRedirectUri | quote }}
+        - name: "HostSettings__SwaggerPostLogoutRedirectUri"
+          value: {{ .Values.idpSettings.HostSettings__SwaggerPostLogoutRedirectUri | quote }}
+        - name: "HostSettings__SwaggerAllowedCorsOrigin"
+          value: {{ .Values.idpSettings.HostSettings__SwaggerAllowedCorsOrigin | quote }}
         ports:
         - name: http
           containerPort: 5000
