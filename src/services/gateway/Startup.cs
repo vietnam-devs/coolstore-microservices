@@ -75,7 +75,13 @@ namespace VND.CoolStore.Services.ApiGateway
 				});
 
 			services.AddAuthorization(
-				c => { c.AddPolicy("access_inventory_api", p => p.RequireClaim("scope", "inventory_api_scope")); }
+				c =>
+				{
+					c.AddPolicy("access_inventory_api", p => p.RequireClaim("scope", "inventory_api_scope"));
+					c.AddPolicy("access_cart_api", p => p.RequireClaim("scope", "cart_api_scope"));
+					c.AddPolicy("access_pricing_api", p => p.RequireClaim("scope", "pricing_api_scope"));
+					c.AddPolicy("access_review_api", p => p.RequireClaim("scope", "review_api_scope"));
+				}
 			);
 
 			services.AddSwaggerGen(

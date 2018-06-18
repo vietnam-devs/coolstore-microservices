@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VND.CoolStore.Services.ApiGateway.Extensions;
 using VND.CoolStore.Services.ApiGateway.Model;
@@ -22,7 +23,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 		    _urlHelper = urlHelper;
 	    }
 
-	    // [Authorize(AuthenticationSchemes = "Bearer", Policy = "inventory_api_scope")]
+	    [Authorize(AuthenticationSchemes = "Bearer", Policy = "access_inventory_api")]
 	    [HttpGet(Name = nameof(GetAllProducts))]
 		public ActionResult<IEnumerable<Product>> GetAllProducts([FromQuery] Criterion criterion)
         {

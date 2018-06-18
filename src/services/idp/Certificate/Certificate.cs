@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
-namespace VND.Services.Idp.Certificate
+namespace VND.CoolStore.Services.Idp.Certificate
 {
 	/// <summary>
 	/// Reference at https://github.com/dotnet-architecture/eShopOnContainers/blob/dev/src/Services/Identity/Identity.API/Certificate/Certificate.cs

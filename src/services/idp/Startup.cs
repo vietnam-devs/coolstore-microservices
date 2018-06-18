@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +9,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using VND.Services.Idp.Certificate;
+using VND.CoolStore.Services.Idp.Certificate;
 
 namespace IdentityServer4
 {
@@ -57,12 +56,13 @@ namespace IdentityServer4
 			// in-memory, code config
 			builder.AddInMemoryIdentityResources(Config.GetIdentityResources());
 			builder.AddInMemoryApiResources(Config.GetApis());
-			builder.AddInMemoryClients(Config.GetClients());
+
+			// builder.AddInMemoryClients(Config.GetClients());
 
 			// in-memory, json config
 			// builder.AddInMemoryIdentityResources(Configuration.GetSection("IdentityResources"));
 			// builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
-			// builder.AddInMemoryClients(Configuration.GetSection("clients"));
+			builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
 			builder.AddDeveloperSigningCredential();
 

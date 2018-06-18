@@ -23,7 +23,7 @@ namespace IdentityServer4
 		public static IWebHost BuildWebHost(string[] args)
 		{
 			return WebHost.CreateDefaultBuilder(args)
-					.UseKestrel( (context, options) =>
+					.UseKestrel((context, options) =>
 					{
 						if (context.HostingEnvironment.IsDevelopment())
 						{
@@ -35,7 +35,7 @@ namespace IdentityServer4
 							// listen for HTTPS
 							options.Listen(IPAddress.Loopback, 5001, listenOptions =>
 							{
-								listenOptions.UseHttps(VND.Services.Idp.Certificate.Certificate.Get());
+								listenOptions.UseHttps(VND.CoolStore.Services.Idp.Certificate.Certificate.Get());
 							});
 						}
 					})
