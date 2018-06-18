@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Title>MSK: This utils library contains ultility functions and helpers (e.g. string, bytes, hash, modular).</Title>
@@ -11,8 +11,6 @@
     <Authors>Thang Chung</Authors>
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <WarningsAsErrors>true</WarningsAsErrors>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>MSK.CoreModule.Utils</PackageId>
     <PackageTags>msk utils web-development hash modular</PackageTags>
     <PackageProjectUrl>https://github.com/vietnam-devs/coolstore-microservices</PackageProjectUrl>

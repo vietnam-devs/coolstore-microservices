@@ -63,6 +63,11 @@ affinity: {}
 applicationInsights:
   InstrumentationKey: VALUE_TO_BE_OVERRIDDEN
 
+gatewaySettings:
+  HostSettings__AspNetCoreBasePath: "/api/"
+  HostSettings__CurrentHostUri: "https://192.168.1.5:8443/api"
+  HostSettings__AuthorityHostUri: "https://192.168.1.5:8443/idp"
+
 mongodb:
   mongodbUsername: coolstore
   mongodbPassword: c00!st0re

@@ -336,3 +336,6 @@ build
 
 # log files
 **/*log.txt
+
+# ignore all *.dev.yaml files
+# **/*/*.dev.yaml

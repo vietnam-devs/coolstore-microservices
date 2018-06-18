@@ -1,0 +1,9 @@
+dependencies:
+- name: nginx-ingress
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 0.20.3
+- name: mongodb
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 3.0.1
+digest: sha256:f10254075ef089b80242331a09a1bcf00a869d009c546e6471492f28f7043ffb
+generated: 2018-06-18T17:00:48.625899+07:00

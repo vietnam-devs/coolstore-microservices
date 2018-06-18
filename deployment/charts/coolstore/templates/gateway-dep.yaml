@@ -15,12 +15,12 @@ spec:
         image: vietnamdevsgroup/coolstore-gateway-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "ASPNETCORE_BASEPATH"
-          value: "/api/"
-        - name: "CURRENT_HOST_URI"
-          value: "https://192.168.1.5:8443/api"
-        - name: "AUTHORITY_HOST_URI"
-          value: "https://192.168.1.5:8443/idp"
+        - name: "HostSettings__AspNetCoreBasePath"
+          value: {{ .Values.gatewaySettings.HostSettings__AspNetCoreBasePath | quote }}
+        - name: "HostSettings__CurrentHostUri"
+          value: {{ .Values.gatewaySettings.HostSettings__CurrentHostUri | quote }}
+        - name: "HostSettings__AuthorityHostUri"
+          value: {{ .Values.gatewaySettings.HostSettings__AuthorityHostUri | quote }}
         ports:
         - containerPort: 5000
 ---
