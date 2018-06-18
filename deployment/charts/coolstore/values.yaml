@@ -62,3 +62,7 @@ affinity: {}
 
 applicationInsights:
   InstrumentationKey: VALUE_TO_BE_OVERRIDDEN
+
+mongodb:
+  mongodbUsername: coolstore
+  mongodbPassword: c00!st0re
