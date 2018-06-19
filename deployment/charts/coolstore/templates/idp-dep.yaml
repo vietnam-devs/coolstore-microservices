@@ -18,11 +18,11 @@ spec:
         - name: "ASPNETCORE_BASEPATH"
           value: "/idp/"
         - name: "HostSettings__SwaggerRedirectUri"
-          value: {{ .Values.idpSettings.HostSettings__SwaggerRedirectUri | quote }}
+          value: {{ .Values.idpSettings.HostSettings__SwaggerRedirectUri }}
         - name: "HostSettings__SwaggerPostLogoutRedirectUri"
-          value: {{ .Values.idpSettings.HostSettings__SwaggerPostLogoutRedirectUri | quote }}
+          value: {{ .Values.idpSettings.HostSettings__SwaggerPostLogoutRedirectUri }}
         - name: "HostSettings__SwaggerAllowedCorsOrigin"
-          value: {{ .Values.idpSettings.HostSettings__SwaggerAllowedCorsOrigin | quote }}
+          value: {{ .Values.idpSettings.HostSettings__SwaggerAllowedCorsOrigin }}
         ports:
         - name: http
           containerPort: 5000

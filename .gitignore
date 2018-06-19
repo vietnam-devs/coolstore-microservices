@@ -339,4 +339,4 @@ build
 
 # ignore all *.dev.yaml files
 # **/*/*.dev.yaml
-**/*/*.dev.local.yaml
+**/*/*.local.yaml

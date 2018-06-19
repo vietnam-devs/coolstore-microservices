@@ -18,9 +18,9 @@ spec:
         - name: "ASPNETCORE_BASEPATH"
           value: "/api/"
         - name: "HostSettings__CurrentHostUri"
-          value: {{ .Values.gatewaySettings.HostSettings__CurrentHostUri | quote }}
+          value: {{ .Values.gatewaySettings.HostSettings__CurrentHostUri }}
         - name: "HostSettings__AuthorityHostUri"
-          value: {{ .Values.gatewaySettings.HostSettings__AuthorityHostUri | quote }}
+          value: {{ .Values.gatewaySettings.HostSettings__AuthorityHostUri }}
         ports:
         - containerPort: 5000
 ---

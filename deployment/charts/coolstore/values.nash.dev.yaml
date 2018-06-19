@@ -1,0 +1,8 @@
+gatewaySettings:
+  HostSettings__CurrentHostUri: https://192.168.169.12:8443/api
+  HostSettings__AuthorityHostUri: https://192.168.169.12:8443/idp
+
+idpSettings:
+  HostSettings__SwaggerRedirectUri: https://192.168.169.12:8443/api/swagger/oauth2-redirect.html
+  HostSettings__SwaggerPostLogoutRedirectUri: https://192.168.169.12:8443/api/swagger
+  HostSettings__SwaggerAllowedCorsOrigin: https://192.168.169.12:8443
