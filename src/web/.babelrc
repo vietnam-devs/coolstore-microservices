@@ -1,0 +1,9 @@
+{
+	"sourceMaps": true,
+	"presets": [
+		"preact-app"
+	],
+	"plugins": [
+		"transform-class-properties"
+	]
+}

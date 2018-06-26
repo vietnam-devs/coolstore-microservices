@@ -59,7 +59,10 @@ typings/
 
 .DS_Store
 
+.cache
+
 # lock files
 yarn.lock
 package-lock.json
 build
+dist

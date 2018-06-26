@@ -1,13 +1,14 @@
 {
   "private": true,
-  "name": "web",
-  "version": "0.0.0",
+  "name": "coolstore-web",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
-    "build": "preact build",
-    "serve": "preact build && preact serve",
-    "dev": "preact watch",
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "dev": "parcel watch src/index.html",
+    "prod": "npm run build && parcel dist/index.html",
+    "format": "prettier --write '**/*.{js,css,md}'",
     "lint": "eslint src"
   },
   "eslintConfig": {
@@ -23,15 +24,18 @@
     "build/*"
   ],
   "devDependencies": {
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-preset-preact-app": "^0.2.1",
     "eslint": "^4.5.0",
     "eslint-config-synacor": "^1.1.0",
     "if-env": "^1.0.0",
-    "preact-cli": "^2.0.0"
+    "parcel-bundler": "^1.9.3",
+    "prettier": "^1.13.6"
   },
   "dependencies": {
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
-    "preact-router": "^2.5.5",
-    "preact-material-components": "^1.4.3"
+    "preact-material-components": "^1.4.3",
+    "preact-router": "^2.5.5"
   }
 }
