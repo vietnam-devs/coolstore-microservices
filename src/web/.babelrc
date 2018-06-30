@@ -1,9 +1,10 @@
 {
-	"sourceMaps": true,
-	"presets": [
-		"preact-app"
-	],
-	"plugins": [
-		"transform-class-properties"
-	]
+  "presets": [
+    ["env", {
+      "modules": false
+    }]
+  ],
+  "plugins": [
+    "syntax-dynamic-import"
+  ]
 }
