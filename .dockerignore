@@ -1,9 +1,25 @@
-# directories
+.dockerignore
+.env
+.git
+.gitignore
+.vs
+.vscode
+docker-compose*.yml
+docker-compose.dcproj
+*.sln
+*.md
+LICENSE
+*.testsettings
+vsts-docs
+test
+README
 **/bin/
 **/obj/
-**/out/
-
-# files
-Dockerfile*
-**/*.trx
-**/*.md
+**/node_modules/
+**/bower_components/
+**/appsettings.localhost.json
+**/build/
+**/dist/
+deployment
+assets
+docs
