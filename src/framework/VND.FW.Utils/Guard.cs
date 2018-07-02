@@ -81,7 +81,7 @@ namespace VND.Fw.Utils
         /// <exception cref="System.Exception">string value is null or empty</exception>
         public static void NotNullOrEmpty(string value, string message = "String cannot be null or empty")
         {
-            That(!string.IsNullOrEmpty(value), message);
+            That(!String.IsNullOrEmpty(value), message);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace VND.Fw.Utils
                     throw new ArgumentNullException(paramName, "String value cannot be null");
                 }
 
-                if (string.Empty.Equals(value))
+                if (String.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("String value cannot be empty", paramName);
                 }

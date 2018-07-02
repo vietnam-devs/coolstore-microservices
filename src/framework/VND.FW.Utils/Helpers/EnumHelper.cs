@@ -7,6 +7,7 @@ namespace VND.Fw.Utils.Helpers
     public class EnumHelper
     {
         public static IEnumerable<KeyValueObject<TKey>> GetEnumKeyValue<TEnum, TKey>()
+			where TKey : class
         {
             var metas = GetMetadata<TEnum, TKey>();
             var results = metas.Item1.Zip(metas.Item2, (key, value) =>
