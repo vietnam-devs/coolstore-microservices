@@ -17,6 +17,8 @@ spec:
         env:
         - name: "ASPNETCORE_BASEPATH"
           value: "/api/"
+        - name: "DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER"
+          value: "1"
         - name: "HostSettings__CurrentHostUri"
           value: {{ .Values.gatewaySettings.HostSettings__CurrentHostUri }}
         - name: "HostSettings__AuthorityHostUri"

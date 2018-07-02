@@ -71,7 +71,3 @@ idpSettings:
   HostSettings__SwaggerRedirectUri: https://localhost/api/swagger/oauth2-redirect.html
   HostSettings__SwaggerPostLogoutRedirectUri: https://localhost/api/swagger
   HostSettings__SwaggerAllowedCorsOrigin: https://localhost
-
-mongodb:
-  mongodbUsername: coolstore
-  mongodbPassword: c00!st0re
