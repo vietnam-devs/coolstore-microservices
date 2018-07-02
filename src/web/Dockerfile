@@ -3,7 +3,7 @@ FROM node:alpine
 RUN mkdir -p /usr/src/web
 WORKDIR /usr/src/web
 
-COPY ./src/web/package.json /usr/src/web/package.json
+COPY ./src/web/package.json /usr/src/web/
 
 # RUN yarn --network-timeout 100000 install
 RUN npm install

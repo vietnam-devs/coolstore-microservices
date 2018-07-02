@@ -19,6 +19,7 @@ README
 **/bower_components/
 **/appsettings.localhost.json
 **/build/
+!**/web/build/
 **/dist/
 deployment
 assets

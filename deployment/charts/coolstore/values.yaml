@@ -64,13 +64,13 @@ applicationInsights:
   InstrumentationKey: VALUE_TO_BE_OVERRIDDEN
 
 gatewaySettings:
-  HostSettings__CurrentHostUri: https://localhost:8443/api
-  HostSettings__AuthorityHostUri: https://localhost:8443/idp
+  HostSettings__CurrentHostUri: https://localhost/api
+  HostSettings__AuthorityHostUri: https://localhost/idp
 
 idpSettings:
-  HostSettings__SwaggerRedirectUri: https://localhost:8443/api/swagger/oauth2-redirect.html
-  HostSettings__SwaggerPostLogoutRedirectUri: https://localhost:8443/api/swagger
-  HostSettings__SwaggerAllowedCorsOrigin: https://localhost:8443
+  HostSettings__SwaggerRedirectUri: https://localhost/api/swagger/oauth2-redirect.html
+  HostSettings__SwaggerPostLogoutRedirectUri: https://localhost/api/swagger
+  HostSettings__SwaggerAllowedCorsOrigin: https://localhost
 
 mongodb:
   mongodbUsername: coolstore
