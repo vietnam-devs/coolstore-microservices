@@ -1,6 +1,6 @@
 dependencies:
-- name: nginx-ingress
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 0.20.3
-digest: sha256:ce68572012171eaffb9884824c990c96d63283d938eee2f1a916dce76ed2bed8
-generated: 2018-07-02T15:19:30.6243167+07:00
+- name: ambassador
+  repository: https://www.getambassador.io
+  version: 0.35.0
+digest: sha256:1bef01986a1e6224168824cd41298dc89eb1e3ec3a1c19b59d20a299d732e757
+generated: 2018-07-03T18:50:20.3647506+07:00

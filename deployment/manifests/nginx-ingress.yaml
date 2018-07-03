@@ -7,14 +7,14 @@ metadata:
   namespace: default
 spec:
   backend:
-    serviceName: web-service
+    serviceName: spa-service
     servicePort: 8080
   rules:
   - http:
       paths:
       - path: /
         backend:
-          serviceName: web-service
+          serviceName: spa-service
           servicePort: 8080
       - path: /api
         backend:

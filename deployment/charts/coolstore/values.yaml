@@ -60,6 +60,31 @@ tolerations: []
 
 affinity: {}
 
+ambassador:
+  service:
+    type: LoadBalancer
+    port: 80
+    annotations:
+      getambassador.io/config: |
+        ---
+        apiVersion: ambassador/v0
+        kind: Mapping
+        name: spa_mapping
+        prefix: /
+        service: spa-service:8080
+        ---
+        apiVersion: ambassador/v0
+        kind: Mapping
+        name: api_mapping
+        prefix: /api/
+        service: gateway-service:5000
+        ---
+        apiVersion: ambassador/v0
+        kind: Mapping
+        name: idp_mapping
+        prefix: /idp/
+        service: idp-service:5000
+
 applicationInsights:
   InstrumentationKey: VALUE_TO_BE_OVERRIDDEN
 

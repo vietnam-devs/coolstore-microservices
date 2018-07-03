@@ -1,0 +1,58 @@
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: csgateway
+#   annotations:
+#     kubernetes.io/ingress.class: istio
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - path: /.*
+#         backend:
+#           serviceName: spa-service
+#           servicePort: 8080
+#       - path: /idp/.*
+#         backend:
+#           serviceName: idp-service
+#           servicePort: 5000
+#       - path: /api/.*
+#         backend:
+#           serviceName: gateway-service
+#           servicePort: 5000
+# ---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: ambassador
+  name: ambassador
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind: Mapping
+      name: spa_mapping
+      prefix: /
+      service: spa-service:8080
+      ---
+      apiVersion: ambassador/v0
+      kind: Mapping
+      name: gateway_mapping
+      prefix: /api/
+      service: gateway-service:5000
+      ---
+      apiVersion: ambassador/v0
+      kind: Mapping
+      name: idp_mapping
+      prefix: /idp/
+      service: idp-service:5000
+spec:
+  type: LoadBalancer
+  ports:
+  - name: ambassador
+    port: 80
+    targetPort: 80
+  selector:
+    service: ambassador
