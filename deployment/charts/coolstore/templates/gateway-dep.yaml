@@ -16,7 +16,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: "ASPNETCORE_BASEPATH"
-          value: "/api/"
+          value: "/cs/"
         - name: "DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER"
           value: "1"
         - name: "HostSettings__CurrentHostUri"

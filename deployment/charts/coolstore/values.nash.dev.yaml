@@ -1,8 +1,8 @@
 gatewaySettings:
-  HostSettings__CurrentHostUri: https://192.168.169.12:8443/api
-  HostSettings__AuthorityHostUri: https://192.168.169.12:8443/idp
+  HostSettings__CurrentHostUri: http://localhost:32000/cs
+  HostSettings__AuthorityHostUri: http://localhost:32000/idp
 
 idpSettings:
-  HostSettings__SwaggerRedirectUri: https://192.168.169.12:8443/api/swagger/oauth2-redirect.html
-  HostSettings__SwaggerPostLogoutRedirectUri: https://192.168.169.12:8443/api/swagger
-  HostSettings__SwaggerAllowedCorsOrigin: https://192.168.169.12:8443
+  HostSettings__SwaggerRedirectUri: http://localhost:32000/cs/swagger/oauth2-redirect.html
+  HostSettings__SwaggerPostLogoutRedirectUri: http://localhost:32000/cs/swagger
+  HostSettings__SwaggerAllowedCorsOrigin: http://localhost:32000

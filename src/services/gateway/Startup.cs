@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Middlewares;
@@ -25,14 +26,13 @@ namespace VND.CoolStore.Services.ApiGateway
         {
             Configuration = configuration;
             HostingEnvironment = env;
-            IdentityModelEventSource.ShowPII = true;
+			IdentityModelEventSource.ShowPII = true;
         }
 
         public IConfiguration Configuration { get; }
         public IHostingEnvironment HostingEnvironment { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+		public void ConfigureServices(IServiceCollection services)
         {
             var (authorityServer, _, _) = GetEnvironmentVariables();
 

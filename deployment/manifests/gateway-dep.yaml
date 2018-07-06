@@ -16,11 +16,11 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: "ASPNETCORE_BASEPATH"
-          value: "/api/"
+          value: "/cs/"
         - name: "CURRENT_HOST_URI"
-          value: "https://192.168.1.5:8443/api"
+          value: "http://192.168.1.5:8443/cs"
         - name: "AUTHORITY_HOST_URI"
-          value: "https://192.168.1.5:8443/idp"
+          value: "http://192.168.1.5:8443/idp"
         ports:
         - containerPort: 5000
 ---

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using System.IO;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace VND.CoolStore.Services.ApiGateway
@@ -12,6 +13,7 @@ namespace VND.CoolStore.Services.ApiGateway
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+	            .UseContentRoot(Directory.GetCurrentDirectory())
+				.UseStartup<Startup>();
     }
 }
