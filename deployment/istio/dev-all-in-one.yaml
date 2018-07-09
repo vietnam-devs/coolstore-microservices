@@ -1,0 +1,285 @@
+---
+# Source: coolstore/templates/cs-system-ns.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cs-system
+
+---
+# Source: coolstore/templates/ambassador-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: ambassador
+  name: ambassador
+  namespace: default
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind: Mapping
+      name: spa_mapping
+      prefix: /
+      service: spa-service:8080
+      ---
+      apiVersion: ambassador/v0
+      kind: Mapping
+      name: gateway_mapping
+      prefix: /cs/
+      service: gateway-service:5000
+      ---
+      apiVersion: ambassador/v0
+      kind: Mapping
+      name: idp_mapping
+      prefix: /idp/
+      host_redirect: true
+      path_redirect: http://localhost:32767/idp
+      service: idp-service:5000
+spec:
+  type: NodePort
+  ports:
+  - name: ambassador
+    port: 80
+    targetPort: 80
+    nodePort: 32767
+  selector:
+    service: ambassador
+
+---
+# Source: coolstore/templates/catalog-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-service
+  namespace: default
+  labels:
+    app: catalog-service
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+    name: http
+  selector:
+    app: catalog
+---
+
+---
+# Source: coolstore/templates/gateway-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+  namespace: default
+  labels:
+    app: gateway-service
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+    name: http
+  selector:
+    app: gateway
+---
+
+---
+# Source: coolstore/templates/idp-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: idp-service
+  namespace: default
+  labels:
+    app: idp-service
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5001
+    protocol: TCP
+    name: http
+  selector:
+    app: idp
+---
+
+---
+# Source: coolstore/templates/inventory-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-service
+  namespace: default
+  labels:
+    app: inventory-service
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+    name: http
+  selector:
+    app: inventory
+---
+
+---
+# Source: coolstore/templates/spa-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: spa-service
+  namespace: default
+  labels:
+    app: spa-service
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: spa
+---
+
+---
+# Source: coolstore/templates/catalog-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: catalog-v1
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: catalog
+        version: v1
+    spec:
+      containers:
+      - name: catalog
+        image: vndg/cs-catalog-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+---
+
+---
+# Source: coolstore/templates/gateway-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gateway-v1
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gateway
+        version: v1
+    spec:
+      containers:
+      - name: gateway
+        image: vndg/cs-gateway-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: "ASPNETCORE_BASEPATH"
+          value: "/cs/"
+        - name: "DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER"
+          value: "1"
+        - name: "HostSettings__CurrentHostUri"
+          value: http://localhost:32767/cs
+        - name: "HostSettings__AuthorityHostUri"
+          value: http://localhost:32767/idp
+        ports:
+        - name: http
+          containerPort: 5000
+---
+
+---
+# Source: coolstore/templates/idp-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: idp-v1
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: idp
+        version: v1
+    spec:
+      containers:
+      - name: idp
+        image: vndg/cs-idp-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: "ASPNETCORE_BASEPATH"
+          value: "/idp/"
+        - name: "HostSettings__SwaggerRedirectUri"
+          value: http://localhost:32767/cs/swagger/oauth2-redirect.html
+        - name: "HostSettings__SwaggerPostLogoutRedirectUri"
+          value: http://localhost:32767/cs/
+        - name: "HostSettings__SwaggerAllowedCorsOrigin"
+          value: http://localhost:32767
+        ports:
+        - name: http
+          containerPort: 5001
+---
+
+---
+# Source: coolstore/templates/inventory-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: inventory-v1
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: inventory
+        version: v1
+    spec:
+      containers:
+      - name: inventory
+        image: vndg/cs-inventory-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: "ASPNETCORE_BASEPATH"
+          value: "/inventory/"
+        - name: "CURRENT_HOST_URI"
+          value: "https://192.168.1.5:8443/inventory"
+        - name: "AUTHORITY_HOST_URI"
+          value: "https://192.168.1.5:8443/idp"
+        ports:
+        - containerPort: 5000
+---
+
+---
+# Source: coolstore/templates/spa-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spa-v1
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spa
+        version: v1
+    spec:
+      containers:
+      - name: spa
+        image: vndg/cs-spa:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---
+

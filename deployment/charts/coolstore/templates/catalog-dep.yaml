@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: catalog
-        image: vietnamdevsgroup/coolstore-catalog-service:latest
+        image: vndg/cs-catalog-service:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000

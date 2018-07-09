@@ -69,5 +69,5 @@ gatewaySettings:
 
 idpSettings:
   HostSettings__SwaggerRedirectUri: http://localhost/cs/swagger/oauth2-redirect.html
-  HostSettings__SwaggerPostLogoutRedirectUri: http://localhost/cs/swagger
+  HostSettings__SwaggerPostLogoutRedirectUri: http://localhost/cs/
   HostSettings__SwaggerAllowedCorsOrigin: http://localhost

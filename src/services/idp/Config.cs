@@ -53,9 +53,7 @@ namespace IdentityServer4
 			};
 		}
 
-		public static IEnumerable<Client> GetClients()
-		{
-			return new[]
+		public static IEnumerable<Client> GetClients() => new[]
 			{
 				// Inventory Swagger UI
 				new Client
@@ -67,15 +65,15 @@ namespace IdentityServer4
 					AllowAccessTokensViaBrowser = true,
 					RedirectUris =
 					{
-						"https://localhost:44367/swagger/oauth2-redirect.html"
+						"http://localhost:5000/swagger/oauth2-redirect.html"
 					},
 					PostLogoutRedirectUris =
 					{
-						"https://localhost:44367/swagger"
+						"http://localhost:5000/swagger"
 					},
 					AllowedCorsOrigins =
 					{
-						"https://localhost:44367"
+						"http://localhost:5000"
 					},
 					AccessTokenLifetime = 300,
 					AllowedScopes =
@@ -102,8 +100,8 @@ namespace IdentityServer4
 					AllowOfflineAccess = true,
 					AllowedScopes = { "openid", "profile", "inventory_api" }
 				},
-                // SPA client using implicit flow
-                new Client
+        // SPA client using implicit flow
+        new Client
 				{
 					ClientId = "spa",
 					ClientName = "SPA Client",
@@ -126,6 +124,5 @@ namespace IdentityServer4
 					AllowedScopes = { "openid", "profile", "api1" }
 				}
 			};
-		}
 	}
 }

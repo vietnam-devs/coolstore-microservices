@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: idp
-        image: vietnamdevsgroup/coolstore-idp-service:latest
+        image: vndg/cs-idp-service:latest
         imagePullPolicy: IfNotPresent
         env:
         - name: "ASPNETCORE_BASEPATH"
@@ -26,5 +26,5 @@ spec:
           value: {{ .Values.idpSettings.HostSettings__SwaggerAllowedCorsOrigin }}
         ports:
         - name: http
-          containerPort: 5000
+          containerPort: 5001
 ---

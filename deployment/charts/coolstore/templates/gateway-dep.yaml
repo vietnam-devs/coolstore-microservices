@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: gateway
-        image: vietnamdevsgroup/coolstore-gateway-service:latest
+        image: vndg/cs-gateway-service:latest
         imagePullPolicy: IfNotPresent
         env:
         - name: "ASPNETCORE_BASEPATH"
@@ -25,5 +25,6 @@ spec:
         - name: "HostSettings__AuthorityHostUri"
           value: {{ .Values.gatewaySettings.HostSettings__AuthorityHostUri }}
         ports:
-        - containerPort: 5000
+        - name: http
+          containerPort: 5000
 ---

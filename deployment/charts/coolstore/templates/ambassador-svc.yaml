@@ -23,7 +23,7 @@ metadata:
       apiVersion: ambassador/v0
       kind: Mapping
       name: idp_mapping
-      prefix: /idp/
+      path_prefix: /idp
       service: idp-service:5000
 spec:
   type: NodePort
@@ -31,6 +31,6 @@ spec:
   - name: ambassador
     port: 80
     targetPort: 80
-    nodePort: 32000
+    nodePort: 32767
   selector:
     service: ambassador

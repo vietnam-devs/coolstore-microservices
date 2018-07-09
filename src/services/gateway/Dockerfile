@@ -1,5 +1,6 @@
 ﻿FROM microsoft/dotnet:2.1-sdk-alpine AS build
 WORKDIR /build
+EXPOSE 5000
 
 # Copy the global and csproj files
 COPY ./src/framework/VND.FW.Utils/VND.Fw.Utils.csproj ./src/framework/VND.FW.Utils/

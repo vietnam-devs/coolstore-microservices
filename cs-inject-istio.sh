@@ -1,3 +1,5 @@
+#!/bin/bash
+
 helm template deployment/charts/coolstore \
   -f deployment/charts/coolstore/values.dev.yaml \
   > deployment/manifests/dev-all-in-one.yaml

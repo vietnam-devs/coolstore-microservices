@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: spa
-        image: vietnamdevsgroup/coolstore-spa:latest
+        image: vndg/cs-spa:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
