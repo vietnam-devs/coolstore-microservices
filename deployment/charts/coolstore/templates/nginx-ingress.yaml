@@ -6,11 +6,16 @@ metadata:
   name: coolstore-ingress
   namespace: default
 spec:
-  backend:
-    serviceName: spa-service
-    servicePort: 8080
   rules:
-  - http:
+  - host: idp.coolstore.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: idp-service
+          servicePort: 5000
+  - host: coolstore.local
+    http:
       paths:
       - path: /
         backend:
@@ -19,8 +24,4 @@ spec:
       - path: /cs
         backend:
           serviceName: gateway-service
-          servicePort: 5000
-      - path: /idp
-        backend:
-          serviceName: idp-service
           servicePort: 5000

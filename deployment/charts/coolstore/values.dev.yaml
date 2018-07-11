@@ -1,8 +1,8 @@
 gatewaySettings:
-  HostSettings__CurrentHostUri: http://localhost:32767/cs
-  HostSettings__AuthorityHostUri: http://localhost:32767/idp
+  HostSettings__CurrentHostUri: http://coolstore.local/cs
+  HostSettings__AuthorityHostUri: http://idp.coolstore.local
 
 idpSettings:
-  HostSettings__SwaggerRedirectUri: http://localhost:32767/cs/swagger/oauth2-redirect.html
-  HostSettings__SwaggerPostLogoutRedirectUri: http://localhost:32767/cs/
-  HostSettings__SwaggerAllowedCorsOrigin: http://localhost:32767
+  HostSettings__SwaggerRedirectUri: http://coolstore.local/cs/swagger/oauth2-redirect.html
+  HostSettings__SwaggerPostLogoutRedirectUri: http://coolstore.local/cs
+  HostSettings__SwaggerAllowedCorsOrigin: http://coolstore.local

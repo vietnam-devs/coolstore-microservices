@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using IdentityServer4.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -14,7 +16,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Swashbuckle.AspNetCore.Swagger;
-using VND.CoolStore.Services.ApiGateway.Infrastructure.Middlewares;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger;
 
 namespace VND.CoolStore.Services.ApiGateway
@@ -33,7 +34,17 @@ namespace VND.CoolStore.Services.ApiGateway
 
 				public void ConfigureServices(IServiceCollection services)
 				{
+						JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
 						var (authorityServer, _, _) = GetEnvironmentVariables();
+
+						services.AddHttpContextAccessor();
+						services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+						services.AddScoped<IUrlHelper>(implementationFactory =>
+						{
+								var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
+								return new UrlHelper(actionContext);
+						});
 
 						services.AddRouting(options => options.LowercaseUrls = true);
 						services.AddMvcCore().AddVersionedApiExplorer(
@@ -45,28 +56,35 @@ namespace VND.CoolStore.Services.ApiGateway
 
 						services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-						services.AddHttpContextAccessor();
-						services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-						services.AddScoped<IUrlHelper>(implementationFactory =>
-						{
-								var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
-								return new UrlHelper(actionContext);
-						});
-
 						services.AddApiVersioning(o =>
 						{
 								o.ReportApiVersions = true;
 								// o.ApiVersionReader = new HeaderApiVersionReader("api-version");
 						});
 
-						services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-								.AddCookie()
-								.AddIdentityServerAuthentication(c =>
+						services
+								.AddAuthentication(options =>
 								{
-										c.Authority = authorityServer.EndsWith("/") ? authorityServer : $"{authorityServer}/" ;
-										c.RequireHttpsMetadata = false;
-										c.ApiName = "api";
-										c.JwtBackChannelHandler = new HttpClientHandler()
+										options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+										options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+								})
+								.AddJwtBearer(options =>
+								{
+										options.Authority = /*authorityServer*/ $"http://{Environment.GetEnvironmentVariable("IDP_SERVICE_SERVICE_HOST")}:{Environment.GetEnvironmentVariable("IDP_SERVICE_SERVICE_PORT")}";
+										options.RequireHttpsMetadata = false;
+										options.Audience = "api";
+										options.Events = new JwtBearerEvents()
+										{
+												OnAuthenticationFailed = async ctx =>
+												{
+														int i = 0;
+												},
+												OnTokenValidated = async ctx =>
+												{
+														int i = 0;
+												}
+										};
+										options.BackchannelHttpHandler = new HttpClientHandler()
 										{
 												ServerCertificateCustomValidationCallback =
 														HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
@@ -83,34 +101,46 @@ namespace VND.CoolStore.Services.ApiGateway
 								}
 						);
 
-						services.AddSwaggerGen(
-								c =>
+						services.AddSwaggerGen(c =>
+						{
+								var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+
+								c.DescribeAllEnumsAsStrings();
+
+								foreach (var description in provider.ApiVersionDescriptions)
 								{
-										var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+										c.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
+								}
 
-										foreach (var description in provider.ApiVersionDescriptions)
+								// options.IncludeXmlComments (XmlCommentsFilePath);
+
+								// authorityServer = "http://idp-service.default.svc.cluster.local";
+								c.AddSecurityDefinition("oauth2", new OAuth2Scheme
+								{
+										Type = "oauth2",
+										Flow = "implicit",
+										AuthorizationUrl = $"{authorityServer}/connect/authorize",
+										TokenUrl = $"{authorityServer}/connect/token",
+										Scopes = new Dictionary<string, string>
 										{
-												c.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
+												{"inventory_api_scope", "Inventory APIs"},
+												{"cart_api_scope", "Cart APIs"},
+												{"pricing_api_scope", "Pricing APIs"},
+												{"review_api_scope", "Review APIs"}
 										}
-
-							// options.IncludeXmlComments (XmlCommentsFilePath);
-
-							c.AddSecurityDefinition("oauth2", new OAuth2Scheme
-										{
-												Type = "oauth2",
-												Flow = "implicit",
-												AuthorizationUrl = $"{authorityServer}/connect/authorize",
-												Scopes = new Dictionary<string, string>
-												{
-														{"inventory_api_scope", "Inventory APIs"},
-														{"cart_api_scope", "Cart APIs"},
-														{"pricing_api_scope", "Pricing APIs"},
-														{"review_api_scope", "Review APIs"}
-												}
-										});
-
-										c.OperationFilter<SecurityRequirementsOperationFilter>();
 								});
+
+								c.OperationFilter<SecurityRequirementsOperationFilter>();
+						});
+
+						services.AddCors(options =>
+						{
+								options.AddPolicy("CorsPolicy",
+										policy => policy.AllowAnyOrigin()
+												.AllowAnyMethod()
+												.AllowAnyHeader()
+												.AllowCredentials());
+						});
 				}
 
 				// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -145,6 +175,20 @@ namespace VND.CoolStore.Services.ApiGateway
 						app.Map("/liveness", lapp => lapp.Run(async ctx => ctx.Response.StatusCode = 200));
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
+						if (!env.IsDevelopment())
+						{
+								var fordwardedHeaderOptions = new ForwardedHeadersOptions
+								{
+										ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+																		 ForwardedHeaders.XForwardedProto,
+								};
+
+								fordwardedHeaderOptions.KnownNetworks.Clear();
+								fordwardedHeaderOptions.KnownProxies.Clear();
+								app.UseForwardedHeaders(fordwardedHeaderOptions);
+						}
+
+						app.UseCors("CorsPolicy");
 						app.UseAuthentication();
 
 						// app.UseMiddleware<LoggingMiddleware>();
@@ -156,8 +200,8 @@ namespace VND.CoolStore.Services.ApiGateway
 								{
 										var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
 
-							// build a swagger endpoint for each discovered API version
-							foreach (var description in provider.ApiVersionDescriptions)
+										// build a swagger endpoint for each discovered API version
+										foreach (var description in provider.ApiVersionDescriptions)
 										{
 												c.SwaggerEndpoint($"{basePath}swagger/{description.GroupName}/swagger.json",
 														description.GroupName.ToUpperInvariant());

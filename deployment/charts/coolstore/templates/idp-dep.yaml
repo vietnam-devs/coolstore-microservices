@@ -17,7 +17,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: "ASPNETCORE_BASEPATH"
-          value: "/idp/"
+          value: "/"
         - name: "HostSettings__SwaggerRedirectUri"
           value: {{ .Values.idpSettings.HostSettings__SwaggerRedirectUri }}
         - name: "HostSettings__SwaggerPostLogoutRedirectUri"

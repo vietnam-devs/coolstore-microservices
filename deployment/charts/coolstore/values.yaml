@@ -64,10 +64,10 @@ applicationInsights:
   InstrumentationKey: VALUE_TO_BE_OVERRIDDEN
 
 gatewaySettings:
-  HostSettings__CurrentHostUri: http://localhost/cs
-  HostSettings__AuthorityHostUri: http://localhost/idp
+  HostSettings__CurrentHostUri: http://coolstore.local/cs
+  HostSettings__AuthorityHostUri: http://idp.coolstore.local
 
 idpSettings:
-  HostSettings__SwaggerRedirectUri: http://localhost/cs/swagger/oauth2-redirect.html
-  HostSettings__SwaggerPostLogoutRedirectUri: http://localhost/cs/
-  HostSettings__SwaggerAllowedCorsOrigin: http://localhost
+  HostSettings__SwaggerRedirectUri: http://coolstore.local/cs/swagger/oauth2-redirect.html
+  HostSettings__SwaggerPostLogoutRedirectUri: http://coolstore.local/cs
+  HostSettings__SwaggerAllowedCorsOrigin: http://coolstore.local
