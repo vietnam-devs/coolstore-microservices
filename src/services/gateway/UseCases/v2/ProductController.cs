@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using VND.CoolStore.Services.ApiGateway.Extensions;
 using VND.CoolStore.Services.ApiGateway.Model;
 using VND.Fw.Domain;
@@ -63,32 +63,45 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 				{
 						return new List<Product>
 						{
-							new Product
-							{
-								Id = Guid.NewGuid(),
-								Name = "Product 1",
-								Desc = "This is a product 1",
-								Price = 100.54,
-								Rating = new Rating
+								new Product
 								{
-									Id = Guid.NewGuid(),
-									Rate = 4.5,
-									Count = 100
-								}
-							},
-							new Product
-							{
-								Id = Guid.NewGuid(),
-								Name = "Product 2",
-								Desc = "This is a product 2",
-								Price = 120.30,
-								Rating = new Rating
+										Id = Guid.NewGuid(),
+										Name = "Product 1",
+										Desc = "This is a product 1",
+										Price = 100.54,
+										Rating = new Rating
+										{
+												Id = Guid.NewGuid(),
+												Rate = 4.5,
+												Count = 100
+										}
+								},
+								new Product
 								{
-									Id = Guid.NewGuid(),
-									Rate = 3,
-									Count = 20
+										Id = Guid.NewGuid(),
+										Name = "Product 2",
+										Desc = "This is a product 2",
+										Price = 120.30,
+										Rating = new Rating
+										{
+												Id = Guid.NewGuid(),
+												Rate = 3,
+												Count = 20
+										}
+								},
+								new Product
+								{
+										Id = Guid.NewGuid(),
+										Name = "Product 3",
+										Desc = "This is a product 3",
+										Price = 2.30,
+										Rating = new Rating
+										{
+												Id = Guid.NewGuid(),
+												Rate = 3,
+												Count = 20
+										}
 								}
-							}
 						};
 				}
 

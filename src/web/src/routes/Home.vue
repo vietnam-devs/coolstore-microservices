@@ -3,65 +3,31 @@
     <div class="container">
       <h1>&nbsp;</h1>
       <div class="tile is-ancestor">
-        <div class="tile is-parent">
+        <div v-for="product in products" class="tile is-parent">
           <article class="tile tile is-child box">
-            <p class="title">Red Fedora</p>
-            <p class="subtitle">Official Red Hat Fedora</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>$34.99</p>
+            <p class="title">{{product.name}}</p>
+            <p class="subtitle">{{product.desc}}</p>
+            <img class="img-responsive img-circle" v-bind:src="'dist/imgs/'+ product.name + '.jpg'" />            
             <section>
-              <b-field>
-                <b-input placeholder="Number" type="number" value="1" min="1" max="20" style="width: 4em">
-                </b-input>
-                <button class="button is-primary">Add To Cart</button>
-                <span class="tag is-dark">
-                  736 left!
-                </span>
-                <span class="icon has-text-info">
-                  <i class="fas fa-info-circle"></i>
-                </span>
-              </b-field>
+                <b-field>
+                    <span>${{product.price}}</span>
+                    <span class="tag-right"><star-rating v-bind:star-size="20" v-model="product.rating.rate" v-bind:show-rating="false"></star-rating></span>
+                </b-field>
             </section>
-          </article>
-        </div>
-        <div class="tile is-parent">
-          <article class="tile tile is-child box">
-            <p class="title">Red Fedora</p>
-            <p class="subtitle">Official Red Hat Fedora</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>$34.99</p>
             <section>
               <b-field>
                 <b-input placeholder="Number" type="number" value="1" min="1" max="20" style="width: 4em">
                 </b-input>
                 <button class="button is-primary">Add To Cart</button>
-                <span class="tag is-dark">
-                  736 left!
-                </span>
-                <span class="icon has-text-info">
-                  <i class="fas fa-info-circle"></i>
-                </span>
-              </b-field>
-            </section>
-          </article>
-        </div>
-        <div class="tile is-parent">
-          <article class="tile tile is-child box">
-            <p class="title">Red Fedora</p>
-            <p class="subtitle">Official Red Hat Fedora</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>$34.99</p>
-            <section>
-              <b-field>
-                <b-input placeholder="Number" type="number" value="1" min="1" max="20" style="width: 4em">
-                </b-input>
-                <button class="button is-primary">Add To Cart</button>
-                <span class="tag is-dark">
-                  736 left!
-                </span>
-                <span class="icon has-text-info">
-                  <i class="fas fa-info-circle"></i>
-                </span>
+                <div class="tag-right">
+                    <span class="tag is-dark ">
+                        <template v-if="product.availability">{{product.availability.quantity}}</template>
+                        <template v-if="!product.availability">0</template>
+                    </span>
+                    <span class="icon has-text-info">
+                    <i class="fas fa-info-circle"></i>
+                    </span>
+                </div>
               </b-field>
             </section>
           </article>
@@ -72,7 +38,42 @@
 </template>
 
 <script>
-  export default {
-    name: 'home'
-  }
+    import StarRating from 'vue-star-rating'
+    import { watchList } from '../api'
+    import { productimage1 } from '../imgs/Product 1.jpg'
+    export default {
+        name: 'home',
+        components: {
+            StarRating
+        },
+        computed: {
+            products () {
+                return this.$store.state.products;
+            }   
+        },
+        beforeMount () {
+            this.loadItems(this.page)
+        },
+
+        methods: {
+            loadItems (page) {
+                this.$store.dispatch('FETCH_LIST_DATA', {page});
+            },
+
+            formatPrice(value) {
+                let val = (value/1).toFixed(2).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            }
+        }
+    }
 </script>
+<style lang="stylus">
+.tag-right
+    margin-left auto
+.img-circle
+    border-radius 50%
+.img-responsive
+    width 100%
+.star-width
+    width 20%
+</style>
