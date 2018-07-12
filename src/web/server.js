@@ -5,6 +5,8 @@ const express = require('express')
 const favicon = require('serve-favicon')
 const compression = require('compression')
 const microcache = require('route-cache')
+const proxy = require('express-http-proxy');
+
 const resolve = file => path.resolve(__dirname, file)
 const {
   createBundleRenderer
@@ -65,6 +67,24 @@ const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
 })
 
+var host = process.env.GATEWAY_SERVICE_SERVICE_HOST;
+var port = process.env.GATEWAY_SERVICE_SERVICE_PORT;
+
+if(!port){
+	port = 80
+}
+
+if(!host){
+	host = 'http://localhost:5000/api'
+}else{
+	host = `${host}:${port}/api`
+}
+
+app.use('/api/*', proxy({
+	target: host,
+	logLevel: "debug"
+}));
+
 app.use(compression({
   threshold: 0
 }))
@@ -120,7 +140,7 @@ app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 })
 
-const port = process.env.PORT || 8080
+port = process.env.PORT || 8080
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
 })
