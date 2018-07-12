@@ -16,8 +16,8 @@ spec:
         image: vndg/cs-idp-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "ASPNETCORE_BASEPATH"
-          value: "/"
+        - name: "HostSettings__BasePath"
+          value: {{ .Values.idpSettings.HostSettings__BasePath }}
         - name: "HostSettings__SwaggerRedirectUri"
           value: {{ .Values.idpSettings.HostSettings__SwaggerRedirectUri }}
         - name: "HostSettings__SwaggerPostLogoutRedirectUri"

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -17,7 +14,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+using VND.CoolStore.Services.ApiGateway.Extensions;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger;
+using VND.FW.Infrastructure.AspNetCore.Middlewares;
 
 namespace VND.CoolStore.Services.ApiGateway
 {
@@ -26,18 +25,22 @@ namespace VND.CoolStore.Services.ApiGateway
 				public Startup(IConfiguration configuration, IHostingEnvironment env)
 				{
 						Configuration = configuration;
-						HostingEnvironment = env;
+						Environment = env;
 						IdentityModelEventSource.ShowPII = true;
 				}
 
 				public IConfiguration Configuration { get; }
-				public IHostingEnvironment HostingEnvironment { get; }
+				public IHostingEnvironment Environment { get; }
 
 				public void ConfigureServices(IServiceCollection services)
 				{
 						JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-						var (authorityServer, _, _) = GetEnvironmentVariables();
+						var internalAuthServerUri = Environment.IsDevelopment() 
+								? Configuration.GetExternalAuthHostUri() 
+								: Configuration.GetInternalAuthHostUri();
+
+						var externalAuthServerUri = Configuration.GetExternalAuthHostUri();
 
 						services.AddHttpContextAccessor();
 						services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -73,25 +76,9 @@ namespace VND.CoolStore.Services.ApiGateway
 								})
 								.AddJwtBearer(options =>
 								{
-										options.Authority = /*authorityServer*/ $"http://{Environment.GetEnvironmentVariable("IDP_SERVICE_SERVICE_HOST")}:{Environment.GetEnvironmentVariable("IDP_SERVICE_SERVICE_PORT")}";
+										options.Authority = internalAuthServerUri;
 										options.RequireHttpsMetadata = false;
 										options.Audience = "api";
-										options.Events = new JwtBearerEvents()
-										{
-												OnAuthenticationFailed = async ctx =>
-												{
-														int i = 0;
-												},
-												OnTokenValidated = async ctx =>
-												{
-														int i = 0;
-												}
-										};
-										options.BackchannelHttpHandler = new HttpClientHandler()
-										{
-												ServerCertificateCustomValidationCallback =
-														HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-										};
 								});
 
 						services.AddAuthorization(
@@ -117,13 +104,12 @@ namespace VND.CoolStore.Services.ApiGateway
 
 								// options.IncludeXmlComments (XmlCommentsFilePath);
 
-								// authorityServer = "http://idp-service.default.svc.cluster.local";
 								c.AddSecurityDefinition("oauth2", new OAuth2Scheme
 								{
 										Type = "oauth2",
 										Flow = "implicit",
-										AuthorizationUrl = $"{authorityServer}/connect/authorize",
-										TokenUrl = $"{authorityServer}/connect/token",
+										AuthorizationUrl = $"{externalAuthServerUri}/connect/authorize",
+										TokenUrl = $"{externalAuthServerUri}/connect/token",
 										Scopes = new Dictionary<string, string>
 										{
 												{"inventory_api_scope", "Inventory APIs"},
@@ -149,7 +135,8 @@ namespace VND.CoolStore.Services.ApiGateway
 				// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 				public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 				{
-						var (_, currentHostUri, basePath) = GetEnvironmentVariables();
+						var basePath = Configuration.GetBasePath();
+						var currentHostUri = Configuration.GetExternalCurrentHostUri();
 
 						loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 						loggerFactory.AddDebug();
@@ -180,21 +167,14 @@ namespace VND.CoolStore.Services.ApiGateway
 
 						if (!env.IsDevelopment())
 						{
-								var fordwardedHeaderOptions = new ForwardedHeadersOptions
-								{
-										ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-																		 ForwardedHeaders.XForwardedProto,
-								};
-
-								fordwardedHeaderOptions.KnownNetworks.Clear();
-								fordwardedHeaderOptions.KnownProxies.Clear();
-								app.UseForwardedHeaders(fordwardedHeaderOptions);
+								app.UseForwardedHeaders();
 						}
 
 						app.UseCors("CorsPolicy");
 						app.UseAuthentication();
 
-						// app.UseMiddleware<LoggingMiddleware>();
+						app.UseMiddleware<LogHandlerMiddleware>();
+						app.UseMiddleware<ErrorHandlerMiddleware>();
 
 						app.UseMvc();
 						app.UseSwagger();
@@ -235,17 +215,6 @@ namespace VND.CoolStore.Services.ApiGateway
 						}
 
 						return info;
-				}
-
-				private (string, string, string) GetEnvironmentVariables()
-				{
-						var basePath = Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
-
-						var config = Configuration.GetSection("HostSettings");
-						var currentHostUri = config.GetValue<string>("CurrentHostUri");
-						var authorityServer = config.GetValue<string>("AuthorityHostUri");
-
-						return (authorityServer, currentHostUri, basePath);
 				}
 		}
 }
