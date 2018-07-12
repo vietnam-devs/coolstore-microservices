@@ -6,7 +6,12 @@ namespace VND.FW.Infrastructure.AspNetCore
 {
     public static class HttpRequestExtensions
     {
-        public static IEnumerable<KeyValuePair<string, string>> GetOpenTracingInfo(this HttpRequest request)
+				/// <summary>
+				/// Follow at http://opentracing.io/documentation/pages/spec
+				/// </summary>
+				/// <param name="request"></param>
+				/// <returns></returns>
+				public static IEnumerable<KeyValuePair<string, string>> GetOpenTracingInfo(this HttpRequest request)
         {
             return request.Headers.Where(x =>
                 x.Key == "x-request-id" ||

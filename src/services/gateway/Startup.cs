@@ -4,6 +4,7 @@ using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -16,6 +17,7 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using VND.CoolStore.Services.ApiGateway.Extensions;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger;
+using VND.FW.Infrastructure.AspNetCore;
 using VND.FW.Infrastructure.AspNetCore.Middlewares;
 
 namespace VND.CoolStore.Services.ApiGateway
@@ -36,19 +38,21 @@ namespace VND.CoolStore.Services.ApiGateway
 				{
 						JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-						var internalAuthServerUri = Environment.IsDevelopment() 
+						var authServerUri = Environment.IsDevelopment() 
 								? Configuration.GetExternalAuthHostUri() 
 								: Configuration.GetInternalAuthHostUri();
 
 						var externalAuthServerUri = Configuration.GetExternalAuthHostUri();
 
 						services.AddHttpContextAccessor();
+						services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 						services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 						services.AddScoped<IUrlHelper>(implementationFactory =>
 						{
 								var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
 								return new UrlHelper(actionContext);
 						});
+						services.AddSingleton(typeof(RestClient), typeof(RestClient));
 
 						services.AddRouting(options => options.LowercaseUrls = true);
 						services.AddMvcCore().AddVersionedApiExplorer(
@@ -65,7 +69,6 @@ namespace VND.CoolStore.Services.ApiGateway
 						services.AddApiVersioning(o =>
 						{
 								o.ReportApiVersions = true;
-								// o.ApiVersionReader = new HeaderApiVersionReader("api-version");
 						});
 
 						services
@@ -76,7 +79,7 @@ namespace VND.CoolStore.Services.ApiGateway
 								})
 								.AddJwtBearer(options =>
 								{
-										options.Authority = internalAuthServerUri;
+										options.Authority = authServerUri;
 										options.RequireHttpsMetadata = false;
 										options.Audience = "api";
 								});

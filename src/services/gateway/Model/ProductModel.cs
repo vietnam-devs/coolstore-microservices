@@ -2,7 +2,7 @@
 
 namespace VND.CoolStore.Services.ApiGateway.Model
 {
-	public class Product
+	public class ProductModel
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }

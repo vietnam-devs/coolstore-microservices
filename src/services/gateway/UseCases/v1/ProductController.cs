@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VND.CoolStore.Services.ApiGateway.Extensions;
 using VND.CoolStore.Services.ApiGateway.Model;
 using VND.Fw.Domain;
@@ -12,22 +14,32 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 		/// <summary>
 		/// Reference at https://github.com/FabianGosebrink/ASPNETCore-WebAPI-Sample/blob/master/SampleWebApiAspNetCore/Controllers/v1/FoodsController.cs
 		/// </summary>
-		[ApiVersion("2.0")]
+		[ApiVersion("1.0")]
 		[Route("api/v{api-version:apiVersion}/products")]
-		public class ProductController : Controller
+		public class ProductController : FW.Infrastructure.AspNetCore.ControllerBase
 		{
 				private readonly IUrlHelper _urlHelper;
+				private readonly string _catalogServiceUri;
 
-				public ProductController(IUrlHelper urlHelper)
+				public ProductController(RestClient restClient, IUrlHelper urlHelper, IHostingEnvironment env)
+						: base(restClient)
 				{
 						_urlHelper = urlHelper;
+						_catalogServiceUri = env.IsDevelopment()
+								? "http://localhost:5002"
+								: $"http://{Environment.GetEnvironmentVariable("CATALOG_SERVICE_SERVICE_HOST")}:{Environment.GetEnvironmentVariable("IDP_SERVICE_SERVICE_PORT")}";
+
+						
 				}
 
 				[Auth(Policy = "access_inventory_api")]
 				[HttpGet(Name = nameof(GetAllProducts))]
-				public ActionResult<IEnumerable<Product>> GetAllProducts([FromQuery] Criterion criterion)
+				public async Task<ActionResult<IEnumerable<ProductModel>>> GetAllProducts([FromQuery] Criterion criterion)
 				{
-						var products = ProductStub();
+						InitRestClientWithOpenTracing();
+
+						var getProductsEndPoint = $"{_catalogServiceUri}/api/v1/products";
+						var products = await RestClient.GetAsync<List<ProductModel>>(getProductsEndPoint);
 						var numberOfProducts = products.Count();
 
 						var paginationMetadata = new
@@ -54,55 +66,14 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 
 				[HttpGet]
 				[Route("{id:guid}", Name = nameof(GetProduct))]
-				public ActionResult<Product> GetProduct(Guid id)
+				public async Task<ActionResult<ProductModel>> GetProduct(Guid id)
 				{
-						return ProductStub().FirstOrDefault(x => x.Id == id);
-				}
+						InitRestClientWithOpenTracing();
 
-				private IEnumerable<Product> ProductStub()
-				{
-						return new List<Product>
-						{
-								new Product
-								{
-										Id = Guid.NewGuid(),
-										Name = "Product 1",
-										Desc = "This is a product 1",
-										Price = 100.54,
-										Rating = new Rating
-										{
-												Id = Guid.NewGuid(),
-												Rate = 4.5,
-												Count = 100
-										}
-								},
-								new Product
-								{
-										Id = Guid.NewGuid(),
-										Name = "Product 2",
-										Desc = "This is a product 2",
-										Price = 120.30,
-										Rating = new Rating
-										{
-												Id = Guid.NewGuid(),
-												Rate = 3,
-												Count = 20
-										}
-								},
-								new Product
-								{
-										Id = Guid.NewGuid(),
-										Name = "Product 3",
-										Desc = "This is a product 3",
-										Price = 2.30,
-										Rating = new Rating
-										{
-												Id = Guid.NewGuid(),
-												Rate = 3,
-												Count = 20
-										}
-								}
-						};
+						var getProductEndPoint = $"{_catalogServiceUri}/api/v1/products/{id}";
+						var product = await RestClient.GetAsync<List<ProductModel>>(getProductEndPoint);
+
+						return Ok(product);
 				}
 
 				private List<LinkItem> CreateLinksForCollection(Criterion criterion, int totalCount)
@@ -155,7 +126,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 						return links;
 				}
 
-				private dynamic ExpandSingleFoodItem(Product item)
+				private dynamic ExpandSingleFoodItem(ProductModel item)
 				{
 						var links = GetLinks(item.Id);
 						var resourceToReturn = item.ToDynamic() as IDictionary<string, object>;

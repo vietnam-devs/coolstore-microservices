@@ -5,12 +5,11 @@ WORKDIR /usr/src/web
 
 COPY ./src/web/package.json /usr/src/web/
 
-# RUN yarn --network-timeout 100000 install
-RUN npm install
+RUN yarn --network-timeout 100000 install
 
 COPY ./src/web/ /usr/src/web/
-RUN npm run build
+RUN yarn run build
 
 EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]

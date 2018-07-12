@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
+namespace VND.CoolStore.Services.ApiGateway.UseCases.v2
 {
-	[ApiVersion("1.0")]
+	[ApiVersion("2.0")]
 	[Route("api/v{api-version:apiVersion}/[controller]")]
 	public class ValuesController : ControllerBase
     {

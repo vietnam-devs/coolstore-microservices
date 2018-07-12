@@ -7,8 +7,8 @@ metadata:
     app: catalog-service
 spec:
   ports:
-  - port: 3000
-    targetPort: 3000
+  - port: 5000
+    targetPort: 5002
     protocol: TCP
     name: http
   selector:

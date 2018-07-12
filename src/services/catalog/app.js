@@ -1,11 +1,11 @@
 // Reference at https://dzone.com/articles/kubernetes-and-mean-stack-for-microservices-develo
 
-var express = require('express');
-var app = express();
+var express = require('express')
+var app = express()
 
 app.get('/', function (req, res) {
-  res.send("Hi. I'm Catalog Service.");
-});
+  res.send("Catalog Service.")
+})
 
 /*app.get('/products', function (req, res) {
       var MongoClient = require('mongodb').MongoClient;
@@ -38,19 +38,45 @@ app.get('/', function (req, res) {
         }
       });*/
 
-app.post('/products', function (req, res) {
+app.get('/api/v1/products', function (req, res) {
+  res.send([
+    {
+      id: 'ba16da71-c7dd-4eac-9ead-5c2c2244e69f',
+      name: 'IPhone 8',
+      desc: 'IPhone 8',
+      price: 900
+    },
+    {
+      id: '13d02035-2286-4055-ad2d-6855a60efbbb',
+      name: 'IPhone X',
+      desc: 'IPhone X',
+      price: 1000
+    }
+  ])
+})
 
-});
-
-app.get('/health', function (req, res) {
+app.get('/api/v1/products/:productId', function (req, res) {
   res.send({
-    status: 'Catalog Service is healthy.'
-  });
-});
+    id: 'ba16da71-c7dd-4eac-9ead-5c2c2244e69f',
+    name: 'IPhone 8',
+    desc: 'IPhone 8',
+    price: 900
+  })
+})
 
-app.listen(3000, () => {
-  console.log('App is running at http://localhost:3000');
-  console.log('Press CTRL-C to stop\n');
-});
+app.post('/api/v1/products', function (req, res) {
+  res.send(req.body)
+})
 
-module.exports = app;
+app.get('/healthz', function (req, res) {
+  res.send({
+    status: 'Healthy!'
+  })
+})
+
+app.listen(5002, () => {
+  console.log('App is running at http://localhost:5002')
+  console.log('Press CTRL-C to stop\n')
+})
+
+module.exports = app

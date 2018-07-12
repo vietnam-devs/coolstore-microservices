@@ -1,19 +1,19 @@
 @token = xxxxxxxxxxxxxxx
 
 ##########################################
-## Product Catalog Service
+## Node: Product Catalog Service
 ##########################################
 
 @productId = "{{$guid}}"
 
 ###
-GET http://localhost:5000/api/v2/products HTTP/1.1 
+GET http://localhost:5000/api/v1/products HTTP/1.1 
 content-type: application/json
 authorization: Bearer {{token}}
 ### 
-GET http://localhost:5000/api/v2/products/{{productId}} HTTP/1.1
+GET http://localhost:5000/api/v1/products/{{productId}} HTTP/1.1
 ###
-POST http://localhost:5000/api/v2/products HTTP/1.1
+POST http://localhost:5000/api/v1/products HTTP/1.1
 content-type: application/json
 
 {
@@ -24,19 +24,19 @@ content-type: application/json
 }
 
 ##########################################
-## Inventory Service
+## .NET: Inventory Service
 ##########################################
 
 ### 
 GET http://localhost:5000/api/v2/availability/{{itemId}} HTTP/1.1
 
 ##########################################
-## Pricing Service
+## .NET: Pricing Service
 ##########################################
 
 
 ##########################################
-## Rating Service
+## Node: Rating Service
 ##########################################
 
 ### 
@@ -52,14 +52,14 @@ content-type: application/json
 }
 
 ##########################################
-## Review Service
+## .NET: Review Service
 ##########################################
 
 ###
 GET http://localhost:5000/api/v2/reviews/{{itemId}} HTTP/1.1
 
 ##########################################
-## Cart Service
+## .NET: Cart Service
 ##########################################
 
 @cartId = "{{$guid}}"

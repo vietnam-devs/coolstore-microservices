@@ -23,5 +23,5 @@ spec:
         - name: "AUTHORITY_HOST_URI"
           value: "https://192.168.1.5:8443/idp"
         ports:
-        - containerPort: 5000
+        - containerPort: 5004
 ---

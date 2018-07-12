@@ -16,5 +16,5 @@ spec:
         image: vndg/cs-catalog-service:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 3000
+        - containerPort: 5002
 ---
