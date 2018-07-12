@@ -11,8 +11,10 @@
     "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.server.config.js --progress --hide-modules"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "buefy": "^0.6.6",
     "compression": "^1.7.2",
+    "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
     "es6-promise": "^4.2.4",
     "express": "^4.16.3",
@@ -23,6 +25,7 @@
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vue-server-renderer": "^2.5.16",
+    "vue-star-rating": "^1.6.0",
     "vuex": "^3.0.1",
     "vuex-router-sync": "^5.0.0"
   },
@@ -34,6 +37,8 @@
     "babel-preset-env": "^1.7.0",
     "chokidar": "^2.0.4",
     "css-loader": "^0.28.11",
+    "eslint": "^5.1.0",
+    "eslint-plugin-vue": "^4.5.0",
     "file-loader": "^1.1.11",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "rimraf": "^2.6.2",

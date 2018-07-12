@@ -88,6 +88,19 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 					    Rate = 3,
 					    Count = 20
 				    }
+			    },
+				new Product
+			    {
+				    Id = Guid.NewGuid(),
+				    Name = "Product 3",
+				    Desc = "This is a product 3",
+				    Price = 2.30,
+				    Rating = new Rating
+				    {
+					    Id = Guid.NewGuid(),
+					    Rate = 3,
+					    Count = 20
+				    }
 			    }
 			};
 	    }

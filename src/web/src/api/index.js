@@ -11,7 +11,7 @@ const api = createAPI({
 })
 
 export function getProducts(pageIndex = 0) {
-    return api.get(`products?CurrentPage=${pageIndex}`)
+    return api.get(`products?current-page=${pageIndex}`)
 }
 
 export function watchList(cb, pageIndex = 0) {

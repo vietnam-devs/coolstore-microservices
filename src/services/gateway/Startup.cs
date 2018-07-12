@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger;
 
@@ -54,7 +55,9 @@ namespace VND.CoolStore.Services.ApiGateway
 										options.SubstituteApiVersionInUrl = true;
 								});
 
-						services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+						services.AddMvc()
+								.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
+								.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 						services.AddApiVersioning(o =>
 						{
