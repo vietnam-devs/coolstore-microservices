@@ -6,7 +6,7 @@ import {
 const api = createAPI({
     version: '/v2',
     config: {
-        databaseURL: 'http://localhost:5000/api'
+        databaseURL: '/api'
     }
 })
 
