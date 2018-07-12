@@ -110,7 +110,7 @@ namespace IdentityServer4
 								app.UseExceptionHandler("/Home/Error");
 						}
 
-						string basePath = System.Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
+						string basePath = Configuration.GetSection("HostSettings")?.GetValue<string>("BasePath");
 						if (!string.IsNullOrEmpty(basePath))
 						{
 								loggerFactory.CreateLogger("init").LogDebug($"Using PATH BASE '{basePath}'");
@@ -127,15 +127,7 @@ namespace IdentityServer4
 
 						if (!Environment.IsDevelopment())
 						{
-								var fordwardedHeaderOptions = new ForwardedHeadersOptions
-								{
-										ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-																		 ForwardedHeaders.XForwardedProto,
-								};
-
-								fordwardedHeaderOptions.KnownNetworks.Clear();
-								fordwardedHeaderOptions.KnownProxies.Clear();
-								app.UseForwardedHeaders(fordwardedHeaderOptions);
+								app.UseForwardedHeaders();
 						}
 
 						app.UseCors("CorsPolicy");

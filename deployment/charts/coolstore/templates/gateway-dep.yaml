@@ -16,14 +16,12 @@ spec:
         image: vndg/cs-gateway-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "ASPNETCORE_BASEPATH"
-          value: "/cs/"
-        - name: "DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER"
-          value: "1"
-        - name: "HostSettings__CurrentHostUri"
-          value: {{ .Values.gatewaySettings.HostSettings__CurrentHostUri }}
-        - name: "HostSettings__AuthorityHostUri"
-          value: {{ .Values.gatewaySettings.HostSettings__AuthorityHostUri }}
+        - name: "HostSettings__BasePath"
+          value: {{ .Values.gatewaySettings.HostSettings__BasePath }}
+        - name: "HostSettings__ExternalCurrentHostUri"
+          value: {{ .Values.gatewaySettings.HostSettings__ExternalCurrentHostUri }}
+        - name: "HostSettings__ExternalAuthHostUri"
+          value: {{ .Values.gatewaySettings.HostSettings__ExternalAuthHostUri }}
         ports:
         - name: http
           containerPort: 5000

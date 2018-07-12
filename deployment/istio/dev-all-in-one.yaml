@@ -143,14 +143,12 @@ spec:
         image: vndg/cs-gateway-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "ASPNETCORE_BASEPATH"
-          value: "/cs/"
-        - name: "DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER"
-          value: "1"
-        - name: "HostSettings__CurrentHostUri"
+        - name: "HostSettings__BasePath"
+          value: /cs/
+        - name: "HostSettings__ExternalCurrentHostUri"
           value: http://coolstore.local/cs
-        - name: "HostSettings__AuthorityHostUri"
-          value: http://idp.coolstore.local
+        - name: "HostSettings__ExternalAuthHostUri"
+          value: http://id.coolstore.local
         ports:
         - name: http
           containerPort: 5000
@@ -176,8 +174,8 @@ spec:
         image: vndg/cs-idp-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "ASPNETCORE_BASEPATH"
-          value: "/"
+        - name: "HostSettings__BasePath"
+          value: /
         - name: "HostSettings__SwaggerRedirectUri"
           value: http://coolstore.local/cs/swagger/oauth2-redirect.html
         - name: "HostSettings__SwaggerPostLogoutRedirectUri"
@@ -253,7 +251,7 @@ metadata:
   namespace: default
 spec:
   rules:
-  - host: idp.coolstore.local
+  - host: id.coolstore.local
     http:
       paths:
       - path: /

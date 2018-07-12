@@ -5,6 +5,7 @@ EXPOSE 5000
 # Copy the global and csproj files
 COPY ./src/framework/VND.FW.Utils/VND.Fw.Utils.csproj ./src/framework/VND.FW.Utils/
 COPY ./src/framework/VND.FW.Domain/VND.Fw.Domain.csproj ./src/framework/VND.FW.Domain/
+COPY ./src/framework/VND.FW.Infrastructure.AspNetCore/VND.FW.Infrastructure.AspNetCore.csproj ./src/framework/VND.FW.Infrastructure.AspNetCore/
 COPY ./src/services/gateway/VND.CoolStore.Services.ApiGateway.csproj ./src/services/gateway/
 COPY ./global.json ./
 COPY ./NuGet.config ./
@@ -15,6 +16,7 @@ RUN dotnet restore ./src/services/gateway/VND.CoolStore.Services.ApiGateway.cspr
 # Copy the remaining source
 COPY ./src/framework/VND.FW.Utils/ ./src/framework/VND.FW.Utils/
 COPY ./src/framework/VND.FW.Domain/ ./src/framework/VND.FW.Domain/
+COPY ./src/framework/VND.FW.Infrastructure.AspNetCore/ ./src/framework/VND.FW.Infrastructure.AspNetCore/
 COPY ./src/services/gateway/ ./src/services/gateway/
 
 # Build the source code
