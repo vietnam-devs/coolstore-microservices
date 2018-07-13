@@ -23,9 +23,9 @@ export function getCart() {
 }
 
 export function addToCard(product, quantity) {
-    return api.post(`cartId/${product.itemId}/${quantity}`)
+    return api.post(`cartId/${product.id}/${quantity}`)
 }
 
 export function removeFomCart(product, quantity) {
-    return api.delete(`cartId/${product.itemId}/${quantity}`)
+    return api.delete(`cartId/${product.id}/${quantity}`)
 }

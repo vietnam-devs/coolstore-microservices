@@ -11,8 +11,10 @@ import {
 } from 'vuex-router-sync'
 
 import Buefy from 'buefy'
+import Notifications from 'vue-notification'
 
 Vue.use(Buefy)
+Vue.use(Notifications)
 
 // import titleMixin from './util/title'
 // import * as filters from './util/filters'

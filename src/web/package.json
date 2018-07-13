@@ -24,6 +24,7 @@
     "route-cache": "^0.4.4",
     "serve-favicon": "^2.5.0",
     "vue": "^2.5.16",
+    "vue-notification": "^1.3.12",
     "vue-router": "^3.0.1",
     "vue-server-renderer": "^2.5.16",
     "vue-star-rating": "^1.6.0",

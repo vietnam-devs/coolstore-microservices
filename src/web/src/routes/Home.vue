@@ -16,9 +16,9 @@
             </section>
             <section>
               <b-field>
-                <b-input placeholder="Number" type="number" value="1" min="1" max="20" style="width: 4em">
+                <b-input placeholder="Number" v-model="product.quantity" type="number" value="1" min="1" max="20" style="width: 4em">
                 </b-input>
-                <button class="button is-primary">Add To Cart</button>
+                <button @click="addToCart(product, product.quantity)" class="button is-primary">Add To Cart</button>
                 <div class="tag-right">
                     <span class="tag is-dark ">
                         <template v-if="product.availability">{{product.availability.quantity}}</template>
@@ -88,8 +88,27 @@
             showModal() {
                 this.isModalVisible = true;
             },
+
             closeModal() {
                 this.isModalVisible = false;
+            }, 
+
+            addToCart(product, quantity){
+                this.$store.dispatch('ADD_TO_CARD', {product, quantity}).then(data=> {
+                    this.$notify({
+                        group: 'noti',
+                        title: 'Success!',
+                        text: 'Hello user! This is a notification!',
+                        type: 'success'
+                    });
+                }, error => {
+                    this.$notify({
+                        group: 'noti',
+                        title: 'Error',
+                        text: error,
+                        type: 'error'
+                    });
+                })
             }
         }
     }
