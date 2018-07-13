@@ -16,20 +16,15 @@ export function createAPI({
     }
 
     api.get = function(path){
-        return axios.get(`${baseUrl}/${path}`)
-        .then(api.then)
-        .catch(api.error);
+        return axios.get(`${baseUrl}/${path}`);
     }
 
-    api.error = function(error) {
-        console.log(error);
+    api.post = function(path, data){
+        return axios.post(`${baseUrl}/${path}`, JSON.stringify(data));
     }
 
-    api.then = function(response){
-        return new Promise((resolve, reject) => {
-            console.log('Data: ', response.data)
-            resolve(response.data);
-        })
+    api.delete = function(path){
+        return axios.delete(`${baseUrl}/${path}`);
     }
 
     return api

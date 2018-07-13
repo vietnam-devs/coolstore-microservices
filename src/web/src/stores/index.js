@@ -10,7 +10,11 @@ Vue.use(Vuex)
 export function createStore() {
   return new Vuex.Store({
     state: {
-      products: []
+      products: [],
+      cartId: null,
+      cart:{
+        shoppingCartItemList: []
+      }
     },
     actions,
     mutations
