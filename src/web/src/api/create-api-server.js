@@ -21,6 +21,12 @@ export function createAPI({
         .catch(api.error);
     }
 
+    api.post = function(path, data){
+        return axios.post(url, qs.stringify(data))
+        .then(api.then)
+        .catch(api.error);
+    }
+
     api.error = function(error) {
         console.log(error);
     }

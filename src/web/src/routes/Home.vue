@@ -5,7 +5,7 @@
       <div class="tile is-ancestor">
         <div v-for="product in products" class="tile is-parent">
           <article class="tile tile is-child box">
-            <p class="title">{{product.name}}</p>
+            <p class="title" @click="showReviews(product)">{{product.name}}</p>
             <p class="subtitle">{{product.desc}}</p>
             <img class="img-responsive img-circle" v-bind:src="'dist/imgs/'+ product.name + '.jpg'" />            
             <section>
@@ -34,23 +34,34 @@
         </div>
       </div>
     </div>
+    <modal v-bind:product="productReview" v-show="isModalVisible" @close="closeModal"/>
   </div>
 </template>
 
 <script>
     import StarRating from 'vue-star-rating'
+    import modal from '../components/modal.vue';
     import { watchList } from '../api'
     import { productimage1 } from '../imgs/Product 1.jpg'
     export default {
         name: 'home',
         components: {
-            StarRating
+            StarRating,
+            modal
         },
+        data () {
+            return {
+                isModalVisible: false,
+                productReview: {}
+            };
+        },
+
         computed: {
             products () {
                 return this.$store.state.products;
             }   
         },
+
         beforeMount () {
             this.loadItems(this.page)
         },
@@ -63,6 +74,22 @@
             formatPrice(value) {
                 let val = (value/1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
+
+            rateFunction(itemId, rating){
+                this.$store.dispatch('SET_RATING_ITEM', {itemId, rating})
+            },
+
+            showReviews(product) {
+                this.productReview = product;
+                this.showModal();
+            },
+
+            showModal() {
+                this.isModalVisible = true;
+            },
+            closeModal() {
+                this.isModalVisible = false;
             }
         }
     }

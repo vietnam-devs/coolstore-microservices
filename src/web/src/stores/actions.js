@@ -1,5 +1,6 @@
 import {
-    getProducts
+    getProducts,
+    setRating
 } from '../api'
 
 export default {
@@ -16,4 +17,15 @@ export default {
                 }
             })
     },
+
+    SET_RATING_ITEM: ({
+        commit,
+        dispatch,
+        state
+    }, {itemId, rating})=>{
+        return setRating(itemId, rating)
+            .then(itemId => {
+                commit('SET_RATE_ITEM_OF_LIST', itemId, rating)
+            })
+    }
 }
