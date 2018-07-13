@@ -41,7 +41,6 @@ export default {
             <button type="button" class="close" @click="close" aria-label="Close"><span aria-hidden="true">&times;</span>
             </button>
             <h1 class="modal-title">Reviews for {{product.name}}</h1>
-            {{product123}}
         </div>
         <div class="modal-body">
             <div  style="padding: 10% 0;" v-if="!reviews" >

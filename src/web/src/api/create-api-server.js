@@ -27,6 +27,12 @@ export function createAPI({
         .catch(api.error);
     }
 
+    api.delete = function(path){
+        return axios.delete(url)
+        .then(api.then)
+        .catch(api.error);
+    }
+
     api.error = function(error) {
         console.log(error);
     }

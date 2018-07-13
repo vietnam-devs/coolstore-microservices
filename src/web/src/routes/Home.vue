@@ -34,20 +34,20 @@
         </div>
       </div>
     </div>
-    <modal v-bind:product="productReview" v-show="isModalVisible" @close="closeModal"/>
+    <Review v-bind:product="productReview" v-show="isModalVisible" @close="closeModal"/>
   </div>
 </template>
 
 <script>
     import StarRating from 'vue-star-rating'
-    import modal from '../components/modal.vue';
+    import Review from '../components/Review.vue';
     import { watchList } from '../api'
     import { productimage1 } from '../imgs/Product 1.jpg'
     export default {
         name: 'home',
         components: {
             StarRating,
-            modal
+            Review
         },
         data () {
             return {

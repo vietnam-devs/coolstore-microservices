@@ -13,4 +13,7 @@ export default {
             }
         })
     },
+    SET_CART: (state, data) => {
+        state.cart = data;
+    }
 }
