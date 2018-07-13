@@ -1,58 +1,48 @@
 // Reference at https://dzone.com/articles/kubernetes-and-mean-stack-for-microservices-develo
 
-var express = require('express')
-var app = express()
+const express = require('express')
+const app = express()
+
+const uuid = require('uuid/v1')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
+
+var ProductSchema = new Schema({
+  _id: { type: String, default: uuid },
+  name: { type: String },
+  desc: { type: String },
+  price: { type: Number }
+})
+
+ProductSchema.statics = {
+  findProducts: function (options) {
+    return this.find({}).exec()
+  }
+}
+
+mongoose.model('Product', ProductSchema)
 
 app.get('/', function (req, res) {
   res.send("Catalog Service.")
 })
 
-/*app.get('/products', function (req, res) {
-      var MongoClient = require('mongodb').MongoClient;
-      var dbURL = 'mongodb://catalog-db/catalog';
-      if (process.env.CATALOG_DB_SERVICE_HOST !== undefined) {
-        dbURL = 'mongodb://' + process.env.CATALOG_DB_SERVICE_HOST + ':' + process.env.CATALOG_DB_SERVICE_PORT + '/catalog';
-      }
+app.get('/api/v1/products', async (req, res) => {
+  var uri = process.env.MONGO_DB_URL
+  console.log(uri)
 
-      console.log("In Products. Calling MongoDB: " + dbURL);
+  mongoose.connect(uri, { useNewUrlParser: true })
 
-      MongoClient.connect(dbURL, function (err, db) {
+  const Product = mongoose.model('Product')
 
-        try {
-          if (err) throw err
+  var newProduct = new Product()
+  newProduct._id = uuid()
+  newProduct.name = "name 1"
+  newProduct.desc = "desc 1"
+  newProduct.price = 100
+  newProduct.save()
 
-          db.collection('products').find().toArray(function (err, result) {
-            if (err) throw err
-
-            productList = result;
-            console.log(productList);
-
-            res.send(productList);
-          })
-
-        } catch (ex) {
-          console.error('Exception: /products');
-          console.error(ex);
-
-          res.send(productList);
-        }
-      });*/
-
-app.get('/api/v1/products', function (req, res) {
-  res.send([
-    {
-      id: 'ba16da71-c7dd-4eac-9ead-5c2c2244e69f',
-      name: 'IPhone 8',
-      desc: 'IPhone 8',
-      price: 900
-    },
-    {
-      id: '13d02035-2286-4055-ad2d-6855a60efbbb',
-      name: 'IPhone X',
-      desc: 'IPhone X',
-      price: 1000
-    }
-  ])
+  var products = await Product.findProducts()
+  res.send(products)
 })
 
 app.get('/api/v1/products/:productId', function (req, res) {
@@ -65,6 +55,7 @@ app.get('/api/v1/products/:productId', function (req, res) {
 })
 
 app.post('/api/v1/products', function (req, res) {
+
   res.send(req.body)
 })
 
@@ -72,6 +63,12 @@ app.get('/healthz', function (req, res) {
   res.send({
     status: 'Healthy!'
   })
+})
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled Rejection at:', reason.stack || reason)
+  // Recommended: send the information to sentry.io
+  // or whatever crash reporting service you use
 })
 
 app.listen(5002, () => {

@@ -82,6 +82,21 @@ spec:
 ---
 
 ---
+# Source: coolstore/templates/mongodb-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb
+spec:
+  ports:
+  - port: 27017
+    name: mongo
+  selector:
+    app: mongodb
+---
+---
 # Source: coolstore/templates/spa-svc.yaml
 apiVersion: v1
 kind: Service
@@ -119,6 +134,9 @@ spec:
       - name: catalog
         image: vndg/cs-catalog-service:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: "MONGO_DB_URL"
+          value: "mongodb://mongodb:27017/catalog"
         ports:
         - containerPort: 5002
 ---
@@ -217,6 +235,27 @@ spec:
         - containerPort: 5004
 ---
 
+---
+# Source: coolstore/templates/mongodb-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mongodb-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongodb
+        version: v1
+    spec:
+      containers:
+      - name: mongodb 
+        image: vndg/cs-catalog-db:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 27017
+---
 ---
 # Source: coolstore/templates/spa-dep.yaml
 apiVersion: extensions/v1beta1

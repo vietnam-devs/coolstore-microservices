@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mongodb-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongodb
+        version: v1
+    spec:
+      containers:
+      - name: mongodb 
+        image: vndg/cs-catalog-db:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 27017
+---
