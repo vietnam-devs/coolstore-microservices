@@ -1,79 +1,112 @@
-// Reference at https://dzone.com/articles/kubernetes-and-mean-stack-for-microservices-develo
-
 const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+require('./models/product')
+
+const Product = mongoose.model('Product')
 const app = express()
 
-const uuid = require('uuid/v1')
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema;
+var isProduction = process.env.NODE_ENV === 'production'
+console.info(`Production environment is ${isProduction}`)
 
-var ProductSchema = new Schema({
-  _id: { type: String, default: uuid },
-  name: { type: String },
-  desc: { type: String },
-  price: { type: Number }
-})
+// Normal express config defaults
+app.use(require('morgan')('dev'))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
-ProductSchema.statics = {
-  findProducts: function (options) {
-    return this.find({}).exec()
-  }
+var mongoDbUri = 'mongodb://localhost:27017/catalog'
+mongoose.set('debug', true)
+if (isProduction) {
+  mongoDbUri = process.env.MONGO_DB_URL
 }
 
-mongoose.model('Product', ProductSchema)
+function connect() {
+  console.info(`MongoDB's running at ${mongoDbUri}`)
+  return mongoose.connect(
+    mongoDbUri,
+    {
+      useNewUrlParser: true,
+      keepAlive: 120
+    }
+  )
+}
 
-app.get('/', function (req, res) {
-  res.send("Catalog Service.")
+// start to connect to database
+connect()
+  .then(() => {
+    startServer()
+  })
+  .catch(err => {
+    console.error('Error on start: ' + err.stack)
+    process.exit(1)
+  })
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500)
+  res.json({
+    errors: {
+      message: err.message,
+      error: {}
+    }
+  })
+})
+
+app.get('/', function(req, res) {
+  res.send('Catalog Service.')
 })
 
 app.get('/api/v1/products', async (req, res) => {
-  var uri = process.env.MONGO_DB_URL
-  console.log(uri)
-
-  mongoose.connect(uri, { useNewUrlParser: true })
-
-  const Product = mongoose.model('Product')
-
-  var newProduct = new Product()
-  newProduct._id = uuid()
-  newProduct.name = "name 1"
-  newProduct.desc = "desc 1"
-  newProduct.price = 100
-  newProduct.save()
-
   var products = await Product.findProducts()
   res.send(products)
 })
 
-app.get('/api/v1/products/:productId', function (req, res) {
-  res.send({
-    id: 'ba16da71-c7dd-4eac-9ead-5c2c2244e69f',
-    name: 'IPhone 8',
-    desc: 'IPhone 8',
-    price: 900
-  })
+app.post('/api/v1/products', async (req, res) => {
+  console.info(req.body)
+  var newProduct = new Product()
+  res.send(await newProduct.createProduct(req.body))
 })
 
-app.post('/api/v1/products', function (req, res) {
-
-  res.send(req.body)
+app.get('/api/v1/products/:productId', async (req, res) => {
+  console.info(req.params)
+  var product = await Product.findProduct(req.params.productId)
+  res.send(product)
 })
 
-app.get('/healthz', function (req, res) {
+app.get('/healthz', (req, res) => {
   res.send({
     status: 'Healthy!'
   })
 })
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.log('Unhandled Rejection at:', reason.stack || reason)
-  // Recommended: send the information to sentry.io
-  // or whatever crash reporting service you use
+/// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found')
+  err.status = 404
+  next(err)
 })
 
-app.listen(5002, () => {
-  console.log('App is running at http://localhost:5002')
-  console.log('Press CTRL-C to stop\n')
-})
+// development error handler
+// will print stacktrace
+if (!isProduction) {
+  app.use(function(err, req, res, next) {
+    console.error(err.stack)
+    res.status(err.status || 500)
+    res.json({
+      errors: {
+        message: err.message,
+        error: err
+      }
+    })
+  })
+}
+
+function startServer() {
+  var server = app.listen(process.env.PORT || 5002, () => {
+    console.info(`App's running at http://localhost:${server.address().port}`)
+    console.info('Press CTRL-C to stop\n')
+  })
+}
 
 module.exports = app

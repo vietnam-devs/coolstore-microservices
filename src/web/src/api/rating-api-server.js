@@ -12,7 +12,7 @@ const api = createAPI({
 
 export function setRating(itemId, rating) {
     var model = {
-        ProductId: itemId, 
+        ProductId: itemId,
         Ratting: rating
     }
     return api.post(`rating`, model)

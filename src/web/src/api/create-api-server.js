@@ -15,15 +15,15 @@ export function createAPI({
         api.onServer = true
     }
 
-    api.get = function(path){
+    api.get = function (path) {
         return axios.get(`${baseUrl}/${path}`);
     }
 
-    api.post = function(path, data){
+    api.post = function (path, data) {
         return axios.post(`${baseUrl}/${path}`, JSON.stringify(data));
     }
 
-    api.delete = function(path){
+    api.delete = function (path) {
         return axios.delete(`${baseUrl}/${path}`);
     }
 
