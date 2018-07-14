@@ -91,6 +91,7 @@ namespace VND.CoolStore.Services.ApiGateway
 										c.AddPolicy("access_cart_api", p => p.RequireClaim("scope", "cart_api_scope"));
 										c.AddPolicy("access_pricing_api", p => p.RequireClaim("scope", "pricing_api_scope"));
 										c.AddPolicy("access_review_api", p => p.RequireClaim("scope", "review_api_scope"));
+										c.AddPolicy("access_catalog_api", p => p.RequireClaim("scope", "catalog_api_scope"));
 								}
 						);
 
@@ -118,7 +119,8 @@ namespace VND.CoolStore.Services.ApiGateway
 												{"inventory_api_scope", "Inventory APIs"},
 												{"cart_api_scope", "Cart APIs"},
 												{"pricing_api_scope", "Pricing APIs"},
-												{"review_api_scope", "Review APIs"}
+												{"review_api_scope", "Review APIs"},
+												{"catalog_api_scope", "Catalog APIs"}
 										}
 								});
 

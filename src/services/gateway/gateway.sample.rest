@@ -81,13 +81,14 @@ content-type: application/json
 PUT http://localhost:5000/api/v2/carts/{{cartId}}/item/{{itemId}} HTTP/1.1
 content-type: application/json
 
-{}
+{
+    "quantity": "{{quantity}}" 
+}
 ###
 DELETE http://localhost:5000/api/v2/carts/{{cartId}}/item/{{itemId}} HTTP/1.1
 content-type: application/json
 
 {
-   "quantity": "{{quantity}}" 
 }
 ###
 POST http://localhost:5000/api/v2/carts/{{cartId}}/checkout HTTP/1.1

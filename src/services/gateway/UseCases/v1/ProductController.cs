@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,8 +33,9 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 						
 				}
 
-				[Auth(Policy = "access_inventory_api")]
 				[HttpGet(Name = nameof(GetAllProducts))]
+				[Auth(Policy = "access_catalog_api")]
+				[SwaggerOperation(Tags = new[] { "catalog-service" })]
 				public async Task<ActionResult<IEnumerable<ProductModel>>> GetAllProducts([FromQuery] Criterion criterion)
 				{
 						InitRestClientWithOpenTracing();
@@ -42,20 +44,11 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 						var products = await RestClient.GetAsync<List<ProductModel>>(getProductsEndPoint);
 						var numberOfProducts = products.Count();
 
-						var paginationMetadata = new
-						{
-								totalCount = numberOfProducts,
-								pageSize = criterion.PageSize,
-								currentPage = criterion.CurrentPage,
-								totalPages = criterion.GetTotalPages(numberOfProducts)
-						};
+						Response.AddPaginateInfo(criterion, numberOfProducts);
 
-						Response.Headers.Add("X-Pagination",
-							Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+						var links = _urlHelper.CreateLinksForCollection(nameof(GetAllProducts), criterion, numberOfProducts);
 
-						var links = CreateLinksForCollection(criterion, numberOfProducts);
-
-						var toReturn = products.Select(x => ExpandSingleFoodItem(x));
+						var toReturn = products.Select(x => _urlHelper.ExpandSingleItem(nameof(GetProduct), x));
 
 						return Ok(new
 						{
@@ -65,6 +58,8 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 				}
 
 				[HttpGet]
+				[Auth(Policy = "access_catalog_api")]
+				[SwaggerOperation(Tags = new[] { "catalog-service" })]
 				[Route("{id:guid}", Name = nameof(GetProduct))]
 				public async Task<ActionResult<ProductModel>> GetProduct(Guid id)
 				{
@@ -74,77 +69,6 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 						var product = await RestClient.GetAsync<List<ProductModel>>(getProductEndPoint);
 
 						return Ok(product);
-				}
-
-				private List<LinkItem> CreateLinksForCollection(Criterion criterion, int totalCount)
-				{
-						var links = new List<LinkItem>();
-
-						// self 
-						links.Add(
-							new LinkItem(_urlHelper.Link(nameof(GetAllProducts), new
-							{
-									pagecount = criterion.PageSize,
-									page = criterion.CurrentPage,
-									orderby = criterion.SortBy
-							}), "self", "GET"));
-
-						links.Add(new LinkItem(_urlHelper.Link(nameof(GetAllProducts), new
-						{
-								pagecount = criterion.PageSize,
-								page = 1,
-								orderby = criterion.SortBy
-						}), "first", "GET"));
-
-						links.Add(new LinkItem(_urlHelper.Link(nameof(GetAllProducts), new
-						{
-								pagecount = criterion.PageSize,
-								page = criterion.GetTotalPages(totalCount),
-								orderby = criterion.SortBy
-						}), "last", "GET"));
-
-						if (criterion.HasNext(totalCount))
-						{
-								links.Add(new LinkItem(_urlHelper.Link(nameof(GetAllProducts), new
-								{
-										pagecount = criterion.PageSize,
-										page = criterion.CurrentPage + 1,
-										orderby = criterion.SortBy
-								}), "next", "GET"));
-						}
-
-						if (criterion.HasPrevious())
-						{
-								links.Add(new LinkItem(_urlHelper.Link(nameof(GetAllProducts), new
-								{
-										pagecount = criterion.PageSize,
-										page = criterion.CurrentPage - 1,
-										orderby = criterion.SortBy
-								}), "previous", "GET"));
-						}
-
-						return links;
-				}
-
-				private dynamic ExpandSingleFoodItem(ProductModel item)
-				{
-						var links = GetLinks(item.Id);
-						var resourceToReturn = item.ToDynamic() as IDictionary<string, object>;
-						resourceToReturn.Add("links", links);
-
-						return resourceToReturn;
-				}
-
-				private IEnumerable<LinkItem> GetLinks(Guid id)
-				{
-						var links = new List<LinkItem>();
-
-						links.Add(
-							new LinkItem(_urlHelper.Link(nameof(GetProduct), new { id }),
-								"self",
-								"GET"));
-
-						return links;
 				}
 		}
 }

@@ -14,7 +14,7 @@ namespace IdentityServer4
 	{
 		public static void Main(string[] args)
 		{
-			Console.Title = "IdentityServer4";
+			Console.Title = "Coolstore - Identity Server Provider";
 
 			BuildWebHost(args).Run();
 		}

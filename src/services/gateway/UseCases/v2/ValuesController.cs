@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Services.ApiGateway.UseCases.v2
 {
 	[ApiVersion("2.0")]
 	[Route("api/v{api-version:apiVersion}/[controller]")]
-	public class ValuesController : ControllerBase
+	public class ValuesController : FW.Infrastructure.AspNetCore.ControllerBase
     {
-        // GET api/values
-        [HttpGet]
+				public ValuesController(RestClient rest) : base(rest)
+				{
+				}
+
+				// GET api/values
+				[HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new string[] { "value1", "value2" };

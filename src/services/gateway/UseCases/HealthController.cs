@@ -7,7 +7,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases
     [ApiExplorerSettings(IgnoreApi = true)]
     public class HealthController : Controller
     {
-        [HttpGet("/health")]
+        [HttpGet("/healthz")]
         public bool Get()
         {
             return true;
