@@ -11,7 +11,7 @@ It demonstrates how to wire up small microservices into a larger application usi
 There are several individual microservices and infrastructure components that make up this app:
 
 1. Catalog Service
-  - .NET Core service and MongoDB, serves products and prices for retail products
+  - NodeJS service and MongoDB, serves products and prices for retail products
   - **`http://localhost:5002`**
 2. Cart Service
   - .NET Core service which manages shopping cart for each customer
@@ -26,7 +26,7 @@ There are several individual microservices and infrastructure components that ma
   - .NET Core service and SQL Server running for writing and displaying reviews for products
   - **`http://localhost:5006`**
 6. Rating Service
-  - .NET Core service running for rating products
+  - NodeJS service running for rating products
   - `http://localhost:5007`
 7. Coolstore Gateway
   - [ingress-nginx](https://github.com/kubernetes/ingress-nginx) service running that serving as an API gateway to the backend services
@@ -34,7 +34,7 @@ There are several individual microservices and infrastructure components that ma
 8. IDP
   - Identity Provider using [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack
   - **`http://localhost:5001`**
-9. Web UI
+9. Web UI (PWA)
   - A frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org)
   - **`http://localhost:8080`**
 
