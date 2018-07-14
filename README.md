@@ -1,6 +1,8 @@
-# Cool Store Microservice Demo
+# Cool Store Application on Service Mesh Demo
 
-CoolStore is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Kubernetes
+> This project is inspired from [coolstore project](https://github.com/jbossdemocentral/coolstore-microservice) by [jbossdemocentral](https://github.com/jbossdemocentral) & [Red Hat Demo Central](https://gitlab.com/redhatdemocentral)
+
+CoolStore is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh.
 
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
@@ -10,31 +12,31 @@ There are several individual microservices and infrastructure components that ma
 
 1. Catalog Service
   - .NET Core service and MongoDB, serves products and prices for retail products
-  - `http://localhost:5002`
+  - **`http://localhost:5002`**
 2. Cart Service
   - .NET Core service which manages shopping cart for each customer
-  - `http://localhost:5003`
+  - **`http://localhost:5003`**
 3. Inventory Service
   - .NET Core service and SQL Server, serves inventory and availability data for retail products
-  - `http://localhost:5004`
+  - **`http://localhost:5004`**
 4. Pricing Service 
   - .NET Core service which is a business rules application for product pricing
-  - `http://localhost:5005`
+  - **`http://localhost:5005`**
 5. Review Service
   - .NET Core service and SQL Server running for writing and displaying reviews for products
-  - `http://localhost:5006`
+  - **`http://localhost:5006`**
 6. Rating Service
   - .NET Core service running for rating products
   - `http://localhost:5007`
 7. Coolstore Gateway
   - [ingress-nginx](https://github.com/kubernetes/ingress-nginx) service running that serving as an API gateway to the backend services
-  - `http://localhost:5000`
+  - **`http://localhost:5000`**
 8. IDP
   - Identity Provider using [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack
-  - `http://localhost:5001`
+  - **`http://localhost:5001`**
 9. Web UI
   - A frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org)
-  - `http://localhost:8080`
+  - **`http://localhost:8080`**
 
 ![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
 
@@ -47,7 +49,7 @@ There are several individual microservices and infrastructure components that ma
 - helm
 - istioctl
 
-# Deploy CoolStore Microservices Application
+# Up and Running
 
 Make sure we have `docker for windows` edge running with `kubernetes` option enabled. We need to install `kubectl`, `helm` and `istioctl` on the build machine as well.
 
@@ -82,6 +84,10 @@ Waiting for the container provision completed
 > curl -I http://coolstore.local
 > curl -I http://coolstore.local/cs
 ```
+
+# Open API 
+
+![OpenAPI Screenshot](assets/images/open-api.png?raw=true 'OpenAPI')
 
 # Deploy Demo: CoolStore Microservices with CI/CD
 
