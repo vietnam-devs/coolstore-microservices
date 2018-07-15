@@ -2,11 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using VND.CoolStore.Services.ApiGateway.Model;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.AspNetCore;
+using VND.Fw.Utils.Extensions;
 
-namespace VND.CoolStore.Services.ApiGateway.Extensions
+namespace VND.FW.Infrastructure.AspNetCore.Extensions
 {
 		public static class ApiExtensions
 		{

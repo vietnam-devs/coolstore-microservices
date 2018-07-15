@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VND.Fw.Domain;
+using VND.FW.Infrastructure.EfCore.Db;
 
-namespace VND.FW.Infrastructure.EfCore.Impl
+namespace VND.FW.Infrastructure.EfCore.Repository
 {
     public class EfRepositoryAsync<TEntity> 
         : EfRepositoryAsync<ApplicationDbContext, TEntity>, IEfRepositoryAsync<TEntity>

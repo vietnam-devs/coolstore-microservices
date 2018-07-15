@@ -68,6 +68,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{2EBD3543-E11C-4019-8B80-4513EA8BBCAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.FW.Infrastructure.EfCore.SqlServer", "src\framework\VND.FW.Infrastructure.EfCore.SqlServer\VND.FW.Infrastructure.EfCore.SqlServer.csproj", "{B73ADF43-63AF-4226-8A48-9E3B965C78D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,10 @@ Global
 		{C4722C4F-DBD3-4101-A99A-88ABC10912E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4722C4F-DBD3-4101-A99A-88ABC10912E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4722C4F-DBD3-4101-A99A-88ABC10912E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +139,7 @@ Global
 		{C4722C4F-DBD3-4101-A99A-88ABC10912E3} = {A0F90A99-CAD3-491F-9079-D1680D659A9B}
 		{4A75EB7F-10BD-4284-A8F8-6F1B87C800BF} = {2EBD3543-E11C-4019-8B80-4513EA8BBCAB}
 		{955CB2AD-E42E-4DFD-BF74-A15143CD1CCF} = {4A75EB7F-10BD-4284-A8F8-6F1B87C800BF}
+		{B73ADF43-63AF-4226-8A48-9E3B965C78D6} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277B7E0A-BA8E-4DF8-ABD5-890801FC76F8}

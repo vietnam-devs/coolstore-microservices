@@ -7,8 +7,8 @@ using Microsoft.Extensions.DependencyModel;
 
 namespace VND.Fw.Utils.Extensions
 {
-    public static class MyModularLookupExtensions
-    {
+    public static class TypeLookupExtensions
+		{
         public static IEnumerable<TypeInfo> ResolveModularGenericTypes(this string patterns, Type genericInterfaceType, Type genericType)
         {
             var assemblies = patterns

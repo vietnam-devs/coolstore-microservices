@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VND.FW.Infrastructure.AspNetCore
+namespace VND.FW.Infrastructure.AspNetCore.Extensions
 {
 		public static class HttpRequestExtensions
 		{

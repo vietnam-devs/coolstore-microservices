@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Dynamic;
 
-namespace VND.CoolStore.Services.ApiGateway.Extensions
+namespace VND.Fw.Utils.Extensions
 {
-		internal static class DynamicExtensions
+		public static class DynamicExtensions
 		{
 				public static dynamic ToDynamic(this object value)
 				{

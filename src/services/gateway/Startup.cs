@@ -18,6 +18,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using VND.CoolStore.Services.ApiGateway.Extensions;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger;
 using VND.FW.Infrastructure.AspNetCore;
+using VND.FW.Infrastructure.AspNetCore.Extensions;
 using VND.FW.Infrastructure.AspNetCore.Middlewares;
 
 namespace VND.CoolStore.Services.ApiGateway

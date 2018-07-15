@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VND.FW.Infrastructure.AspNetCore.Extensions;
 
 namespace VND.FW.Infrastructure.AspNetCore
 {

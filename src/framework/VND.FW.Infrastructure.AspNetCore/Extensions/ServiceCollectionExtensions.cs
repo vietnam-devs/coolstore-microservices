@@ -4,7 +4,7 @@ using Polly.Extensions.Http;
 using System;
 using System.Net.Http;
 
-namespace VND.FW.Infrastructure.AspNetCore
+namespace VND.FW.Infrastructure.AspNetCore.Extensions
 {
 		public static class ServiceCollectionExtensions
 		{

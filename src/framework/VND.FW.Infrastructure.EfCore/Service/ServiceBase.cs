@@ -1,6 +1,6 @@
 ﻿using VND.Fw.Domain;
 
-namespace VND.FW.Infrastructure.EfCore
+namespace VND.FW.Infrastructure.EfCore.Service
 {
     public abstract class QueryServiceBase : IService
     {

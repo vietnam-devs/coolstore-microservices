@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VND.CoolStore.Services.ApiGateway.Extensions;
+using VND.FW.Infrastructure.AspNetCore.Extensions;
 using VND.CoolStore.Services.ApiGateway.Model;
 using VND.Fw.Domain;
 using VND.FW.Infrastructure.AspNetCore;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace VND.FW.Infrastructure.EfCore
+namespace VND.FW.Infrastructure.EfCore.Db
 {
     public interface IExtendDbContextOptionsBuilder
     {

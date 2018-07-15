@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VND.Fw.Domain;
+using VND.FW.Infrastructure.EfCore.Repository;
 
 namespace VND.FW.Infrastructure.EfCore.Extensions
 {
