@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.Annotations;
 using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Services.ApiGateway.UseCases.v1

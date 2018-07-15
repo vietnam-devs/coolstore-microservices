@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace VND.FW.Infrastructure.AspNetCore
@@ -11,10 +12,12 @@ namespace VND.FW.Infrastructure.AspNetCore
     {
         private readonly HttpClient _client;
         private IEnumerable<KeyValuePair<string, string>> _openTracingInfo;
+				private readonly ILogger<RestClient> _logger;
 
-        public RestClient(HttpClient client = null)
+				public RestClient(ILoggerFactory logger, HttpClient client = null)
         {
             _client = client ?? new HttpClient();
+						_logger = logger.CreateLogger<RestClient>();
         }
 
         public void SetOpenTracingInfo(IEnumerable<KeyValuePair<string, string>> info)

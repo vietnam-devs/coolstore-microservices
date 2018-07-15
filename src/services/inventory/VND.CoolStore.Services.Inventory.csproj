@@ -4,16 +4,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Application\" />
-    <Folder Include="Model\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\framework\VND.FW.Domain\VND.Fw.Domain.csproj" />
+    <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.AspNetCore\VND.FW.Infrastructure.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.EfCore\VND.FW.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\..\framework\VND.FW.Utils\VND.Fw.Utils.csproj" />
   </ItemGroup>
 </Project>

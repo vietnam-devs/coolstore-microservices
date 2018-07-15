@@ -124,6 +124,7 @@ namespace VND.CoolStore.Services.ApiGateway
 										}
 								});
 
+								c.EnableAnnotations();
 								c.OperationFilter<SecurityRequirementsOperationFilter>();
 						});
 
@@ -135,6 +136,8 @@ namespace VND.CoolStore.Services.ApiGateway
 												.AllowAnyHeader()
 												.AllowCredentials());
 						});
+
+						services.AddHttpPolly();
 				}
 
 				// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace VND.CoolStore.Services.ApiGateway.Model
+namespace VND.FW.Infrastructure.AspNetCore
 {
 		public abstract class ModelBase
 		{

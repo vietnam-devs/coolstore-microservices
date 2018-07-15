@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using VND.CoolStore.Services.ApiGateway.Model;
 using VND.Fw.Domain;
+using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Services.ApiGateway.Extensions
 {

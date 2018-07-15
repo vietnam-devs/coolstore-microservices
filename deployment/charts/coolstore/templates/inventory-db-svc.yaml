@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-db-service
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: inventory-db-service
+spec:
+  ports:
+  - port: 1433
+    name: http
+  selector:
+    app: inventory-db
+---

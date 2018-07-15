@@ -1,4 +1,6 @@
-﻿namespace VND.CoolStore.Services.ApiGateway.Model
+﻿using VND.FW.Infrastructure.AspNetCore;
+
+namespace VND.CoolStore.Services.ApiGateway.Model
 {
 	public class ProductModel : ModelBase
 	{
