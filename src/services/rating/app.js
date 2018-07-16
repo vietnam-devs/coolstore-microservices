@@ -11,7 +11,7 @@ app.get('/health', function (req, res) {
   });
 });
 
-app.listen(3000, () => {
+app.listen(5007, () => {
   console.log('App is running at http://localhost:3000');
   console.log('Press CTRL-C to stop\n');
 });

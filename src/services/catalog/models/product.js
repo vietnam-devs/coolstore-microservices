@@ -14,7 +14,7 @@ ProductSchema.path('name').required(true, 'Product name cannot be blank')
 ProductSchema.path('price').required(true, 'price cannot be blank')
 ProductSchema.path('price').validate(function(price) {
   // https://gist.github.com/rutcreate/03ff3f9bd5f414465322
-  return Number(price).toString() === price.toString() && price % 1 !== 0
+  return Number(price).toString() === price.toString()
 }, 'Price must be a float number.')
 
 ProductSchema.methods = {
