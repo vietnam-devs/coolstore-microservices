@@ -31,7 +31,6 @@
       <router-view class="view"></router-view>
     </transition>
     <cs-footer></cs-footer>
-    <notifications group="noti" position="bottom right" />
   </div>
 </template>
 

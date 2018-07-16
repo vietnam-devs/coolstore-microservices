@@ -2,16 +2,16 @@
   <div>
     <div class="container">
       <h1>&nbsp;</h1>
-      <div class="tile is-ancestor">
-        <div v-for="product in products" class="tile is-parent">
+      <div class="tile is-ancestor columns is-multiline">
+        <div v-for="(product, index) in products" class="tile column is-4">
           <article class="tile tile is-child box">
             <p class="title" @click="showReviews(product)">{{product.name}}</p>
             <p class="subtitle">{{product.desc}}</p>
-            <img class="img-responsive img-circle" v-bind:src="'dist/imgs/'+ product.name + '.jpg'" />            
+            <img class="img-responsive img-circle" v-bind:src="'dist/imgs/Product '+ (index + 1) + '.jpg'" />            
             <section>
                 <b-field>
                     <span>${{product.price}}</span>
-                    <span class="tag-right"><star-rating v-bind:star-size="20" v-model="product.rating.rate" v-bind:show-rating="false"></star-rating></span>
+                    <span class="tag-right"><star-rating v-bind:star-size="20" v-if="product.rating" v-model="product.rating.rate" v-bind:show-rating="false"></star-rating></span>
                 </b-field>
             </section>
             <section>
@@ -95,19 +95,19 @@
 
             addToCart(product, quantity){
                 this.$store.dispatch('ADD_TO_CARD', {product, quantity}).then(data=> {
-                    this.$notify({
-                        group: 'noti',
-                        title: 'Success!',
-                        text: 'Hello user! This is a notification!',
-                        type: 'success'
-                    });
+                    // this.$notify({
+                    //     group: 'noti',
+                    //     title: 'Success!',
+                    //     text: 'Hello user! This is a notification!',
+                    //     type: 'success'
+                    // });
                 }, error => {
-                    this.$notify({
-                        group: 'noti',
-                        title: 'Error',
-                        text: error,
-                        type: 'error'
-                    });
+                    // this.$notify({
+                    //     group: 'noti',
+                    //     title: 'Error',
+                    //     text: error,
+                    //     type: 'error'
+                    // });
                 })
             }
         }

@@ -16,8 +16,8 @@ export default {
     }, { pageIndex }) => {
         return getProducts(pageIndex)
             .then(reponse => {
-                if (reponse && reponse.data && reponse.data.value) {
-                    commit('SET_LIST', reponse.data.value);
+                if (reponse && reponse.data && reponse.data) {
+                    commit('SET_LIST', reponse.data);
                 }
             })
     },
