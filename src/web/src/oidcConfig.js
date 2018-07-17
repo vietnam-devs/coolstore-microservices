@@ -1,5 +1,5 @@
 export const oidcSettings = {
-  authority: 'http://localhost:5001',
+  authority: '/config',
   client_id: 'spa',
   redirect_uri: 'http://localhost:8080/callback',
   response_type: 'token',

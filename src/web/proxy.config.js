@@ -1,4 +1,5 @@
 const url = "http://localhost:5000/";
+const urlDpi = "http://localhost:5001/";
 
 //Config proxy
 var host = process.env.GATEWAY_SERVICE_SERVICE_HOST;
@@ -21,31 +22,31 @@ const PROXY_CONFIG = {
         logLevel: "debug",
     },
     "/config": {
-        target: `${url}/.well-known/openid-configuration`,
+        target: `${urlDpi}/.well-known/openid-configuration`,
         secure: false,
         logLevel: "debug",
         ignorePath: true,
         changeOrigin: true,
         pathRewrite: { '^/config': '' },
         router: function (req) {
-            return `${url}/.well-known/openid-configuration`;
+            return `${urlDpi}/.well-known/openid-configuration`;
         }
     },
     "/.well-known/openid-configuration/jwks": {
-        target: `${url}/.well-known/openid-configuration/jwks`,
+        target: `${urlDpi}/.well-known/openid-configuration/jwks`,
         secure: false,
         logLevel: "debug",
         ignorePath: true,
     },
     "/host/*": {
-        target: url,
+        target: urlDpi,
         secure: false,
         logLevel: "debug",
         changeOrigin: true,
         pathRewrite: { '^/host': '' },
     },
     "/connect/*": {
-        target: url,
+        target: urlDpi,
         secure: true,
         logLevel: "debug",
         changeOrigin: true,
