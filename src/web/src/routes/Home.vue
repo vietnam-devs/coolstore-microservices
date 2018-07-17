@@ -39,87 +39,96 @@
 </template>
 
 <script>
-    import StarRating from 'vue-star-rating'
-    import Review from '../components/Review.vue';
-    import { watchList } from '../api'
-    import { productimage1 } from '../imgs/Product 1.jpg'
-    export default {
-        name: 'home',
-        components: {
-            StarRating,
-            Review
-        },
-        data () {
-            return {
-                isModalVisible: false,
-                productReview: {}
-            };
-        },
+import StarRating from "vue-star-rating";
+import Review from "../components/Review.vue";
+import { watchList } from "../api";
+export default {
+  name: "home",
+  components: {
+    StarRating,
+    Review
+  },
+  data() {
+    return {
+      isModalVisible: false,
+      productReview: {}
+    };
+  },
 
-        computed: {
-            products () {
-                return this.$store.state.products;
-            }   
-        },
-
-        beforeMount () {
-            this.loadItems(this.page)
-        },
-
-        methods: {
-            loadItems (page) {
-                this.$store.dispatch('FETCH_LIST_DATA', {page});
-            },
-
-            formatPrice(value) {
-                let val = (value/1).toFixed(2).replace('.', ',')
-                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-            },
-
-            rateFunction(itemId, rating){
-                this.$store.dispatch('SET_RATING_ITEM', {itemId, rating})
-            },
-
-            showReviews(product) {
-                this.productReview = product;
-                this.showModal();
-            },
-
-            showModal() {
-                this.isModalVisible = true;
-            },
-
-            closeModal() {
-                this.isModalVisible = false;
-            }, 
-
-            addToCart(product, quantity){
-                this.$store.dispatch('ADD_TO_CARD', {product, quantity}).then(data=> {
-                    // this.$notify({
-                    //     group: 'noti',
-                    //     title: 'Success!',
-                    //     text: 'Hello user! This is a notification!',
-                    //     type: 'success'
-                    // });
-                }, error => {
-                    // this.$notify({
-                    //     group: 'noti',
-                    //     title: 'Error',
-                    //     text: error,
-                    //     type: 'error'
-                    // });
-                })
-            }
-        }
+  computed: {
+    products() {
+      return this.$store.state.products;
     }
+  },
+
+  beforeMount() {
+    this.loadItems(this.page);
+  },
+
+  methods: {
+    loadItems(page) {
+      this.$store.dispatch("FETCH_LIST_DATA", { page });
+    },
+
+    formatPrice(value) {
+      let val = (value / 1).toFixed(2).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+
+    rateFunction(itemId, rating) {
+      this.$store.dispatch("SET_RATING_ITEM", { itemId, rating });
+    },
+
+    showReviews(product) {
+      this.productReview = product;
+      this.showModal();
+    },
+
+    showModal() {
+      this.isModalVisible = true;
+    },
+
+    closeModal() {
+      this.isModalVisible = false;
+    },
+
+    addToCart(product, quantity) {
+      this.$store.dispatch("ADD_TO_CARD", { product, quantity }).then(
+        data => {
+          // this.$notify({
+          //     group: 'noti',
+          //     title: 'Success!',
+          //     text: 'Hello user! This is a notification!',
+          //     type: 'success'
+          // });
+        },
+        error => {
+          // this.$notify({
+          //     group: 'noti',
+          //     title: 'Error',
+          //     text: error,
+          //     type: 'error'
+          // });
+        }
+      );
+    }
+  }
+};
 </script>
 <style lang="stylus">
-.tag-right
-    margin-left auto
-.img-circle
-    border-radius 50%
-.img-responsive
-    width 100%
-.star-width
-    width 20%
+.tag-right {
+    margin-left: auto;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.img-responsive {
+    width: 100%;
+}
+
+.star-width {
+    width: 20%;
+}
 </style>

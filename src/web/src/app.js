@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
-import {
-  createStore
-} from './stores'
-import {
-  createRouter
-} from './routes'
+import store from './stores'
+import router from './routes'
 import {
   sync
 } from 'vuex-router-sync'
 
 import Buefy from 'buefy'
+import interceptorsSetup from './helper/interceptors'
+interceptorsSetup()
 
 Vue.use(Buefy)
 
@@ -29,9 +27,6 @@ Vue.use(Buefy)
 // app instances on each call (which is called for each SSR request)
 export function createApp() {
   // create store and router instances
-  const store = createStore()
-  const router = createRouter()
-
   // sync the router with the vuex store.
   // this registers `store.state.route`
   sync(store, router)

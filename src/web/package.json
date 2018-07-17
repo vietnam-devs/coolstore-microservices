@@ -21,6 +21,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "http-proxy-middleware": "^0.18.0",
     "lru-cache": "^4.1.3",
+    "oidc-client": "^1.5.2",
     "route-cache": "^0.4.4",
     "serve-favicon": "^2.5.0",
     "vue": "^2.5.16",
