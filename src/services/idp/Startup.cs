@@ -55,7 +55,7 @@ namespace IdentityServer4
 								.AddJwtBearerClientAuthentication();
 
 						// in-memory, code config
-						var clients = Config.GetClients().ToList();
+						var clients = Config.GetClients(Environment.IsDevelopment()).ToList();
 
 						// get swagger and process it
 						var hostSettings = Configuration.GetSection("HostSettings");
