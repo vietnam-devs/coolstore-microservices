@@ -23,7 +23,6 @@ export default {
       this.$emit("close");
     },
     onShowProduct(product) {
-      debugger;
       this.product = product;
     }
   }

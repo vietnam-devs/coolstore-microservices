@@ -3,6 +3,7 @@
 
 
 using IdentityServer4.Models;
+using System;
 using System.Collections.Generic;
 
 namespace IdentityServer4
@@ -58,7 +59,7 @@ namespace IdentityServer4
 						};
 				}
 
-				public static IEnumerable<Client> GetClients() => new[]
+				public static IEnumerable<Client> GetClients(bool isDevelopment) => new[]
 				{
 						// Inventory Swagger UI
 						new Client
@@ -111,23 +112,32 @@ namespace IdentityServer4
 						{
 							ClientId = "spa",
 							ClientName = "SPA Client",
-							ClientUri = "http://identityserver.io",
-
+							ClientUri = isDevelopment
+								? "http://localhost:8080"
+								: $"http://{Environment.GetEnvironmentVariable("SPA_SERVICE_SERVICE_HOST")}:{Environment.GetEnvironmentVariable("SPA_SERVICE_SERVICE_PORT")}",
 							AllowedGrantTypes = GrantTypes.Implicit,
 							AllowAccessTokensViaBrowser = true,
-
+							
 							RedirectUris =
 							{
-								"http://localhost:5002/index.html",
-								"http://localhost:5002/callback.html",
-								"http://localhost:5002/silent.html",
-								"http://localhost:5002/popup.html",
+								"http://localhost:8080/callback",
 							},
 
-							PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-							AllowedCorsOrigins = { "http://localhost:5002" },
+							PostLogoutRedirectUris = { "/index.html" },
+							AllowedCorsOrigins = 
+							{ 
+								isDevelopment? "http://localhost:8080": $"http://{Environment.GetEnvironmentVariable("SPA_SERVICE_SERVICE_HOST")}:{Environment.GetEnvironmentVariable("SPA_SERVICE_SERVICE_PORT")}",
+							},
 
-							AllowedScopes = { "openid", "profile", "api1" }
+							AllowedScopes = {
+								"inventory_api_scope",
+								"cart_api_scope",
+								"pricing_api_scope",
+								"review_api_scope",
+								"catalog_api_scope",
+								"openid",
+								"profile"
+							}
 						}
 			};
 		}

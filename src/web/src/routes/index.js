@@ -1,20 +1,42 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { requireAuth } from '../auth/auth'
 
 Vue.use(Router)
 
 // route-level code splitting
 const HomeView = () => import('./Home.vue')
 const CartView = () => import('./Cart.vue')
+const CallbackView = () => import('../components/Callback.vue')
+const UnauthorizedView = () => import('../components/Unauthorized.vue')
 
-export function createRouter () {
-  return new Router({
+const router = new Router({
     mode: 'history',
     fallback: false,
     scrollBehavior: () => ({ y: 0 }),
     routes: [
-      { path: '/', component: HomeView },
-      { path: '/cart', component: CartView }
+        {
+            path: '/',
+            name: 'Home',
+            component: HomeView,
+            beforeEnter: requireAuth
+        },
+        {
+            path: '/cart',
+            name: 'Cart',
+            component: CartView,
+            beforeEnter: requireAuth
+        },
+        {
+            path: '/callback',
+            name: 'callback',
+            component: CallbackView
+        },
+        {
+            path: '/unauthorized',
+            name: 'unauthorized',
+            component: UnauthorizedView
+        }
     ]
-  })
-}
+})
+export default router;

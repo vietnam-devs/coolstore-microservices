@@ -1,31 +1,37 @@
 dependencies:
+  jwt-decode: 2.2.0
+devDependencies:
   vue-style-loader: 4.1.0
 packages:
   /big.js/3.2.0:
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-+hN/Zh2D08Mx65pZ/4g5bsmNiZUuChDiQfTUQ7qJr4/kuopCr88xZsAXv6mBoZEsUI4OuGHlX59qE94K2mMW8Q==
   /emojis-list/2.1.0:
-    dev: false
+    dev: true
     engines:
       node: '>= 0.10'
     resolution:
       integrity: sha1-TapNnbAPmBmIDHn6RXrlsJof04k=
   /hash-sum/1.0.2:
-    dev: false
+    dev: true
     resolution:
       integrity: sha1-M7QHd3VMZDJXPBIMw4CLvRDUfwQ=
   /json5/0.5.1:
-    dev: false
+    dev: true
     hasBin: true
     resolution:
       integrity: sha1-Hq3nrMASA0rYTiOWdn6tn6VJWCE=
+  /jwt-decode/2.2.0:
+    dev: false
+    resolution:
+      integrity: sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
   /loader-utils/1.1.0:
     dependencies:
       big.js: 3.2.0
       emojis-list: 2.1.0
       json5: 0.5.1
-    dev: false
+    dev: true
     engines:
       node: '>=4.0.0'
     resolution:
@@ -34,11 +40,12 @@ packages:
     dependencies:
       hash-sum: 1.0.2
       loader-utils: 1.1.0
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-IsSiXDrLW2QIjyBsCqa35e45l5AceMbJ2jO8DxoEQv75xu/UmtXkSC0ybESq/LpbmmIW47MAWDQvErUw+Hrz/A==
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 8
 shrinkwrapVersion: 3
 specifiers:
+  jwt-decode: ^2.2.0
   vue-style-loader: ^4.1.0

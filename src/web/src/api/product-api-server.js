@@ -4,7 +4,7 @@ import {
 } from './create-api-server'
 
 const api = createAPI({
-    version: '/v2',
+    version: '/v1',
     config: {
         databaseURL: '/api'
     }
