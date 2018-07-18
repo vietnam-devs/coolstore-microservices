@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -45,8 +44,6 @@ namespace VND.CoolStore.Services.Inventory
 										optionsBuilder,
 										dbConnectionStringFactory,
 										typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-
-								// Console.WriteLine($"[VND] Startup file: {typeof(Startup).GetTypeInfo().Assembly.GetName().Name}");
 						}
 
 						services.AddDbContext<ApplicationDbContext>(options => optionsBuilderAction(options));
@@ -69,23 +66,12 @@ namespace VND.CoolStore.Services.Inventory
 
 				public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 				{
-						var basePath = Environment.GetEnvironmentVariable("ASPNETCORE_BASEPATH");
-
 						loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 						loggerFactory.AddDebug();
 
 						if (env.IsDevelopment())
 						{
 								app.UseDeveloperExceptionPage();
-						}
-
-						if (!string.IsNullOrEmpty(basePath))
-						{
-								app.Use(async (context, next) =>
-								{
-										context.Request.PathBase = basePath;
-										await next.Invoke();
-								});
 						}
 
 						app.UseMvc();

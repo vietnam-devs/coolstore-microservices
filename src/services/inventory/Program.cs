@@ -14,6 +14,7 @@ namespace VND.CoolStore.Services.Inventory
 				public static IWebHost BuildWebHost(string[] args) =>
 					WebHost.CreateDefaultBuilder(args)
 						.UseStartup<Startup>()
+						.UseUrls(urls: "http://*:5004")
 						.Build()
 						.RegisterDbContext();
 		}

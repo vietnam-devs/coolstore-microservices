@@ -10,7 +10,7 @@ using VND.FW.Infrastructure.EfCore.Db;
 namespace VND.CoolStore.Services.Inventory.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180715110820_init_db")]
+    [Migration("20180716083241_init_db")]
     partial class init_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace VND.CoolStore.Services.Inventory.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("inventory_Inventorys");
+                    b.ToTable("Inventories");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Polly;
 using System;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using VND.Fw.Utils.Extensions;
 using VND.FW.Infrastructure.EfCore.Db;
@@ -39,7 +41,7 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
 						var scanAssemblyPattern = configuration.GetSection("Persistence")["FullyQualifiedPrefix"];
 						var seeders = scanAssemblyPattern.ResolveModularGenericTypes(seedData, context.GetType());
 
-						Console.WriteLine(scanAssemblyPattern);
+						// Console.WriteLine(scanAssemblyPattern);
 
 						if (seeders == null) return;
 
@@ -71,26 +73,32 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
 						var logger = serviceProvider.GetRequiredService<ILogger<TContext>>();
 						var context = serviceProvider.GetService<TContext>();
 
-						try
+						var policy = Policy
+								.Handle<SqlException>()
+								.WaitAndRetryForever(retryAttempt =>
+										TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+										);
+
+						policy.Execute(() =>
 						{
-								logger.LogInformation($"[VND] Migrating database associated with context {nameof(TContext)}");
+								try
+								{
+										logger.LogInformation($"[VND] Migrating database associated with {typeof(TContext).FullName} context.");
 
-								// http://www.stefanhendriks.com/2016/04/29/integration-testing-your-dot-net-core-app-with-an-in-memory-database/
-								context.Database.OpenConnection();
-								context.Database.EnsureCreated();
+										context.Database.OpenConnection();
+										context.Database.EnsureCreated();
 
-								// if (context.Database.GetPendingMigrations() != null)
-								//		context.Database.Migrate();
+										logger.LogInformation($"[VND] Start to seed data for {typeof(TContext).FullName} context.");
+										seeder(context, serviceProvider);
 
-								seeder(context, serviceProvider);
-
-								logger.LogInformation($"[VND] Migrated database associated with context {nameof(TContext)}");
-						}
-						catch (Exception ex)
-						{
-								logger.LogError(ex,
-										$"[VND] An error occurred while migrating the database used on context {nameof(TContext)}");
-						}
+										logger.LogInformation($"[VND] Migrated database associated with {typeof(TContext).FullName} context.");
+								}
+								catch (Exception ex)
+								{
+										logger.LogError(ex,
+												$"[VND] An error occurred while migrating the database used on {typeof(TContext).FullName} context.");
+								}
+						});
 
 						return serviceProvider;
 				}

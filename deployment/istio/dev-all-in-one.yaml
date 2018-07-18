@@ -63,6 +63,24 @@ spec:
 ---
 
 ---
+# Source: coolstore/templates/inventory-db-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-db-service
+  namespace: default
+  labels:
+    app: inventory-db-service
+spec:
+  ports:
+  - protocol: TCP
+    port: 1433
+    targetPort: 1433
+  selector:
+    app: inventory-db
+---
+
+---
 # Source: coolstore/templates/inventory-svc.yaml
 apiVersion: v1
 kind: Service
@@ -87,6 +105,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb
+  namespace: default
   labels:
     app: mongodb
 spec:
@@ -135,8 +154,8 @@ spec:
         image: vndg/cs-catalog-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "MONGO_DB_URL"
-          value: "mongodb://mongodb:27017/catalog"
+        - name: MONGO_DB_URL
+          value: mongodb://mongodb:27017/catalog
         ports:
         - containerPort: 5002
 ---
@@ -206,6 +225,34 @@ spec:
 ---
 
 ---
+# Source: coolstore/templates/inventory-db-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: inventory-db-v1
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: inventory-db
+        version: v1
+    spec:
+      containers:
+      - name: inventory-db
+        image: vndg/cs-mssql-db:latest
+        imagePullPolicy: IfNotPresent
+        env: 
+        - name: ACCEPT_EULA
+          value: Y
+        - name: MSSQL_SA_PASSWORD
+          value: P@ssw0rd
+        ports:
+        - containerPort: 1433
+---
+
+---
 # Source: coolstore/templates/inventory-dep.yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -220,17 +267,56 @@ spec:
         app: inventory
         version: v1
     spec:
+      # initContainers:
+      # - name: init-inventory
+      #   image: busybox
+      #   command: ['sh', '-c', 'sleep 10 && echo Start running']
+      # - name: init-inventory
+      #   image: busybox
+      #   imagePullPolicy: IfNotPresent
+      #   command: ['sh', '-c', 'until nslookup inventory-db-service; do echo Waiting for Inventory DB Service; sleep 2; done;']
+        # env:
+        # - name: ACCEPT_EULA
+        #   value: Y
+        # - name: MSSQL_SA_PASSWORD
+        #   value: P@ssw0rd
+        # command: ['sh', '-c', 
+        #   'until ! (grep "MSSQL SERVER STARTED" /var/opt/mssql/log/errorlog | tail -1);
+        #   do echo waiting for database; sleep 2; done;']
+        # ports:
+        # - containerPort: 1433
+      # volumes: [
+      #   {
+      #     name: logs,
+      #     hostPath: {
+      #       path: /var/opt/mssql/log
+      #     }
+      #   }
+      # ]
       containers:
+      # - name: inventory-db
+      #   image: vndg/cs-mssql-db:latest
+      #   imagePullPolicy: IfNotPresent
+      #   volumeMounts:
+      #   - name: logs
+      #     mountPath: /var/opt/mssql/log
+      #   env:
+      #   - name: ACCEPT_EULA
+      #     value: Y
+      #   - name: MSSQL_SA_PASSWORD
+      #     value: P@ssw0rd
+      #   ports:
+      #   - containerPort: 1433
       - name: inventory
         image: vndg/cs-inventory-service:latest
         imagePullPolicy: IfNotPresent
-        env:
-        - name: "ASPNETCORE_BASEPATH"
-          value: "/inventory/"
-        - name: "CURRENT_HOST_URI"
-          value: "https://192.168.1.5:8443/inventory"
-        - name: "AUTHORITY_HOST_URI"
-          value: "https://192.168.1.5:8443/idp"
+        # env:
+        # - name: "ConnectionStrings__SqlServerDefault"
+        #   value: "Server=tcp:inventory-db-service,1433;Database=maindb;User Id=cs;Password=P@ssw0rd;"
+        # volumeMounts:
+        # - name: logs
+        #   mountPath: /var/opt/mssql/log
+        # command: ['sh', '-c', 'until nslookup inventory-db-service; do echo waiting for mydb; sleep 2; done;']
         ports:
         - containerPort: 5004
 ---
@@ -241,6 +327,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: mongodb-v1
+  namespace: default
 spec:
   replicas: 1
   template:

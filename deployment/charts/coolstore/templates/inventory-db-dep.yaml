@@ -13,8 +13,13 @@ spec:
     spec:
       containers:
       - name: inventory-db
-        image: microsoft/mssql-server-linux:latest
+        image: vndg/cs-mssql-db:latest
         imagePullPolicy: IfNotPresent
+        env: 
+        - name: ACCEPT_EULA
+          value: Y
+        - name: MSSQL_SA_PASSWORD
+          value: P@ssw0rd
         ports:
         - containerPort: 1433
 ---

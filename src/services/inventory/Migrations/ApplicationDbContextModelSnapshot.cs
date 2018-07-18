@@ -36,7 +36,7 @@ namespace VND.CoolStore.Services.Inventory.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("inventory_Inventorys");
+                    b.ToTable("Inventories");
                 });
 #pragma warning restore 612, 618
         }

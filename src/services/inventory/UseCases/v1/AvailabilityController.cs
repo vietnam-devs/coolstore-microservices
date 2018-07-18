@@ -16,7 +16,7 @@ namespace VND.CoolStore.Services.Inventory.UseCases.v1
         }
 
         [HttpGet("{id}")]
-        public Domain.Inventory Get(Guid id)
+        public ActionResult<Domain.Inventory> Get(Guid id)
         {
             return _inventoryService.GetInventory(id);
         }

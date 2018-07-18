@@ -7,8 +7,9 @@ metadata:
     app: inventory-db-service
 spec:
   ports:
-  - port: 1433
-    name: http
+  - protocol: TCP
+    port: 1433
+    targetPort: 1433
   selector:
     app: inventory-db
 ---

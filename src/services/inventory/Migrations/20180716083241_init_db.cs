@@ -8,7 +8,7 @@ namespace VND.CoolStore.Services.Inventory.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "inventory_Inventorys",
+                name: "Inventories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -20,14 +20,14 @@ namespace VND.CoolStore.Services.Inventory.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_inventory_Inventorys", x => x.Id);
+                    table.PrimaryKey("PK_Inventories", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "inventory_Inventorys");
+                name: "Inventories");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Humanizer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,18 @@ using VND.FW.Infrastructure.EfCore.Options;
 
 namespace VND.FW.Infrastructure.EfCore.Db
 {
-    public class ApplicationDbContext : DbContext
-    {
+		public class ApplicationDbContext : DbContext
+		{
 				private readonly PersistenceOption _persistenceOption = new PersistenceOption();
 
 				public ApplicationDbContext(
 						DbContextOptions<ApplicationDbContext> options,
 						IConfiguration configuration)
-            : base(options)
-        {
+						: base(options)
+				{
 						var section = configuration.GetSection("Persistence");
 						_persistenceOption.FullyQualifiedPrefix = section.GetValue<string>("FullyQualifiedPrefix");
 						_persistenceOption.ShortyQualifiedPrefix = section.GetValue<string>("ShortyQualifiedPrefix");
-						_persistenceOption.TablePrefix = section.GetValue<string>("TablePrefix");
 				}
 
 				protected override void OnModelCreating(ModelBuilder builder)
@@ -60,14 +60,7 @@ namespace VND.FW.Infrastructure.EfCore.Db
 
 						foreach (var entityType in types)
 						{
-								var tablePrefix = _persistenceOption.TablePrefix;
-								if (!entityType.ClrType.AssemblyQualifiedName.Contains(_persistenceOption.ShortyQualifiedPrefix))
-								{
-										tablePrefix = entityType.ClrType.Namespace.Split('.')[2];
-								}
-
-								var tableName = string.Concat(tablePrefix, "_", entityType.ClrType.Name, "s");
-								modelBuilder.Entity(entityType.Name).ToTable(tableName);
+								modelBuilder.Entity(entityType.Name).ToTable(entityType.ClrType.Name.Pluralize());
 						}
 				}
 
