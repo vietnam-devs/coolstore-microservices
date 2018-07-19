@@ -53,12 +53,12 @@ namespace IdentityServer4
 								})
 								.AddTestUsers(TestUsers.Users)
 								.AddJwtBearerClientAuthentication();
+						var hostSettings = Configuration.GetSection("HostSettings");
 
 						// in-memory, code config
-						var clients = Config.GetClients(Environment.IsDevelopment()).ToList();
+						var clients = Config.GetClients(Environment.IsDevelopment(), hostSettings).ToList();
 
 						// get swagger and process it
-						var hostSettings = Configuration.GetSection("HostSettings");
 						if (hostSettings != null)
 						{
 								clients[0].RedirectUris.Add(hostSettings.GetValue<string>("SwaggerRedirectUri"));

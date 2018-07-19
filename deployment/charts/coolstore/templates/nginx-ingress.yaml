@@ -13,7 +13,7 @@ spec:
       - path: /
         backend:
           serviceName: idp-service
-          servicePort: 5000
+          servicePort: 80
   - host: coolstore.local
     http:
       paths:
@@ -21,7 +21,10 @@ spec:
         backend:
           serviceName: spa-service
           servicePort: 8080
-      - path: /cs
+  - host: api.coolstore.local
+    http:
+      paths:
+      - path: /
         backend:
           serviceName: gateway-service
-          servicePort: 5000
+          servicePort: 80

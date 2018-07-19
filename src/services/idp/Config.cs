@@ -3,6 +3,7 @@
 
 
 using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 
@@ -59,7 +60,7 @@ namespace IdentityServer4
 						};
 				}
 
-				public static IEnumerable<Client> GetClients(bool isDevelopment) => new[]
+				public static IEnumerable<Client> GetClients(bool isDevelopment, IConfigurationSection hostSettings) => new[]
 				{
 						// Inventory Swagger UI
 						new Client
@@ -114,19 +115,22 @@ namespace IdentityServer4
 							ClientName = "SPA Client",
 							ClientUri = isDevelopment
 								? "http://localhost:8080"
-								: $"http://{Environment.GetEnvironmentVariable("SPA_SERVICE_SERVICE_HOST")}:{Environment.GetEnvironmentVariable("SPA_SERVICE_SERVICE_PORT")}",
+								: hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"),
 							AllowedGrantTypes = GrantTypes.Implicit,
 							AllowAccessTokensViaBrowser = true,
 							
 							RedirectUris =
 							{
 								"http://localhost:8080/callback",
+								$"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/callback"
 							},
 
 							PostLogoutRedirectUris = { "/index.html" },
 							AllowedCorsOrigins = 
 							{ 
-								isDevelopment? "http://localhost:8080": $"http://{Environment.GetEnvironmentVariable("SPA_SERVICE_SERVICE_HOST")}:{Environment.GetEnvironmentVariable("SPA_SERVICE_SERVICE_PORT")}",
+								isDevelopment
+								? "http://localhost:8080"
+								: hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"),
 							},
 
 							AllowedScopes = {

@@ -35,7 +35,7 @@ metadata:
     app: gateway-service
 spec:
   ports:
-  - port: 5000
+  - port: 80
     targetPort: 5000
     protocol: TCP
     name: http
@@ -54,7 +54,7 @@ metadata:
     app: idp-service
 spec:
   ports:
-  - port: 5000
+  - port: 80
     targetPort: 5001
     protocol: TCP
     name: http
@@ -181,9 +181,9 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: "HostSettings__BasePath"
-          value: /cs/
+          value: /
         - name: "HostSettings__ExternalCurrentHostUri"
-          value: http://coolstore.local/cs
+          value: http://api.coolstore.local
         - name: "HostSettings__ExternalAuthHostUri"
           value: http://id.coolstore.local
         ports:
@@ -214,9 +214,9 @@ spec:
         - name: "HostSettings__BasePath"
           value: /
         - name: "HostSettings__SwaggerRedirectUri"
-          value: http://coolstore.local/cs/swagger/oauth2-redirect.html
+          value: http://api.coolstore.local/swagger/oauth2-redirect.html
         - name: "HostSettings__SwaggerPostLogoutRedirectUri"
-          value: http://coolstore.local/cs
+          value: http://api.coolstore.local
         - name: "HostSettings__SwaggerAllowedCorsOrigin"
           value: http://coolstore.local
         ports:
@@ -383,7 +383,7 @@ spec:
       - path: /
         backend:
           serviceName: idp-service
-          servicePort: 5000
+          servicePort: 80
   - host: coolstore.local
     http:
       paths:
@@ -391,8 +391,10 @@ spec:
         backend:
           serviceName: spa-service
           servicePort: 8080
-      - path: /cs
+  - host: api.coolstore.local
+    http:
+      paths:
+      - path: /
         backend:
           serviceName: gateway-service
-          servicePort: 5000
-
+          servicePort: 80  

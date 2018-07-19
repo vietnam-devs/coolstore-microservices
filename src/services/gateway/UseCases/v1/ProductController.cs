@@ -28,7 +28,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 						_urlHelper = urlHelper;
 						_catalogServiceUri = env.IsDevelopment()
 								? "http://localhost:5002"
-								: $"http://{Environment.GetEnvironmentVariable("CATALOG_SERVICE_SERVICE_HOST")}:{Environment.GetEnvironmentVariable("IDP_SERVICE_SERVICE_PORT")}";
+								: $"http://{Environment.GetEnvironmentVariable("CATALOG_SERVICE_SERVICE_HOST")}:{Environment.GetEnvironmentVariable("CATALOG_SERVICE_SERVICE_PORT")}";
 
 						
 				}

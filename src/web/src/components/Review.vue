@@ -1,10 +1,54 @@
+<template>
+  <transition name="modal-fade">
+    <div class="modal-backdrop">
+      <div class="modal"
+        role="dialog"
+        aria-labelledby="modalTitle"
+        aria-describedby="modalDescription"
+      >
+        <div class="modal-header">
+            <!-- <button type="button" class="close" @click="close" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button> -->
+            <!-- <h1 class="modal-title">Reviews for {{product.name}}</h1> -->
+        </div>
+        <div class="modal-body">
+            <div  style="padding: 10% 0;" v-if="!reviews" >
+                <div  class="spinner spinner-lg"></div>
+            </div>
+            <h1 v-if="reviews && reviews.length <= 0">No reviews for <strong>{{product.name}}</strong>. <a href="#">Perhaps you'd like to leave one?</a></h1>
+            <h1 v-if="reviews && reviews.length > 0">Top Customer Reviews</h1>
+            <div v-if="reviews">
+                <div v-for="review in reviews">
+                    <div style="float:right;">
+                        <img class="img-circle" src="https://www.gravatar.com/avatar/dummy?d=mm">
+                    </div>
+                    <div style="display:inline-block;" class="star-rating" star-rating rating-value="review.rating"
+                        data-max="5" data-item-id="">
+                    </div>
+                    <div style="display:inline-block;"><h3>({{review.title}})</h3></div>
+                    <p>By <a href="#">{{review.username}} on {{ review.createDate | formatDate ("MM/DD/YYYY")}}</a></p>
+                    <p><span style="color: #c45500; font-size: 0.8em">Verified Purchase</span></p>
+                    <h4>{{review.content}}</h4>
+                    <a href="#">Comment</a>&nbsp;&nbsp;|&nbsp;&nbsp;12 people found this helpful. Was this review helpful to you?&nbsp;<button>Yes</button><button>No</button>&nbsp;<a href="#">Report Abuse</a>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <router-link to="/" class="btn btn-primary">
+            Close
+        </router-link>
+
+      </div>
+    </div>
+  </transition>
+</template>
+
 <script>
 import { mapState } from "vuex";
 
 export default {
   name: "modal",
-  props: ["product"],
-
+//   props: ["product"],
   data() {
     return {
       reviews: [
@@ -28,50 +72,6 @@ export default {
   }
 };
 </script>
-<template>
-  <transition name="modal-fade">
-    <div class="modal-backdrop">
-      <div class="modal"
-        role="dialog"
-        aria-labelledby="modalTitle"
-        aria-describedby="modalDescription"
-      >
-        <div class="modal-header">
-            <button type="button" class="close" @click="close" aria-label="Close"><span aria-hidden="true">&times;</span>
-            </button>
-            <h1 class="modal-title">Reviews for {{product.name}}</h1>
-        </div>
-        <div class="modal-body">
-            <div  style="padding: 10% 0;" v-if="!reviews" >
-                <div  class="spinner spinner-lg"></div>
-            </div>
-            <h1 v-if="reviews && reviews.length <= 0">No reviews for <strong>{{product.name}}</strong>. <a href="#">Perhaps you'd like to leave one?</a></h1>
-            <h1 v-if="reviews && reviews.length > 0">Top Customer Reviews</h1>
-            <div v-if="reviews" style="height: 400px">
-                <div v-for="review in reviews">
-                    <div style="float:right;">
-                        <img class="img-circle" src="https://www.gravatar.com/avatar/dummy?d=mm">
-                    </div>
-                    <div style="display:inline-block;" class="star-rating" star-rating rating-value="review.rating"
-                        data-max="5" data-item-id="">
-                    </div>
-                    <div style="display:inline-block;"><h3>({{review.title}})</h3></div>
-                    <p>By <a href="http://#">{{review.username}} on {{ review.createDate }}</a></p>
-                    <p><span style="color: #c45500; font-size: 0.8em">Verified Purchase</span></p>
-                    <h4>{{review.content}}</h4>
-                    <a href="#">Comment</a>&nbsp;&nbsp;|&nbsp;&nbsp;12 people found this helpful. Was this review helpful to you?&nbsp;<button>Yes</button><button>No</button>&nbsp;<a href="#">Report Abuse</a>
-                    <hr>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" @click="close">Close</button>
-        </div>
-
-      </div>
-    </div>
-  </transition>
-</template>
 
 <style lang="stylus">
 .modal-backdrop {

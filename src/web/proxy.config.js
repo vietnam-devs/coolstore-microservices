@@ -2,40 +2,16 @@ var url = "http://localhost:5000/";
 var urlIdp = "http://localhost:5001/";
 var urlSpa = "http://localhost:8080/"
 
-//Config proxy
-var host = process.env.GATEWAY_SERVICE_SERVICE_HOST;
-var port = process.env.GATEWAY_SERVICE_SERVICE_PORT;
-
-var hostIdp = process.env.IDP_SERVICE_SERVICE_HOST;
-var portIdp = process.env.IDP_SERVICE_SERVICE_PORT;
-
-var hostSpa = process.env.SPA_SERVICE_SERVICE_HOST;
-var portSpa = process.env.SPA_SERVICE_SERVICE_PORT;
-
-if(!port){
-	port = 80
+const env = process.env.NODE_ENV
+const config = {
+   mode: env || 'development'
 }
 
-if(host){
-	url = `${host}:${port}/api`
+if(config.mode == "production"){
+	urlSpa = "http://coolstore.local/"
+	urlIdp = "http://id.coolstore.local/"
+	url = "http://api.coolstore.local/"
 }
-
-if(!portIdp){
-	portIdp = 80
-}
-
-if(host){
-	urlIdp = `${hostIdp}:${portIdp}/`
-}
-
-if(!portSpa){
-	portSpa = 80
-}
-
-if(hostSpa){
-	urlSpa = `${hostSpa}:${portSpa}/`
-}
-
 
 const PROXY_CONFIG = {
     baseUrl: url,
@@ -53,9 +29,6 @@ const PROXY_CONFIG = {
         ignorePath: true,
         changeOrigin: true,
         pathRewrite: { '^/config': '' },
-        router: function (req) {
-            return `${urlIdp}/.well-known/openid-configuration`;
-        }
     },
     "/.well-known/openid-configuration/jwks": {
         target: `${urlIdp}/.well-known/openid-configuration/jwks`,
