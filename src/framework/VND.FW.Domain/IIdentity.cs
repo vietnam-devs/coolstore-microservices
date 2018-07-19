@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 
 namespace VND.Fw.Domain
 {
-    public interface IIdentity
-    {
-        Guid Id { get; }
-    }
+  public interface IIdentity
+  {
+    Guid Id { get; }
+  }
 }

@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 
 namespace VND.Fw.Utils.Helpers
 {
-    public static class DateTimeHelper
+  public static class DateTimeHelper
+  {
+    public static DateTime GenerateDateTime()
     {
-        public static DateTime GenerateDateTime()
-        {
-            return DateTimeOffset.Now.UtcDateTime;
-        }
+      return DateTimeOffset.Now.UtcDateTime;
     }
+  }
 }

@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger
 {
@@ -11,7 +11,7 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger
     public void Apply(Operation operation, OperationFilterContext context)
     {
       // Policy names map to scopes
-      var requiredScopes = context.MethodInfo
+      IEnumerable<string> requiredScopes = context.MethodInfo
           .GetCustomAttributes(true)
           .OfType<AuthorizeAttribute>()
           .Select(attr => attr.Policy)

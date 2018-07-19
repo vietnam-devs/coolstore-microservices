@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 
 namespace VND.Fw.Utils.Helpers
 {
-    public static class IdHelper
+  public static class IdHelper
+  {
+    public static Guid GenerateId(string guid = "")
     {
-        public static Guid GenerateId(string guid = "")
-        {
-            return string.IsNullOrEmpty(guid) ? Guid.NewGuid() : new Guid(guid);
-        }
+      return string.IsNullOrEmpty(guid) ? Guid.NewGuid() : new Guid(guid);
     }
+  }
 }

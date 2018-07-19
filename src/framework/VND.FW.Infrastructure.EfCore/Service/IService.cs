@@ -1,6 +1,6 @@
-﻿namespace VND.FW.Infrastructure.EfCore.Service
+namespace VND.FW.Infrastructure.EfCore.Service
 {
-    public interface IService
-    {
-    }
+  public interface IService
+  {
+  }
 }
