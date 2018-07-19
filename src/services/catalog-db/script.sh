@@ -1,3 +1,3 @@
 #! /bin/sh
 set -e
-mongoimport --host localhost --db catalog --collection Product --drop --file /products.json
+mongoimport --host localhost --db catalog --collection products --file products.json 
