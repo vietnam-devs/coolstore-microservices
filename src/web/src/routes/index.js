@@ -9,6 +9,7 @@ const HomeView = () => import('./Home.vue')
 const CartView = () => import('./Cart.vue')
 const CallbackView = () => import('../components/Callback.vue')
 const UnauthorizedView = () => import('../components/Unauthorized.vue')
+const Review = () => import('../components/Review.vue')
 
 const router = new Router({
     mode: 'history',
@@ -36,6 +37,11 @@ const router = new Router({
             path: '/unauthorized',
             name: 'unauthorized',
             component: UnauthorizedView
+        },
+        {
+            path: '/review/:id',
+            name: 'reviewproduct',
+            component: Review
         }
     ]
 })

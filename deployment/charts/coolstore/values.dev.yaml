@@ -1,10 +1,10 @@
 gatewaySettings:
-  HostSettings__BasePath: /cs/
-  HostSettings__ExternalCurrentHostUri: http://coolstore.local/cs
+  HostSettings__BasePath: /
+  HostSettings__ExternalCurrentHostUri: http://api.coolstore.local
   HostSettings__ExternalAuthHostUri: http://id.coolstore.local
   
 idpSettings:
   HostSettings__BashPath: /
-  HostSettings__SwaggerRedirectUri: http://coolstore.local/cs/swagger/oauth2-redirect.html
-  HostSettings__SwaggerPostLogoutRedirectUri: http://coolstore.local/cs
+  HostSettings__SwaggerRedirectUri: http://api.coolstore.local/swagger/oauth2-redirect.html
+  HostSettings__SwaggerPostLogoutRedirectUri: http://api.coolstore.local
   HostSettings__SwaggerAllowedCorsOrigin: http://coolstore.local

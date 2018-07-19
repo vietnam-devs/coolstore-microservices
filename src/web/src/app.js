@@ -8,6 +8,8 @@ import {
 
 import Buefy from 'buefy'
 import interceptorsSetup from './helper/interceptors'
+
+require("./helper/filter")
 interceptorsSetup()
 
 Vue.use(Buefy)

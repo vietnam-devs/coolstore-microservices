@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <Review v-bind:product="productReview" v-show="isModalVisible" @close="closeModal"/>
+    <!-- <Review v-bind:product="productReview" v-show="isModalVisible" @close="closeModal"/> -->
   </div>
 </template>
 
@@ -81,6 +81,7 @@ export default {
 
     showReviews(product) {
       this.productReview = product;
+      this.$router.push("/review/"+product.id)
       this.showModal();
     },
 

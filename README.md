@@ -95,7 +95,7 @@ Waiting for the container provision completed
 
 ```
 > curl -I http://coolstore.local
-> curl -I http://coolstore.local/cs
+> curl -I http://api.coolstore.local
 ```
 
 ### Open API
