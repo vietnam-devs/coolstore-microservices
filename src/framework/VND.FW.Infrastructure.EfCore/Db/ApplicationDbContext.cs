@@ -13,7 +13,7 @@ namespace VND.FW.Infrastructure.EfCore.Db
 {
 		public class ApplicationDbContext : DbContext
 		{
-				private readonly EfCoreOption _persistenceOption = new EfCoreOption();
+				private readonly PersistenceOption _persistenceOption = new PersistenceOption();
 
 				public ApplicationDbContext(
 						DbContextOptions<ApplicationDbContext> options,

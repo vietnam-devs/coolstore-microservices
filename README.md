@@ -6,6 +6,25 @@ CoolStore is a containerised polyglot microservices application consisting of se
 
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
+## Table of contents
+
+* [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
+* [Services](https://github.com/vietnam-devs/coolstore-microservices#services)
+* [Up and Running](https://github.com/vietnam-devs/coolstore-microservices#up-and-running)
+* [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
+* [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
+* [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
+* [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
+
+# Prerequisites
+
+- Windows 10
+- Windows Subsystem Linux (WSL - Ubuntu OS)
+- Docker for Windows (Kubernetes enabled)
+- kubectl
+- helm
+- istioctl
+
 # Services
 
 There are several individual microservices and infrastructure components that make up this app:
@@ -39,15 +58,6 @@ There are several individual microservices and infrastructure components that ma
   - **`http://localhost:8080`**
 
 ![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
-
-# Prerequisites
-
-- Windows 10
-- Windows Subsystem Linux (WSL - Ubuntu OS)
-- Docker for Windows (Kubernetes enabled)
-- kubectl
-- helm
-- istioctl
 
 # Up and Running
 
@@ -85,10 +95,22 @@ Waiting for the container provision completed
 > curl -I http://coolstore.local/cs
 ```
 
-# Open API 
+# Open API
 
 ![OpenAPI Screenshot](assets/images/open-api.png?raw=true 'OpenAPI')
 
-# Deploy Demo: CoolStore Microservices with CI/CD
+# CI/CD
 
 TODO
+
+# Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :p
+
+# Licence
+
+Code released under [the MIT license](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE).

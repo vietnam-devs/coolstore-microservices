@@ -11,8 +11,8 @@ using VND.FW.Infrastructure.EfCore.SqlServer;
 
 namespace VND.CoolStore.Services.Cart
 {
-    public class Startup
-    {
+		public class Startup
+		{
 				public Startup(IConfiguration configuration)
 				{
 						Configuration = configuration;
@@ -21,15 +21,15 @@ namespace VND.CoolStore.Services.Cart
 				public IConfiguration Configuration { get; }
 
 				public void ConfigureServices(IServiceCollection services)
-        {
+				{
 						services.AddEfCoreSqlServer();
 						services.AddScoped<ICartService, CartService>();
 						services.AddMiniService(typeof(Startup).GetTypeInfo().Assembly);
 				}
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
+				public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+				{
 						app.UseMiniService();
 				}
-    }
+		}
 }

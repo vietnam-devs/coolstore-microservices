@@ -26,7 +26,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
 
 						services.AddRouting(options => options.LowercaseUrls = true);
 						services.AddOptions()
-								.Configure<EfCoreOption>(config.GetSection("EfCore"));
+								.Configure<PersistenceOption>(config.GetSection("EfCore"));
 
 						void optionsBuilderAction(DbContextOptionsBuilder optionsBuilder)
 						{
