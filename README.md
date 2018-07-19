@@ -16,6 +16,7 @@ It demonstrates how to wire up small microservices into a larger application usi
 * [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
 * [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
 * [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
+* [Contributors](https://github.com/vietnam-devs/coolstore-microservices#contributors)
 * [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
 
 ### Prerequisites
