@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using VND.CoolStore.Services.ApiGateway.Model;
 using VND.FW.Infrastructure.AspNetCore;
 
@@ -9,7 +8,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 {
 		[ApiVersion("1.0")]
 		[Route("api/v{api-version:apiVersion}/carts")]
-		public class CartController : FW.Infrastructure.AspNetCore.ControllerBase
+		public class CartController : ProxyControllerBase
 		{
 				public CartController(RestClient rest) : base(rest)
 				{

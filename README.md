@@ -6,7 +6,28 @@ CoolStore is a containerised polyglot microservices application consisting of se
 
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
-# Services
+[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
+
+# Table of contents
+
+* [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
+* [Services](https://github.com/vietnam-devs/coolstore-microservices#services)
+* [Up and Running](https://github.com/vietnam-devs/coolstore-microservices#up-and-running)
+* [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
+* [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
+* [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
+* [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
+
+### Prerequisites
+
+- Windows 10
+- Windows Subsystem Linux (WSL - Ubuntu OS)
+- Docker for Windows (Kubernetes enabled)
+- kubectl
+- helm
+- istioctl
+
+### Services
 
 There are several individual microservices and infrastructure components that make up this app:
 
@@ -40,16 +61,7 @@ There are several individual microservices and infrastructure components that ma
 
 ![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
 
-# Prerequisites
-
-- Windows 10
-- Windows Subsystem Linux (WSL - Ubuntu OS)
-- Docker for Windows (Kubernetes enabled)
-- kubectl
-- helm
-- istioctl
-
-# Up and Running
+### Up and Running
 
 Make sure we have `docker for windows` edge running with `kubernetes` option enabled. We need to install `kubectl`, `helm` and `istioctl` on the build machine as well.
 
@@ -85,10 +97,28 @@ Waiting for the container provision completed
 > curl -I http://api.coolstore.local
 ```
 
-# Open API 
+### Open API
 
 ![OpenAPI Screenshot](assets/images/open-api.png?raw=true 'OpenAPI')
 
-# Deploy Demo: CoolStore Microservices with CI/CD
+### CI/CD
 
 TODO
+
+### Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :p
+
+### Contributors
+
+| [Thang Chung](https://github.com/thangchung)                  | [Thinh Nguyen](https://github.com/thinhnotes)                        |
+| -------------------------------------------------------------- | ------------------------------------------------------------------- |
+| <img src="https://avatars3.githubusercontent.com/u/422341?s=460&v=4"  alt="thangchung" width="150"/> | <img src="https://avatars2.githubusercontent.com/u/4660531?s=460&v=4" alt="thinhnguyen" width="150" /> |
+
+### Licence
+
+Code released under [the MIT license](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE).

@@ -18,20 +18,26 @@ namespace VND.FW.Infrastructure.EfCore.SqlServer
 
 				public string Create()
 				{
-						var k8s = _config.GetSection("K8s");
-						var serviceHost = k8s.GetValue<string>("DbServiceHost");
-						var servicePort = k8s.GetValue<string>("DbServicePort");
-						var connectionString = _config.GetConnectionString("SqlServerDefault");
-
 						if (_env.IsDevelopment())
 						{
-								return string.Format(connectionString, "127.0.0.1", 1433);
+								return _config.GetConnectionString("local_mssql");
 						}
+
+						var k8s = _config.GetSection("k8sdb");
+						var k8sHost = k8s.GetValue<string>("Host");
+						var k8sPort = k8s.GetValue<string>("Port");
+						var k8sDatabase = k8s.GetValue<string>("Database");
+						var k8sUserName = k8s.GetValue<string>("UserName");
+						var k8sPassword = k8s.GetValue<string>("Password");
+						var connectionString = _config.GetConnectionString("k8s_mssql");
 
 						return string.Format(
 								connectionString, 
-								Environment.GetEnvironmentVariable(serviceHost),
-								Environment.GetEnvironmentVariable(servicePort));
+								Environment.GetEnvironmentVariable(k8sHost),
+								Environment.GetEnvironmentVariable(k8sPort),
+								k8sDatabase,
+								k8sUserName,
+								k8sPassword);
 				}
 		}
 }

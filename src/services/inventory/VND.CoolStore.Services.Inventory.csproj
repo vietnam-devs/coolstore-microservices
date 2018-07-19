@@ -4,13 +4,14 @@
 		<PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Application\**" />
     <Compile Remove="wwwroot\**" />
+    <Content Remove="Application\**" />
     <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Application\**" />
     <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Application\**" />
     <None Remove="wwwroot\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Application\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />

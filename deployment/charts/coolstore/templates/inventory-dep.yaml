@@ -55,7 +55,7 @@ spec:
         image: vndg/cs-inventory-service:latest
         imagePullPolicy: IfNotPresent
         # env:
-        # - name: "ConnectionStrings__SqlServerDefault"
+        # - name: "ConnectionStrings__k8s_mssql"
         #   value: "Server=tcp:inventory-db-service,1433;Database=maindb;User Id=cs;Password=P@ssw0rd;"
         # volumeMounts:
         # - name: logs

@@ -20,7 +20,7 @@ namespace VND.FW.Infrastructure.EfCore.Db
 						IConfiguration configuration)
 						: base(options)
 				{
-						var section = configuration.GetSection("Persistence");
+						var section = configuration.GetSection("EfCore");
 						_persistenceOption.FullyQualifiedPrefix = section.GetValue<string>("FullyQualifiedPrefix");
 						_persistenceOption.ShortyQualifiedPrefix = section.GetValue<string>("ShortyQualifiedPrefix");
 				}
