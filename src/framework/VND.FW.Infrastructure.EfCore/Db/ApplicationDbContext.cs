@@ -13,14 +13,14 @@ namespace VND.FW.Infrastructure.EfCore.Db
 {
 		public class ApplicationDbContext : DbContext
 		{
-				private readonly PersistenceOption _persistenceOption = new PersistenceOption();
+				private readonly EfCoreOption _persistenceOption = new EfCoreOption();
 
 				public ApplicationDbContext(
 						DbContextOptions<ApplicationDbContext> options,
 						IConfiguration configuration)
 						: base(options)
 				{
-						var section = configuration.GetSection("Persistence");
+						var section = configuration.GetSection("EfCore");
 						_persistenceOption.FullyQualifiedPrefix = section.GetValue<string>("FullyQualifiedPrefix");
 						_persistenceOption.ShortyQualifiedPrefix = section.GetValue<string>("ShortyQualifiedPrefix");
 				}

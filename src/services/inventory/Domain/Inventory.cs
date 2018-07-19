@@ -5,7 +5,7 @@ namespace VND.CoolStore.Services.Inventory.Domain
 {
     public class Inventory : EntityBase
     {
-				public Inventory() : base()
+				internal Inventory() : base()
 				{
 				}
 

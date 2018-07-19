@@ -17,7 +17,7 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
         public static IServiceCollection AddEfCore(this IServiceCollection services)
         {
 						var serviceProvider = services.BuildServiceProvider();
-						var persistenceOption = serviceProvider.GetRequiredService<IOptions<PersistenceOption>>()?.Value;
+						var persistenceOption = serviceProvider.GetRequiredService<IOptions<EfCoreOption>>()?.Value;
 						var entityTypes = persistenceOption.FullyQualifiedPrefix.LoadAssemblyWithPattern()
 								.SelectMany(m => m.DefinedTypes)
 								.Where(x => typeof(IEntity)

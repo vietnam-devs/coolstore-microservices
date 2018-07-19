@@ -32,7 +32,7 @@ namespace VND.CoolStore.Services.Inventory
 						services.AddScoped<IInventoryService, InventoryService>();
 						services.AddRouting(options => options.LowercaseUrls = true);
 						services.AddOptions()
-								.Configure<PersistenceOption>(Configuration.GetSection("Persistence"));
+								.Configure<EfCoreOption>(Configuration.GetSection("EfCore"));
 
 						var serviceProvider = services.BuildServiceProvider();
 						var extendOptionsBuilder = serviceProvider.GetService<IExtendDbContextOptionsBuilder>();

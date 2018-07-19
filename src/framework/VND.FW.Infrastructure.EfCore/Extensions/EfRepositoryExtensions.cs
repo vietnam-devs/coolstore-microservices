@@ -4,139 +4,139 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using VND.Fw.Domain;
 using VND.FW.Infrastructure.EfCore.Repository;
 
 namespace VND.FW.Infrastructure.EfCore.Extensions
 {
-    public static class EfRepositoryExtensions
-    {
-        public static async Task<TEntity> GetByIdAsync<TDbContext, TEntity>(
-            this IEfQueryRepository<TDbContext, TEntity> repo, 
-            Guid id, 
-            params Expression<Func<TEntity, object>>[] includeProperties)
-                where TDbContext : DbContext
-                where TEntity : class, IEntity
+		public static class EfRepositoryExtensions
+		{
+				public static async Task<TEntity> GetByIdAsync<TDbContext, TEntity>(
+						this IEfQueryRepository<TDbContext, TEntity> repo,
+						Guid id,
+						Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+						bool disableTracking = true)
+								where TDbContext : DbContext
+								where TEntity : class, IEntity
 
-        {
-            var queryable = repo.Queryable().AsNoTracking() as IQueryable<TEntity>;
+				{
+						IQueryable<TEntity> queryable = repo.Queryable();
+						if (disableTracking)
+						{
+								queryable = queryable.AsNoTracking() as IQueryable<TEntity>;
+						}
 
-            if (includeProperties != null)
-            {
-                foreach (var includeProperty in includeProperties)
-                {
-                    queryable = queryable.Include(includeProperty);
-                }
-            }
+						include?.Invoke(queryable);
 
-            return await queryable.SingleOrDefaultAsync(e => e.Id.Equals(id));
-        }
+						return await queryable.SingleOrDefaultAsync(e => e.Id.Equals(id));
+				}
 
-        public static async Task<IReadOnlyList<TEntity>> ListAsync<TDbContext, TEntity>(
-            this IEfQueryRepository<TDbContext, TEntity> repo,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-                where TDbContext : DbContext
-                where TEntity : class, IEntity
-        {
-            var queryable = repo.Queryable().AsNoTracking() as IQueryable<TEntity>;
+				public static async Task<TEntity> FindOneAsync<TDbContext, TEntity>(
+						this IEfQueryRepository<TDbContext, TEntity> repo,
+						Expression<Func<TEntity, bool>> filter,
+						Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+						bool disableTracking = true)
+								where TDbContext : DbContext
+								where TEntity : class, IEntity
+				{
+						IQueryable<TEntity> queryable = repo.Queryable();
+						if (disableTracking)
+						{
+								queryable = queryable.AsNoTracking() as IQueryable<TEntity>;
+						}
 
-            if (includeProperties != null)
-            {
-                foreach (var includeProperty in includeProperties)
-                {
-                    queryable = queryable.Include(includeProperty);
-                }
-            }
+						include?.Invoke(queryable);
 
-            return await queryable.ToListAsync();
-        }
+						return await queryable.FirstOrDefaultAsync(filter);
+				}
 
-        internal static async Task<PaginatedItem<TResponse>> QueryAsync<TDbContext, TEntity, TResponse>(
-            this IEfQueryRepository<TDbContext, TEntity> repo,
-            Criterion criterion,
-            Expression<Func<TEntity, TResponse>> selector,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-                where TDbContext : DbContext
-                where TEntity : class, IEntity
-        {
-            return await GetDataAsync(repo, criterion, selector, null, includeProperties);
-        }
+				public static async Task<IReadOnlyList<TEntity>> ListAsync<TDbContext, TEntity>(
+						this IEfQueryRepository<TDbContext, TEntity> repo,
+						Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+						bool disableTracking = true)
+								where TDbContext : DbContext
+								where TEntity : class, IEntity
+				{
+						IQueryable<TEntity> queryable = repo.Queryable();
+						if (disableTracking)
+						{
+								queryable = queryable.AsNoTracking() as IQueryable<TEntity>;
+						}
 
-        internal static async Task<PaginatedItem<TResponse>> FindAllAsync<TDbContext, TEntity, TResponse>(
-            this IEfQueryRepository<TDbContext, TEntity> repo,
-            Criterion criterion,
-            Expression<Func<TEntity, TResponse>> selector,
-            Expression<Func<TEntity, bool>> filter,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-                where TDbContext : DbContext
-                where TEntity : class, IEntity
-        {
-            return await GetDataAsync(repo, criterion, selector, filter, includeProperties);
-        }
+						include?.Invoke(queryable);
 
-        internal static async Task<TEntity> FindOneAsync<TDbContext, TEntity>(
-            this IEfQueryRepository<TDbContext, TEntity> repo,
-            Expression<Func<TEntity, bool>> filter,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-                where TDbContext : DbContext
-                where TEntity : class, IEntity
-        {
-            var dbSet = repo.Queryable();
-            foreach (var includeProperty in includeProperties)
-            {
-                dbSet = dbSet.Include(includeProperty);
-            }
+						return await queryable.ToListAsync();
+				}
 
-            return await dbSet.FirstOrDefaultAsync(filter);
-        }
+				public static async Task<PaginatedItem<TResponse>> QueryAsync<TDbContext, TEntity, TResponse>(
+						this IEfQueryRepository<TDbContext, TEntity> repo,
+						Criterion criterion,
+						Expression<Func<TEntity, TResponse>> selector,
+						Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+						bool disableTracking = true)
+								where TDbContext : DbContext
+								where TEntity : class, IEntity
+				{
+						return await GetDataAsync(repo, criterion, selector, null, include, disableTracking);
+				}
 
-        private static async Task<PaginatedItem<TResponse>> GetDataAsync<TDbContext, TEntity, TResponse>(
-            IEfQueryRepository<TDbContext, TEntity> repo,
-            Criterion criterion,
-            Expression<Func<TEntity, TResponse>> selector,
-            Expression<Func<TEntity, bool>> filter = null,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-                where TDbContext : DbContext
-                where TEntity : class, IEntity
-        {
-            if (criterion.PageSize < 1 || criterion.PageSize > criterion.DefaultPagingOption.PageSize)
-            {
-                criterion.SetPageSize(criterion.DefaultPagingOption.PageSize);
-            }
+				public static async Task<PaginatedItem<TResponse>> FindAllAsync<TDbContext, TEntity, TResponse>(
+						this IEfQueryRepository<TDbContext, TEntity> repo,
+						Criterion criterion,
+						Expression<Func<TEntity, TResponse>> selector,
+						Expression<Func<TEntity, bool>> filter,
+						Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+						bool disableTracking = true)
+								where TDbContext : DbContext
+								where TEntity : class, IEntity
+				{
+						return await GetDataAsync(repo, criterion, selector, filter, include, disableTracking);
+				}
 
-            var queryable = repo.Queryable();
-            if (includeProperties != null && includeProperties.Count() > 0)
-            {
-                queryable = includeProperties.Aggregate(
-                    queryable,
-                    (current, include) => current.Include(include));
-            }
+				private static async Task<PaginatedItem<TResponse>> GetDataAsync<TDbContext, TEntity, TResponse>(
+						IEfQueryRepository<TDbContext, TEntity> repo,
+						Criterion criterion,
+						Expression<Func<TEntity, TResponse>> selector,
+						Expression<Func<TEntity, bool>> filter = null,
+						Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+						bool disableTracking = true)
+								where TDbContext : DbContext
+								where TEntity : class, IEntity
+				{
+						IQueryable<TEntity> queryable = repo.Queryable();
+						if (disableTracking)
+						{
+								queryable = queryable.AsNoTracking() as IQueryable<TEntity>;
+						}
 
-            if (filter != null)
-                queryable = queryable.Where(filter);
+						include?.Invoke(queryable);
 
-            if (!string.IsNullOrWhiteSpace(criterion.SortBy))
-            {
-                var isDesc = string.Equals(criterion.SortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
-                queryable = queryable.OrderByPropertyName(criterion.SortBy, isDesc);
-            }
+						if (filter != null)
+								queryable = queryable.Where(filter);
 
-            var results = await queryable
-                .Skip(criterion.CurrentPage * criterion.PageSize)
-                .Take(criterion.PageSize)
-                .AsNoTracking()
-                .Select(selector)
-                .ToListAsync();
+						if (!string.IsNullOrWhiteSpace(criterion.SortBy))
+						{
+								var isDesc = string.Equals(criterion.SortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+								queryable = queryable.OrderByPropertyName(criterion.SortBy, isDesc);
+						}
 
-            var totalRecord = await queryable.CountAsync();
-            var totalPages = (int)Math.Ceiling((double)totalRecord / criterion.PageSize);
+						var results = await queryable
+								.Skip(criterion.CurrentPage * criterion.PageSize)
+								.Take(criterion.PageSize)
+								.AsNoTracking()
+								.Select(selector)
+								.ToListAsync();
 
-            if (criterion.CurrentPage > totalPages)
-            {
-                criterion.SetCurrentPage(totalPages);
-            }
+						var totalRecord = await queryable.CountAsync();
+						var totalPages = (int)Math.Ceiling((double)totalRecord / criterion.PageSize);
 
-            return new PaginatedItem<TResponse>(totalRecord, totalPages, results);
-        }
-    }
+						if (criterion.CurrentPage > totalPages)
+						{
+								// criterion.SetCurrentPage(totalPages);
+						}
+
+						return new PaginatedItem<TResponse>(totalRecord, totalPages, results);
+				}
+		}
 }

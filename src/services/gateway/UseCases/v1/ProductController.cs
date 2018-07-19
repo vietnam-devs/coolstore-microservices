@@ -17,7 +17,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 		/// </summary>
 		[ApiVersion("1.0")]
 		[Route("api/v{api-version:apiVersion}/products")]
-		public class ProductController : FW.Infrastructure.AspNetCore.ControllerBase
+		public class ProductController : ProxyControllerBase
 		{
 				private readonly IUrlHelper _urlHelper;
 				private readonly string _catalogServiceUri;

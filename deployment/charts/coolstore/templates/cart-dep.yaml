@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cart-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cart
+        version: v1
+    spec:
+      containers:
+      - name: cart
+        image: vndg/cs-cart-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5003
+---

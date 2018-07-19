@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cart-db-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cart-db
+        version: v1
+    spec:
+      containers:
+      - name: cart-db
+        image: vndg/cs-mssql-db:latest
+        imagePullPolicy: IfNotPresent
+        env: 
+        - name: ACCEPT_EULA
+          value: Y
+        - name: MSSQL_SA_PASSWORD
+          value: P@ssw0rd
+        ports:
+        - containerPort: 1433
+---
