@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace VND.FW.Infrastructure.EfCore.Db
 {
-		public interface ICustomModelBuilder
-		{
-				void Build(ModelBuilder modelBuilder);
-		}
+  public interface ICustomModelBuilder
+  {
+    void Build(ModelBuilder modelBuilder);
+  }
 }

@@ -1,7 +1,7 @@
-﻿namespace VND.FW.Infrastructure.EfCore.Db
+namespace VND.FW.Infrastructure.EfCore.Db
 {
-    public interface IDatabaseConnectionStringFactory
-    {
-        string Create();
-    }
+  public interface IDatabaseConnectionStringFactory
+  {
+    string Create();
+  }
 }
