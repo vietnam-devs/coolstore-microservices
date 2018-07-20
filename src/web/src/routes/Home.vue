@@ -58,7 +58,7 @@ export default {
 
   computed: {
     products() {
-      return this.$store.state.products;
+      return this.$store.getters.products;
     }
   },
 
@@ -97,6 +97,7 @@ export default {
     addToCart(product, quantity) {
       this.$store.dispatch("ADD_TO_CARD", { product, quantity }).then(
         data => {
+          debugger;
           // this.$notify({
           //     group: 'noti',
           //     title: 'Success!',

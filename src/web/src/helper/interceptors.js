@@ -25,7 +25,6 @@ export default function setup() {
             if (401 === error.response.status) {
                 signinSilent((usermanager)=>{
                     usermanager.then((response)=>{
-                        debugger;
                     })
                 })
             } else {

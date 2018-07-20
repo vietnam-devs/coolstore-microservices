@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { setItem, removeItem } from '../helper/storage'
 
 export default {
     SET_LIST: (state, data) => {
@@ -17,15 +18,17 @@ export default {
         state.cart = data
     },
     LOGIN_SUCCESS: (state, data) => {
-        state.accessToken = data
-        if (typeof localStorage !== 'undefined') {
-            localStorage.setItem('accessToken', data)
-        }
+        debugger
+        state.accessToken = data.accessToken
+        state.idToken = data.idToken
+        setItem('accessToken', data.accessToken)
+        setItem('idToken', data.idToken)
     },
     LOGOUT: state => {
-        state.accessToken = null
-        if (typeof localStorage !== 'undefined') {
-            localStorage.removeItem('accessToken')
-        }
+        debugger
+        state.accessToken = undefined
+        state.idToken = undefined
+        removeItem('accessToken')
+        removeItem('idToken')
     }
 }

@@ -15,6 +15,7 @@ const store = new Vuex.Store({
         },
         isLoggedIn: undefined,
         accessToken: undefined,
+        idToken: undefined
     },
     actions,
     mutations,
