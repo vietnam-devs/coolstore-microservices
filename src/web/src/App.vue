@@ -36,9 +36,21 @@
 
 <script>
 import Footer from './components/Footer.vue'
+import { getUser } from './auth/usermanager'
 
 export default {
   name: 'app',
+  data() {
+    return {
+      username: null
+    }
+  },
+  beforeMount() {
+    getUser(user => {
+      user.then(response => {
+      })
+    })
+  },
   components: {
     'cs-footer': Footer
   }

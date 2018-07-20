@@ -7,7 +7,7 @@
           <article class="tile tile is-child box">
             <p class="title" @click="showReviews(product)">{{product.name}}</p>
             <p class="subtitle">{{product.desc}}</p>
-            <img class="img-responsive img-circle" v-bind:src="'dist/imgs/Product '+ (index + 1) + '.jpg'" />            
+            <img class="img-responsive img-circle" v-bind:src="productImageUrl + index" />            
             <section>
                 <b-field>
                     <span>${{product.price}}</span>
@@ -51,7 +51,8 @@ export default {
   data() {
     return {
       isModalVisible: false,
-      productReview: {}
+      productReview: {},
+      productImageUrl: "https://picsum.photos/400/300?image=",
     };
   },
 
