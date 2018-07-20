@@ -11,6 +11,7 @@
     "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.server.config.js --progress --hide-modules"
   },
   "dependencies": {
+    "atob": "^2.1.1",
     "axios": "^0.18.0",
     "buefy": "^0.6.6",
     "compression": "^1.7.2",

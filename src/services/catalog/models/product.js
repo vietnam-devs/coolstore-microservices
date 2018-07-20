@@ -10,6 +10,16 @@ var ProductSchema = new Schema({
   price: { type: Number }
 })
 
+// Duplicate the ID field.
+ProductSchema.virtual('id').get(function(){
+    return this._id;
+});
+
+// Ensure virtual fields are serialised.
+ProductSchema.set('toJSON', {
+    virtuals: true
+});
+
 ProductSchema.path('name').required(true, 'Product name cannot be blank')
 ProductSchema.path('price').required(true, 'price cannot be blank')
 ProductSchema.path('price').validate(function(price) {

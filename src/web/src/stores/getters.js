@@ -1,17 +1,47 @@
+import { getItem } from '../helper/storage'
 export default {
     isLoggedIn: state => {
-        if (typeof localStorage !== 'undefined') { 
-            var accessToken = localStorage.getItem("accessToken");
-            state.accessToken = accessToken;
-        }
-        return state.accessToken != null
+        return getItem('accessToken') != null
     },
 
     accessToken: state => {
-        if (typeof localStorage !== 'undefined') { 
-            var accessToken = localStorage.getItem("accessToken");
-            state.accessToken = accessToken;
-        }
-        return state.accessToken;
+        return getItem('accessToken')
+    },
+
+    products: state => {
+        debugger
+        var products = []
+        state.products.forEach(product => {
+            var productDefault = {
+                name: undefined,
+                desc: undefined,
+                price: 0,
+                availability: {
+                    location: undefined,
+                    quantity: 0,
+                    link: undefined
+                },
+                rating: {
+                    id: undefined,
+                    rate: 0,
+                    count: 0
+                },
+                quantity: 1 //value default when add to cart 
+            }
+            if (!product.availability) {
+                product.availability = Object.assign(
+                    productDefault.availability,
+                    product.availability
+                )
+            }
+            if (!product.rating) {
+                product.rating = Object.assign(
+                    productDefault.rating,
+                    product.rating
+                )
+            }
+            products.push(Object.assign(productDefault, product))
+        })
+        return products
     }
 }

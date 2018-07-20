@@ -24,6 +24,12 @@
       </div>
 
       <div class="navbar-end">
+        <div class="navbar-item">
+          Hi {{userId}}
+        </div>
+        <div class="navbar-item">
+          <a class="button is-inverted" @click="logout">Logout</a>
+        </div>
       </div>
     </nav>
 
@@ -36,9 +42,29 @@
 
 <script>
 import Footer from './components/Footer.vue'
+import { getUser, signoutRedirect } from './auth/usermanager'
 
 export default {
   name: 'app',
+  data() {
+    return {
+      userId: undefined,
+      username: undefined
+    }
+  },
+  beforeMount() {
+    getUser(user => {
+      if (user) this.userId = user.sub
+    })
+  },
+  methods: {
+    logout() {
+      this.$store.commit('LOGOUT');
+      signoutRedirect(respnose => {
+        debugger;
+      })
+    },
+  },
   components: {
     'cs-footer': Footer
   }

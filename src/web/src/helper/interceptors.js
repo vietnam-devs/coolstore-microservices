@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '../stores'
-import router from '../routes'
+import { signinSilent } from '../auth/usermanager'
 
 export default function setup() {
     axios.interceptors.request.use(
@@ -9,6 +9,7 @@ export default function setup() {
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`
             }
+            config.headers['Cache-Control'] = 'no-cache'
             return config
         },
         function(err) {
@@ -22,7 +23,10 @@ export default function setup() {
         },
         function(error) {
             if (401 === error.response.status) {
-                debugger;
+                signinSilent((usermanager)=>{
+                    usermanager.then((response)=>{
+                    })
+                })
             } else {
                 return Promise.reject(error)
             }

@@ -7,19 +7,19 @@
 <script>
 import { oidcSettings } from '../oidcConfig'
 var applicationUserManager = () => import('oidc-client')
+import { login } from '../auth/usermanager'
 
 export default {
   name: 'unauthorized',
   beforeMount() {
-    if(!this.$store.state.isLoggedIn && !this.$store.state.isLoggedIn){
-      this.login();
+    if (!this.$store.state.isLoggedIn && !this.$store.state.isLoggedIn) {
+      this.login()
     }
   },
   methods: {
     login() {
-      applicationUserManager().then(obj => {
-        let userManger = new obj.UserManager(oidcSettings)
-        userManger.signinRedirect().then(response => {
+      login(function(user) {
+        user.then(response => {
           console.log('Authorired success!')
         })
       })
