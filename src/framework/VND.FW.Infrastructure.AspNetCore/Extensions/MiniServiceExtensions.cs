@@ -1,3 +1,5 @@
+// Reference at https://thenewstack.io/miniservices-a-realistic-alternative-to-microservices
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

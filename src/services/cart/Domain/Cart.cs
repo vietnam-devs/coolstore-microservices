@@ -1,12 +1,20 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using VND.Fw.Domain;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {
   public class Cart : EntityBase
   {
-    internal Cart() { }
+    internal Cart() : base(Guid.NewGuid())
+    {
+    }
+
+    public Cart(Guid id) : base(id)
+    {
+    }
 
     [Required]
     public double CartItemTotal { get; set; }
@@ -24,6 +32,18 @@ namespace VND.CoolStore.Services.Cart.Domain
     public double CartTotal { get; set; }
 
     [Required]
-    public ICollection<CartItem> CartItems { get; set; }
+    public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+
+    public Cart InsertItemToCart(CartItem item)
+    {
+      CartItems.Add(item);
+      return this;
+    }
+
+    public Cart RemoveCartItem(Guid itemId)
+    {
+      CartItems.Where(y => !CartItems.Any(x => x.ProductId.Id == itemId));
+      return this;
+    }
   }
 }

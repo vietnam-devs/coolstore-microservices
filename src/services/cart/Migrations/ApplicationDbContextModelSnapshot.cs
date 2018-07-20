@@ -52,8 +52,6 @@ namespace VND.CoolStore.Services.Cart.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<double>("Price");
-
                     b.Property<Guid>("ProductIdId");
 
                     b.Property<double>("PromoSavings");

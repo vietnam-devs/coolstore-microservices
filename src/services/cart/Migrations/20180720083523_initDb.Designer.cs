@@ -10,7 +10,7 @@ using VND.FW.Infrastructure.EfCore.Db;
 namespace VND.CoolStore.Services.Cart.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180719083347_initDb")]
+    [Migration("20180720083523_initDb")]
     partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,8 +53,6 @@ namespace VND.CoolStore.Services.Cart.Migrations
                     b.Property<Guid?>("CartId");
 
                     b.Property<DateTime>("Created");
-
-                    b.Property<double>("Price");
 
                     b.Property<Guid>("ProductIdId");
 

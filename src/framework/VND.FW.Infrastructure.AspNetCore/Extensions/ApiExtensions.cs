@@ -59,7 +59,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       return links;
     }
 
-    public static dynamic ExpandSingleItem(this IUrlHelper urlHelper, string methodName, ModelBase item)
+    public static dynamic ExpandSingleItem(this IUrlHelper urlHelper, string methodName, IdModelBase item)
     {
       IEnumerable<LinkItem> links = GetLinks(urlHelper, methodName, item.Id);
       IDictionary<string, object> resourceToReturn = item.ToDynamic() as IDictionary<string, object>;

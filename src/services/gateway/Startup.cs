@@ -15,6 +15,7 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using VND.CoolStore.Services.ApiGateway.Extensions;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger;
 using VND.FW.Infrastructure.AspNetCore;
@@ -40,7 +41,7 @@ namespace VND.CoolStore.Services.ApiGateway
       JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
       string authServerUri = Configuration.GetHostUri(Environment, "Auth");
-      string externalAuthServerUri = Configuration.GetInternalHostUri("Auth");
+      string externalAuthServerUri = Configuration.GetExternalHostUri("Auth");
 
       services.AddHttpContextAccessor();
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -124,6 +125,7 @@ namespace VND.CoolStore.Services.ApiGateway
 
         c.EnableAnnotations();
         c.OperationFilter<SecurityRequirementsOperationFilter>();
+        c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
       });
 
       services.AddCors(options =>

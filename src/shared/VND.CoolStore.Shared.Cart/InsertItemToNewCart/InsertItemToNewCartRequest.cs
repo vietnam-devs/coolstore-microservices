@@ -2,10 +2,10 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using VND.FW.Infrastructure.AspNetCore;
 
-namespace VND.CoolStore.Services.ApiGateway.Model
+namespace VND.CoolStore.Shared.Cart.InsertItemToNewCart
 {
-  public class CreateCartModel : ModelBase
-  {
+  public class InsertItemToNewCartRequest : ModelBase
+		{
     [Required]
     public Guid ItemId { get; set; }
 

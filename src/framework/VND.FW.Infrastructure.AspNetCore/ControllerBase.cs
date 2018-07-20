@@ -10,7 +10,6 @@ namespace VND.FW.Infrastructure.AspNetCore
 {
   public abstract class ControllerBase : Controller
   {
-
   }
 
   public abstract class ProxyControllerBase : ControllerBase
@@ -30,55 +29,46 @@ namespace VND.FW.Infrastructure.AspNetCore
   public abstract class CrudControllerBase<TEntity> : ControllerBase
       where TEntity : EntityBase
   {
-    private readonly IEfQueryRepository<TEntity> _queryRepository = null;
-    private readonly IEfRepositoryAsync<TEntity> _mutateRepository = null;
+    protected readonly IEfQueryRepository<TEntity> QueryRepository = null;
+    protected readonly IEfRepositoryAsync<TEntity> MutateRepository = null;
 
     public CrudControllerBase(
         IEfQueryRepository<TEntity> queryRepository,
         IEfRepositoryAsync<TEntity> mutateRepository)
     {
-      _queryRepository = queryRepository;
-      _mutateRepository = mutateRepository;
+      QueryRepository = queryRepository;
+      MutateRepository = mutateRepository;
     }
 
-    // GET api/values
     [HttpGet(Name = nameof(GetAllItems))]
     public async Task<ActionResult<PaginatedItem<TEntity>>> GetAllItems([FromQuery] Criterion criterion)
     {
-      if (criterion == null)
-      {
-        criterion = new Criterion();
-      }
-
-      return await _queryRepository.QueryAsync(criterion, entity => entity);
+      criterion = criterion ?? new Criterion();
+      return await QueryRepository.QueryAsync(criterion, entity => entity);
     }
 
-    // GET api/values/5
     [HttpGet("{id}", Name = nameof(GetItem))]
     public async Task<ActionResult<TEntity>> GetItem(Guid id)
     {
-      return await _queryRepository.GetByIdAsync(id);
+      return await QueryRepository.GetByIdAsync(id);
     }
 
-    // POST api/values
     [HttpPost(Name = nameof(PostItem))]
     public async Task<TEntity> PostItem([FromBody] TEntity entity)
     {
-      return await _mutateRepository.AddAsync(entity);
+      return await MutateRepository.AddAsync(entity);
     }
 
-    // PUT api/values/5
     [HttpPut("{id}", Name = nameof(PutItem))]
     public async Task<TEntity> PutItem(int id, [FromBody] TEntity entity)
     {
-      return await _mutateRepository.UpdateAsync(entity);
+      return await MutateRepository.UpdateAsync(entity);
     }
 
-    // DELETE api/values/5
     [HttpDelete("{id}", Name = nameof(DeleteItem))]
     public async Task<TEntity> DeleteItem(Guid id)
     {
-      return await _mutateRepository.DeleteAsync(await _queryRepository.GetByIdAsync(id));
+      return await MutateRepository.DeleteAsync(await QueryRepository.GetByIdAsync(id));
     }
   }
 }

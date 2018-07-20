@@ -1,15 +1,18 @@
+using System;
 using System.ComponentModel.DataAnnotations;
-using VND.CoolStore.Services.Cart.Domain;
 using VND.Fw.Domain;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {
   public class CartItem : EntityBase
   {
-    internal CartItem() { }
+    internal CartItem() : base(Guid.NewGuid())
+    {
+    }
 
-    [Required]
-    public double Price { get; set; }
+    public CartItem(Guid id) : base(id)
+    {
+    }
 
     [Required]
     public int Quantity { get; set; }

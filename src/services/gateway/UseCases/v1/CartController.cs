@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using VND.CoolStore.Services.ApiGateway.Extensions;
 using VND.CoolStore.Services.ApiGateway.Model;
+using VND.CoolStore.Shared.Cart.InsertItemToNewCart;
+using VND.CoolStore.Shared.Cart.UpdateItemInCart;
 using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
@@ -30,16 +31,18 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
       InitRestClientWithOpenTracing();
 
       string getCartEndPoint = $"{_cartServiceUri}/api/v1/carts/{cartId}";
-      CartModel product = await RestClient.GetAsync<CartModel>(getCartEndPoint);
+      CartModel cart = await RestClient.GetAsync<CartModel>(getCartEndPoint);
 
-      return Ok(cartId);
+      return Ok(cart);
     }
 
     [HttpPost]
     [Auth(Policy = "access_cart_api")]
     [SwaggerOperation(Tags = new[] { "cart-service" })]
-    public IActionResult CreateCart([FromBody] CreateCartModel cart)
+    public async Task<ActionResult<InsertItemToNewCartResponse>> CreateCart([FromBody] InsertItemToNewCartRequest request)
     {
+      InitRestClientWithOpenTracing();
+
       if (!ModelState.IsValid)
       {
         return BadRequest(new
@@ -50,7 +53,10 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
         });
       }
 
-      return Ok(cart);
+      string endPoint = $"{_cartServiceUri}/api/v1/carts/new-cart";
+      InsertItemToNewCartResponse response = await RestClient.PostAsync<InsertItemToNewCartResponse>(endPoint, request);
+
+      return Ok(response);
     }
 
     [HttpPost]
@@ -59,6 +65,8 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Route("{cartId:guid}/checkout")]
     public IActionResult Checkout(Guid cartId)
     {
+      InitRestClientWithOpenTracing();
+
       return Ok(cartId);
     }
 
@@ -66,8 +74,10 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Auth(Policy = "access_cart_api")]
     [SwaggerOperation(Tags = new[] { "cart-service" })]
     [Route("{cartId:guid}/item/{itemId:guid}")]
-    public IActionResult UpdateCart(Guid cartId, Guid itemId, [FromBody] UpdateCartModel updateModel)
+    public async Task<ActionResult<UpdateItemInCartResponse>> UpdateCart(Guid cartId, Guid itemId, [FromBody] UpdateItemInCartRequest request)
     {
+      InitRestClientWithOpenTracing();
+
       if (!ModelState.IsValid)
       {
         return BadRequest(new
@@ -78,16 +88,24 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
         });
       }
 
-      return Ok();
+      string endPoint = $"{_cartServiceUri}/api/v1/carts/update-cart";
+      UpdateItemInCartResponse response = await RestClient.PutAsync<UpdateItemInCartResponse>(endPoint, request);
+
+      return Ok(response);
     }
 
     [HttpDelete]
     [Auth(Policy = "access_cart_api")]
     [SwaggerOperation(Tags = new[] { "cart-service" })]
     [Route("{cartId:guid}/item/{itemId:guid}")]
-    public IActionResult DeleteCart(Guid cartId, Guid itemId)
+    public async Task<ActionResult<bool>> DeleteItemInCart(Guid cartId, Guid itemId)
     {
-      return Ok();
+      InitRestClientWithOpenTracing();
+
+      string deleteItemInCartEndPoint = $"{_cartServiceUri}/api/v1/carts/{cartId}/items/{itemId}";
+      bool result = await RestClient.DeleteAsync(deleteItemInCartEndPoint);
+
+      return Ok(result);
     }
   }
 }

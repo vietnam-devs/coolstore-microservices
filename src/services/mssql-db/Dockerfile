@@ -1,3 +1,4 @@
+# https://github.com/mcmoe/mssqldocker/blob/master/Dockerfile
 # Reference at https://github.com/DataGrip/docker-env/blob/master/mssql-server-linux/Dockerfile
 FROM microsoft/mssql-server-linux:2017-latest
 

@@ -2,7 +2,7 @@ using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Services.ApiGateway.Model
 {
-  public class ProductModel : ModelBase
+  public class ProductModel : IdModelBase
   {
     public string Name { get; set; }
     public string Desc { get; set; }
