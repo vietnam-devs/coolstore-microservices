@@ -23,7 +23,7 @@ const PROXY_CONFIG = {
         logLevel: "debug",
     },
     "/config": {
-        target: `${urlIdp}/.well-known/openid-configuration`,
+        target: `${urlIdp}.well-known/openid-configuration`,
         secure: false,
         logLevel: "debug",
         ignorePath: true,
@@ -31,7 +31,7 @@ const PROXY_CONFIG = {
         pathRewrite: { '^/config': '' },
     },
     "/.well-known/openid-configuration/jwks": {
-        target: `${urlIdp}/.well-known/openid-configuration/jwks`,
+        target: `${urlIdp}.well-known/openid-configuration/jwks`,
         secure: false,
         logLevel: "debug",
         ignorePath: true,

@@ -485,4 +485,4 @@ spec:
       - path: /
         backend:
           serviceName: gateway-service
-          servicePort: 80  
+          servicePort: 80
