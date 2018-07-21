@@ -53,10 +53,8 @@ EOSQL
 cd /opt/mssql-tools/bin/
 ./sqlcmd -S localhost -U sa -P $MSSQL_SA_PASSWORD -t 30 -i"/opt/mssql/init.sql" -o"/opt/mssql/initout.log"
 
-echo =============== INIT DATA CREATED ==========================
-echo =============== MSSQL SERVER SUCCESSFULLY STARTED ==========================
-
-echo "MSSQL SERVER STARTED" >> /var/opt/mssql/log/errorlog
+echo "=============== INIT DATA CREATED ==========================" | tee -a /var/opt/mssql/log/errorlog
+echo "=============== MSSQL SERVER SUCCESSFULLY STARTED ==========================" | tee -a /var/opt/mssql/log/errorlog
 
 #trap
 while [ "$END" == '' ]; do

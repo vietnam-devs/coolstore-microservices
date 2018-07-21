@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: inventory-db
-        image: vndg/cs-mssql-db:latest
+        image: vndg/cs-mssqldb:latest
         imagePullPolicy: IfNotPresent
         env: 
         - name: ACCEPT_EULA

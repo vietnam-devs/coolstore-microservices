@@ -1,8 +1,8 @@
 #!/bin/bash
 
-helm template deployment/charts/coolstore \
-  -f deployment/charts/coolstore/values.dev.yaml \
-  > deployment/manifests/dev-all-in-one.yaml
+helm template deploys/charts/coolstore \
+  -f deploys/charts/coolstore/values.dev.yaml \
+  > deploys/manifests/dev-all-in-one.yaml
 
 istioctl kube-inject \
-  -f deployment/manifests/dev-all-in-one.yaml | kubectl apply -f -
+  -f deploys/manifests/dev-all-in-one.yaml | kubectl apply -f -

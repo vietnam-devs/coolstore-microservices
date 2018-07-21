@@ -117,8 +117,8 @@ Waiting for the container provision completed
 **Notes**: if you run it on `Docker for Windows`, then you cannot run sidecar auto injection so that we need to export `coolstore` chart to manifest file like
 
 ```
-> helm template deployment/charts/coolstore -f deployment/charts/coolstore/values.dev.yaml --namespace cs-system > deployment/istio/dev-all-in-one.yaml
-> istioctl kube-inject -f deployment/istio/dev-all-in-one.yaml | kubectl apply -f -
+> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml --namespace cs-system > deploys/istio/dev-all-in-one.yaml
+> istioctl kube-inject -f deploys/istio/dev-all-in-one.yaml | kubectl apply -f -
 ```
 
 ### Open API
