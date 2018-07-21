@@ -64,29 +64,36 @@ There are several individual microservices and infrastructure components that ma
 
 ### Up and Running
 
-Make sure we have `docker for windows` edge running with `kubernetes` option enabled. We need to install `kubectl`, `helm` and `istioctl` on the build machine as well.
+1. Make sure we have `docker for windows` edge running with `kubernetes` option enabled. We need to install `kubectl`, `helm` and `istioctl` on the build machine as well.
 
-From current console, type `bash` to enter `Linux Subsystem (Ubuntu)`
+2. From current console, type `bash` to enter `Linux Subsystem (Ubuntu)`
 
-Download `istio 0.8.0`, and unzip it into somewhere
+3. Download `istio 0.8.0`, and unzip it into somewhere
 
 ```
-> cd <istio 0.8.0> path
+> cd <istio 0.8.0 path>
 > kubectl create -f install/kubernetes/helm/helm-service-account.yaml
 > helm init --service-account tiller --upgrade
 > helm install install/kubernetes/helm/istio --name istio --namespace istio-system --timeout 1000
 ```
 
-Then `cd` into your root of project
+4. We need to install `nginx-ingress` as following
+
+```
+> helm install --name cs-nginx stable/nginx-ingress
+```
+
+5. Then `cd` into your root of project
 
 ```
 > ./cs-build.sh
 > ./cs-inject-istio.sh
 ```
 
-Add hosts file with following content
+6. Add hosts file with following content
 
 ```
+127.0.0.1   api.coolstore.local
 127.0.0.1   id.coolstore.local
 127.0.0.1   coolstore.local
 ```
@@ -94,8 +101,24 @@ Add hosts file with following content
 Waiting for the container provision completed
 
 ```
-> curl -I http://coolstore.local
-> curl -I http://api.coolstore.local
+> curl -I http://coolstore.local # website
+> curl -I http://api.coolstore.local # api gateway
+> curl -I http://id.coolstore.local # identity provider
+```
+
+7. Clean up `coolstore` application as
+
+```
+> kubectl delete -f deployment/istio/dev-all-in-one.yaml
+> helm delete cs-nginx --purge
+> helm delete istio --purge
+```
+
+**Notes**: if you run it on `Docker for Windows`, then you cannot run sidecar auto injection so that we need to export `coolstore` chart to manifest file like
+
+```
+> helm template deployment/charts/coolstore -f deployment/charts/coolstore/values.dev.yaml --namespace cs-system > deployment/istio/dev-all-in-one.yaml
+> istioctl kube-inject -f deployment/istio/dev-all-in-one.yaml | kubectl apply -f -
 ```
 
 ### Open API
