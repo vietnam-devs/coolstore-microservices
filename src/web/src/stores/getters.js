@@ -9,7 +9,6 @@ export default {
     },
 
     products: state => {
-        debugger
         var products = []
         state.products.forEach(product => {
             var productDefault = {

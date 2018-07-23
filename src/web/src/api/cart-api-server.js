@@ -1,10 +1,8 @@
 const logRequests = !!process.env.DEBUG_API
-import {
-    createAPI
-} from './create-api-server'
+import { createAPI } from './create-api-server'
 
 const api = createAPI({
-    version: '/v2',
+    version: '/v1',
     config: {
         databaseURL: '/api'
     }
@@ -15,17 +13,29 @@ export function checkout(cartId) {
 }
 
 export function setCart(id) {
-    return api.post(`cartId/${id}`)
+    return api.post(`carts/${id}`)
 }
 
-export function getCart() {
-    return api.get(`cartId`)
+export function getCart(cartId) {
+    return api.get(`carts/${cartId}`)
 }
 
 export function addToCard(product, quantity) {
-    return api.post(`cartId/${product.id}/${quantity}`)
+    var model = {
+        itemId: product.id,
+        quantity: quantity
+    }
+    return api.post(`carts`, model)
+}
+
+export function updateCard(cartId, product, quantity) {
+    var model = {
+        itemId: product.id,
+        quantity: quantity
+    }
+    return api.put(`carts/${cartId}/item/${product.id}`, model)
 }
 
 export function removeFomCart(product, quantity) {
-    return api.delete(`cartId/${product.id}/${quantity}`)
+    return api.delete(`carts/${product.id}/${quantity}`)
 }

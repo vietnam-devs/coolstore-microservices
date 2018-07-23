@@ -13,7 +13,7 @@ namespace IdentityServer4.Quickstart.UI
     {
         public static List<TestUser> Users = new List<TestUser>
         {
-            new TestUser{SubjectId = "818727", Username = "alice", Password = "alice", 
+            new TestUser{SubjectId = "4696cdd0-d20d-414b-8cf0-4d272def8861", Username = "alice", Password = "alice", 
                 Claims = 
                 {
                     new Claim(JwtClaimTypes.Name, "Alice Smith"),
@@ -25,7 +25,7 @@ namespace IdentityServer4.Quickstart.UI
                     new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
                 }
             },
-            new TestUser{SubjectId = "88421113", Username = "bob", Password = "bob", 
+            new TestUser{SubjectId = "51db5230-ef16-4e5f-ad5f-1820c2cc7a99", Username = "bob", Password = "bob", 
                 Claims = 
                 {
                     new Claim(JwtClaimTypes.Name, "Bob Smith"),

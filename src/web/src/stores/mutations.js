@@ -15,17 +15,20 @@ export default {
         })
     },
     SET_CART: (state, data) => {
-        state.cart = data
+        setItem("cart", data);
+        setItem("cartId", data.id);
     },
     LOGIN_SUCCESS: (state, data) => {
-        debugger
         state.accessToken = data.accessToken
         state.idToken = data.idToken
-        setItem('accessToken', data.accessToken)
-        setItem('idToken', data.idToken)
+        if (data.accessToken) {
+            setItem('accessToken', data.accessToken)
+        }
+        if (data.idToken) {
+            setItem('idToken', data.idToken)
+        }
     },
     LOGOUT: state => {
-        debugger
         state.accessToken = undefined
         state.idToken = undefined
         removeItem('accessToken')

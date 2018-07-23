@@ -4,7 +4,8 @@ import {
     checkout,
     setCart,
     getCart,
-    addToCard
+    addToCard,
+    updateCard
 } from '../api'
 
 import { getItem, removeItem, setItem } from '../helper/storage'
@@ -35,7 +36,7 @@ export default {
             shoppingCartItemList: []
         }
         var tmpId = getItem('cartId')
-
+        var cartId = null
         if (tmpId && authId) {
             // transfer cart
             cartId = authId
@@ -72,7 +73,7 @@ export default {
         }
 
         cart.shoppingCartItemList = []
-        return getCart.then(data => {
+        return getCart(cartId).then(data => {
             cart = data.data
             commit('SET_CART', cart)
         })
@@ -82,8 +83,11 @@ export default {
         return setCart(cartId)
     },
 
-    ADD_TO_CARD: ({}, { product, quantity }) => {
-        return addToCard(product, quantity)
+    ADD_TO_CARD: ({ commit, dispatch, state }, { product, quantity }) => {
+        var cartId = getItem("cartId");
+        if (cartId) {
+            return updateCard(cartId, product, quantity);
+        } else return addToCard(product, quantity)
     },
 
     REMOVE_FROM_CARD: ({}, { product, quantity }) => {

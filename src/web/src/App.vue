@@ -61,7 +61,6 @@ export default {
     logout() {
       this.$store.commit('LOGOUT');
       signoutRedirect(respnose => {
-        debugger;
       })
     },
   },

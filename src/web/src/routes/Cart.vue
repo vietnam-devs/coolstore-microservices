@@ -190,13 +190,15 @@ export default {
         debugger
         var authenid = user.sub
         this.$store.dispatch('RESET_CART', authenid).then(data => {
-          this.cart = data
-          this.items = this.cart.shoppingCartItemList
+          if (data) {
+            this.cart = data
+            this.items = this.cart.shoppingCartItemList
 
-          this.subtotal = 0
-          this.cart.shoppingCartItemList.forEach(function(item) {
-            this.subtotal += item.quantity * item.product.price
-          })
+            this.subtotal = 0
+            this.cart.shoppingCartItemList.forEach(function(item) {
+              this.subtotal += item.quantity * item.product.price
+            })
+          }
         })
       })
     },

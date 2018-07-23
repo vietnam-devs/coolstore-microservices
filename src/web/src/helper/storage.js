@@ -2,7 +2,11 @@ import store from '../stores'
 
 export function getItem(key) {
     if (typeof localStorage !== 'undefined') {
-        return localStorage.getItem(key)
+        let value = localStorage.getItem(key)
+        if (typeof value === 'object') {
+            value = JSON.parse(value)
+        }
+        return value
     } else {
         return store.state[key]
     }
@@ -10,6 +14,9 @@ export function getItem(key) {
 
 export function setItem(key, value) {
     if (typeof localStorage !== 'undefined') {
+        if (typeof value === 'object') {
+            value = JSON.stringify(value)
+        }
         localStorage.setItem(key, value)
     }
     store.state[key] = value
