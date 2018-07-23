@@ -39,11 +39,11 @@
 </template>
 
 <script>
-import StarRating from "vue-star-rating";
-import Review from "../components/Review.vue";
-import { watchList } from "../api";
+import StarRating from 'vue-star-rating'
+import Review from '../components/Review.vue'
+import { watchList } from '../api'
 export default {
-  name: "home",
+  name: 'home',
   components: {
     StarRating,
     Review
@@ -52,58 +52,56 @@ export default {
     return {
       isModalVisible: false,
       productReview: {},
-      productImageUrl: "https://picsum.photos/400/300?image=",
-    };
+      productImageUrl: 'https://picsum.photos/400/300?image='
+    }
   },
 
   computed: {
     products() {
-      return this.$store.getters.products;
+      return this.$store.getters.products
     }
   },
 
   beforeMount() {
-    this.loadItems(this.page);
+    this.loadItems(this.page)
   },
 
   methods: {
     loadItems(page) {
-      this.$store.dispatch("FETCH_LIST_DATA", { page });
+      this.$store.dispatch('FETCH_LIST_DATA', { page })
     },
 
     formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      let val = (value / 1).toFixed(2).replace('.', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     },
 
     rateFunction(itemId, rating) {
-      this.$store.dispatch("SET_RATING_ITEM", { itemId, rating });
+      this.$store.dispatch('SET_RATING_ITEM', { itemId, rating })
     },
 
     showReviews(product) {
-      this.productReview = product;
-      this.$router.push("/review/"+product.id)
-      this.showModal();
+      this.productReview = product
+      this.$router.push('/review/' + product.id)
+      this.showModal()
     },
 
     showModal() {
-      this.isModalVisible = true;
+      this.isModalVisible = true
     },
 
     closeModal() {
-      this.isModalVisible = false;
+      this.isModalVisible = false
     },
 
     addToCart(product, quantity) {
-      this.$store.dispatch("ADD_TO_CARD", { product, quantity }).then(
+      this.$store.dispatch('ADD_TO_CARD', { product, quantity }).then(
         data => {
-          debugger;
-          // this.$notify({
-          //     group: 'noti',
-          //     title: 'Success!',
-          //     text: 'Hello user! This is a notification!',
-          //     type: 'success'
-          // });
+          if (data && data.data) {
+            data.data.cartItemTotal = data.data.cartItems.length;
+            this.$store.commit('SET_CART', data.data)
+            this.$store.state.cartId = data.data.id
+          }
         },
         error => {
           // this.$notify({
@@ -113,25 +111,25 @@ export default {
           //     type: 'error'
           // });
         }
-      );
+      )
     }
   }
-};
+}
 </script>
 <style lang="stylus">
 .tag-right {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .img-circle {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .img-responsive {
-    width: 100%;
+  width: 100%;
 }
 
 .star-width {
-    width: 20%;
+  width: 20%;
 }
 </style>
