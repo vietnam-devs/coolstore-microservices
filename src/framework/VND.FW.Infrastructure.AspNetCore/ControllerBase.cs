@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.AspNetCore.Extensions;
 using VND.FW.Infrastructure.EfCore.Extensions;
 using VND.FW.Infrastructure.EfCore.Repository;
 
@@ -12,32 +11,29 @@ namespace VND.FW.Infrastructure.AspNetCore
   {
   }
 
-  public abstract class ProxyControllerBase : ControllerBase
-  {
-    protected static RestClient RestClient;
-    protected ProxyControllerBase(RestClient rest)
-    {
-      RestClient = rest;
-    }
-
-    protected void InitRestClientWithOpenTracing()
-    {
-      RestClient.SetOpenTracingInfo(HttpContext.Request.GetOpenTracingInfo());
-    }
-  }
-
-  public abstract class CrudControllerBase<TEntity> : ControllerBase
-      where TEntity : EntityBase
+  public abstract class EfCoreControllerBase<TEntity> : ControllerBase
+    where TEntity : EntityBase
   {
     protected readonly IEfQueryRepository<TEntity> QueryRepository = null;
     protected readonly IEfRepositoryAsync<TEntity> MutateRepository = null;
 
-    public CrudControllerBase(
+    public EfCoreControllerBase(
         IEfQueryRepository<TEntity> queryRepository,
         IEfRepositoryAsync<TEntity> mutateRepository)
     {
       QueryRepository = queryRepository;
       MutateRepository = mutateRepository;
+    }
+  }
+
+  public abstract class CrudControllerBase<TEntity> : EfCoreControllerBase<TEntity>
+      where TEntity : EntityBase
+  {
+    public CrudControllerBase(
+        IEfQueryRepository<TEntity> queryRepository,
+        IEfRepositoryAsync<TEntity> mutateRepository)
+      : base(queryRepository, mutateRepository)
+    {
     }
 
     [HttpGet(Name = nameof(GetAllItems))]

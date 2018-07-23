@@ -25,13 +25,13 @@ namespace VND.Fw.Domain
 
     public Criterion()
     {
-      CurrentPage = 1;
+      CurrentPage = 0;
       PageSize = configurablePageSize;
       SortBy = "Id";
       SortOrder = "desc";
     }
 
-    public int CurrentPage { get; set; } = 1;
+    public int CurrentPage { get; set; }
 
     private int _pageSize = maxPageSize;
     public int PageSize

@@ -14,7 +14,7 @@ namespace VND.FW.Infrastructure.EfCore.SqlServer
          {
            sqlOptions.MigrationsAssembly(assemblyName);
            sqlOptions.EnableRetryOnFailure(
-                     maxRetryCount: 128,
+                     maxRetryCount: 15,
                      maxRetryDelay: TimeSpan.FromSeconds(30),
                      errorNumbersToAdd: null);
          });

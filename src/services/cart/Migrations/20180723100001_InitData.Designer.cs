@@ -10,8 +10,8 @@ using VND.FW.Infrastructure.EfCore.Db;
 namespace VND.CoolStore.Services.Cart.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180720083523_initDb")]
-    partial class initDb
+    [Migration("20180723100001_InitData")]
+    partial class InitData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,7 +54,9 @@ namespace VND.CoolStore.Services.Cart.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<Guid>("ProductIdId");
+                    b.Property<double>("Price");
+
+                    b.Property<Guid>("ProductId");
 
                     b.Property<double>("PromoSavings");
 
@@ -66,19 +68,19 @@ namespace VND.CoolStore.Services.Cart.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("ProductIdId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("CartItems");
                 });
 
-            modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.ProductId", b =>
+            modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductIds");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.CartItem", b =>
@@ -87,9 +89,9 @@ namespace VND.CoolStore.Services.Cart.Migrations
                         .WithMany("CartItems")
                         .HasForeignKey("CartId");
 
-                    b.HasOne("VND.CoolStore.Services.Cart.Domain.ProductId", "ProductId")
+                    b.HasOne("VND.CoolStore.Services.Cart.Domain.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductIdId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -7,7 +7,7 @@ namespace VND.CoolStore.Shared.Cart.InsertItemToNewCart
   public class InsertItemToNewCartRequest : ModelBase
 		{
     [Required]
-    public Guid ItemId { get; set; }
+    public Guid ProductId { get; set; }
 
     [Required]
     public int Quantity { get; set; }

@@ -1,8 +1,9 @@
 using System;
+using VND.FW.Infrastructure.AspNetCore;
 
-namespace VND.CoolStore.Services.ApiGateway.Model
+namespace VND.CoolStore.Shared.Catalog.GetProductById
 {
-  public class ProductModel
+  public class GetProductByIdResponse
   {
     public Guid Id { get; set; }
     public string Name { get; set; }

@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
-using VND.CoolStore.Services.ApiGateway.Extensions;
+using VND.CoolStore.Services.ApiGateway.Infrastructure.Service;
 using VND.CoolStore.Services.ApiGateway.Model;
 using VND.CoolStore.Shared.Cart.InsertItemToNewCart;
 using VND.CoolStore.Shared.Cart.UpdateItemInCart;
@@ -14,12 +12,13 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 {
   [ApiVersion("1.0")]
   [Route("api/v{api-version:apiVersion}/carts")]
-  public class CartController : ProxyControllerBase
+  public class CartController : FW.Infrastructure.AspNetCore.ControllerBase
   {
-    private readonly string _cartServiceUri;
-    public CartController(RestClient rest, IConfiguration config, IHostingEnvironment env) : base(rest)
+    private readonly ICartService _cartService;
+
+    public CartController(ICartService cartService)
     {
-      _cartServiceUri = config.GetHostUri(env, "Cart");
+      _cartService = cartService;
     }
 
     [HttpGet]
@@ -28,11 +27,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Route("{cartId:guid}")]
     public async Task<ActionResult<CartModel>> GetCart(Guid cartId)
     {
-      InitRestClientWithOpenTracing();
-
-      string getCartEndPoint = $"{_cartServiceUri}/api/v1/carts/{cartId}";
-      CartModel cart = await RestClient.GetAsync<CartModel>(getCartEndPoint);
-
+      var cart = await _cartService.GetCartByIdAsync(cartId);
       return Ok(cart);
     }
 
@@ -41,8 +36,6 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [SwaggerOperation(Tags = new[] { "cart-service" })]
     public async Task<ActionResult<InsertItemToNewCartResponse>> CreateCart([FromBody] InsertItemToNewCartRequest request)
     {
-      InitRestClientWithOpenTracing();
-
       if (!ModelState.IsValid)
       {
         return BadRequest(new
@@ -53,9 +46,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
         });
       }
 
-      string endPoint = $"{_cartServiceUri}/api/v1/carts/new-cart";
-      InsertItemToNewCartResponse response = await RestClient.PostAsync<InsertItemToNewCartResponse>(endPoint, request);
-
+      var response = await _cartService.CreateCartAsync(request);
       return Ok(response);
     }
 
@@ -65,8 +56,6 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Route("{cartId:guid}/checkout")]
     public IActionResult Checkout(Guid cartId)
     {
-      InitRestClientWithOpenTracing();
-
       return Ok(cartId);
     }
 
@@ -76,8 +65,6 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Route("{cartId:guid}/item/{itemId:guid}")]
     public async Task<ActionResult<UpdateItemInCartResponse>> UpdateCart(Guid cartId, Guid itemId, [FromBody] UpdateItemInCartRequest request)
     {
-      InitRestClientWithOpenTracing();
-
       if (!ModelState.IsValid)
       {
         return BadRequest(new
@@ -88,9 +75,10 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
         });
       }
 
-      string endPoint = $"{_cartServiceUri}/api/v1/carts/update-cart";
-      UpdateItemInCartResponse response = await RestClient.PutAsync<UpdateItemInCartResponse>(endPoint, request);
+      request.CartId = cartId;
+      request.ItemId = itemId;
 
+      var response = await _cartService.UpdateCart(request);
       return Ok(response);
     }
 
@@ -100,12 +88,10 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Route("{cartId:guid}/item/{itemId:guid}")]
     public async Task<ActionResult<bool>> DeleteItemInCart(Guid cartId, Guid itemId)
     {
-      InitRestClientWithOpenTracing();
+      await _cartService.DeleteItemInCart(cartId, itemId);
 
-      string deleteItemInCartEndPoint = $"{_cartServiceUri}/api/v1/carts/{cartId}/items/{itemId}";
-      bool result = await RestClient.DeleteAsync(deleteItemInCartEndPoint);
-
-      return Ok(result);
+      //TODO: temporary hard code here
+      return Ok(true);
     }
   }
 }

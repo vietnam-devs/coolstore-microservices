@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.3.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +31,7 @@
     <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.EfCore\VND.FW.Infrastructure.EfCore.csproj" />
     <ProjectReference Include="..\..\framework\VND.FW.Utils\VND.Fw.Utils.csproj" />
     <ProjectReference Include="..\..\shared\VND.CoolStore.Shared.Cart\VND.CoolStore.Shared.Cart.csproj" />
+    <ProjectReference Include="..\..\shared\VND.CoolStore.Shared.Catalog\VND.CoolStore.Shared.Catalog.csproj" />
   </ItemGroup>
 
 </Project>

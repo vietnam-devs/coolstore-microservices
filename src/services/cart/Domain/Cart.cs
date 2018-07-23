@@ -32,7 +32,7 @@ namespace VND.CoolStore.Services.Cart.Domain
     public double CartTotal { get; set; }
 
     [Required]
-    public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+    public List<CartItem> CartItems { get; set; } = new List<CartItem>();
 
     public Cart InsertItemToCart(CartItem item)
     {
@@ -42,7 +42,7 @@ namespace VND.CoolStore.Services.Cart.Domain
 
     public Cart RemoveCartItem(Guid itemId)
     {
-      CartItems.Where(y => !CartItems.Any(x => x.ProductId.Id == itemId));
+      CartItems.Where(y => !CartItems.Any(x => x.Id == itemId));
       return this;
     }
   }

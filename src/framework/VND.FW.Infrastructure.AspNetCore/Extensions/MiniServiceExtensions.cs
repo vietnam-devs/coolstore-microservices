@@ -2,7 +2,10 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +42,16 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
 
       services.AddDbContext<ApplicationDbContext>(options => optionsBuilderAction(options));
       services.AddScoped<DbContext>(resolver => resolver.GetRequiredService<ApplicationDbContext>());
+
+      services.AddHttpContextAccessor();
+      services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+      services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+      services.AddScoped<IUrlHelper>(implementationFactory =>
+      {
+        ActionContext actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
+        return new UrlHelper(actionContext);
+      });
+      services.AddSingleton(typeof(RestClient), typeof(RestClient));
 
       services.AddMvcCore().AddVersionedApiExplorer(
         options =>

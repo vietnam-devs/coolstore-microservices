@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace VND.CoolStore.Services.ApiGateway.Extensions
+namespace VND.FW.Infrastructure.AspNetCore.Extensions
 {
-  internal static class HostUriExtensions
+  public static class HostUriExtensions
   {
     public static string GetHostUri(this IConfiguration config, IHostingEnvironment env, string groupName)
     {

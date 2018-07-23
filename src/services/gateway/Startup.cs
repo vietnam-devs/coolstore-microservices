@@ -16,7 +16,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using VND.CoolStore.Services.ApiGateway.Extensions;
+using VND.CoolStore.Services.ApiGateway.Infrastructure.Service;
+using VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger;
 using VND.FW.Infrastructure.AspNetCore;
 using VND.FW.Infrastructure.AspNetCore.Extensions;
@@ -52,6 +53,9 @@ namespace VND.CoolStore.Services.ApiGateway
         return new UrlHelper(actionContext);
       });
       services.AddSingleton(typeof(RestClient), typeof(RestClient));
+      services.AddScoped<ICatalogService, CatalogService>();
+      services.AddScoped<ICartService, CartService>();
+      services.AddScoped<IInventoryService, InventoryService>();
 
       services.AddRouting(options => options.LowercaseUrls = true);
       services.AddMvcCore().AddVersionedApiExplorer(

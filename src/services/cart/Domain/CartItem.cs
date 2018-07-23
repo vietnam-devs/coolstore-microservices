@@ -17,10 +17,12 @@ namespace VND.CoolStore.Services.Cart.Domain
     [Required]
     public int Quantity { get; set; }
 
+    public double Price { get; set; }
+
     [Required]
     public double PromoSavings { get; set; }
 
     [Required]
-    public ProductId ProductId { get; set; }
+    public Product Product { get; set; }
   }
 }

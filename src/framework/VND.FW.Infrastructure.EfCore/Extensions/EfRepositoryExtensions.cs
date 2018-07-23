@@ -22,12 +22,16 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
 
     {
       IQueryable<TEntity> queryable = repo.Queryable();
+
       if (disableTracking)
       {
         queryable = queryable.AsNoTracking() as IQueryable<TEntity>;
       }
 
-      include?.Invoke(queryable);
+      if (include != null)
+      {
+        queryable = include(queryable);
+      }
 
       return await queryable.SingleOrDefaultAsync(e => e.Id.Equals(id));
     }
@@ -41,12 +45,13 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
             where TEntity : class, IEntity
     {
       IQueryable<TEntity> queryable = repo.Queryable();
+
+      include?.Invoke(queryable);
+
       if (disableTracking)
       {
         queryable = queryable.AsNoTracking() as IQueryable<TEntity>;
       }
-
-      include?.Invoke(queryable);
 
       return await queryable.FirstOrDefaultAsync(filter);
     }
@@ -126,7 +131,6 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
       List<TResponse> results = await queryable
                 .Skip(criterion.CurrentPage * criterion.PageSize)
                 .Take(criterion.PageSize)
-                .AsNoTracking()
                 .Select(selector)
                 .ToListAsync();
 
