@@ -33,8 +33,4 @@
     <ProjectReference Include="..\..\shared\VND.CoolStore.Shared.Catalog\VND.CoolStore.Shared.Catalog.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>

@@ -1,4 +1,4 @@
-﻿FROM microsoft/dotnet:2.1-sdk-alpine AS builder
+FROM microsoft/dotnet:2.1-sdk-alpine AS builder
 WORKDIR /build
 
 # Copy the global and csproj files
@@ -8,6 +8,7 @@ COPY ./src/framework/VND.FW.Infrastructure.AspNetCore/VND.FW.Infrastructure.AspN
 COPY ./src/framework/VND.FW.Infrastructure.EfCore/VND.FW.Infrastructure.EfCore.csproj ./src/framework/VND.FW.Infrastructure.EfCore/
 COPY ./src/framework/VND.FW.Infrastructure.EfCore.SqlServer/VND.FW.Infrastructure.EfCore.SqlServer.csproj ./src/framework/VND.FW.Infrastructure.EfCore.SqlServer/
 COPY ./src/shared/VND.CoolStore.Shared.Cart/VND.CoolStore.Shared.Cart.csproj ./src/shared/VND.CoolStore.Shared.Cart/
+COPY ./src/shared/VND.CoolStore.Shared.Catalog/VND.CoolStore.Shared.Catalog.csproj ./src/shared/VND.CoolStore.Shared.Catalog/
 
 COPY ./src/services/gateway/VND.CoolStore.Services.ApiGateway.csproj ./src/services/gateway/
 COPY ./global.json ./
@@ -23,6 +24,7 @@ COPY ./src/framework/VND.FW.Infrastructure.AspNetCore/ ./src/framework/VND.FW.In
 COPY ./src/framework/VND.FW.Infrastructure.EfCore/ ./src/framework/VND.FW.Infrastructure.EfCore/
 COPY ./src/framework/VND.FW.Infrastructure.EfCore.SqlServer/ ./src/framework/VND.FW.Infrastructure.EfCore.SqlServer/
 COPY ./src/shared/VND.CoolStore.Shared.Cart/ ./src/shared/VND.CoolStore.Shared.Cart/
+COPY ./src/shared/VND.CoolStore.Shared.Catalog/ ./src/shared/VND.CoolStore.Shared.Catalog/
 
 COPY ./src/services/gateway/ ./src/services/gateway/
 
