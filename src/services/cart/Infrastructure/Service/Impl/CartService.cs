@@ -72,13 +72,20 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
       return GetCartByIdResponse(cart);
     }
 
-    public async Task<bool> RemoveItemInCartAsync(Guid cartId, Guid itemId)
+    public async Task<bool> RemoveItemInCartAsync(Guid cartId, Guid productId)
     {
       var cart = await GetCart(cartId);
       cart = await InitCart(cart);
 
-      cart = cart.RemoveCartItem(itemId);
+      var cartItem = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == productId);
+      if(cartItem == null)
+      {
+        throw new Exception($"Could not find CartItem {cartItem.Id}");
+      }
+
+      cart = cart.RemoveCartItem(cartItem.Id);
       var isSucceed = await _mutateRepository.UpdateAsync(cart) != null;
+      await _cartItemMutateRepository.DeleteAsync(cartItem);
 
       cart = PriceCalculatorContext.Execute(cart);
 
@@ -87,6 +94,7 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
 
     public async Task<GetCartByIdResponse> UpdateItemInCartAsync(UpdateItemInCartRequest request)
     {
+      var isNewItem = false;
       var cart = await GetCart(request.CartId);
       cart = await InitCart(cart);
 
@@ -95,7 +103,8 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
       // if not exists then it should be a new item
       if (item == null)
       {
-        item = new CartItem(item.Id)
+        isNewItem = true;
+        item = new CartItem()
         {
           Quantity = request.Quantity,
           Product = new Product(request.ProductId)
@@ -109,11 +118,16 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
       }
 
       cart = PriceCalculatorContext.Execute(cart);
-      
       var result = await _mutateRepository.UpdateAsync(cart);
 
       // Todo: refactor to unit of work later
-      await _cartItemMutateRepository.UpdateAsync(item);
+      if (!isNewItem)
+      {
+        await _cartItemMutateRepository.UpdateAsync(item);
+      } else
+      {
+        await _cartItemMutateRepository.AddAsync(item);
+      }
 
       return GetCartByIdResponse(cart);
     }

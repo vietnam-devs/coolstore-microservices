@@ -99,13 +99,13 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [HttpDelete]
     [Auth(Policy = "access_cart_api")]
     [SwaggerOperation(Tags = new[] { "cart-service" })]
-    [Route("{cartId:guid}/item/{itemId:guid}")]
-    public async Task<ActionResult<bool>> DeleteItemInCart(Guid cartId, Guid itemId)
+    [Route("{cartId:guid}/items/{productId:guid}")]
+    public async Task<ActionResult<bool>> DeleteItemInCart(Guid cartId, Guid productId)
     {
       await _cartService.DeleteItemInCartAsync(new DeleteItemInCartRequest
       {
         Id = cartId,
-        ItemId = itemId,
+        ProductId = productId,
         Headers = HttpContext.Request.GetOpenTracingInfo()
       });
 

@@ -42,7 +42,7 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl
 
     public async Task DeleteItemInCartAsync(DeleteItemInCartRequest request)
     {
-      string deleteItemInCartEndPoint = $"{_cartServiceUri}/api/v1/carts/{request.Id}/items/{request.ItemId}";
+      string deleteItemInCartEndPoint = $"{_cartServiceUri}/api/v1/carts/{request.Id}/items/{request.ProductId}";
       RestClient.SetOpenTracingInfo(request.Headers);
       bool result = await RestClient.DeleteAsync(deleteItemInCartEndPoint);
     }

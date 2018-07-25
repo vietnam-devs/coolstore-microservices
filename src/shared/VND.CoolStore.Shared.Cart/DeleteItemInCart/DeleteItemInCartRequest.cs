@@ -5,6 +5,6 @@ namespace VND.CoolStore.Shared.Cart.DeleteItemInCart
 {
   public class DeleteItemInCartRequest : RequestIdModelBase
   {
-    public Guid ItemId { get; set; }
+    public Guid ProductId { get; set; }
   }
 }

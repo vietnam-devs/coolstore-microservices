@@ -46,10 +46,10 @@ namespace VND.CoolStore.Services.Cart.UseCases.v1
     }
 
     [HttpDelete]
-    [Route("{cartId:guid}/items/{itemId:guid}")]
-    public async Task<bool> RemoveItemInCart(Guid cartId, Guid itemId)
+    [Route("{cartId:guid}/items/{productId:guid}")]
+    public async Task<bool> RemoveItemInCart(Guid cartId, Guid productId)
     {
-      return await _cartService.RemoveItemInCartAsync(cartId, itemId);
+      return await _cartService.RemoveItemInCartAsync(cartId, productId);
     }
 
     [HttpPost]
