@@ -12,28 +12,25 @@ export function checkout(cartId) {
     return api.post(`checkout/${cartId}`)
 }
 
-export function setCart(id) {
-    return api.post(`carts/${id}`)
-}
-
 export function getCart(cartId) {
     return api.get(`carts/${cartId}`)
 }
 
-export function addToCard(product, quantity) {
+export function addToCard(productId, quantity) {
     var model = {
-        itemId: product.id,
+        productId: productId,
         quantity: quantity
     }
     return api.post(`carts`, model)
 }
 
-export function updateCard(cartId, product, quantity) {
+export function updateCard(cartId, productId, quantity) {
     var model = {
-        itemId: product.id,
-        quantity: quantity
+        productId: productId,
+        quantity: quantity,
+        cartId: cartId
     }
-    return api.put(`carts/${cartId}/item/${product.id}`, model)
+    return api.put(`carts`, model)
 }
 
 export function removeFomCart(product, quantity) {

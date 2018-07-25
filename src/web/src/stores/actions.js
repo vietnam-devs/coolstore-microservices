@@ -2,10 +2,10 @@ import {
     getProducts,
     setRating,
     checkout,
-    setCart,
     getCart,
     addToCard,
-    updateCard
+    updateCard,
+    removeFomCart
 } from '../api'
 
 import { getItem, removeItem, setItem } from '../helper/storage'
@@ -31,66 +31,28 @@ export default {
         return checkout(cartId).then(data => {})
     },
 
-    RESET_CART: ({ commit }, authId) => {
-        var cart = {
-            shoppingCartItemList: []
-        }
-        var tmpId = getItem('cartId')
-        var cartId = null
-        if (tmpId && authId) {
-            // transfer cart
-            cartId = authId
-            return setCart(tmpId).then(
-                function(result) {
-                    removeItem('cartId')
-                },
-                function(err) {
-                    console.log(
-                        'could not transfer cart ' +
-                            tmpId +
-                            ' to cart ' +
-                            authId +
-                            ': ' +
-                            err
-                    )
-                }
-            )
-            return
-        }
-
-        if (tmpId && !authId) {
-            cartId = tmpId
-        }
-
-        if (!tmpId && authId) {
-            cartId = authId
-        }
-
-        if (!tmpId && !authId) {
-            tmpId = 'id-' + Math.random()
-            setItem('cartId', tmpId)
-            cartId = tmpId
-        }
-
-        cart.shoppingCartItemList = []
-        return getCart(cartId).then(data => {
-            cart = data.data
-            commit('SET_CART', cart)
-        })
-    },
-
-    SET_CART: ({}, { cartId }) => {
-        return setCart(cartId)
-    },
-
-    ADD_TO_CARD: ({ commit, dispatch, state }, { product, quantity }) => {
-        var cartId = getItem("cartId");
+    GET_CART: ({ commit }) => {
+        var cartId = getItem('cartId')
         if (cartId) {
-            return updateCard(cartId, product, quantity);
-        } else return addToCard(product, quantity)
+            return getCart(cartId).then(data => {
+                commit('SET_CART', data.data)
+            })
+        }
+    },
+
+    ADD_TO_CARD: ({ commit, dispatch, state }, { productId, quantity }) => {
+        var cartId = getItem('cartId')
+        if (cartId) {
+            return updateCard(cartId, productId, quantity)
+        } else return addToCard(productId, quantity)
     },
 
     REMOVE_FROM_CARD: ({}, { product, quantity }) => {
         return removeFomCart(product, quantity)
+    },
+
+    UPDATE_PRODUCT_QUANTITY: ({}, { productId, quantity }) => {
+        var cartId = getItem('cartId')
+        return updateCard(cartId, productId, quantity)
     }
 }

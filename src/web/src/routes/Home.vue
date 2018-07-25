@@ -18,7 +18,7 @@
               <b-field>
                 <b-input placeholder="Number" v-model="product.quantity" type="number" value="1" min="1" max="20" style="width: 4em">
                 </b-input>
-                <button @click="addToCart(product, product.quantity)" class="button is-primary">Add To Cart</button>
+                <button @click="addToCart(product.id, product.quantity)" class="button is-primary">Add To Cart</button>
                 <div class="tag-right">
                     <span class="tag is-dark ">
                         <template v-if="product.availability">{{product.availability.quantity}}</template>
@@ -42,6 +42,7 @@
 import StarRating from 'vue-star-rating'
 import Review from '../components/Review.vue'
 import { watchList } from '../api'
+import { setItem } from '../helper/storage'
 export default {
   name: 'home',
   components: {
@@ -94,13 +95,12 @@ export default {
       this.isModalVisible = false
     },
 
-    addToCart(product, quantity) {
-      this.$store.dispatch('ADD_TO_CARD', { product, quantity }).then(
+    addToCart(productId, quantity) {
+      this.$store.dispatch('ADD_TO_CARD', { productId, quantity }).then(
         data => {
           if (data && data.data) {
-            data.data.cartItemTotal = data.data.cartItems.length;
+            setItem('cartId', data.data.id)
             this.$store.commit('SET_CART', data.data)
-            this.$store.state.cartId = data.data.id
           }
         },
         error => {

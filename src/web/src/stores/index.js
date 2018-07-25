@@ -11,7 +11,12 @@ const store = new Vuex.Store({
         products: [],
         cartId: null,
         cart: {
-            shoppingCartItemList: []
+            items: [],
+            cartTotal: 0,
+            shippingTotal: 0,
+            cartItemPromoSavings: 0,
+            cartItemTotal: 0,
+            shippingPromoSavings: 0
         },
         isLoggedIn: undefined,
         accessToken: undefined,
@@ -19,6 +24,6 @@ const store = new Vuex.Store({
     },
     actions,
     mutations,
-    getters,
+    getters
 })
-export default store;
+export default store
