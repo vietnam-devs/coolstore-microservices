@@ -1,12 +1,16 @@
-# Cool Store Application on Service Mesh Demo
+# Cool Store Application on Service Mesh
+
+<p align="left">
+  <a href="https://img.shields.io/badge/.NET%20VN-Built%20with%20Love-blue.svg"><img src="https://img.shields.io/badge/.NET%20VN-Built%20with%20Love-blue.svg" alt="BuiltWithLove"></a>
+  <a href="https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE"><img src="https://img.shields.io/badge/price-FREE-0098f7.svg" alt="Price"></a>
+  <a href="https://travis-ci.org/vietnam-devs/coolstore-microservices"><img src="https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?label=travis-ci&branch=master&style=flat-square" alt="Build Status" data-canonical-src="https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?label=travis-ci&branch=master" style="max-width:100%;"></a>
+</p>
 
 > This project is inspired from [coolstore project](https://github.com/jbossdemocentral/coolstore-microservice) by [jbossdemocentral](https://github.com/jbossdemocentral) & [Red Hat Demo Central](https://gitlab.com/redhatdemocentral)
 
 CoolStore is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh.
 
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
-
-[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
 
 # Table of contents
 
