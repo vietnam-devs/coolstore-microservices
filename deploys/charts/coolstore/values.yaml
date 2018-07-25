@@ -64,9 +64,9 @@ applicationInsights:
   InstrumentationKey: VALUE_TO_BE_OVERRIDDEN
 
 gatewaySettings:
-  HostSettings__BasePath: /cs/
-  HostSettings__ExternalCurrentHostUri: http://api.coolstore.local
-  HostSettings__ExternalAuthHostUri: http://id.coolstore.local
+  Hosts__BasePath: /
+  Hosts__Externals__CurrentUri: http://api.coolstore.local
+  Hosts__Externals__Auth__Uri: http://id.coolstore.local
 
 idpSettings:
   HostSettings__BasePath: /
