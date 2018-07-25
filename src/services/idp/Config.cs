@@ -124,7 +124,7 @@ namespace IdentityServer4
           $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/callback"
         },
 
-        PostLogoutRedirectUris = { "/index.html" },
+        PostLogoutRedirectUris = { "http://localhost:8080/" },
         AllowedCorsOrigins =
         {
           isDevelopment

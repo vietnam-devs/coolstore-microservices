@@ -61,8 +61,9 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit('LOGOUT')
-      signoutRedirect(respnose => {})
+      signoutRedirect(respnose => {
+        this.$store.commit('LOGOUT')
+      })
     }
   },
   components: {

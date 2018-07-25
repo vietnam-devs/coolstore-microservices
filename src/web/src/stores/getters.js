@@ -25,7 +25,7 @@ export default {
                     rate: 0,
                     count: 0
                 },
-                quantity: 1 //value default when add to cart 
+                quantity: 1 //value default when add to cart
             }
             if (!product.availability) {
                 product.availability = Object.assign(
@@ -42,5 +42,17 @@ export default {
             products.push(Object.assign(productDefault, product))
         })
         return products
-    }
+    },
+
+    // cartReducer: state => {
+    //     return {
+    //         byItemIds: state.cart.items.map(item => item.id),
+    //         items: state.cart.items.reduce((obj, item) => {
+    //             obj[post.id] = item
+    //             return obj
+    //         }, {})
+    //     }
+    //     state.cart.items.forEach(item => {})
+    //     return products
+    // }
 }

@@ -33,7 +33,11 @@ export function signinSilent(callback) {
 export function signoutRedirect(callback) {
     applicationUserManager().then(obj => {
         let userManger = new obj.UserManager(oidcSettings)
-        callback(userManger.signoutRedirect())
+        var idToken = getItem('idToken');
+        userManger.signoutRedirect({'id_token_hint': idToken }).then(response => {
+
+        })
+        callback(userManger.signoutRedirect({'id_token_hint': idToken }))
     })
 }
 

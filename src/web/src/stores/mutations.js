@@ -17,6 +17,7 @@ export default {
     SET_CART: (state, data) => {
         setItem("cart", data);
         setItem("cartId", data.id);
+        state.cart = data;
     },
     LOGIN_SUCCESS: (state, data) => {
         state.accessToken = data.accessToken

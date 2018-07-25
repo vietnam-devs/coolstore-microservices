@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="cart.shoppingCartItemList.length == 0" class="tile is-ancestor">
+        <div v-if="cart.items.length > 0" class="tile is-ancestor">
             <div class="is-8 tile">
                 <div class="tile is-parent cart-list">
                     <table class="table is-fullwidth">
@@ -14,28 +14,27 @@
                             </tr>
                         </thead>                        
                         <tbody>
-                            <tr v-for="(product, index) in items">
+                            <tr v-if="items" v-for="(product, index) in items">
                                 <th>
-                                    <img class="media-object" v-if="product.name" v-bind:src="productImageUrl + index " v-bind:alt="product.name">
-                                    
+                                    <img class="media-object" v-if="product.productName" v-bind:src="productImageUrl + index " v-bind:alt="product.name">
                                 </th>
                                 <th>
-                                    <span>{{product.name}}</span>
+                                    <span>{{product.productName}}</span>
                                 </th>
                                 <td>
                                     <span>${{product.price}}</span>
                                 </td>
                                 <td>
-                                    <input class="quantity-button" type="button" value="-" @click="product.quantity--">
+                                    <input class="quantity-button" type="button" value="-" @click="product.quantity--; updateProduct(product.productId, product.quantity)">
                                     <input class="quantity-field" type="number" readonly v-model="product.quantity">
-                                    <input class="quantity-button" type="button" value="+" @click="product.quantity++">
+                                    <input class="quantity-button" type="button" value="+" @click="product.quantity++; updateProduct(product.productId, product.quantity)">
                                 </td>
                                 <td>
-                                    <span class="icon pointer">
+                                    <span @click="removeProduct(product, product.quantity)" class="icon pointer">
                                         <i class="fas fa-backspace"></i>
                                     </span>
                                 </td>
-                            </tr>                            
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -44,16 +43,17 @@
                 <table class="table is-fullwidth">                      
                     <tbody>
                         <tr>
+                            {{cart}}
                             <th>Shopping Summary</th>
                         </tr>  
                         <tr>
-                            <td>Cart Total: {{subtotal}}</td>
+                            <td>Cart Total: {{cart.cartTotal}}</td>
                         </tr>
                         <tr>
                             <td>Promotional Item Savings: {{cart.cartItemPromoSavings}}</td>
                         </tr>
                         <tr>
-                            <td>Subtotal: {{cart.cartItemTotal}}</td>
+                            <td>Subtotal: {{subtotal}}</td>
                         </tr>  
                         <tr>
                             <td>Shipping: {{cart.shippingTotal}}</td>
@@ -66,7 +66,7 @@
                         </tr> 
                         <tr>
                             <td>
-                                <button v-if="isLoggedIn()" v-bind:disabled="cart.shoppingCartItemList.length <= 0"
+                                <button v-bind:disabled="cart.items.length <= 0"
                                     class="button is-success" data-toggle="modal"
                                     data-target="#checkoutModal" type="button">Checkout</button>
                             </td>
@@ -76,7 +76,7 @@
             </div>
         </div>
 
-        <div v-if="cart.shoppingCartItemList.length > 0" class="tile is-ancestor">
+        <div v-if="cart.items.length == 0" class="tile is-ancestor">
             <div class="tile">
                 <div class="tile is-parent">
                     <div class="div-center has-text-centered">
@@ -96,109 +96,49 @@ export default {
   name: 'cart',
   data() {
     return {
-      cart: {
-        shoppingCartItemList: []
-      },
-      items: [
-        {
-          name: 'IPhone 8',
-          desc: 'IPhone 8',
-          price: 900,
-          availability: null,
-          rating: null,
-          id: 'ba16da71-c7dd-4eac-9ead-5c2c2244e69f',
-          links: [
-            {
-              href:
-                'http://localhost:8080/api/v1/products/ba16da71-c7dd-4eac-9ead-5c2c2244e69f',
-              rel: 'self',
-              method: 'GET'
-            }
-          ]
-        },
-        {
-          name: 'IPhone X',
-          desc: 'IPhone X',
-          price: 1000,
-          availability: null,
-          rating: null,
-          id: '13d02035-2286-4055-ad2d-6855a60efbbb',
-          links: [
-            {
-              href:
-                'http://localhost:8080/api/v1/products/13d02035-2286-4055-ad2d-6855a60efbbb',
-              rel: 'self',
-              method: 'GET'
-            }
-          ]
-        },
-        {
-          name: 'MacBook Pro 2019',
-          desc: 'MacBook Pro 2019',
-          price: 4000,
-          availability: null,
-          rating: null,
-          id: 'b8f0a771-339f-4602-a862-f7a51afd5b79',
-          links: [
-            {
-              href:
-                'http://localhost:8080/api/v1/products/b8f0a771-339f-4602-a862-f7a51afd5b79',
-              rel: 'self',
-              method: 'GET'
-            }
-          ]
-        }
-      ],
+      cart: this.$store.state.cart,
+      items: this.$store.state.cart.items,
       subtotal: 0,
       productImageUrl: 'https://picsum.photos/120/75?image='
     }
   },
   beforeMount() {
-    this.reset()
+    this.getCart()
   },
   methods: {
-    reset() {
-    //   return getUser(user => {
-    //     var authenid = user.sub
-    //     this.$store.dispatch('RESET_CART', authenid).then(data => {
-    //       if (data) {
-    //         this.cart = data
-    //         this.items = this.cart.shoppingCartItemList
-
-    //         this.subtotal = 0
-    //         this.cart.shoppingCartItemList.forEach(function(item) {
-    //           this.subtotal += item.quantity * item.product.price
-    //         })
-    //       }
-    //     })
-    //   })
+    getCart() {
+      this.$store.dispatch('GET_CART').then(data => {
+        if (data) {
+          this.cart = data
+          this.items = this.cart.items
+        }
+      })
     },
 
-    performAction(action, item) {
+    removeProduct(product, quantity) {
+      this.$store.dispatch('REMOVE_FROM_CARD', product, product.quantity).then(
+        newCart => {
+          this.$store.commit('SET_CART', newCart.data)
+        },
+        function(err) {}
+      )
+    },
+
+    updateProduct(productId, quantity) {
       this.$store
-        .dispatch('REMOVE_FROM_CARD', item.product, item.quantity)
+        .dispatch('UPDATE_PRODUCT_QUANTITY', { productId, quantity })
         .then(
           newCart => {
-            cart
-              .removeFromCart(item.product, item.quantity)
-              .then(function(newCart) {
-                this.reset()
-              })
+            this.$store.commit('SET_CART', newCart.data)
           },
-          function(err) {
-            Notifications.error('Error removing from cart: ' + err.statusText)
-          }
+          function(err) {}
         )
     },
 
     checkout() {
-      this.$store.dispatch('CHECKOUT_CART').then(cartData => {}, function(err) {
-        Notifications.error('Error checking out: ' + err.statusText)
-      })
-    },
-
-    isLoggedIn() {
-      return true
+      this.$store
+        .dispatch('CHECKOUT_CART')
+        .then(cartData => {}, function(err) {})
     }
   }
 }
