@@ -88,34 +88,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog"
-            aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">
-                            <span class="pficon pficon-close"></span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">Final Order Summary</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h1>Thank you for your order!</h1>
-                        <p>
-                            Your order total of <strong>{{cart.cartTotal}}</strong>
-                            will be processed when you click Checkout.
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <a @click="checkout" data-dismiss="modal"
-                            class="btn btn-primary btn-lg">Checkout</a>
-                        <a data-dismiss="modal"
-                            class="btn btn-default btn-lg">Cancel</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -186,21 +158,20 @@ export default {
   },
   methods: {
     reset() {
-      getUser(user => {
-        debugger
-        var authenid = user.sub
-        this.$store.dispatch('RESET_CART', authenid).then(data => {
-          if (data) {
-            this.cart = data
-            this.items = this.cart.shoppingCartItemList
+    //   return getUser(user => {
+    //     var authenid = user.sub
+    //     this.$store.dispatch('RESET_CART', authenid).then(data => {
+    //       if (data) {
+    //         this.cart = data
+    //         this.items = this.cart.shoppingCartItemList
 
-            this.subtotal = 0
-            this.cart.shoppingCartItemList.forEach(function(item) {
-              this.subtotal += item.quantity * item.product.price
-            })
-          }
-        })
-      })
+    //         this.subtotal = 0
+    //         this.cart.shoppingCartItemList.forEach(function(item) {
+    //           this.subtotal += item.quantity * item.product.price
+    //         })
+    //       }
+    //     })
+    //   })
     },
 
     performAction(action, item) {
