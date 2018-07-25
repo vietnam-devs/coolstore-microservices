@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Service;
 using VND.CoolStore.Services.ApiGateway.Model;
+using VND.CoolStore.Shared.Cart.Checkout;
 using VND.CoolStore.Shared.Cart.DeleteItemInCart;
 using VND.CoolStore.Shared.Cart.InsertItemToNewCart;
 using VND.CoolStore.Shared.Cart.UpdateItemInCart;
@@ -67,16 +68,18 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Auth(Policy = "access_cart_api")]
     [SwaggerOperation(Tags = new[] { "cart-service" })]
     [Route("{cartId:guid}/checkout")]
-    public IActionResult Checkout(Guid cartId)
+    public async Task<ActionResult<CheckoutResponse>> Checkout(Guid cartId)
     {
-      return Ok(cartId);
+      var request = new CheckoutRequest { Id = cartId };
+      request.Headers = HttpContext.Request.GetOpenTracingInfo();
+      var response = await _cartService.CheckoutAsync(request);
+      return Ok(response);
     }
 
     [HttpPut]
     [Auth(Policy = "access_cart_api")]
     [SwaggerOperation(Tags = new[] { "cart-service" })]
-    [Route("{cartId:guid}/item/{itemId:guid}")]
-    public async Task<ActionResult<UpdateItemInCartResponse>> UpdateCart(Guid cartId, Guid itemId, [FromBody] UpdateItemInCartRequest request)
+    public async Task<ActionResult<UpdateItemInCartResponse>> UpdateCart([FromBody] UpdateItemInCartRequest request)
     {
       if (!ModelState.IsValid)
       {
@@ -89,10 +92,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
       }
 
       request.Headers = HttpContext.Request.GetOpenTracingInfo();
-      request.CartId = cartId;
-      request.ItemId = itemId;
-
-      UpdateItemInCartResponse response = await _cartService.UpdateCart(request);
+      var response = await _cartService.UpdateCartAsync(request);
       return Ok(response);
     }
 
@@ -102,7 +102,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Route("{cartId:guid}/item/{itemId:guid}")]
     public async Task<ActionResult<bool>> DeleteItemInCart(Guid cartId, Guid itemId)
     {
-      await _cartService.DeleteItemInCart(new DeleteItemInCartRequest
+      await _cartService.DeleteItemInCartAsync(new DeleteItemInCartRequest
       {
         Id = cartId,
         ItemId = itemId,

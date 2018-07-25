@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 using VND.CoolStore.Services.ApiGateway.Model;
+using VND.CoolStore.Shared.Cart.Checkout;
 using VND.CoolStore.Shared.Cart.DeleteItemInCart;
 using VND.CoolStore.Shared.Cart.GetCartById;
 using VND.CoolStore.Shared.Cart.InsertItemToNewCart;
@@ -24,20 +25,22 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl
       _cartServiceUri = config.GetHostUri(env, "Cart");
     }
 
-    public Task CheckoutAsync(Guid cartId)
+    public async Task<CheckoutResponse> CheckoutAsync(CheckoutRequest request)
     {
-      throw new NotImplementedException();
+      var endPoint = $"{_cartServiceUri}/api/v1/carts/{request.Id}/checkout";
+      RestClient.SetOpenTracingInfo(request.Headers);
+      return await RestClient.PostAsync<CheckoutResponse>(endPoint, request);
     }
 
     public async Task<InsertItemToNewCartResponse> CreateCartAsync(InsertItemToNewCartRequest request)
     {
-      string endPoint = $"{_cartServiceUri}/api/v1/carts/new-cart";
+      string endPoint = $"{_cartServiceUri}/api/v1/carts/insert-item";
       RestClient.SetOpenTracingInfo(request.Headers);
       InsertItemToNewCartResponse response = await RestClient.PostAsync<InsertItemToNewCartResponse>(endPoint, request);
       return response;
     }
 
-    public async Task DeleteItemInCart(DeleteItemInCartRequest request)
+    public async Task DeleteItemInCartAsync(DeleteItemInCartRequest request)
     {
       string deleteItemInCartEndPoint = $"{_cartServiceUri}/api/v1/carts/{request.Id}/items/{request.ItemId}";
       RestClient.SetOpenTracingInfo(request.Headers);
@@ -52,9 +55,9 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl
       return cart;
     }
 
-    public async Task<UpdateItemInCartResponse> UpdateCart(UpdateItemInCartRequest request)
+    public async Task<UpdateItemInCartResponse> UpdateCartAsync(UpdateItemInCartRequest request)
     {
-      string endPoint = $"{_cartServiceUri}/api/v1/carts/update-cart";
+      string endPoint = $"{_cartServiceUri}/api/v1/carts/update-item";
       RestClient.SetOpenTracingInfo(request.Headers);
       UpdateItemInCartResponse response = await RestClient.PutAsync<UpdateItemInCartResponse>(endPoint, request);
       return response;

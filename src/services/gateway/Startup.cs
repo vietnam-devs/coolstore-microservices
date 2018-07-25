@@ -152,7 +152,7 @@ namespace VND.CoolStore.Services.ApiGateway
             ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
       });
 
-      services.AddHttpPolly();
+      // services.AddHttpPolly();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

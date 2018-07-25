@@ -32,6 +32,8 @@ namespace VND.CoolStore.Services.Cart.Migrations
 
                     b.Property<DateTime>("Created");
 
+                    b.Property<bool>("IsCheckout");
+
                     b.Property<double>("ShippingPromoSavings");
 
                     b.Property<double>("ShippingTotal");
@@ -75,6 +77,8 @@ namespace VND.CoolStore.Services.Cart.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ProductId");
 
                     b.HasKey("Id");
 

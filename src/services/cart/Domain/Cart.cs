@@ -34,6 +34,8 @@ namespace VND.CoolStore.Services.Cart.Domain
     [Required]
     public List<CartItem> CartItems { get; set; } = new List<CartItem>();
 
+    public bool IsCheckout { get; set; }
+
     public Cart InsertItemToCart(CartItem item)
     {
       CartItems.Add(item);
@@ -42,7 +44,7 @@ namespace VND.CoolStore.Services.Cart.Domain
 
     public Cart RemoveCartItem(Guid itemId)
     {
-      CartItems.Where(y => !CartItems.Any(x => x.Id == itemId));
+      CartItems = CartItems.Where(y => !CartItems.Any(x => x.Id == itemId)).ToList();
       return this;
     }
   }

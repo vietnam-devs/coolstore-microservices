@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using VND.CoolStore.Services.ApiGateway.Model;
+using VND.CoolStore.Shared.Cart.Checkout;
 using VND.CoolStore.Shared.Cart.DeleteItemInCart;
 using VND.CoolStore.Shared.Cart.GetCartById;
 using VND.CoolStore.Shared.Cart.InsertItemToNewCart;
@@ -12,8 +13,8 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service
   {
     Task<CartModel> GetCartByIdAsync(GetCartByIdRequest request);
     Task<InsertItemToNewCartResponse> CreateCartAsync(InsertItemToNewCartRequest request);
-    Task<UpdateItemInCartResponse> UpdateCart(UpdateItemInCartRequest request);
-    Task CheckoutAsync(Guid cartId);
-    Task DeleteItemInCart(DeleteItemInCartRequest request);
+    Task<UpdateItemInCartResponse> UpdateCartAsync(UpdateItemInCartRequest request);
+    Task DeleteItemInCartAsync(DeleteItemInCartRequest request);
+    Task<CheckoutResponse> CheckoutAsync(CheckoutRequest request);
   }
 }

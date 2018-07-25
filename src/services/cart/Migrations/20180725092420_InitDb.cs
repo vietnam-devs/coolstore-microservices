@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VND.CoolStore.Services.Cart.Migrations
 {
-    public partial class InitData : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,8 @@ namespace VND.CoolStore.Services.Cart.Migrations
                     CartItemPromoSavings = table.Column<double>(nullable: false),
                     ShippingTotal = table.Column<double>(nullable: false),
                     ShippingPromoSavings = table.Column<double>(nullable: false),
-                    CartTotal = table.Column<double>(nullable: false)
+                    CartTotal = table.Column<double>(nullable: false),
+                    IsCheckout = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,7 +30,8 @@ namespace VND.CoolStore.Services.Cart.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

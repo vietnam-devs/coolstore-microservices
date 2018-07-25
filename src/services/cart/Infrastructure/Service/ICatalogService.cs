@@ -7,7 +7,7 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service
 {
   public interface ICatalogService
   {
-    Task<IEnumerable<GetProductByIdResponse>> GetProductByIdAsync(GetProductByIdRequest request);
+    Task<GetProductByIdResponse> GetProductByIdAsync(GetProductByIdRequest request);
     Task<IEnumerable<GetProductsResponse>> GetProductsAsync(GetProductsRequest request);
   }
 }

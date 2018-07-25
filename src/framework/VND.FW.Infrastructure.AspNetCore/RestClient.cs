@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -106,16 +105,19 @@ namespace VND.FW.Infrastructure.AspNetCore
         HttpClient client,
         IEnumerable<KeyValuePair<string, string>> openTracingInfo)
     {
-      _logger.LogDebug($"VND: {openTracingInfo.ToArray().ToString()}");
+      // _logger.LogDebug($"VND: {openTracingInfo.ToArray().ToString()}");
 
       client.DefaultRequestHeaders.Accept.Clear();
       client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-      foreach (KeyValuePair<string, string> info in openTracingInfo)
+      if (openTracingInfo != null)
       {
-        if (!client.DefaultRequestHeaders.Contains(info.Key))
+        foreach (KeyValuePair<string, string> info in openTracingInfo)
         {
-          client.DefaultRequestHeaders.Add(info.Key, info.Value);
+          if (!client.DefaultRequestHeaders.Contains(info.Key))
+          {
+            client.DefaultRequestHeaders.Add(info.Key, info.Value);
+          }
         }
       }
 

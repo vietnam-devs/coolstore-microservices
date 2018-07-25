@@ -21,11 +21,10 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
       _catalogServiceUri = config.GetHostUri(env, "Catalog");
     }
 
-    public async Task<IEnumerable<GetProductByIdResponse>> GetProductByIdAsync(GetProductByIdRequest request)
+    public async Task<GetProductByIdResponse> GetProductByIdAsync(GetProductByIdRequest request)
     {
-      string getProductEndPoint = $"{_catalogServiceUri}/api/v1/products/{request.Id}";
-      // TODO: don't know why mongodb return array of objects
-      List<GetProductByIdResponse> response = await RestClient.GetAsync<List<GetProductByIdResponse>>(getProductEndPoint);
+      var getProductEndPoint = $"{_catalogServiceUri}/api/v1/products/{request.Id}";
+      var response = await RestClient.GetAsync<GetProductByIdResponse>(getProductEndPoint);
       return response;
     }
 

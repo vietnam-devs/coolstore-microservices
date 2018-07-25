@@ -23,7 +23,7 @@ namespace VND.CoolStore.Services.Cart.UseCases.v2
     [Route("{id}")]
     public async Task<GetCartByIdResponse> GetCartById(Guid id)
     {
-      return await _cartService.GetCartById(id);
+      return await _cartService.GetCartByIdAsync(id);
     }
   }
 }

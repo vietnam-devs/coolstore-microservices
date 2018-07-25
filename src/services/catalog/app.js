@@ -53,8 +53,13 @@ app.use(function(err, req, res, next) {
   })
 })
 
-app.get('/', function(req, res) {
-  res.send('Catalog Service.')
+app.get('/api/v1/products/:productId', async (req, res) => {
+  console.info(req.params)
+  var product = await Product.findProduct(req.params.productId)
+  if(product.length > 0)
+    res.send(product[0])
+  else 
+    res.send(product)
 })
 
 app.get('/api/v1/products', async (req, res) => {
@@ -68,16 +73,14 @@ app.post('/api/v1/products', async (req, res) => {
   res.send(await newProduct.createProduct(req.body))
 })
 
-app.get('/api/v1/products/:productId', async (req, res) => {
-  console.info(req.params)
-  var product = await Product.findProduct(req.params.productId)
-  res.send(product)
-})
-
 app.get('/healthz', (req, res) => {
   res.send({
     status: 'Healthy!'
   })
+})
+
+app.get('/', function(req, res) {
+  res.send('Catalog Service.')
 })
 
 /// catch 404 and forward to error handler
