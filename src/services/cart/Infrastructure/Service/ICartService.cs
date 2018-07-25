@@ -10,10 +10,10 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service
 {
   public interface ICartService
   {
-    TaxCalculatorContext TaxCalculator { get; set; }
+    PriceCalculatorContext PriceCalculatorContext { get; set; }
     Task<GetCartByIdResponse> GetCartByIdAsync(Guid id);
-    Task<Domain.Cart> InsertItemToCartAsync(InsertItemToNewCartRequest request);
-    Task<Domain.Cart> UpdateItemInCartAsync(UpdateItemInCartRequest request);
+    Task<GetCartByIdResponse> InsertItemToCartAsync(InsertItemToNewCartRequest request);
+    Task<GetCartByIdResponse> UpdateItemInCartAsync(UpdateItemInCartRequest request);
     Task<bool> RemoveItemInCartAsync(Guid cartId, Guid itemId);
     Task<CheckoutResponse> CheckoutAsync(CheckoutRequest request);
   }

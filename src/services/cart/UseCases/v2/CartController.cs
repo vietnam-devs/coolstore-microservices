@@ -16,7 +16,7 @@ namespace VND.CoolStore.Services.Cart.UseCases.v2
     public CartController(ICartService cartService, TenPercentTaxCalculator taxCaculator)
     {
       _cartService = cartService;
-      _cartService.TaxCalculator = taxCaculator;
+      _cartService.PriceCalculatorContext = taxCaculator;
     }
 
     [HttpGet(Name = nameof(GetCartById))]

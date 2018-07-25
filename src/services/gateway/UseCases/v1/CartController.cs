@@ -7,6 +7,7 @@ using VND.CoolStore.Services.ApiGateway.Infrastructure.Service;
 using VND.CoolStore.Services.ApiGateway.Model;
 using VND.CoolStore.Shared.Cart.Checkout;
 using VND.CoolStore.Shared.Cart.DeleteItemInCart;
+using VND.CoolStore.Shared.Cart.GetCartById;
 using VND.CoolStore.Shared.Cart.InsertItemToNewCart;
 using VND.CoolStore.Shared.Cart.UpdateItemInCart;
 using VND.FW.Infrastructure.AspNetCore;
@@ -31,10 +32,9 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Auth(Policy = "access_cart_api")]
     [SwaggerOperation(Tags = new[] { "cart-service" })]
     [Route("{cartId:guid}")]
-    public async Task<ActionResult<CartModel>> GetCart(Guid cartId)
+    public async Task<ActionResult<GetCartByIdResponse>> GetCart(Guid cartId)
     {
-
-      CartModel cart = await _cartService.GetCartByIdAsync(
+      var cart = await _cartService.GetCartByIdAsync(
         new Shared.Cart.GetCartById.GetCartByIdRequest
         {
           Id = cartId,
@@ -47,7 +47,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [HttpPost]
     [Auth(Policy = "access_cart_api")]
     [SwaggerOperation(Tags = new[] { "cart-service" })]
-    public async Task<ActionResult<InsertItemToNewCartResponse>> CreateCart([FromBody] InsertItemToNewCartRequest request)
+    public async Task<ActionResult<GetCartByIdResponse>> CreateCart([FromBody] InsertItemToNewCartRequest request)
     {
       if (!ModelState.IsValid)
       {
@@ -60,7 +60,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
       }
 
       request.Headers = HttpContext.Request.GetOpenTracingInfo();
-      InsertItemToNewCartResponse response = await _cartService.CreateCartAsync(request);
+      var response = await _cartService.CreateCartAsync(request);
       return Ok(response);
     }
 
@@ -79,7 +79,7 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [HttpPut]
     [Auth(Policy = "access_cart_api")]
     [SwaggerOperation(Tags = new[] { "cart-service" })]
-    public async Task<ActionResult<UpdateItemInCartResponse>> UpdateCart([FromBody] UpdateItemInCartRequest request)
+    public async Task<ActionResult<GetCartByIdResponse>> UpdateCart([FromBody] UpdateItemInCartRequest request)
     {
       if (!ModelState.IsValid)
       {

@@ -1,15 +1,15 @@
-﻿using System;
+using System;
 using System.Linq;
 using VND.CoolStore.Services.Cart.Infrastructure.Service;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {
-  public abstract class TaxCalculatorContext : ITaxCalculator
+  public abstract class PriceCalculatorContext : IPriceCalculator
   {
     private readonly IPromoService _promoService;
     private readonly IShippingService _shippingService;
 
-    protected TaxCalculatorContext(IPromoService promoService, IShippingService shippingService)
+    protected PriceCalculatorContext(IPromoService promoService, IShippingService shippingService)
     {
       _promoService = promoService;
       _shippingService = shippingService;

@@ -11,9 +11,9 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service
 {
   public interface ICartService
   {
-    Task<CartModel> GetCartByIdAsync(GetCartByIdRequest request);
-    Task<InsertItemToNewCartResponse> CreateCartAsync(InsertItemToNewCartRequest request);
-    Task<UpdateItemInCartResponse> UpdateCartAsync(UpdateItemInCartRequest request);
+    Task<GetCartByIdResponse> GetCartByIdAsync(GetCartByIdRequest request);
+    Task<GetCartByIdResponse> CreateCartAsync(InsertItemToNewCartRequest request);
+    Task<GetCartByIdResponse> UpdateCartAsync(UpdateItemInCartRequest request);
     Task DeleteItemInCartAsync(DeleteItemInCartRequest request);
     Task<CheckoutResponse> CheckoutAsync(CheckoutRequest request);
   }

@@ -9,8 +9,8 @@ namespace VND.CoolStore.Shared.Cart.UpdateItemInCart
     [Required]
     public Guid CartId { get; set; }
 
-    [Required]
-    public Guid ItemId { get; set; }
+    //[Required]
+    //public Guid ItemId { get; set; }
 
     [Required]
     public Guid ProductId { get; set; }

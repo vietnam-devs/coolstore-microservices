@@ -32,7 +32,7 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
       _cartItemMutateRepository = cartItemMutateRepository;
     }
 
-    public TaxCalculatorContext TaxCalculator { get; set; }
+    public PriceCalculatorContext PriceCalculatorContext { get; set; }
 
     public async Task<CheckoutResponse> CheckoutAsync(CheckoutRequest request)
     {
@@ -50,31 +50,12 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
     {
       var cart = await GetCart(id);
       cart = await InitCart(cart, populatePrice: true);
-      cart = TaxCalculator.Execute(cart);
+      cart = PriceCalculatorContext.Execute(cart);
 
-      return new GetCartByIdResponse
-      {
-        Id = cart.Id,
-        CartTotal = cart.CartTotal,
-        CartItemTotal = cart.CartItemTotal,
-        CartItemPromoSavings = cart.CartItemPromoSavings,
-        ShippingPromoSavings = cart.ShippingPromoSavings,
-        ShippingTotal = cart.ShippingTotal,
-        Items = cart.CartItems.Select(cc =>
-        {
-          return new GetCartByIdResponse.CartItemResponse
-          {
-            ProductId = cc.Product.Id,
-            ProductName = cc.Product.Name,
-            Price = cc.Price,
-            Quantity = cc.Quantity,
-            PromoSavings = cc.PromoSavings
-          };
-        }).ToList()
-      };
+      return GetCartByIdResponse(cart);
     }
 
-    public async Task<Domain.Cart> InsertItemToCartAsync(InsertItemToNewCartRequest request)
+    public async Task<GetCartByIdResponse> InsertItemToCartAsync(InsertItemToNewCartRequest request)
     {
       var cart = new Domain.Cart();
       cart.InsertItemToCart(new CartItem
@@ -85,9 +66,10 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
       });
       
       cart = await InitCart(cart, populatePrice: true);
-      cart = TaxCalculator.Execute(cart);
+      cart = PriceCalculatorContext.Execute(cart);
 
-      return await _mutateRepository.AddAsync(cart);
+      await _mutateRepository.AddAsync(cart);
+      return GetCartByIdResponse(cart);
     }
 
     public async Task<bool> RemoveItemInCartAsync(Guid cartId, Guid itemId)
@@ -98,22 +80,22 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
       cart = cart.RemoveCartItem(itemId);
       var isSucceed = await _mutateRepository.UpdateAsync(cart) != null;
 
-      cart = TaxCalculator.Execute(cart);
+      cart = PriceCalculatorContext.Execute(cart);
 
       return isSucceed;
     }
 
-    public async Task<Domain.Cart> UpdateItemInCartAsync(UpdateItemInCartRequest request)
+    public async Task<GetCartByIdResponse> UpdateItemInCartAsync(UpdateItemInCartRequest request)
     {
       var cart = await GetCart(request.CartId);
       cart = await InitCart(cart);
 
-      var item = cart.CartItems.FirstOrDefault(x => x.Id == request.ItemId);
+      var item = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == request.ProductId);
 
       // if not exists then it should be a new item
       if (item == null)
       {
-        item = new CartItem(request.ItemId)
+        item = new CartItem(item.Id)
         {
           Quantity = request.Quantity,
           Product = new Product(request.ProductId)
@@ -126,15 +108,14 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
         item.Quantity = request.Quantity;
       }
 
-      cart = TaxCalculator.Execute(cart);
-
+      cart = PriceCalculatorContext.Execute(cart);
       
       var result = await _mutateRepository.UpdateAsync(cart);
 
       // Todo: refactor to unit of work later
       await _cartItemMutateRepository.UpdateAsync(item);
 
-      return result;
+      return GetCartByIdResponse(cart);
     }
 
     private async Task<Domain.Cart> GetCart(Guid cartId)
@@ -151,6 +132,30 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
       }
 
       return cart;
+    }
+
+    private GetCartByIdResponse GetCartByIdResponse(Domain.Cart cart)
+    {
+      return new GetCartByIdResponse
+      {
+        Id = cart.Id,
+        CartTotal = cart.CartTotal,
+        CartItemTotal = cart.CartItemTotal,
+        CartItemPromoSavings = cart.CartItemPromoSavings,
+        ShippingPromoSavings = cart.ShippingPromoSavings,
+        ShippingTotal = cart.ShippingTotal,
+        Items = cart.CartItems.Select(cc =>
+        {
+          return new GetCartByIdResponse.CartItemResponse
+          {
+            ProductId = cc.Product.ProductId,
+            ProductName = cc.Product.Name,
+            Price = cc.Price,
+            Quantity = cc.Quantity,
+            PromoSavings = cc.PromoSavings
+          };
+        }).ToList()
+      };
     }
 
     private async Task<Domain.Cart> InitCart(Domain.Cart cart = null, bool populatePrice = false)

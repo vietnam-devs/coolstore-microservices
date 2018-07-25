@@ -32,11 +32,11 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl
       return await RestClient.PostAsync<CheckoutResponse>(endPoint, request);
     }
 
-    public async Task<InsertItemToNewCartResponse> CreateCartAsync(InsertItemToNewCartRequest request)
+    public async Task<GetCartByIdResponse> CreateCartAsync(InsertItemToNewCartRequest request)
     {
       string endPoint = $"{_cartServiceUri}/api/v1/carts/insert-item";
       RestClient.SetOpenTracingInfo(request.Headers);
-      InsertItemToNewCartResponse response = await RestClient.PostAsync<InsertItemToNewCartResponse>(endPoint, request);
+      var response = await RestClient.PostAsync<GetCartByIdResponse>(endPoint, request);
       return response;
     }
 
@@ -47,19 +47,19 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl
       bool result = await RestClient.DeleteAsync(deleteItemInCartEndPoint);
     }
 
-    public async Task<CartModel> GetCartByIdAsync(GetCartByIdRequest request)
+    public async Task<GetCartByIdResponse> GetCartByIdAsync(GetCartByIdRequest request)
     {
-      string getCartEndPoint = $"{_cartServiceUri}/api/v1/carts/{request.Id}";
+      var getCartEndPoint = $"{_cartServiceUri}/api/v1/carts/{request.Id}";
       RestClient.SetOpenTracingInfo(request.Headers);
-      CartModel cart = await RestClient.GetAsync<CartModel>(getCartEndPoint);
+      var cart = await RestClient.GetAsync<GetCartByIdResponse>(getCartEndPoint);
       return cart;
     }
 
-    public async Task<UpdateItemInCartResponse> UpdateCartAsync(UpdateItemInCartRequest request)
+    public async Task<GetCartByIdResponse> UpdateCartAsync(UpdateItemInCartRequest request)
     {
-      string endPoint = $"{_cartServiceUri}/api/v1/carts/update-item";
+      var endPoint = $"{_cartServiceUri}/api/v1/carts/update-item";
       RestClient.SetOpenTracingInfo(request.Headers);
-      UpdateItemInCartResponse response = await RestClient.PutAsync<UpdateItemInCartResponse>(endPoint, request);
+      var response = await RestClient.PutAsync<GetCartByIdResponse>(endPoint, request);
       return response;
     }
   }
