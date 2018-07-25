@@ -4,7 +4,7 @@ using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Shared.Cart.InsertItemToNewCart
 {
-  public class InsertItemToNewCartRequest : ModelBase
+  public class InsertItemToNewCartRequest : RequestModelBase
 		{
     [Required]
     public Guid ProductId { get; set; }

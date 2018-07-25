@@ -17,7 +17,8 @@ namespace VND.FW.Infrastructure.EfCore.SqlServer
                      maxRetryCount: 15,
                      maxRetryDelay: TimeSpan.FromSeconds(30),
                      errorNumbersToAdd: null);
-         });
+         })
+         .EnableSensitiveDataLogging();
     }
   }
 }

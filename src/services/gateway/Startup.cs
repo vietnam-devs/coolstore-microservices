@@ -1,10 +1,15 @@
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
@@ -13,9 +18,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Service;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Swagger;
@@ -44,7 +46,7 @@ namespace VND.CoolStore.Services.ApiGateway
       string authServerUri = Configuration.GetHostUri(Environment, "Auth");
       string externalAuthServerUri = Configuration.GetExternalHostUri("Auth");
 
-      services.AddHttpContextAccessor();
+      // services.AddHttpContextAccessor();
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
       services.AddScoped<IUrlHelper>(implementationFactory =>
@@ -52,7 +54,7 @@ namespace VND.CoolStore.Services.ApiGateway
         ActionContext actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
         return new UrlHelper(actionContext);
       });
-      services.AddSingleton(typeof(RestClient), typeof(RestClient));
+      services.AddHttpClient<RestClient>();
       services.AddScoped<ICatalogService, CatalogService>();
       services.AddScoped<ICartService, CartService>();
       services.AddScoped<IInventoryService, InventoryService>();
@@ -65,9 +67,12 @@ namespace VND.CoolStore.Services.ApiGateway
             options.SubstituteApiVersionInUrl = true;
           });
 
-      services.AddMvc()
-          .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
-          .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+      services.AddMvc(options =>
+      {
+        options.OutputFormatters.Insert(0, new StringOutputFormatter());
+      })
+      .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
+      .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
       services.AddApiVersioning(o =>
       {
@@ -141,6 +146,12 @@ namespace VND.CoolStore.Services.ApiGateway
                       .AllowCredentials());
       });
 
+      services.Configure<ForwardedHeadersOptions>(options =>
+      {
+        options.ForwardedHeaders =
+            ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+      });
+
       services.AddHttpPolly();
     }
 
@@ -182,11 +193,11 @@ namespace VND.CoolStore.Services.ApiGateway
         app.UseForwardedHeaders();
       }
 
-      app.UseCors("CorsPolicy");
-      app.UseAuthentication();
-
       app.UseMiddleware<LogHandlerMiddleware>();
       app.UseMiddleware<ErrorHandlerMiddleware>();
+
+      app.UseCors("CorsPolicy");
+      app.UseAuthentication();
 
       app.UseMvc();
       app.UseSwagger();

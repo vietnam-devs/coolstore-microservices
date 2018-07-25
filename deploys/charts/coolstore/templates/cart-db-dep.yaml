@@ -13,13 +13,13 @@ spec:
     spec:
       containers:
       - name: cart-db
-        image: vndg/cs-mssql-db:latest
+        image: vndg/cs-mssqldb:latest
         imagePullPolicy: IfNotPresent
         env: 
-        - name: ACCEPT_EULA
-          value: Y
-        - name: MSSQL_SA_PASSWORD
-          value: P@ssw0rd
+        - name: "ACCEPT_EULA"
+          value: "Y"
+        - name: "MSSQL_SA_PASSWORD"
+          value: "P@ssw0rd"
         ports:
         - containerPort: 1433
 ---

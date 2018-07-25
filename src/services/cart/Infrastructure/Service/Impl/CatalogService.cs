@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using VND.CoolStore.Shared.Catalog.GetProductById;
 using VND.CoolStore.Shared.Catalog.GetProducts;
@@ -16,10 +15,8 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
 
     public CatalogService(
       RestClient rest,
-      IHttpContextAccessor httpContextAccessor,
       IConfiguration config,
-      IHostingEnvironment env)
-      : base(rest, httpContextAccessor)
+      IHostingEnvironment env) : base(rest)
     {
       _catalogServiceUri = config.GetHostUri(env, "Catalog");
     }

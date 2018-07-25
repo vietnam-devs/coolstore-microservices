@@ -30,16 +30,18 @@ namespace VND.CoolStore.Services.Cart.UseCases.v1
 
     [HttpPost]
     [Route("insert-item")]
-    public async Task<Domain.Cart> InsertItemToCart([FromBody] InsertItemToNewCartRequest request)
+    public async Task<GetCartByIdResponse> InsertItemToCart([FromBody] InsertItemToNewCartRequest request)
     {
-      return await _cartService.InsertItemToCart(request);
+      Domain.Cart cart = await _cartService.InsertItemToCart(request);
+      return await _cartService.GetCartById(cart.Id);
     }
 
     [HttpPut]
     [Route("update-item")]
-    public async Task<Domain.Cart> UpdateItemInCart([FromBody] UpdateItemInCartRequest request)
+    public async Task<GetCartByIdResponse> UpdateItemInCart([FromBody] UpdateItemInCartRequest request)
     {
-      return await _cartService.UpdateItemInCart(request);
+      Domain.Cart cart = await _cartService.UpdateItemInCart(request);
+      return await _cartService.GetCartById(cart.Id);
     }
 
     [HttpDelete]

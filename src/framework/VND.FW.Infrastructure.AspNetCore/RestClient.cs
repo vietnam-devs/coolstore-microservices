@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -14,9 +15,9 @@ namespace VND.FW.Infrastructure.AspNetCore
     private IEnumerable<KeyValuePair<string, string>> _openTracingInfo;
     private readonly ILogger<RestClient> _logger;
 
-    public RestClient(ILoggerFactory logger, HttpClient client = null)
+    public RestClient(HttpClient httpClient, ILoggerFactory logger)
     {
-      _client = client ?? new HttpClient();
+      _client = httpClient;
       _logger = logger.CreateLogger<RestClient>();
     }
 
@@ -101,16 +102,21 @@ namespace VND.FW.Infrastructure.AspNetCore
       return new StringContent(content, Encoding.UTF8, "application/json");
     }
 
-    private static HttpClient EnrichHeaderInfo(
+    private HttpClient EnrichHeaderInfo(
         HttpClient client,
         IEnumerable<KeyValuePair<string, string>> openTracingInfo)
     {
+      _logger.LogDebug($"VND: {openTracingInfo.ToArray().ToString()}");
+
       client.DefaultRequestHeaders.Accept.Clear();
       client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
       foreach (KeyValuePair<string, string> info in openTracingInfo)
       {
-        client.DefaultRequestHeaders.Add(info.Key, info.Value);
+        if (!client.DefaultRequestHeaders.Contains(info.Key))
+        {
+          client.DefaultRequestHeaders.Add(info.Key, info.Value);
+        }
       }
 
       return client;

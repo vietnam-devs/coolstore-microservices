@@ -1,12 +1,15 @@
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Annotations;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Service;
 using VND.CoolStore.Services.ApiGateway.Model;
+using VND.CoolStore.Shared.Cart.DeleteItemInCart;
 using VND.CoolStore.Shared.Cart.InsertItemToNewCart;
 using VND.CoolStore.Shared.Cart.UpdateItemInCart;
 using VND.FW.Infrastructure.AspNetCore;
+using VND.FW.Infrastructure.AspNetCore.Extensions;
 
 namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
 {
@@ -15,10 +18,12 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
   public class CartController : FW.Infrastructure.AspNetCore.ControllerBase
   {
     private readonly ICartService _cartService;
+    private readonly ILogger<CartController> _logger;
 
-    public CartController(ICartService cartService)
+    public CartController(ICartService cartService, ILoggerFactory logger)
     {
       _cartService = cartService;
+      _logger = logger.CreateLogger<CartController>();
     }
 
     [HttpGet]
@@ -27,7 +32,14 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Route("{cartId:guid}")]
     public async Task<ActionResult<CartModel>> GetCart(Guid cartId)
     {
-      var cart = await _cartService.GetCartByIdAsync(cartId);
+
+      CartModel cart = await _cartService.GetCartByIdAsync(
+        new Shared.Cart.GetCartById.GetCartByIdRequest
+        {
+          Id = cartId,
+          Headers = HttpContext.Request.GetOpenTracingInfo()
+        });
+
       return Ok(cart);
     }
 
@@ -46,7 +58,8 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
         });
       }
 
-      var response = await _cartService.CreateCartAsync(request);
+      request.Headers = HttpContext.Request.GetOpenTracingInfo();
+      InsertItemToNewCartResponse response = await _cartService.CreateCartAsync(request);
       return Ok(response);
     }
 
@@ -75,10 +88,11 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
         });
       }
 
+      request.Headers = HttpContext.Request.GetOpenTracingInfo();
       request.CartId = cartId;
       request.ItemId = itemId;
 
-      var response = await _cartService.UpdateCart(request);
+      UpdateItemInCartResponse response = await _cartService.UpdateCart(request);
       return Ok(response);
     }
 
@@ -88,7 +102,12 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Route("{cartId:guid}/item/{itemId:guid}")]
     public async Task<ActionResult<bool>> DeleteItemInCart(Guid cartId, Guid itemId)
     {
-      await _cartService.DeleteItemInCart(cartId, itemId);
+      await _cartService.DeleteItemInCart(new DeleteItemInCartRequest
+      {
+        Id = cartId,
+        ItemId = itemId,
+        Headers = HttpContext.Request.GetOpenTracingInfo()
+      });
 
       //TODO: temporary hard code here
       return Ok(true);

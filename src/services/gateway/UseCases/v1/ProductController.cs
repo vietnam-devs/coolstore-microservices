@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Annotations;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Service;
 using VND.CoolStore.Services.ApiGateway.Model;
 using VND.CoolStore.Shared.Catalog.GetProductById;
@@ -23,13 +24,16 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
   {
     private readonly IUrlHelper _urlHelper;
     private readonly ICatalogService _catalogService;
+    private readonly ILogger<ProductController> _logger;
 
     public ProductController(
       ICatalogService catalogService,
-      IUrlHelper urlHelper)
+      IUrlHelper urlHelper,
+      ILoggerFactory logger)
     {
       _urlHelper = urlHelper;
       _catalogService = catalogService;
+      _logger = logger.CreateLogger<ProductController>();
     }
 
     [HttpGet(Name = nameof(GetAllProducts))]
@@ -37,7 +41,12 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [SwaggerOperation(Tags = new[] { "catalog-service" })]
     public async Task<ActionResult<IEnumerable<ProductModel>>> GetAllProducts([FromQuery] Criterion criterion)
     {
-      IEnumerable<GetProductsResponse> products = await _catalogService.GetProductsAsync(new GetProductsRequest());
+      _logger.LogDebug($"VND: {HttpContext.Request.Headers.ToArray().ToString()}");
+
+      IEnumerable<GetProductsResponse> products =
+        await _catalogService.GetProductsAsync(
+          new GetProductsRequest { Headers = HttpContext.Request.GetOpenTracingInfo() });
+
       int numberOfProducts = products.Count();
 
       Response.AddPaginateInfo(criterion, numberOfProducts);
@@ -59,6 +68,8 @@ namespace VND.CoolStore.Services.ApiGateway.UseCases.v1
     [Route("{id:guid}", Name = nameof(GetProduct))]
     public async Task<ActionResult<GetProductByIdResponse>> GetProduct(Guid id)
     {
+      _logger.LogDebug($"VND: {HttpContext.Request.Headers.ToArray().ToString()}");
+
       GetProductByIdResponse product = await _catalogService.GetProductByIdAsync(new GetProductByIdRequest { Id = id });
       return Ok(product);
     }

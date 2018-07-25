@@ -1,12 +1,12 @@
+using System;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
-using System;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
 using VND.Fw.Utils.Extensions;
 using VND.FW.Infrastructure.EfCore.Db;
 using VND.FW.Infrastructure.EfCore.Migration;
@@ -84,26 +84,26 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
 
       policy.Execute(() =>
       {
-        try
-        {
-          logger.LogInformation($"[VND] Migrating database associated with {typeof(TContext).FullName} context.");
+        //try
+        //{
+        logger.LogInformation($"[VND] Migrating database associated with {typeof(TContext).FullName} context.");
 
-          context.Database.OpenConnection();
-          context.Database.EnsureCreated();
+        context.Database.OpenConnection();
+        context.Database.EnsureCreated();
 
-          logger.LogInformation($"[VND] Start to seed data for {typeof(TContext).FullName} context.");
-          seeder(context, serviceProvider);
+        logger.LogInformation($"[VND] Start to seed data for {typeof(TContext).FullName} context.");
+        seeder(context, serviceProvider);
 
-          logger.LogInformation($"[VND] Migrated database associated with {typeof(TContext).FullName} context.");
-        }
-        catch (Exception ex)
-        {
-          logger.LogError(ex,
-                    $"[VND] An error occurred while migrating the database used on {typeof(TContext).FullName} context.");
-        }
+        logger.LogInformation($"[VND] Migrated database associated with {typeof(TContext).FullName} context.");
+        //}
+        //  catch (Exception ex)
+        //{
+        //  logger.LogError(ex,
+        //            $"[VND] An error occurred while migrating the database used on {typeof(TContext).FullName} context.");
+        //}
       });
 
       return serviceProvider;
     }
-  }
+}
 }

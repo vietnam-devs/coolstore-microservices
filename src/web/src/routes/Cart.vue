@@ -187,7 +187,6 @@ export default {
   methods: {
     reset() {
       getUser(user => {
-        debugger
         var authenid = user.sub
         this.$store.dispatch('RESET_CART', authenid).then(data => {
           if (data) {

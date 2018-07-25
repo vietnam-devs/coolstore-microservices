@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
@@ -15,9 +14,8 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl
 
     public InventoryService(
       RestClient rest,
-      IHttpContextAccessor httpContextAccessor,
       IConfiguration config,
-      IHostingEnvironment env) : base(rest, httpContextAccessor)
+      IHostingEnvironment env) : base(rest)
     {
       _inventoryServiceUri = config.GetHostUri(env, "Inventory");
     }

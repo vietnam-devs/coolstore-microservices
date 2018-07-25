@@ -4,7 +4,7 @@ using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Shared.Cart.UpdateItemInCart
 {
-		public class UpdateItemInCartRequest : IdModelBase
+		public class UpdateItemInCartRequest : RequestIdModelBase
 		{
 				[Required]
 				public Guid CartId { get; set; }

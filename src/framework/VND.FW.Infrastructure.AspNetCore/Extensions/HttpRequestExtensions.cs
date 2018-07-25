@@ -20,7 +20,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
           x.Key == "x-b3-parentspanid" ||
           x.Key == "x-b3-sampled" ||
           x.Key == "x-b3-flags" ||
-          x.Key == "x-ot-span-context"
+          x.Key == "x-ot-span-context" /* || x.Key == "Authorization" */
       ).Select(y =>
           new KeyValuePair<string, string>(
               y.Key,
