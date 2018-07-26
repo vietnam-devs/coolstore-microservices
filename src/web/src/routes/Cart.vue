@@ -14,7 +14,7 @@
                             </tr>
                         </thead>                        
                         <tbody>
-                            <tr v-if="items" v-for="(product, index) in items">
+                            <tr v-if="items" v-for="(product, id, index) in items">
                                 <th>
                                     <img class="media-object" v-if="product.productName" v-bind:src="productImageUrl + index " v-bind:alt="product.name">
                                 </th>
@@ -26,7 +26,7 @@
                                 </td>
                                 <td>
                                     <input v-bind:disabled="cart.isCheckout" class="quantity-button" type="button" value="-" @click="increeQuantityProduct(product)">
-                                    <input class="quantity-field" type="number" readonly v-model="product.quantity">
+                                    <input class="quantity-field" type="text" readonly v-model="product.quantity">
                                     <input v-bind:disabled="cart.isCheckout" class="quantity-button" type="button" value="+" @click="product.quantity++; updateProduct(product.productId, product.quantity)">
                                 </td>
                                 <td>
@@ -99,10 +99,10 @@ export default {
   },
   computed: {
     cart() {
-      return this.$store.state.cart
+      return this.$store.getters.cartReducer
     },
     items() {
-      return this.$store.state.cart.items
+      return this.$store.getters.cartReducer.itemsFlat
     },
     subtotal() {
       var subtotal = 0

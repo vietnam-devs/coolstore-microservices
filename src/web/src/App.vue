@@ -4,7 +4,7 @@
       <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <router-link to="/" exact class="navbar-item">
-            <img class="logo" src="~public/logo-48.png" alt="logo">
+            <img class="logo" src="~public/logo.png" alt="logo">
           </router-link>
           <div role="button" class="navbar-burger" data-target="navbarExampleTransparentExample" aria-label="menu" aria-expanded="false">
             <span aria-hidden="true"></span>
