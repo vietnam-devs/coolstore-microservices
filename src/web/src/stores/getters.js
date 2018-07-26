@@ -44,15 +44,14 @@ export default {
         return products
     },
 
-    // cartReducer: state => {
-    //     return {
-    //         byItemIds: state.cart.items.map(item => item.id),
-    //         items: state.cart.items.reduce((obj, item) => {
-    //             obj[post.id] = item
-    //             return obj
-    //         }, {})
-    //     }
-    //     state.cart.items.forEach(item => {})
-    //     return products
-    // }
+    cartReducer: state => {
+        var flat = {
+            byItemIds: state.cart.items.map(item => item.productId),
+            itemsFlat: state.cart.items.reduce((obj, item) => {
+                obj[item.productId] = item
+                return obj
+            }, {})
+        }
+        return Object.assign(state.cart, flat)
+    }
 }

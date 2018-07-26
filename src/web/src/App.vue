@@ -4,7 +4,7 @@
       <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <router-link to="/" exact class="navbar-item">
-            <img class="logo" src="~public/logo-48.png" alt="logo">
+            <img class="logo" src="~public/logo.png" alt="logo">
           </router-link>
           <div role="button" class="navbar-burger" data-target="navbarExampleTransparentExample" aria-label="menu" aria-expanded="false">
             <span aria-hidden="true"></span>
@@ -19,14 +19,14 @@
               Home
             </router-link>
             <router-link to="/cart" class="navbar-item">
-              Your Shopping Cart
+              Your Shopping Cart ({{itemCount}})
             </router-link>
           </div>
         </div>
 
         <div class="navbar-end">
           <div class="navbar-item">
-            Hi {{userId}}
+            {{isLogged}}
           </div>
           <div class="navbar-item">
             <a class="button is-inverted" @click="logout">Logout</a>
@@ -45,19 +45,36 @@
 <script>
 import Footer from './components/Footer.vue'
 import { getUser, signoutRedirect } from './auth/usermanager'
+import { getItem } from './helper/storage'
+import NoSSR from 'vue-no-ssr'
 
 export default {
   name: 'app',
+  components: {
+    'no-ssr': NoSSR
+  },
   data() {
     return {
       userId: undefined,
       username: undefined
     }
   },
+  computed: {
+    itemCount() {
+      return this.$store.state.cart.items.length
+    },
+    isLogged() {
+      if (this.userId) return 'Logged!'
+    }
+  },
   beforeMount() {
     getUser(user => {
       if (user) this.userId = user.sub
     })
+    var cartId = getItem('cartId')
+    if (cartId) {
+      this.$store.dispatch('GET_CART')
+    }
   },
   methods: {
     logout() {

@@ -27,8 +27,11 @@ export default {
     },
 
     /* Action of cart*/
-    CHECKOUT_CART: ({ commit, dispatch, state }, { cartId }) => {
-        return checkout(cartId).then(data => {})
+    CHECKOUT_CART: ({ commit }) => {
+        var cartId = getItem('cartId')
+        if (cartId) {
+            return checkout(cartId).then(data => {})
+        }
     },
 
     GET_CART: ({ commit }) => {
@@ -47,8 +50,11 @@ export default {
         } else return addToCard(productId, quantity)
     },
 
-    REMOVE_FROM_CARD: ({}, { product, quantity }) => {
-        return removeFomCart(product, quantity)
+    REMOVE_FROM_CARD: ({}, { productId }) => {
+        var cartId = getItem('cartId')
+        if (cartId) {
+            return removeFomCart(cartId, productId)
+        }
     },
 
     UPDATE_PRODUCT_QUANTITY: ({}, { productId, quantity }) => {

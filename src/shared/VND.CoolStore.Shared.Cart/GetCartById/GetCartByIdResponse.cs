@@ -11,6 +11,7 @@ namespace VND.CoolStore.Shared.Cart.GetCartById
     public double ShippingTotal { get; set; }
     public double ShippingPromoSavings { get; set; }
     public double CartTotal { get; set; }
+    public bool IsCheckout { get; set; }
     public List<CartItemResponse> Items { get; set; } = new List<CartItemResponse>();
 
     public class CartItemResponse

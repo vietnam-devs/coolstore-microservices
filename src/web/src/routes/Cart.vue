@@ -14,7 +14,7 @@
                             </tr>
                         </thead>                        
                         <tbody>
-                            <tr v-if="items" v-for="(product, index) in items">
+                            <tr v-if="items" v-for="(product, id, index) in items">
                                 <th>
                                     <img class="media-object" v-if="product.productName" v-bind:src="productImageUrl + index " v-bind:alt="product.name">
                                 </th>
@@ -25,12 +25,12 @@
                                     <span>${{product.price}}</span>
                                 </td>
                                 <td>
-                                    <input class="quantity-button" type="button" value="-" @click="product.quantity--; updateProduct(product.productId, product.quantity)">
-                                    <input class="quantity-field" type="number" readonly v-model="product.quantity">
-                                    <input class="quantity-button" type="button" value="+" @click="product.quantity++; updateProduct(product.productId, product.quantity)">
+                                    <input v-bind:disabled="cart.isCheckout" class="quantity-button" type="button" value="-" @click="increeQuantityProduct(product)">
+                                    <input class="quantity-field" type="text" readonly v-model="product.quantity">
+                                    <input v-bind:disabled="cart.isCheckout" class="quantity-button" type="button" value="+" @click="product.quantity++; updateProduct(product.productId, product.quantity)">
                                 </td>
                                 <td>
-                                    <span @click="removeProduct(product, product.quantity)" class="icon pointer">
+                                    <span v-bind:disabled="cart.isCheckout" @click="removeProduct(product.productId)" class="icon pointer">
                                         <i class="fas fa-backspace"></i>
                                     </span>
                                 </td>
@@ -43,32 +43,30 @@
                 <table class="table is-fullwidth">                      
                     <tbody>
                         <tr>
-                            {{cart}}
                             <th>Shopping Summary</th>
                         </tr>  
                         <tr>
-                            <td>Cart Total: {{cart.cartTotal}}</td>
+                            <td>Cart Total: {{cart.cartTotal | toCurrency}}</td>
                         </tr>
                         <tr>
-                            <td>Promotional Item Savings: {{cart.cartItemPromoSavings}}</td>
+                            <td>Promotional Item Savings: {{cart.cartItemPromoSavings | toCurrency}}</td>
                         </tr>
                         <tr>
-                            <td>Subtotal: {{subtotal}}</td>
+                            <td>Subtotal: {{subtotal | toCurrency}}</td>
                         </tr>  
                         <tr>
-                            <td>Shipping: {{cart.shippingTotal}}</td>
+                            <td>Shipping: {{cart.shippingTotal | toCurrency}}</td>
                         </tr> 
                         <tr>
-                            <td>Promotional Shipping Savings: {{cart.shippingPromoSavings}}</td>
+                            <td>Promotional Shipping Savings: {{cart.shippingPromoSavings | toCurrency}}</td>
                         </tr> 
                         <tr>
-                            <td>Total Order Amount: {{cart.cartTotal}}</td>
+                            <td>Total Order Amount: {{cart.cartTotal | toCurrency}}</td>
                         </tr> 
                         <tr>
                             <td>
-                                <button v-bind:disabled="cart.items.length <= 0"
-                                    class="button is-success" data-toggle="modal"
-                                    data-target="#checkoutModal" type="button">Checkout</button>
+                                <button v-bind:disabled="cart.isCheckout"
+                                    class="button is-success" @click="checkout"  type="button">Checkout</button>
                             </td>
                         </tr>                        
                     </tbody>
@@ -96,10 +94,24 @@ export default {
   name: 'cart',
   data() {
     return {
-      cart: this.$store.state.cart,
-      items: this.$store.state.cart.items,
-      subtotal: 0,
       productImageUrl: 'https://picsum.photos/120/75?image='
+    }
+  },
+  computed: {
+    cart() {
+      return this.$store.getters.cartReducer
+    },
+    items() {
+      return this.$store.getters.cartReducer.itemsFlat
+    },
+    subtotal() {
+      var subtotal = 0
+      if (this.$store.state.cart.items) {
+        this.$store.state.cart.items.forEach(item => {
+          subtotal += item.price * item.quantity
+        })
+      }
+      return subtotal
     }
   },
   beforeMount() {
@@ -115,10 +127,13 @@ export default {
       })
     },
 
-    removeProduct(product, quantity) {
-      this.$store.dispatch('REMOVE_FROM_CARD', product, product.quantity).then(
+    removeProduct(productId) {
+      if (this.cart.isCheckout) return
+      this.$store.dispatch('REMOVE_FROM_CARD', { productId }).then(
         newCart => {
-          this.$store.commit('SET_CART', newCart.data)
+          if (newCart.data) {
+            this.$store.dispatch('GET_CART')
+          }
         },
         function(err) {}
       )
@@ -136,9 +151,19 @@ export default {
     },
 
     checkout() {
-      this.$store
-        .dispatch('CHECKOUT_CART')
-        .then(cartData => {}, function(err) {})
+      this.$store.dispatch('CHECKOUT_CART').then(
+        cartData => {
+          this.$store.dispatch('GET_CART')
+        },
+        function(err) {}
+      )
+    },
+
+    increeQuantityProduct(product) {
+      if (product.quantity > 1) {
+        product.quantity--
+        this.updateProduct(product.productId, product.quantity)
+      }
     }
   }
 }

@@ -6,6 +6,9 @@ export function getItem(key) {
         if (typeof value === 'object') {
             value = JSON.parse(value)
         }
+        if (value == 'undefined') {
+            value = undefined
+        }
         return value
     } else {
         return store.state[key]
