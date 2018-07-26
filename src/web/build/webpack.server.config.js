@@ -26,6 +26,9 @@ module.exports = merge(base, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.WEB_HOST_ALIAS': JSON.stringify(process.env.WEB_HOST_ALIAS || 'localhost:8080'),
+      'process.env.ID_HOST_ALIAS': JSON.stringify(process.env.ID_HOST_ALIAS || 'localhost:5001'),
+      'process.env.API_HOST_ALIAS': JSON.stringify(process.env.API_HOST_ALIAS || 'localhost:5000'),
       'process.env.VUE_ENV': '"server"'
     }),
     new VueSSRServerPlugin()
