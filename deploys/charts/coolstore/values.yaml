@@ -63,6 +63,11 @@ affinity: {}
 applicationInsights:
   InstrumentationKey: VALUE_TO_BE_OVERRIDDEN
 
+hosts:
+  web: coolstore.local
+  api: api.coolstore.local
+  idp: id.coolstore.local
+
 gatewaySettings:
   Hosts__BasePath: /
   Hosts__Externals__CurrentUri: http://api.coolstore.local

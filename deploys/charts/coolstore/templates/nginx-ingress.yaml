@@ -7,21 +7,21 @@ metadata:
   namespace: default
 spec:
   rules:
-  - host: coolstore.local
+  - host: {{ .Values.hosts.web }}
     http:
       paths:
       - path: /
         backend:
           serviceName: spa-service
           servicePort: 8080
-  - host: id.coolstore.local
+  - host: {{ .Values.hosts.idp }}
     http:
       paths:
       - path: /
         backend:
           serviceName: idp-service
           servicePort: 80
-  - host: api.coolstore.local
+  - host: {{ .Values.hosts.api }}
     http:
       paths:
       - path: /

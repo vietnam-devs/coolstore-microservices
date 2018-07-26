@@ -268,11 +268,11 @@ spec:
         image: vndg/cs-gateway-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "HostSettings__BasePath"
+        - name: "Hosts__BasePath"
           value: /
-        - name: "HostSettings__ExternalCurrentHostUri"
+        - name: "Hosts__Externals__CurrentUri"
           value: http://api.coolstore.local
-        - name: "HostSettings__ExternalAuthHostUri"
+        - name: "Hosts__Externals__Auth__Uri"
           value: http://id.coolstore.local
         ports:
         - name: http
@@ -426,7 +426,7 @@ spec:
     spec:
       containers:
       - name: mongodb 
-        image: vndg/cs-catalog-db:latest
+        image: bitnami/mongodb:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 27017
@@ -465,13 +465,6 @@ metadata:
   namespace: default
 spec:
   rules:
-  - host: id.coolstore.local
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: idp-service
-          servicePort: 80
   - host: coolstore.local
     http:
       paths:
@@ -479,6 +472,13 @@ spec:
         backend:
           serviceName: spa-service
           servicePort: 8080
+  - host: id.coolstore.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: idp-service
+          servicePort: 80
   - host: api.coolstore.local
     http:
       paths:
