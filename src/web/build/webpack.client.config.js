@@ -4,6 +4,9 @@ const base = require('./webpack.base.config')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
+console.log("this is test client")
+console.log(JSON.stringify(process.env.WEB_HOST_ALIAS || 'development'))
+
 const config = merge(base, {
   entry: {
     app: './src/entry-client.js'

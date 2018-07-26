@@ -6,7 +6,10 @@ const env = process.env.NODE_ENV
 const config = {
     mode: env || 'development'
 }
-
+console.log("Enviroment")
+console.log(process.env.NODE_ENV)
+console.log("web host")
+console.log(process.env.WEB_HOST_ALIAS)
 if (config.mode == 'production') {
     urlSpa = `http://${process.env.WEB_HOST_ALIAS}/`
     urlIdp = `http://${process.env.ID_HOST_ALIAS}/`

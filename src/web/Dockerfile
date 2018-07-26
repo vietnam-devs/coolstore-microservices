@@ -1,5 +1,9 @@
 FROM node:alpine
 
+ENV WEB_HOST_ALIAS webhostalias
+ENV ID_HOST_ALIAS idhostalias
+ENV API_HOST_ALIAS apihostalias
+
 RUN mkdir -p /usr/src/web
 WORKDIR /usr/src/web
 
@@ -9,7 +13,6 @@ RUN yarn --network-timeout 100000 install
 
 COPY ./src/web/ /usr/src/web/
 
-CMD ["sh", "-c", "sed -i -e 's/webhostalias/'$WEB_HOST_ALIAS'/g' -e 's/idhostalias/'$ID_HOST_ALIAS'/g' -e 's/apihostalias/'$API_HOST_ALIAS'/g' package.json"]
 RUN yarn run build
 
 EXPOSE 8080
