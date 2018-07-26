@@ -8,9 +8,9 @@ const config = {
 }
 
 if (config.mode == 'production') {
-    urlSpa = `${process.env.WEB_HOST_ALIAS}`
-    urlIdp = `${process.env.ID_HOST_ALIAS}`
-    url = `${process.env.API_HOST_ALIAS}`
+    urlSpa = `http://${process.env.WEB_HOST_ALIAS}/`
+    urlIdp = `http://${process.env.ID_HOST_ALIAS}/`
+    url = `http://${process.env.API_HOST_ALIAS}/`
 }
 
 const PROXY_CONFIG = {
