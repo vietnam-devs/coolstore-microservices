@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: mongodb 
-        image: vndg/cs-catalog-db:latest
+        image: bitnami/mongodb:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 27017
