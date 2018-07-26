@@ -1,5 +1,5 @@
-var url = "http://localhost:5000/";
-var urlIdp = "http://localhost:5001/";
+var url = "http://localhost:5000/"
+var urlIdp = "http://localhost:5001/"
 var urlSpa = "http://localhost:8080/"
 
 const env = process.env.NODE_ENV
@@ -8,9 +8,9 @@ const config = {
 }
 
 if(config.mode == "production"){
-	urlSpa = "http://coolstore.local/"
-	urlIdp = "http://id.coolstore.local/"
-	url = "http://api.coolstore.local/"
+	urlSpa = process.env.WEB_HOST_ALIAS
+	urlIdp = process.env.ID_HOST_ALIAS
+	url = process.env.API_HOST_ALIAS
 }
 
 const PROXY_CONFIG = {
