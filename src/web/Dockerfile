@@ -13,8 +13,6 @@ RUN yarn --network-timeout 100000 install
 
 COPY ./src/web/ /usr/src/web/
 
-RUN yarn run build
-
 EXPOSE 8080
 
 RUN chmod +x script.sh
