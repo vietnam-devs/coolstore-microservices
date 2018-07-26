@@ -4,7 +4,7 @@ echo "$IDP_SERVICE_SERVICE_HOST $ID_HOST_ALIAS" >> /etc/hosts
 echo "$GATEWAY_SERVICE_SERVICE_HOST $API_HOST_ALIAS" >> /etc/hosts
 
 cd dist/
-sed -i -e 's/${process.env.WEB_HOST_ALIAS}/'$WEB_HOST_ALIAS'/g' -e 's/${process.env.ID_HOST_ALIAS}/'$ID_HOST_ALIAS'/g' -e 's/${process.env.API_HOST_ALIAS}/'$API_HOST_ALIAS'/g' app.*
+sed -i -e 's/coolstore.local/'$WEB_HOST_ALIAS'/g' -e 's/id.coolstore.local/'$ID_HOST_ALIAS'/g' -e 's/api.coolstore.local/'$API_HOST_ALIAS'/g' app.*
 
 cd ..
 yarn start

@@ -7,9 +7,9 @@ const config = {
     mode: env || 'development'
 }
 if (config.mode == 'production') {
-    urlSpa = `http://${process.env.WEB_HOST_ALIAS}/`
-    urlIdp = `http://${process.env.ID_HOST_ALIAS}/`
-    url = `http://${process.env.API_HOST_ALIAS}/`
+    urlSpa = "http://coolstore.local/"
+    urlIdp = "http://id.coolstore.local/"
+    url = "http://api.coolstore.local/"
 }
 
 const PROXY_CONFIG = {
@@ -47,7 +47,7 @@ const PROXY_CONFIG = {
         secure: true,
         logLevel: 'debug',
         changeOrigin: true,
-        router: function(req) {
+        router: function (req) {
             return url
         }
     }
