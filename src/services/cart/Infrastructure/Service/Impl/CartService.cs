@@ -158,6 +158,7 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
         CartItemPromoSavings = cart.CartItemPromoSavings,
         ShippingPromoSavings = cart.ShippingPromoSavings,
         ShippingTotal = cart.ShippingTotal,
+        IsCheckout = cart.IsCheckout,
         Items = cart.CartItems.Select(cc =>
         {
           return new GetCartByIdResponse.CartItemResponse

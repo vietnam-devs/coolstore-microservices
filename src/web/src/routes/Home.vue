@@ -82,9 +82,9 @@ export default {
     },
 
     showReviews(product) {
-      this.productReview = product
-      this.$router.push('/review/' + product.id)
-      this.showModal()
+      // this.productReview = product
+      // this.$router.push('/review/' + product.id)
+      // this.showModal()
     },
 
     showModal() {

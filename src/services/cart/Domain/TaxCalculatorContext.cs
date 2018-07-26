@@ -24,6 +24,7 @@ namespace VND.CoolStore.Services.Cart.Domain
 
       if (cart.CartItems != null && cart.CartItems?.Count() > 0)
       {
+        cart.CartItemTotal = 0;
         foreach (CartItem item in cart.CartItems)
         {
           cart.CartItemPromoSavings = cart.CartItemPromoSavings + (item.PromoSavings * item.Quantity);

@@ -9,7 +9,7 @@ const api = createAPI({
 })
 
 export function checkout(cartId) {
-    return api.post(`checkout/${cartId}`)
+    return api.post(`carts/${cartId}/checkout`)
 }
 
 export function getCart(cartId) {
@@ -33,6 +33,6 @@ export function updateCard(cartId, productId, quantity) {
     return api.put(`carts`, model)
 }
 
-export function removeFomCart(product, quantity) {
-    return api.delete(`carts/${product.id}/${quantity}`)
+export function removeFomCart(cartId, productId) {
+    return api.delete(`carts/${cartId}/items/${productId}`)
 }
