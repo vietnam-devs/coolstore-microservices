@@ -1,5 +1,9 @@
 FROM node:alpine
 
+ENV WEB_HOST_ALIAS webhostalias
+ENV ID_HOST_ALIAS idhostalias
+ENV API_HOST_ALIAS apihostalias
+
 RUN mkdir -p /usr/src/web
 WORKDIR /usr/src/web
 
