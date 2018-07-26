@@ -11,31 +11,51 @@ esac
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-echo "Build mssqldb"
+echo "Build MS-SQL Database"
+echo "================================================================================"
 docker build -f ./deploys/dockers/mssqldb/Dockerfile -t $DOCKER_USERNAME/cs-mssqldb:$DOCKER_TAG .
+docker tag $DOCKER_USERNAME/cs-mssqldb:$DOCKER_TAG $DOCKER_USERNAME/cs-mssqldb:$DOCKER_TAG
+docker push $DOCKER_USERNAME/cs-mssqldb:$DOCKER_TAG
+echo "================================================================================"
 
-echo "Build Gateway service"
+echo "Build Gateway Service"
+echo "================================================================================"
 docker build -f ./src/services/gateway/Dockerfile -t $DOCKER_USERNAME/cs-gateway-service:$DOCKER_TAG .
+docker tag $DOCKER_USERNAME/cs-gateway-service:$DOCKER_TAG $DOCKER_USERNAME/cs-gateway-service:$DOCKER_TAG
+docker push $DOCKER_USERNAME/cs-gateway-service:$DOCKER_TAG
+echo "================================================================================"
 
-echo "Build IdP service"
+echo "Build IdP Service"
+echo "================================================================================"
 docker build -f ./src/services/idp/Dockerfile -t $DOCKER_USERNAME/cs-idp-service:$DOCKER_TAG .
+docker tag $DOCKER_USERNAME/cs-idp-service:$DOCKER_TAG $DOCKER_USERNAME/cs-idp-service:$DOCKER_TAG
+docker push $DOCKER_USERNAME/cs-idp-service:$DOCKER_TAG
+echo "================================================================================"
 
-echo "Build Inventoty service"
+echo "Build Inventoty Service"
+echo "================================================================================"
 docker build -f ./src/services/inventory/Dockerfile -t $DOCKER_USERNAME/cs-inventory-service:$DOCKER_TAG .
+docker tag $DOCKER_USERNAME/cs-inventory-service:$DOCKER_TAG $DOCKER_USERNAME/cs-inventory-service:$DOCKER_TAG
+docker push $DOCKER_USERNAME/cs-inventory-service:$DOCKER_TAG
+echo "================================================================================"
 
-echo "Build Catalog service"
+echo "Build Catalog Service"
+echo "================================================================================"
 docker build -f ./src/services/catalog/Dockerfile -t $DOCKER_USERNAME/cs-catalog-service:$DOCKER_TAG .
+docker tag $DOCKER_USERNAME/cs-catalog-service:$DOCKER_TAG $DOCKER_USERNAME/cs-catalog-service:$DOCKER_TAG
+docker push $DOCKER_USERNAME/cs-catalog-service:$DOCKER_TAG
+echo "================================================================================"
 
-echo "Build Cart service"
+echo "Build Cart Service"
+echo "================================================================================"
 docker build -f ./src/services/cart/Dockerfile -t $DOCKER_USERNAME/cs-cart-service:$DOCKER_TAG .
+docker tag $DOCKER_USERNAME/cs-cart-service:$DOCKER_TAG $DOCKER_USERNAME/cs-cart-service:$DOCKER_TAG
+docker push $DOCKER_USERNAME/cs-cart-service:$DOCKER_TAG
+echo "================================================================================"
 
 echo "Build Web Application"
+echo "================================================================================"
 docker build -f ./src/web/Dockerfile -t $DOCKER_USERNAME/cs-spa:$DOCKER_TAG .
-
-docker push $DOCKER_USERNAME/cs-mssqldb:$DOCKER_TAG
-docker push $DOCKER_USERNAME/cs-gateway-service:$DOCKER_TAG
-docker push $DOCKER_USERNAME/cs-idp-service:$DOCKER_TAG
-docker push $DOCKER_USERNAME/cs-inventory-service:$DOCKER_TAG
-docker push $DOCKER_USERNAME/cs-catalog-service:$DOCKER_TAG
-docker push $DOCKER_USERNAME/cs-cart-service:$DOCKER_TAG
+docker tag $DOCKER_USERNAME/cs-spa:$DOCKER_TAG $DOCKER_USERNAME/cs-spa:$DOCKER_TAG
 docker push $DOCKER_USERNAME/cs-spa:$DOCKER_TAG
+echo "================================================================================"
