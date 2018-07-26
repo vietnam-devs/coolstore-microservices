@@ -68,7 +68,6 @@ export default {
     }
   },
   beforeMount() {
-    console.log(process.env)
     getUser(user => {
       if (user) this.userId = user.sub
     })
