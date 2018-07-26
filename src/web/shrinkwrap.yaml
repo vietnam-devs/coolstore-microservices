@@ -40,6 +40,7 @@ devDependencies:
   sw-precache-webpack-plugin: 0.11.5
   url-loader: 1.0.1
   vue-loader: 15.2.6
+  vue-no-ssr: 0.2.2
   vue-style-loader: 4.1.0
   vue-template-compiler: 2.5.16
   webpack: 3.12.0
@@ -5823,6 +5824,10 @@ packages:
       vue-template-compiler: ^2.0.0
     resolution:
       integrity: sha512-pArIvo89q3rBgYsDzc/EQoqJZH4lTiH5RJa3AguwazdO/+gN7NDyu59UyEdVCc1h+67xZlah2viNAvk3JE3CMw==
+  /vue-no-ssr/0.2.2:
+    dev: true
+    resolution:
+      integrity: sha512-JRiKLrefDdFCMDkDiOIGXd2kLCeLDVcUIihnMydxGtGlIphOvIyz1HolTAlD4yBYXvpVZest2Im0ku2LBFf1GA==
   /vue-notification/1.3.12:
     dev: false
     peerDependencies:
@@ -6132,6 +6137,7 @@ specifiers:
   url-loader: ^1.0.1
   vue: ^2.5.16
   vue-loader: ^15.2.4
+  vue-no-ssr: ^0.2.2
   vue-notification: ^1.3.12
   vue-router: ^3.0.1
   vue-server-renderer: ^2.5.16
