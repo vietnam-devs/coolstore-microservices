@@ -13,7 +13,7 @@ before_install:
 before_script:
   - chmod -R a+x deploys/scripts
 script:
-  - ./scripts/start.sh
+  - ./deploys/scripts/start.sh
 notifications:
   email:
     on_success: never
