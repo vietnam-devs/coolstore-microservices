@@ -45,6 +45,8 @@ export default {
     },
 
     cartReducer: state => {
+        state.cart = state.cart || {}
+        state.cart.item = state.cart.item || []
         var flat = {
             byItemIds: state.cart.items.map(item => item.productId),
             itemsFlat: state.cart.items.reduce((obj, item) => {
