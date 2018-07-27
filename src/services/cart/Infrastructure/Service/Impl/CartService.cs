@@ -134,6 +134,11 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Service.Impl
 
     private async Task<Domain.Cart> GetCart(Guid cartId)
     {
+      if (Guid.Empty == cartId)
+      {
+        
+      }
+
       var cart = await _queryRepository.GetByIdAsync(
         cartId,
         cartQueryable => cartQueryable

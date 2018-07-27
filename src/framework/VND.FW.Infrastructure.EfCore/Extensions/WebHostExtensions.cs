@@ -76,14 +76,14 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
       ILogger<TContext> logger = serviceProvider.GetRequiredService<ILogger<TContext>>();
       TContext context = serviceProvider.GetService<TContext>();
 
-      Polly.Retry.RetryPolicy policy = Policy
+      /*Polly.Retry.RetryPolicy policy = Policy
                 .Handle<SqlException>()
                 .WaitAndRetryForever(retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
-                    );
+                    ); */
 
-      policy.Execute(() =>
-      {
+      //policy.Execute(() =>
+      //{
         //try
         //{
         logger.LogInformation($"[VND] Migrating database associated with {typeof(TContext).FullName} context.");
@@ -101,7 +101,7 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
         //  logger.LogError(ex,
         //            $"[VND] An error occurred while migrating the database used on {typeof(TContext).FullName} context.");
         //}
-      });
+      //});
 
       return serviceProvider;
     }

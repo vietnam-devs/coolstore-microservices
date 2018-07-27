@@ -13,10 +13,10 @@ namespace VND.FW.Infrastructure.EfCore.SqlServer
          sqlOptions =>
          {
            sqlOptions.MigrationsAssembly(assemblyName);
-           sqlOptions.EnableRetryOnFailure(
+           /*sqlOptions.EnableRetryOnFailure(
                      maxRetryCount: 15,
                      maxRetryDelay: TimeSpan.FromSeconds(30),
-                     errorNumbersToAdd: null);
+                     errorNumbersToAdd: null);*/
          })
          .EnableSensitiveDataLogging();
     }

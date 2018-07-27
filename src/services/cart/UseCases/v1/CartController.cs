@@ -26,6 +26,10 @@ namespace VND.CoolStore.Services.Cart.UseCases.v1
     [Route("{id}")]
     public async Task<GetCartByIdResponse> GetCartById(Guid id)
     {
+      //TODO: stupid code
+      if (id == Guid.Empty)
+        return null;
+
       return await _cartService.GetCartByIdAsync(id);
     }
 
