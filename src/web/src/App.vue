@@ -61,7 +61,10 @@ export default {
   },
   computed: {
     itemCount() {
-      return this.$store.state.cart.items.length
+      var cart = this.$store.state.cart
+      cart = cart || {}
+      cart.items = cart.items || []
+      return cart.items.length
     },
     isLogged() {
       if (this.userId) return 'Logged!'
