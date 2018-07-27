@@ -130,7 +130,7 @@ Waiting for the container provision completed
 
 ### CI/CD
 
-TODO
+![OpenAPI Screenshot](assets/images/lift-and-shift.png?raw=true 'Lift and Shift')
 
 ### Contributing
 
