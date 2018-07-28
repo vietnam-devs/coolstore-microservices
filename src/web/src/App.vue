@@ -19,7 +19,7 @@
               Home
             </router-link>
             <router-link to="/cart" class="navbar-item">
-              Your Shopping Cart ({{itemCount}})
+              Carts ({{itemCount}})
             </router-link>
           </div>
         </div>
