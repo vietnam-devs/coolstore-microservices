@@ -15,4 +15,6 @@ COPY ./src/services/catalog/ /usr/src/services/catalog/
 
 EXPOSE 5002
 
-CMD ["yarn", "start"]
+RUN chmod +x script.sh
+
+ENTRYPOINT ["./script.sh"]
