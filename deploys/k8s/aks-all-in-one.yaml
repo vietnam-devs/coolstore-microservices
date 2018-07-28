@@ -6,6 +6,24 @@ metadata:
   name: cs-system
 
 ---
+# Source: coolstore/templates/cart-db-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart-db-service
+  namespace: default
+  labels:
+    app: cart-db-service
+spec:
+  ports:
+  - protocol: TCP
+    port: 1433
+    targetPort: 1433
+  selector:
+    app: cart-db
+---
+
+---
 # Source: coolstore/templates/cart-svc.yaml
 apiVersion: v1
 kind: Service
@@ -119,6 +137,22 @@ spec:
 ---
 
 ---
+# Source: coolstore/templates/mongodb-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: default
+  labels:
+    app: mongodb
+spec:
+  ports:
+  - port: 27017
+    name: mongo
+  selector:
+    app: mongodb
+---
+---
 # Source: coolstore/templates/spa-svc.yaml
 apiVersion: v1
 kind: Service
@@ -135,6 +169,34 @@ spec:
     name: http
   selector:
     app: spa
+---
+
+---
+# Source: coolstore/templates/cart-db-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cart-db-v1
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cart-db
+        version: v1
+    spec:
+      containers:
+      - name: cart-db
+        image: vndg/cs-mssqldb:latest
+        imagePullPolicy: IfNotPresent
+        env: 
+        - name: "ACCEPT_EULA"
+          value: "Y"
+        - name: "MSSQL_SA_PASSWORD"
+          value: "P@ssw0rd"
+        ports:
+        - containerPort: 1433
 ---
 
 ---
@@ -347,6 +409,28 @@ spec:
         - containerPort: 5004
 ---
 
+---
+# Source: coolstore/templates/mongodb-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mongodb-v1
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongodb
+        version: v1
+    spec:
+      containers:
+      - name: mongodb 
+        image: bitnami/mongodb:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 27017
+---
 ---
 # Source: coolstore/templates/spa-dep.yaml
 apiVersion: extensions/v1beta1
