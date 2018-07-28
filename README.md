@@ -130,7 +130,7 @@ Waiting for the container provision completed
 
 ### CI/CD
 
-TODO
+![Lift and Shift](assets/images/lift-and-shift.PNG?raw=true 'liftandshift')
 
 ### Contributing
 
