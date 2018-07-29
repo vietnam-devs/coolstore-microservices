@@ -220,6 +220,15 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5003
+      # initContainers:
+      # - name: init-mydb
+      #   image: microsoft/mssql-server-linux:2017-latest
+      #   env: 
+      #   - name: "ACCEPT_EULA"
+      #     value: "Y"
+      #   - name: "MSSQL_SA_PASSWORD"
+      #     value: "P@ssw0rd"
+      #   command: ['sh', '-c', 'echo waiting for mydb; /opt/mssql-tools/bin/sqlcmd -S cart-db-service2 -U cs -P @MSSQL_SA_PASSWORD -l 360 -Q "select getdate()"']
 ---
 
 ---
@@ -462,34 +471,80 @@ spec:
 ---
 
 ---
-# Source: coolstore/templates/nginx-ingress.yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
+# Source: coolstore/templates/cs-gateway.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
 metadata:
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-  name: coolstore-ingress
-  namespace: default
+  name: cs-gateway
 spec:
-  rules:
-  - host: coolstore.local
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: spa-service
-          servicePort: 8080
-  - host: id.coolstore.local
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: idp-service
-          servicePort: 80
-  - host: api.coolstore.local
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: gateway-service
-          servicePort: 80
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - coolstore.local
+    - api.coolstore.local
+    - id.coolstore.local
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: web-vs
+spec:
+  hosts:
+  - coolstore.local
+  gateways:
+  - cs-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: spa-service
+        port:
+          number: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: api-vs
+spec:
+  hosts:
+  - api.coolstore.local
+  gateways:
+  - cs-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: gateway-service
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: id-vs
+spec:
+  hosts:
+  - id.coolstore.local
+  gateways:
+  - cs-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: idp-service
+        port:
+          number: 80
+---
+# Source: coolstore/templates/nginx-ingress.yaml
+

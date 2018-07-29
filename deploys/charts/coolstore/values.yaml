@@ -63,6 +63,9 @@ affinity: {}
 applicationInsights:
   InstrumentationKey: VALUE_TO_BE_OVERRIDDEN
 
+nginx:
+  enabled: false
+
 hosts:
   web: coolstore.local
   api: api.coolstore.local
