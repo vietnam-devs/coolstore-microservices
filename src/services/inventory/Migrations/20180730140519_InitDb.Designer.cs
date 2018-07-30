@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VND.FW.Infrastructure.EfCore.Db;
+using VND.CoolStore.Services.Inventory.Infrastructure.Db;
 
 namespace VND.CoolStore.Services.Inventory.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180716083241_init_db")]
-    partial class init_db
+    [DbContext(typeof(InventoryDbContext))]
+    [Migration("20180730140519_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

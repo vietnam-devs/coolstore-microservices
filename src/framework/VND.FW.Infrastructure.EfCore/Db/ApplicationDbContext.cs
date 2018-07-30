@@ -15,7 +15,7 @@ namespace VND.FW.Infrastructure.EfCore.Db
   {
     private readonly PersistenceOption _persistenceOption = new PersistenceOption();
 
-    public ApplicationDbContext(
+    protected ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,
         IConfiguration configuration)
         : base(options)

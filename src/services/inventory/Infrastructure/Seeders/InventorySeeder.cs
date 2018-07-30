@@ -1,10 +1,10 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using VND.FW.Infrastructure.EfCore.Db;
 using VND.FW.Infrastructure.EfCore.Migration;
 
-namespace VND.CoolStore.Services.Inventory.SeedData
+namespace VND.CoolStore.Services.Inventory.Infrastructure.Db.Seeders
 {
 		public class InventorySeeder : SeedDataBase<ApplicationDbContext>
 		{

@@ -1,24 +1,30 @@
 using System;
-using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Polly;
 using VND.Fw.Utils.Extensions;
-using VND.FW.Infrastructure.EfCore.Db;
 using VND.FW.Infrastructure.EfCore.Migration;
 
 namespace VND.FW.Infrastructure.EfCore.Extensions
 {
   public static class WebHostExtensions
   {
-    public static IWebHost RegisterDbContext(this IWebHost webHost)
+    public static IServiceProvider MigrateDbContext<TDbContext>(this IServiceProvider serviceProvider)
+      where TDbContext : DbContext
+    {
+      return serviceProvider.MigrateDbContext<TDbContext>((context, services) => {
+        InstanceSeedData(services, context, typeof(ISeedData<>));
+      });
+    }
+
+    public static IWebHost RegisterDbContext<TDbContext>(this IWebHost webHost)
+      where TDbContext : DbContext
     {
       return webHost
-          .MigrateDbContext<ApplicationDbContext>((context, services) =>
+          .MigrateDbContext<TDbContext>((context, services) =>
           {
             InstanceSeedData(services, context, typeof(ISeedData<>));
           });
@@ -37,24 +43,21 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
 
     public static void InstanceSeedData(this IServiceProvider resolver, DbContext context, Type seedData)
     {
-      IConfiguration configuration = resolver.GetService<IConfiguration>();
-      string scanAssemblyPattern = configuration.GetSection("EfCore")["FullyQualifiedPrefix"];
-      System.Collections.Generic.IEnumerable<System.Reflection.TypeInfo> seeders = scanAssemblyPattern.ResolveModularGenericTypes(seedData, context.GetType());
-
-      // Console.WriteLine(scanAssemblyPattern);
+      var configuration = resolver.GetService<IConfiguration>();
+      var scanAssemblyPattern = configuration.GetSection("EfCore")["FullyQualifiedPrefix"];
+      var seeders = scanAssemblyPattern.ResolveModularGenericTypes(seedData, context.GetType());
 
       if (seeders == null)
       {
         return;
       }
 
-      foreach (System.Reflection.TypeInfo seeder in seeders)
+      foreach (var seeder in seeders)
       {
-        object seedInstance = Activator.CreateInstance(seeder, new[] { configuration });
-
+        var seedInstance = Activator.CreateInstance(seeder, new[] { configuration });
         if (seedInstance != null)
         {
-          System.Reflection.MethodInfo method = seeder.GetMethod("SeedAsync");
+          var method = seeder.GetMethod("SeedAsync");
           ((Task)method.Invoke(seedInstance, new[] { context })).Wait();
         }
       }
@@ -68,42 +71,23 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
     /// <param name="serviceProvider"></param>
     /// <param name="seeder"></param>
     /// <returns></returns>
-    public static IServiceProvider MigrateDbContext<TContext>(
+    public static IServiceProvider MigrateDbContext<TDbContext>(
         this IServiceProvider serviceProvider,
-        Action<TContext, IServiceProvider> seeder)
-        where TContext : DbContext
+        Action<TDbContext, IServiceProvider> seeder)
+        where TDbContext : DbContext
     {
-      ILogger<TContext> logger = serviceProvider.GetRequiredService<ILogger<TContext>>();
-      TContext context = serviceProvider.GetService<TContext>();
+      var logger = serviceProvider.GetRequiredService<ILogger<TDbContext>>();
+      var context = serviceProvider.GetService<TDbContext>();
 
-      /*Polly.Retry.RetryPolicy policy = Policy
-                .Handle<SqlException>()
-                .WaitAndRetryForever(retryAttempt =>
-                    TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
-                    ); */
+      logger.LogInformation($"[VND] Migrating database associated with {typeof(TDbContext).FullName} context.");
+      context.Database.OpenConnection();
+      context.Database.EnsureCreated();
 
-      //policy.Execute(() =>
-      //{
-        //try
-        //{
-        logger.LogInformation($"[VND] Migrating database associated with {typeof(TContext).FullName} context.");
+      logger.LogInformation($"[VND] Start to seed data for {typeof(TDbContext).FullName} context.");
+      seeder(context, serviceProvider);
 
-        context.Database.OpenConnection();
-        context.Database.EnsureCreated();
-
-        logger.LogInformation($"[VND] Start to seed data for {typeof(TContext).FullName} context.");
-        seeder(context, serviceProvider);
-
-        logger.LogInformation($"[VND] Migrated database associated with {typeof(TContext).FullName} context.");
-        //}
-        //  catch (Exception ex)
-        //{
-        //  logger.LogError(ex,
-        //            $"[VND] An error occurred while migrating the database used on {typeof(TContext).FullName} context.");
-        //}
-      //});
-
+      logger.LogInformation($"[VND] Migrated database associated with {typeof(TDbContext).FullName} context.");
       return serviceProvider;
     }
-}
+  }
 }

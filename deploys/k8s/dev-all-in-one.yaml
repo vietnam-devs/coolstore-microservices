@@ -164,7 +164,7 @@ spec:
       - name: cart-db
         image: vndg/cs-mssqldb:latest
         imagePullPolicy: IfNotPresent
-        env: 
+        env:
         - name: "ACCEPT_EULA"
           value: "Y"
         - name: "MSSQL_SA_PASSWORD"
@@ -314,7 +314,7 @@ spec:
       - name: inventory-db
         image: vndg/cs-mssqldb:latest
         imagePullPolicy: IfNotPresent
-        env: 
+        env:
         - name: "ACCEPT_EULA"
           value: "Y"
         - name: "MSSQL_SA_PASSWORD"
@@ -338,58 +338,18 @@ spec:
         app: inventory
         version: v1
     spec:
-      # initContainers:
-      # - name: init-inventory
-      #   image: busybox
-      #   command: ['sh', '-c', 'sleep 10 && echo Start running']
-      # - name: init-inventory
-      #   image: busybox
-      #   imagePullPolicy: IfNotPresent
-      #   command: ['sh', '-c', 'until nslookup inventory-db-service; do echo Waiting for Inventory DB Service; sleep 2; done;']
-        # env:
-        # - name: ACCEPT_EULA
-        #   value: Y
-        # - name: MSSQL_SA_PASSWORD
-        #   value: P@ssw0rd
-        # command: ['sh', '-c', 
-        #   'until ! (grep "MSSQL SERVER STARTED" /var/opt/mssql/log/errorlog | tail -1);
-        #   do echo waiting for database; sleep 2; done;']
-        # ports:
-        # - containerPort: 1433
-      # volumes: [
-      #   {
-      #     name: logs,
-      #     hostPath: {
-      #       path: /var/opt/mssql/log
-      #     }
-      #   }
-      # ]
       containers:
-      # - name: inventory-db
-      #   image: vndg/cs-mssql-db:latest
-      #   imagePullPolicy: IfNotPresent
-      #   volumeMounts:
-      #   - name: logs
-      #     mountPath: /var/opt/mssql/log
-      #   env:
-      #   - name: ACCEPT_EULA
-      #     value: Y
-      #   - name: MSSQL_SA_PASSWORD
-      #     value: P@ssw0rd
-      #   ports:
-      #   - containerPort: 1433
       - name: inventory
         image: vndg/cs-inventory-service:latest
         imagePullPolicy: IfNotPresent
-        # env:
-        # - name: "ConnectionStrings__k8s_mssql"
-        #   value: "Server=tcp:inventory-db-service,1433;Database=maindb;User Id=cs;Password=P@ssw0rd;"
-        # volumeMounts:
-        # - name: logs
-        #   mountPath: /var/opt/mssql/log
-        # command: ['sh', '-c', 'until nslookup inventory-db-service; do echo waiting for mydb; sleep 2; done;']
         ports:
         - containerPort: 5004
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5004
+          initialDelaySeconds: 10
+          periodSeconds: 5
 ---
 
 ---
