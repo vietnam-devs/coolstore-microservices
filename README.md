@@ -72,26 +72,26 @@ There are several individual microservices and infrastructure components that ma
 
 2. From current console, type `bash` to enter `Linux Subsystem (Ubuntu)`
 
-3. Download `istio 0.8.0`, and unzip it into somewhere
+3. Download `istio istio-1.0.0-snapshot.2`, and unzip it into somewhere
 
 ```
-> cd <istio 0.8.0 path>
+> cd <istio-1.0.0-snapshot.2 path>
 > kubectl create -f install/kubernetes/helm/helm-service-account.yaml
 > helm init --service-account tiller --upgrade
 > helm install install/kubernetes/helm/istio --name istio --namespace istio-system --timeout 1000
 ```
 
-4. We need to install `nginx-ingress` as following
-
-```
-> helm install --name cs-nginx stable/nginx-ingress
-```
-
-5. Then `cd` into your root of project
+4. Then `cd` into your root of project
 
 ```
 > ./cs-build.sh
 > ./cs-inject-istio.sh
+```
+
+5. Install `web` chart
+
+```
+> helm install -n web deploys/charts/web
 ```
 
 6. Add hosts file with following content
@@ -114,16 +114,27 @@ Waiting for the container provision completed
 
 ```
 > kubectl delete -f deployment/istio/dev-all-in-one.yaml
-> helm delete cs-nginx --purge
+> helm delete web --purge
 > helm delete istio --purge
 ```
 
-**Notes**: if you run it on `Docker for Windows`, then you cannot run sidecar auto injection so that we need to export `coolstore` chart to manifest file like
+**Notes**:
+> If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml` and add
+>```
+> nginx:
+>    enabled: true
+>```
+> Then run the `helm` command as
+> ```
+> helm install --name cs-nginx stable/nginx-ingress
+> ```
 
-```
+> If you run it on `Docker for Windows`, then you cannot run sidecar auto injection so that we need to export `coolstore` chart to manifest file like
+
+> ```
 > helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml --namespace cs-system > deploys/istio/dev-all-in-one.yaml
 > istioctl kube-inject -f deploys/istio/dev-all-in-one.yaml | kubectl apply -f -
-```
+>```
 
 ### Open API
 
