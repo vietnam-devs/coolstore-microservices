@@ -9,7 +9,7 @@ docker build -f src/services/idp/Dockerfile -t vndg/cs-idp-service:$TAG -t vndg/
 echo "Build Inventoty"
 docker build -f src/services/inventory/Dockerfile -t vndg/cs-inventory-service:$TAG -t vndg/cs-inventory-service:latest .
 echo "Build Mysql-db"
-docker build -f deploys/dockers/mssqldb/Dockerfile -t vndg/cs-mssql-db:$TAG -t vndg/cs-mssql-db:latest .
+docker build -f deploys/dockers/mssqldb/Dockerfile -t vndg/cs-mssqldb:$TAG -t vndg/cs-mssqldb:latest .
 echo "Build Catalog"
 docker build -f src/services/catalog/Dockerfile -t vndg/cs-catalog-service:$TAG -t vndg/cs-catalog-service:latest .
 echo "Build Catalog-db"

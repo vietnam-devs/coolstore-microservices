@@ -25,5 +25,5 @@ spec:
       #     value: "Y"
       #   - name: "MSSQL_SA_PASSWORD"
       #     value: "P@ssw0rd"
-      #   command: ['sh', '-c', 'echo waiting for mydb; /opt/mssql-tools/bin/sqlcmd -S cart-db-service2 -U cs -P @MSSQL_SA_PASSWORD -l 360 -Q "select getdate()"']
+      #   command: ['sh', '-c', 'echo waiting for initDb; /opt/mssql-tools/bin/sqlcmd -S cart-db-service -U cs -P $MSSQL_SA_PASSWORD -l 1000 -Q "select getdate()"']
 ---
