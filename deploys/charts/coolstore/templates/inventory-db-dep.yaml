@@ -15,7 +15,7 @@ spec:
       - name: inventory-db
         image: vndg/cs-mssqldb:latest
         imagePullPolicy: IfNotPresent
-        env: 
+        env:
         - name: "ACCEPT_EULA"
           value: "Y"
         - name: "MSSQL_SA_PASSWORD"

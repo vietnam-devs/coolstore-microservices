@@ -1,4 +1,6 @@
-#! /bin/sh 
+#!/bin/sh
+
+set -euo pipefail
 
 if [ -n "$WEB_HOST_ALIAS" ]; then
 	echo "127.0.0.1 $WEB_HOST_ALIAS" >> /etc/hosts

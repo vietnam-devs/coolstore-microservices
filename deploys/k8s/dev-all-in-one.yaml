@@ -1,11 +1,4 @@
 ---
-# Source: coolstore/templates/cs-system-ns.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: cs-system
-
----
 # Source: coolstore/templates/cart-db-svc.yaml
 apiVersion: v1
 kind: Service
@@ -152,25 +145,6 @@ spec:
   selector:
     app: mongodb
 ---
----
-# Source: coolstore/templates/spa-svc.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: spa-service
-  namespace: default
-  labels:
-    app: spa-service
-spec:
-  ports:
-  - port: 8080
-    targetPort: 8080
-    protocol: TCP
-    name: http
-  selector:
-    app: spa
----
-
 ---
 # Source: coolstore/templates/cart-db-dep.yaml
 apiVersion: extensions/v1beta1
@@ -440,36 +414,6 @@ spec:
         ports:
         - containerPort: 27017
 ---
----
-# Source: coolstore/templates/spa-dep.yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: spa-v1
-  namespace: default
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: spa
-        version: v1
-    spec:
-      containers:
-      - name: spa
-        image: vndg/cs-spa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: "WEB_HOST_ALIAS"
-          value: coolstore.local
-        - name: "API_HOST_ALIAS"
-          value: api.coolstore.local
-        - name: "ID_HOST_ALIAS"
-          value: id.coolstore.local
-        ports:
-        - containerPort: 8080
----
-
 ---
 # Source: coolstore/templates/cs-gateway.yaml
 apiVersion: networking.istio.io/v1alpha3

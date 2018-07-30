@@ -2,6 +2,7 @@
 
 <p align="left">
   <a href="https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE"><img src="https://img.shields.io/badge/price-FREE-0098f7.svg" alt="Price"></a>
+  <a href="https://codecov.io/gh/vietnam-devs/coolstore-microservices"><img src="https://codecov.io/gh/vietnam-devs/coolstore-microservices/branch/master/graph/badge.svg" /></a>
   <a href="https://travis-ci.org/vietnam-devs/coolstore-microservices"><img src="https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?label=travis-ci&branch=master&style=flat-square" alt="Build Status" data-canonical-src="https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?label=travis-ci&branch=master" style="max-width:100%;"></a>
 </p>
 
@@ -142,8 +143,8 @@ Waiting for the container provision completed
 
 ### Contributors
 
-| [Thang Chung](https://github.com/thangchung)                  | [Thinh Nguyen](https://github.com/thinhnotes)                        |
-| -------------------------------------------------------------- | ------------------------------------------------------------------- |
+| [Thang Chung](https://github.com/thangchung)                                                         | [Thinh Nguyen](https://github.com/thinhnotes)                                                          |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | <img src="https://avatars3.githubusercontent.com/u/422341?s=460&v=4"  alt="thangchung" width="150"/> | <img src="https://avatars2.githubusercontent.com/u/4660531?s=460&v=4" alt="thinhnguyen" width="150" /> |
 
 ### Licence
