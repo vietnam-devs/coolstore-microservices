@@ -9,19 +9,14 @@ export default {
     },
 
     products: state => {
-        var products = []
-        state.products.forEach(product => {
-            var productDefault = {
-                name: undefined,
-                desc: undefined,
+        console.log('getproduct')
+        return state.products.map(product => {
+            let productDefault = {
                 price: 0,
                 availability: {
-                    location: undefined,
-                    quantity: 0,
-                    link: undefined
+                    quantity: 0
                 },
                 rating: {
-                    id: undefined,
                     rate: 0,
                     count: 0
                 },
@@ -29,25 +24,23 @@ export default {
             }
             if (!product.availability) {
                 product.availability = Object.assign(
-                    productDefault.availability,
-                    product.availability
+                    productDefault.availability
                 )
             }
-            if (!product.rating) {
-                product.rating = Object.assign(
-                    productDefault.rating,
-                    product.rating
-                )
-            }
-            products.push(Object.assign(productDefault, product))
+            state.ratings = state.ratings || []
+            let rating =
+                state.ratings.find(item => {
+                    return (item.productId = product.id)
+                }) || {}
+            product.rating = Object.assign(rating, product.rating)
+            return Object.assign(productDefault, product)
         })
-        return products
     },
 
     cartReducer: state => {
         state.cart = state.cart || {}
         state.cart.item = state.cart.item || []
-        var flat = {
+        let flat = {
             byItemIds: state.cart.items.map(item => item.productId),
             itemsFlat: state.cart.items.reduce((obj, item) => {
                 obj[item.productId] = item
@@ -55,5 +48,18 @@ export default {
             }, {})
         }
         return Object.assign(state.cart, flat)
+    },
+
+    ratingsReducer: state => {
+        console.log('get rating')
+        state.ratings = state.ratings || []
+        let flat = {
+            byItemIds: state.ratings.items.map(item => item.productId),
+            ratingFlats: state.ratings.items.reduce((obj, item) => {
+                obj[item.productId] = item
+                return obj
+            }, {})
+        }
+        return Object.assign(state.ratings, flat)
     }
 }

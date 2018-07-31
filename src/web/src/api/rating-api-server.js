@@ -1,19 +1,21 @@
-const logRequests = !!process.env.DEBUG_API
-import {
-    createAPI
-} from './create-api-server'
+import { createAPI } from './create-api-server'
 
 const api = createAPI({
-    version: '/v2',
+    version: '/v1',
     config: {
-        databaseURL: '/rating'
+        databaseURL: '/api'
     }
 })
 
-export function setRating(itemId, rating) {
+export function setRating(productId, userId, cost) {
     var model = {
-        ProductId: itemId,
-        Ratting: rating
+        ProductId: productId,
+        UserId: userId,
+        Cost: cost
     }
-    return api.post(`rating`, model)
+    return api.post(`ratings`, model)
+}
+
+export function getRating() {
+    return api.get(`ratings`)
 }

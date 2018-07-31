@@ -58,6 +58,7 @@ namespace VND.CoolStore.Services.ApiGateway
       services.AddScoped<ICatalogService, CatalogService>();
       services.AddScoped<ICartService, CartService>();
       services.AddScoped<IInventoryService, InventoryService>();
+      services.AddScoped<IRatingService, RatingService>();
 
       services.AddRouting(options => options.LowercaseUrls = true);
       services.AddMvcCore().AddVersionedApiExplorer(
@@ -100,6 +101,7 @@ namespace VND.CoolStore.Services.ApiGateway
             c.AddPolicy("access_pricing_api", p => p.RequireClaim("scope", "pricing_api_scope"));
             c.AddPolicy("access_review_api", p => p.RequireClaim("scope", "review_api_scope"));
             c.AddPolicy("access_catalog_api", p => p.RequireClaim("scope", "catalog_api_scope"));
+            c.AddPolicy("access_rating_api", p => p.RequireClaim("scope", "rating_api_scope"));
           }
       );
 
@@ -128,7 +130,8 @@ namespace VND.CoolStore.Services.ApiGateway
                         {"cart_api_scope", "Cart APIs"},
                         {"pricing_api_scope", "Pricing APIs"},
                         {"review_api_scope", "Review APIs"},
-                        {"catalog_api_scope", "Catalog APIs"}
+                        {"catalog_api_scope", "Catalog APIs"},
+                        {"rating_api_scope", "Rating APIs"}
               }
         });
 
