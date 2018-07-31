@@ -52,9 +52,6 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
       }
 
-      services.AddEfCore();
-
-      services.AddRouting(options => options.LowercaseUrls = true);
       services.AddOptions()
           .Configure<PersistenceOption>(config.GetSection("EfCore"));
 
@@ -67,19 +64,21 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       }
 
       services.AddDbContext<TDbContext>(options => optionsBuilderAction(options));
-      services.AddDbContext<ApplicationDbContext>(options => optionsBuilderAction(options));
       services.AddScoped<DbContext>(resolver => resolver.GetRequiredService<TDbContext>());
 
+      services.AddEfCore();
+      
       services.AddHttpContextAccessor();
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
       services.AddScoped<IUrlHelper>(implementationFactory =>
       {
-        ActionContext actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
+        var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
         return new UrlHelper(actionContext);
       });
       services.AddHttpClient<RestClient>();
 
+      services.AddRouting(options => options.LowercaseUrls = true);
       services.AddMvcCore().AddVersionedApiExplorer(
         options =>
         {
@@ -93,10 +92,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
           options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-      services.AddApiVersioning(o =>
-      {
-        o.ReportApiVersions = true;
-      });
+      services.AddApiVersioning(o => o.ReportApiVersions = true);
 
       if (config.GetValue("EnableAuthN", false))
       {
@@ -181,20 +177,23 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
                       .AllowCredentials());
       });
 
-      services.Configure<ForwardedHeadersOptions>(options =>
+      if (!env.IsDevelopment())
       {
-        options.ForwardedHeaders =
-            ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-      });
+        services.Configure<ForwardedHeadersOptions>(options =>
+        {
+          options.ForwardedHeaders =
+              ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        });
+      }
 
       return services;
     }
 
     public static IApplicationBuilder UseMiniService(this IApplicationBuilder app)
     {
-      var config = app.ApplicationServices.GetService<IConfiguration>();
-      var env = app.ApplicationServices.GetService<IHostingEnvironment>();
-      var loggerFactory = app.ApplicationServices.GetService<ILoggerFactory>();
+      var config = app.ApplicationServices.GetRequiredService<IConfiguration>();
+      var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
+      var loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
       var logger = loggerFactory.CreateLogger("init");
 
       var basePath = config.GetBasePath();
@@ -213,19 +212,15 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         app.UseExceptionHandler("/Home/Error");
       }
 
-      if (!string.IsNullOrEmpty(basePath))
-      {
-        logger.LogDebug($"Using PATH BASE '{basePath}'");
-        app.Use(async (context, next) =>
-        {
-          context.Request.PathBase = basePath;
-          await next.Invoke();
-        });
-      }
-
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
       app.Map("/liveness", lapp => lapp.Run(async ctx => ctx.Response.StatusCode = 200));
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+
+      if (!string.IsNullOrEmpty(basePath))
+      {
+        logger.LogInformation($"Using PATH BASE '{basePath}'");
+        app.UsePathBase(basePath);
+      }
 
       if (!env.IsDevelopment())
       {
@@ -242,7 +237,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         app.UseAuthentication();
       }
 
-      app.UseMvc();
+      app.UseMvcWithDefaultRoute();
 
       if (config.GetValue("EnableOpenApi", false))
       {

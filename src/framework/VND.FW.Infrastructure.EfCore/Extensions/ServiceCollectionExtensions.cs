@@ -16,21 +16,21 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
   {
     public static IServiceCollection AddEfCore(this IServiceCollection services)
     {
-      ServiceProvider serviceProvider = services.BuildServiceProvider();
-      PersistenceOption persistenceOption = serviceProvider.GetRequiredService<IOptions<PersistenceOption>>()?.Value;
-      System.Collections.Generic.IEnumerable<TypeInfo> entityTypes = persistenceOption.FullyQualifiedPrefix.LoadAssemblyWithPattern()
-                .SelectMany(m => m.DefinedTypes)
-                .Where(x => typeof(IEntity)
-                .IsAssignableFrom(x) && !x.GetTypeInfo().IsAbstract);
+      var serviceProvider = services.BuildServiceProvider();
+      var persistenceOption = serviceProvider.GetRequiredService<IOptions<PersistenceOption>>()?.Value;
+      var entityTypes = persistenceOption.FullyQualifiedPrefix.LoadAssemblyWithPattern()
+        .SelectMany(m => m.DefinedTypes)
+        .Where(x => typeof(IEntity)
+        .IsAssignableFrom(x) && !x.GetTypeInfo().IsAbstract);
 
       foreach (TypeInfo entity in entityTypes)
       {
-        Type repoType = typeof(IEfRepositoryAsync<>).MakeGenericType(entity);
-        Type implRepoType = typeof(EfRepositoryAsync<>).MakeGenericType(entity);
+        var repoType = typeof(IEfRepositoryAsync<>).MakeGenericType(entity);
+        var implRepoType = typeof(EfRepositoryAsync<>).MakeGenericType(entity);
         services.AddScoped(repoType, implRepoType);
 
-        Type queryRepoType = typeof(IEfQueryRepository<>).MakeGenericType(entity);
-        Type implQueryRepoType = typeof(EfQueryRepository<>).MakeGenericType(entity);
+        var queryRepoType = typeof(IEfQueryRepository<>).MakeGenericType(entity);
+        var implQueryRepoType = typeof(EfQueryRepository<>).MakeGenericType(entity);
         services.AddScoped(queryRepoType, implQueryRepoType);
       }
 

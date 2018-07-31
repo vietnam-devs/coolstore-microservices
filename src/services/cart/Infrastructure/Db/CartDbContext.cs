@@ -4,9 +4,9 @@ using VND.FW.Infrastructure.EfCore.Db;
 
 namespace VND.CoolStore.Services.Cart.Infrastructure.Db
 {
-  public class CartDbContext : ApplicationDbContext
+  public class CartDbContext : ApplicationDbContext<CartDbContext>
   {
-    public CartDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration)
+    public CartDbContext(DbContextOptions<CartDbContext> options, IConfiguration configuration)
       : base(options, configuration)
     {
     }

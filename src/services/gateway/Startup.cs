@@ -177,11 +177,7 @@ namespace VND.CoolStore.Services.ApiGateway
       if (!string.IsNullOrEmpty(basePath))
       {
         loggerFactory.CreateLogger("init").LogDebug($"Using PATH BASE '{basePath}'");
-        app.Use(async (context, next) =>
-        {
-          context.Request.PathBase = basePath;
-          await next.Invoke();
-        });
+        app.UsePathBase(basePath);
       }
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously

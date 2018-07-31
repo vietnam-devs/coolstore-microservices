@@ -6,13 +6,13 @@ using VND.FW.Infrastructure.EfCore.Migration;
 
 namespace VND.CoolStore.Services.Inventory.Infrastructure.Db.Seeders
 {
-		public class InventorySeeder : SeedDataBase<ApplicationDbContext>
+		public class InventorySeeder : SeedDataBase<InventoryDbContext>
 		{
 				public InventorySeeder(IConfiguration configuration) : base(configuration)
 				{
 				}
 
-				public override async Task SeedAsync(ApplicationDbContext context)
+				public override async Task SeedAsync(InventoryDbContext context)
 				{
 						var inventorySet = context.Set<Domain.Inventory>();
 

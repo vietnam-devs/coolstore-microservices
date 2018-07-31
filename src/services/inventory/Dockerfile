@@ -1,37 +1,21 @@
-FROM microsoft/dotnet:2.1-sdk-alpine AS build
-WORKDIR /build
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS base
+WORKDIR /app
+ENV ASPNETCORE_URLS http://+:5004
 EXPOSE 5004
 
-# Copy the global and csproj files
-COPY ./src/framework/VND.FW.Utils/VND.Fw.Utils.csproj ./src/framework/VND.FW.Utils/
-COPY ./src/framework/VND.FW.Domain/VND.Fw.Domain.csproj ./src/framework/VND.FW.Domain/
-COPY ./src/framework/VND.FW.Infrastructure.AspNetCore/VND.FW.Infrastructure.AspNetCore.csproj ./src/framework/VND.FW.Infrastructure.AspNetCore/
-COPY ./src/framework/VND.FW.Infrastructure.EfCore/VND.FW.Infrastructure.EfCore.csproj ./src/framework/VND.FW.Infrastructure.EfCore/
-COPY ./src/framework/VND.FW.Infrastructure.EfCore.SqlServer/VND.FW.Infrastructure.EfCore.SqlServer.csproj ./src/framework/VND.FW.Infrastructure.EfCore.SqlServer/
-COPY ./src/services/inventory/VND.CoolStore.Services.Inventory.csproj ./src/services/inventory/
-COPY ./global.json ./
-COPY ./NuGet.config ./
+FROM microsoft/dotnet:2.1-sdk-alpine AS build
+WORKDIR /src
+COPY . .
 
-# Restore all packages
-RUN dotnet restore ./src/services/inventory/VND.CoolStore.Services.Inventory.csproj --force --no-cache
+WORKDIR /src/src/services/inventory
 
-# Copy the remaining source
-COPY ./src/framework/VND.FW.Utils/ ./src/framework/VND.FW.Utils/
-COPY ./src/framework/VND.FW.Domain/ ./src/framework/VND.FW.Domain/
-COPY ./src/framework/VND.FW.Infrastructure.AspNetCore/ ./src/framework/VND.FW.Infrastructure.AspNetCore/
-COPY ./src/framework/VND.FW.Infrastructure.EfCore/ ./src/framework/VND.FW.Infrastructure.EfCore/
-COPY ./src/framework/VND.FW.Infrastructure.EfCore.SqlServer/ ./src/framework/VND.FW.Infrastructure.EfCore.SqlServer/
-COPY ./src/services/inventory/ ./src/services/inventory/
+RUN dotnet restore -nowarn:msb3202,nu1503
+RUN dotnet build --no-restore -c Release -o /app
 
-# Build the source code
-RUN dotnet build ./src/services/inventory/VND.CoolStore.Services.Inventory.csproj --configuration Release --no-restore
+FROM build AS publish
+RUN dotnet publish --no-restore-c Release -o /app
 
-# Publish application
-RUN dotnet publish ./src/services/inventory/VND.CoolStore.Services.Inventory.csproj --configuration Release --no-restore --no-build --output "../../../dist"
-
-FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS app
+FROM base AS final
 WORKDIR /app
-COPY --from=build /build/dist .
-ENV ASPNETCORE_URLS http://+:5004
-
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "VND.CoolStore.Services.Inventory.dll"]

@@ -33,25 +33,6 @@ spec:
     - destination:
         host: spa-service
         port:
-          number: 8080
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: api-vs
-spec:
-  hosts:
-  - {{ .Values.hosts.api }}
-  gateways:
-  - cs-gateway
-  http:
-  - match:
-    - uri:
-        prefix: /
-    route:
-    - destination:
-        host: gateway-service
-        port:
           number: 80
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -70,6 +51,33 @@ spec:
     route:
     - destination:
         host: idp-service
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: inv-vs
+spec:
+  hosts:
+  - {{ .Values.hosts.api }}
+  gateways:
+  - cs-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /gw/
+    route:
+    - destination:
+        host: gateway-service
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /inv/
+    route:
+    - destination:
+        host: inventory-service
         port:
           number: 80
 {{- end -}}

@@ -7,19 +7,19 @@ using VND.FW.Infrastructure.EfCore.Db;
 namespace VND.FW.Infrastructure.EfCore.Repository
 {
   public class EfRepositoryAsync<TEntity>
-        : EfRepositoryAsync<ApplicationDbContext, TEntity>, IEfRepositoryAsync<TEntity>
+        : EfRepositoryAsync<DbContext, TEntity>, IEfRepositoryAsync<TEntity>
         where TEntity : class, IEntity
   {
-    public EfRepositoryAsync(ApplicationDbContext dbContext) : base(dbContext)
+    public EfRepositoryAsync(DbContext dbContext) : base(dbContext)
     {
     }
   }
 
   public class EfQueryRepository<TEntity>
-      : EfQueryRepository<ApplicationDbContext, TEntity>, IEfQueryRepository<TEntity>
+      : EfQueryRepository<DbContext, TEntity>, IEfQueryRepository<TEntity>
       where TEntity : class, IEntity
   {
-    public EfQueryRepository(ApplicationDbContext dbContext) : base(dbContext)
+    public EfQueryRepository(DbContext dbContext) : base(dbContext)
     {
     }
   }

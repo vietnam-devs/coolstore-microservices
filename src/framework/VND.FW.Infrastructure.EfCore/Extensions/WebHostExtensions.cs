@@ -77,11 +77,15 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
         where TDbContext : DbContext
     {
       var logger = serviceProvider.GetRequiredService<ILogger<TDbContext>>();
-      var context = serviceProvider.GetService<TDbContext>();
+      var context = serviceProvider.GetRequiredService<TDbContext>();
 
       logger.LogInformation($"[VND] Migrating database associated with {typeof(TDbContext).FullName} context.");
       context.Database.OpenConnection();
-      context.Database.EnsureCreated();
+      // context.Database.EnsureCreated();
+      if (!context.AllMigrationsApplied())
+      {
+        context.Database.Migrate();
+      }
 
       logger.LogInformation($"[VND] Start to seed data for {typeof(TDbContext).FullName} context.");
       seeder(context, serviceProvider);

@@ -10,7 +10,7 @@ using VND.CoolStore.Services.Inventory.Infrastructure.Db;
 namespace VND.CoolStore.Services.Inventory.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20180730140519_InitDb")]
+    [Migration("20180731035253_InitDb")]
     partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

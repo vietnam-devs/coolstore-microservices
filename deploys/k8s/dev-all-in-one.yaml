@@ -121,7 +121,7 @@ metadata:
     app: inventory-service
 spec:
   ports:
-  - port: 5000
+  - port: 80
     targetPort: 5004
     protocol: TCP
     name: http
@@ -342,6 +342,9 @@ spec:
       - name: inventory
         image: vndg/cs-inventory-service:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: "Hosts__BasePath"
+          value: "/inventory/"
         ports:
         - containerPort: 5004
         livenessProbe:
@@ -410,25 +413,6 @@ spec:
     - destination:
         host: spa-service
         port:
-          number: 8080
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: api-vs
-spec:
-  hosts:
-  - api.coolstore.local
-  gateways:
-  - cs-gateway
-  http:
-  - match:
-    - uri:
-        prefix: /
-    route:
-    - destination:
-        host: gateway-service
-        port:
           number: 80
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -450,5 +434,33 @@ spec:
         port:
           number: 80
 ---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gw-vs
+spec:
+  hosts:
+  - api.coolstore.local
+  gateways:
+  - cs-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /gw/
+    route:
+    - destination:
+        host: gateway-service
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /inv/
+    route:
+    - destination:
+        host: inventory-service
+        port:
+          number: 80
+---
+
 # Source: coolstore/templates/nginx-ingress.yaml
 

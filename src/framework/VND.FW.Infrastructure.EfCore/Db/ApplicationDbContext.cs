@@ -11,12 +11,14 @@ using VND.FW.Infrastructure.EfCore.Options;
 
 namespace VND.FW.Infrastructure.EfCore.Db
 {
-  public class ApplicationDbContext : DbContext
+  public abstract class ApplicationDbContext<TDbContext> : DbContext
+    where TDbContext : DbContext
+     
   {
     private readonly PersistenceOption _persistenceOption = new PersistenceOption();
 
     protected ApplicationDbContext(
-        DbContextOptions<ApplicationDbContext> options,
+        DbContextOptions<TDbContext> options,
         IConfiguration configuration)
         : base(options)
     {
