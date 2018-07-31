@@ -18,9 +18,7 @@ const store = new Vuex.Store({
             cartItemTotal: 0,
             shippingPromoSavings: 0
         },
-        isLoggedIn: undefined,
-        accessToken: undefined,
-        idToken: undefined
+        ratings: []
     },
     actions,
     mutations,

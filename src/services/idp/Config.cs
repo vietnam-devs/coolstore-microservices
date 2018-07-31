@@ -53,6 +53,11 @@ namespace IdentityServer4
             {
               Name = "catalog_api_scope",
               Description="Catalog API Scope"
+            },
+            new Scope
+            {
+              Name = "rating_api_scope",
+              Description="Rating API Scope"
             }
           }
         }
@@ -88,7 +93,8 @@ namespace IdentityServer4
           "cart_api_scope",
           "pricing_api_scope",
           "review_api_scope",
-          "catalog_api_scope"
+          "catalog_api_scope",
+          "rating_api_scope"
         }
       },
 			// MVC client using hybrid flow
@@ -142,6 +148,7 @@ namespace IdentityServer4
           "pricing_api_scope",
           "review_api_scope",
           "catalog_api_scope",
+          "rating_api_scope",
           "openid",
           "profile"
         }
