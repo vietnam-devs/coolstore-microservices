@@ -9,13 +9,17 @@ namespace VND.CoolStore.Services.Cart
   {
     public static void Main(string[] args)
     {
-      BuildWebHost(args).Run();
+      var webHost = BuildWebHost(args);
+      if ((webHost.Services.GetService(typeof(IHostingEnvironment)) as IHostingEnvironment).IsDevelopment())
+      {
+        webHost = webHost.RegisterDbContext<CartDbContext>();
+      }
+      webHost.Run();
     }
 
     public static IWebHost BuildWebHost(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
             .UseStartup<Startup>()
-            .Build()
-            .RegisterDbContext<CartDbContext>();
+            .Build();
   }
 }

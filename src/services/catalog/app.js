@@ -9,6 +9,12 @@ const app = express()
 var isProduction = process.env.NODE_ENV === 'production'
 console.info(`Production environment is ${isProduction}`)
 
+var basePath = process.env.BASE_PATH
+if(!basePath) {
+  basePath = '/'
+}
+console.info(`Base path is ${basePath}`)
+
 // Normal express config defaults
 app.use(require('morgan')('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -53,7 +59,7 @@ app.use(function(err, req, res, next) {
   })
 })
 
-app.get('/api/v1/products/:productId', async (req, res) => {
+app.get(`${basePath}api/v1/products/:productId`, async (req, res) => {
   console.info(req.params)
   var product = await Product.findProduct(req.params.productId)
   if(product.length > 0)
@@ -62,24 +68,24 @@ app.get('/api/v1/products/:productId', async (req, res) => {
     res.send(product)
 })
 
-app.get('/api/v1/products', async (req, res) => {
+app.get(`${basePath}api/v1/products`, async (req, res) => {
   var products = await Product.findProducts()
   res.send(products)
 })
 
-app.post('/api/v1/products', async (req, res) => {
+app.post(`${basePath}api/v1/products`, async (req, res) => {
   console.info(req.body)
   var newProduct = new Product()
   res.send(await newProduct.createProduct(req.body))
 })
 
-app.get('/healthz', (req, res) => {
+app.get(`${basePath}healthz`, (req, res) => {
   res.send({
     status: 'Healthy!'
   })
 })
 
-app.get('/', function(req, res) {
+app.get(`${basePath}`, function(req, res) {
   res.send('Catalog Service.')
 })
 
@@ -137,7 +143,7 @@ function startServer() {
         })
       }
     })
-    console.info(`App's running at http://localhost:${server.address().port}`)
+    console.info(`App's running at http://localhost:${server.address().port}/${basePath}`)
     console.info('Press CTRL-C to stop\n')
   })
 }

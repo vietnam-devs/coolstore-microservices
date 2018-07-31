@@ -19,9 +19,9 @@ namespace VND.CoolStore.Services.Cart.UseCases.v2
       _cartService.PriceCalculatorContext = taxCaculator;
     }
 
-    [HttpGet(Name = nameof(GetCartById))]
+    [HttpGet]
     [Route("{id}")]
-    public async Task<GetCartByIdResponse> GetCartById(Guid id)
+    public async Task<GetCartByIdResponse> Get(Guid id)
     {
       return await _cartService.GetCartByIdAsync(id);
     }

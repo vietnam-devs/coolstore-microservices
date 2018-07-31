@@ -16,8 +16,8 @@ spec:
         image: vndg/cs-inventory-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "Hosts__BasePath"
-          value: "/inv/"
+        - name: Hosts__BasePath
+          value: /inv/
         ports:
         - containerPort: 5004
         livenessProbe:

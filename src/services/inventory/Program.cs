@@ -1,4 +1,3 @@
-using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using VND.CoolStore.Services.Inventory.Infrastructure.Db;
@@ -11,7 +10,7 @@ namespace VND.CoolStore.Services.Inventory
     public static void Main(string[] args)
     {
       var webHost = BuildWebHost(args);
-      if((webHost.Services.GetService(typeof(IHostingEnvironment)) as IHostingEnvironment).IsDevelopment())
+      if ((webHost.Services.GetService(typeof(IHostingEnvironment)) as IHostingEnvironment).IsDevelopment())
       {
         webHost = webHost.RegisterDbContext<InventoryDbContext>();
       }
@@ -21,7 +20,6 @@ namespace VND.CoolStore.Services.Inventory
     public static IWebHost BuildWebHost(string[] args) =>
       WebHost.CreateDefaultBuilder(args)
         .UseStartup<Startup>()
-        .UseUrls(urls: "http://*:5004")
         .Build();
   }
 }

@@ -22,9 +22,9 @@ namespace VND.CoolStore.Services.Cart.UseCases.v1
       _cartService.PriceCalculatorContext = taxCaculator;
     }
 
-    [HttpGet(Name = nameof(GetCartById))]
+    [HttpGet]
     [Route("{id}")]
-    public async Task<GetCartByIdResponse> GetCartById(Guid id)
+    public async Task<GetCartByIdResponse> Get(Guid id)
     {
       //TODO: stupid code
       if (id == Guid.Empty)
@@ -34,16 +34,14 @@ namespace VND.CoolStore.Services.Cart.UseCases.v1
     }
 
     [HttpPost]
-    [Route("insert-item")]
-    public async Task<GetCartByIdResponse> InsertItemToCart([FromBody] InsertItemToNewCartRequest request)
+    public async Task<GetCartByIdResponse> Create([FromBody] InsertItemToNewCartRequest request)
     {
       var cart = await _cartService.InsertItemToCartAsync(request);
       return await _cartService.GetCartByIdAsync(cart.Id);
     }
 
     [HttpPut]
-    [Route("update-item")]
-    public async Task<GetCartByIdResponse> UpdateItemInCart([FromBody] UpdateItemInCartRequest request)
+    public async Task<GetCartByIdResponse> Put([FromBody] UpdateItemInCartRequest request)
     {
       var cart = await _cartService.UpdateItemInCartAsync(request);
       return await _cartService.GetCartByIdAsync(cart.Id);

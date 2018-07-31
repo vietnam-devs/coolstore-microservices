@@ -80,4 +80,20 @@ spec:
         host: inventory-service
         port:
           number: 80
+  - match:
+    - uri:
+        prefix: /cat/
+    route:
+    - destination:
+        host: catalog-service
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /cart/
+    route:
+    - destination:
+        host: cart-service
+        port:
+          number: 80
 {{- end -}}

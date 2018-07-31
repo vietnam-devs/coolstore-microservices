@@ -1,4 +1,7 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
+using VND.CoolStore.Services.Cart.Infrastructure.Db;
+using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.UseCases
 {
@@ -7,10 +10,26 @@ namespace VND.CoolStore.Services.Cart.UseCases
   [ApiExplorerSettings(IgnoreApi = true)]
   public class HealthController : Controller
   {
-    [HttpGet("/healthz")]
-    public bool Get()
+    private IServiceProvider _serviceProvider;
+    public HealthController(IServiceProvider serviceProvider)
     {
-      return true;
+      _serviceProvider = serviceProvider;
+    }
+
+    [HttpGet("/healthz")]
+    public ActionResult Get()
+    {
+      try
+      {
+        _serviceProvider.MigrateDbContext<CartDbContext>();
+      }
+      catch (Exception)
+      {
+
+        return new BadRequestResult();
+      }
+
+      return Ok();
     }
   }
 }

@@ -27,7 +27,7 @@ metadata:
     app: cart-service
 spec:
   ports:
-  - port: 5000
+  - port: 80
     targetPort: 5003
     protocol: TCP
     name: http
@@ -46,7 +46,7 @@ metadata:
     app: catalog-service
 spec:
   ports:
-  - port: 5000
+  - port: 80
     targetPort: 5002
     protocol: TCP
     name: http
@@ -165,10 +165,10 @@ spec:
         image: vndg/cs-mssqldb:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "ACCEPT_EULA"
-          value: "Y"
-        - name: "MSSQL_SA_PASSWORD"
-          value: "P@ssw0rd"
+        - name: ACCEPT_EULA
+          value: Y
+        - name: MSSQL_SA_PASSWORD
+          value: P@ssw0rd
         ports:
         - containerPort: 1433
 ---
@@ -192,17 +192,17 @@ spec:
       - name: cart
         image: vndg/cs-cart-service:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: Hosts__BasePath
+          value: /cart/
         ports:
         - containerPort: 5003
-      # initContainers:
-      # - name: init-mydb
-      #   image: microsoft/mssql-server-linux:2017-latest
-      #   env: 
-      #   - name: "ACCEPT_EULA"
-      #     value: "Y"
-      #   - name: "MSSQL_SA_PASSWORD"
-      #     value: "P@ssw0rd"
-      #   command: ['sh', '-c', 'echo waiting for initDb; /opt/mssql-tools/bin/sqlcmd -S cart-db-service -U cs -P $MSSQL_SA_PASSWORD -l 1000 -Q "select getdate()"']
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5003
+          initialDelaySeconds: 10
+          periodSeconds: 5
 ---
 
 ---
@@ -225,6 +225,8 @@ spec:
         image: vndg/cs-catalog-service:latest
         imagePullPolicy: IfNotPresent
         env:
+        - name: BASE_PATH
+          value: /cat/
         - name: MONGO_DB_URL
           value: mongodb://mongodb:27017/catalog
         ports:
@@ -251,11 +253,11 @@ spec:
         image: vndg/cs-gateway-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "Hosts__BasePath"
+        - name: Hosts__BasePath
           value: /
-        - name: "Hosts__Externals__CurrentUri"
+        - name: Hosts__Externals__CurrentUri
           value: http://api.coolstore.local
-        - name: "Hosts__Externals__Auth__Uri"
+        - name: Hosts__Externals__Auth__Uri
           value: http://id.coolstore.local
         ports:
         - name: http
@@ -282,13 +284,13 @@ spec:
         image: vndg/cs-idp-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "HostSettings__BasePath"
+        - name: HostSettings__BasePath
           value: /
-        - name: "HostSettings__SwaggerRedirectUri"
+        - name: HostSettings__SwaggerRedirectUri
           value: http://api.coolstore.local/swagger/oauth2-redirect.html
-        - name: "HostSettings__SwaggerPostLogoutRedirectUri"
+        - name: HostSettings__SwaggerPostLogoutRedirectUri
           value: http://api.coolstore.local
-        - name: "HostSettings__SwaggerAllowedCorsOrigin"
+        - name: HostSettings__SwaggerAllowedCorsOrigin
           value: http://coolstore.local
         ports:
         - name: http
@@ -315,10 +317,10 @@ spec:
         image: vndg/cs-mssqldb:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "ACCEPT_EULA"
-          value: "Y"
-        - name: "MSSQL_SA_PASSWORD"
-          value: "P@ssw0rd"
+        - name: ACCEPT_EULA
+          value: Y
+        - name: MSSQL_SA_PASSWORD
+          value: P@ssw0rd
         ports:
         - containerPort: 1433
 ---
@@ -343,8 +345,8 @@ spec:
         image: vndg/cs-inventory-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "Hosts__BasePath"
-          value: "/inventory/"
+        - name: Hosts__BasePath
+          value: /inv/
         ports:
         - containerPort: 5004
         livenessProbe:
@@ -437,7 +439,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: gw-vs
+  name: inv-vs
 spec:
   hosts:
   - api.coolstore.local
@@ -460,7 +462,22 @@ spec:
         host: inventory-service
         port:
           number: 80
+  - match:
+    - uri:
+        prefix: /cat/
+    route:
+    - destination:
+        host: catalog-service
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /cart/
+    route:
+    - destination:
+        host: cart-service
+        port:
+          number: 80
 ---
-
 # Source: coolstore/templates/nginx-ingress.yaml
 

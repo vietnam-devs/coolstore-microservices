@@ -16,6 +16,8 @@ spec:
         image: vndg/cs-catalog-service:latest
         imagePullPolicy: IfNotPresent
         env:
+        - name: BASE_PATH
+          value: /cat/
         - name: MONGO_DB_URL
           value: mongodb://mongodb:27017/catalog
         ports:

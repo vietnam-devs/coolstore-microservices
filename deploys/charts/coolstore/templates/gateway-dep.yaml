@@ -16,11 +16,11 @@ spec:
         image: vndg/cs-gateway-service:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: "Hosts__BasePath"
+        - name: Hosts__BasePath
           value: {{ .Values.gatewaySettings.Hosts__BasePath }}
-        - name: "Hosts__Externals__CurrentUri"
+        - name: Hosts__Externals__CurrentUri
           value: {{ .Values.gatewaySettings.Hosts__Externals__CurrentUri }}
-        - name: "Hosts__Externals__Auth__Uri"
+        - name: Hosts__Externals__Auth__Uri
           value: {{ .Values.gatewaySettings.Hosts__Externals__Auth__Uri }}
         ports:
         - name: http

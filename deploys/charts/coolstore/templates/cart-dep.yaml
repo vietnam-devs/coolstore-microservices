@@ -15,15 +15,15 @@ spec:
       - name: cart
         image: vndg/cs-cart-service:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: Hosts__BasePath
+          value: /cart/
         ports:
         - containerPort: 5003
-      # initContainers:
-      # - name: init-mydb
-      #   image: microsoft/mssql-server-linux:2017-latest
-      #   env: 
-      #   - name: "ACCEPT_EULA"
-      #     value: "Y"
-      #   - name: "MSSQL_SA_PASSWORD"
-      #     value: "P@ssw0rd"
-      #   command: ['sh', '-c', 'echo waiting for initDb; /opt/mssql-tools/bin/sqlcmd -S cart-db-service -U cs -P $MSSQL_SA_PASSWORD -l 1000 -Q "select getdate()"']
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5003
+          initialDelaySeconds: 10
+          periodSeconds: 5
 ---
