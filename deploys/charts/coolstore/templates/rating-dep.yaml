@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rating-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rating
+        version: v1
+    spec:
+      containers:
+      - name: rating
+        image: vndg/cs-rating-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: BASE_PATH
+          value: /rat/
+        - name: MONGO_DB_URL
+          value: mongodb://mongodb:27017/rating
+        ports:
+        - containerPort: 5007
+---

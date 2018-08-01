@@ -1,13 +1,16 @@
-FROM node:10.0.0-slim
+FROM node:alpine
 
-COPY ./src/services/rating/package.json /opt/microservices/
-COPY ./src/services/rating/app.js /opt/microservices/
-RUN cd /opt/microservices; yarn install
+RUN mkdir -p /usr/src/services/rating
+WORKDIR /usr/src/services/rating
 
 ARG service_version
 ENV SERVICE_VERSION ${service_version:-v1}
+EXPOSE 5007
+ENV NODE_ENV production
 
-EXPOSE 3000
-WORKDIR /opt/microservices
+COPY ./src/services/rating/package.json /usr/src/services/rating/
+RUN yarn --network-timeout 100000 install
+
+COPY ./src/services/rating/ /usr/src/services/rating/
 
 CMD ["yarn","start"]

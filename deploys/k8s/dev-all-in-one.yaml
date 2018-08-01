@@ -146,6 +146,25 @@ spec:
     app: mongodb
 ---
 ---
+# Source: coolstore/templates/rating-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: rating-service
+  namespace: default
+  labels:
+    app: rating-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 5007
+    protocol: TCP
+    name: http
+  selector:
+    app: rating
+---
+
+---
 # Source: coolstore/templates/cart-db-dep.yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -380,6 +399,34 @@ spec:
         - containerPort: 27017
 ---
 ---
+# Source: coolstore/templates/rating-dep.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rating-v1
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rating
+        version: v1
+    spec:
+      containers:
+      - name: rating
+        image: vndg/cs-rating-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: BASE_PATH
+          value: /rat/
+        - name: MONGO_DB_URL
+          value: mongodb://mongodb:27017/rating
+        ports:
+        - containerPort: 5007
+---
+
+---
 # Source: coolstore/templates/cs-gateway.yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -468,6 +515,14 @@ spec:
     route:
     - destination:
         host: catalog-service
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /rat/
+    route:
+    - destination:
+        host: rating-service
         port:
           number: 80
   - match:
