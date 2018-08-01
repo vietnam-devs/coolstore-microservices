@@ -13,27 +13,97 @@ export function createAPI({ config, version }) {
     }
 
     api.get = function(path) {
-        return axios.get(`${baseUrl}/${path}`)
+        return new Promise(function(resolve, reject) {
+            axios.get(`${baseUrl}/${path}`).then(
+                response => {
+                    response = response || {}
+                    response.data = response.data || {}
+                    resolve(response.data)
+                },
+                error => {
+                    reject()
+                    errorHandler(error)
+                }
+            )
+        })
     }
 
     api.post = function(path, data) {
-        return axios.post(`${baseUrl}/${path}`, JSON.stringify(data), {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        return new Promise(function(resolve, reject) {
+            axios
+                .post(`${baseUrl}/${path}`, JSON.stringify(data), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(
+                    response => {
+                        response = response || {}
+                        response.data = response.data || {}
+                        resolve(response.data)
+                    },
+                    error => {
+                        reject()
+                        errorHandler(error)
+                    }
+                )
+                .catch(error => {
+                    reject()
+                    errorHandler(error)
+                })
         })
     }
 
     api.put = function(path, data) {
-        return axios.put(`${baseUrl}/${path}`, JSON.stringify(data), {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        return new Promise(function(resolve, reject) {
+            axios
+                .put(`${baseUrl}/${path}`, JSON.stringify(data), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(
+                    response => {
+                        response = response || {}
+                        response.data = response.data || {}
+                        resolve(response.data)
+                    },
+                    error => {
+                        reject()
+                        errorHandler(error)
+                    }
+                )
+                .catch(error => {
+                    reject()
+                    errorHandler(error)
+                })
         })
     }
 
     api.delete = function(path) {
-        return axios.delete(`${baseUrl}/${path}`)
+        return new Promise(function(resolve, reject) {
+            axios
+                .delete(`${baseUrl}/${path}`)
+                .then(
+                    response => {
+                        response = response || {}
+                        response.data = response.data || {}
+                        resolve(response.data)
+                    },
+                    error => {
+                        reject()
+                        errorHandler(error)
+                    }
+                )
+                .catch(error => {
+                    reject()
+                    errorHandler(error)
+                })
+        })
+    }
+
+    function errorHandler(error) {
+        console.log(error)
     }
 
     return api

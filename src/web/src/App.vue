@@ -1,7 +1,7 @@
 <template>
   <no-ssr>
     <div id="app">
-      <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+      <nav class="navbar navigate-color is-transparent" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <router-link to="/" exact class="navbar-item">
             <img class="logo" src="~public/logo.png" alt="logo">
@@ -15,22 +15,28 @@
 
         <div id="navbarExampleTransparentExample" class="navbar-menu">
           <div class="navbar-start">
-            <router-link to="/" exact class="navbar-item">
-              Home
-            </router-link>
-            <router-link to="/cart" class="navbar-item">
-              Carts ({{itemCount}})
-            </router-link>
+            <span class="navbar-item">
+              Cool Store
+            </span>
           </div>
         </div>
 
         <div class="navbar-end">
-          <div class="navbar-item">
+          <router-link to="/" class="navbar-item">
+            Home
+          </router-link>
+          <router-link to="/new" class="navbar-item">
+            New Catalog
+          </router-link>
+          <router-link to="/cart" class="navbar-item">
+            Carts ({{itemCount}})
+          </router-link>
+          <!-- <div class="navbar-item">
             {{isLogged}}
-          </div>
-          <div class="navbar-item">
-            <a class="button is-inverted" @click="logout">Logout</a>
-          </div>
+          </div> -->
+          <a href="#" @click="logout" class="navbar-item router-link-exact-active router-link-active">
+            Logout
+          </a>
         </div>
       </nav>
 
@@ -61,10 +67,7 @@ export default {
   },
   computed: {
     itemCount() {
-      var cart = this.$store.state.cart
-      cart = cart || {}
-      cart.items = cart.items || []
-      return cart.items.length
+      return this.$store.getters['cart/itemCount']
     },
     isLogged() {
       if (this.userId) return 'Logged!'
@@ -76,13 +79,13 @@ export default {
     })
     var cartId = getItem('cartId')
     if (cartId) {
-      this.$store.dispatch('GET_CART')
+      this.$store.dispatch('cart/GET_CART')
     }
   },
   methods: {
     logout() {
       signoutRedirect(respnose => {
-        this.$store.commit('LOGOUT')
+        this.$store.commit('account/LOGOUT')
       })
     }
   },
@@ -99,5 +102,13 @@ export default {
 
 .fade-enter, .fade-leave-active {
   opacity: 0;
+}
+
+.navigate-color {
+  background-color: #445f71;
+}
+
+.navigate-color .navbar-item {
+  color: white;
 }
 </style>

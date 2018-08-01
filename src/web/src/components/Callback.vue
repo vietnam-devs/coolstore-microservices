@@ -14,8 +14,8 @@ export default {
         this.$route.hash.substring(1),
         'id_token'
       )
-
-      this.$store.commit('LOGIN_SUCCESS', {accessToken, idToken})
+      
+      this.$store.commit('account/LOGIN_SUCCESS', { accessToken, idToken })
       var router = new Router({
         mode: 'history'
       })

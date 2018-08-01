@@ -14,10 +14,11 @@ export function getProducts(pageIndex = 0) {
     return api.get(`products?current-page=${pageIndex}`)
 }
 
-export function watchList(cb, pageIndex = 0) {
-    api.get(`products?CurrentPage=${pageIndex}`).then(function (response) {
-        if (response && response.value) {
-            cb(response.value);
-        }
-    })
+export function getProduct(id) {
+    return api.get(`products/${id}`)
+}
+
+
+export function createProduct(model) {
+    return api.post(`products`, model)
 }

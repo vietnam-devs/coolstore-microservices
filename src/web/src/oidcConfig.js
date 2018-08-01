@@ -8,5 +8,5 @@ export const oidcSettings = {
     automaticSilentRenew: true,
     post_logout_redirect_uri: proxyConfig.spaUrl,
     silent_redirect_uri: proxyConfig.spaUrl + 'callback',
-    scope: 'inventory_api_scope cart_api_scope pricing_api_scope review_api_scope catalog_api_scope openid profile',
+    scope: 'inventory_api_scope cart_api_scope pricing_api_scope review_api_scope catalog_api_scope rating_api_scope openid profile',
 }

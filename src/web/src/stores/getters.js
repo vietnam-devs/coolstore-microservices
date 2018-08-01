@@ -9,7 +9,6 @@ export default {
     },
 
     products: state => {
-        console.log('getproduct')
         return state.products.map(product => {
             let productDefault = {
                 price: 0,
@@ -27,12 +26,6 @@ export default {
                     productDefault.availability
                 )
             }
-            state.ratings = state.ratings || []
-            let rating =
-                state.ratings.find(item => {
-                    return (item.productId = product.id)
-                }) || {}
-            product.rating = Object.assign(rating, product.rating)
             return Object.assign(productDefault, product)
         })
     },
@@ -50,16 +43,21 @@ export default {
         return Object.assign(state.cart, flat)
     },
 
-    ratingsReducer: state => {
-        console.log('get rating')
-        state.ratings = state.ratings || []
-        let flat = {
-            byItemIds: state.ratings.items.map(item => item.productId),
-            ratingFlats: state.ratings.items.reduce((obj, item) => {
-                obj[item.productId] = item
-                return obj
-            }, {})
-        }
-        return Object.assign(state.ratings, flat)
+    productIds: state => state.products.map(product => product.id),
+
+    ratingSet: state => {
+        let ratingSet = state.ratings.reduce((obj, item) => {
+            obj[item.productId] = item
+            return obj
+        }, {})
+        return state.products.reduce((obj, item) => {
+            ratingSet[item.id] = ratingSet[item.id] || {}
+            obj[item.id] = ratingSet[item.id]
+            return obj;
+        }, {})
     }
+    // state.ratings.reduce((obj, item) => {
+    //     obj[item.productId] = item
+    //     return obj
+    // }, {})
 }

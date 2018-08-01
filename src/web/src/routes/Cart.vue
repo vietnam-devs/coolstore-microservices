@@ -99,10 +99,18 @@ export default {
   },
   computed: {
     cart() {
-      return this.$store.getters.cartReducer
+      let cart = this.$store.getters['cart/cartReducer'] || {}
+      cart = cart || {}
+      cart.items = cart.items || []
+      return cart
     },
     items() {
-      return this.$store.getters.cartReducer.itemsFlat
+      let cartReducer = this.$store.getters['cart/cartReducer'] || {}
+      cartReducer.itemsFlat = cartReducer.itemsFlat || []
+      return cartReducer.itemsFlat
+    },
+    cartId() {
+      return this.$store.getters['cart/cartId']
     },
     subtotal() {
       var subtotal = 0
@@ -119,44 +127,31 @@ export default {
   },
   methods: {
     getCart() {
-      this.$store.dispatch('GET_CART').then(data => {
-        if (data) {
-          this.cart = data
-          this.items = this.cart.items
-        }
-      })
+      if (!this.cartId) return
+      this.$store.dispatch('cart/GET_CART', { cartId: this.cartId })
     },
 
     removeProduct(productId) {
       if (this.cart.isCheckout) return
-      this.$store.dispatch('REMOVE_FROM_CARD', { productId }).then(
-        newCart => {
-          if (newCart.data) {
-            this.$store.dispatch('GET_CART')
-          }
-        },
-        function(err) {}
-      )
+      if (!this.cartId) return
+      let cartId = this.cartId
+      this.$store.dispatch('cart/REMOVE_FROM_CARD', { cartId, productId })
     },
 
     updateProduct(productId, quantity) {
-      this.$store
-        .dispatch('UPDATE_PRODUCT_QUANTITY', { productId, quantity })
-        .then(
-          newCart => {
-            this.$store.commit('SET_CART', newCart.data)
-          },
-          function(err) {}
-        )
+      if (!this.cartId) return
+      let cartId = this.cartId
+      this.$store.dispatch('cart/UPDATE_PRODUCT_QUANTITY', {
+        cartId,
+        productId,
+        quantity
+      })
     },
 
     checkout() {
-      this.$store.dispatch('CHECKOUT_CART').then(
-        cartData => {
-          this.$store.dispatch('GET_CART')
-        },
-        function(err) {}
-      )
+      if (!this.cartId) return
+      let cartId = this.cartId
+      this.$store.dispatch('cart/CHECKOUT_CART', { cartId })
     },
 
     increeQuantityProduct(product) {

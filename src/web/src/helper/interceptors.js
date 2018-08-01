@@ -5,7 +5,7 @@ import { signinSilent } from '../auth/usermanager'
 export default function setup() {
     axios.interceptors.request.use(
         function(config) {
-            const token = store.getters.accessToken
+            const token = store.getters["account/accessToken"]
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`
             }
