@@ -90,6 +90,14 @@ spec:
           number: 80
   - match:
     - uri:
+        prefix: /rat/
+    route:
+    - destination:
+        host: rating-service
+        port:
+          number: 80
+  - match:
+    - uri:
         prefix: /cart/
     route:
     - destination:

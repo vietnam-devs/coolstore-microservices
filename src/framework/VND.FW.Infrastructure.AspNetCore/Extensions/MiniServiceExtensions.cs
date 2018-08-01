@@ -40,11 +40,11 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       where TDbContext : DbContext
     {
       var serviceProvider = services.BuildServiceProvider();
-      var config = serviceProvider.GetService<IConfiguration>();
-      var env = serviceProvider.GetService<IHostingEnvironment>();
-      var extendOptionsBuilder = serviceProvider.GetService<IExtendDbContextOptionsBuilder>();
-      var dbConnectionStringFactory = serviceProvider.GetService<IDatabaseConnectionStringFactory>();
+      var config = serviceProvider.GetRequiredService<IConfiguration>();
+      var env = serviceProvider.GetRequiredService<IHostingEnvironment>();
 
+      var extendOptionsBuilder = serviceProvider.GetRequiredService<IExtendDbContextOptionsBuilder>();
+      var dbConnectionStringFactory = serviceProvider.GetRequiredService<IDatabaseConnectionStringFactory>();
       IdentityModelEventSource.ShowPII = true;
 
       if (config.GetValue("EnableAuthN", false))
@@ -65,7 +65,6 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
 
       services.AddDbContext<TDbContext>(options => optionsBuilderAction(options));
       services.AddScoped<DbContext>(resolver => resolver.GetRequiredService<TDbContext>());
-
       services.AddEfCore();
       
       services.AddHttpContextAccessor();

@@ -48,6 +48,13 @@ docker tag $DOCKER_USERNAME/cs-catalog-service:$DOCKER_TAG $DOCKER_GROUP/cs-cata
 docker push $DOCKER_GROUP/cs-catalog-service:$DOCKER_TAG
 echo "================================================================================"
 
+echo "Build Rating Service"
+echo "================================================================================"
+docker build -f ./src/services/rating/Dockerfile -t $DOCKER_USERNAME/cs-rating-service:$DOCKER_TAG .
+docker tag $DOCKER_USERNAME/cs-rating-service:$DOCKER_TAG $DOCKER_GROUP/cs-rating-service:$DOCKER_TAG
+docker push $DOCKER_GROUP/cs-rating-service:$DOCKER_TAG
+echo "================================================================================"
+
 echo "Build Cart Service"
 echo "================================================================================"
 docker build -f ./src/services/cart/Dockerfile -t $DOCKER_USERNAME/cs-cart-service:$DOCKER_TAG .

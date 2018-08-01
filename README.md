@@ -12,6 +12,10 @@ CoolStore is a containerised polyglot microservices application consisting of se
 
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
+### Slides
+- [Service Mesh for Microservices- Vietnam Mobile Day Event - June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
+- [From Microservices to Service Mesh - DevCafe Event - July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
+
 # Table of contents
 
 * [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)

@@ -9,6 +9,12 @@ const app = express()
 var isProduction = process.env.NODE_ENV === 'production'
 console.info(`Production environment is ${isProduction}`)
 
+var basePath = process.env.BASE_PATH
+if(!basePath) {
+  basePath = '/'
+}
+console.info(`Base path is ${basePath}`)
+
 // Normal express config defaults
 app.use(require('morgan')('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -53,7 +59,7 @@ app.use(function(err, req, res, next) {
   })
 })
 
-app.get('/api/v1/ratings', async (req, res) => {
+app.get(`${basePath}api/v1/ratings`, async (req, res) => {
   console.info(req.body)
   var rattings = await Rating.findRatings()
   var result = []
@@ -73,7 +79,7 @@ app.get('/api/v1/ratings', async (req, res) => {
   res.send(result)
 })
 
-app.get('/api/v1/ratings/:productId', async (req, res) => {
+app.get(`${basePath}api/v1/ratings/:productId`, async (req, res) => {
   console.info(req.body)
   var productId = req.params.productId
   var modelReponse = {
@@ -92,13 +98,13 @@ app.get('/api/v1/ratings/:productId', async (req, res) => {
   res.send(modelReponse)
 })
 
-app.post('/api/v1/ratings', async (req, res) => {
+app.post(`${basePath}api/v1/ratings`, async (req, res) => {
   console.info(req.body)
   var newRating = new Rating()
   res.send(await newRating.createRating(req.body))
 })
 
-app.put('/api/v1/ratings', async (req, res) => {
+app.put(`${basePath}api/v1/ratings`, async (req, res) => {
   console.info(req.body)
   res.send(
     await Rating.updateRatingByProductIdAndUserId(
@@ -109,13 +115,13 @@ app.put('/api/v1/ratings', async (req, res) => {
   )
 })
 
-app.get('/healthz', (req, res) => {
+app.get(`${basePath}healthz`, (req, res) => {
   res.send({
     status: 'Healthy!'
   })
 })
 
-app.get('/', function(req, res) {
+app.get(`${basePath}`, function(req, res) {
   res.send('Rating Service.')
 })
 
@@ -143,7 +149,7 @@ if (!isProduction) {
 
 function startServer() {
   var server = app.listen(process.env.PORT || 5007, () => {
-    console.info(`App's running at http://localhost:${server.address().port}`)
+    console.info(`App's running at http://localhost:${server.address().port}${basePath}`)
     console.info('Press CTRL-C to stop\n')
   })
 }
