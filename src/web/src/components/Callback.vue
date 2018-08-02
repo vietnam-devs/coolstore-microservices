@@ -19,7 +19,6 @@ export default {
         this.$route.hash.substring(1),
         'id_token'
       )
-      debugger
       this.$store.commit('account/LOGIN_SUCCESS', { accessToken, idToken })
       var router = new Router({
         mode: 'history'
