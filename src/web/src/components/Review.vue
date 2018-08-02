@@ -1,134 +1,82 @@
 <template>
-  <transition name="modal-fade">
-    <div class="modal-backdrop">
-      <div class="modal"
-        role="dialog"
-        aria-labelledby="modalTitle"
-        aria-describedby="modalDescription"
-      >
-        <div class="modal-header">
-            <!-- <button type="button" class="close" @click="close" aria-label="Close"><span aria-hidden="true">&times;</span>
-            </button> -->
-            <!-- <h1 class="modal-title">Reviews for {{product.name}}</h1> -->
-        </div>
-        <div class="modal-body">
-            <div  style="padding: 10% 0;" v-if="!reviews" >
-                <div  class="spinner spinner-lg"></div>
-            </div>
-            <h1 v-if="reviews && reviews.length <= 0">No reviews for <strong>{{product.name}}</strong>. <a href="#">Perhaps you'd like to leave one?</a></h1>
-            <h1 v-if="reviews && reviews.length > 0">Top Customer Reviews</h1>
-            <div v-if="reviews">
-                <div v-for="review in reviews">
-                    <div style="float:right;">
-                        <img class="img-circle" src="https://www.gravatar.com/avatar/dummy?d=mm">
-                    </div>
-                    <div style="display:inline-block;" class="star-rating" star-rating rating-value="review.rating"
-                        data-max="5" data-item-id="">
-                    </div>
-                    <div style="display:inline-block;"><h3>({{review.title}})</h3></div>
-                    <p>By <a href="#">{{review.username}} on {{ review.createDate | formatDate ("MM/DD/YYYY")}}</a></p>
-                    <p><span style="color: #c45500; font-size: 0.8em">Verified Purchase</span></p>
-                    <h4>{{review.content}}</h4>
-                    <a href="#">Comment</a>&nbsp;&nbsp;|&nbsp;&nbsp;12 people found this helpful. Was this review helpful to you?&nbsp;<button>Yes</button><button>No</button>&nbsp;<a href="#">Report Abuse</a>
-                    <hr>
-                </div>
-            </div>
-        </div>
-        <router-link to="/" class="btn btn-primary">
-            Close
-        </router-link>
-
+  <div class="container has-text-centered">
+    <div class="columns is-vcentered">
+      <div class="column is-5">
+          <picture class="image is-square">
+              <source srcset="https://picsum.photos/1200/900?image=0" type="image/webp" /><img class="lazyload" srcset="https://www.gravatar.com/avatar/dummy?d=mm" :alt="`Image of ${product.name}`" /></picture>
       </div>
-    </div>
-  </transition>
+      <div class="column is-6 is-offset-1">
+          <h1 class="title is-2">{{ product.name }}</h1>
+          <h2 class="subtitle is-4">{{product.desc}}</h2>
+          <p class="is-size-6">${{ product.price }}</p><br/>
+          <section>
+            <b-field class="div-center">
+              <b-input placeholder="Number" v-model="quantity" type="number" value="1" min="1" max="20" style="width: 4em">
+              </b-input>
+              <button @click="addToCart(product.id, quantity)" class="button is-primary">Add To Cart</button>
+              <div>
+                  <span class="tag is-dark ">
+                      <template v-if="product.availability">{{product.availability.quantity}}</template>
+                      <template v-if="!product.availability">0</template>
+                  </span>
+                  <span class="icon has-text-info">
+                  <i class="fas fa-info-circle"></i>
+                  </span>
+              </div>
+            </b-field>
+          </section>
+          <!-- <p class="has-text-centered"><a class="button is-medium is-info is-outlined" @click="addToCart(product)" aria-label="Add to cart">Add to cart</a></p> -->
+      </div>
+  </div>
+</div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  name: "modal",
-//   props: ["product"],
+  name: 'review',
   data() {
     return {
-      reviews: [
-        {
-          title: "review 1 title",
-          username: "review 1 user name",
-          content: "review 1 content",
-          createDate: new Date()
-        }
-      ]
-    };
+      quantity: 1
+    }
+  },
+  computed: {
+    product() {
+      return this.$store.state.products.product || {}
+    },
+    cartId() {
+      return this.$store.getters['cart/cartId'] || null
+    }
+  },
+  beforeMount() {
+    this.loadProduct(this.$route.params.id)
   },
 
   methods: {
-    close() {
-      this.$emit("close");
+    loadProduct(id) {
+      this.$store.dispatch('products/GET_PRODUCT_BY_ID', { productId: id })
     },
-    onShowProduct(product) {
-      this.product = product;
+    addToCart(productId, quantity) {
+      if (!this.cartId) {
+        this.$store.dispatch('cart/ADD_TO_CARD', { productId, quantity })
+      } else
+        this.$store.dispatch('cart/UPDATE_CARD', {
+          cartId: this.cartId,
+          productId,
+          quantity
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="stylus">
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.field.has-addons.div-center {
+  justify-content: center;
 }
 
-.modal {
-    background: #ffffff;
-    box-shadow: 2px 2px 20px 1px;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-header, .modal-footer {
-    padding: 15px;
-    display: flex;
-}
-
-.modal-header {
-    border-bottom: 1px solid #eeeeee;
-    color: #4aae9b;
-    justify-content: space-between;
-}
-
-.modal-footer {
-    border-top: 1px solid #eeeeee;
-    justify-content: flex-end;
-}
-
-.modal-body {
-    position: relative;
-    padding: 20px 10px;
-}
-
-.btn-close {
-    border: none;
-    font-size: 20px;
-    padding: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #4aae9b;
-    background: transparent;
-}
-
-.btn-green {
-    color: white;
-    background: #4aae9b;
-    border: 1px solid #4aae9b;
-    border-radius: 2px;
+.container {
+  margin-top: 30px;
 }
 </style>

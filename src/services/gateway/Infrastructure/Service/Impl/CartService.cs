@@ -34,7 +34,7 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl
 
     public async Task<GetCartByIdResponse> CreateCartAsync(InsertItemToNewCartRequest request)
     {
-      string endPoint = $"{_cartServiceUri}/api/v1/carts/insert-item";
+      string endPoint = $"{_cartServiceUri}/api/v1/carts";
       RestClient.SetOpenTracingInfo(request.Headers);
       var response = await RestClient.PostAsync<GetCartByIdResponse>(endPoint, request);
       return response;
@@ -57,7 +57,7 @@ namespace VND.CoolStore.Services.ApiGateway.Infrastructure.Service.Impl
 
     public async Task<GetCartByIdResponse> UpdateCartAsync(UpdateItemInCartRequest request)
     {
-      var endPoint = $"{_cartServiceUri}/api/v1/carts/update-item";
+      var endPoint = $"{_cartServiceUri}/api/v1/carts";
       RestClient.SetOpenTracingInfo(request.Headers);
       var response = await RestClient.PutAsync<GetCartByIdResponse>(endPoint, request);
       return response;

@@ -10,6 +10,7 @@ const CartView = () => import('./Cart.vue')
 const CallbackView = () => import('../components/Callback.vue')
 const UnauthorizedView = () => import('../components/Unauthorized.vue')
 const Review = () => import('../components/Review.vue')
+const NewCatalog = () => import('./NewCatalog.vue')
 
 const router = new Router({
     mode: 'history',
@@ -41,8 +42,15 @@ const router = new Router({
         {
             path: '/review/:id',
             name: 'reviewproduct',
+            beforeEnter: requireAuth,
             component: Review
+        },
+        {
+            path: '/new',
+            name: 'new catalog',
+            beforeEnter: requireAuth,
+            component: NewCatalog
         }
     ]
 })
-export default router;
+export default router

@@ -3,7 +3,6 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -65,7 +64,7 @@ module.exports = {
               fallback: 'vue-style-loader'
             })
           : ['vue-style-loader', 'css-loader', 'stylus-loader']
-      }
+      },
     ]
   },
   performance: {
@@ -81,16 +80,10 @@ module.exports = {
         new webpack.optimize.ModuleConcatenationPlugin(),
         new ExtractTextPlugin({
           filename: 'common.[chunkhash].css'
-        }),
-		    new CopyWebpackPlugin([
-            {from: path.resolve(__dirname, '../src/imgs'), to:'imgs'} 
-        ]), 
+        }), 
       ]
     : [
         new VueLoaderPlugin(),
         new FriendlyErrorsPlugin(),
-	    	new CopyWebpackPlugin([
-            {from: path.resolve(__dirname, '../src/imgs'), to:'imgs'} 
-        ]), 
       ]
 }
