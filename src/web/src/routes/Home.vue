@@ -14,22 +14,6 @@
                     <span class="tag-right"><star-rating v-bind:star-size="20" v-model="defaultStar" v-bind:show-rating="false"></star-rating></span>
                 </b-field>
             </section>
-            <!-- <section>
-              <b-field>
-                <b-input placeholder="Number" v-model="product.quantity" type="number" value="1" min="1" max="20" style="width: 4em">
-                </b-input>
-                <button @click="addToCart(product.id, product.quantity)" class="button is-primary">Add To Cart</button>
-                <div class="tag-right">
-                    <span class="tag is-dark ">
-                        <template v-if="product.availability">{{product.availability.quantity}}</template>
-                        <template v-if="!product.availability">0</template>
-                    </span>
-                    <span class="icon has-text-info">
-                    <i class="fas fa-info-circle"></i>
-                    </span>
-                </div>
-              </b-field>
-            </section> -->
           </article>
         </div>
       </div>

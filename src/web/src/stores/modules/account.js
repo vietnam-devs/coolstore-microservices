@@ -3,7 +3,8 @@ export default {
 
     state: {
         accessToken: null,
-        idToken: null
+        idToken: null,
+        callbackUrl: null
     },
 
     getters: {
@@ -12,6 +13,10 @@ export default {
         },
 
         accessToken: state => {
+            return state.accessToken
+        },
+
+        idToken: state => {
             return state.accessToken
         }
     },
@@ -24,6 +29,9 @@ export default {
         LOGOUT: state => {
             delete state.accessToken
             delete state.idToken
+        },
+        SET_CALLBACKURL: (state, data) => {
+            state.callbackUrl = data
         }
     },
 

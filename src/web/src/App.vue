@@ -6,40 +6,33 @@
           <router-link to="/" exact class="navbar-item">
             <img class="logo" src="~public/logo.png" alt="logo">
           </router-link>
-          <div role="button" class="navbar-burger" data-target="navbarExampleTransparentExample" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
+          <div class="navbar-burger burger" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active'); document.querySelector('.navbar-burger').classList.toggle('is-active');">            <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
           </div>
         </div>
-
-        <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div  class="navbar-menu">
           <div class="navbar-start">
-            <span class="navbar-item">
-              Cool Store
-            </span>
           </div>
-        </div>
-
-        <div class="navbar-end">
-          <router-link to="/" class="navbar-item">
-            Home
-          </router-link>
-          <router-link to="/new" class="navbar-item">
-            New Catalog
-          </router-link>
-          <router-link to="/cart" class="navbar-item">
-            Carts ({{itemCount}})
-          </router-link>
-          <!-- <div class="navbar-item">
-            {{isLogged}}
-          </div> -->
-          <a href="#" @click="logout" class="navbar-item router-link-exact-active router-link-active">
-            Logout
-          </a>
+          <div class="navbar-end">
+            <router-link to="/" class="navbar-item">
+              Home
+            </router-link>
+            <router-link to="/new" class="navbar-item">
+              New Catalog
+            </router-link>
+            <router-link to="/cart" class="navbar-item">
+              Carts ({{itemCount}})
+            </router-link>
+            <!-- <div class="navbar-item">
+              {{isLogged}}
+            </div> -->
+            <a href="#" @click="logout" class="navbar-item router-link-exact-active router-link-active">
+              Logout
+            </a>
+          </div>
         </div>
       </nav>
-
       <transition name="fade" mode="out-in">
         <router-view class="view"></router-view>
       </transition>
@@ -51,7 +44,6 @@
 <script>
 import Footer from './components/Footer.vue'
 import { getUser, signoutRedirect } from './auth/usermanager'
-import { getItem } from './helper/storage'
 import NoSSR from 'vue-no-ssr'
 
 export default {
@@ -77,10 +69,6 @@ export default {
     getUser(user => {
       if (user) this.userId = user.sub
     })
-    var cartId = getItem('cartId')
-    if (cartId) {
-      this.$store.dispatch('cart/GET_CART')
-    }
   },
   methods: {
     logout() {
@@ -110,5 +98,33 @@ export default {
 
 .navigate-color .navbar-item {
   color: white;
+}
+
+@media screen and (max-width: 1087px) {
+  .navbar-menu {
+    background-color: #445f71;
+  }
+}
+
+@media screen and (max-width: 1087px) and (min-width: 678px) {
+  .navbar-burger {
+    display: none;
+  }
+
+  .navbar, .navbar-menu, .navbar-start, .navbar-end {
+    align-items: stretch;
+    display: flex;
+  }
+
+  .navbar-menu {
+    margin-left: auto;
+  }
+
+  .navbar > .container {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
 }
 </style>

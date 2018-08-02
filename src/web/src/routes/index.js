@@ -42,13 +42,15 @@ const router = new Router({
         {
             path: '/review/:id',
             name: 'reviewproduct',
+            beforeEnter: requireAuth,
             component: Review
         },
         {
             path: '/new',
             name: 'new catalog',
+            beforeEnter: requireAuth,
             component: NewCatalog
         }
     ]
 })
-export default router;
+export default router

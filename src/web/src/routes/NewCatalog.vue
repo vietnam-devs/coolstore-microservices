@@ -4,6 +4,16 @@
         <b-field label="Produdct Name">
             <b-input v-model="name" placeholder="Produdct Name" required></b-input>
         </b-field>
+
+        <div class="field">
+          <label class="label">
+            Image
+          </label> 
+          <div class="control is-clearfix">
+            <img v-bind:src="imageShow" name="image" />
+          </div>
+          <button class="button is-primary" @click="randomNewImage">Change image</button>
+        </div>
     
         <b-field label="Description">
             <b-input v-model="desc" maxlength="200" type="textarea" placeholder="Description"></b-input>
@@ -17,9 +27,6 @@
         <span>
           <button class="button is-primary" @click="save" type="submit">Save</button>
         </span>
-        <span class="margin-left-20">
-          <button class="button is-primary" @click="goBack" type="submit">Back</button>
-        </span>
       </form>
     </section>
 </template>
@@ -31,17 +38,45 @@ export default {
     return {
       name: '',
       desc: '',
-      price: 1
+      price: 1,
+      imageUrl: 'https://picsum.photos/1200/900?image=',
+      imageNumberDefault: 0
+    }
+  },
+  beforeMount() {
+    this.randomNewImage()
+  },
+  computed: {
+    imageShow() {
+      return this.imageUrl + this.imageNumberDefault
+    },
+    imageNumber: {
+      get() {
+        return Math.floor(Math.random() * 500)
+      },
+      set(newValue) {
+        this.imageNumberDefault = newValue
+      }
     }
   },
   methods: {
+    getRandomNumber() {
+      debugger
+      return Math.floor(Math.random() * 500)
+    },
     goBack() {
-      this.$router.back()
+      this.$router.go(-1)
     },
     checkForm: function(e) {
       if (this.name && this.price) {
         return true
       }
+    },
+    randomNewImage(e) {
+      this.imageNumber = Math.floor(Math.random() * 500)
+      if (!e) return
+      e.preventDefault()
+      return
     },
     save(e) {
       if (!this.checkForm()) {
@@ -53,9 +88,11 @@ export default {
         desc: this.desc,
         price: this.price
       }
-      this.$store.dispatch('products/CREATE_CATEGORY', { model }).then((response => {
-        this.$router.push('/')
-      }))
+      this.$store
+        .dispatch('products/CREATE_CATEGORY', { model })
+        .then(response => {
+          this.$router.push('/')
+        })
     }
   }
 }

@@ -3,18 +3,18 @@
     <div class="columns is-vcentered">
       <div class="column is-5">
           <picture class="image is-square">
-              <source srcset="https://picsum.photos/400/300?image=0" type="image/webp" /><img class="lazyload" srcset="https://www.gravatar.com/avatar/dummy?d=mm" :alt="`Image of ${product.name}`" /></picture>
+              <source srcset="https://picsum.photos/1200/900?image=0" type="image/webp" /><img class="lazyload" srcset="https://www.gravatar.com/avatar/dummy?d=mm" :alt="`Image of ${product.name}`" /></picture>
       </div>
       <div class="column is-6 is-offset-1">
           <h1 class="title is-2">{{ product.name }}</h1>
           <h2 class="subtitle is-4">{{product.desc}}</h2>
           <p class="is-size-6">${{ product.price }}</p><br/>
           <section>
-            <b-field>
-              <b-input placeholder="Number" v-model="product.quantity" type="number" value="1" min="1" max="20" style="width: 4em">
+            <b-field class="div-center">
+              <b-input placeholder="Number" v-model="quantity" type="number" value="1" min="1" max="20" style="width: 4em">
               </b-input>
-              <button @click="addToCart(product.id, product.quantity)" class="button is-primary">Add To Cart</button>
-              <div class="tag-right">
+              <button @click="addToCart(product.id, quantity)" class="button is-primary">Add To Cart</button>
+              <div>
                   <span class="tag is-dark ">
                       <template v-if="product.availability">{{product.availability.quantity}}</template>
                       <template v-if="!product.availability">0</template>
@@ -36,6 +36,11 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'review',
+  data() {
+    return {
+      quantity: 1
+    }
+  },
   computed: {
     product() {
       return this.$store.state.products.product || {}
@@ -67,4 +72,11 @@ export default {
 </script>
 
 <style lang="stylus">
+.field.has-addons.div-center {
+  justify-content: center;
+}
+
+.container {
+  margin-top: 30px;
+}
 </style>

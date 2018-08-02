@@ -1,7 +1,8 @@
 import { oidcSettings } from '../oidcConfig'
-import { getItem } from '../helper/storage'
 var atob = require('atob')
 var applicationUserManager = () => import('oidc-client')
+import store from '../stores'
+
 export function login(callback) {
     return applicationUserManager().then(obj => {
         let userManger = new obj.UserManager(oidcSettings)
@@ -15,7 +16,8 @@ export function getUser(callback) {
         userManger.getUser().then(response => {
             if (response) {
             } else {
-                var userInfo = parseJwt(getItem('idToken'))
+                var idToken = store.getters['account/idToken']
+                var userInfo = parseJwt(idToken)
                 if (userInfo) userInfo = JSON.parse(userInfo)
                 callback(userInfo)
             }
@@ -33,11 +35,11 @@ export function signinSilent(callback) {
 export function signoutRedirect(callback) {
     applicationUserManager().then(obj => {
         let userManger = new obj.UserManager(oidcSettings)
-        var idToken = getItem('idToken');
-        userManger.signoutRedirect({'id_token_hint': idToken }).then(response => {
-
-        })
-        callback(userManger.signoutRedirect({'id_token_hint': idToken }))
+        var idToken = store.getters['account/idToken']
+        userManger
+            .signoutRedirect({ id_token_hint: idToken })
+            .then(response => {})
+        callback(userManger.signoutRedirect({ id_token_hint: idToken }))
     })
 }
 

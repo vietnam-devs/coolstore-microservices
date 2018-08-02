@@ -4,6 +4,11 @@
 import Router from 'vue-router'
 export default {
   name: 'callback',
+  computed: {
+    callbackUrl() {
+      return this.$store.state.account.callbackUrl || '/'
+    }
+  },
   mounted() {
     if (this.$route.hash) {
       var accessToken = this.getKeyValueFromUrl(
@@ -14,12 +19,12 @@ export default {
         this.$route.hash.substring(1),
         'id_token'
       )
-      
+      debugger
       this.$store.commit('account/LOGIN_SUCCESS', { accessToken, idToken })
       var router = new Router({
         mode: 'history'
       })
-      this.$router.push('/')
+      this.$router.push(this.callbackUrl)
     }
   },
   methods: {
