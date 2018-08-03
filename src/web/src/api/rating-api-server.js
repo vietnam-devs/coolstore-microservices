@@ -1,9 +1,14 @@
 import { createAPI } from './create-api-server'
 
+var databaseURL = '/api'
+if (process.env.NODE_ENV == 'production') {
+    databaseURL = '/rat/api'
+}
+
 const api = createAPI({
     version: '/v1',
     config: {
-        databaseURL: '/rat/api'
+        databaseURL: databaseURL
     }
 })
 
