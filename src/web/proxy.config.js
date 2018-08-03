@@ -21,6 +21,21 @@ const PROXY_CONFIG = {
         secure: false,
         logLevel: 'debug'
     },
+    '/cat/api/*': {
+        target: url,
+        secure: false,
+        logLevel: 'debug'
+    },
+    '/rat/api/*': {
+        target: url,
+        secure: false,
+        logLevel: 'debug'
+    },
+    '/cart/api/*': {
+        target: url,
+        secure: false,
+        logLevel: 'debug'
+    },
     '/config': {
         target: `${urlIdp}.well-known/openid-configuration`,
         secure: false,
