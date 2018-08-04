@@ -10,7 +10,7 @@ const env = process.env.NODE_ENV
 const config = {
     mode: env || 'development'
 }
-if (config.mode == 'development') {
+if (config.mode == 'production') {
     urlSpa = "http://coolstore.local/"
     urlIdp = "http://id.coolstore.local/"
     url = "http://api.coolstore.local/"
