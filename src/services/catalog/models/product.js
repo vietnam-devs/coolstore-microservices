@@ -11,37 +11,37 @@ var ProductSchema = new Schema({
 })
 
 // Duplicate the ID field.
-ProductSchema.virtual('id').get(function(){
-    return this._id;
+ProductSchema.virtual('id').get(function () {
+  return this._id;
 });
 
 // Ensure virtual fields are serialised.
 ProductSchema.set('toJSON', {
-    virtuals: true
+  virtuals: true
 });
 
 ProductSchema.path('name').required(true, 'Product name cannot be blank')
 ProductSchema.path('price').required(true, 'price cannot be blank')
-ProductSchema.path('price').validate(function(price) {
+ProductSchema.path('price').validate(function (price) {
   // https://gist.github.com/rutcreate/03ff3f9bd5f414465322
   return Number(price).toString() === price.toString()
 }, 'Price must be a float number.')
 
 ProductSchema.methods = {
-  createProduct: function(product) {
+  createProduct: function (product) {
     this._id = uuid()
     this.name = product.name
     this.desc = product.desc
     this.price = product.price
-    return this.save()
+    return this
   }
 }
 
 ProductSchema.statics = {
-  findProduct: function(_id) {
+  findProduct: function (_id) {
     return this.find({ _id }).exec()
   },
-  findProducts: function(options) {
+  findProducts: function (options) {
     return this.find({}).exec()
   }
 }

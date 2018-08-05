@@ -15,10 +15,10 @@ if (config.mode == 'production') {
     urlIdp = "http://id.coolstore.local/"
     url = "http://api.coolstore.local/"
 
-    var urlCat = 'http://api.coolstore.local/cat/'
+    var urlCat = 'http://api.coolstore.local/catalog/'
     var urlCart = 'http://api.coolstore.local/cart/'
-    var urlInv = 'http://api.coolstore.local/inv/'
-    var urlRat = 'http://api.coolstore.local/rat/'
+    var urlInv = 'http://api.coolstore.local/inventory/'
+    var urlRat = 'http://api.coolstore.local/rating/'
 }
 
 
@@ -36,14 +36,14 @@ const PROXY_CONFIG = {
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
-        pathRewrite: { '^/cat': '' }
+        pathRewrite: { '^/catalog': '' }
     },
     '/rat/api/*': {
         target: urlRat,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
-        pathRewrite: { '^/rat': '' }
+        pathRewrite: { '^/rating': '' }
     },
     '/cart/api/*': {
         target: urlCart,
@@ -57,7 +57,7 @@ const PROXY_CONFIG = {
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
-        pathRewrite: { '^/inv': '' }
+        pathRewrite: { '^/inventory': '' }
     },
     '/config': {
         target: `${urlIdp}.well-known/openid-configuration`,

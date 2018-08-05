@@ -1,6 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const swaggerUI = require('swagger-ui-express')
+const swaggerJSON = require('./swagger/swagger.json')
+
 require('./models/product')
 
 const Product = mongoose.model('Product')
@@ -10,7 +13,7 @@ var isProduction = process.env.NODE_ENV === 'production'
 console.info(`Production environment is ${isProduction}`)
 
 var basePath = process.env.BASE_PATH
-if(!basePath) {
+if (!basePath) {
   basePath = '/'
 }
 console.info(`Base path is ${basePath}`)
@@ -49,7 +52,7 @@ connect()
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500)
   res.json({
     errors: {
@@ -62,9 +65,9 @@ app.use(function(err, req, res, next) {
 app.get(`${basePath}api/v1/products/:productId`, async (req, res) => {
   console.info(req.params)
   var product = await Product.findProduct(req.params.productId)
-  if(product.length > 0)
+  if (product.length > 0)
     res.send(product[0])
-  else 
+  else
     res.send(product)
 })
 
@@ -76,7 +79,15 @@ app.get(`${basePath}api/v1/products`, async (req, res) => {
 app.post(`${basePath}api/v1/products`, async (req, res) => {
   console.info(req.body)
   var newProduct = new Product()
-  res.send(await newProduct.createProduct(req.body))
+  var product = newProduct.createProduct(req.body)
+  await product.save(function (error) {
+    if (error) {
+      res.status(400).send({ error: error })
+    } else {
+      res.send(product)
+    }
+  })
+
 })
 
 app.get(`${basePath}healthz`, (req, res) => {
@@ -85,12 +96,14 @@ app.get(`${basePath}healthz`, (req, res) => {
   })
 })
 
-app.get(`${basePath}`, function(req, res) {
+app.get(`${basePath}`, function (req, res) {
   res.send('Catalog Service.')
 })
 
+app.use(`${basePath}swagger`, swaggerUI.serve, swaggerUI.setup(swaggerJSON));
+
 /// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found')
   err.status = 404
   next(err)
@@ -99,7 +112,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (!isProduction) {
-  app.use(function(err, req, res, next) {
+  app.use(function (err, req, res, next) {
     console.error(err.stack)
     res.status(err.status || 500)
     res.json({
