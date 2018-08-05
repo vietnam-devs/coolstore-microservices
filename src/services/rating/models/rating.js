@@ -33,13 +33,13 @@ RatingSchema.methods = {
     this.productId = rating.productId
     this.userId = rating.userId
     this.cost = rating.cost
-    return this.save()
+    return this
   },
   updateCostRating: function(rating, cost) {
     this.getRatingByProductIdAndUserid(rating.productId, rating.userId).then(
       (error, data) => {
         data.cost = rating.cost
-        return data.save()
+        return data
       }
     )
   }
@@ -61,13 +61,8 @@ RatingSchema.statics = {
   getRatingByProductIdAndUserid: function(productId, userId) {
     return this.findOne({ productId: productId, userId: userId }).exec()
   },
-  updateRatingByProductIdAndUserId: function(productId, userId, cost) {
-    this.findOne({ productId: productId, userId: userId }).then(
-      (data) => {
-        data.cost = cost
-        data.save()
-      }
-    )
+  findRatingByProductIdAndUserId: function(productId, userId) {
+    return this.findOne({ productId: productId, userId: userId }).exec()
   }
 }
 

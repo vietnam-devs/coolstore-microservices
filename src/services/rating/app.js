@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 require('./models/rating')
+const swaggerUI = require('swagger-ui-express')
+const swaggerJSON = require('./swagger/swagger.json')
 
 const Rating = mongoose.model('Rating')
 const app = express()
@@ -10,7 +12,7 @@ var isProduction = process.env.NODE_ENV === 'production'
 console.info(`Production environment is ${isProduction}`)
 
 var basePath = process.env.BASE_PATH
-if(!basePath) {
+if (!basePath) {
   basePath = '/'
 }
 console.info(`Base path is ${basePath}`)
@@ -49,7 +51,7 @@ connect()
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500)
   res.json({
     errors: {
@@ -63,20 +65,28 @@ app.get(`${basePath}api/v1/ratings`, async (req, res) => {
   console.info(req.body)
   var rattings = await Rating.findRatings()
   var result = []
-  rattings.reduce(function(res, value) {
+  rattings.reduce(function (res, value) {
     if (!res[value.productId]) {
       res[value.productId] = {
         productId: value.productId,
         cost: 0,
         userId: value.userId,
-        id: value.Id
+        id: value.Id,
+        count: 0,
+        totalCost: 0
       }
       result.push(res[value.productId])
     }
-    res[value.productId].cost += value.cost
+    res[value.productId].count += 1
+    var nextCost = res[value.productId].totalCost += value.cost
+    res[value.productId].cost = nextCost / res[value.productId].count
     return res
   }, {})
-  res.send(result)
+  res.send(result.map(function (item) {
+    delete item.count
+    delete item.totalCost
+    return item
+  }))
 })
 
 app.get(`${basePath}api/v1/ratings/:productId`, async (req, res) => {
@@ -92,7 +102,7 @@ app.get(`${basePath}api/v1/ratings/:productId`, async (req, res) => {
   } else {
     modelReponse.cost =
       ratingolds.reduce(
-        (accumulator, currentValue) => accumulator.cost + currentValue.cost
+        (accumulator, currentValue) => accumulator + currentValue.cost, 0
       ) / ratingolds.length
   }
   res.send(modelReponse)
@@ -101,18 +111,30 @@ app.get(`${basePath}api/v1/ratings/:productId`, async (req, res) => {
 app.post(`${basePath}api/v1/ratings`, async (req, res) => {
   console.info(req.body)
   var newRating = new Rating()
-  res.send(await newRating.createRating(req.body))
+  var rating = newRating.createRating(req.body)
+  await rating.save(function (err) {
+    if (err) {
+      res.status(400).send({ error: err })
+    } else {
+      res.send(rating)
+    }
+  })
 })
 
 app.put(`${basePath}api/v1/ratings`, async (req, res) => {
   console.info(req.body)
-  res.send(
-    await Rating.updateRatingByProductIdAndUserId(
-      req.body.productId,
-      req.body.userId,
-      req.body.cost
-    )
+  var rating = await Rating.findRatingByProductIdAndUserId(
+    req.body.productId,
+    req.body.userId
   )
+  rating.cost = req.body.cost
+  await rating.save(function (err) {
+    if (err) {
+      res.status(400).send({ error: err })
+    } else {
+      res.send(rating)
+    }
+  })
 })
 
 app.get(`${basePath}healthz`, (req, res) => {
@@ -121,12 +143,14 @@ app.get(`${basePath}healthz`, (req, res) => {
   })
 })
 
-app.get(`${basePath}`, function(req, res) {
+app.get(`${basePath}`, function (req, res) {
   res.send('Rating Service.')
 })
 
+app.use(`${basePath}swagger`, swaggerUI.serve, swaggerUI.setup(swaggerJSON));
+
 /// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found')
   err.status = 404
   next(err)
@@ -135,7 +159,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (!isProduction) {
-  app.use(function(err, req, res, next) {
+  app.use(function (err, req, res, next) {
     console.error(err.stack)
     res.status(err.status || 500)
     res.json({
@@ -155,8 +179,8 @@ function startServer() {
 }
 
 function groupBy(xs, key) {
-  return xs.reduce(function(rv, x) {
-    ;(rv[x[key]] = rv[x[key]] || []).push(x)
+  return xs.reduce(function (rv, x) {
+    ; (rv[x[key]] = rv[x[key]] || []).push(x)
     return rv
   }, {})
 }
