@@ -4,14 +4,13 @@
       <h1>&nbsp;</h1>
       <div class="tile is-ancestor columns is-multiline">
         <div v-for="(product, index) in products" class="tile column is-3">
-          <article class="tile tile is-child border-box" @click="showReviews(product)">
-            <img class="img-responsive" v-bind:src="productImageUrl + index" />
-            <p class="name">{{product.name}}</p>
+          <article class="tile tile is-child border-box">
+            <img @click="showReviews(product)" class="img-responsive" v-bind:src="productImageUrl + index" />
+            <p @click="showReviews(product)" class="name">{{product.name}}</p>
             <section class="price">
                 <b-field>
                     <span>${{product.price}}</span>
-                    <!-- <span class="tag-right"><star-rating v-bind:star-size="20" v-if="ratings[product.id]" v-model="ratings[product.id].cost" v-bind:show-rating="false"></star-rating></span> -->
-                    <span class="tag-right"><star-rating v-bind:star-size="20" v-model="defaultStar" v-bind:show-rating="false"></star-rating></span>
+                    <span class="tag-right"><star-rating @rating-selected ="setRating(product.id, $event)" v-bind:star-size="20" v-if="ratings[product.id]" v-model="ratings[product.id].cost" v-bind:show-rating="false"></star-rating></span>
                 </b-field>
             </section>
           </article>
@@ -38,7 +37,6 @@ export default {
       isModalVisible: false,
       productReview: {},
       productImageUrl: 'https://picsum.photos/400/300?image=',
-      defaultStar: 0
     }
   },
 
@@ -49,7 +47,16 @@ export default {
       return this.$store.getters['products/products']
     },
     ratings() {
-      return this.$store.getters['ratings/ratingSet']
+      let ratingSet = this.$store.getters["ratings/ratingSet"]
+      let productSet = this.$store.getters["products/products"]
+      return productSet.reduce((obj, item) => {
+        ratingSet[item.id] = ratingSet[item.id] || {}
+        obj[item.id] = ratingSet[item.id]
+        return obj
+      }, {})
+    },
+    userInfo() {
+      return this.$store.getters["account/userInfo"] || {}
     }
   },
 
@@ -57,13 +64,19 @@ export default {
     this.loadItems(this.page)
   },
 
-  asyncData({ store }) {
-    return store.dispatch('products/GET_LIST_PRODUCT', { page: 0 })
-  },
+  // asyncData({ store }) {
+  //   return [
+  //     store.dispatch("products/GET_LIST_PRODUCT", { page: 0 }),
+  //     store.dispatch("ratings/GET_LIST_RATING")
+  //   ]
+  // },
 
   methods: {
     loadItems(page) {
-      this.$store.dispatch('products/GET_LIST_PRODUCT', { page: 0 })
+      Promise.all([
+        this.$store.dispatch("products/GET_LIST_PRODUCT", { page: 0 }),
+        this.$store.dispatch("ratings/GET_LIST_RATING")
+      ])
     },
 
     formatPrice(value) {
@@ -71,15 +84,19 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     },
 
-    // rateFunction(itemId, rating) {
-    //   this.$store.dispatch('SET_RATING_ITEM', { itemId, rating })
-    // },
+    setRating(productId, rating) {
+      this.$store.dispatch("ratings/SET_RATING_FOR_PRODUCT", {
+        productId,
+        userId: this.userInfo.sub,
+        cost: rating
+      })
+    },
 
     showReviews(product) {
       this.productReview = product
       this.$router.push('/review/' + product.id)
     },
-    
+
   }
 }
 </script>

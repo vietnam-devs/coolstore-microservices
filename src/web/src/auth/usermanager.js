@@ -10,17 +10,11 @@ export function login(callback) {
     })
 }
 
-export function getUser(callback) {
-    applicationUserManager().then(obj => {
-        let userManger = new obj.UserManager(oidcSettings)
-        userManger.getUser().then(response => {
-            if (response) {
-            } else {
-                var idToken = store.getters['account/idToken']
-                var userInfo = parseJwt(idToken)
-                if (userInfo) userInfo = JSON.parse(userInfo)
-                callback(userInfo)
-            }
+export function getUser() {
+    return new Promise((resolve, reject) => {
+        applicationUserManager().then(obj => {
+            let userManger = new obj.UserManager(oidcSettings)
+            resolve(userManger.getUser())
         })
     })
 }
@@ -43,7 +37,7 @@ export function signoutRedirect(callback) {
     })
 }
 
-function parseJwt(token) {
+export function parseJwt(token) {
     if (!token) return null
     var base64Url = token.split('.')[1]
     var base64 = base64Url.replace('-', '+').replace('_', '/')

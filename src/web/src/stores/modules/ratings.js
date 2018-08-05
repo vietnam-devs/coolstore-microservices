@@ -1,4 +1,4 @@
-import { getRating } from '../../api'
+import { getRating, setRating } from '../../api'
 
 export default {
     namespaced: true,
@@ -13,11 +13,7 @@ export default {
                 obj[item.productId] = item
                 return obj
             }, {})
-            return state.products.reduce((obj, item) => {
-                ratingSet[item.id] = ratingSet[item.id] || {}
-                obj[item.id] = ratingSet[item.id]
-                return obj
-            }, {})
+            return ratingSet
         }
     },
 
@@ -31,12 +27,30 @@ export default {
     },
 
     actions: {
-        GET_LIST_RATING: ({ commit }, {}) => {
+        GET_LIST_RATING: ({ commit }) => {
             return new Promise((resolve, reject) => {
                 getRating()
                     .then(
                         ratings => {
-                            commit('GET_LIST_RATING_SUCSESS', ratings.value)
+                            commit('GET_LIST_RATING_SUCSESS', ratings)
+                            resolve()
+                        },
+                        error => {
+                            commit('GET_LIST_RATING_FALURE', error)
+                            reject()
+                        }
+                    )
+                    .catch(error => {
+                        commit('GET_LIST_RATING_FALURE', error)
+                        reject()
+                    })
+            })
+        },
+        SET_RATING_FOR_PRODUCT: ({ commit }, { productId, userId, cost }) => {
+            return new Promise((resolve, reject) => {
+                setRating(productId, userId, cost)
+                    .then(
+                        ratings => {
                             resolve()
                         },
                         error => {

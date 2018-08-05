@@ -1,10 +1,13 @@
+import { parseJwt } from "../../auth/usermanager"
+
 export default {
     namespaced: true,
 
     state: {
         accessToken: null,
         idToken: null,
-        callbackUrl: null
+        callbackUrl: null,
+        userInfo: {}
     },
 
     getters: {
@@ -18,6 +21,10 @@ export default {
 
         idToken: state => {
             return state.accessToken
+        },
+
+        userInfo: state => {
+            return JSON.parse(parseJwt(state.idToken))
         }
     },
 
@@ -35,5 +42,7 @@ export default {
         }
     },
 
-    actions: {}
+    actions: {
+        
+    }
 }

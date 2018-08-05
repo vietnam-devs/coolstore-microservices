@@ -58,13 +58,8 @@ export default {
                 getProducts(pageIndex)
                     .then(
                         products => {
-                            commit('GET_LIST_PRODUCT_SUCSESS', products.value)
+                            commit('GET_LIST_PRODUCT_SUCSESS', products)
                             resolve()
-                            // dispatch('ratings/GET_LIST_RATING', null, {
-                            //     root: true
-                            // }).then(response => {
-                            //     resolve()
-                            // })
                         },
                         error => {
                             commit('GET_PRODUCT_FALURE', error)

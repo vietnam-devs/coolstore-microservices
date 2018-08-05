@@ -53,22 +53,17 @@ export default {
   },
   data() {
     return {
-      userId: undefined,
       username: undefined
-    }
+    };
   },
   computed: {
     itemCount() {
       return this.$store.getters['cart/itemCount']
     },
     isLogged() {
-      if (this.userId) return 'Logged!'
+      let userInfo = this.$store.getters["account/userInfo"] || {}
+      if (userInfo.sub) return 'Logged!'
     }
-  },
-  beforeMount() {
-    getUser(user => {
-      if (user) this.userId = user.sub
-    })
   },
   methods: {
     logout() {

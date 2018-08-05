@@ -16,9 +16,9 @@ if (config.mode == 'production') {
     url = "http://api.coolstore.local/"
 
     var urlCat = 'http://api.coolstore.local/cat/'
-    var urlCart = 'http://api.coolstore.local/cat/'
-    var urlInv = 'http://api.coolstore.local/cat/'
-    var urlRat = 'http://api.coolstore.local/cat/'
+    var urlCart = 'http://api.coolstore.local/cart/'
+    var urlInv = 'http://api.coolstore.local/inv/'
+    var urlRat = 'http://api.coolstore.local/rat/'
 }
 
 
