@@ -127,12 +127,12 @@ Waiting for the container provision completed
 2. Export chart to yaml file
 > If you run it on `Docker for Windows`, then you cannot run sidecar auto injection so that we need to export `coolstore` chart to manifest file like
 > ```
-> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml --namespace cs-system > deploys/istio/dev-all-in-one.yaml
-> istioctl kube-inject -f deploys/istio/dev-all-in-one.yaml | kubectl apply -f -
+> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml --namespace cs-system > deploys/k8s/dev-all-in-one.yaml
+> istioctl kube-inject -f deploys/k8s/dev-all-in-one.yaml | kubectl apply -f -
 >```
 
 3. Run with Nginx (not recommendation)
-> If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml` and add
+> If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml`, and modify as following
 >```
 > nginx:
 >    enabled: true

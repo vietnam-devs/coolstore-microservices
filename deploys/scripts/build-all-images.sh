@@ -3,9 +3,6 @@ TAG=${TAG:=$(git rev-parse --short HEAD)}
 NAMESPACE=${NAMESPACE:="vndg"}
 echo "${NAMESPACE} and ${TAG}"
 
-echo "Build Gateway..."
-docker build -f src/services/gateway/Dockerfile -t vndg/cs-gateway-service:$TAG -t vndg/cs-gateway-service:latest .
-
 echo "Build IDP..."
 docker build -f src/services/idp/Dockerfile -t vndg/cs-idp-service:$TAG -t vndg/cs-idp-service:latest .
 

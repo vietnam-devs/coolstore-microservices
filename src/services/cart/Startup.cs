@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Infrastructure.Db;
-using VND.CoolStore.Services.Cart.Infrastructure.Service;
-using VND.CoolStore.Services.Cart.Infrastructure.Service.Impl;
+using VND.CoolStore.Services.Cart.Shared.Services;
+using VND.CoolStore.Services.Cart.UseCases.v1.Services;
+using VND.CoolStore.Services.Cart.UseCases.v1.Services.Impl;
 using VND.FW.Infrastructure.AspNetCore.Extensions;
 using VND.FW.Infrastructure.EfCore.SqlServer;
 

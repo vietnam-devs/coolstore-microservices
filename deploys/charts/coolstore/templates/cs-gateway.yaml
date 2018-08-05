@@ -66,14 +66,6 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /gw/
-    route:
-    - destination:
-        host: gateway-service
-        port:
-          number: 80
-  - match:
-    - uri:
         prefix: /inventory/
     route:
     - destination:

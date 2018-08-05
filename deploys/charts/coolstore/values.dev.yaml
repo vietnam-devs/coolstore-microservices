@@ -1,8 +1,3 @@
-gatewaySettings:
-  Hosts__BasePath: /
-  Hosts__Externals__CurrentUri: http://api.coolstore.local
-  Hosts__Externals__Auth__Uri: http://id.coolstore.local
-  
 idpSettings:
   HostSettings__BashPath: /
   HostSettings__SwaggerRedirectUri: http://api.coolstore.local/swagger/oauth2-redirect.html

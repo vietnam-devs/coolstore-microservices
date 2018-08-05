@@ -31,8 +31,6 @@
     <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.EfCore.SqlServer\VND.FW.Infrastructure.EfCore.SqlServer.csproj" />
     <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.EfCore\VND.FW.Infrastructure.EfCore.csproj" />
     <ProjectReference Include="..\..\framework\VND.FW.Utils\VND.Fw.Utils.csproj" />
-    <ProjectReference Include="..\..\shared\VND.CoolStore.Shared.Cart\VND.CoolStore.Shared.Cart.csproj" />
-    <ProjectReference Include="..\..\shared\VND.CoolStore.Shared.Catalog\VND.CoolStore.Shared.Catalog.csproj" />
   </ItemGroup>
 
 </Project>

@@ -55,25 +55,6 @@ spec:
 ---
 
 ---
-# Source: coolstore/templates/gateway-svc.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: gateway-service
-  namespace: default
-  labels:
-    app: gateway-service
-spec:
-  ports:
-  - port: 80
-    targetPort: 5000
-    protocol: TCP
-    name: http
-  selector:
-    app: gateway
----
-
----
 # Source: coolstore/templates/idp-svc.yaml
 apiVersion: v1
 kind: Service
@@ -250,37 +231,6 @@ spec:
           value: mongodb://mongodb:27017/catalog
         ports:
         - containerPort: 5002
----
-
----
-# Source: coolstore/templates/gateway-dep.yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: gateway-v1
-  namespace: default
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: gateway
-        version: v1
-    spec:
-      containers:
-      - name: gateway
-        image: vndg/cs-gateway-service:latest
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: Hosts__BasePath
-          value: /
-        - name: Hosts__Externals__CurrentUri
-          value: http://api.coolstore.local
-        - name: Hosts__Externals__Auth__Uri
-          value: http://id.coolstore.local
-        ports:
-        - name: http
-          containerPort: 5000
 ---
 
 ---
@@ -493,14 +443,6 @@ spec:
   gateways:
   - cs-gateway
   http:
-  - match:
-    - uri:
-        prefix: /gw/
-    route:
-    - destination:
-        host: gateway-service
-        port:
-          number: 80
   - match:
     - uri:
         prefix: /inventory/
