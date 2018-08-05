@@ -73,10 +73,10 @@ There are several individual microservices and infrastructure components that ma
 
 2. From current console, type `bash` to enter `Linux Subsystem (Ubuntu)`
 
-3. Download `istio istio-1.0.0-snapshot.2`, and unzip it into somewhere
+3. Download [istio istio-1.0.0](https://github.com/istio/istio/releases/tag/1.0.0), and unzip it into somewhere
 
 ```
-> cd <istio-1.0.0-snapshot.2 path>
+> cd <istio-1.0.0 path>
 > kubectl create -f install/kubernetes/helm/helm-service-account.yaml
 > helm init --service-account tiller --upgrade
 > helm install install/kubernetes/helm/istio --name istio --namespace istio-system --timeout 1000
