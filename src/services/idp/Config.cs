@@ -10,63 +10,57 @@ namespace IdentityServer4
 {
   public static class Config
   {
-    public static IEnumerable<IdentityResource> GetIdentityResources()
+    public static IEnumerable<IdentityResource> GetIdentityResources() => new IdentityResource[]
     {
-      return new IdentityResource[]
-      {
-        new IdentityResources.OpenId(),
-        new IdentityResources.Profile()
-      };
-    }
+      new IdentityResources.OpenId(),
+      new IdentityResources.Profile()
+    };
 
-    public static IEnumerable<ApiResource> GetApis()
+    public static IEnumerable<ApiResource> GetApis() => new[]
     {
-      return new ApiResource[]
+      new ApiResource
       {
-        new ApiResource
+        Name = "api",
+        DisplayName = "API",
+        Scopes =
         {
-          Name = "api",
-          DisplayName = "API",
-          Scopes =
+          new Scope
           {
-            new Scope
-            {
-              Name = "inventory_api_scope",
-              Description = "Inventory API scope"
-            },
-            new Scope
-            {
-              Name = "cart_api_scope",
-              Description = "Cart API Scope"
-            },
-            new Scope
-            {
-              Name = "pricing_api_scope",
-              Description = "Pricing API Scope"
-            },
-            new Scope
-            {
-              Name = "review_api_scope",
-              Description = "Review API Scope"
-            },
-            new Scope
-            {
-              Name = "catalog_api_scope",
-              Description="Catalog API Scope"
-            },
-            new Scope
-            {
-              Name = "rating_api_scope",
-              Description="Rating API Scope"
-            }
+            Name = "inventory_api_scope",
+            Description = "Inventory API scope"
+          },
+          new Scope
+          {
+            Name = "cart_api_scope",
+            Description = "Cart API Scope"
+          },
+          new Scope
+          {
+            Name = "pricing_api_scope",
+            Description = "Pricing API Scope"
+          },
+          new Scope
+          {
+            Name = "review_api_scope",
+            Description = "Review API Scope"
+          },
+          new Scope
+          {
+            Name = "catalog_api_scope",
+            Description="Catalog API Scope"
+          },
+          new Scope
+          {
+            Name = "rating_api_scope",
+            Description="Rating API Scope"
           }
         }
-      };
-    }
+      }
+    };
 
-    public static IEnumerable<Client> GetClients(bool isDevelopment, IConfigurationSection hostSettings) => new[]
+    public static IEnumerable<Client> GetDevClients() => new[]
     {
-			// Inventory Swagger UI
+      // Inventory Swagger UI
 			new Client
       {
         ClientId = "swagger_id",
@@ -76,7 +70,12 @@ namespace IdentityServer4
         AllowAccessTokensViaBrowser = true,
         RedirectUris =
         {
-          "http://localhost:5000/swagger/oauth2-redirect.html"
+          "http://localhost:5002/swagger/oauth2-redirect.html",
+          "http://localhost:5003/swagger/oauth2-redirect.html",
+          "http://localhost:5004/swagger/oauth2-redirect.html",
+          "http://localhost:5005/swagger/oauth2-redirect.html",
+          "http://localhost:5006/swagger/oauth2-redirect.html",
+          "http://localhost:5007/swagger/oauth2-redirect.html",
         },
         PostLogoutRedirectUris =
         {
@@ -84,7 +83,12 @@ namespace IdentityServer4
         },
         AllowedCorsOrigins =
         {
-          "http://localhost:5000"
+          "http://localhost:5002",
+          "http://localhost:5003",
+          "http://localhost:5004",
+          "http://localhost:5005",
+          "http://localhost:5006",
+          "http://localhost:5007"
         },
         AccessTokenLifetime = 300,
         AllowedScopes =
@@ -97,49 +101,101 @@ namespace IdentityServer4
           "rating_api_scope"
         }
       },
-			// MVC client using hybrid flow
+			// SPA client using implicit flow
 			new Client
       {
-        ClientId = "mvc",
-        ClientName = "MVC Client",
+        ClientId = "spa",
+        ClientName = "SPA Client",
+        ClientUri = "http://localhost:8080",
+        AllowedGrantTypes = GrantTypes.Implicit,
+        AllowAccessTokensViaBrowser = true,
 
-        AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
-        ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
+        RedirectUris =
+        {
+          "http://localhost:8080/callback"
+        },
 
-        RedirectUris = { "https://localhost:5001/signin-oidc" },
-        FrontChannelLogoutUri = "https://localhost:5001/signout-oidc",
-        PostLogoutRedirectUris = { "https://localhost:5001/signout-callback-oidc" },
+        PostLogoutRedirectUris =
+        {
+          "http://localhost:8080/"
+        },
+        AllowedCorsOrigins =
+        {
+          "http://localhost:8080"
+        },
 
-        AllowOfflineAccess = true,
-        AllowedScopes = { "openid", "profile", "inventory_api" }
+        AllowedScopes = {
+          "inventory_api_scope",
+          "cart_api_scope",
+          "pricing_api_scope",
+          "review_api_scope",
+          "catalog_api_scope",
+          "rating_api_scope",
+          "openid",
+          "profile"
+        }
+      }
+    };
+
+    public static IEnumerable<Client> GetClients(IConfigurationSection hostSettings) => new[]
+    {
+			// Inventory Swagger UI
+			new Client
+      {
+        ClientId = "swagger_id",
+        ClientName = "swagger_app",
+        ClientSecrets = new List<Secret> {new Secret("secret".Sha256())},
+        AllowedGrantTypes = GrantTypes.Implicit,
+        AllowAccessTokensViaBrowser = true,
+        RedirectUris =
+        {
+          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/catalog/swagger/oauth2-redirect.html",
+          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/cart/swagger/oauth2-redirect.html",
+          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/inventory/swagger/oauth2-redirect.html",
+          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/price/swagger/oauth2-redirect.html",
+          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/review/swagger/oauth2-redirect.html",
+          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/rating/swagger/oauth2-redirect.html"
+        },
+        PostLogoutRedirectUris =
+        {
+          "http://localhost:5001/signout-oidc"
+        },
+        AllowedCorsOrigins =
+        {
+          hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")
+        },
+        AccessTokenLifetime = 300,
+        AllowedScopes =
+        {
+          "inventory_api_scope",
+          "cart_api_scope",
+          "pricing_api_scope",
+          "review_api_scope",
+          "catalog_api_scope",
+          "rating_api_scope"
+        }
       },
 			// SPA client using implicit flow
 			new Client
       {
         ClientId = "spa",
         ClientName = "SPA Client",
-        ClientUri = isDevelopment
-          ? "http://localhost:8080"
-          : hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"),
+        ClientUri = hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"),
         AllowedGrantTypes = GrantTypes.Implicit,
         AllowAccessTokensViaBrowser = true,
 
         RedirectUris =
         {
-          "http://localhost:8080/callback",
           $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/callback"
         },
 
         PostLogoutRedirectUris =
         {
-          "http://localhost:8080/",
           $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/"
         },
         AllowedCorsOrigins =
         {
-          isDevelopment
-          ? "http://localhost:8080"
-          : hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"),
+          hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"),
         },
 
         AllowedScopes = {

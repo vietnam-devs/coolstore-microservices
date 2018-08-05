@@ -20,13 +20,6 @@ docker tag $DOCKER_USERNAME/cs-mssqldb:$DOCKER_TAG $DOCKER_GROUP/cs-mssqldb:$DOC
 docker push $DOCKER_GROUP/cs-mssqldb:$DOCKER_TAG
 echo "================================================================================"
 
-echo "Build Gateway Service"
-echo "================================================================================"
-docker build -f ./src/services/gateway/Dockerfile -t $DOCKER_USERNAME/cs-gateway-service:$DOCKER_TAG .
-docker tag $DOCKER_USERNAME/cs-gateway-service:$DOCKER_TAG $DOCKER_GROUP/cs-gateway-service:$DOCKER_TAG
-docker push $DOCKER_GROUP/cs-gateway-service:$DOCKER_TAG
-echo "================================================================================"
-
 echo "Build IdP Service"
 echo "================================================================================"
 docker build -f ./src/services/idp/Dockerfile -t $DOCKER_USERNAME/cs-idp-service:$DOCKER_TAG .

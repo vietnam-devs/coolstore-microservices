@@ -17,7 +17,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: Hosts__BasePath
-          value: /inv/
+          value: /inventory/
         ports:
         - containerPort: 5004
         livenessProbe:

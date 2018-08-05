@@ -26,6 +26,10 @@ namespace VND.FW.Infrastructure.AspNetCore
     }
   }
 
+  /// <summary>
+  /// https://github.com/FabianGosebrink/ASPNETCore-WebAPI-Sample/blob/master/SampleWebApiAspNetCore/Controllers/v1/FoodsController.cs
+  /// </summary>
+  /// <typeparam name="TEntity"></typeparam>
   public abstract class CrudControllerBase<TEntity> : EfCoreControllerBase<TEntity>
       where TEntity : EntityBase
   {

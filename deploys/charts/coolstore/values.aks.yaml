@@ -3,13 +3,8 @@ hosts:
   api: api.coolstore.aks
   idp: id.coolstore.aks
 
-gatewaySettings:
-  Hosts__BasePath: /
-  Hosts__Externals__CurrentUri: http://api.coolstore.aks
-  Hosts__Externals__Auth__Uri: http://id.coolstore.aks
-
 idpSettings:
   HostSettings__BashPath: /
   HostSettings__SwaggerRedirectUri: http://api.coolstore.aks/swagger/oauth2-redirect.html
   HostSettings__SwaggerPostLogoutRedirectUri: http://api.coolstore.aks
-  HostSettings__SwaggerAllowedCorsOrigin: http://coolstore.aks
+  HostSettings__SwaggerAllowedCorsOrigin: http://api.coolstore.aks

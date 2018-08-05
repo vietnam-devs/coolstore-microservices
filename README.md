@@ -13,8 +13,8 @@ CoolStore is a containerised polyglot microservices application consisting of se
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
 ### Slides
-- [Service Mesh for Microservices- Vietnam Mobile Day Event - June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
 - [From Microservices to Service Mesh - DevCafe Event - July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
+- [Service Mesh for Microservices- Vietnam Mobile Day Event - June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
 
 # Table of contents
 
@@ -40,33 +40,30 @@ It demonstrates how to wire up small microservices into a larger application usi
 
 There are several individual microservices and infrastructure components that make up this app:
 
-1. Catalog Service
-  - NodeJS service and MongoDB, serves products and prices for retail products
-  - **`http://localhost:5002`**
-2. Cart Service
-  - .NET Core service which manages shopping cart for each customer
-  - **`http://localhost:5003`**
-3. Inventory Service
-  - .NET Core service and SQL Server, serves inventory and availability data for retail products
-  - **`http://localhost:5004`**
-4. Pricing Service 
-  - .NET Core service which is a business rules application for product pricing
-  - **`http://localhost:5005`**
-5. Review Service
-  - .NET Core service and SQL Server running for writing and displaying reviews for products
-  - **`http://localhost:5006`**
-6. Rating Service
-  - NodeJS service running for rating products
-  - `http://localhost:5007`
-7. Coolstore Gateway
-  - [ingress-nginx](https://github.com/kubernetes/ingress-nginx) service running that serving as an API gateway to the backend services
-  - **`http://localhost:5000`**
-8. IDP
-  - Identity Provider using [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack
-  - **`http://localhost:5001`**
-9. Web UI (PWA)
-  - A frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org)
-  - **`http://localhost:8080`**
+1. Catalog Service: NodeJS service and MongoDB, serves products and prices for retail products
+  - **[http://localhost:5002](http://localhost:5002)**
+  - **[http://api.coolstore.local/catalog](http://api.coolstore.local/catalog)**
+2. Cart Service: .NET Core service which manages shopping cart for each customer
+  - **[http://localhost:5003](http://localhost:5003)**
+  - **[http://api.coolstore.local/cart](http://api.coolstore.local/cart)**
+3. Inventory Service: .NET Core service and SQL Server, serves inventory and availability data for retail products
+  - **[http://localhost:5004](http://localhost:5004)**
+  - **[http://api.coolstore.local/inventory](http://api.coolstore.local/inventory)**
+4. Pricing Service: .NET Core service which is a business rules application for product pricing
+  - **[http://localhost:5005](http://localhost:5005)**
+  - **[http://api.coolstore.local/pricing](http://api.coolstore.local/pricing)**
+5. Review Service: .NET Core service and SQL Server running for writing and displaying reviews for products
+  - **[http://localhost:5006](http://localhost:5006)**
+  - **[http://api.coolstore.local/review](http://api.coolstore.local/review)**
+6. Rating Service: NodeJS service running for rating products
+  - **[http://localhost:5007](http://localhost:5007)**
+  - **[http://api.coolstore.local/rating](http://api.coolstore.local/rating)**
+7. IdP: Identity Provider using [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack
+  - **[http://localhost:5001](http://localhost:5001)**
+  - **[http://id.coolstore.local](http://id.coolstore.local)**
+8. Web UI (PWA): A frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org)
+  - **[http://localhost:8080](http://localhost:8080)**
+  - **[http://coolstore.local](http://coolstore.local)**
 
 ![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
 
@@ -76,10 +73,10 @@ There are several individual microservices and infrastructure components that ma
 
 2. From current console, type `bash` to enter `Linux Subsystem (Ubuntu)`
 
-3. Download `istio istio-1.0.0-snapshot.2`, and unzip it into somewhere
+3. Download [istio-1.0.0](https://github.com/istio/istio/releases/tag/1.0.0), and unzip it into somewhere
 
 ```
-> cd <istio-1.0.0-snapshot.2 path>
+> cd <istio-1.0.0 path>
 > kubectl create -f install/kubernetes/helm/helm-service-account.yaml
 > helm init --service-account tiller --upgrade
 > helm install install/kubernetes/helm/istio --name istio --namespace istio-system --timeout 1000
@@ -123,7 +120,19 @@ Waiting for the container provision completed
 ```
 
 **Notes**:
-> If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml` and add
+
+1. Global path
+> Set `PATH` for `docker`, `kubectl`, `helm`, and `istioctl`.
+
+2. Export chart to yaml file
+> If you run it on `Docker for Windows`, then you cannot run sidecar auto injection so that we need to export `coolstore` chart to manifest file like
+> ```
+> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml --namespace cs-system > deploys/k8s/dev-all-in-one.yaml
+> istioctl kube-inject -f deploys/k8s/dev-all-in-one.yaml | kubectl apply -f -
+>```
+
+3. Run with Nginx (not recommendation)
+> If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml`, and modify as following
 >```
 > nginx:
 >    enabled: true
@@ -132,12 +141,6 @@ Waiting for the container provision completed
 > ```
 > helm install --name cs-nginx stable/nginx-ingress
 > ```
-
-> If you run it on `Docker for Windows`, then you cannot run sidecar auto injection so that we need to export `coolstore` chart to manifest file like
-> ```
-> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml --namespace cs-system > deploys/istio/dev-all-in-one.yaml
-> istioctl kube-inject -f deploys/istio/dev-all-in-one.yaml | kubectl apply -f -
->```
 
 ### Open API
 

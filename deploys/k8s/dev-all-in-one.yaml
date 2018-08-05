@@ -55,25 +55,6 @@ spec:
 ---
 
 ---
-# Source: coolstore/templates/gateway-svc.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: gateway-service
-  namespace: default
-  labels:
-    app: gateway-service
-spec:
-  ports:
-  - port: 80
-    targetPort: 5000
-    protocol: TCP
-    name: http
-  selector:
-    app: gateway
----
-
----
 # Source: coolstore/templates/idp-svc.yaml
 apiVersion: v1
 kind: Service
@@ -245,42 +226,11 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: BASE_PATH
-          value: /cat/
+          value: /catalog/
         - name: MONGO_DB_URL
           value: mongodb://mongodb:27017/catalog
         ports:
         - containerPort: 5002
----
-
----
-# Source: coolstore/templates/gateway-dep.yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: gateway-v1
-  namespace: default
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: gateway
-        version: v1
-    spec:
-      containers:
-      - name: gateway
-        image: vndg/cs-gateway-service:latest
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: Hosts__BasePath
-          value: /
-        - name: Hosts__Externals__CurrentUri
-          value: http://api.coolstore.local
-        - name: Hosts__Externals__Auth__Uri
-          value: http://id.coolstore.local
-        ports:
-        - name: http
-          containerPort: 5000
 ---
 
 ---
@@ -310,7 +260,7 @@ spec:
         - name: HostSettings__SwaggerPostLogoutRedirectUri
           value: http://api.coolstore.local
         - name: HostSettings__SwaggerAllowedCorsOrigin
-          value: http://coolstore.local
+          value: http://api.coolstore.local
         ports:
         - name: http
           containerPort: 5001
@@ -365,7 +315,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: Hosts__BasePath
-          value: /inv/
+          value: /inventory/
         ports:
         - containerPort: 5004
         livenessProbe:
@@ -419,7 +369,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: BASE_PATH
-          value: /rat/
+          value: /rating/
         - name: MONGO_DB_URL
           value: mongodb://mongodb:27017/rating
         ports:
@@ -486,7 +436,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: inv-vs
+  name: api-vs
 spec:
   hosts:
   - api.coolstore.local
@@ -495,15 +445,7 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /gw/
-    route:
-    - destination:
-        host: gateway-service
-        port:
-          number: 80
-  - match:
-    - uri:
-        prefix: /inv/
+        prefix: /inventory/
     route:
     - destination:
         host: inventory-service
@@ -511,7 +453,7 @@ spec:
           number: 80
   - match:
     - uri:
-        prefix: /cat/
+        prefix: /catalog/
     route:
     - destination:
         host: catalog-service
@@ -519,7 +461,7 @@ spec:
           number: 80
   - match:
     - uri:
-        prefix: /rat/
+        prefix: /rating/
     route:
     - destination:
         host: rating-service

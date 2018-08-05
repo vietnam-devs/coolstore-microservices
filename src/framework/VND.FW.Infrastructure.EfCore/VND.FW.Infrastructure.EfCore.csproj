@@ -10,7 +10,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
     <PackageReference Include="Polly" Version="6.1.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.6.0-preview1-26724-01" />
   </ItemGroup>
 
   <ItemGroup>

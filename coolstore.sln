@@ -42,14 +42,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Services.ApiG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.FW.Infrastructure.EfCore.SqlServer", "src\framework\VND.FW.Infrastructure.EfCore.SqlServer\VND.FW.Infrastructure.EfCore.SqlServer.csproj", "{B73ADF43-63AF-4226-8A48-9E3B965C78D6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{2266C475-F387-4013-BA3C-DB3525DF0011}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Shared.Cart", "src\shared\VND.CoolStore.Shared.Cart\VND.CoolStore.Shared.Cart.csproj", "{BB61200C-7129-40AD-B8B1-C5998E94F203}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Shared.Catalog", "src\shared\VND.CoolStore.Shared.Catalog\VND.CoolStore.Shared.Catalog.csproj", "{7FC2E336-46D4-4739-B028-3A0DD4BF7810}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Shared.Rating", "src\shared\VND.CoolStore.Shared.Rating\VND.CoolStore.Shared.Rating.csproj", "{525B1A98-583A-420D-B586-FB234614EEB2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,18 +92,6 @@ Global
 		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB61200C-7129-40AD-B8B1-C5998E94F203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB61200C-7129-40AD-B8B1-C5998E94F203}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB61200C-7129-40AD-B8B1-C5998E94F203}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB61200C-7129-40AD-B8B1-C5998E94F203}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7FC2E336-46D4-4739-B028-3A0DD4BF7810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FC2E336-46D4-4739-B028-3A0DD4BF7810}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FC2E336-46D4-4739-B028-3A0DD4BF7810}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FC2E336-46D4-4739-B028-3A0DD4BF7810}.Release|Any CPU.Build.0 = Release|Any CPU
-		{525B1A98-583A-420D-B586-FB234614EEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{525B1A98-583A-420D-B586-FB234614EEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{525B1A98-583A-420D-B586-FB234614EEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{525B1A98-583A-420D-B586-FB234614EEB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,9 +109,6 @@ Global
 		{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
 		{C4722C4F-DBD3-4101-A99A-88ABC10912E3} = {A0F90A99-CAD3-491F-9079-D1680D659A9B}
 		{B73ADF43-63AF-4226-8A48-9E3B965C78D6} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
-		{BB61200C-7129-40AD-B8B1-C5998E94F203} = {2266C475-F387-4013-BA3C-DB3525DF0011}
-		{7FC2E336-46D4-4739-B028-3A0DD4BF7810} = {2266C475-F387-4013-BA3C-DB3525DF0011}
-		{525B1A98-583A-420D-B586-FB234614EEB2} = {2266C475-F387-4013-BA3C-DB3525DF0011}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277B7E0A-BA8E-4DF8-ABD5-890801FC76F8}

@@ -57,7 +57,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: inv-vs
+  name: api-vs
 spec:
   hosts:
   - {{ .Values.hosts.api }}
@@ -66,15 +66,7 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /gw/
-    route:
-    - destination:
-        host: gateway-service
-        port:
-          number: 80
-  - match:
-    - uri:
-        prefix: /inv/
+        prefix: /inventory/
     route:
     - destination:
         host: inventory-service
@@ -82,7 +74,7 @@ spec:
           number: 80
   - match:
     - uri:
-        prefix: /cat/
+        prefix: /catalog/
     route:
     - destination:
         host: catalog-service
@@ -90,7 +82,7 @@ spec:
           number: 80
   - match:
     - uri:
-        prefix: /rat/
+        prefix: /rating/
     route:
     - destination:
         host: rating-service
