@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using VND.FW.Infrastructure.AspNetCore.Middlewares;
 using VND.FW.Infrastructure.AspNetCore.Swagger;
 using VND.FW.Infrastructure.EfCore.Db;
@@ -91,7 +92,11 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
           options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-      services.AddApiVersioning(o => o.ReportApiVersions = true);
+      services.AddApiVersioning(o => {
+        o.ReportApiVersions = true;
+        o.AssumeDefaultVersionWhenUnspecified = true;
+        o.DefaultApiVersion = ParseApiVersion(config.GetValue<string>("API_VERSION"));
+      });
 
       if (config.GetValue("EnableAuthN", false))
       {
@@ -108,17 +113,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
             options.Audience = "api";
           });
 
-        services.AddAuthorization(
-            c =>
-            {
-              configureAuthZ?.Invoke(c);
-              //c.AddPolicy("access_inventory_api", p => p.RequireClaim("scope", "inventory_api_scope"));
-              //c.AddPolicy("access_cart_api", p => p.RequireClaim("scope", "cart_api_scope"));
-              //c.AddPolicy("access_pricing_api", p => p.RequireClaim("scope", "pricing_api_scope"));
-              //c.AddPolicy("access_review_api", p => p.RequireClaim("scope", "review_api_scope"));
-              //c.AddPolicy("access_catalog_api", p => p.RequireClaim("scope", "catalog_api_scope"));
-            }
-        );
+        services.AddAuthorization(c => configureAuthZ?.Invoke(c));
       }
 
       if (config.GetValue("EnableOpenApi", false))
@@ -144,15 +139,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
               Flow = "implicit",
               AuthorizationUrl = $"{GetExternalAuthUri(config)}/connect/authorize",
               TokenUrl = $"{GetExternalAuthUri(config)}/connect/token",
-              Scopes = swaggerOauthSchemes?.Invoke()
-              /*Scopes = new Dictionary<string, string>
-              {
-                {"inventory_api_scope", "Inventory APIs"},
-                {"cart_api_scope", "Cart APIs"},
-                {"pricing_api_scope", "Pricing APIs"},
-                {"review_api_scope", "Review APIs"},
-                {"catalog_api_scope", "Catalog APIs"}
-              }*/
+              Scopes = swaggerOauthSchemes?.Invoke(),
             });
           }
 
@@ -163,6 +150,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
             c.OperationFilter<SecurityRequirementsOperationFilter>();
           }
 
+          c.OperationFilter<SwaggerDefaultValuesOperationFilter>();
           c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
         });
       }
@@ -221,6 +209,12 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         app.UsePathBase(basePath);
       }
 
+      app.Use(async (context, next) =>
+      {
+        // context.Request.Path = $"api/{version}/{controller}/ToDoItemDto/{remainingPath}";
+        await next.Invoke();
+      });
+
       if (!env.IsDevelopment())
       {
         app.UseForwardedHeaders();
@@ -236,7 +230,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         app.UseAuthentication();
       }
 
-      app.UseMvcWithDefaultRoute();
+      app.UseMvc();
 
       if (config.GetValue("EnableOpenApi", false))
       {
@@ -279,6 +273,36 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
     private static string GetExternalAuthUri(IConfiguration config)
     {
       return config.GetExternalHostUri("Auth");
+    }
+
+    private static ApiVersion ParseApiVersion(string serviceVersion)
+    {
+      if (string.IsNullOrEmpty(serviceVersion))
+      {
+        throw new Exception("[CS] ServiceVersion is null or empty.");
+      }
+
+      var pattern = @"(.)|(-)";
+      var results = Regex.Split(serviceVersion, pattern)
+        .Where(x => x != string.Empty && x != "." && x != "-")
+        .ToArray();
+
+      if(results == null || results.Count() < 2)
+      {
+        throw new Exception("[CS] Could not parse ServiceVersion.");
+      }
+
+      if(results.Count() > 2)
+      {
+        return new ApiVersion(
+          Convert.ToInt32(results[0]),
+          Convert.ToInt32(results[1]),
+          results[2]);
+      }
+
+      return new ApiVersion(
+        Convert.ToInt32(results[0]),
+        Convert.ToInt32(results[1]));
     }
 
     /// <summary>

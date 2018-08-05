@@ -17,7 +17,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: BASE_PATH
-          value: /rat/
+          value: /rating/
         - name: MONGO_DB_URL
           value: mongodb://mongodb:27017/rating
         ports:

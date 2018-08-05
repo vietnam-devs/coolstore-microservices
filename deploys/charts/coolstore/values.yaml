@@ -80,4 +80,4 @@ idpSettings:
   HostSettings__BasePath: /
   HostSettings__SwaggerRedirectUri: http://api.coolstore.local/swagger/oauth2-redirect.html
   HostSettings__SwaggerPostLogoutRedirectUri: http://api.coolstore.local
-  HostSettings__SwaggerAllowedCorsOrigin: http://coolstore.local
+  HostSettings__SwaggerAllowedCorsOrigin: http://api.coolstore.local

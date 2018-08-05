@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.IO;
-using System.Linq;
 using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -41,7 +40,7 @@ namespace IdentityServer4
                   .AllowCredentials());
       });
 
-      IIdentityServerBuilder builder = services
+      var builder = services
           .AddIdentityServer(options =>
           {
             options.Events.RaiseErrorEvents = true;
@@ -52,17 +51,19 @@ namespace IdentityServer4
           })
           .AddTestUsers(TestUsers.Users)
           .AddJwtBearerClientAuthentication();
+
       var hostSettings = Configuration.GetSection("HostSettings");
 
       // in-memory, code config
-      var clients = Config.GetClients(Environment.IsDevelopment(), hostSettings).ToList();
-
-      // get swagger and process it
-      if (hostSettings != null)
+      var clients = Config.GetDevClients();
+      if(!Environment.IsDevelopment())
       {
-        clients[0].RedirectUris.Add(hostSettings.GetValue<string>("SwaggerRedirectUri"));
-        clients[0].PostLogoutRedirectUris.Add(hostSettings.GetValue<string>("SwaggerPostLogoutRedirectUri"));
-        clients[0].AllowedCorsOrigins.Add(hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"));
+        if(Configuration.GetSection("HostSettings") == null)
+        {
+          throw new System.Exception("HostSettings is null, please config it!");
+        }
+
+        clients = Config.GetClients(Configuration.GetSection("HostSettings"));
       }
 
       builder.AddInMemoryIdentityResources(Config.GetIdentityResources());

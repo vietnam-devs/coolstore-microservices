@@ -1,5 +1,12 @@
 FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS base
 WORKDIR /app
+
+ARG service_version
+ENV SERVICE_VERSION ${service_version:-0.0.1}
+
+ARG api_version
+ENV API_VERSION ${api_version:-1.0}
+
 ENV ASPNETCORE_URLS http://+:5003
 EXPOSE 5003
 

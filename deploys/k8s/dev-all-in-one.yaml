@@ -245,7 +245,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: BASE_PATH
-          value: /cat/
+          value: /catalog/
         - name: MONGO_DB_URL
           value: mongodb://mongodb:27017/catalog
         ports:
@@ -310,7 +310,7 @@ spec:
         - name: HostSettings__SwaggerPostLogoutRedirectUri
           value: http://api.coolstore.local
         - name: HostSettings__SwaggerAllowedCorsOrigin
-          value: http://coolstore.local
+          value: http://api.coolstore.local
         ports:
         - name: http
           containerPort: 5001
@@ -365,7 +365,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: Hosts__BasePath
-          value: /inv/
+          value: /inventory/
         ports:
         - containerPort: 5004
         livenessProbe:
@@ -419,7 +419,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: BASE_PATH
-          value: /rat/
+          value: /rating/
         - name: MONGO_DB_URL
           value: mongodb://mongodb:27017/rating
         ports:
@@ -486,7 +486,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: inv-vs
+  name: api-vs
 spec:
   hosts:
   - api.coolstore.local
@@ -503,7 +503,7 @@ spec:
           number: 80
   - match:
     - uri:
-        prefix: /inv/
+        prefix: /inventory/
     route:
     - destination:
         host: inventory-service
@@ -511,7 +511,7 @@ spec:
           number: 80
   - match:
     - uri:
-        prefix: /cat/
+        prefix: /catalog/
     route:
     - destination:
         host: catalog-service
@@ -519,7 +519,7 @@ spec:
           number: 80
   - match:
     - uri:
-        prefix: /rat/
+        prefix: /rating/
     route:
     - destination:
         host: rating-service

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using VND.CoolStore.Services.ApiGateway.Infrastructure.Service;
-using VND.CoolStore.Services.ApiGateway.Model;
 using VND.CoolStore.Shared.Cart.Checkout;
 using VND.CoolStore.Shared.Cart.DeleteItemInCart;
 using VND.CoolStore.Shared.Cart.GetCartById;

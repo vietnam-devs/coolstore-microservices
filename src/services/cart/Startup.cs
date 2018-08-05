@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,20 @@ namespace VND.CoolStore.Services.Cart
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddEfCoreSqlServer();
-      services.AddMiniService<CartDbContext>(typeof(Startup).GetTypeInfo().Assembly);
+      services.AddMiniService<CartDbContext>(
+        typeof(Startup).GetTypeInfo().Assembly,
+        o =>
+        {
+          o.AddPolicy("access_cart_api", p => p.RequireClaim("scope", "cart_api_scope"));
+        },
+        () =>
+        {
+          return new Dictionary<string, string>
+          {
+            {"cart_api_scope", "Cart APIs"}
+          };
+        }
+      );
 
       services.AddScoped<ICatalogService, CatalogService>();
       services.AddScoped<IPromoService, PromoService>();

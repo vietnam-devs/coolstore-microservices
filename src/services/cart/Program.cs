@@ -18,8 +18,8 @@ namespace VND.CoolStore.Services.Cart
     }
 
     public static IWebHost BuildWebHost(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>()
-            .Build();
+      WebHost.CreateDefaultBuilder(args)
+          .UseStartup<Startup>()
+          .Build();
   }
 }
