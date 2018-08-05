@@ -73,7 +73,7 @@ There are several individual microservices and infrastructure components that ma
 
 2. From current console, type `bash` to enter `Linux Subsystem (Ubuntu)`
 
-3. Download [istio istio-1.0.0](https://github.com/istio/istio/releases/tag/1.0.0), and unzip it into somewhere
+3. Download [istio-1.0.0](https://github.com/istio/istio/releases/tag/1.0.0), and unzip it into somewhere
 
 ```
 > cd <istio-1.0.0 path>
@@ -120,6 +120,18 @@ Waiting for the container provision completed
 ```
 
 **Notes**:
+
+1. Global path
+> Set `PATH` for `docker`, `kubectl`, `helm`, and `istioctl`.
+
+2. Export chart to yaml file
+> If you run it on `Docker for Windows`, then you cannot run sidecar auto injection so that we need to export `coolstore` chart to manifest file like
+> ```
+> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml --namespace cs-system > deploys/istio/dev-all-in-one.yaml
+> istioctl kube-inject -f deploys/istio/dev-all-in-one.yaml | kubectl apply -f -
+>```
+
+3. Run with Nginx (not recommendation)
 > If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml` and add
 >```
 > nginx:
@@ -129,12 +141,6 @@ Waiting for the container provision completed
 > ```
 > helm install --name cs-nginx stable/nginx-ingress
 > ```
-
-> If you run it on `Docker for Windows`, then you cannot run sidecar auto injection so that we need to export `coolstore` chart to manifest file like
-> ```
-> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml --namespace cs-system > deploys/istio/dev-all-in-one.yaml
-> istioctl kube-inject -f deploys/istio/dev-all-in-one.yaml | kubectl apply -f -
->```
 
 ### Open API
 
