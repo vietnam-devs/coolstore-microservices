@@ -1,11 +1,26 @@
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.EfCore.Db;
 
 namespace VND.FW.Infrastructure.EfCore.Repository
 {
+  public class EfQueryRepositoryFactory : IQueryRepositoryFactory
+  {
+    private readonly IServiceProvider _serviceProvider;
+
+    public EfQueryRepositoryFactory(IServiceProvider serviceProvider)
+    {
+      _serviceProvider = serviceProvider;
+    }
+
+    public IQueryRepository<TEntity> QueryRepository<TEntity>() where TEntity : IEntity
+    {
+      return (IQueryRepository<TEntity>)_serviceProvider.GetService(typeof(IEfQueryRepository<TEntity>));
+    }
+  }
+
   public class EfRepositoryAsync<TEntity>
         : EfRepositoryAsync<DbContext, TEntity>, IEfRepositoryAsync<TEntity>
         where TEntity : class, IEntity

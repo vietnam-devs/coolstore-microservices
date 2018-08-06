@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using VND.CoolStore.Services.Cart.Infrastructure.Db;
 using VND.FW.Infrastructure.EfCore.Extensions;
 
-namespace VND.CoolStore.Services.Cart.Shared
+namespace VND.CoolStore.Services.Cart.v1.UseCases
 {
   [Route("")]
   [ApiVersionNeutral]

@@ -1,8 +1,6 @@
-using VND.CoolStore.Services.Cart.Shared.Services;
-
-namespace VND.CoolStore.Services.Cart.UseCases.v1.Services.Impl
+namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways.Impl
 {
-  public class PromoService : IPromoService
+  public class PromoGateway : IPromoGateway
   {
     public Domain.Cart ApplyCartItemPromotions(Domain.Cart cart)
     {

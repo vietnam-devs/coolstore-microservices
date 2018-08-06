@@ -40,6 +40,10 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
               resolver.GetService<DbContext>(),
               resolver.GetService<IServiceProvider>()));
 
+      services.AddScoped(
+          typeof(IQueryRepositoryFactory), resolver =>
+          new EfQueryRepositoryFactory(resolver.GetService<IServiceProvider>()));
+
       // by default, we register the in-memory database
       services.AddScoped(typeof(IDatabaseConnectionStringFactory), typeof(NoOpDatabaseConnectionStringFactory));
       services.AddScoped(typeof(IExtendDbContextOptionsBuilder), typeof(InMemoryDbContextOptionsBuilderFactory));

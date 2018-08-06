@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using VND.FW.Infrastructure.AspNetCore.Extensions;
 
-namespace VND.CoolStore.Services.Cart.Shared
+namespace VND.CoolStore.Services.Cart.v1.UseCases
 {
   [Route("")]
   [ApiVersionNeutral]

@@ -1,19 +1,19 @@
 using System;
 using System.Linq;
 using VND.CoolStore.Services.Cart.Domain;
-using VND.CoolStore.Services.Cart.UseCases.v1.Services;
+using VND.CoolStore.Services.Cart.Infrastructure.Gateways;
 
-namespace VND.CoolStore.Services.Cart.Shared.Services
+namespace VND.CoolStore.Services.Cart.Infrastructure.Services
 {
   public abstract class PriceCalculatorContext : IPriceCalculator
   {
-    private readonly IPromoService _promoService;
-    private readonly IShippingService _shippingService;
+    private readonly IPromoGateway _promoGateway;
+    private readonly IShippingGateway _shippingGateway;
 
-    protected PriceCalculatorContext(IPromoService promoService, IShippingService shippingService)
+    protected PriceCalculatorContext(IPromoGateway promoGateway, IShippingGateway shippingGateway)
     {
-      _promoService = promoService;
-      _shippingService = shippingService;
+      _promoGateway = promoGateway;
+      _shippingGateway = shippingGateway;
     }
 
     public Domain.Cart Execute(Domain.Cart cart)
@@ -31,10 +31,10 @@ namespace VND.CoolStore.Services.Cart.Shared.Services
           cart.CartItemPromoSavings = cart.CartItemPromoSavings + (item.PromoSavings * item.Quantity);
           cart.CartItemTotal = cart.CartItemTotal + (item.Product.Price * item.Quantity);
         }
-        cart = _shippingService.CalculateShipping(cart);
+        cart = _shippingGateway.CalculateShipping(cart);
       }
 
-      cart = _promoService.ApplyShippingPromotions(cart);
+      cart = _promoGateway.ApplyShippingPromotions(cart);
       cart.CartTotal = AddTaxCost(cart.CartItemTotal + cart.ShippingTotal);
 
       return cart;

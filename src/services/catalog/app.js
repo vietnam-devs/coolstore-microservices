@@ -65,6 +65,8 @@ app.use(function (err, req, res, next) {
 app.get(`${basePath}api/v1/products/:productId`, async (req, res) => {
   console.info(req.params)
   var product = await Product.findProduct(req.params.productId)
+
+  console.info(product)
   if (product.length > 0)
     res.send(product[0])
   else
@@ -128,6 +130,7 @@ function startServer() {
   var server = app.listen(process.env.PORT || 5002, () => {
     // migrate for the first time when started
     Product.findProducts().then(products => {
+      console.info(products)
       if (products.length <= 0) {
         var seeds = [
           {

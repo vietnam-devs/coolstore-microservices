@@ -1,13 +1,13 @@
 dependencies:
   body-parser: 1.18.3
+  cross-env: 5.2.0
   express: 4.16.3
   mongodb: 3.1.1
   mongoose: 5.2.3
   morgan: 1.9.0
   npm: 6.1.0
+  swagger-ui-express: 3.0.10
   uuid: 3.3.2
-devDependencies:
-  cross-env: 5.2.0
 packages:
   /accepts/1.3.5:
     dependencies:
@@ -112,7 +112,7 @@ packages:
     dependencies:
       cross-spawn: 6.0.5
       is-windows: 1.0.2
-    dev: true
+    dev: false
     engines:
       node: '>=4.0'
     hasBin: true
@@ -125,7 +125,7 @@ packages:
       semver: 5.5.0
       shebang-command: 1.2.0
       which: 1.3.1
-    dev: true
+    dev: false
     engines:
       node: '>=4.8'
     resolution:
@@ -282,13 +282,13 @@ packages:
     resolution:
       integrity: sha1-4/o1e3c9phnybpXwSdBVxyeW+Gs=
   /is-windows/1.0.2:
-    dev: true
+    dev: false
     engines:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-eXK1UInq2bPmjyX6e3VHIzMLobc4J94i4AWn+Hpq3OU5KkrRC96OAcR3PRJ/pGu6m8TRnBHP9dkXQVsT/COVIA==
   /isexe/2.0.0:
-    dev: true
+    dev: false
     resolution:
       integrity: sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
   /kareem/2.2.1:
@@ -418,7 +418,7 @@ packages:
     resolution:
       integrity: sha1-KzJxhOiZIQEXeyhWP7XnECrNDKk=
   /nice-try/1.0.4:
-    dev: true
+    dev: false
     resolution:
       integrity: sha512-2NpiFHqC87y/zFke0fC0spBXL3bBsoh/p5H1EFhshxjCR5+0g2d6BiXbUFz9v1sAcxsk2htp2eQnNIci2dIYcA==
   /npm/6.1.0:
@@ -567,7 +567,7 @@ packages:
     resolution:
       integrity: sha1-/CidTtiZMRlGDBViUyYs3I3mW/M=
   /path-key/2.0.1:
-    dev: true
+    dev: false
     engines:
       node: '>=4'
     resolution:
@@ -658,6 +658,7 @@ packages:
     resolution:
       integrity: sha512-5lvKUEQ7lAN5/vPl5d3k8FQeDbEamu9kizfATfLLWV5h6Mkh1xcieR1FSsJkcSRUk49lF2tAW8gzXWVwtwZVhw==
   /semver/5.5.0:
+    dev: false
     hasBin: true
     resolution:
       integrity: sha512-4SJ3dm0WAwWy/NVeioZh5AntkdJoWKxHxcmyP622fOkgHa4z3R0TdBJICINyaSDE6uNwVc8gZr+ZinwZAH4xIA==
@@ -703,13 +704,13 @@ packages:
   /shebang-command/1.2.0:
     dependencies:
       shebang-regex: 1.0.0
-    dev: true
+    dev: false
     engines:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-RKrGW2lbAzmJaMOfNj/uXer98eo=
   /shebang-regex/1.0.0:
-    dev: true
+    dev: false
     engines:
       node: '>=0.10.0'
     resolution:
@@ -734,6 +735,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
+  /swagger-ui-express/3.0.10:
+    dev: false
+    engines:
+      node: '>= v0.10.32'
+    resolution:
+      integrity: sha1-xysyEHpXpHkT87RgA+j9Yqc3jqI=
   /type-is/1.6.16:
     dependencies:
       media-typer: 0.3.0
@@ -769,7 +776,7 @@ packages:
   /which/1.3.1:
     dependencies:
       isexe: 2.0.0
-    dev: true
+    dev: false
     hasBin: true
     resolution:
       integrity: sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==
@@ -784,4 +791,5 @@ specifiers:
   mongoose: ^5.2.3
   morgan: ^1.9.0
   npm: ^6.0.0
+  swagger-ui-express: ^3.0.10
   uuid: ^3.3.2

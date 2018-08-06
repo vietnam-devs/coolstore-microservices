@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="IdentityServer4" Version="2.2.0" />
+    <PackageReference Include="MediatR" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.1.1" />
@@ -14,6 +15,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.3.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
@@ -22,6 +24,7 @@
     <PackageReference Include="Microsoft.IdentityModel.Logging" Version="5.2.4" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.1.1" />
+		<PackageReference Include="Scrutor" Version="2.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="3.0.0" />

@@ -1,6 +1,6 @@
-namespace VND.CoolStore.Services.Cart.Shared.Services
+namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways
 {
-  public interface IPromoService
+  public interface IPromoGateway
   {
     Domain.Cart ApplyCartItemPromotions(Domain.Cart cart);
     Domain.Cart ApplyShippingPromotions(Domain.Cart cart);

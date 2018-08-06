@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
+namespace VND.CoolStore.Services.Cart.Infrastructure.Dtos
 {
-  public class GetCartByIdResponse
+  public class CartDto
   {
     public Guid Id { get; set; }
     public double CartItemTotal { get; set; }
@@ -12,9 +12,9 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
     public double ShippingPromoSavings { get; set; }
     public double CartTotal { get; set; }
     public bool IsCheckout { get; set; }
-    public List<CartItemResponse> Items { get; set; } = new List<CartItemResponse>();
+    public List<CartItemDto> Items { get; set; } = new List<CartItemDto>();
 
-    public class CartItemResponse
+    public class CartItemDto
     {
       public int Quantity { get; set; }
       public double Price { get; set; }

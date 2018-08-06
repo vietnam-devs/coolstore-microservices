@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VND.CoolStore.Services.Cart.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class InitCartDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

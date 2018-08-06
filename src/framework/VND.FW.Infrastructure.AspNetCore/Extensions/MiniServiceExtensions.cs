@@ -1,6 +1,8 @@
 // Reference at https://thenewstack.io/miniservices-a-realistic-alternative-to-microservices
 
 using IdentityServer4.Models;
+using MediatR;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -77,6 +79,14 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         return new UrlHelper(actionContext);
       });
       services.AddHttpClient<RestClient>();
+
+      // MediatR
+      services.AddScoped<ServiceFactory>(p => p.GetService);
+      services.Scan(
+        scan => scan
+          .FromAssembliesOf(typeof(IMediator), startupAssembly.ExportedTypes.FirstOrDefault())
+          .AddClasses()
+          .AsImplementedInterfaces());
 
       services.AddRouting(options => options.LowercaseUrls = true);
       services.AddMvcCore().AddVersionedApiExplorer(

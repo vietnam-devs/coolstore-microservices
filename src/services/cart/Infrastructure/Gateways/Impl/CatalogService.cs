@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using VND.CoolStore.Services.Cart.Shared.Services;
-using VND.CoolStore.Services.Cart.Shared.Services.Dtos;
+using VND.CoolStore.Services.Cart.Infrastructure.Dtos;
 using VND.FW.Infrastructure.AspNetCore;
 using VND.FW.Infrastructure.AspNetCore.Extensions;
 
-namespace VND.CoolStore.Services.Cart.UseCases.v1.Services.Impl
+namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways.Impl
 {
-  public class CatalogService : ProxyServiceBase, ICatalogService
+  public class CatalogGateway : ProxyServiceBase, ICatalogGateway
   {
     private readonly string _catalogServiceUri;
 
-    public CatalogService(
+    public CatalogGateway(
       RestClient rest,
       IConfiguration config,
       IHostingEnvironment env) : base(rest)
