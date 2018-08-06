@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using VND.CoolStore.Services.Cart.UseCases.v1.Services;
+using VND.FW.Infrastructure.AspNetCore;
 using ControllerBase = VND.FW.Infrastructure.AspNetCore.ControllerBase;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
@@ -22,7 +22,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
     }
 
     [HttpPost]
-    // [Auth(Policy = "access_cart_api")]
+    [Auth(Policy = "access_cart_api")]
     public async Task<IActionResult> Create([FromBody] InsertItemToNewCartRequest request)
     {
       var result = await _eventAggregator.Send(request);

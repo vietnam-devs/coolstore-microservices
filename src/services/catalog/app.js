@@ -62,7 +62,7 @@ app.use(function (err, req, res, next) {
   })
 })
 
-app.get(`${basePath}api/v1/products/:productId`, async (req, res) => {
+app.get(`${basePath}api/products/:productId`, async (req, res) => {
   console.info(req.params)
   var product = await Product.findProduct(req.params.productId)
 
@@ -73,12 +73,12 @@ app.get(`${basePath}api/v1/products/:productId`, async (req, res) => {
     res.send(product)
 })
 
-app.get(`${basePath}api/v1/products`, async (req, res) => {
+app.get(`${basePath}api/products`, async (req, res) => {
   var products = await Product.findProducts()
   res.send(products)
 })
 
-app.post(`${basePath}api/v1/products`, async (req, res) => {
+app.post(`${basePath}api/products`, async (req, res) => {
   console.info(req.body)
   var newProduct = new Product()
   var product = newProduct.createProduct(req.body)

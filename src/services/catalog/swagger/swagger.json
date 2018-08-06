@@ -1,138 +1,122 @@
 {
-	"basePath": "/",
-	"consumes": [
-		"application/json"
-	],
-	"definitions": {
-		"Product": {
-			"description": "",
-			"properties": {
-				"id": {
-					"type": "string",
-					"description": ""
-				},
-				"name": {
-					"type": "string",
-					"description": ""
-				},
-				"desc": {
-					"type": "string",
-					"description": ""
-				},
-				"price": {
-					"type": "number",
-					"description": ""
-				}
-			},
-			"required": [
-				"name",
-				"id",
-				"price"
-			],
-			"type": "object"
-		}
-	},
-	"info": {
-		"license": {
-			"name": "ISC"
-		},
-		"title": "Catalog",
-		"version": "1.0.0"
-	},
-	"paths": {
-		"/api/v1/products": {
-			"get": {
-				"summary": "Get all product",
-				"operationId": "getProducts",
-				"produces": [
-					"application/json"
-				],
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/Product"
-							}
-						}
-					}
-				},
-				"description": "",
-				"parameters": []
-			},
-			"post": {
-				"description": "Optional description in *Markdown*",
-				"summary": "Create a products",
-				"operationId": "createproducts",
-				"responses": {
-					"201": {
-						"description": "Created"
-					}
-				},
-				"parameters": [
-					{
-						"in": "body",
-						"name": "product",
-						"description": "The product to create.",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"name": {
-									"type": "string",
-									"description": ""
-								},
-								"desc": {
-									"type": "string",
-									"description": ""
-								},
-								"price": {
-									"type": "number",
-									"description": ""
-								}
-							},
-							"required": [
-								"name",
-								"id",
-								"price"
-							]
-						}
-					}
-				]
-			}
-		},
-		"/api/v1/products/{productId}": {
-			"get": {
-				"summary": "Get product by id",
-				"operationId": "getById",
-				"produces": [
-					"application/json"
-				],
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"schema": {
-							"$ref": "#/definitions/Product"
-						}
-					}
-				},
-				"description": "",
-				"parameters": [
-					{
-						"name": "productId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		}
-	},
-	"produces": [
-		"application/json"
-	],
-	"swagger": "2.0",
-	"securityDefinitions": {}
+  "basePath": "/",
+  "consumes": ["application/json"],
+  "definitions": {
+    "Product": {
+      "description": "",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": ""
+        },
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "desc": {
+          "type": "string",
+          "description": ""
+        },
+        "price": {
+          "type": "number",
+          "description": ""
+        }
+      },
+      "required": ["name", "id", "price"],
+      "type": "object"
+    }
+  },
+  "info": {
+    "license": {
+      "name": "ISC"
+    },
+    "title": "Catalog",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/products": {
+      "get": {
+        "summary": "Get all product",
+        "operationId": "getProducts",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        },
+        "description": "",
+        "parameters": []
+      },
+      "post": {
+        "description": "Optional description in *Markdown*",
+        "summary": "Create a products",
+        "operationId": "createproducts",
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "product",
+            "description": "The product to create.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": ""
+                },
+                "desc": {
+                  "type": "string",
+                  "description": ""
+                },
+                "price": {
+                  "type": "number",
+                  "description": ""
+                }
+              },
+              "required": ["name", "id", "price"]
+            }
+          }
+        ]
+      }
+    },
+    "/api/products/{productId}": {
+      "get": {
+        "summary": "Get product by id",
+        "operationId": "getById",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        },
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "produces": ["application/json"],
+  "swagger": "2.0",
+  "securityDefinitions": {}
 }

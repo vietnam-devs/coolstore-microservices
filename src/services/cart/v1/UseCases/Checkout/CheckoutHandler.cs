@@ -1,4 +1,6 @@
+using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using VND.CoolStore.Services.Cart.Infrastructure.Gateways;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
@@ -7,9 +9,11 @@ using VND.FW.Infrastructure.EfCore.Service;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
 {
-  public class CheckoutService : CartServiceBase, ICheckoutService, ICommandService, IQueryService
+  public class CheckoutHandler : CartServiceBase,
+    IRequestHandler<CheckoutRequest, CheckoutResponse>,
+    ICommandService, IQueryService
   {
-    public CheckoutService(
+    public CheckoutHandler(
       ICatalogGateway catalogGateway,
       IUnitOfWorkAsync uow,
       IQueryRepositoryFactory queryRepositoryFactory)
@@ -28,10 +32,10 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
       return QueryRepositoryFactory.QueryRepository<Domain.Cart>() as IEfQueryRepository<Domain.Cart>;
     }
 
-    public async Task<CheckoutResponse> Execute(CheckoutRequest request)
+    public async Task<CheckoutResponse> Handle(CheckoutRequest request, CancellationToken cancellationToken)
     {
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
-      var cart = await GetCart(request.Id);
+      var cart = await GetCart(request.CartId);
 
       cart.IsCheckout = true;
       var checkoutCart = await cartRepository.UpdateAsync(cart);

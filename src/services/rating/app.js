@@ -61,7 +61,7 @@ app.use(function (err, req, res, next) {
   })
 })
 
-app.get(`${basePath}api/v1/ratings`, async (req, res) => {
+app.get(`${basePath}api/ratings`, async (req, res) => {
   console.info(req.body)
   var rattings = await Rating.findRatings()
   var result = []
@@ -89,7 +89,7 @@ app.get(`${basePath}api/v1/ratings`, async (req, res) => {
   }))
 })
 
-app.get(`${basePath}api/v1/ratings/:productId`, async (req, res) => {
+app.get(`${basePath}api/ratings/:productId`, async (req, res) => {
   console.info(req.body)
   var productId = req.params.productId
   var modelReponse = {
@@ -108,7 +108,7 @@ app.get(`${basePath}api/v1/ratings/:productId`, async (req, res) => {
   res.send(modelReponse)
 })
 
-app.post(`${basePath}api/v1/ratings`, async (req, res) => {
+app.post(`${basePath}api/ratings`, async (req, res) => {
   console.info(req.body)
   var newRating = new Rating()
   var rating = newRating.createRating(req.body)
@@ -121,7 +121,7 @@ app.post(`${basePath}api/v1/ratings`, async (req, res) => {
   })
 })
 
-app.put(`${basePath}api/v1/ratings`, async (req, res) => {
+app.put(`${basePath}api/ratings`, async (req, res) => {
   console.info(req.body)
   var rating = await Rating.findRatingByProductIdAndUserId(
     req.body.productId,

@@ -2,7 +2,6 @@
 
 using IdentityServer4.Models;
 using MediatR;
-using MediatR.Pipeline;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;

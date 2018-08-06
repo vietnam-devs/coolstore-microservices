@@ -23,14 +23,14 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways.Impl
 
     public async Task<ProductDto> GetProductByIdAsync(Guid id)
     {
-      var getProductEndPoint = $"{_catalogServiceUri}/api/v1/products/{id}";
+      var getProductEndPoint = $"{_catalogServiceUri}/api/products/{id}";
       var response = await RestClient.GetAsync<ProductDto>(getProductEndPoint);
       return response;
     }
 
     public async Task<IEnumerable<ProductDto>> GetProductsAsync()
     {
-      var getProductsEndPoint = $"{_catalogServiceUri}/api/v1/products";
+      var getProductsEndPoint = $"{_catalogServiceUri}/api/products";
       var responses = await RestClient.GetAsync<List<ProductDto>>(getProductsEndPoint);
       return responses;
     }
