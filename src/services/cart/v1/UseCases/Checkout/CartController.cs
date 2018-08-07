@@ -1,3 +1,4 @@
+using System;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using MediatR;
@@ -16,7 +17,11 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
     [HttpPut]
     [Route("{cartId:guid}/checkout")]
     [Auth(Policy = "access_cart_api")]
-    public async Task<IActionResult> CheckoutCart([FromBody] CheckoutRequest request) =>
-      await Eventor.SendStream<CheckoutRequest, CheckoutResponse>(request, x => x.IsSucceed);
+    public async Task<IActionResult> CheckoutCart(Guid cartId)
+    {
+      return await Eventor.SendStream<CheckoutRequest, CheckoutResponse>(
+        new CheckoutRequest { CartId = cartId },
+        x => x.IsSucceed);
+    }
   }
 }

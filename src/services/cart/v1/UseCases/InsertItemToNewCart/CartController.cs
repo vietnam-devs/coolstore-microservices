@@ -14,8 +14,8 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
     public CartController(IMediator mediator) : base(mediator) { }
 
     [HttpPost]
-    //[Auth(Policy = "access_cart_api")]
-    public async Task<IActionResult> Create([FromBody] InsertItemToNewCartRequest request) =>
+    [Auth(Policy = "access_cart_api")]
+    public async Task<IActionResult> Create(InsertItemToNewCartRequest request) =>
       await Eventor.SendStream<InsertItemToNewCartRequest, InsertItemToNewCartResponse>(request, x => x.Result);
   }
 }

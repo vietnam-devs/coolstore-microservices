@@ -15,7 +15,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
 
     [HttpPut]
     [Auth(Policy = "access_cart_api")]
-    public async Task<IActionResult> Put([FromBody] UpdateItemInCartRequest request) =>
+    public async Task<IActionResult> Put(UpdateItemInCartRequest request) =>
       await Eventor.SendStream<UpdateItemInCartRequest, UpdateItemInCartResponse>(request, x => x.Result);
   }
 }

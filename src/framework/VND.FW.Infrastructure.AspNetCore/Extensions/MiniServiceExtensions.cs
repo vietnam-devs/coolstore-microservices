@@ -1,10 +1,18 @@
 // Reference at https://thenewstack.io/miniservices-a-realistic-alternative-to-microservices
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using IdentityServer4.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -12,6 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,14 +28,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using VND.FW.Infrastructure.AspNetCore.Middlewares;
 using VND.FW.Infrastructure.AspNetCore.Swagger;
+using VND.FW.Infrastructure.AspNetCore.Validation;
 using VND.FW.Infrastructure.EfCore.Db;
 using VND.FW.Infrastructure.EfCore.Extensions;
 using VND.FW.Infrastructure.EfCore.Options;
@@ -41,12 +45,12 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       Func<Dictionary<string, string>> swaggerOauthSchemes = null)
       where TDbContext : DbContext
     {
-      var serviceProvider = services.BuildServiceProvider();
-      var config = serviceProvider.GetRequiredService<IConfiguration>();
-      var env = serviceProvider.GetRequiredService<IHostingEnvironment>();
+      var svcProvider = services.BuildServiceProvider();
+      var config = svcProvider.GetRequiredService<IConfiguration>();
+      var env = svcProvider.GetRequiredService<IHostingEnvironment>();
 
-      var extendOptionsBuilder = serviceProvider.GetRequiredService<IExtendDbContextOptionsBuilder>();
-      var dbConnectionStringFactory = serviceProvider.GetRequiredService<IDatabaseConnectionStringFactory>();
+      var extendOptionsBuilder = svcProvider.GetRequiredService<IExtendDbContextOptionsBuilder>();
+      var connStringFactory = svcProvider.GetRequiredService<IDatabaseConnectionStringFactory>();
 
       IdentityModelEventSource.ShowPII = true;
 
@@ -58,24 +62,19 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       services.AddOptions()
           .Configure<PersistenceOption>(config.GetSection("EfCore"));
 
-      void optionsBuilderAction(DbContextOptionsBuilder optionsBuilder)
-      {
-        extendOptionsBuilder.Extend(
-            optionsBuilder,
-            dbConnectionStringFactory,
-            startupAssembly.GetName().Name);
-      }
+      void optionsBuilderAction(DbContextOptionsBuilder o) =>
+        extendOptionsBuilder.Extend(o, connStringFactory, startupAssembly.GetName().Name);
 
-      services.AddDbContext<TDbContext>(options => optionsBuilderAction(options));
+      services.AddDbContext<TDbContext>(o => optionsBuilderAction(o));
       services.AddScoped<DbContext>(resolver => resolver.GetRequiredService<TDbContext>());
       services.AddEfCore();
-      
+
       services.AddHttpContextAccessor();
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-      services.AddScoped<IUrlHelper>(implementationFactory =>
+      services.AddScoped<IUrlHelper>(factory =>
       {
-        var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
+        var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
         return new UrlHelper(actionContext);
       });
       services.AddHttpClient<RestClient>();
@@ -88,31 +87,39 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
           .AddClasses()
           .AsImplementedInterfaces());
 
-      services.AddRouting(options => options.LowercaseUrls = true);
-      services.AddMvcCore().AddVersionedApiExplorer(
-        options =>
-        {
-          options.GroupNameFormat = "'v'VVV";
-          options.SubstituteApiVersionInUrl = true;
-        });
+      services.AddRouting(o => o.LowercaseUrls = true);
+      services
+        .AddMvcCore()
+        .AddVersionedApiExplorer(
+          o =>
+          {
+            o.GroupNameFormat = "'v'VVV";
+            o.SubstituteApiVersionInUrl = true;
+          })
+        .AddJsonFormatters(o => o.ContractResolver = new CamelCasePropertyNamesContractResolver())
+        .AddDataAnnotations();
+
+      services.AddApiVersioning(o =>
+      {
+        o.ReportApiVersions = true;
+        o.AssumeDefaultVersionWhenUnspecified = true;
+        o.DefaultApiVersion = ParseApiVersion(config.GetValue<string>("API_VERSION"));
+      });
 
       services
         .AddMvc()
-        .AddJsonOptions(options =>
-          options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+      services.Configure<ApiBehaviorOptions>(options =>
+      {
+        options.InvalidModelStateResponseFactory = ctx => new ValidationProblemDetailsResult();
+      });
 
       /*services
         .AddMiniProfiler(o =>
         {
           o.RouteBasePath = "/profiler";
         });*/
-
-      services.AddApiVersioning(o => {
-        o.ReportApiVersions = true;
-        o.AssumeDefaultVersionWhenUnspecified = true;
-        o.DefaultApiVersion = ParseApiVersion(config.GetValue<string>("API_VERSION"));
-      });
 
       if (config.GetValue("EnableAuthN", false))
       {
@@ -241,6 +248,46 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         app.UseAuthentication();
       }
 
+      app.UseExceptionHandler(errorApp =>
+      {
+#pragma warning disable CS1998
+        errorApp.Run(async context =>
+        {
+          var errorFeature = context.Features.Get<IExceptionHandlerFeature>();
+          var exception = errorFeature.Error;
+
+          // the IsTrusted() extension method doesn't exist and
+          // you should implement your own as you may want to interpret it differently
+          // i.e. based on the current principal
+
+          var problemDetails = new ProblemDetails
+          {
+            Instance = $"urn:myorganization:error:{Guid.NewGuid()}"
+          };
+
+          if (exception is BadHttpRequestException badHttpRequestException)
+          {
+            problemDetails.Title = "Invalid request";
+            problemDetails.Status = (int)typeof(BadHttpRequestException).GetProperty("StatusCode",
+                BindingFlags.NonPublic | BindingFlags.Instance).GetValue(badHttpRequestException);
+            problemDetails.Detail = badHttpRequestException.Message;
+          }
+          else
+          {
+            problemDetails.Title = "An unexpected error occurred!";
+            problemDetails.Status = 500;
+            problemDetails.Detail = exception.Demystify().ToString();
+          }
+
+          // TODO: log the exception etc..
+
+          context.Response.StatusCode = problemDetails.Status.Value;
+          context.Response.WriteJson(problemDetails, "application/problem+json");
+        }
+#pragma warning restore CS1998
+        );
+      });
+
       app.UseMvc();
 
       if (config.GetValue("EnableOpenApi", false))
@@ -300,12 +347,12 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         .Where(x => x != string.Empty && x != "." && x != "-")
         .ToArray();
 
-      if(results == null || results.Count() < 2)
+      if (results == null || results.Count() < 2)
       {
         throw new Exception("[CS] Could not parse ServiceVersion.");
       }
 
-      if(results.Count() > 2)
+      if (results.Count() > 2)
       {
         return new ApiVersion(
           Convert.ToInt32(results[0]),

@@ -8,7 +8,7 @@ using VND.Fw.Domain;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {
-  public class Cart : EntityBase
+  public sealed class Cart : EntityBase
   {
     internal Cart() : base(Guid.NewGuid())
     {
@@ -16,6 +16,16 @@ namespace VND.CoolStore.Services.Cart.Domain
 
     public Cart(Guid id) : base(id)
     {
+    }
+
+    public static Cart Load()
+    {
+      return new Cart();
+    }
+
+    public static Cart Load(Guid id)
+    {
+      return new Cart(id);
     }
 
     [Required]

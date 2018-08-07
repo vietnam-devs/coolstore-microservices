@@ -1,3 +1,5 @@
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using VND.CoolStore.Services.Cart.Domain;
@@ -26,15 +28,17 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
     {
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
 
-      var cart = new Domain.Cart().InsertItemToCart(new CartItem
-      {
-        Product = new Product(request.ProductId),
-        PromoSavings = 0.0D,
-        Quantity = request.Quantity
-      });
-
-      cart = await cart.InitCart(_catalogGateway, isPopulatePrice: true);
-      cart = _priceCalculator.Execute(cart);
+      var cart = await Domain.Cart
+        .Load()
+        .InsertItemToCart(new CartItem
+        {
+          Product = new Product(request.ProductId),
+          PromoSavings = 0.0D,
+          Quantity = request.Quantity
+        })
+        .InitCart(_catalogGateway, isPopulatePrice: true)
+        .ToObservable()
+        .Select(c => _priceCalculator.Execute(c));
 
       await cartRepository.AddAsync(cart);
 

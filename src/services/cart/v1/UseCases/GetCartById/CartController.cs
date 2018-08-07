@@ -1,3 +1,4 @@
+using System;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using MediatR;
@@ -16,7 +17,11 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
     [HttpGet]
     [Route("{id}")]
     [Auth(Policy = "access_cart_api")]
-    public async Task<IActionResult> Get([FromBody] GetCartRequest request) =>
-      await Eventor.SendStream<GetCartRequest, GetCartResponse>(request, x => x.Result);
+    public async Task<IActionResult> Get(Guid id)
+    {
+      return await Eventor.SendStream<GetCartRequest, GetCartResponse>(
+        new GetCartRequest { CartId = id },
+        x => x.Result);
+    }
   }
 }

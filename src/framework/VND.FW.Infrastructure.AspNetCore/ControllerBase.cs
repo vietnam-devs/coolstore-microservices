@@ -1,16 +1,15 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using VND.Fw.Domain;
 using VND.FW.Infrastructure.EfCore.Extensions;
 using VND.FW.Infrastructure.EfCore.Repository;
 
 namespace VND.FW.Infrastructure.AspNetCore
 {
-  public abstract class ControllerBase : Controller { }
-
-  public abstract class EvtControllerBase : ControllerBase
+  [ApiController]
+  public abstract class EvtControllerBase : Controller
   {
     protected IMediator Eventor;
 
@@ -20,7 +19,7 @@ namespace VND.FW.Infrastructure.AspNetCore
     }
   }
 
-  public abstract class EfCoreControllerBase<TEntity> : ControllerBase
+  public abstract class EfCoreControllerBase<TEntity> : Controller
     where TEntity : EntityBase
   {
     protected readonly IEfQueryRepository<TEntity> QueryRepository = null;

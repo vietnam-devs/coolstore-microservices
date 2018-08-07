@@ -6,7 +6,7 @@ namespace VND.CoolStore.Services.Cart.UseCases.v2
 {
   [ApiVersion("2.0")]
   [Route("api/carts")]
-  public class CartController : FW.Infrastructure.AspNetCore.ControllerBase
+  public class CartController : Controller
   {
     /*private readonly ICartService _cartService;
 

@@ -1,3 +1,4 @@
+using System;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using MediatR;
@@ -16,7 +17,11 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
     [HttpDelete]
     [Route("{cartId:guid}/items/{productId:guid}")]
     [Auth(Policy = "access_cart_api")]
-    public async Task<IActionResult> RemoveItemInCart([FromBody] DeleteItemRequest request) =>
-      await Eventor.SendStream<DeleteItemRequest, DeleteItemResponse>(request, x => x.ProductId);
+    public async Task<IActionResult> RemoveItemInCart(Guid cartId, Guid productId)
+    {
+      return await Eventor.SendStream<DeleteItemRequest, DeleteItemResponse>(
+        new DeleteItemRequest { CartId = cartId, ProductId = productId },
+        x => x.ProductId);
+    }
   }
 }
