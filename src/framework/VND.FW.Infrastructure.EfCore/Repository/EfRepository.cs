@@ -17,9 +17,11 @@ namespace VND.FW.Infrastructure.EfCore.Repository
 
     public IQueryRepository<TEntity> QueryRepository<TEntity>() where TEntity : IEntity
     {
-      return (IQueryRepository<TEntity>)_serviceProvider.GetService(typeof(IEfQueryRepository<TEntity>));
+      return _serviceProvider.GetService(typeof(IEfQueryRepository<TEntity>)) as IEfQueryRepository<TEntity>;
     }
   }
+
+  
 
   public class EfRepositoryAsync<TEntity>
         : EfRepositoryAsync<DbContext, TEntity>, IEfRepositoryAsync<TEntity>

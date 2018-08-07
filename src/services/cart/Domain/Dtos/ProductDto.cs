@@ -1,6 +1,6 @@
 using System;
 
-namespace VND.CoolStore.Services.Cart.Infrastructure.Dtos
+namespace VND.CoolStore.Services.Cart.Domain.Dtos
 {
   public class ProductDto
   {

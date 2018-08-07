@@ -1,6 +1,6 @@
 using System;
 using MediatR;
-using VND.CoolStore.Services.Cart.Infrastructure.Dtos;
+using VND.CoolStore.Services.Cart.Domain.Dtos;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
 {

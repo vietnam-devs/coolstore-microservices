@@ -24,10 +24,10 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
       where TDbContext : DbContext
     {
       return webHost
-          .MigrateDbContext<TDbContext>((context, services) =>
-          {
-            InstanceSeedData(services, context, typeof(ISeedData<>));
-          });
+        .MigrateDbContext<TDbContext>((context, services) =>
+        {
+          InstanceSeedData(services, context, typeof(ISeedData<>));
+        });
     }
 
     internal static IWebHost MigrateDbContext<TContext>(this IWebHost webHost, Action<TContext, IServiceProvider> seeder)

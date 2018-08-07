@@ -1,44 +1,29 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using VND.CoolStore.Services.Cart.Infrastructure.Gateways;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.EfCore.Repository;
-using VND.FW.Infrastructure.EfCore.Service;
+using VND.FW.Infrastructure.AspNetCore.CleanArch;
+using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
 {
-  public class CheckoutHandler : CartServiceBase,
-    IRequestHandler<CheckoutRequest, CheckoutResponse>,
-    ICommandService, IQueryService
+  public class CheckoutHandler : EventHandlerBase<CheckoutRequest, CheckoutResponse>
   {
-    public CheckoutHandler(
-      ICatalogGateway catalogGateway,
-      IUnitOfWorkAsync uow,
-      IQueryRepositoryFactory queryRepositoryFactory)
-      : base(catalogGateway)
+    public CheckoutHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf)
+      : base(uow, qrf)
     {
-      UnitOfWork = uow;
-      QueryRepositoryFactory = queryRepositoryFactory;
     }
 
-    public IUnitOfWorkAsync UnitOfWork { get; }
-
-    public IQueryRepositoryFactory QueryRepositoryFactory { get; }
-
-    public override IEfQueryRepository<Domain.Cart> GetQueryRepository()
+    public override async Task<CheckoutResponse> Handle(CheckoutRequest request, CancellationToken cancellationToken)
     {
-      return QueryRepositoryFactory.QueryRepository<Domain.Cart>() as IEfQueryRepository<Domain.Cart>;
-    }
-
-    public async Task<CheckoutResponse> Handle(CheckoutRequest request, CancellationToken cancellationToken)
-    {
+      var cartQueryRepository = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
-      var cart = await GetCart(request.CartId);
+
+      var cart = await cartQueryRepository.GetFullCart(request.CartId);
 
       cart.IsCheckout = true;
       var checkoutCart = await cartRepository.UpdateAsync(cart);
+
       return new CheckoutResponse
       {
         IsSucceed = checkoutCart != null

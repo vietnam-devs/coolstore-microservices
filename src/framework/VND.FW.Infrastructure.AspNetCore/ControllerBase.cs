@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -7,8 +8,16 @@ using VND.FW.Infrastructure.EfCore.Repository;
 
 namespace VND.FW.Infrastructure.AspNetCore
 {
-  public abstract class ControllerBase : Controller
+  public abstract class ControllerBase : Controller { }
+
+  public abstract class EvtControllerBase : ControllerBase
   {
+    protected IMediator Eventor;
+
+    protected EvtControllerBase(IMediator eventor)
+    {
+      Eventor = eventor;
+    }
   }
 
   public abstract class EfCoreControllerBase<TEntity> : ControllerBase

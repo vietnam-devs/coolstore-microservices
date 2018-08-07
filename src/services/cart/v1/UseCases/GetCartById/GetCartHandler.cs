@@ -1,50 +1,37 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using VND.CoolStore.Services.Cart.Infrastructure.Gateways;
-using VND.CoolStore.Services.Cart.Infrastructure.Services;
-using VND.CoolStore.Services.Cart.UseCases.v1.Services;
+using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.EfCore.Repository;
-using VND.FW.Infrastructure.EfCore.Service;
+using VND.FW.Infrastructure.AspNetCore.CleanArch;
+using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
 {
-  public class GetCartHandler : CartServiceBase,
-    IRequestHandler<GetCartRequest, GetCartResponse>,
-    IQueryService
+  public class GetCartHandler : EventHandlerBase<GetCartRequest, GetCartResponse>
   {
+    private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
     public GetCartHandler(
-      ICatalogGateway catalogGateway,
-      IQueryRepositoryFactory queryRepositoryFactory,
-      NoTaxCaculator priceCalculator)
-      : base(catalogGateway)
+      ICatalogGateway cgw,
+      IUnitOfWorkAsync uow,
+      IQueryRepositoryFactory qrf,
+      NoTaxCaculator priceCalculator) : base(uow, qrf)
     {
-      QueryRepositoryFactory = queryRepositoryFactory;
+      _catalogGateway = cgw;
       _priceCalculator = priceCalculator;
     }
 
-    public PriceCalculatorContext PriceCalculatorContext { get; set; }
-    public IQueryRepositoryFactory QueryRepositoryFactory { get; }
-
-    public override IEfQueryRepository<Domain.Cart> GetQueryRepository()
+    public override async Task<GetCartResponse> Handle(GetCartRequest request, CancellationToken cancellationToken)
     {
-      return QueryRepositoryFactory.QueryRepository<Domain.Cart>() as IEfQueryRepository<Domain.Cart>;
-    }
+      var cartQueryRepository = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
 
-    public async Task<GetCartResponse> Handle(GetCartRequest request, CancellationToken cancellationToken)
-    {
-      var cart = await GetCart(request.CartId);
-      cart = await InitCart(cart, populatePrice: true);
+      var cart = await cartQueryRepository.GetFullCart(request.CartId);
+      cart = await cart.InitCart(_catalogGateway, isPopulatePrice: true);
       cart = _priceCalculator.Execute(cart);
 
-      return new GetCartResponse
-      {
-        Result = GetCartByIdResponse(cart)
-      };
+      return new GetCartResponse { Result = cart.ToCartDto() };
     }
   }
 }

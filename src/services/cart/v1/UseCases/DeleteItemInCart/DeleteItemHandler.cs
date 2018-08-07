@@ -2,48 +2,31 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using VND.CoolStore.Services.Cart.Domain;
-using VND.CoolStore.Services.Cart.Infrastructure.Gateways;
-using VND.CoolStore.Services.Cart.Infrastructure.Services;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.EfCore.Repository;
-using VND.FW.Infrastructure.EfCore.Service;
+using VND.FW.Infrastructure.AspNetCore.CleanArch;
+using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
 {
-  public class DeleteItemHandler : CartServiceBase,
-    IRequestHandler<DeleteItemRequest, DeleteItemResponse>,
-    ICommandService, IQueryService
+  public class DeleteItemHandler : EventHandlerBase<DeleteItemRequest, DeleteItemResponse>
   {
-    public DeleteItemHandler(
-      ICatalogGateway catalogGateway,
-      IUnitOfWorkAsync uow,
-      IQueryRepositoryFactory queryRepositoryFactory)
-      : base(catalogGateway)
+    private readonly ICatalogGateway _catalogGateway;
+    public DeleteItemHandler(ICatalogGateway cgw, IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf)
+      : base(uow, qrf)
     {
-      UnitOfWork = uow;
-      QueryRepositoryFactory = queryRepositoryFactory;
+      _catalogGateway = cgw;
     }
 
-    public PriceCalculatorContext PriceCalculatorContext { get; set; }
-    public IQueryRepositoryFactory QueryRepositoryFactory { get; }
-
-    public IUnitOfWorkAsync UnitOfWork { get; }
-
-    public override IEfQueryRepository<Domain.Cart> GetQueryRepository()
+    public override async Task<DeleteItemResponse> Handle(DeleteItemRequest request, CancellationToken cancellationToken)
     {
-      return QueryRepositoryFactory.QueryRepository<Domain.Cart>() as IEfQueryRepository<Domain.Cart>;
-    }
-
-    public async Task<DeleteItemResponse> Handle(DeleteItemRequest request, CancellationToken cancellationToken)
-    {
+      var cartQueryRepository = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
       var cartItemRepository = UnitOfWork.Repository<CartItem>();
 
-      var cart = await GetCart(request.CartId);
-      cart = await InitCart(cart);
+      var cart = await cartQueryRepository.GetFullCart(request.CartId);
+      cart = await cart.InitCart(_catalogGateway);
 
       var cartItem = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == request.ProductId);
       if (cartItem == null)

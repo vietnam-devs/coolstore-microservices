@@ -1,3 +1,5 @@
+using VND.CoolStore.Services.Cart.Domain;
+
 namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways.Impl
 {
   public class ShippingGateway : IShippingGateway

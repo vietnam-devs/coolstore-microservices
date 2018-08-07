@@ -1,52 +1,38 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using VND.CoolStore.Services.Cart.Domain;
-using VND.CoolStore.Services.Cart.Infrastructure.Gateways;
-using VND.CoolStore.Services.Cart.UseCases.v1.Services;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.EfCore.Repository;
-using VND.FW.Infrastructure.EfCore.Service;
+using VND.FW.Infrastructure.AspNetCore.CleanArch;
+using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
 {
-  public class UpdateItemHandler : CartServiceBase,
-    IRequestHandler<UpdateItemInCartRequest, UpdateItemInCartResponse>,
-    ICommandService, IQueryService
+  public class UpdateItemHandler : EventHandlerBase<UpdateItemInCartRequest, UpdateItemInCartResponse>
   {
+    private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
     public UpdateItemHandler(
-      ICatalogGateway catalogGateway,
       IUnitOfWorkAsync uow,
-      IQueryRepositoryFactory queryRepositoryFactory,
-      NoTaxCaculator priceCalculator)
-      : base(catalogGateway)
+      IQueryRepositoryFactory qrf,
+      ICatalogGateway catalogGateway,
+      NoTaxCaculator priceCalculator) : base(uow, qrf)
     {
-      UnitOfWork = uow;
-      QueryRepositoryFactory = queryRepositoryFactory;
+      _catalogGateway = catalogGateway;
       _priceCalculator = priceCalculator;
     }
 
-    public IQueryRepositoryFactory QueryRepositoryFactory { get; }
-
-    public IUnitOfWorkAsync UnitOfWork { get; }
-
-    public override IEfQueryRepository<Domain.Cart> GetQueryRepository()
+    public override async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request, CancellationToken cancellationToken)
     {
-      return QueryRepositoryFactory.QueryRepository<Domain.Cart>() as IEfQueryRepository<Domain.Cart>;
-    }
-
-    public async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request, CancellationToken cancellationToken)
-    {
+      var cartQueryRepository = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
       var cartItemRepository = UnitOfWork.Repository<CartItem>();
 
       var isNewItem = false;
-      var cart = await GetCart(request.CartId);
-      cart = await InitCart(cart);
+      var cart = await cartQueryRepository.GetFullCart(request.CartId);
+      cart = await cart.InitCart(_catalogGateway);
 
       var item = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == request.ProductId);
 
@@ -80,10 +66,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
         await cartItemRepository.AddAsync(item);
       }
 
-      return new UpdateItemInCartResponse
-      {
-        Result = GetCartByIdResponse(cart)
-      };
+      return new UpdateItemInCartResponse { Result = cart.ToCartDto() };
     }
   }
 }

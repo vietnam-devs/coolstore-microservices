@@ -47,6 +47,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
 
       var extendOptionsBuilder = serviceProvider.GetRequiredService<IExtendDbContextOptionsBuilder>();
       var dbConnectionStringFactory = serviceProvider.GetRequiredService<IDatabaseConnectionStringFactory>();
+
       IdentityModelEventSource.ShowPII = true;
 
       if (config.GetValue("EnableAuthN", false))
@@ -82,7 +83,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       // MediatR
       services.AddScoped<ServiceFactory>(p => p.GetService);
       services.Scan(
-        scan => scan
+        scanner => scanner
           .FromAssembliesOf(typeof(IMediator), startupAssembly.ExportedTypes.FirstOrDefault())
           .AddClasses()
           .AsImplementedInterfaces());
@@ -100,6 +101,12 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         .AddJsonOptions(options =>
           options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+      /*services
+        .AddMiniProfiler(o =>
+        {
+          o.RouteBasePath = "/profiler";
+        });*/
 
       services.AddApiVersioning(o => {
         o.ReportApiVersions = true;
@@ -167,10 +174,10 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       services.AddCors(options =>
       {
         options.AddPolicy("CorsPolicy",
-                  policy => policy.AllowAnyOrigin()
-                      .AllowAnyMethod()
-                      .AllowAnyHeader()
-                      .AllowCredentials());
+          policy => policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials());
       });
 
       if (!env.IsDevelopment())
@@ -202,6 +209,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       {
         app.UseDeveloperExceptionPage();
         app.UseDatabaseErrorPage();
+        // app.UseMiniProfiler();
       }
       else
       {
@@ -217,12 +225,6 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         logger.LogInformation($"Using PATH BASE '{basePath}'");
         app.UsePathBase(basePath);
       }
-
-      app.Use(async (context, next) =>
-      {
-        // context.Request.Path = $"api/{version}/{controller}/ToDoItemDto/{remainingPath}";
-        await next.Invoke();
-      });
 
       if (!env.IsDevelopment())
       {
@@ -268,6 +270,8 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
               c.OAuthAppName("swagger_app");
               c.OAuth2RedirectUrl($"{currentHostUri}/swagger/oauth2-redirect.html");
             }
+
+            // c.IndexStream = () => typeof(MiniServiceExtensions).GetTypeInfo().Assembly.GetManifestResourceStream("VND.FW.Infrastructure.AspNetCore.Swagger.index.html");
           });
       }
 
@@ -321,7 +325,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
     /// <returns></returns>
     private static Info CreateInfoForApiVersion(ApiVersionDescription description)
     {
-      Info info = new Info()
+      var info = new Info()
       {
         Title = $"API {description.ApiVersion}",
         Version = description.ApiVersion.ToString(),

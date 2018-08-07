@@ -1,32 +1,21 @@
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VND.FW.Infrastructure.AspNetCore;
-using ControllerBase = VND.FW.Infrastructure.AspNetCore.ControllerBase;
+using VND.FW.Infrastructure.AspNetCore.CleanArch;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
 {
   [ApiVersion("1.0")]
   [Route("api/carts")]
-  public class CartController : ControllerBase
+  public class CartController : EvtControllerBase
   {
-    private readonly IMediator _eventAggregator;
-    private readonly InsertItemPresenter _presenter;
-
-    public CartController(
-      IMediator eventAggregator,
-      InsertItemPresenter presenter)
-    {
-      _eventAggregator = eventAggregator;
-      _presenter = presenter;
-    }
+    public CartController(IMediator mediator) : base(mediator) { }
 
     [HttpPost]
-    [Auth(Policy = "access_cart_api")]
-    public async Task<IActionResult> Create([FromBody] InsertItemToNewCartRequest request)
-    {
-      var result = await _eventAggregator.Send(request);
-      return _presenter.Populate(result);
-    }
+    //[Auth(Policy = "access_cart_api")]
+    public async Task<IActionResult> Create([FromBody] InsertItemToNewCartRequest request) =>
+      await Eventor.SendStream<InsertItemToNewCartRequest, InsertItemToNewCartResponse>(request, x => x.Result);
   }
 }

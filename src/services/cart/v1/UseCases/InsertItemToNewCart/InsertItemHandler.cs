@@ -1,58 +1,44 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using VND.CoolStore.Services.Cart.Domain;
-using VND.CoolStore.Services.Cart.Infrastructure.Gateways;
-using VND.CoolStore.Services.Cart.UseCases.v1.Services;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.EfCore.Service;
+using VND.FW.Infrastructure.AspNetCore.CleanArch;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
 {
-  public class InsertItemHandler : CartServiceBase,
-    IRequestHandler<InsertItemToNewCartRequest, InsertItemToNewCartResponse>,
-    ICommandService, IQueryService
+  public class InsertItemHandler : EventHandlerBase<InsertItemToNewCartRequest, InsertItemToNewCartResponse>
   {
+    private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
     public InsertItemHandler(
-      ICatalogGateway catalogGateway,
       IUnitOfWorkAsync uow,
-      IQueryRepositoryFactory queryRepositoryFactory,
-      NoTaxCaculator priceCalculator)
-      : base(catalogGateway)
+      IQueryRepositoryFactory qrf,
+      ICatalogGateway catalogGateway,
+      NoTaxCaculator priceCalculator) : base(uow, qrf)
     {
-      UnitOfWork = uow;
-      QueryRepositoryFactory = queryRepositoryFactory;
+      _catalogGateway = catalogGateway;
       _priceCalculator = priceCalculator;
     }
 
-    public IQueryRepositoryFactory QueryRepositoryFactory { get; }
-
-    public IUnitOfWorkAsync UnitOfWork { get; }
-
-    public async Task<InsertItemToNewCartResponse> Handle(InsertItemToNewCartRequest request, CancellationToken cancellationToken)
+    public override async Task<InsertItemToNewCartResponse> Handle(InsertItemToNewCartRequest request, CancellationToken cancellationToken)
     {
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
 
-      var cart = new Domain.Cart();
-      cart.InsertItemToCart(new CartItem
+      var cart = new Domain.Cart().InsertItemToCart(new CartItem
       {
         Product = new Product(request.ProductId),
         PromoSavings = 0.0D,
         Quantity = request.Quantity
       });
 
-      cart = await InitCart(cart, populatePrice: true);
+      cart = await cart.InitCart(_catalogGateway, isPopulatePrice: true);
       cart = _priceCalculator.Execute(cart);
 
       await cartRepository.AddAsync(cart);
 
-      return new InsertItemToNewCartResponse
-      {
-        Result = GetCartByIdResponse(cart)
-      };
+      return new InsertItemToNewCartResponse { Result = cart.ToCartDto() };
     }
   }
 }

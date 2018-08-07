@@ -21,7 +21,7 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
             where TEntity : class, IEntity
 
     {
-      IQueryable<TEntity> queryable = repo.Queryable();
+      var queryable = repo.Queryable();
 
       if (disableTracking)
       {
@@ -44,7 +44,7 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
             where TDbContext : DbContext
             where TEntity : class, IEntity
     {
-      IQueryable<TEntity> queryable = repo.Queryable();
+      var queryable = repo.Queryable();
 
       include?.Invoke(queryable);
 
@@ -63,7 +63,7 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
             where TDbContext : DbContext
             where TEntity : class, IEntity
     {
-      IQueryable<TEntity> queryable = repo.Queryable();
+      var queryable = repo.Queryable();
       if (disableTracking)
       {
         queryable = queryable.AsNoTracking() as IQueryable<TEntity>;
@@ -109,7 +109,7 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
             where TDbContext : DbContext
             where TEntity : class, IEntity
     {
-      IQueryable<TEntity> queryable = repo.Queryable();
+      var queryable = repo.Queryable();
       if (disableTracking)
       {
         queryable = queryable.AsNoTracking() as IQueryable<TEntity>;
@@ -128,14 +128,14 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
         queryable = queryable.OrderByPropertyName(criterion.SortBy, isDesc);
       }
 
-      List<TResponse> results = await queryable
-                .Skip(criterion.CurrentPage * criterion.PageSize)
-                .Take(criterion.PageSize)
-                .Select(selector)
-                .ToListAsync();
+      var results = await queryable
+        .Skip(criterion.CurrentPage * criterion.PageSize)
+        .Take(criterion.PageSize)
+        .Select(selector)
+        .ToListAsync();
 
-      int totalRecord = await queryable.CountAsync();
-      int totalPages = (int)Math.Ceiling((double)totalRecord / criterion.PageSize);
+      var totalRecord = await queryable.CountAsync();
+      var totalPages = (int)Math.Ceiling((double)totalRecord / criterion.PageSize);
 
       if (criterion.CurrentPage > totalPages)
       {
