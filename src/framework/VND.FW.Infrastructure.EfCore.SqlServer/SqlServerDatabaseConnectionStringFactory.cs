@@ -22,11 +22,11 @@ namespace VND.FW.Infrastructure.EfCore.SqlServer
     {
       if (_env.IsDevelopment())
       {
-        return _config.GetConnectionString("local_mssql");
+        return _config.GetConnectionString("mssqldb");
       }
 
       return string.Format(
-          _config.GetConnectionString("k8s_mssql"),
+          _config.GetConnectionString("mssqldb"),
           Environment.GetEnvironmentVariable(_config.GetValue<string>("k8s:mssqldb:Host")),
           Environment.GetEnvironmentVariable(_config.GetValue<string>("k8s:mssqldb:Port")),
           _config.GetValue<string>("k8s:mssqldb:Database"),
