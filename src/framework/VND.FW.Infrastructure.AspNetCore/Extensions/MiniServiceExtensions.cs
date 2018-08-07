@@ -77,7 +77,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
         return new UrlHelper(actionContext);
       });
-      services.AddHttpClient<RestClient>();
+      services.AddHttpPolly<RestClient>();
 
       // MediatR
       services.AddScoped<ServiceFactory>(p => p.GetService);

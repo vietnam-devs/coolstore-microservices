@@ -7,10 +7,8 @@ namespace VND.FW.Infrastructure.AspNetCore.CleanArch
 {
   public static class EventAggregatorExtensions
   {
-    public static IObservable<dynamic> SendStream<TRequest, TResponse>(
-      this IMediator mediator,
-      TRequest request,
-      Func<TResponse, dynamic> mapTo = null)
+    public static IObservable<dynamic> SendStream<TRequest, TResponse>(this IMediator mediator,
+      TRequest request, Func<TResponse, dynamic> mapTo = null)
       where TRequest : IRequest<TResponse>
       where TResponse : class
     {

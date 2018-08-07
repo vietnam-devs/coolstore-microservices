@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using VND.CoolStore.Services.Cart.Domain;
@@ -10,10 +12,10 @@ using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
 {
-  public class DeleteItemHandler : EventHandlerBase<DeleteItemRequest, DeleteItemResponse>
+  public class CartRequestHandler : RequestHandlerBase<DeleteItemRequest, DeleteItemResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
-    public DeleteItemHandler(ICatalogGateway cgw, IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf)
+    public CartRequestHandler(ICatalogGateway cgw, IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf)
       : base(uow, qrf)
     {
       _catalogGateway = cgw;
@@ -21,12 +23,14 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
 
     public override async Task<DeleteItemResponse> Handle(DeleteItemRequest request, CancellationToken cancellationToken)
     {
-      var cartQueryRepository = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
       var cartItemRepository = UnitOfWork.Repository<CartItem>();
 
-      var cart = await cartQueryRepository.GetFullCart(request.CartId);
-      cart = await cart.InitCart(_catalogGateway);
+      var cart = await QueryRepositoryFactory
+        ?.QueryEfRepository<Domain.Cart>()
+        ?.GetFullCart(request.CartId)
+        ?.ToObservable()
+        ?.SelectMany(c => c.InitCart(_catalogGateway));
 
       var cartItem = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == request.ProductId);
       if (cartItem == null)
@@ -37,8 +41,6 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
       cart = cart.RemoveCartItem(cartItem.Id);
       var isSucceed = await cartRepository.UpdateAsync(cart) != null;
       await cartItemRepository.DeleteAsync(cartItem);
-
-      UnitOfWork.Commit();
 
       return new DeleteItemResponse { ProductId = cartItem.Product.ProductId };
     }

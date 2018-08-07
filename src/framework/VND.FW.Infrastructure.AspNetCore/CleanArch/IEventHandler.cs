@@ -12,10 +12,10 @@ namespace VND.FW.Infrastructure.AspNetCore.CleanArch
     IUnitOfWorkAsync UnitOfWork { get; }
   }
 
-  public abstract class EventHandlerBase<TRequest, TResponse> : IEventHandler<TRequest, TResponse>
+  public abstract class RequestHandlerBase<TRequest, TResponse> : IEventHandler<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
   {
-    protected EventHandlerBase(IUnitOfWorkAsync uow, IQueryRepositoryFactory queryRepositoryFactory)
+    protected RequestHandlerBase(IUnitOfWorkAsync uow, IQueryRepositoryFactory queryRepositoryFactory)
     {
       QueryRepositoryFactory = queryRepositoryFactory;
       UnitOfWork = uow;

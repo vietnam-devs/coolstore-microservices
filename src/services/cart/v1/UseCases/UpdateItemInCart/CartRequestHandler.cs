@@ -1,4 +1,6 @@
 using System.Linq;
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using VND.CoolStore.Services.Cart.Domain;
@@ -9,12 +11,12 @@ using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
 {
-  public class UpdateItemHandler : EventHandlerBase<UpdateItemInCartRequest, UpdateItemInCartResponse>
+  public class CartRequestHandler : RequestHandlerBase<UpdateItemInCartRequest, UpdateItemInCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
-    public UpdateItemHandler(
+    public CartRequestHandler(
       IUnitOfWorkAsync uow,
       IQueryRepositoryFactory qrf,
       ICatalogGateway catalogGateway,
@@ -26,13 +28,15 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
 
     public override async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request, CancellationToken cancellationToken)
     {
-      var cartQueryRepository = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
       var cartItemRepository = UnitOfWork.Repository<CartItem>();
 
       var isNewItem = false;
-      var cart = await cartQueryRepository.GetFullCart(request.CartId);
-      cart = await cart.InitCart(_catalogGateway);
+      var cart = await QueryRepositoryFactory
+        ?.QueryEfRepository<Domain.Cart>()
+        ?.GetFullCart(request.CartId)
+        ?.ToObservable()
+        ?.SelectMany(c => c.InitCart(_catalogGateway));
 
       var item = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == request.ProductId);
 

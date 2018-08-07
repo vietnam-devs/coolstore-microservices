@@ -1,3 +1,5 @@
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using VND.CoolStore.Services.Cart.Domain;
@@ -8,12 +10,12 @@ using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
 {
-  public class GetCartHandler : EventHandlerBase<GetCartRequest, GetCartResponse>
+  public class CartRequestHandler : RequestHandlerBase<GetCartRequest, GetCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
-    public GetCartHandler(
+    public CartRequestHandler(
       ICatalogGateway cgw,
       IUnitOfWorkAsync uow,
       IQueryRepositoryFactory qrf,
@@ -25,11 +27,12 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
 
     public override async Task<GetCartResponse> Handle(GetCartRequest request, CancellationToken cancellationToken)
     {
-      var cartQueryRepository = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
-
-      var cart = await cartQueryRepository.GetFullCart(request.CartId);
-      cart = await cart.InitCart(_catalogGateway, isPopulatePrice: true);
-      cart = _priceCalculator.Execute(cart);
+      var cart = await QueryRepositoryFactory
+        ?.QueryEfRepository<Domain.Cart>()
+        ?.GetFullCart(request.CartId)
+        ?.ToObservable()
+        ?.SelectMany(c => c.InitCart(_catalogGateway, isPopulatePrice: true))
+        ?.Select(c => _priceCalculator.Execute(c));
 
       return new GetCartResponse { Result = cart.ToCartDto() };
     }

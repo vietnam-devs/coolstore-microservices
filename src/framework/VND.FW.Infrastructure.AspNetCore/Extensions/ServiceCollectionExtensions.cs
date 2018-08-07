@@ -1,16 +1,17 @@
+using System;
+using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
-using System;
-using System.Net.Http;
 
 namespace VND.FW.Infrastructure.AspNetCore.Extensions
 {
   public static class ServiceCollectionExtensions
   {
-    public static IServiceCollection AddHttpPolly(this IServiceCollection services)
+    public static IServiceCollection AddHttpPolly<TRestClient>(this IServiceCollection services)
+      where TRestClient : class
     {
-      services.AddHttpClient<RestClient>()
+      services.AddHttpClient<TRestClient>()
           .SetHandlerLifetime(TimeSpan.FromMinutes(1))
           .AddPolicyHandler(GetRetryPolicy())
           .AddPolicyHandler(GetCircuitBreakerPolicy());

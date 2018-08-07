@@ -9,12 +9,12 @@ using VND.FW.Infrastructure.AspNetCore.CleanArch;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
 {
-  public class InsertItemHandler : EventHandlerBase<InsertItemToNewCartRequest, InsertItemToNewCartResponse>
+  public class CartRequestHandler : RequestHandlerBase<InsertItemToNewCartRequest, InsertItemToNewCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
-    public InsertItemHandler(
+    public CartRequestHandler(
       IUnitOfWorkAsync uow,
       IQueryRepositoryFactory qrf,
       ICatalogGateway catalogGateway,
@@ -30,15 +30,15 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
 
       var cart = await Domain.Cart
         .Load()
-        .InsertItemToCart(new CartItem
+        ?.InsertItemToCart(new CartItem
         {
           Product = new Product(request.ProductId),
           PromoSavings = 0.0D,
           Quantity = request.Quantity
         })
-        .InitCart(_catalogGateway, isPopulatePrice: true)
-        .ToObservable()
-        .Select(c => _priceCalculator.Execute(c));
+        ?.InitCart(_catalogGateway, isPopulatePrice: true)
+        ?.ToObservable()
+        ?.Select(c => _priceCalculator.Execute(c));
 
       await cartRepository.AddAsync(cart);
 
