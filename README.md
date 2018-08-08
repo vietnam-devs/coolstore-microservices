@@ -145,7 +145,7 @@ Waiting for the container provision completed
 
 ### Microservice Development
 
-![Microservice Screenshot](assets/images/miniservice-development.png?raw=true 'Microservice')
+![Microservice Screenshot](assets/images/miniservice-development.PNG?raw=true 'Microservice')
 
 ### Open API
 
