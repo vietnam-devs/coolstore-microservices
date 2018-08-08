@@ -5,7 +5,7 @@ using VND.CoolStore.Services.Cart.Domain;
 using VND.FW.Infrastructure.EfCore.Extensions;
 using VND.FW.Infrastructure.EfCore.Repository;
 
-namespace VND.CoolStore.Services.Cart.v1.Services
+namespace VND.CoolStore.Services.Cart.v1.Extensions
 {
   public static class CartRepositoryExtensions
   {
