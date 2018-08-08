@@ -155,7 +155,6 @@ namespace IdentityServer4
           $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/price/swagger/oauth2-redirect.html",
           $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/review/swagger/oauth2-redirect.html",
           $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/rating/swagger/oauth2-redirect.html",
-          $"{hostSettings.GetValue<string>("SpaAllowedCorsOrigin")}/callback"
         },
         PostLogoutRedirectUris =
         {
@@ -181,22 +180,22 @@ namespace IdentityServer4
       {
         ClientId = "spa",
         ClientName = "SPA Client",
-        ClientUri = hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"),
+        ClientUri = hostSettings.GetValue<string>("SpaAllowedCorsOrigin"),
         AllowedGrantTypes = GrantTypes.Implicit,
         AllowAccessTokensViaBrowser = true,
 
         RedirectUris =
         {
-          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/callback"
+          $"{hostSettings.GetValue<string>("SpaAllowedCorsOrigin")}/callback",
         },
 
         PostLogoutRedirectUris =
         {
-          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/"
+          $"{hostSettings.GetValue<string>("SpaAllowedCorsOrigin")}/"
         },
         AllowedCorsOrigins =
         {
-          hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin"),
+          hostSettings.GetValue<string>("SpaAllowedCorsOrigin"),
         },
 
         AllowedScopes = {
