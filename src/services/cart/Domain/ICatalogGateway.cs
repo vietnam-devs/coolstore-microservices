@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VND.CoolStore.Services.Cart.Domain.Dtos;
+using VND.CoolStore.Services.Cart.Dtos;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {

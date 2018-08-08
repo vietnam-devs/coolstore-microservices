@@ -83,13 +83,6 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       services.AddHttpPolly<RestClient>();
 
       // MediatR
-      /*services.AddScoped<ServiceFactory>(p => p.GetService);
-      services.Scan(
-        scanner => scanner
-          .FromAssembliesOf(typeof(IMediator), startupAssembly.ExportedTypes.FirstOrDefault())
-          .AddClasses()
-          .AsImplementedInterfaces());*/
-
       services.AddMediatR(typeof(MiniServiceExtensions).Assembly, startupAssembly);
       services.Scan(
         scanner => scanner

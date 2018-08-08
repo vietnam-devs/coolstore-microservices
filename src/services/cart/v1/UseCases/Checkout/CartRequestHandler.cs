@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using VND.CoolStore.Services.Cart.v1.Extensions;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
 using VND.FW.Infrastructure.AspNetCore.CleanArch;

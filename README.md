@@ -12,7 +12,7 @@ CoolStore is a containerised polyglot microservices application consisting of se
 
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
-### Slides
+### Presentation
 - [From Microservices to Service Mesh - DevCafe Event - July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
 - [Service Mesh for Microservices- Vietnam Mobile Day Event - June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
 
@@ -21,6 +21,7 @@ It demonstrates how to wire up small microservices into a larger application usi
 * [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
 * [Services](https://github.com/vietnam-devs/coolstore-microservices#services)
 * [Up and Running](https://github.com/vietnam-devs/coolstore-microservices#up-and-running)
+* [Microservice Development](https://github.com/vietnam-devs/coolstore-microservices#microservice-development)
 * [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
 * [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
 * [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
@@ -141,6 +142,10 @@ Waiting for the container provision completed
 > ```
 > helm install --name cs-nginx stable/nginx-ingress
 > ```
+
+### Microservice Development
+
+![Microservice Screenshot](assets/images/miniservice-development.png?raw=true 'Microservice')
 
 ### Open API
 
