@@ -25,7 +25,7 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
 
       if (disableTracking)
       {
-        queryable = queryable.AsNoTracking() as IQueryable<TEntity>;
+        queryable = queryable.AsNoTracking();
       }
 
       if (include != null)

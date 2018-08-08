@@ -8,7 +8,7 @@ using VND.CoolStore.Services.Cart.Domain.Dtos;
 using VND.FW.Infrastructure.AspNetCore;
 using VND.FW.Infrastructure.AspNetCore.Extensions;
 
-namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways.Impl
+namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways
 {
   public class CatalogGateway : ProxyServiceBase, ICatalogGateway
   {

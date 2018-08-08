@@ -18,35 +18,39 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
     {
       var serviceProvider = services.BuildServiceProvider();
       var persistenceOption = serviceProvider.GetRequiredService<IOptions<PersistenceOption>>()?.Value;
-      var entityTypes = persistenceOption.FullyQualifiedPrefix.LoadAssemblyWithPattern()
-        .SelectMany(m => m.DefinedTypes)
-        .Where(x => typeof(IEntity)
-        .IsAssignableFrom(x) && !x.GetTypeInfo().IsAbstract);
-
-      foreach (TypeInfo entity in entityTypes)
+      if (persistenceOption != null)
       {
-        var repoType = typeof(IEfRepositoryAsync<>).MakeGenericType(entity);
-        var implRepoType = typeof(EfRepositoryAsync<>).MakeGenericType(entity);
-        services.AddScoped(repoType, implRepoType);
+        var entityTypes = persistenceOption
+          .FullyQualifiedPrefix
+          .LoadAssemblyWithPattern()
+          .SelectMany(m => m.DefinedTypes)
+          .Where(x => typeof(IEntity).IsAssignableFrom(x) && !x.GetTypeInfo().IsAbstract);
 
-        var queryRepoType = typeof(IEfQueryRepository<>).MakeGenericType(entity);
-        var implQueryRepoType = typeof(EfQueryRepository<>).MakeGenericType(entity);
-        services.AddScoped(queryRepoType, implQueryRepoType);
+        foreach (var entity in entityTypes)
+        {
+          var repoType = typeof(IEfRepositoryAsync<>).MakeGenericType(entity);
+          var implRepoType = typeof(EfRepositoryAsync<>).MakeGenericType(entity);
+          services.AddSingleton(repoType, implRepoType);
+
+          var queryRepoType = typeof(IEfQueryRepository<>).MakeGenericType(entity);
+          var implQueryRepoType = typeof(EfQueryRepository<>).MakeGenericType(entity);
+          services.AddSingleton(queryRepoType, implQueryRepoType);
+        }
       }
 
-      services.AddScoped(
+      services.AddSingleton(
           typeof(IUnitOfWorkAsync), resolver =>
           new EfUnitOfWork(
               resolver.GetService<DbContext>(),
               resolver.GetService<IServiceProvider>()));
 
-      services.AddScoped(
+      services.AddSingleton(
           typeof(IQueryRepositoryFactory), resolver =>
           new EfQueryRepositoryFactory(resolver.GetService<IServiceProvider>()));
 
       // by default, we register the in-memory database
-      services.AddScoped(typeof(IDatabaseConnectionStringFactory), typeof(NoOpDatabaseConnectionStringFactory));
-      services.AddScoped(typeof(IExtendDbContextOptionsBuilder), typeof(InMemoryDbContextOptionsBuilderFactory));
+      services.AddSingleton(typeof(IDatabaseConnectionStringFactory), typeof(NoOpDatabaseConnectionStringFactory));
+      services.AddSingleton(typeof(IExtendDbContextOptionsBuilder), typeof(InMemoryDbContextOptionsBuilderFactory));
 
       return services;
     }

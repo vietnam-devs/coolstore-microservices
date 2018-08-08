@@ -11,22 +11,20 @@ using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
 {
-  public class CartRequestHandler : RequestHandlerBase<UpdateItemInCartRequest, UpdateItemInCartResponse>
+  public class CartRequestHandler : TxRequestHandlerBase<UpdateItemInCartRequest, UpdateItemInCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
-    public CartRequestHandler(
-      IUnitOfWorkAsync uow,
-      IQueryRepositoryFactory qrf,
-      ICatalogGateway catalogGateway,
-      NoTaxCaculator priceCalculator) : base(uow, qrf)
+    public CartRequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf,
+      ICatalogGateway catalogGateway, NoTaxCaculator priceCalculator) : base(uow, qrf)
     {
       _catalogGateway = catalogGateway;
       _priceCalculator = priceCalculator;
     }
 
-    public override async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request, CancellationToken cancellationToken)
+    public override async Task<UpdateItemInCartResponse> TxHandle(UpdateItemInCartRequest request,
+      CancellationToken cancellationToken)
     {
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
       var cartItemRepository = UnitOfWork.Repository<CartItem>();
@@ -54,7 +52,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
       else
       {
         // otherwise is updating the current item in the cart
-        item.Quantity = request.Quantity;
+        item.Quantity += request.Quantity;
       }
 
       cart = _priceCalculator.Execute(cart);
@@ -62,15 +60,11 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
 
       // Todo: refactor to unit of work later
       if (!isNewItem)
-      {
         await cartItemRepository.UpdateAsync(item);
-      }
       else
-      {
         await cartItemRepository.AddAsync(item);
-      }
 
-      return new UpdateItemInCartResponse { Result = cart.ToCartDto() };
+      return new UpdateItemInCartResponse {Result = cart.ToCartDto()};
     }
   }
 }

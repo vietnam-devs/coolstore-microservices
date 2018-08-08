@@ -7,14 +7,14 @@ using VND.FW.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
 {
-  public class CartRequestHandler : RequestHandlerBase<CheckoutRequest, CheckoutResponse>
+  public class CartRequestHandler : TxRequestHandlerBase<CheckoutRequest, CheckoutResponse>
   {
     public CartRequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf)
       : base(uow, qrf)
     {
     }
 
-    public override async Task<CheckoutResponse> Handle(CheckoutRequest request, CancellationToken cancellationToken)
+    public override async Task<CheckoutResponse> TxHandle(CheckoutRequest request, CancellationToken cancellationToken)
     {
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
 

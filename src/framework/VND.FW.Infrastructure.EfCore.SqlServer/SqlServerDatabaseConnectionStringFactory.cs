@@ -1,6 +1,6 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using System;
 using VND.FW.Infrastructure.EfCore.Db;
 
 namespace VND.FW.Infrastructure.EfCore.SqlServer
@@ -26,12 +26,12 @@ namespace VND.FW.Infrastructure.EfCore.SqlServer
       }
 
       return string.Format(
-          _config.GetConnectionString("mssqldb"),
-          Environment.GetEnvironmentVariable(_config.GetValue<string>("k8s:mssqldb:Host")),
-          Environment.GetEnvironmentVariable(_config.GetValue<string>("k8s:mssqldb:Port")),
-          _config.GetValue<string>("k8s:mssqldb:Database"),
-          _config.GetValue<string>("k8s:mssqldb:UserName"),
-          _config.GetValue<string>("k8s:mssqldb:Password"));
+        _config.GetConnectionString("mssqldb"),
+        Environment.GetEnvironmentVariable(_config.GetValue<string>("k8s:mssqldb:Host")),
+        Environment.GetEnvironmentVariable(_config.GetValue<string>("k8s:mssqldb:Port")),
+        _config.GetValue<string>("k8s:mssqldb:Database"),
+        _config.GetValue<string>("k8s:mssqldb:UserName"),
+        _config.GetValue<string>("k8s:mssqldb:Password"));
     }
   }
 }

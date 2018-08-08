@@ -1,6 +1,6 @@
 using VND.CoolStore.Services.Cart.Domain;
 
-namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways.Impl
+namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways
 {
   public class PromoGateway : IPromoGateway
   {

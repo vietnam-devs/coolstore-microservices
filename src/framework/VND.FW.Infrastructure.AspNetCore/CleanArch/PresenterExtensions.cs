@@ -13,12 +13,7 @@ namespace VND.FW.Infrastructure.AspNetCore.CleanArch
         return new NoContentResult();
       }
 
-      if (mapTo == null)
-      {
-        return new OkObjectResult(input);
-      }
-
-      return new OkObjectResult(mapTo(input));
+      return mapTo == null ? new OkObjectResult(input) : new OkObjectResult(mapTo(input));
     }
   }
 }

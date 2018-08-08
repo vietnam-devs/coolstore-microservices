@@ -9,13 +9,14 @@ namespace VND.CoolStore.Services.Cart.v1.Services
 {
   public static class CartRepositoryExtensions
   {
-    public static async Task<Domain.Cart> GetFullCart(this IEfQueryRepository<Domain.Cart> cartRepo, Guid cartId)
+    public static async Task<Domain.Cart> GetFullCart(this IEfQueryRepository<Domain.Cart> cartRepo, Guid cartId, bool isTracking = true)
     {
       var cart = await cartRepo.GetByIdAsync(
         cartId,
         cartQueryable => cartQueryable
           .Include(x => x.CartItems)
-          .ThenInclude((CartItem cartItem) => cartItem.Product));
+          .ThenInclude((CartItem cartItem) => cartItem.Product),
+        isTracking);
 
       if (cart == null)
       {

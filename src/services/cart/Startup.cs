@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Infrastructure.Db;
 using VND.CoolStore.Services.Cart.v1.Services;
+using VND.CoolStore.Services.Cart.v2.Services;
 using VND.FW.Infrastructure.AspNetCore.Extensions;
 using VND.FW.Infrastructure.EfCore.SqlServer;
 
@@ -22,14 +23,10 @@ namespace VND.CoolStore.Services.Cart
           o.AddPolicy("access_cart_api",
             p => p.RequireClaim("scope", "cart_api_scope"));
         },
-        () =>
+        () => new Dictionary<string, string>
         {
-          return new Dictionary<string, string>
-          {
-            {"cart_api_scope", "Cart APIs"}
-          };
-        }
-      );
+          {"cart_api_scope", "Cart APIs"}
+        });
 
       services.AddScoped<NoTaxCaculator>();
       services.AddScoped<TenPercentTaxCalculator>();

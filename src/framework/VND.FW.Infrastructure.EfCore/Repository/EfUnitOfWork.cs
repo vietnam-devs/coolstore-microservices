@@ -1,14 +1,13 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using System;
-using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using VND.Fw.Domain;
 
 namespace VND.FW.Infrastructure.EfCore.Repository
 {
-  public class EfUnitOfWork : IUnitOfWorkAsync, IRepositoryFactory
+  public class EfUnitOfWork : IUnitOfWorkAsync
   {
     private readonly DbContext _context;
     protected IDbContextTransaction Transaction;
@@ -33,11 +32,6 @@ namespace VND.FW.Infrastructure.EfCore.Repository
 
     public virtual int SaveChanges() => _context.SaveChanges();
 
-    public Task<int> SaveChangesAsync()
-    {
-      return _context.SaveChangesAsync();
-    }
-
     public virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken)
     {
       return _context.SaveChangesAsync(cancellationToken);
@@ -58,37 +52,10 @@ namespace VND.FW.Infrastructure.EfCore.Repository
       return await _context.Database.ExecuteSqlCommandAsync(sql, cancellationToken, parameters);
     }
 
-    public virtual async Task BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
-    {
-      if (_context.Database.GetDbConnection().State != ConnectionState.Open)
-      {
-        await _context.Database.OpenConnectionAsync();
-      }
-      Transaction = await _context.Database.BeginTransactionAsync(isolationLevel);
-    }
-
-    public virtual bool Commit()
-    {
-      Transaction.Commit();
-      return true;
-    }
-
-    public virtual void Rollback()
-    {
-      Transaction.Rollback();
-    }
-
     public void Dispose()
     {
-      if (Transaction != null)
-      {
-        Transaction.Dispose();
-      }
-
-      if (_context != null)
-      {
-        _context.Dispose();
-      }
+      Transaction?.Dispose();
+      _context?.Dispose();
     }
   }
 }

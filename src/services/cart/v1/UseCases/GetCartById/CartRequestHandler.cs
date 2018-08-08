@@ -15,11 +15,8 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
     private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
-    public CartRequestHandler(
-      ICatalogGateway cgw,
-      IUnitOfWorkAsync uow,
-      IQueryRepositoryFactory qrf,
-      NoTaxCaculator priceCalculator) : base(uow, qrf)
+    public CartRequestHandler(ICatalogGateway cgw, IUnitOfWorkAsync uow,
+      IQueryRepositoryFactory qrf, NoTaxCaculator priceCalculator) : base(uow, qrf)
     {
       _catalogGateway = cgw;
       _priceCalculator = priceCalculator;
@@ -29,7 +26,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
     {
       var cart = await QueryRepositoryFactory
         ?.QueryEfRepository<Domain.Cart>()
-        ?.GetFullCart(request.CartId)
+        ?.GetFullCart(request.CartId, false)
         ?.ToObservable()
         ?.SelectMany(c => c.InitCart(_catalogGateway, isPopulatePrice: true))
         ?.Select(c => _priceCalculator.Execute(c));

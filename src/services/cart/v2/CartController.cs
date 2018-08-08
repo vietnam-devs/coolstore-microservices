@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using VND.FW.Infrastructure.AspNetCore;
 
-namespace VND.CoolStore.Services.Cart.UseCases.v2
+namespace VND.CoolStore.Services.Cart.v2
 {
   [ApiVersion("2.0")]
   [Route("api/carts")]

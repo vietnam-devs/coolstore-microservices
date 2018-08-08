@@ -56,7 +56,7 @@ namespace VND.CoolStore.Services.Cart.Domain
 
     public Cart RemoveCartItem(Guid itemId)
     {
-      CartItems = CartItems.Where(y => !CartItems.Any(x => x.Id == itemId)).ToList();
+      CartItems = CartItems.Where(y => y.Id != itemId).ToList();
       return this;
     }
   }
@@ -74,16 +74,13 @@ namespace VND.CoolStore.Services.Cart.Domain
         ShippingPromoSavings = cart.ShippingPromoSavings,
         ShippingTotal = cart.ShippingTotal,
         IsCheckout = cart.IsCheckout,
-        Items = cart.CartItems.Select(cc =>
+        Items = cart.CartItems.Select(cc => new CartDto.CartItemDto
         {
-          return new CartDto.CartItemDto
-          {
-            ProductId = cc.Product.ProductId,
-            ProductName = cc.Product.Name,
-            Price = cc.Price,
-            Quantity = cc.Quantity,
-            PromoSavings = cc.PromoSavings
-          };
+          ProductId = cc.Product.ProductId,
+          ProductName = cc.Product.Name,
+          Price = cc.Price,
+          Quantity = cc.Quantity,
+          PromoSavings = cc.PromoSavings
         }).ToList()
       };
     }
@@ -104,21 +101,19 @@ namespace VND.CoolStore.Services.Cart.Domain
         cart.CartItemTotal = 0;
       }
 
-      if (cart.CartItems != null)
+      if (cart.CartItems == null) return cart;
+      foreach (var item in cart.CartItems)
       {
-        foreach (var item in cart.CartItems)
+        var product = await catalogGateway.GetProductByIdAsync(item.Product.ProductId);
+
+        if (product == null)
         {
-          var product = await catalogGateway.GetProductByIdAsync(item.Product.ProductId);
-
-          if (product == null)
-          {
-            throw new Exception("Could not find product.");
-          }
-
-          item.Product = new Product(product.Id, product.Name, product.Price, product.Desc);
-          item.Price = product.Price;
-          item.PromoSavings = 0;
+          throw new Exception("Could not find product.");
         }
+
+        item.Product = new Product(product.Id, product.Name, product.Price, product.Desc);
+        item.Price = product.Price;
+        item.PromoSavings = 0;
       }
 
       return cart;

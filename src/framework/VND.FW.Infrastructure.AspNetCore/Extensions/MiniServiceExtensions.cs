@@ -62,17 +62,20 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       services.AddOptions()
           .Configure<PersistenceOption>(config.GetSection("EfCore"));
 
-      void optionsBuilderAction(DbContextOptionsBuilder o) =>
+      void OptionsBuilderAction(DbContextOptionsBuilder o)
+      {
         extendOptionsBuilder.Extend(o, connStringFactory, startupAssembly.GetName().Name);
+      }
 
-      services.AddDbContext<TDbContext>(o => optionsBuilderAction(o));
-      services.AddScoped<DbContext>(resolver => resolver.GetRequiredService<TDbContext>());
+      services.AddDbContextPool<TDbContext>(OptionsBuilderAction);
+      services.AddSingleton<TDbContext>();
+      services.AddSingleton<DbContext>(resolver => resolver.GetRequiredService<TDbContext>());
       services.AddEfCore();
 
       services.AddHttpContextAccessor();
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-      services.AddScoped<IUrlHelper>(factory =>
+      services.AddSingleton<IUrlHelper>(factory =>
       {
         var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
         return new UrlHelper(actionContext);
@@ -80,10 +83,17 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       services.AddHttpPolly<RestClient>();
 
       // MediatR
-      services.AddScoped<ServiceFactory>(p => p.GetService);
+      /*services.AddScoped<ServiceFactory>(p => p.GetService);
       services.Scan(
         scanner => scanner
           .FromAssembliesOf(typeof(IMediator), startupAssembly.ExportedTypes.FirstOrDefault())
+          .AddClasses()
+          .AsImplementedInterfaces());*/
+
+      services.AddMediatR(typeof(MiniServiceExtensions).Assembly, startupAssembly);
+      services.Scan(
+        scanner => scanner
+          .FromAssemblies(startupAssembly)
           .AddClasses()
           .AsImplementedInterfaces());
 
@@ -152,7 +162,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
             c.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
           }
 
-          // options.IncludeXmlComments (XmlCommentsFilePath);
+          // c.IncludeXmlComments (XmlCommentsFilePath);
 
           if (config.GetValue("EnableAuthN", false))
           {
@@ -191,8 +201,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       {
         services.Configure<ForwardedHeadersOptions>(options =>
         {
-          options.ForwardedHeaders =
-              ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+          options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
         });
       }
 
@@ -268,8 +277,9 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
           if (exception is BadHttpRequestException badHttpRequestException)
           {
             problemDetails.Title = "Invalid request";
-            problemDetails.Status = (int)typeof(BadHttpRequestException).GetProperty("StatusCode",
-                BindingFlags.NonPublic | BindingFlags.Instance).GetValue(badHttpRequestException);
+            problemDetails.Status = (int)typeof(BadHttpRequestException).GetProperty(
+              "StatusCode", BindingFlags.NonPublic | BindingFlags.Instance)
+              ?.GetValue(badHttpRequestException);
             problemDetails.Detail = badHttpRequestException.Message;
           }
           else
@@ -342,7 +352,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         throw new Exception("[CS] ServiceVersion is null or empty.");
       }
 
-      var pattern = @"(.)|(-)";
+      const string pattern = @"(.)|(-)";
       var results = Regex.Split(serviceVersion, pattern)
         .Where(x => x != string.Empty && x != "." && x != "-")
         .ToArray();
