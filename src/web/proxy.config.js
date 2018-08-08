@@ -12,7 +12,7 @@ const config = {
 }
 if (config.mode == 'production') {
     urlSpa = "http://coolstore.local/"
-    urlIdp = "http://idp-service/"
+    urlIdp = "http://id.coolstore.local/"
     url = "http://api.coolstore.local/"
 
     var urlCat = 'http://api.coolstore.local/catalog/'

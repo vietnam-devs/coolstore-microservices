@@ -424,22 +424,8 @@ spec:
         ports:
         - containerPort: 8080
 ---
-# Source: coolstore/templates/cs-gateway.yaml
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
- name: istio-egressgateway
-spec:
- selector:
-   istio: egressgateway
- servers:
- - port:
-    number: 80
-    name: http
-    protocol: HTTP
-   hosts:
-   - id.coolstore.local
 ---
+# Source: coolstore/templates/cs-gateway.yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -537,6 +523,20 @@ spec:
         host: cart-service
         port:
           number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-svc-wikipedia
+spec:
+  hosts:
+  - id.coolstore.local
+  location: MESH_EXTERNAL
+  ports:
+  - number: 80
+    name: example-http
+    protocol: HTTP
+  resolution: DNS
 ---
 # Source: coolstore/templates/nginx-ingress.yaml
 
