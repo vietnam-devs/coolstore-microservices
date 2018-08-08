@@ -40,6 +40,7 @@ namespace IdentityServer4
                   .AllowCredentials());
       });
 
+      var host = Configuration.GetSection("Hosts")?.GetSection("Externals")?.GetSection("sCurrentUri")?.Value;
       var builder = services
           .AddIdentityServer(options =>
           {
@@ -48,6 +49,7 @@ namespace IdentityServer4
             options.Events.RaiseFailureEvents = true;
             options.Events.RaiseSuccessEvents = true;
             options.IssuerUri = "null";
+            options.PublicOrigin = Environment.IsDevelopment() ? "" : host;
           })
           .AddTestUsers(TestUsers.Users)
           .AddJwtBearerClientAuthentication();
@@ -56,9 +58,9 @@ namespace IdentityServer4
 
       // in-memory, code config
       var clients = Config.GetDevClients();
-      if(!Environment.IsDevelopment())
+      if (!Environment.IsDevelopment())
       {
-        if(Configuration.GetSection("HostSettings") == null)
+        if (Configuration.GetSection("HostSettings") == null)
         {
           throw new System.Exception("HostSettings is null, please config it!");
         }
