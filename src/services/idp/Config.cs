@@ -154,7 +154,8 @@ namespace IdentityServer4
           $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/inventory/swagger/oauth2-redirect.html",
           $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/price/swagger/oauth2-redirect.html",
           $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/review/swagger/oauth2-redirect.html",
-          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/rating/swagger/oauth2-redirect.html"
+          $"{hostSettings.GetValue<string>("SwaggerAllowedCorsOrigin")}/rating/swagger/oauth2-redirect.html",
+          $"{hostSettings.GetValue<string>("SpaAllowedCorsOrigin")}/callback"
         },
         PostLogoutRedirectUris =
         {

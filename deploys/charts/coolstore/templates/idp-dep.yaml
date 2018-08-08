@@ -24,6 +24,8 @@ spec:
           value: {{ .Values.idpSettings.HostSettings__SwaggerPostLogoutRedirectUri }}
         - name: HostSettings__SwaggerAllowedCorsOrigin
           value: {{ .Values.idpSettings.HostSettings__SwaggerAllowedCorsOrigin }}
+        - name: HostSettings__SpaAllowedCorsOrigin
+          value: {{ .Values.idpSettings.HostSettings__SpaAllowedCorsOrigin }}
         ports:
         - name: http
           containerPort: 5001

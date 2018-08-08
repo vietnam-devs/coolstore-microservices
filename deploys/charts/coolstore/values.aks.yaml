@@ -8,3 +8,4 @@ idpSettings:
   HostSettings__SwaggerRedirectUri: http://api.coolstore.aks/swagger/oauth2-redirect.html
   HostSettings__SwaggerPostLogoutRedirectUri: http://api.coolstore.aks
   HostSettings__SwaggerAllowedCorsOrigin: http://api.coolstore.aks
+  HostSettings__SpaAllowedCorsOrigin: http://coolstore.aks
