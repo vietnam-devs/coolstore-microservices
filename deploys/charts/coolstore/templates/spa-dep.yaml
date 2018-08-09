@@ -22,6 +22,8 @@ spec:
           value: {{ .Values.hosts.api }}
         - name: "ID_HOST_ALIAS"
           value: {{ .Values.hosts.idp }}
+        - name: "GATEWAY_IP"
+          value: {{ .Values.gateway.ip }}
         ports:
         - containerPort: 8080
 ---

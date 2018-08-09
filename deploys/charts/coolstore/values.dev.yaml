@@ -4,3 +4,5 @@ idpSettings:
   HostSettings__SwaggerPostLogoutRedirectUri: http://api.coolstore.local
   HostSettings__SwaggerAllowedCorsOrigin: http://api.coolstore.local
   HostSettings__SpaAllowedCorsOrigin: http://coolstore.local
+gateway:
+  ip: 127.0.0.1

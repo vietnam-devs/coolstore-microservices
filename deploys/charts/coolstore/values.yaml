@@ -71,6 +71,9 @@ hosts:
   api: api.coolstore.local
   idp: id.coolstore.local
 
+gateway:
+  ip: 127.0.0.1
+
 idpSettings:
   HostSettings__BasePath: /
   HostSettings__SwaggerRedirectUri: http://api.coolstore.local/swagger/oauth2-redirect.html
