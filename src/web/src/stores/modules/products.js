@@ -1,4 +1,4 @@
-import { getProducts, getProduct } from '../../api'
+import { getProducts, getProduct, createProduct } from '../../api'
 
 export default {
     namespaced: true,
@@ -91,6 +91,26 @@ export default {
                         reject()
                     })
             })
-        }
+        },
+
+        CREATE_CATEGORY: ({ commit, dispatch, state }, { model }) => {
+            return new Promise((resolve, reject) => {
+                createProduct(model)
+                    .then(
+                        product => {
+                            commit('GET_PRODUCT_BY_ID_SUCCESS', product)
+                            resolve()
+                        },
+                        error => {
+                            commit('GET_PRODUCT_FALURE', error)
+                            reject()
+                        }
+                    )
+                    .catch(error => {
+                        commit('GET_PRODUCT_FALURE', error)
+                        reject()
+                    })
+            })
+        },
     }
 }

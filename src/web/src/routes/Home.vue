@@ -5,7 +5,7 @@
       <div class="tile is-ancestor columns is-multiline">
         <div v-for="(product, index) in products" class="tile column is-3">
           <article class="tile tile is-child border-box">
-            <img @click="showReviews(product)" class="img-responsive" v-bind:src="productImageUrl + index" />
+            <img @click="showReviews(product)" class="img-responsive" v-bind:src="product.imageUrl" />
             <p @click="showReviews(product)" class="name">{{product.name}}</p>
             <section class="price">
                 <b-field>
@@ -36,7 +36,6 @@ export default {
     return {
       isModalVisible: false,
       productReview: {},
-      productImageUrl: 'https://picsum.photos/400/300?image=',
     }
   },
 
@@ -64,12 +63,12 @@ export default {
     this.loadItems(this.page)
   },
 
-  // asyncData({ store }) {
-  //   return [
-  //     store.dispatch("products/GET_LIST_PRODUCT", { page: 0 }),
-  //     store.dispatch("ratings/GET_LIST_RATING")
-  //   ]
-  // },
+  asyncData({ store }) {
+    return [
+      store.dispatch("products/GET_LIST_PRODUCT", { page: 0 }),
+      store.dispatch("ratings/GET_LIST_RATING")
+    ]
+  },
 
   methods: {
     loadItems(page) {

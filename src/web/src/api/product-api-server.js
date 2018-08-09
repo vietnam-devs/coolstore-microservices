@@ -2,7 +2,7 @@ const logRequests = !!process.env.DEBUG_API
 import { createAPI } from './create-api-server'
 
 const api = createAPI({
-    version: '/v1',
+    version: '',
     config: {
         databaseURL: '/catalog/api'
     }

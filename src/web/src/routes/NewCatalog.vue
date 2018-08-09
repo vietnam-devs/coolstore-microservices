@@ -1,8 +1,8 @@
 <template>
     <section class="form">
       <form novalidate name="newproduct">
-        <b-field label="Produdct Name">
-            <b-input v-model="name" placeholder="Produdct Name" required></b-input>
+        <b-field label="Product Name">
+            <b-input v-model="name" placeholder="Product Name" required></b-input>
         </b-field>
 
         <div class="field">
@@ -79,15 +79,17 @@ export default {
       return
     },
     save(e) {
+      e.preventDefault()
       if (!this.checkForm()) {
-        e.preventDefault()
         return
       }
       var model = {
         name: this.name,
         desc: this.desc,
-        price: this.price
+        price: this.price,
+        imageUrl: this.imageShow
       }
+      console.log(model)
       this.$store
         .dispatch('products/CREATE_CATEGORY', { model })
         .then(response => {
