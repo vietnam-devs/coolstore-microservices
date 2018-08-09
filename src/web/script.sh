@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-sleep 60
+sleep 60 
 
 if [ -n "$WEB_HOST_ALIAS" ] && [ -n "$GATEWAY_IP" ]
 then
