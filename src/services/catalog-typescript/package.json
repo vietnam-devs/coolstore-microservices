@@ -1,0 +1,36 @@
+{
+  "name": "catalog",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "npm run build && node ./dist/server.js",
+    "build": "npm run clean && npm run swagger-gen && npm run routes-gen && tsc",
+    "clean": "rimraf dist",
+    "swagger-gen": "tsoa swagger",
+    "routes-gen": "tsoa routes",
+    "tsoa": "tsoa"
+  },
+  "author": "Luke Autry <lukeautry@gmail.com> (http://www.lukeautry.com)",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "method-override": "^2.3.6",
+    "swagger-ui-express": "^3.0.10",
+    "tsoa": "^1.0.0",
+    "mongoose": "^5.0.14"
+  },
+  "devDependencies": {
+    "@types/body-parser": "0.0.30",
+    "@types/express": "^4.0.30",
+    "@types/method-override": "0.0.27",
+    "@types/node": "^6.0.33",
+    "ncp": "^2.0.0",
+    "rimraf": "^2.5.2",
+    "tslint": "^3.11.0",
+    "typescript": "^3.0.1"
+  },
+  "repository": {
+    "type": "git"
+  }
+}
