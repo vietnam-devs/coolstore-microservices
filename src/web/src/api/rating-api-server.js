@@ -3,7 +3,7 @@ import { createAPI } from './create-api-server'
 const api = createAPI({
     version: '/v1',
     config: {
-        databaseURL: '/rat/api'
+        databaseURL: '/rating/api'
     }
 })
 

@@ -31,14 +31,14 @@ const PROXY_CONFIG = {
         secure: false,
         logLevel: 'debug'
     },
-    '/cat/api/*': {
+    '/catalog/api/*': {
         target: urlCat,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
         pathRewrite: { '^/catalog': '' }
     },
-    '/rat/api/*': {
+    '/rating/api/*': {
         target: urlRat,
         secure: false,
         logLevel: 'debug',
@@ -52,7 +52,7 @@ const PROXY_CONFIG = {
         changeOrigin: true,
         pathRewrite: { '^/cart': '' }
     },
-    '/inv/api/*': {
+    '/inventory/api/*': {
         target: urlInv,
         secure: false,
         logLevel: 'debug',

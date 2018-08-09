@@ -528,19 +528,5 @@ spec:
         port:
           number: 80
 ---
-apiVersion: networking.istio.io/v1alpha3
-kind: ServiceEntry
-metadata:
-  name: external-svc-id
-spec:
-  hosts:
-  - id.coolstore.local
-  location: MESH_EXTERNAL
-  ports:
-  - number: 80
-    name: example-http
-    protocol: HTTP
-  resolution: DNS
----
 # Source: coolstore/templates/nginx-ingress.yaml
 
