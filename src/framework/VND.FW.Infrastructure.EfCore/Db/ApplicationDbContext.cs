@@ -8,27 +8,24 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using VND.Fw.Domain;
 using VND.Fw.Utils.Extensions;
-using VND.FW.Infrastructure.EfCore.Options;
 
 namespace VND.FW.Infrastructure.EfCore.Db
 {
   public abstract class ApplicationDbContext : DbContext
   {
-    private readonly PersistenceOption _persistenceOption = new PersistenceOption();
-
     protected ApplicationDbContext(DbContextOptions options) : base(options)
     {
-      var config = this.GetService<IConfiguration>();
-      var section = config.GetSection("EfCore");
-      _persistenceOption.FullyQualifiedPrefix = section.GetValue<string>("FullyQualifiedPrefix");
-      _persistenceOption.ShortyQualifiedPrefix = section.GetValue<string>("ShortyQualifiedPrefix");
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+      var config = this.GetService<IConfiguration>();
+
       var typeToRegisters = new List<Type>();
 
-      var ourModules = _persistenceOption.FullyQualifiedPrefix.LoadAssemblyWithPattern();
+      var ourModules = config
+        .GetValue<string>("EfCore:FullyQualifiedPrefix")
+        .LoadAssemblyWithPattern();
 
       typeToRegisters.AddRange(ourModules.SelectMany(m => m.DefinedTypes));
 

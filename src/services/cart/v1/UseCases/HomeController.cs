@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using VND.FW.Infrastructure.AspNetCore.Extensions;
+using VND.FW.Infrastructure.AspNetCore.Miniservice.Options;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases
 {
@@ -9,10 +11,10 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases
   [ApiExplorerSettings(IgnoreApi = true)]
   public class HomeController : Controller
   {
-    private string _basePath = "/";
-    public HomeController(IConfiguration config)
+    private readonly string _basePath;
+    public HomeController(IConfiguration config, IOptions<PersistenceOption> options)
     {
-      _basePath = config.GetBasePath();
+      _basePath = config.GetBasePath() ?? "/";
     }
 
     [HttpGet]

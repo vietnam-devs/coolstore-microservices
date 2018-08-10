@@ -1,4 +1,4 @@
-namespace VND.FW.Infrastructure.EfCore.Options
+namespace VND.FW.Infrastructure.AspNetCore.Miniservice.Options
 {
   public class PersistenceOption
   {
