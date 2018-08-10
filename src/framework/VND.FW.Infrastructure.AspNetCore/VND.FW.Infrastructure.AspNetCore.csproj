@@ -5,14 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Swagger\index.html" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Swagger\index.html" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Ben.Demystifier" Version="0.1.1" />
     <PackageReference Include="IdentityServer4" Version="2.2.0" />
     <PackageReference Include="MediatR" Version="5.1.0" />
@@ -46,7 +38,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VND.FW.Domain\VND.Fw.Domain.csproj" />
-    <ProjectReference Include="..\VND.FW.Infrastructure.EfCore\VND.FW.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\VND.FW.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj" />
     <ProjectReference Include="..\VND.FW.Utils\VND.Fw.Utils.csproj" />
   </ItemGroup>
 

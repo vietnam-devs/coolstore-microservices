@@ -1,15 +1,15 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using VND.Fw.Domain;
+using VND.Fw.Infrastructure.EfCore.Db;
+using VND.Fw.Infrastructure.EfCore.Repository;
 using VND.Fw.Utils.Extensions;
-using VND.FW.Infrastructure.EfCore.Db;
-using VND.FW.Infrastructure.EfCore.Repository;
 
-namespace VND.FW.Infrastructure.EfCore.Extensions
+namespace VND.Fw.Infrastructure.EfCore.Extensions
 {
   public static class ServiceCollectionExtensions
   {

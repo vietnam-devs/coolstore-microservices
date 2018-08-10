@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using VND.FW.Infrastructure.EfCore.Db;
+using VND.Fw.Infrastructure.EfCore.Db;
 
 namespace VND.CoolStore.Services.Cart.Infrastructure.Db
 {

@@ -1,8 +1,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-using VND.FW.Infrastructure.EfCore.Db;
+using VND.Fw.Infrastructure.EfCore.Db;
 
-namespace VND.FW.Infrastructure.EfCore.SqlServer
+namespace VND.Fw.Infrastructure.EfCore.SqlServer
 {
   public sealed class SqlServerDbContextOptionsBuilderFactory : IExtendDbContextOptionsBuilder
   {

@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using VND.Fw.Domain;
 
-namespace VND.FW.Infrastructure.AspNetCore.Middlewares
+namespace VND.Fw.Infrastructure.AspNetCore.Middlewares
 {
   public class ErrorHandlerMiddleware
   {
@@ -30,17 +30,22 @@ namespace VND.FW.Infrastructure.AspNetCore.Middlewares
 
     private static Task HandleErrorAsync(HttpContext context, Exception exception)
     {
-      string errorCode = "error";
-      HttpStatusCode statusCode = HttpStatusCode.BadRequest;
-      string message = "There was an error.";
+      var errorCode = "error";
+      var statusCode = HttpStatusCode.BadRequest;
+      var message = "There was an error.";
       switch (exception)
       {
         case CoreException e:
           message = e.Message;
           break;
       }
-      var response = new { code = errorCode, message = exception.Message };
-      string payload = JsonConvert.SerializeObject(response);
+
+      var response = new
+      {
+        code = errorCode,
+        message = exception.Message
+      };
+      var payload = JsonConvert.SerializeObject(response);
       context.Response.ContentType = "application/json";
       context.Response.StatusCode = (int)statusCode;
 

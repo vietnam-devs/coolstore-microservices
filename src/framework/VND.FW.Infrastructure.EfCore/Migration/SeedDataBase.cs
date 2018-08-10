@@ -1,8 +1,8 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
 
-namespace VND.FW.Infrastructure.EfCore.Migration
+namespace VND.Fw.Infrastructure.EfCore.Migration
 {
   public abstract class SeedDataBase<TDbContext>
         : ISeedData<TDbContext>, IAuthConfigSeedData<TDbContext>

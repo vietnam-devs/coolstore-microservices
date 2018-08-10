@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.AspNetCore.CleanArch;
+using VND.Fw.Infrastructure.AspNetCore.CleanArch;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
 {

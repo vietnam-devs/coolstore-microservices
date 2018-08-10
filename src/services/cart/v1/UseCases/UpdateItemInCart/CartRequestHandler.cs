@@ -7,8 +7,8 @@ using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.v1.Extensions;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.AspNetCore.CleanArch;
-using VND.FW.Infrastructure.EfCore.Extensions;
+using VND.Fw.Infrastructure.AspNetCore.CleanArch;
+using VND.Fw.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
 {
@@ -35,7 +35,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
         ?.QueryEfRepository<Domain.Cart>()
         ?.GetFullCart(request.CartId)
         ?.ToObservable()
-        ?.SelectMany(c => c.InitCart(_catalogGateway));
+        ?.SelectMany(c => c.InitCart(_catalogGateway, isPopulatePrice: true));
 
       var item = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == request.ProductId);
 

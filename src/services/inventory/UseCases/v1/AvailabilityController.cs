@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using VND.CoolStore.Services.Inventory.UseCases.Service;
+using VND.Fw.Infrastructure.AspNetCore;
 using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Services.Inventory.UseCases.v1

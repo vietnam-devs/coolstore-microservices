@@ -1,4 +1,4 @@
-namespace VND.FW.Infrastructure.EfCore.SqlServer.Options
+namespace VND.Fw.Infrastructure.EfCore.SqlServer.Options
 {
   public class MsSqlDbOptions
   {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 
-namespace VND.FW.Infrastructure.AspNetCore.Extensions
+namespace VND.Fw.Infrastructure.AspNetCore.Extensions
 {
   public static class HttpResponseExtensions
   {

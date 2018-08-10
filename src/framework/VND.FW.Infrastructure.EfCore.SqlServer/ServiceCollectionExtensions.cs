@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using VND.FW.Infrastructure.EfCore.Db;
-using VND.FW.Infrastructure.EfCore.SqlServer.Options;
+using VND.Fw.Infrastructure.EfCore.Db;
+using VND.Fw.Infrastructure.EfCore.SqlServer.Options;
 
-namespace VND.FW.Infrastructure.EfCore.SqlServer
+namespace VND.Fw.Infrastructure.EfCore.SqlServer
 {
   public static class ServiceCollectionExtensions
   {

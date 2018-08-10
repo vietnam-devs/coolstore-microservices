@@ -1,9 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using VND.FW.Infrastructure.EfCore.Db;
+using VND.Fw.Infrastructure.EfCore.Db;
 
-namespace VND.FW.Infrastructure.EfCore.SqlServer
+namespace VND.Fw.Infrastructure.EfCore.SqlServer
 {
   public sealed class SqlServerDatabaseConnectionStringFactory : IDatabaseConnectionStringFactory
   {

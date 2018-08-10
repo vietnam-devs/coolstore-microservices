@@ -1,7 +1,7 @@
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.EfCore.Repository;
+using VND.Fw.Infrastructure.EfCore.Repository;
 
-namespace VND.FW.Infrastructure.EfCore.Extensions
+namespace VND.Fw.Infrastructure.EfCore.Extensions
 {
   public static class EfQueryRepositoryFactoryExtensions
   {

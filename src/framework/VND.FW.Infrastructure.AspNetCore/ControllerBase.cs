@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.EfCore.Extensions;
-using VND.FW.Infrastructure.EfCore.Repository;
+using VND.Fw.Infrastructure.EfCore.Extensions;
+using VND.Fw.Infrastructure.EfCore.Repository;
 
-namespace VND.FW.Infrastructure.AspNetCore
+namespace VND.Fw.Infrastructure.AspNetCore
 {
   [ApiController]
   public abstract class EvtControllerBase : Controller

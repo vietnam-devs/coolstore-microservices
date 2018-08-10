@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using VND.CoolStore.Services.Cart.v1.Extensions;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.AspNetCore.CleanArch;
-using VND.FW.Infrastructure.EfCore.Extensions;
+using VND.Fw.Infrastructure.AspNetCore.CleanArch;
+using VND.Fw.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
 {

@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-namespace VND.FW.Infrastructure.EfCore.Migration
+using Microsoft.EntityFrameworkCore;
+
+namespace VND.Fw.Infrastructure.EfCore.Migration
 {
   public interface ISeedData<TDbContext>
         where TDbContext : DbContext

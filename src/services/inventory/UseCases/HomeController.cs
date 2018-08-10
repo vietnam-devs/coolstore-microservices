@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using VND.FW.Infrastructure.AspNetCore.Extensions;
+using VND.Fw.Infrastructure.AspNetCore.Extensions;
 
 namespace VND.CoolStore.Services.Inventory.UseCases
 {

@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using VND.CoolStore.Services.Inventory.Infrastructure.Db;
-using VND.FW.Infrastructure.EfCore.Extensions;
+using VND.Fw.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Inventory.UseCases
 {

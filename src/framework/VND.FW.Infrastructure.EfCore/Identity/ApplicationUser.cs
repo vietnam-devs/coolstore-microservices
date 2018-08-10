@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Identity;
 using System;
+using Microsoft.AspNetCore.Identity;
 using VND.Fw.Domain;
 
-namespace VND.FW.Infrastructure.EfCore.Identity
+namespace VND.Fw.Infrastructure.EfCore.Identity
 {
   public class ApplicationUser : IdentityUser<Guid>, IEntity
   {

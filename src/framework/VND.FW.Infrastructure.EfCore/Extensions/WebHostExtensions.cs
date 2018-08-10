@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using VND.Fw.Infrastructure.EfCore.Migration;
 using VND.Fw.Utils.Extensions;
-using VND.FW.Infrastructure.EfCore.Migration;
 
-namespace VND.FW.Infrastructure.EfCore.Extensions
+namespace VND.Fw.Infrastructure.EfCore.Extensions
 {
   public static class WebHostExtensions
   {

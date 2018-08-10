@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using VND.CoolStore.Services.Cart.Infrastructure.Db;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.CoolStore.Services.Cart.v2.Services;
-using VND.FW.Infrastructure.AspNetCore.Miniservice;
-using VND.FW.Infrastructure.EfCore.SqlServer;
+using VND.Fw.Infrastructure.AspNetCore.Miniservice;
+using VND.Fw.Infrastructure.EfCore.SqlServer;
 
 namespace VND.CoolStore.Services.Cart
 {

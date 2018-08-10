@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using VND.Fw.Domain;
 
-namespace VND.FW.Infrastructure.AspNetCore.Extensions
+namespace VND.Fw.Infrastructure.AspNetCore.Extensions
 {
   public static class CriterionExtensions
   {
@@ -29,9 +29,7 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
     public static bool IsDescending(this Criterion criterion)
     {
       if (!string.IsNullOrEmpty(criterion.SortOrder))
-      {
         return criterion.SortOrder.Split(' ').Last().ToLowerInvariant().StartsWith("desc");
-      }
       return false;
     }
   }

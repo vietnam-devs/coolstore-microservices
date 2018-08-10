@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using VND.Fw.Domain;
 using VND.Fw.Utils.Extensions;
 
-namespace VND.FW.Infrastructure.EfCore.Db
+namespace VND.Fw.Infrastructure.EfCore.Db
 {
   public abstract class ApplicationDbContext : DbContext
   {

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using VND.Fw.Domain;
 
-namespace VND.FW.Infrastructure.EfCore.Repository
+namespace VND.Fw.Infrastructure.EfCore.Repository
 {
   public class EfUnitOfWork : IUnitOfWorkAsync
   {

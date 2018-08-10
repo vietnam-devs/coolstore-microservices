@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 
-namespace VND.FW.Infrastructure.AspNetCore
+namespace VND.Fw.Infrastructure.AspNetCore
 {
   public class AuthAttribute : AuthorizeAttribute
   {

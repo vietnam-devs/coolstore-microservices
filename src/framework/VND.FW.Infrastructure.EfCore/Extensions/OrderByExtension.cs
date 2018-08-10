@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using VND.Fw.Domain;
 
-namespace VND.FW.Infrastructure.EfCore.Extensions
+namespace VND.Fw.Infrastructure.EfCore.Extensions
 {
   public static class OrderByExtension
   {

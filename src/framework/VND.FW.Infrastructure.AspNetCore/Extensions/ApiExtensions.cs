@@ -1,17 +1,19 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using VND.Fw.Domain;
 using VND.Fw.Utils.Extensions;
 
-namespace VND.FW.Infrastructure.AspNetCore.Extensions
+namespace VND.Fw.Infrastructure.AspNetCore.Extensions
 {
   public static class ApiExtensions
   {
-    public static List<LinkItem> CreateLinksForCollection(this IUrlHelper urlHelper, string methodName, Criterion criterion, int totalCount)
+    public static List<LinkItem> CreateLinksForCollection(this IUrlHelper urlHelper, string methodName,
+      Criterion criterion, int totalCount)
     {
-      List<LinkItem> links = new List<LinkItem>();
+      var links = new List<LinkItem>();
 
       // self 
       links.Add(
@@ -37,35 +39,31 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       }), "last", "GET"));
 
       if (criterion.HasNext(totalCount))
-      {
         links.Add(new LinkItem(urlHelper.Link(methodName, new
         {
           pagecount = criterion.PageSize,
           page = criterion.CurrentPage + 1,
           orderby = criterion.SortBy
         }), "next", "GET"));
-      }
 
       if (criterion.HasPrevious())
-      {
         links.Add(new LinkItem(urlHelper.Link(methodName, new
         {
           pagecount = criterion.PageSize,
           page = criterion.CurrentPage - 1,
           orderby = criterion.SortBy
         }), "previous", "GET"));
-      }
 
       return links;
     }
 
     public static dynamic ExpandSingleItem(this IUrlHelper urlHelper, string methodName, IdModelBase item)
     {
-      IEnumerable<LinkItem> links = GetLinks(urlHelper, methodName, item.Id);
-      IDictionary<string, object> resourceToReturn = item.ToDynamic() as IDictionary<string, object>;
-      resourceToReturn.Add("links", links);
+      var links = GetLinks(urlHelper, methodName, item.Id);
+      var resource = item.ToDynamic() as IDictionary<string, object>;
+      resource.Add("links", links);
 
-      return resourceToReturn;
+      return resource;
     }
 
     public static void AddPaginateInfo(this HttpResponse httpResponse, Criterion criterion, int numberOfItems)
@@ -78,17 +76,16 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
         totalPages = criterion.GetTotalPages(numberOfItems)
       };
 
-      httpResponse.Headers.Add("X-Pagination",
-        Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+      httpResponse.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetadata));
     }
 
     private static IEnumerable<LinkItem> GetLinks(IUrlHelper urlHelper, string methodName, Guid id)
     {
-      List<LinkItem> links = new List<LinkItem>();
+      var links = new List<LinkItem>();
 
       links.Add(
         new LinkItem(
-          urlHelper.Link(methodName, new { id }),
+          urlHelper.Link(methodName, new {id}),
           "self",
           "GET"));
 

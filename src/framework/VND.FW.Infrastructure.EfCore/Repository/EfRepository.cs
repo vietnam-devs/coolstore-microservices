@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VND.Fw.Domain;
 
-namespace VND.FW.Infrastructure.EfCore.Repository
+namespace VND.Fw.Infrastructure.EfCore.Repository
 {
   public class EfQueryRepositoryFactory : IQueryRepositoryFactory
   {

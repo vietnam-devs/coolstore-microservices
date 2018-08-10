@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace VND.FW.Infrastructure.AspNetCore
+namespace VND.Fw.Infrastructure.AspNetCore
 {
   public abstract class ModelBase
   {

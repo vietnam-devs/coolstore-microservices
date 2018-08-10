@@ -1,4 +1,4 @@
-namespace VND.FW.Infrastructure.AspNetCore.Validation
+namespace VND.Fw.Infrastructure.AspNetCore.Validation
 {
   public class ValidationError
   {

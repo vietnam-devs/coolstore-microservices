@@ -1,9 +1,9 @@
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System.Linq;
 
-namespace VND.FW.Infrastructure.EfCore.Extensions
+namespace VND.Fw.Infrastructure.EfCore.Extensions
 {
   public static class DbContextExtensions
   {

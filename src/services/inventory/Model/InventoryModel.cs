@@ -1,4 +1,4 @@
-using VND.FW.Infrastructure.AspNetCore;
+using VND.Fw.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Services.Inventory.Model
 {

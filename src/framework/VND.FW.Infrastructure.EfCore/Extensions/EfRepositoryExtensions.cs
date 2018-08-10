@@ -1,14 +1,14 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using VND.Fw.Domain;
-using VND.FW.Infrastructure.EfCore.Repository;
+using VND.Fw.Infrastructure.EfCore.Repository;
 
-namespace VND.FW.Infrastructure.EfCore.Extensions
+namespace VND.Fw.Infrastructure.EfCore.Extensions
 {
   public static class EfRepositoryExtensions
   {
@@ -16,14 +16,14 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
         this IEfQueryRepository<TDbContext, TEntity> repo,
         Guid id,
         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
-        bool disableTracking = true)
+        bool tracking = true)
             where TDbContext : DbContext
             where TEntity : class, IEntity
 
     {
       var queryable = repo.Queryable();
 
-      if (disableTracking)
+      if (!tracking)
       {
         queryable = queryable.AsNoTracking();
       }

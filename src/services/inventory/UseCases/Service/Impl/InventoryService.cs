@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using VND.FW.Infrastructure.EfCore.Repository;
+using VND.Fw.Infrastructure.EfCore.Repository;
 
 namespace VND.CoolStore.Services.Inventory.UseCases.Service.Impl
 {

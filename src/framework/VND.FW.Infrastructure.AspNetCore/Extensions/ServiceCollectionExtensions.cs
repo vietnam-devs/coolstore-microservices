@@ -1,10 +1,11 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
 
-namespace VND.FW.Infrastructure.AspNetCore.Extensions
+namespace VND.Fw.Infrastructure.AspNetCore.Extensions
 {
   public static class ServiceCollectionExtensions
   {
@@ -12,9 +13,9 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
       where TRestClient : class
     {
       services.AddHttpClient<TRestClient>()
-          .SetHandlerLifetime(TimeSpan.FromMinutes(1))
-          .AddPolicyHandler(GetRetryPolicy())
-          .AddPolicyHandler(GetCircuitBreakerPolicy());
+        .SetHandlerLifetime(TimeSpan.FromMinutes(1))
+        .AddPolicyHandler(GetRetryPolicy())
+        .AddPolicyHandler(GetCircuitBreakerPolicy());
 
       return services;
     }
@@ -22,16 +23,16 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
     private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
     {
       return HttpPolicyExtensions
-          .HandleTransientHttpError()
-          .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
-          .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+        .HandleTransientHttpError()
+        .OrResult(msg => msg.StatusCode == HttpStatusCode.NotFound)
+        .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
     }
 
     private static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy()
     {
       return HttpPolicyExtensions
-          .HandleTransientHttpError()
-          .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
+        .HandleTransientHttpError()
+        .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
     }
   }
 }

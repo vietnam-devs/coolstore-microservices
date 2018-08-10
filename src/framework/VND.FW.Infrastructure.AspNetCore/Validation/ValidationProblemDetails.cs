@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace VND.FW.Infrastructure.AspNetCore.Validation
+namespace VND.Fw.Infrastructure.AspNetCore.Validation
 {
   public class ValidationProblemDetails : ProblemDetails
   {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VND.Fw.Domain;
 
-namespace VND.FW.Infrastructure.EfCore.Repository
+namespace VND.Fw.Infrastructure.EfCore.Repository
 {
   public interface IEfRepositoryAsync<TEntity> : IEfRepositoryAsync<DbContext, TEntity>
         where TEntity : IEntity

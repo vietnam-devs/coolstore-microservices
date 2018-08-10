@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using VND.CoolStore.Services.Inventory.Infrastructure.Db;
 using VND.CoolStore.Services.Inventory.UseCases.Service;
 using VND.CoolStore.Services.Inventory.UseCases.Service.Impl;
-using VND.FW.Infrastructure.AspNetCore.Miniservice;
-using VND.FW.Infrastructure.EfCore.SqlServer;
+using VND.Fw.Infrastructure.AspNetCore.Miniservice;
+using VND.Fw.Infrastructure.EfCore.SqlServer;
 
 namespace VND.CoolStore.Services.Inventory
 {

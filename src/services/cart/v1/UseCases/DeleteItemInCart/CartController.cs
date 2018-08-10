@@ -3,8 +3,9 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using VND.Fw.Infrastructure.AspNetCore;
+using VND.Fw.Infrastructure.AspNetCore.CleanArch;
 using VND.FW.Infrastructure.AspNetCore;
-using VND.FW.Infrastructure.AspNetCore.CleanArch;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
 {

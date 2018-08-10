@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using VND.FW.Infrastructure.AspNetCore.Extensions;
+using VND.Fw.Infrastructure.AspNetCore.Extensions;
 
-namespace VND.FW.Infrastructure.AspNetCore.Validation
+namespace VND.Fw.Infrastructure.AspNetCore.Validation
 {
+  /// <summary>
+  /// Reference at https://www.strathweb.com/2018/07/centralized-exception-handling-and-request-validation-in-asp-net-core
+  /// </summary>
   public class ValidationProblemDetailsResult : IActionResult
   {
     public Task ExecuteResultAsync(ActionContext context)
@@ -19,27 +22,21 @@ namespace VND.FW.Infrastructure.AspNetCore.Validation
       if (modelStateEntries.Any())
       {
         if (modelStateEntries.Length == 1
-          && modelStateEntries[0].Value.Errors.Count == 1
-          && modelStateEntries[0].Key == string.Empty)
-        {
+            && modelStateEntries[0].Value.Errors.Count == 1
+            && modelStateEntries[0].Key == string.Empty)
           details = modelStateEntries[0].Value.Errors[0].ErrorMessage;
-        }
         else
-        {
           foreach (var modelStateEntry in modelStateEntries)
+          foreach (var modelStateError in modelStateEntry.Value.Errors)
           {
-            foreach (var modelStateError in modelStateEntry.Value.Errors)
+            var error = new ValidationError
             {
-              var error = new ValidationError
-              {
-                Name = modelStateEntry.Key,
-                Description = modelStateError.ErrorMessage
-              };
+              Name = modelStateEntry.Key,
+              Description = modelStateError.ErrorMessage
+            };
 
-              errors.Add(error);
-            }
+            errors.Add(error);
           }
-        }
       }
 
       var problemDetails = new ValidationProblemDetails

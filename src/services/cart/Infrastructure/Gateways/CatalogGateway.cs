@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Dtos;
-using VND.FW.Infrastructure.AspNetCore;
-using VND.FW.Infrastructure.AspNetCore.Extensions;
+using VND.Fw.Infrastructure.AspNetCore;
+using VND.Fw.Infrastructure.AspNetCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways
 {

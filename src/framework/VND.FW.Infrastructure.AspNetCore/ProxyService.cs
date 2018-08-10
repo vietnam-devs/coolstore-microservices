@@ -1,4 +1,4 @@
-namespace VND.FW.Infrastructure.AspNetCore
+namespace VND.Fw.Infrastructure.AspNetCore
 {
   public abstract class ProxyServiceBase
   {

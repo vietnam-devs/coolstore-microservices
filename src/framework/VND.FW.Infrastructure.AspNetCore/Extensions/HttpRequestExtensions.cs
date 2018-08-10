@@ -1,13 +1,13 @@
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
-namespace VND.FW.Infrastructure.AspNetCore.Extensions
+namespace VND.Fw.Infrastructure.AspNetCore.Extensions
 {
   public static class HttpRequestExtensions
   {
     /// <summary>
-    /// Follow at http://opentracing.io/documentation/pages/spec
+    ///   Follow at http://opentracing.io/documentation/pages/spec
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -22,9 +22,9 @@ namespace VND.FW.Infrastructure.AspNetCore.Extensions
           x.Key == "x-b3-flags" ||
           x.Key == "x-ot-span-context" /* || x.Key == "Authorization" */
       ).Select(y =>
-          new KeyValuePair<string, string>(
-              y.Key,
-              y.Value.FirstOrDefault()));
+        new KeyValuePair<string, string>(
+          y.Key,
+          y.Value.FirstOrDefault()));
     }
   }
 }
