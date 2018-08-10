@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: review-db-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: review-db
+        version: v1
+    spec:
+      containers:
+      - name: review-db
+        image: vndg/cs-mssqldb:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ACCEPT_EULA
+          value: Y
+        - name: MSSQL_SA_PASSWORD
+          value: P@ssw0rd
+        ports:
+        - containerPort: 1433
+---

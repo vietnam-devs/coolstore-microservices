@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: review-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: review
+        version: v1
+    spec:
+      containers:
+      - name: review
+        image: vndg/cs-review-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: Hosts__BasePath
+          value: /review/
+        ports:
+        - containerPort: 5006
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5006
+          initialDelaySeconds: 10
+          periodSeconds: 5
+---

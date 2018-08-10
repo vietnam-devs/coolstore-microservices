@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: review-service
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: review-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 5006
+    protocol: TCP
+    name: http
+  selector:
+    app: review
+---

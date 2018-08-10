@@ -96,4 +96,12 @@ spec:
         host: cart-service
         port:
           number: 80
+  - match:
+    - uri:
+        prefix: /review/
+    route:
+    - destination:
+        host: review-service
+        port:
+          number: 80
 {{- end -}}

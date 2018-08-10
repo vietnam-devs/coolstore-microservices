@@ -21,6 +21,9 @@ docker build -f src/services/rating/Dockerfile -t vndg/cs-rating-service:$TAG -t
 echo "Build Cart..."
 docker build -f src/services/cart/Dockerfile -t vndg/cs-cart-service:$TAG -t vndg/cs-cart-service:latest .
 
+echo "Build Review..."
+docker build -f src/services/review/Dockerfile -t vndg/cs-review-service:$TAG -t vndg/cs-review-service:latest .
+
 echo "Build SPA..."
 docker build -f src/web/Dockerfile -t vndg/cs-spa:$TAG -t vndg/cs-spa:latest .
 
