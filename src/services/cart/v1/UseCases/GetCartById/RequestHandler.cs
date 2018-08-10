@@ -9,12 +9,12 @@ using VND.Fw.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
 {
-  public class CartRequestHandler : RequestHandlerBase<GetCartRequest, GetCartResponse>
+  public class RequestHandler : RequestHandlerBase<GetCartRequest, GetCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
-    public CartRequestHandler(ICatalogGateway cgw, IUnitOfWorkAsync uow,
+    public RequestHandler(ICatalogGateway cgw, IUnitOfWorkAsync uow,
       IQueryRepositoryFactory qrf, NoTaxCaculator priceCalculator) : base(uow, qrf)
     {
       _catalogGateway = cgw;
@@ -29,7 +29,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
       cartInfo = await cartInfo.InitCart(_catalogGateway, isPopulatePrice: true);
       cartInfo = _priceCalculator.Execute(cartInfo);
 
-      return new GetCartResponse { Result = cartInfo.ToCartDto() };
+      return new GetCartResponse { Result = cartInfo.ToDto() };
     }
   }
 }

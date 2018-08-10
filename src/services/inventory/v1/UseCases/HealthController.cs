@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using VND.CoolStore.Services.Inventory.Infrastructure.Db;
 using VND.Fw.Infrastructure.EfCore.Extensions;
 
-namespace VND.CoolStore.Services.Inventory.UseCases
+namespace VND.CoolStore.Services.Inventory.v1.UseCases
 {
   [Route("")]
   [ApiVersionNeutral]
   [ApiExplorerSettings(IgnoreApi = true)]
   public class HealthController : Controller
   {
-    private IServiceProvider _serviceProvider;
+    private readonly IServiceProvider _serviceProvider;
     public HealthController(IServiceProvider serviceProvider)
     {
       _serviceProvider = serviceProvider;

@@ -1,9 +1,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using VND.CoolStore.Services.Inventory.Infrastructure.Db;
 using VND.Fw.Infrastructure.EfCore.Migration;
 
-namespace VND.CoolStore.Services.Inventory.Infrastructure.Db.Seeders
+namespace VND.CoolStore.Services.Inventory.Infrastructure.Seeders
 {
 		public class InventorySeeder : SeedDataBase<InventoryDbContext>
 		{
@@ -15,7 +16,7 @@ namespace VND.CoolStore.Services.Inventory.Infrastructure.Db.Seeders
 				{
 						var inventorySet = context.Set<Domain.Inventory>();
 
-						if (inventorySet.Count() > 0) return;
+						if (inventorySet.Any()) return;
 
 						var inventory1 = new Domain.Inventory(
 								new System.Guid("25E6BA6E-FDDB-401D-99B2-33DDC9F29322"))

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VND.CoolStore.Services.Inventory.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class InitInvDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

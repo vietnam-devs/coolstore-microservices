@@ -12,12 +12,12 @@ using VND.Fw.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
 {
-  public class CartRequestHandler : TxRequestHandlerBase<UpdateItemInCartRequest, UpdateItemInCartResponse>
+  public class RequestHandler : TxRequestHandlerBase<UpdateItemInCartRequest, UpdateItemInCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
-    public CartRequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf,
+    public RequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf,
       ICatalogGateway catalogGateway, NoTaxCaculator priceCalculator) : base(uow, qrf)
     {
       _catalogGateway = catalogGateway;
@@ -65,7 +65,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
       else
         await cartItemRepository.AddAsync(item);
 
-      return new UpdateItemInCartResponse {Result = cart.ToCartDto()};
+      return new UpdateItemInCartResponse {Result = cart.ToDto()};
     }
   }
 }

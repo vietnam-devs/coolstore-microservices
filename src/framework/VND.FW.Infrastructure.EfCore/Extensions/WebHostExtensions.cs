@@ -15,7 +15,8 @@ namespace VND.Fw.Infrastructure.EfCore.Extensions
     public static IServiceProvider MigrateDbContext<TDbContext>(this IServiceProvider serviceProvider)
       where TDbContext : DbContext
     {
-      return serviceProvider.MigrateDbContext<TDbContext>((context, services) => {
+      return serviceProvider.MigrateDbContext<TDbContext>((context, services) =>
+      {
         InstanceSeedData(services, context, typeof(ISeedData<>));
       });
     }
@@ -30,10 +31,11 @@ namespace VND.Fw.Infrastructure.EfCore.Extensions
         });
     }
 
-    internal static IWebHost MigrateDbContext<TContext>(this IWebHost webHost, Action<TContext, IServiceProvider> seeder)
-        where TContext : DbContext
+    internal static IWebHost MigrateDbContext<TContext>(this IWebHost webHost,
+      Action<TContext, IServiceProvider> seeder)
+      where TContext : DbContext
     {
-      using (IServiceScope scope = webHost.Services.CreateScope())
+      using (var scope = webHost.Services.CreateScope())
       {
         scope.ServiceProvider.MigrateDbContext(seeder);
       }
@@ -47,45 +49,34 @@ namespace VND.Fw.Infrastructure.EfCore.Extensions
       var scanAssemblyPattern = configuration.GetSection("EfCore")["FullyQualifiedPrefix"];
       var seeders = scanAssemblyPattern.ResolveModularGenericTypes(seedData, context.GetType());
 
-      if (seeders == null)
-      {
-        return;
-      }
+      if (seeders == null) return;
 
       foreach (var seeder in seeders)
       {
-        var seedInstance = Activator.CreateInstance(seeder, new[] { configuration });
-        if (seedInstance != null)
-        {
-          var method = seeder.GetMethod("SeedAsync");
-          ((Task)method.Invoke(seedInstance, new[] { context })).Wait();
-        }
+        var seedInstance = Activator.CreateInstance(seeder, configuration);
+        var method = seeder.GetMethod("SeedAsync");
+        ((Task)method.Invoke(seedInstance, new object[] {context})).Wait();
       }
     }
 
     /// <summary>
-    /// This function will open up the door to make the Setup page
-    /// Because we can call to this function for provision new database
+    ///   This function will open up the door to make the Setup page
+    ///   Because we can call to this function for provision new database
     /// </summary>
-    /// <typeparam name="TContext"></typeparam>
     /// <param name="serviceProvider"></param>
     /// <param name="seeder"></param>
     /// <returns></returns>
     public static IServiceProvider MigrateDbContext<TDbContext>(
-        this IServiceProvider serviceProvider,
-        Action<TDbContext, IServiceProvider> seeder)
-        where TDbContext : DbContext
+      this IServiceProvider serviceProvider,
+      Action<TDbContext, IServiceProvider> seeder)
+      where TDbContext : DbContext
     {
       var logger = serviceProvider.GetRequiredService<ILogger<TDbContext>>();
       var context = serviceProvider.GetRequiredService<TDbContext>();
 
       logger.LogInformation($"[VND] Migrating database associated with {typeof(TDbContext).FullName} context.");
       context.Database.OpenConnection();
-      // context.Database.EnsureCreated();
-      if (!context.AllMigrationsApplied())
-      {
-        context.Database.Migrate();
-      }
+      if (!context.AllMigrationsApplied()) context.Database.Migrate();
 
       logger.LogInformation($"[VND] Start to seed data for {typeof(TDbContext).FullName} context.");
       seeder(context, serviceProvider);

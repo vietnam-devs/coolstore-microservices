@@ -5,15 +5,14 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VND.Fw.Infrastructure.AspNetCore;
 using VND.Fw.Infrastructure.AspNetCore.CleanArch;
-using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
 {
   [ApiVersion("1.0")]
   [Route("api/carts")]
-  public class CartController : EvtControllerBase
+  public class Controller : EvtControllerBase
   {
-    public CartController(IMediator mediator) : base(mediator) { }
+    public Controller(IMediator mediator) : base(mediator) { }
 
     [HttpPut]
     [Route("{cartId:guid}/checkout")]

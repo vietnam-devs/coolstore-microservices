@@ -7,7 +7,7 @@ namespace VND.CoolStore.Services.Cart.Domain
 {
   public static class CartExtensions
   {
-    public static CartDto ToCartDto(this Cart cart)
+    public static CartDto ToDto(this Cart cart)
     {
       return new CartDto
       {

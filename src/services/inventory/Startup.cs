@@ -3,8 +3,6 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using VND.CoolStore.Services.Inventory.Infrastructure.Db;
-using VND.CoolStore.Services.Inventory.UseCases.Service;
-using VND.CoolStore.Services.Inventory.UseCases.Service.Impl;
 using VND.Fw.Infrastructure.AspNetCore.Miniservice;
 using VND.Fw.Infrastructure.EfCore.SqlServer;
 
@@ -41,7 +39,6 @@ namespace VND.CoolStore.Services.Inventory
       services.AddScoped(sp => serviceParams);
       services.AddEfCoreSqlServer();
       services.AddMiniService<InventoryDbContext>();
-      services.AddScoped<IInventoryService, InventoryService>();
     }
 
     public void Configure(IApplicationBuilder app)

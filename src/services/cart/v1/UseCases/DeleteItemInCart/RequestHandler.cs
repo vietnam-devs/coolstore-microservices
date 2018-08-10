@@ -6,17 +6,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.v1.Extensions;
-using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;
 using VND.Fw.Infrastructure.AspNetCore.CleanArch;
 using VND.Fw.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
 {
-  public class CartRequestHandler : TxRequestHandlerBase<DeleteItemRequest, DeleteItemResponse>
+  public class RequestHandler : TxRequestHandlerBase<DeleteItemRequest, DeleteItemResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
-    public CartRequestHandler(ICatalogGateway cgw, IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf)
+    public RequestHandler(ICatalogGateway cgw, IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf)
       : base(uow, qrf)
     {
       _catalogGateway = cgw;

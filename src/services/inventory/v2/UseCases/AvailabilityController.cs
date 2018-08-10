@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace VND.CoolStore.Services.Inventory.UseCases.v2
+namespace VND.CoolStore.Services.Inventory.v2.UseCases
 {
   [ApiVersion("2.0")]
   [Route("api/availability")]

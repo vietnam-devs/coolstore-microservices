@@ -9,12 +9,12 @@ using VND.Fw.Infrastructure.AspNetCore.CleanArch;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
 {
-  public class CartRequestHandler : TxRequestHandlerBase<InsertItemToNewCartRequest, InsertItemToNewCartResponse>
+  public class RequestHandler : TxRequestHandlerBase<InsertItemToNewCartRequest, InsertItemToNewCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
-    public CartRequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf,
+    public RequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf,
       ICatalogGateway catalogGateway, NoTaxCaculator priceCalculator) : base(uow, qrf)
     {
       _catalogGateway = catalogGateway;
@@ -39,7 +39,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
 
       await cartRepository.AddAsync(cart);
 
-      return new InsertItemToNewCartResponse { Result = cart.ToCartDto() };
+      return new InsertItemToNewCartResponse { Result = cart.ToDto() };
     }
   }
 }
