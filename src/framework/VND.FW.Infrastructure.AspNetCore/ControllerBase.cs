@@ -19,13 +19,14 @@ namespace VND.Fw.Infrastructure.AspNetCore
     }
   }
 
+  [ApiController]
   public abstract class EfCoreControllerBase<TEntity> : Controller
     where TEntity : EntityBase
   {
-    protected readonly IEfQueryRepository<TEntity> QueryRepository = null;
-    protected readonly IEfRepositoryAsync<TEntity> MutateRepository = null;
+    protected readonly IEfQueryRepository<TEntity> QueryRepository;
+    protected readonly IEfRepositoryAsync<TEntity> MutateRepository;
 
-    public EfCoreControllerBase(
+    protected EfCoreControllerBase(
         IEfQueryRepository<TEntity> queryRepository,
         IEfRepositoryAsync<TEntity> mutateRepository)
     {
@@ -38,10 +39,11 @@ namespace VND.Fw.Infrastructure.AspNetCore
   /// https://github.com/FabianGosebrink/ASPNETCore-WebAPI-Sample/blob/master/SampleWebApiAspNetCore/Controllers/v1/FoodsController.cs
   /// </summary>
   /// <typeparam name="TEntity"></typeparam>
+  [ApiController]
   public abstract class CrudControllerBase<TEntity> : EfCoreControllerBase<TEntity>
       where TEntity : EntityBase
   {
-    public CrudControllerBase(
+    protected CrudControllerBase(
         IEfQueryRepository<TEntity> queryRepository,
         IEfRepositoryAsync<TEntity> mutateRepository)
       : base(queryRepository, mutateRepository)
@@ -62,13 +64,13 @@ namespace VND.Fw.Infrastructure.AspNetCore
     }
 
     [HttpPost(Name = nameof(PostItem))]
-    public async Task<TEntity> PostItem([FromBody] TEntity entity)
+    public async Task<TEntity> PostItem(TEntity entity)
     {
       return await MutateRepository.AddAsync(entity);
     }
 
     [HttpPut("{id}", Name = nameof(PutItem))]
-    public async Task<TEntity> PutItem(int id, [FromBody] TEntity entity)
+    public async Task<TEntity> PutItem(int id, TEntity entity)
     {
       return await MutateRepository.UpdateAsync(entity);
     }

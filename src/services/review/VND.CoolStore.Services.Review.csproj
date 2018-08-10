@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +18,16 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\framework\VND.FW.Domain\VND.Fw.Domain.csproj" />
+    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore.CleanArch\VND.Fw.Infrastructure.AspNetCore.CleanArch.csproj" />
+    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore.Miniservice\VND.Fw.Infrastructure.AspNetCore.Miniservice.csproj" />
+    <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.AspNetCore\VND.Fw.Infrastructure.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.EfCore.SqlServer\VND.Fw.Infrastructure.EfCore.SqlServer.csproj" />
+    <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\..\framework\VND.FW.Utils\VND.Fw.Utils.csproj" />
   </ItemGroup>
 
 </Project>

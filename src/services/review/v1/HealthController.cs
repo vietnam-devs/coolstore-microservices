@@ -1,9 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
-using VND.CoolStore.Services.Cart.Infrastructure.Db;
+using VND.CoolStore.Services.Review.Infrastructure.Db;
 using VND.Fw.Infrastructure.EfCore.Extensions;
 
-namespace VND.CoolStore.Services.Cart.v1.UseCases
+namespace VND.CoolStore.Services.Review.v1
 {
   [Route("")]
   [ApiVersionNeutral]
@@ -21,7 +21,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases
     {
       try
       {
-        _serviceProvider.MigrateDbContext<CartDbContext>();
+        _serviceProvider.MigrateDbContext<ReviewDbContext>();
       }
       catch (Exception)
       {
