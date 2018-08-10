@@ -1,59 +1,37 @@
 /* tslint:disable */
-import { Controller, ValidateParam, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
-import { ProductsController } from './controllers/productsController';
+import {
+  Controller,
+  ValidateParam,
+  FieldErrors,
+  ValidateError,
+  TsoaRoute
+} from 'tsoa'
+import { ProductsController } from './controllers/productsController'
 
-export function RegisterRoutes(app: any) {
-  app.get('/v1/Products',
-    function (request: any, response: any, next: any) {
-      const controller = new ProductsController();
+export function RegisterRoutes(app: any, basePath: string) {
+  app.get(`${basePath}api/products/:productId`, async (req, res) => {
+    console.info(req.params)
+    const controller = new ProductsController()
+    var product = await controller.Get.apply(controller)
+    res.send(product)
+  })
 
-      const promise = controller.GetAll.apply(controller);
-      promiseHandler(controller, promise, response, next);
-    });
-  app.get('/v1/Products/:productId',
-    function (request: any, response: any, next: any) {
-      const controller = new ProductsController();
+  app.get(`${basePath}api/products`, async (req, res) => {
+    const controller = new ProductsController()
+    var products = await controller.GetAll.apply(controller)
+    res.send(products)
+  })
 
-      const promise = controller.Get.apply(controller);
-      promiseHandler(controller, promise, response, next);
-    });
-  app.post('/v1/Users',
-    function (request: any, response: any, next: any) {
-      const controller = new ProductsController();
+  app.post(`${basePath}api/products`, async (req, res) => {
+    console.info(req.body)
+    const controller = new ProductsController()
+    var product = await controller.Create.apply(controller)
+    res.send(product)
+  })
 
-
-      const promise = controller.Create.apply(controller);
-      promiseHandler(controller, promise, response, next);
-    });
-  app.delete('/v1/Users/:userId',
-    function (request: any, response: any, next: any) {
-      const controller = new ProductsController();
-
-
-      const promise = controller.Delete.apply(controller);
-      promiseHandler(controller, promise, response, next);
-    });
-
-  function promiseHandler(controllerObj: any, promise: any, response: any, next: any) {
-    return Promise.resolve(promise)
-      .then((data: any) => {
-        let statusCode;
-        if (controllerObj instanceof Controller) {
-          const controller = controllerObj as Controller
-          const headers = controller.getHeaders();
-          Object.keys(headers).forEach((name: string) => {
-            response.set(name, headers[name]);
-          });
-
-          statusCode = controller.getStatus();
-        }
-
-        if (data) {
-          response.status(statusCode || 200).json(data);
-        } else {
-          response.status(statusCode || 204).end();
-        }
-      })
-      .catch((error: any) => next(error));
-  }
+  app.get(`${basePath}healthz`, (req, res) => {
+    res.send({
+      status: 'Healthy!'
+    })
+  })
 }

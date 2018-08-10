@@ -343,3 +343,4 @@ build
 **/*/*.local.yaml
 **/*/key*.*
 src/web/shrinkwrap.yaml
+**/dist/

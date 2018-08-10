@@ -2,7 +2,7 @@
     "swagger": {
         "outputDirectory": "./dist",
         "entryFile": "./src/server.ts",
-        "basePath": "/v1"
+        "basePath": "/"
     },
     "routes": {
         "basePath": "/v1",
