@@ -2,11 +2,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Infrastructure.Db;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.CoolStore.Services.Cart.v2.Services;
-using VND.FW.Infrastructure.AspNetCore.Extensions;
+using VND.FW.Infrastructure.AspNetCore.Miniservice;
 using VND.FW.Infrastructure.EfCore.SqlServer;
 
 namespace VND.CoolStore.Services.Cart
@@ -15,21 +14,35 @@ namespace VND.CoolStore.Services.Cart
   {
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddEfCoreSqlServer();
-      services.AddMiniService<CartDbContext>(
+      var assemblies = new HashSet<Assembly>
+      {
         typeof(Startup).GetTypeInfo().Assembly,
-        o =>
-        {
-          o.AddPolicy("access_cart_api",
-            p => p.RequireClaim("scope", "cart_api_scope"));
-        },
-        () => new Dictionary<string, string>
-        {
-          {"cart_api_scope", "Cart APIs"}
-        });
+        typeof(MiniServiceExtensions).GetTypeInfo().Assembly
+      };
 
+      var claimToScopeMap = new Dictionary<string, string>
+      {
+        {"access_cart_api", "cart_api_scope"}
+      };
+
+      var scopes = new Dictionary<string, string>
+      {
+        {"cart_api_scope", "Cart APIs"}
+      };
+
+      var serviceParams = new ServiceParams
+      {
+        {"assemblies", assemblies},
+        {"audience", "api"},
+        {"claimToScopeMap", claimToScopeMap},
+        {"scopes", scopes}
+      };
+
+      services.AddScoped(sp => serviceParams);
+      services.AddEfCoreSqlServer();
       services.AddScoped<NoTaxCaculator>();
       services.AddScoped<TenPercentTaxCalculator>();
+      services.AddMiniService<CartDbContext>();
     }
 
     public void Configure(IApplicationBuilder app)

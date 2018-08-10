@@ -1,13 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 using VND.Fw.Domain;
 using VND.Fw.Utils.Extensions;
 using VND.FW.Infrastructure.EfCore.Db;
-using VND.FW.Infrastructure.EfCore.Options;
 using VND.FW.Infrastructure.EfCore.Repository;
 
 namespace VND.FW.Infrastructure.EfCore.Extensions
@@ -17,11 +16,11 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
     public static IServiceCollection AddEfCore(this IServiceCollection services)
     {
       var serviceProvider = services.BuildServiceProvider();
-      var persistenceOption = serviceProvider.GetRequiredService<IOptions<PersistenceOption>>()?.Value;
-      if (persistenceOption != null)
-      {
-        var entityTypes = persistenceOption
-          .FullyQualifiedPrefix
+      var fullyQualifiedPrefix = serviceProvider
+        .GetRequiredService<IConfiguration>()
+        .GetValue<string>("EfCore:FullyQualifiedPrefix");
+
+        var entityTypes = fullyQualifiedPrefix
           .LoadAssemblyWithPattern()
           .SelectMany(m => m.DefinedTypes)
           .Where(x => typeof(IEntity).IsAssignableFrom(x) && !x.GetTypeInfo().IsAbstract);
@@ -36,7 +35,6 @@ namespace VND.FW.Infrastructure.EfCore.Extensions
           var implQueryRepoType = typeof(EfQueryRepository<>).MakeGenericType(entity);
           services.AddSingleton(queryRepoType, implQueryRepoType);
         }
-      }
 
       services.AddSingleton(
           typeof(IUnitOfWorkAsync), resolver =>

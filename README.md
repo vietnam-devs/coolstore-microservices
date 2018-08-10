@@ -21,7 +21,7 @@ It demonstrates how to wire up small microservices into a larger application usi
 * [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
 * [Services](https://github.com/vietnam-devs/coolstore-microservices#services)
 * [Up and Running](https://github.com/vietnam-devs/coolstore-microservices#up-and-running)
-* [Microservice Development](https://github.com/vietnam-devs/coolstore-microservices#microservice-development)
+* [µService Development](https://github.com/vietnam-devs/coolstore-microservices#microservice-development)
 * [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
 * [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
 * [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
@@ -143,9 +143,9 @@ Waiting for the container provision completed
 > helm install --name cs-nginx stable/nginx-ingress
 > ```
 
-### Microservice Development
+### µService Development
 
-![Microservice Screenshot](assets/images/miniservice-development.PNG?raw=true 'Microservice')
+![µService Screenshot](assets/images/miniservice-development.PNG?raw=true 'Microservice')
 
 ### Open API
 
