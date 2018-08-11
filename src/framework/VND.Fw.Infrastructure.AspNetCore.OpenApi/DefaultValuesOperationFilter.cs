@@ -11,7 +11,7 @@ namespace VND.Fw.Infrastructure.AspNetCore.OpenApi
   ///   This <see cref="IOperationFilter" /> is only required due to bugs in the <see cref="SwaggerGenerator" />.
   ///   Once they are fixed and published, this class can be removed.
   /// </remarks>
-  public class SwaggerDefaultValuesOperationFilter : IOperationFilter
+  public class DefaultValuesOperationFilter : IOperationFilter
   {
     /// <summary>
     ///   Applies the filter to the specified operation using the given context.

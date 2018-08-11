@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using VND.Fw.Infrastructure.AspNetCore.Miniservice;
 
-namespace VND.FW.Infrastructure.AspNetCore.Miniservice
+namespace VND.Fw.Infrastructure.AspNetCore.Miniservice.ConfigureApplications
 {
   public class AuthNConfigureApplication : IConfigureApplication
   {

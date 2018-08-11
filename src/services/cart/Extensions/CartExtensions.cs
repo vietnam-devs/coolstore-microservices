@@ -1,13 +1,14 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Dtos;
 
-namespace VND.CoolStore.Services.Cart.Domain
+namespace VND.CoolStore.Services.Cart.Extensions
 {
   public static class CartExtensions
   {
-    public static CartDto ToDto(this Cart cart)
+    public static CartDto ToDto(this Domain.Cart cart)
     {
       return new CartDto
       {
@@ -29,11 +30,11 @@ namespace VND.CoolStore.Services.Cart.Domain
       };
     }
 
-    public static async Task<Cart> InitCart(this Cart cart, ICatalogGateway catalogGateway, bool isPopulatePrice = false)
+    public static async Task<Domain.Cart> InitCart(this Domain.Cart cart, ICatalogGateway catalogGateway, bool isPopulatePrice = false)
     {
       if (cart == null)
       {
-        cart = new Cart();
+        cart = new Domain.Cart();
       }
 
       if (isPopulatePrice == false)

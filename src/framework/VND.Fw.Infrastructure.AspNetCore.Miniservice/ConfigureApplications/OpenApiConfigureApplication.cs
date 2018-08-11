@@ -19,12 +19,12 @@ namespace VND.Fw.Infrastructure.AspNetCore.Miniservice.ConfigureApplications
       var basePath = config.GetBasePath();
       var currentHostUri = config.GetExternalCurrentHostUri();
 
-      if (config.GetValue("EnableOpenApi", false))
+      if (config.GetValue("OpenApi:Enabled", false))
       {
         app.UseSwagger();
       }
 
-      if (config.GetValue("EnableOpenApiUi", false))
+      if (config.GetValue("OpenApi:EnabledUI", false))
       {
         app.UseSwaggerUI(
           c =>

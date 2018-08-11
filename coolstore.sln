@@ -38,15 +38,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Utils", "src\framewo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.EfCore", "src\framework\VND.FW.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj", "{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Services.ApiGateway", "src\services\gateway\VND.CoolStore.Services.ApiGateway.csproj", "{C4722C4F-DBD3-4101-A99A-88ABC10912E3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.EfCore.SqlServer", "src\framework\VND.FW.Infrastructure.EfCore.SqlServer\VND.Fw.Infrastructure.EfCore.SqlServer.csproj", "{B73ADF43-63AF-4226-8A48-9E3B965C78D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.Fw.Infrastructure.AspNetCore.CleanArch", "src\framework\VND.Fw.Infrastructure.AspNetCore.CleanArch\VND.Fw.Infrastructure.AspNetCore.CleanArch.csproj", "{2C051E4E-5C60-4801-8735-A17F47573A88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.AspNetCore.CleanArch", "src\framework\VND.Fw.Infrastructure.AspNetCore.CleanArch\VND.Fw.Infrastructure.AspNetCore.CleanArch.csproj", "{2C051E4E-5C60-4801-8735-A17F47573A88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.Fw.Infrastructure.AspNetCore.Miniservice", "src\framework\VND.Fw.Infrastructure.AspNetCore.Miniservice\VND.Fw.Infrastructure.AspNetCore.Miniservice.csproj", "{944AEFDD-0D85-4DAE-8FDF-370C508D5C9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.AspNetCore.Miniservice", "src\framework\VND.Fw.Infrastructure.AspNetCore.Miniservice\VND.Fw.Infrastructure.AspNetCore.Miniservice.csproj", "{944AEFDD-0D85-4DAE-8FDF-370C508D5C9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.Fw.Infrastructure.AspNetCore.OpenApi", "src\framework\VND.Fw.Infrastructure.AspNetCore.OpenApi\VND.Fw.Infrastructure.AspNetCore.OpenApi.csproj", "{E230E18E-D8CD-4877-A691-E6BFBF82F686}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.AspNetCore.OpenApi", "src\framework\VND.Fw.Infrastructure.AspNetCore.OpenApi\VND.Fw.Infrastructure.AspNetCore.OpenApi.csproj", "{E230E18E-D8CD-4877-A691-E6BFBF82F686}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,10 +88,6 @@ Global
 		{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4722C4F-DBD3-4101-A99A-88ABC10912E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4722C4F-DBD3-4101-A99A-88ABC10912E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4722C4F-DBD3-4101-A99A-88ABC10912E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4722C4F-DBD3-4101-A99A-88ABC10912E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B73ADF43-63AF-4226-8A48-9E3B965C78D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -125,7 +119,6 @@ Global
 		{7F00368D-8734-4429-B4BE-F833E7AAFFC5} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
 		{45A63B09-7BF7-4886-8A31-52148EF8B59A} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
 		{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
-		{C4722C4F-DBD3-4101-A99A-88ABC10912E3} = {A0F90A99-CAD3-491F-9079-D1680D659A9B}
 		{B73ADF43-63AF-4226-8A48-9E3B965C78D6} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
 		{2C051E4E-5C60-4801-8735-A17F47573A88} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}
 		{944AEFDD-0D85-4DAE-8FDF-370C508D5C9E} = {368570BE-6D1B-451B-9C04-FD610C0E81B8}

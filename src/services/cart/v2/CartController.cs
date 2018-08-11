@@ -1,7 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using VND.Fw.Infrastructure.AspNetCore;
-using VND.FW.Infrastructure.AspNetCore;
 
 namespace VND.CoolStore.Services.Cart.v2
 {

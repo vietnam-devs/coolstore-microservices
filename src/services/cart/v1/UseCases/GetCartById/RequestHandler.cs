@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using VND.CoolStore.Services.Cart.Domain;
+using VND.CoolStore.Services.Cart.Extensions;
 using VND.CoolStore.Services.Cart.v1.Extensions;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.Fw.Domain;

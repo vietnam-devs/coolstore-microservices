@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -19,8 +20,15 @@ namespace VND.Fw.Infrastructure.AspNetCore.Miniservice.ConfigureServices
       var config = svcProvider.GetRequiredService<IConfiguration>();
       var serviceParams = svcProvider.GetRequiredService<ServiceParams>();
 
-      if (config.GetValue("EnableOpenApi", false))
+      if (config.GetSection("OpenApi") == null)
       {
+        throw new Exception("Please add OpenApi configuration or disabled OpenAPI.");
+      }
+
+      if (config.GetValue("OpenApi:Enabled", false))
+      {
+        services.Configure<OpenApiOptions>(config.GetSection("OpenApi"));
+
         services.AddSwaggerGen(c =>
         {
           var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
@@ -29,7 +37,7 @@ namespace VND.Fw.Infrastructure.AspNetCore.Miniservice.ConfigureServices
 
           foreach (var description in provider.ApiVersionDescriptions)
           {
-            c.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
+            c.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(config, description));
           }
 
           // c.IncludeXmlComments (XmlCommentsFilePath);
@@ -53,7 +61,7 @@ namespace VND.Fw.Infrastructure.AspNetCore.Miniservice.ConfigureServices
             c.OperationFilter<SecurityRequirementsOperationFilter>();
           }
 
-          c.OperationFilter<SwaggerDefaultValuesOperationFilter>();
+          c.OperationFilter<DefaultValuesOperationFilter>();
           c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
         });
       }
@@ -64,28 +72,23 @@ namespace VND.Fw.Infrastructure.AspNetCore.Miniservice.ConfigureServices
       return config.GetExternalHostUri("Auth");
     }
 
-    /// <summary>
-    /// TODO: refactoring to Options
-    /// </summary>
-    /// <param name="description"></param>
-    /// <returns></returns>
-    private static Info CreateInfoForApiVersion(ApiVersionDescription description)
+    private static Info CreateInfoForApiVersion(IConfiguration config, ApiVersionDescription description)
     {
       var info = new Info()
       {
-        Title = $"API {description.ApiVersion}",
+        Title = $"{config.GetValue("OpenApi:Title", "API")} {description.ApiVersion}",
         Version = description.ApiVersion.ToString(),
-        Description = "An application with Swagger, Swashbuckle, and API versioning.",
+        Description = config.GetValue("OpenApi:Description", "An application with Swagger, Swashbuckle, and API versioning."),
         Contact = new Contact()
         {
-          Name = "VND",
-          Email = "vietnam.devs.group@gmail.com"
+          Name = config.GetValue("OpenApi:ContactName", "Vietnam Devs"),
+          Email = config.GetValue("OpenApi:ContactEmail", "vietnam.devs.group@gmail.com")
         },
-        TermsOfService = "Shareware",
+        TermsOfService = config.GetValue("OpenApi:TermOfService", "Shareware"),
         License = new License()
         {
-          Name = "MIT",
-          Url = "https://opensource.org/licenses/MIT"
+          Name = config.GetValue("OpenApi:LicenseName", "MIT"),
+          Url = config.GetValue("OpenApi:LicenseUrl", "https://opensource.org/licenses/MIT")
         }
       };
 
