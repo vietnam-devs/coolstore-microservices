@@ -341,6 +341,7 @@ build
 # ignore all *.dev.yaml files
 # **/*/*.dev.yaml
 **/*/*.local.yaml
+deploys/k8s/**/*.yaml
 **/*/key*.*
 src/web/shrinkwrap.yaml
 **/dist/

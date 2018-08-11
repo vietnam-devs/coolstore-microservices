@@ -3,14 +3,14 @@ TAG=${TAG:=$(git rev-parse --short HEAD)}
 NAMESPACE=${NAMESPACE:="vndg"}
 echo "${NAMESPACE} and ${TAG}"
 
+echo "Build MSSQLDb..."
+docker build -f deploys/dockers/mssqldb/Dockerfile -t vndg/cs-mssqldb:$TAG -t vndg/cs-mssqldb:latest .
+
 echo "Build IDP..."
 docker build -f src/services/idp/Dockerfile -t vndg/cs-idp-service:$TAG -t vndg/cs-idp-service:latest .
 
-echo "Build Inventoty..."
+echo "Build Inventory..."
 docker build -f src/services/inventory/Dockerfile -t vndg/cs-inventory-service:$TAG -t vndg/cs-inventory-service:latest .
-
-echo "Build MSSQLDb..."
-docker build -f deploys/dockers/mssqldb/Dockerfile -t vndg/cs-mssqldb:$TAG -t vndg/cs-mssqldb:latest .
 
 echo "Build Catalog..."
 docker build -f src/services/catalog/Dockerfile -t vndg/cs-catalog-service:$TAG -t vndg/cs-catalog-service:latest .

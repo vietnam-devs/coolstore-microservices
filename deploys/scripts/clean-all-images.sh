@@ -1,3 +1,3 @@
 #!/bin/bash
-docker rmi $(docker images -f "dangling=true" -q)
-docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' | grep 'vndg')
+docker rmi -f $(docker images -f "dangling=true" -q)
+docker rmi -f $(docker images --format '{{.Repository}}:{{.Tag}}' | grep 'vndg')
