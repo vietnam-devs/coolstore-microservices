@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using VND.Fw.Infrastructure.AspNetCore.Extensions;
-using VND.Fw.Infrastructure.AspNetCore.Miniservice.Options;
+using NetCoreKit.Infrastructure.AspNetCore.Extensions;
+using NetCoreKit.Infrastructure.AspNetCore.Miniservice.Options;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases
 {

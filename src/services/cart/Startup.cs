@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using NetCoreKit.Infrastructure.AspNetCore.Miniservice;
+using NetCoreKit.Infrastructure.EfCore.SqlServer;
 using VND.CoolStore.Services.Cart.Infrastructure.Db;
 using VND.CoolStore.Services.Cart.v1.Services;
 using VND.CoolStore.Services.Cart.v2.Services;
-using VND.Fw.Infrastructure.AspNetCore.Miniservice;
-using VND.Fw.Infrastructure.EfCore.SqlServer;
 
 namespace VND.CoolStore.Services.Cart
 {

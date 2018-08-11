@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using VND.Fw.Domain;
+using NetCoreKit.Domain;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {

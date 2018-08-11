@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using NetCoreKit.Infrastructure.AspNetCore;
+using NetCoreKit.Infrastructure.AspNetCore.Extensions;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Dtos;
-using VND.Fw.Infrastructure.AspNetCore;
-using VND.Fw.Infrastructure.AspNetCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways
 {

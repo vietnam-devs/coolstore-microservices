@@ -20,22 +20,20 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.2" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="2.1.1" />
+    <PackageReference Include="NetCoreKit.Domain" Version="0.0.1" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore" Version="0.0.1" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.CleanArch" Version="0.0.1" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.Miniservice" Version="0.0.1" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.OpenApi" Version="0.0.1" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore" Version="0.0.1" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.SqlServer" Version="0.0.1" />
+    <PackageReference Include="NetCoreKit.Utils" Version="0.0.1" />
     <PackageReference Include="Scrutor" Version="2.2.2" />
     <PackageReference Include="System.Reactive" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\framework\VND.Fw.Domain\VND.Fw.Domain.csproj" />
-    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore.CleanArch\VND.Fw.Infrastructure.AspNetCore.CleanArch.csproj" />
-    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore.Miniservice\VND.Fw.Infrastructure.AspNetCore.Miniservice.csproj" />
-    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore\VND.Fw.Infrastructure.AspNetCore.csproj" />
-    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.EfCore.SqlServer\VND.Fw.Infrastructure.EfCore.SqlServer.csproj" />
-    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj" />
-    <ProjectReference Include="..\..\framework\VND.Fw.Utils\VND.Fw.Utils.csproj" />
   </ItemGroup>
 
 </Project>

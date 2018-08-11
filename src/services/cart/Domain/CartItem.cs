@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using VND.Fw.Domain;
+using NetCoreKit.Domain;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {

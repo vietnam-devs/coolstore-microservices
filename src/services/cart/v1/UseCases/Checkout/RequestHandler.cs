@@ -1,9 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
+using NetCoreKit.Domain;
+using NetCoreKit.Infrastructure.AspNetCore.CleanArch;
+using NetCoreKit.Infrastructure.EfCore.Extensions;
 using VND.CoolStore.Services.Cart.v1.Extensions;
-using VND.Fw.Domain;
-using VND.Fw.Infrastructure.AspNetCore.CleanArch;
-using VND.Fw.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
 {

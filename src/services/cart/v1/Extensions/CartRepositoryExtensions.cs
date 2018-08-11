@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using NetCoreKit.Infrastructure.EfCore.Extensions;
+using NetCoreKit.Infrastructure.EfCore.Repository;
 using VND.CoolStore.Services.Cart.Domain;
-using VND.Fw.Infrastructure.EfCore.Extensions;
-using VND.Fw.Infrastructure.EfCore.Repository;
 
 namespace VND.CoolStore.Services.Cart.v1.Extensions
 {

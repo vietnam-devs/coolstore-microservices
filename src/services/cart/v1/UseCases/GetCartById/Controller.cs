@@ -3,8 +3,8 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using VND.Fw.Infrastructure.AspNetCore;
-using VND.Fw.Infrastructure.AspNetCore.CleanArch;
+using NetCoreKit.Infrastructure.AspNetCore;
+using NetCoreKit.Infrastructure.AspNetCore.CleanArch;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
 {
