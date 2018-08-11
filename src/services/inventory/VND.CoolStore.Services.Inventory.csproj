@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\framework\VND.Fw.Domain\VND.Fw.Domain.csproj" />
     <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore.CleanArch\VND.Fw.Infrastructure.AspNetCore.CleanArch.csproj" />
     <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore.Miniservice\VND.Fw.Infrastructure.AspNetCore.Miniservice.csproj" />
+    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore.OpenApi\VND.Fw.Infrastructure.AspNetCore.OpenApi.csproj" />
     <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore\VND.Fw.Infrastructure.AspNetCore.csproj" />
     <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.EfCore.SqlServer\VND.Fw.Infrastructure.EfCore.SqlServer.csproj" />
     <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj" />
