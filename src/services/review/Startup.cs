@@ -3,9 +3,9 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using NetCoreKit.Infrastructure.AspNetCore.Miniservice;
+using NetCoreKit.Infrastructure.EfCore.SqlServer;
 using VND.CoolStore.Services.Review.Infrastructure.Db;
-using VND.Fw.Infrastructure.AspNetCore.Miniservice;
-using VND.Fw.Infrastructure.EfCore.SqlServer;
 
 namespace VND.CoolStore.Services.Review
 {

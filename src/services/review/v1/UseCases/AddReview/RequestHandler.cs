@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
+using NetCoreKit.Domain;
+using NetCoreKit.Infrastructure.AspNetCore.CleanArch;
 using VND.CoolStore.Services.Review.Extensions;
-using VND.Fw.Domain;
-using VND.Fw.Infrastructure.AspNetCore.CleanArch;
 
 namespace VND.CoolStore.Services.Review.v1.UseCases.AddReview
 {

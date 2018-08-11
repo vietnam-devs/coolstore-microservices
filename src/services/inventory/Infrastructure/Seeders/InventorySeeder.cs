@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using NetCoreKit.Infrastructure.EfCore.Migration;
 using VND.CoolStore.Services.Inventory.Infrastructure.Db;
-using VND.Fw.Infrastructure.EfCore.Migration;
 
 namespace VND.CoolStore.Services.Inventory.Infrastructure.Seeders
 {

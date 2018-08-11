@@ -1,5 +1,5 @@
 using System;
-using VND.Fw.Domain;
+using NetCoreKit.Domain;
 
 namespace VND.CoolStore.Services.Inventory.Domain
 {

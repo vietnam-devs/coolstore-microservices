@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using VND.Fw.Domain;
-using VND.Fw.Infrastructure.AspNetCore.CleanArch;
-using VND.Fw.Infrastructure.EfCore.Extensions;
+using NetCoreKit.Domain;
+using NetCoreKit.Infrastructure.AspNetCore.CleanArch;
+using NetCoreKit.Infrastructure.EfCore.Extensions;
 
 namespace VND.CoolStore.Services.Review.v1.UseCases.RemoveReview
 {
