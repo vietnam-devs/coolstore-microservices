@@ -1,26 +1,28 @@
-FROM microsoft/dotnet:2.1-sdk-alpine AS build
-WORKDIR /build
+FROM microsoft/dotnet:2.1.2-aspnetcore-runtime-alpine AS base
+WORKDIR /app
+
+ARG service_version
+ENV SERVICE_VERSION ${service_version:-0.0.1}
+
+ARG api_version
+ENV API_VERSION ${api_version:-1.0}
+
+ENV ASPNETCORE_URLS http://+:5001
 EXPOSE 5001
 
-# Copy the global and csproj files
-COPY ./src/services/idp/VND.CoolStore.Services.Idp.csproj ./src/services/idp/VND.CoolStore.Services.Idp.csproj
-COPY ./global.json ./global.json
+FROM microsoft/dotnet:2.1.302-sdk-alpine AS build
+WORKDIR /src
+COPY . .
 
-# Restore all packages
-RUN dotnet restore ./src/services/idp/VND.CoolStore.Services.Idp.csproj --force --no-cache -nowarn:msb3202,nu1503
+WORKDIR /src/src/services/inventory
 
-# Copy the remaining source
-COPY ./src/services/idp/ ./src/services/idp/
+RUN dotnet restore -nowarn:msb3202,nu1503
+RUN dotnet build --no-restore -c Release -o /app
 
-# Build the source code
-RUN dotnet build ./src/services/idp/VND.CoolStore.Services.Idp.csproj --configuration Release --no-restore
+FROM build AS publish
+RUN dotnet publish --no-restore -c Release -o /app
 
-# Publish application
-RUN dotnet publish ./src/services/idp/VND.CoolStore.Services.Idp.csproj --configuration Release --no-restore --no-build --output "../../../dist"
-
-FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS app
+FROM base AS final
 WORKDIR /app
-COPY --from=build /build/dist .
-ENV ASPNETCORE_URLS http://+:5001
-
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "VND.CoolStore.Services.Idp.dll"]
