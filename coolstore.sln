@@ -30,15 +30,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{CB8885DA-CA9C-41C5-A427-3D186A49FAC4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.AspNetCore", "src\framework\VND.FW.Infrastructure.AspNetCore\VND.Fw.Infrastructure.AspNetCore.csproj", "{6AD7EFCF-A6CB-4D1D-8C2B-B5721D186747}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.AspNetCore", "src\framework\VND.Fw.Infrastructure.AspNetCore\VND.Fw.Infrastructure.AspNetCore.csproj", "{6AD7EFCF-A6CB-4D1D-8C2B-B5721D186747}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Domain", "src\framework\VND.FW.Domain\VND.Fw.Domain.csproj", "{7F00368D-8734-4429-B4BE-F833E7AAFFC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Domain", "src\framework\VND.Fw.Domain\VND.Fw.Domain.csproj", "{7F00368D-8734-4429-B4BE-F833E7AAFFC5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Utils", "src\framework\VND.FW.Utils\VND.Fw.Utils.csproj", "{45A63B09-7BF7-4886-8A31-52148EF8B59A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Utils", "src\framework\VND.Fw.Utils\VND.Fw.Utils.csproj", "{45A63B09-7BF7-4886-8A31-52148EF8B59A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.EfCore", "src\framework\VND.FW.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj", "{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.EfCore", "src\framework\VND.Fw.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj", "{E7EB14A0-E2D3-40F1-BBA8-A9ACBBF674C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.EfCore.SqlServer", "src\framework\VND.FW.Infrastructure.EfCore.SqlServer\VND.Fw.Infrastructure.EfCore.SqlServer.csproj", "{B73ADF43-63AF-4226-8A48-9E3B965C78D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.EfCore.SqlServer", "src\framework\VND.Fw.Infrastructure.EfCore.SqlServer\VND.Fw.Infrastructure.EfCore.SqlServer.csproj", "{B73ADF43-63AF-4226-8A48-9E3B965C78D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.Fw.Infrastructure.AspNetCore.CleanArch", "src\framework\VND.Fw.Infrastructure.AspNetCore.CleanArch\VND.Fw.Infrastructure.AspNetCore.CleanArch.csproj", "{2C051E4E-5C60-4801-8735-A17F47573A88}"
 EndProject
