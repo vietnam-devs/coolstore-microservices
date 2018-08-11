@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VND.FW.Domain\VND.Fw.Domain.csproj" />
-    <ProjectReference Include="..\VND.FW.Utils\VND.Fw.Utils.csproj" />
+    <ProjectReference Include="..\VND.Fw.Domain\VND.Fw.Domain.csproj" />
+    <ProjectReference Include="..\VND.Fw.Utils\VND.Fw.Utils.csproj" />
   </ItemGroup>
 
 </Project>

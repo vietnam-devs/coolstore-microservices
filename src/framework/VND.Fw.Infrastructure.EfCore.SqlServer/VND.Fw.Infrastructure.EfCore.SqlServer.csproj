@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VND.FW.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\VND.Fw.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj" />
   </ItemGroup>
 
 </Project>

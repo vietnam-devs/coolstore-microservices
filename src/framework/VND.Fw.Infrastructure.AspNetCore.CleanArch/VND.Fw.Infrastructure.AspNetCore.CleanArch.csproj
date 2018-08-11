@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VND.FW.Domain\VND.Fw.Domain.csproj" />
+    <ProjectReference Include="..\VND.Fw.Domain\VND.Fw.Domain.csproj" />
   </ItemGroup>
 
 </Project>

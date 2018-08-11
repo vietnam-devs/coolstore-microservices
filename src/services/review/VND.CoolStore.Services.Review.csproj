@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -21,13 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\framework\VND.FW.Domain\VND.Fw.Domain.csproj" />
+    <ProjectReference Include="..\..\framework\VND.Fw.Domain\VND.Fw.Domain.csproj" />
     <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore.CleanArch\VND.Fw.Infrastructure.AspNetCore.CleanArch.csproj" />
     <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore.Miniservice\VND.Fw.Infrastructure.AspNetCore.Miniservice.csproj" />
-    <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.AspNetCore\VND.Fw.Infrastructure.AspNetCore.csproj" />
-    <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.EfCore.SqlServer\VND.Fw.Infrastructure.EfCore.SqlServer.csproj" />
-    <ProjectReference Include="..\..\framework\VND.FW.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj" />
-    <ProjectReference Include="..\..\framework\VND.FW.Utils\VND.Fw.Utils.csproj" />
+    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.AspNetCore\VND.Fw.Infrastructure.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.EfCore.SqlServer\VND.Fw.Infrastructure.EfCore.SqlServer.csproj" />
+    <ProjectReference Include="..\..\framework\VND.Fw.Infrastructure.EfCore\VND.Fw.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\..\framework\VND.Fw.Utils\VND.Fw.Utils.csproj" />
   </ItemGroup>
 
 </Project>

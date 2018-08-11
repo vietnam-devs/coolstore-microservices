@@ -47,7 +47,7 @@ namespace VND.Fw.Infrastructure.AspNetCore.Miniservice.ConfigureApplications
               c.OAuth2RedirectUrl($"{currentHostUri}/swagger/oauth2-redirect.html");
             }
 
-            // c.IndexStream = () => typeof(MiniServiceExtensions).GetTypeInfo().Assembly.GetManifestResourceStream("VND.FW.Infrastructure.AspNetCore.Swagger.index.html");
+            // c.IndexStream = () => typeof(MiniServiceExtensions).GetTypeInfo().Assembly.GetManifestResourceStream("VND.Fw.Infrastructure.AspNetCore.Swagger.index.html");
           });
       }
     }

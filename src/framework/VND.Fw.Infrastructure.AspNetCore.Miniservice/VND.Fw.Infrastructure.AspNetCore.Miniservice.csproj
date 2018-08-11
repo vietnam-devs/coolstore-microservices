@@ -34,7 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VND.Fw.Infrastructure.AspNetCore.OpenApi\VND.Fw.Infrastructure.AspNetCore.OpenApi.csproj" />
-    <ProjectReference Include="..\VND.FW.Infrastructure.AspNetCore\VND.Fw.Infrastructure.AspNetCore.csproj" />
+    <ProjectReference Include="..\VND.Fw.Infrastructure.AspNetCore\VND.Fw.Infrastructure.AspNetCore.csproj" />
   </ItemGroup>
 
 </Project>
