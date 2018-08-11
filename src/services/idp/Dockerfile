@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1.2-aspnetcore-runtime-alpine AS base
+FROM microsoft/dotnet:2.1.2-aspnetcore-runtime AS base
 WORKDIR /app
 
 ARG service_version
@@ -10,11 +10,11 @@ ENV API_VERSION ${api_version:-1.0}
 ENV ASPNETCORE_URLS http://+:5001
 EXPOSE 5001
 
-FROM microsoft/dotnet:2.1.302-sdk-alpine AS build
+FROM microsoft/dotnet:2.1.302-sdk AS build
 WORKDIR /src
 COPY . .
 
-WORKDIR /src/src/services/inventory
+WORKDIR /src/src/services/idp
 
 RUN dotnet restore -nowarn:msb3202,nu1503
 RUN dotnet build --no-restore -c Release -o /app
