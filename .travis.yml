@@ -5,8 +5,6 @@ mono: none
 dotnet: 2.1.302
 env:
   global:
-    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
-    - DOTNET_CLI_TELEMETRY_OPTOUT=1
     - NODE_VERSION="10.6.0"
 branches:
   only:
