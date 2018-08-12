@@ -1,4 +1,0 @@
-hosts:
-  web: coolstore.local
-  api: api.coolstore.local
-  idp: id.coolstore.local

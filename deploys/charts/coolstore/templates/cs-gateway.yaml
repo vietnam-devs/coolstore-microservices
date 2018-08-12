@@ -104,4 +104,32 @@ spec:
         host: review-service
         port:
           number: 80
+---	
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-svc-id
+spec:
+  hosts:
+  - id.coolstore.local
+  location: MESH_EXTERNAL
+  ports:
+  - number: 80
+    name: example-http
+    protocol: HTTP
+  resolution: DNS
+---	
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-svc-api
+spec:
+  hosts:
+  - api.coolstore.local
+  location: MESH_EXTERNAL
+  ports:
+  - number: 80
+    name: example-http
+    protocol: HTTP
+  resolution: DNS
 {{- end -}}
