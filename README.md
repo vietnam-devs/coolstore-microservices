@@ -126,7 +126,7 @@ Waiting for the container provision completed
 > curl -I http://id.coolstore.local # identity provider
 ```
 
-7. Clean up `coolstore` chart as
+9. Clean up `coolstore` chart as
 
 ```
 > kubectl delete -f deployment/istio/dev-all-in-one.yaml
@@ -138,7 +138,7 @@ Waiting for the container provision completed
 1. Global path
 > Set `PATH` for `docker`, `kubectl`, `helm`, and `istioctl`.
 
-3. Run with Nginx (not recommendation)
+2. Run with Nginx (not recommendation)
 > If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml`, and modify as following
 >```
 > nginx:
