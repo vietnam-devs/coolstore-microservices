@@ -104,32 +104,32 @@ spec:
         host: review-service
         port:
           number: 80
----	
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  name: external-svc-id
+  name: id-vs
 spec:
   hosts:
   - id.coolstore.local
   location: MESH_EXTERNAL
   ports:
   - number: 80
-    name: example-http
+    name: idp-http
     protocol: HTTP
   resolution: DNS
----	
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  name: external-svc-api
+  name: api-vs
 spec:
   hosts:
   - api.coolstore.local
   location: MESH_EXTERNAL
   ports:
   - number: 80
-    name: example-http
+    name: api-http
     protocol: HTTP
   resolution: DNS
 {{- end -}}
