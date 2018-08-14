@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "npm run build && node ./dist/server.js",
-    "build": "npm run clean && npm run swagger-gen && npm run routes-gen && tsc",
+    "build": "npm run clean && npm run swagger-gen --basePath $BASE_PATH && npm run routes-gen --basePath $BASE_PATH && tsc",
     "clean": "rimraf dist",
     "swagger-gen": "tsoa swagger",
     "routes-gen": "tsoa routes",
@@ -16,9 +16,10 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "method-override": "^2.3.6",
+    "mongoose": "^5.0.14",
     "swagger-ui-express": "^3.0.10",
     "tsoa": "^1.0.0",
-    "mongoose": "^5.0.14"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@types/body-parser": "0.0.30",
