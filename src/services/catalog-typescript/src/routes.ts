@@ -1,38 +1,22 @@
 /* tslint:disable */
-import { ProductsController } from './controllers/productsController'
-import { ValidateParam } from 'tsoa';
-import { ProductCreateRequest } from './models/product';
+import * as express from 'express'
+import ProductController from './controllers/productController'
 
-
-export function RegisterRoutes(app: any, basePath: string) {
-  console.log(`register get all ${basePath}api/products/:productId`)
-  app.get(`${basePath}api/products/:productId`, async (req, res) => {
-    console.info(req.params)
-    const controller = new ProductsController()
-    var product = await controller.Get.apply(controller,[req.params.productId])
-    res.send(product)
-  })
-
-  app.get(`${basePath}api/products`, async (req, res) => {
-    const controller = new ProductsController()
-    var products = await controller.GetAll.apply(controller)
+export default express
+  .Router()
+  .get('/', async (_: express.Request, res: express.Response) => {
+    var products = await ProductController.GetAll()
     res.send(products)
   })
-
-  app.post(`${basePath}api/products`, async (request: any, response: any, next: any) => {
-    let createRequest = <ProductCreateRequest> request.body;
-    const controller = new ProductsController()
+  .get('/:productId', async (req: express.Request, res: express.Response) => {
+    var product = await ProductController.Get(req.params.productId)
+    res.send(product)
+  })
+  .post('/', async (req: express.Request, res: express.Response) => {
     try {
-      var product = await controller.Create.apply(controller, [createRequest])
-      response.send(product)
+      var product = await ProductController.Create(req.body)
+      res.send(product)
     } catch (error) {
-      response.status(403).send(error)
+      res.status(400).send(error)
     }
   })
-
-  app.get(`${basePath}healthz`, (req, res) => {
-    res.send({
-      status: 'Healthy!'
-    })
-  })
-}

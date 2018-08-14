@@ -1,0 +1,12 @@
+{
+  "verbose": false,
+  "ignore": [".git", "node_modules/**/node_modules", "src/**/*.spec.ts"],
+  "watch": ["src/**/*.ts"],
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": "5002",
+    "BASE_PATH": "/"
+  },
+  "ext": "ts",
+  "exec": "ts-node ./src/server.ts"
+}
