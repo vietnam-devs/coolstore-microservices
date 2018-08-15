@@ -1,5 +1,6 @@
+import v1 = require('uuid/v1')
 import { Route, Get, Post, Body } from 'tsoa'
-import { Product, ProductCreateRequest } from '../models/product'
+import { default as Product, ProductCreateRequest } from '../models/product'
 
 @Route(`api/products`)
 export class ProductController {
@@ -8,6 +9,7 @@ export class ProductController {
    */
   @Get()
   public async GetAll(): Promise<any> {
+    // @ts-ignore
     var products = Product.find({}).exec()
     return Promise.resolve(products)
   }
@@ -18,6 +20,7 @@ export class ProductController {
    */
   @Get(`{productId}`)
   public Get(productId: string): Promise<any> {
+    // @ts-ignore
     let product = Product.findOne({ productId }).exec()
     return Promise.resolve(product)
   }
@@ -27,10 +30,11 @@ export class ProductController {
    * @param request This is a product creation request description
    */
   @Post()
-  public Create(@Body() product: ProductCreateRequest): Promise<any> {
-    var result = Product.createProduct(product)
+  public Create(@Body() request: ProductCreateRequest): Promise<any> {
+    let product = new Product({ _id: v1(), ...request })
+    console.log(product)
+    let result = Product.create(product)
+    // var result = Product.createProduct(request)
     return Promise.resolve(result)
   }
 }
-
-export default new ProductController()
