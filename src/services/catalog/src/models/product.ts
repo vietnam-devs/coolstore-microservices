@@ -60,13 +60,5 @@ productSchema.path('price').validate(function(price) {
 }, `Price must be a float number.`)
 productSchema.path('imageUrl').required(true, `Image can't be blank.`)
 
-/*productSchema.statics.createProduct = (product: ProductCreateRequest) => {
-  console.log(product)
-  return Product.create({
-    _id: v1(),
-    ...product
-  })
-}*/
-
 const Product = mongoose.model('Product', productSchema)
 export default Product

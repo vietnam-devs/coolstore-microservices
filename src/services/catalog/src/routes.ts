@@ -1,10 +1,75 @@
 /* tslint:disable */
 import { Controller, ValidateParam, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
+import { ProductController } from './controllers/productController';
 
 const models: TsoaRoute.Models = {
+  "ProductCreateRequest": {
+    "properties": {
+      "name": { "dataType": "string", "required": true },
+      "desc": { "dataType": "string", "required": true },
+      "price": { "dataType": "double", "required": true },
+      "imageUrl": { "dataType": "string", "required": true },
+    },
+  },
 };
 
 export function RegisterRoutes(app: any) {
+  app.get('/api/products',
+    function(request: any, response: any, next: any) {
+      const args = {
+      };
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = getValidatedArgs(args, request);
+      } catch (err) {
+        return next(err);
+      }
+
+      const controller = new ProductController();
+
+
+      const promise = controller.GetAll.apply(controller, validatedArgs);
+      promiseHandler(controller, promise, response, next);
+    });
+  app.get('/api/products/:productId',
+    function(request: any, response: any, next: any) {
+      const args = {
+        productId: { "in": "path", "name": "productId", "required": true, "dataType": "string" },
+      };
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = getValidatedArgs(args, request);
+      } catch (err) {
+        return next(err);
+      }
+
+      const controller = new ProductController();
+
+
+      const promise = controller.Get.apply(controller, validatedArgs);
+      promiseHandler(controller, promise, response, next);
+    });
+  app.post('/api/products',
+    function(request: any, response: any, next: any) {
+      const args = {
+        request: { "in": "body", "name": "request", "required": true, "ref": "ProductCreateRequest" },
+      };
+
+      let validatedArgs: any[] = [];
+      try {
+        validatedArgs = getValidatedArgs(args, request);
+      } catch (err) {
+        return next(err);
+      }
+
+      const controller = new ProductController();
+
+
+      const promise = controller.Create.apply(controller, validatedArgs);
+      promiseHandler(controller, promise, response, next);
+    });
 
 
   function isController(object: any): object is Controller {
