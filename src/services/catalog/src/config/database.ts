@@ -9,10 +9,7 @@ let mongoose = require('mongoose')
 let isProduction = process.env.NODE_ENV === 'production'
 console.info(`Production environment is ${isProduction}`)
 
-let mongoDbUri = 'mongodb://localhost:27017/catalog'
-if (isProduction) {
-  mongoDbUri = process.env.MONGO_DB_URL
-}
+let mongoDbUri = process.env.MONGO_DB_URL || 'mongodb://localhost:27017/catalog'
 
 if (mongoose.connection.readyState == 0) {
   mongoose.set('debug', true)

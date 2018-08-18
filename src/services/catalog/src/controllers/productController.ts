@@ -1,6 +1,6 @@
 declare var require: any
 
-let v1 = require('uuid/v1')
+var uuid = require('uuid');
 import { Route, Get, Post, Body } from 'tsoa'
 import { default as Product, ProductCreateRequest } from '../models/product'
 
@@ -33,7 +33,7 @@ export class ProductController {
    */
   @Post()
   public Create(@Body() request: ProductCreateRequest): Promise<any> {
-    let product = new Product({ _id: v1(), ...request })
+    let product = new Product({ _id: uuid.v1(), ...request })
     console.log(product)
     let result = Product.create(product)
     return Promise.resolve(result)

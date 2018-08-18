@@ -18,8 +18,7 @@ if (!basePath) {
 }
 console.info(`Base path is ${basePath}`)
 
-const isProduction = process.env.NODE_ENV === 'production'
-const swaggerJSON = isProduction ? require('./swagger.json') : require('../dist/swagger.json')
+const swaggerJSON = require('./swagger.json')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
