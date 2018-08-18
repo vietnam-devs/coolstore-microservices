@@ -1,6 +1,7 @@
 declare var require: any
 
-var uuid = require('uuid');
+var uuid = require('uuid')
+var fs = require('fs')
 import { Route, Get, Post, Body } from 'tsoa'
 import { default as Product, ProductCreateRequest } from '../models/product'
 

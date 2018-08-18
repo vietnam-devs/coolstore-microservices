@@ -1,16 +1,14 @@
 FROM node:alpine
 
-RUN mkdir -p /usr/src/services/rating
-WORKDIR /usr/src/services/rating
-
 ARG service_version
 ENV SERVICE_VERSION ${service_version:-v1}
-EXPOSE 5007
+EXPOSE 5002
 ENV NODE_ENV production
 
-COPY ./src/services/rating/package.json /usr/src/services/rating/
-RUN yarn --network-timeout 100000 install
-
-COPY ./src/services/rating/ /usr/src/services/rating/
-
-CMD ["yarn","start"]
+RUN mkdir -p /app/dist
+WORKDIR /app
+COPY ./src/services/rating/ .
+RUN npm install --silent -g rimraf cross-env npm-run-all webpack nodemon ts-node typescript webpack-cli
+RUN yarn install
+RUN yarn add webpack-shell-plugin --dev
+ENTRYPOINT ["yanr", "start"]

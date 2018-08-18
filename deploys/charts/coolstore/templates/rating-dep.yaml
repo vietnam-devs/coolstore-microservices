@@ -22,4 +22,8 @@ spec:
           value: mongodb://mongodb:27017/rating
         ports:
         - containerPort: 5007
+      initContainers:
+      - name: init-mydb
+        image: bitnami/mongodb:latest
+        command: ["sh", "-c", "until nc -z mongodb 27017; do Waiting to connect to a database...; sleep 1; done;"]
 ---

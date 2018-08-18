@@ -1,9 +1,9 @@
 {
-  "name": "rating-service",
+  "name": "catalog-service",
   "version": "0.0.1",
   "author": "Thinh Nguyen, Thang Chung",
   "license": "MIT",
-  "description": "This is a rating-service for coolstore project.",
+  "description": "This is a catalog-service for coolstore project.",
   "scripts": {
     "start": "npm run sysinfo && cross-env NODE_ENV=production && npm-run-all --parallel watch:server watch:build",
     "dev": "cross-env NODE_ENV=development && npm run sysinfo && npm-run-all --parallel watch:server watch:build",
@@ -24,7 +24,7 @@
     "swagger-ui-express": "^3.0.10",
     "tsoa": "^2.1.8",
     "uuid": "^3.3.2"
-  },
+    },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
     "@types/express": "^4.16.0",
@@ -34,15 +34,15 @@
     "@types/uuid": "^3.4.3",
     "cross-env": "^5.2.0",
     "nodemon": "^1.18.3",
-    "npm-run-all": "^4.1.3",
     "rimraf": "^2.5.2",
     "ts-loader": "^4.5.0",
-    "ts-node": "^7.0.1",
     "tslint": "^3.11.0",
     "typescript": "^3.0.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
-    "webpack-shell-plugin": "^0.5.0"
+    "webpack-shell-plugin": "^0.5.0",
+    "npm-run-all": "^4.1.3",
+    "ts-node": "^7.0.1"
   },
   "repository": {
     "type": "git"

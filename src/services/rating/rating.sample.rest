@@ -1,49 +1,21 @@
 ##########################################
-## Node: Product Catalog Service
+## Node: Rating Service
 ##########################################
 
-@productId = "{{$guid}}"
+@ratingId = "{{$guid}}"
 
+###
+GET http://localhost:5002/api/ratings HTTP/1.1 
+content-type: application/json
 ### 
-GET http://localhost:5007/api/v1/ratings/{{productId}} HTTP/1.1
+GET http://localhost:5002/api/ratings/{{ratingId}} HTTP/1.1
 ###
-
-### 
-GET http://localhost:5007/api/v1/ratings/ HTTP/1.1
-###
-
-###
-POST http://localhost:5007/api/v1/ratings HTTP/1.1
+POST http://localhost:5002/api/ratings HTTP/1.1
 content-type: application/json
 
 {
-    //IPhone 8
-    "productId": "ba16da71-c7dd-4eac-9ead-5c2c2244e69f",
-    "userId": "51db5230-ef16-4e5f-ad5f-1820c2cc7a99",
-    "cost": 1
+    "id": "{{$guid}}",
+    "name": "rating {{$guid}}",
+    "desc": "desc for rating {{$guid}}",
+    "price": 20.05
 }
-###
-
-###
-POST http://localhost:5007/api/v1/ratings HTTP/1.1
-content-type: application/json
-
-{
-    //IPhone 8
-    "productId": "ba16da71-c7dd-4eac-9ead-5c2c2244e69f",
-    "userId": "4696cdd0-d20d-414b-8cf0-4d272def8861",
-    "cost": 4
-}
-###
-
-###
-PUT http://localhost:5007/api/v1/ratings HTTP/1.1
-content-type: application/json
-
-{
-    //IPhone 8
-    "productId": "ba16da71-c7dd-4eac-9ead-5c2c2244e69f",
-    "userId": "4696cdd0-d20d-414b-8cf0-4d272def8861",
-    "cost": 1
-}
-###
