@@ -24,7 +24,7 @@
     "swagger-ui-express": "^3.0.10",
     "tsoa": "^2.1.8",
     "uuid": "^3.3.2"
-  },
+    },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
     "@types/express": "^4.16.0",
