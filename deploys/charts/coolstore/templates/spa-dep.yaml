@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: spa
-        image: vndg/cs-spa:latest
-        imagePullPolicy: IfNotPresent
+        image: {{.Values.image.imageRegistry}}/cs-spa:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: "WEB_HOST_ALIAS"
           value: {{ .Values.hosts.web }}

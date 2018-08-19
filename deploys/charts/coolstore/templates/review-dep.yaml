@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: review
-        image: vndg/cs-review-service:latest
-        imagePullPolicy: IfNotPresent
+        image: {{.Values.image.imageRegistry}}/cs-review-service:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: Hosts__BasePath
           value: /review/

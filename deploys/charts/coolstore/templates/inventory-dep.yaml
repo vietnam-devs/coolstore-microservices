@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: inventory
-        image: vndg/cs-inventory-service:latest
-        imagePullPolicy: IfNotPresent
+        image: {{.Values.image.imageRegistry}}/cs-inventory-service:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: Hosts__BasePath
           value: /inventory/

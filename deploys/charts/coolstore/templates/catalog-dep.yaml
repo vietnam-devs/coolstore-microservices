@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: catalog
-        image: vndg/cs-catalog-service:latest
-        imagePullPolicy: IfNotPresent
+        image: {{.Values.image.imageRegistry}}/cs-catalog-service:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: BASE_PATH
           value: /catalog/

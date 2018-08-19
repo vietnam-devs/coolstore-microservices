@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: cart-db
-        image: vndg/cs-mssqldb:latest
-        imagePullPolicy: IfNotPresent
+        image: {{.Values.image.imageRegistry}}/cs-mssqldb:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: ACCEPT_EULA
           value: Y

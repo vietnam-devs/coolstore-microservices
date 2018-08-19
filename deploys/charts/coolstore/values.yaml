@@ -5,7 +5,9 @@ fullnameOverride: coolstore
 replicaCount: 2
 image:
   repository: VALUE_TO_BE_OVERRIDDEN
-  tag: latest
+  pullPolicy: IfNotPresent
+  imageRegistry: vndg
+  dockerTag: latest
 
 imagePullSecrets: []
   # Optionally specify an array of imagePullSecrets.

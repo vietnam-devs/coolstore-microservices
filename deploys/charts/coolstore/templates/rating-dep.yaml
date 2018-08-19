@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: rating
-        image: vndg/cs-rating-service:latest
-        imagePullPolicy: IfNotPresent
+        image: {{.Values.image.imageRegistry}}/cs-rating-service:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: BASE_PATH
           value: /rating/
