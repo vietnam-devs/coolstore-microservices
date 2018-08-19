@@ -14,22 +14,20 @@ namespace VND.CoolStore.Services.Review.v1.UseCases.UpdateReview
     {
     }
 
-    public override async Task<UpdateReviewResponse> TxHandle(UpdateReviewRequest request,
+    public override async Task<UpdateReviewResponse> Handle(UpdateReviewRequest request,
       CancellationToken cancellationToken)
     {
       var reviewQueryRepo = QueryRepositoryFactory.QueryEfRepository<Domain.Review>();
       var reviewRepo = UnitOfWork.Repository<Domain.Review>();
 
       var review = await reviewQueryRepo.FindOneAsync(x => x.Id == request.ReviewId);
-      if (review == null)
-      {
-        throw new Exception($"Could not find a review #{request.ReviewId}.");
-      }
+      if (review == null) throw new Exception($"Could not find a review #{request.ReviewId}.");
 
       review.Content = request.Content;
       var result = await reviewRepo.UpdateAsync(review);
+      await UnitOfWork.SaveChangesAsync(cancellationToken);
 
-      return new UpdateReviewResponse { Result = result.ToDto()};
+      return new UpdateReviewResponse {Result = result.ToDto()};
     }
   }
 }

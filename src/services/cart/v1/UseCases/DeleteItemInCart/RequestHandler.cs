@@ -22,7 +22,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
       _catalogGateway = cgw;
     }
 
-    public override async Task<DeleteItemResponse> TxHandle(DeleteItemRequest request, CancellationToken cancellationToken)
+    public override async Task<DeleteItemResponse> Handle(DeleteItemRequest request, CancellationToken cancellationToken)
     {
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
       var cartItemRepository = UnitOfWork.Repository<CartItem>();
@@ -42,6 +42,8 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
       cart = cart.RemoveCartItem(cartItem.Id);
       var isSucceed = await cartRepository.UpdateAsync(cart) != null;
       await cartItemRepository.DeleteAsync(cartItem);
+
+      await UnitOfWork.SaveChangesAsync(cancellationToken);
 
       return new DeleteItemResponse { ProductId = cartItem.Product.ProductId };
     }

@@ -14,7 +14,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
     {
     }
 
-    public override async Task<CheckoutResponse> TxHandle(CheckoutRequest request, CancellationToken cancellationToken)
+    public override async Task<CheckoutResponse> Handle(CheckoutRequest request, CancellationToken cancellationToken)
     {
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
 
@@ -24,6 +24,8 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
 
       cart.IsCheckout = true;
       var checkoutCart = await cartRepository.UpdateAsync(cart);
+
+      await UnitOfWork.SaveChangesAsync(cancellationToken);
 
       return new CheckoutResponse
       {

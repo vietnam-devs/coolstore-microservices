@@ -25,7 +25,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
       _priceCalculator = priceCalculator;
     }
 
-    public override async Task<UpdateItemInCartResponse> TxHandle(UpdateItemInCartRequest request,
+    public override async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request,
       CancellationToken cancellationToken)
     {
       var cartRepository = UnitOfWork.Repository<Domain.Cart>();
@@ -65,6 +65,8 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
         await cartItemRepository.UpdateAsync(item);
       else
         await cartItemRepository.AddAsync(item);
+
+      await UnitOfWork.SaveChangesAsync(cancellationToken);
 
       return new UpdateItemInCartResponse {Result = cart.ToDto()};
     }

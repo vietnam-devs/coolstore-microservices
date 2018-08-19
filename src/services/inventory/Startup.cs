@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Infrastructure.AspNetCore.Miniservice;
-using NetCoreKit.Infrastructure.EfCore.SqlServer;
+using NetCoreKit.Infrastructure.EfCore.MySql;
 using VND.CoolStore.Services.Inventory.Infrastructure.Db;
 
 namespace VND.CoolStore.Services.Inventory
@@ -12,33 +11,30 @@ namespace VND.CoolStore.Services.Inventory
   {
     public void ConfigureServices(IServiceCollection services)
     {
-      var assemblies = new HashSet<Assembly>
-      {
-        typeof(Startup).GetTypeInfo().Assembly,
-        typeof(MiniServiceExtensions).GetTypeInfo().Assembly
-      };
-
-      var claimToScopeMap = new Dictionary<string, string>
-      {
-        {"access_inventory_api", "inventory_api_scope"}
-      };
-
-      var scopes = new Dictionary<string, string>
-      {
-        {"inventory_api_scope", "Inventory APIs"}
-      };
-
-      var serviceParams = new ServiceParams
-      {
-        {"assemblies", assemblies},
-        {"audience", "api"},
-        {"claimToScopeMap", claimToScopeMap},
-        {"scopes", scopes}
-      };
-
-      services.AddScoped(sp => serviceParams);
-      services.AddEfCoreSqlServer();
-      services.AddMiniService<InventoryDbContext>();
+      services.AddMiniService<InventoryDbContext>(
+        new[] { typeof(Startup) },
+        svc =>
+        {
+          //svc.AddEfCoreMySqlDb();
+          svc.AddExternalSystemHealthChecks();
+        },
+        () => new Dictionary<string, object>
+        {
+          {
+            Constants.ClaimToScopeMap, new Dictionary<string, string>
+            {
+              {"access_inventory_api", "inventory_api_scope"}
+            }
+          },
+          {
+            Constants.Scopes, new Dictionary<string, string>
+            {
+              {"inventory_api_scope", "Inventory APIs"}
+            }
+          },
+          {Constants.Audience, "api"}
+        }
+      );
     }
 
     public void Configure(IApplicationBuilder app)

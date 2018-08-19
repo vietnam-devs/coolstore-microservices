@@ -1,6 +1,9 @@
 FROM microsoft/dotnet:2.1.2-aspnetcore-runtime-alpine AS base
 WORKDIR /app
 
+ENV PROJECT /src/src/services/cart
+ENV EXECUTE_FILE VND.CoolStore.Services.Cart.dll
+
 ARG service_version
 ENV SERVICE_VERSION ${service_version:-0.0.1}
 
@@ -14,7 +17,7 @@ FROM microsoft/dotnet:2.1.302-sdk-alpine AS build
 WORKDIR /src
 COPY . .
 
-WORKDIR /src/src/services/cart
+WORKDIR $PROJECT
 
 RUN dotnet restore -nowarn:msb3202,nu1503
 RUN dotnet build --no-restore -c Release -o /app
@@ -25,4 +28,4 @@ RUN dotnet publish --no-restore -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "VND.CoolStore.Services.Cart.dll"]
+ENTRYPOINT ["dotnet", "$EXECUTE_FILE"]
