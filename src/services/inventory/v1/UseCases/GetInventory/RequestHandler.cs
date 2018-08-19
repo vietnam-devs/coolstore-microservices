@@ -9,8 +9,8 @@ namespace VND.CoolStore.Services.Inventory.v1.UseCases.GetInventory
 {
   public class RequestHandler : RequestHandlerBase<GetInventoryRequest, GetInventoryResponse>
   {
-    public RequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory queryRepositoryFactory)
-      : base(uow, queryRepositoryFactory)
+    public RequestHandler(IQueryRepositoryFactory queryRepositoryFactory)
+      : base(queryRepositoryFactory)
     {
     }
 

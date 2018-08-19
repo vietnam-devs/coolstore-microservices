@@ -11,7 +11,7 @@ namespace VND.CoolStore.Services.Review.Domain
       Content = content;
     }
 
-    public Review(Guid id, string content) : base(id)
+    internal Review(Guid id, string content) : base(id)
     {
       Content = content;
     }

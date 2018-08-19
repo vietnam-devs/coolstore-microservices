@@ -14,7 +14,7 @@ spec:
       - path: /
         backend:
           serviceName: spa-service
-          servicePort: 8080
+          servicePort: 80
   - host: {{ .Values.hosts.idp }}
     http:
       paths:

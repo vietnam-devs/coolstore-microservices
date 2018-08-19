@@ -1,6 +1,7 @@
 using System;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc;
-using NetCoreKit.Infrastructure.AspNetCore;
+using NetCoreKit.Infrastructure.AspNetCore.Authz;
 
 namespace VND.CoolStore.Services.Cart.v2
 {
@@ -19,7 +20,7 @@ namespace VND.CoolStore.Services.Cart.v2
     [HttpGet]
     [Route("{id}")]
     [Auth(Policy = "access_cart_api")]
-    public ActionResult<string> Get(Guid id)
+    public ActionResult<string> Get(Guid id, CancellationToken cancellationToken)
     {
       return Ok("2.0");
     }

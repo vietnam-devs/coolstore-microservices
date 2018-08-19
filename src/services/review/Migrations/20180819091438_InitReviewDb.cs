@@ -11,8 +11,7 @@ namespace VND.CoolStore.Services.Review.Migrations
                 name: "ReviewAuthors",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -23,8 +22,7 @@ namespace VND.CoolStore.Services.Review.Migrations
                 name: "ReviewProducts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    ProductId = table.Column<Guid>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

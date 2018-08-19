@@ -15,8 +15,8 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
     private readonly ICatalogGateway _catalogGateway;
     private readonly NoTaxCaculator _priceCalculator;
 
-    public RequestHandler(ICatalogGateway cgw, IUnitOfWorkAsync uow,
-      IQueryRepositoryFactory qrf, NoTaxCaculator priceCalculator) : base(uow, qrf)
+    public RequestHandler(ICatalogGateway cgw, IQueryRepositoryFactory qrf, NoTaxCaculator priceCalculator)
+      : base(qrf)
     {
       _catalogGateway = cgw;
       _priceCalculator = priceCalculator;

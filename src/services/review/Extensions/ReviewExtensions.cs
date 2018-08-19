@@ -11,7 +11,9 @@ namespace VND.CoolStore.Services.Review.Extensions
         Id = review.Id,
         Content = review.Content,
         AuthorId = review.ReviewAuthor.Id,
-        AuthorName = review.ReviewAuthor.UserName
+        AuthorName = review.ReviewAuthor.UserName,
+        ProductId = review.ReviewProduct.Id,
+        ProductName = review.ReviewProduct.Name
       };
     }
   }

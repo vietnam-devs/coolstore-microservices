@@ -1,7 +1,5 @@
 using System;
 using System.Linq;
-using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +12,7 @@ namespace VND.CoolStore.Services.Review.v1.UseCases.GetReviews
 {
   public class RequestHandler : RequestHandlerBase<GetReviewsRequest, GetReviewsResponse>
   {
-    public RequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf) : base(uow, qrf)
+    public RequestHandler(IQueryRepositoryFactory qrf) : base(qrf)
     {
     }
 
@@ -27,18 +25,15 @@ namespace VND.CoolStore.Services.Review.v1.UseCases.GetReviews
         .ListAsync(
           queryable => queryable
             .Include(x => x.ReviewAuthor)
-            .Include(x => x.ReviewProduct))
-        .ToObservable()
-        .Select(x => x.Where(y => y.ReviewProduct.Id == request.ProductId));
+            .Include(x => x.ReviewProduct));
 
-      if (reviews == null)
-      {
-        throw new Exception($"Could not find a review with product#{request.ProductId}.");
-      }
+      var result = reviews.Where(x => x.ReviewProduct?.Id == request.ProductId);
+
+      if (reviews == null) throw new Exception($"Couldn't find a review with product#{request.ProductId}.");
 
       return new GetReviewsResponse
       {
-        Reviews = reviews
+        Reviews = result
           .Select(x => x.ToDto())
           .ToList()
       };

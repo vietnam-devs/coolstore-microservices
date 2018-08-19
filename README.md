@@ -1,4 +1,4 @@
-# Cool Store Application on Service Mesh
+# Cool Store: Cloud-Native Microservices Application on Service Mesh
 
 <p align="left">
   <a href="https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE"><img src="https://img.shields.io/badge/price-FREE-0098f7.svg" alt="Price"></a>
@@ -12,14 +12,16 @@ CoolStore is a containerised polyglot microservices application consisting of se
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
 ### Presentation
+Our team uses this application to demonstrate Kubernetes, AKS, Istio and similar cloud-native technologies in events as following
+
 - [From Microservices to Service Mesh - DevCafe Event - July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
 - [Service Mesh for Microservices- Vietnam Mobile Day Event - June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
 
 # Table of contents
 
 * [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
-* [Services](https://github.com/vietnam-devs/coolstore-microservices#services)
-* [Up and Running](https://github.com/vietnam-devs/coolstore-microservices#up-and-running)
+* [µServices](https://github.com/vietnam-devs/coolstore-microservices#services)
+* [Installation](https://github.com/vietnam-devs/coolstore-microservices#up-and-running)
 * [µService Development](https://github.com/vietnam-devs/coolstore-microservices#microservice-development)
 * [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
 * [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
@@ -27,49 +29,46 @@ It demonstrates how to wire up small microservices into a larger application usi
 * [Contributors](https://github.com/vietnam-devs/coolstore-microservices#contributors)
 * [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
 
-### Prerequisites
+## Prerequisites
 
 - Windows 10
 - Windows Subsystem Linux (WSL - Ubuntu OS)
-- Docker for Windows (Kubernetes enabled)
+- Docker for Desktop (Kubernetes enabled)
 - kubectl
 - helm
 - istioctl
 
-### Services
+## µServices
 
-There are several individual microservices and infrastructure components that make up this app:
+There are several individual µservices and infrastructure components that make up this app:
 
-1. Catalog Service: NodeJS service and MongoDB, serves products and prices for retail products
-  - [`http://localhost:5002`](http://localhost:5002)
-  - [`http://api.coolstore.local/catalog`](http://api.coolstore.local/catalog/swagger/)
-2. Cart Service: .NET Core service which manages shopping cart for each customer
-  - [`http://localhost:5003`](http://localhost:5003)
-  - [`http://api.coolstore.local/cart`](http://api.coolstore.local/cart/swagger/)
-3. Inventory Service: .NET Core service and SQL Server, serves inventory and availability data for retail products
-  - [`http://localhost:5004`](http://localhost:5004)
-  - [`http://api.coolstore.local/inventory`](http://api.coolstore.local/inventory/swagger/)
-4. Pricing Service: .NET Core service which is a business rules application for product pricing
-  - [`http://localhost:5005`](http://localhost:5005)
-  - [`http://api.coolstore.local/pricing`](http://api.coolstore.local/pricing/swagger/)
-5. Review Service: .NET Core service and SQL Server running for writing and displaying reviews for products
-  - [`http://localhost:5006`](http://localhost:5006)
-  - [`http://api.coolstore.local/review`](http://api.coolstore.local/review/swagger/)
-6. Rating Service: NodeJS service running for rating products
-  - [`http://localhost:5007`](http://localhost:5007)
-  - [`http://api.coolstore.local/rating`](http://api.coolstore.local/rating/swagger/)
-7. IdP: Identity Provider using [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack
-  - [`http://localhost:5001`](http://localhost:5001)
-  - [`http://id.coolstore.local`](http://id.coolstore.local)
-8. Web UI (PWA): A frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org)
-  - [`http://localhost:8080`](http://localhost:8080)
-  - [`http://coolstore.local`](http://coolstore.local)
+| No. | Service | Language | Database | Description | Endpoints |
+|-----|---------|----------|----------|-------------|-----------|
+| 1 | Catalog | Node.js | Mongo | Serves products and prices for retail products | [`http://localhost:5002`](http://localhost:5002) or [`http://api.coolstore.local/catalog`](http://api.coolstore.local/catalog/swagger)
+| 2 | Cart | .NET Core | MySQL | Manages shopping cart for each customer | [`http://localhost:5003`](http://localhost:5003) or [`http://api.coolstore.local/cart`](http://api.coolstore.local/cart/swagger)
+| 3 | Inventory | .NET Core | MySQL | Serves inventory and availability data for retail products | [`http://localhost:5004`](http://localhost:5004) or [`http://api.coolstore.local/inventory`](http://api.coolstore.local/inventory/swagger)
+| 4 | Pricing | .NET Core | MySQL | Handles a business rules application for product pricing | [`http://localhost:5005`](http://localhost:5005) or [`http://api.coolstore.local/pricing`](http://api.coolstore.local/pricing/swagger)
+| 5 | Review | .NET Core | MySQL | Runs for writing and displaying reviews for products | [`http://localhost:5006`](http://localhost:5006) or [`http://api.coolstore.local/review`](http://api.coolstore.local/review/swagger)
+| 6 | Rating | Node.js | Mongo | Runs for rating products | [`http://localhost:5007`](http://localhost:5007) or [`http://api.coolstore.local/rating`](http://api.coolstore.local/rating/swagger)
+| 7 | IdP | .NET Core | In Memory | Uses [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack | [`http://localhost:5001`](http://localhost:5001) or [`http://id.coolstore.local`](http://id.coolstore.local)
+| 8 | Web UI (PWA) | Vuejs + Node.js | N/A | Frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org) | [`http://localhost:8080`](http://localhost:8080) or [`http://coolstore.local`](http://coolstore.local)
+
+### Architecture of µServices
 
 ![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
 
-### Up and Running
+## Features
+- **[Kubernetes](https://kubernetes.io)/[AKS](https://docs.microsoft.com/en-us/azure/aks):**
+  The app is designed to run on Kubernetes (both locally on "Docker for
+  Desktop", as well as on the cloud with AKS).
+- **[Istio](https://istio.io):** Application works on Istio service mesh.
+- **[NetCoreKit](https://github.com/cloudnative-netcore/netcore-kit):** Set of Cloud Native tools and utilities for .NET Core.
 
-1. Make sure we have **`Docker for Windows`** running with **`Kubernetes`** option enabled. We need to install **`kubectl`**, **`helm`** and **`istioctl`** on the build machine as well.
+## Installation
+
+### Option 1: Up and Running locally with "Docker for Desktop", development only
+
+1. Make sure we have **`Docker for Desktop`** running with **`Kubernetes`** option enabled. We need to install **`kubectl`**, **`helm`** and **`istioctl`** on the build machine as well.
 
 2. From current console, type `bash` to enter `Linux Subsystem (Ubuntu)`
 
@@ -149,19 +148,23 @@ Waiting for the container provision completed
 > helm install --name cs-nginx stable/nginx-ingress
 > ```
 
-### µService Development
+### Option 2: Up and Running on Azure Kubernetes Service (AKS)
+
+TODO
+
+## µService Development
 
 ![µService Screenshot](assets/images/miniservice-development.PNG?raw=true 'Microservice')
 
-### Open API
+## Open API
 
 ![OpenAPI Screenshot](assets/images/open-api.png?raw=true 'OpenAPI')
 
-### CI/CD
+## CI/CD
 
 ![Lift and Shift](assets/images/lift-and-shift.PNG?raw=true 'liftandshift')
 
-### Contributing
+## Contributing
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
@@ -169,12 +172,12 @@ Waiting for the container provision completed
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :p
 
-### Contributors
+## Contributors
 
 | [Thang Chung](https://github.com/thangchung)                                                         | [Thinh Nguyen](https://github.com/thinhnotes)                                                          |
 | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | <img src="https://avatars3.githubusercontent.com/u/422341?s=460&v=4"  alt="thangchung" width="150"/> | <img src="https://avatars2.githubusercontent.com/u/4660531?s=460&v=4" alt="thinhnguyen" width="150" /> |
 
-### Licence
+## Licence
 
 Code released under [the MIT license](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE).

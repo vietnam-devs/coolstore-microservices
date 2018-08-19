@@ -6,17 +6,21 @@ namespace VND.CoolStore.Services.Review.Domain
 {
   public class ReviewProduct : IdentityBase
   {
+    private ReviewProduct()
+    {
+    }
+
     internal ReviewProduct(Guid id)
       : this(id, string.Empty, 0.0D, string.Empty)
     {
     }
 
-    public ReviewProduct(string name, double price, string desc)
+    internal ReviewProduct(string name, double price, string desc)
       : this(Guid.NewGuid(), name, price, desc)
     { 
     }
 
-    public ReviewProduct(Guid id, string name, double price, string desc)
+    internal ReviewProduct(Guid id, string name, double price, string desc)
     {
       Id = id;
       Name = name;

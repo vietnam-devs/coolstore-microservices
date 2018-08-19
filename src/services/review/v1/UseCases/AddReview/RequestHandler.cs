@@ -12,17 +12,19 @@ namespace VND.CoolStore.Services.Review.v1.UseCases.AddReview
     {
     }
 
-    public override async Task<AddReviewResponse> TxHandle(AddReviewRequest request,
+    public override async Task<AddReviewResponse> Handle(AddReviewRequest request,
       CancellationToken cancellationToken)
     {
       var reviewRepository = UnitOfWork.Repository<Domain.Review>();
 
       var review = Domain.Review.Load(request.Content)
-          .AddAuthor(request.UserId)
-          .AddProduct(request.ProductId);
+        .AddAuthor(request.UserId)
+        .AddProduct(request.ProductId);
 
       var result = await reviewRepository.AddAsync(review);
-      return new AddReviewResponse { Result = result.ToDto()};
+      await UnitOfWork.SaveChangesAsync(cancellationToken);
+
+      return new AddReviewResponse {Result = result.ToDto()};
     }
   }
 }

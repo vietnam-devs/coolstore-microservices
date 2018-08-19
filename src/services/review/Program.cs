@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Infrastructure.EfCore.Extensions;
 using VND.CoolStore.Services.Review.Infrastructure.Db;
 
@@ -9,18 +10,15 @@ namespace VND.CoolStore.Services.Review
   {
     public static void Main(string[] args)
     {
-      var webHost = BuildWebHost(args);
-      if ((webHost.Services.GetService(typeof(IHostingEnvironment)) as IHostingEnvironment).IsDevelopment())
-      {
+      var webHost = CreateWebHostBuilder(args).Build();
+      var env = webHost.Services.GetService<IHostingEnvironment>();
+      if (env.IsDevelopment())
         webHost = webHost.RegisterDbContext<ReviewDbContext>();
-      }
-
       webHost.Run();
     }
 
-    public static IWebHost BuildWebHost(string[] args) =>
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
       WebHost.CreateDefaultBuilder(args)
-        .UseStartup<Startup>()
-        .Build();
+        .UseStartup<Startup>();
   }
 }

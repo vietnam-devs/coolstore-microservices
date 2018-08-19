@@ -6,7 +6,7 @@ namespace VND.CoolStore.Services.Review.Domain
 {
   public class ReviewAuthor : IdentityBase
   {
-    internal ReviewAuthor() : base()
+    private ReviewAuthor()
     {
     }
 
