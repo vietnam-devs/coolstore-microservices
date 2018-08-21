@@ -9,7 +9,7 @@ namespace VND.CoolStore.Services.Cart.v1.Extensions
 {
   public static class CartRepositoryExtensions
   {
-    public static async Task<Domain.Cart> GetFullCart(
+    public static async Task<Domain.Cart> GetFullCartAsync(
       this IEfQueryRepository<Domain.Cart> cartRepo,
       Guid cartId,
       bool tracking = true)

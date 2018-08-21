@@ -16,10 +16,10 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
   public class RequestHandler : TxRequestHandlerBase<UpdateItemInCartRequest, UpdateItemInCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
-    private readonly NoTaxCaculator _priceCalculator;
+    private readonly INoTaxPriceCalculator _priceCalculator;
 
     public RequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf,
-      ICatalogGateway catalogGateway, NoTaxCaculator priceCalculator) : base(uow, qrf)
+      ICatalogGateway catalogGateway, INoTaxPriceCalculator priceCalculator) : base(uow, qrf)
     {
       _catalogGateway = catalogGateway;
       _priceCalculator = priceCalculator;
@@ -28,15 +28,15 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
     public override async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request,
       CancellationToken cancellationToken)
     {
-      var cartRepository = UnitOfWork.Repository<Domain.Cart>();
-      var cartItemRepository = UnitOfWork.Repository<CartItem>();
+      var cartCommander = UnitOfWork.Repository<Domain.Cart>();
+      var cartItemCommander = UnitOfWork.Repository<CartItem>();
+      var cartQuery = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
 
       var isNewItem = false;
-      var cart = await QueryRepositoryFactory
-        ?.QueryEfRepository<Domain.Cart>()
-        ?.GetFullCart(request.CartId)
-        ?.ToObservable()
-        ?.SelectMany(c => c.InitCart(_catalogGateway, isPopulatePrice: true));
+      var cart = await cartQuery
+        .GetFullCartAsync(request.CartId)
+        .ToObservable()
+        .SelectMany(c => c.InitCart(_catalogGateway, isPopulatePrice: true));
 
       var item = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == request.ProductId);
 
@@ -46,9 +46,9 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
         isNewItem = true;
         item = new CartItem()
         {
-          Quantity = request.Quantity,
-          Product = new Product(request.ProductId)
+          Quantity = request.Quantity
         };
+        item.LinkProduct(new Product(request.ProductId));
         cart.CartItems.Add(item);
       }
       else
@@ -58,14 +58,14 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
       }
 
       cart = _priceCalculator.Execute(cart);
-      var result = await cartRepository.UpdateAsync(cart);
 
       // Todo: refactor to unit of work later
       if (!isNewItem)
-        await cartItemRepository.UpdateAsync(item);
+        await cartItemCommander.UpdateAsync(item);
       else
-        await cartItemRepository.AddAsync(item);
+        await cartItemCommander.AddAsync(item);
 
+      await cartCommander.UpdateAsync(cart);
       await UnitOfWork.SaveChangesAsync(cancellationToken);
 
       return new UpdateItemInCartResponse {Result = cart.ToDto()};

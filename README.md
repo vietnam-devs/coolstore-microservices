@@ -20,9 +20,8 @@ Our team uses this application to demonstrate Kubernetes, AKS, Istio and similar
 # Table of contents
 
 * [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
-* [µServices](https://github.com/vietnam-devs/coolstore-microservices#services)
-* [Installation](https://github.com/vietnam-devs/coolstore-microservices#up-and-running)
-* [µService Development](https://github.com/vietnam-devs/coolstore-microservices#microservice-development)
+* [Installation](https://github.com/vietnam-devs/coolstore-microservices#installation)
+* [µService Development](https://github.com/vietnam-devs/coolstore-microservices#µmicroservice-development)
 * [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
 * [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
 * [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
@@ -42,16 +41,16 @@ Our team uses this application to demonstrate Kubernetes, AKS, Istio and similar
 
 There are several individual µservices and infrastructure components that make up this app:
 
-| No. | Service | Language | Database | Description | Endpoints |
-|-----|---------|----------|----------|-------------|-----------|
-| 1 | Catalog | Node.js | Mongo | Serves products and prices for retail products | [`http://localhost:5002`](http://localhost:5002) or [`http://api.coolstore.local/catalog`](http://api.coolstore.local/catalog/swagger)
-| 2 | Cart | .NET Core | MySQL | Manages shopping cart for each customer | [`http://localhost:5003`](http://localhost:5003) or [`http://api.coolstore.local/cart`](http://api.coolstore.local/cart/swagger)
-| 3 | Inventory | .NET Core | MySQL | Serves inventory and availability data for retail products | [`http://localhost:5004`](http://localhost:5004) or [`http://api.coolstore.local/inventory`](http://api.coolstore.local/inventory/swagger)
-| 4 | Pricing | .NET Core | MySQL | Handles a business rules application for product pricing | [`http://localhost:5005`](http://localhost:5005) or [`http://api.coolstore.local/pricing`](http://api.coolstore.local/pricing/swagger)
-| 5 | Review | .NET Core | MySQL | Runs for writing and displaying reviews for products | [`http://localhost:5006`](http://localhost:5006) or [`http://api.coolstore.local/review`](http://api.coolstore.local/review/swagger)
-| 6 | Rating | Node.js | Mongo | Runs for rating products | [`http://localhost:5007`](http://localhost:5007) or [`http://api.coolstore.local/rating`](http://api.coolstore.local/rating/swagger)
-| 7 | IdP | .NET Core | In Memory | Uses [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack | [`http://localhost:5001`](http://localhost:5001) or [`http://id.coolstore.local`](http://id.coolstore.local)
-| 8 | Web UI (PWA) | Vuejs + Node.js | N/A | Frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org) | [`http://localhost:8080`](http://localhost:8080) or [`http://coolstore.local`](http://coolstore.local)
+| No. | Service | Description | Language | Database | Endpoints |
+|-----|---------|-------------|----------|----------|-----------|
+| 1 | Catalog | Serves products and prices for retail products | Node.js | Mongo | [`http://localhost:5002`](http://localhost:5002) or [`http://api.coolstore.local/catalog`](http://api.coolstore.local/catalog/swagger)
+| 2 | Cart | Manages shopping cart for each customer | .NET Core | MySQL | [`http://localhost:5003`](http://localhost:5003) or [`http://api.coolstore.local/cart`](http://api.coolstore.local/cart/swagger)
+| 3 | Inventory | Serves inventory and availability data for retail products | .NET Core | MySQL | [`http://localhost:5004`](http://localhost:5004) or [`http://api.coolstore.local/inventory`](http://api.coolstore.local/inventory/swagger)
+| 4 | Pricing | Handles a business rules application for product pricing | .NET Core | MySQL | [`http://localhost:5005`](http://localhost:5005) or [`http://api.coolstore.local/pricing`](http://api.coolstore.local/pricing/swagger)
+| 5 | Review | Runs for writing and displaying reviews for products | .NET Core | MySQL | [`http://localhost:5006`](http://localhost:5006) or [`http://api.coolstore.local/review`](http://api.coolstore.local/review/swagger)
+| 6 | Rating | Runs for rating products | Node.js | Mongo | [`http://localhost:5007`](http://localhost:5007) or [`http://api.coolstore.local/rating`](http://api.coolstore.local/rating/swagger)
+| 7 | IdP | Uses [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack | .NET Core | In Memory | [`http://localhost:5001`](http://localhost:5001) or [`http://id.coolstore.local`](http://id.coolstore.local)
+| 8 | Web UI (PWA) | Frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org) | Vuejs + Node.js | N/A | [`http://localhost:8080`](http://localhost:8080) or [`http://coolstore.local`](http://coolstore.local)
 
 ### Architecture of µServices
 

@@ -39,5 +39,13 @@ namespace VND.CoolStore.Services.Cart.Domain
 
     [NotMapped]
     public string Desc { get; private set; }
+
+    public CartItem CartItem { get; private set; }
+
+    public Product LinkCartItem(CartItem cartItem)
+    {
+      CartItem = cartItem;
+      return this;
+    }
   }
 }

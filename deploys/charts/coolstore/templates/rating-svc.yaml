@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rating-service
+  name: rating
   namespace: {{ .Release.Namespace }}
   labels:
-    app: rating-service
+    app: rating
 spec:
   ports:
   - port: 80

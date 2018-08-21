@@ -13,11 +13,11 @@ esac
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-echo "Build MS-SQL Database"
+echo "Build MySQL Database"
 echo "================================================================================"
-docker build -f ./deploys/dockers/mssqldb/Dockerfile -t $DOCKER_USERNAME/cs-mssqldb:$DOCKER_TAG .
-docker tag $DOCKER_USERNAME/cs-mssqldb:$DOCKER_TAG $DOCKER_GROUP/cs-mssqldb:$DOCKER_TAG
-docker push $DOCKER_GROUP/cs-mssqldb:$DOCKER_TAG
+docker build -f ./deploys/dockers/mysqldb/Dockerfile -t $DOCKER_USERNAME/cs-mysqldb:$DOCKER_TAG .
+docker tag $DOCKER_USERNAME/cs-mysqldb:$DOCKER_TAG $DOCKER_GROUP/cs-mysqldb:$DOCKER_TAG
+docker push $DOCKER_GROUP/cs-mysqldb:$DOCKER_TAG
 echo "================================================================================"
 
 echo "Build IdP Service"

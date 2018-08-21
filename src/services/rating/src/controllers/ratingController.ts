@@ -70,7 +70,6 @@ export class RatingController {
   @Post()
   public Create(@Body() request: RatingCreateRequest): Promise<any> {
     let rating = new Rating({ _id: uuid.v1(), ...request })
-    console.log(rating)
     let result = Rating.create(rating)
     return Promise.resolve(result)
   }
@@ -84,7 +83,6 @@ export class RatingController {
     let rating = Rating.findOne({ id: request.id }).exec()
     if (!rating) return null
     rating = { rating, ...request }
-    console.log(rating)
     let result = Rating.update(rating)
     return Promise.resolve(result)
   }

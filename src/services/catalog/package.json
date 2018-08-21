@@ -5,7 +5,7 @@
   "license": "MIT",
   "description": "This is a catalog-service for coolstore project.",
   "scripts": {
-    "start": "npm run sysinfo && cross-env NODE_ENV=production && npm-run-all --parallel watch:server watch:build",
+    "start": "npm run sysinfo && cross-env NODE_ENV=production && npm-run-all --parallel build && node ./dist/bundle.js",
     "dev": "cross-env NODE_ENV=development && npm run sysinfo && npm-run-all --parallel watch:server watch:build",
     "build": "npm run clean && webpack",
     "watch:server": "nodemon \"./dist/bundle.js\" --watch \"./dist\" ",

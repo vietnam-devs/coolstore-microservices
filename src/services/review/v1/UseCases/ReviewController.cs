@@ -18,7 +18,7 @@ namespace VND.CoolStore.Services.Review.v1.UseCases
   public class ReviewController : Controller
   {
     [HttpGet]
-    //[Auth(Policy = "access_review_api")]
+    [Auth(Policy = "access_review_api")]
     [Route("{productId:guid}/reviews")]
     public async Task<IActionResult> Get([FromServices] IMediator eventor, Guid productId, CancellationToken cancellationToken)
     {

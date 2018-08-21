@@ -13,16 +13,16 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.2" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="2.1.1" />
-    <PackageReference Include="NetCoreKit.Domain" Version="0.1.25" />
-    <PackageReference Include="NetCoreKit.Infrastructure" Version="0.1.25" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore" Version="0.1.25" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.CleanArch" Version="0.1.25" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.Miniservice" Version="0.1.25" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.OpenApi" Version="0.1.25" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore" Version="0.1.25" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.25" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.SqlServer" Version="0.1.25" />
-    <PackageReference Include="NetCoreKit.Utils" Version="0.1.25" />
+    <PackageReference Include="NetCoreKit.Domain" Version="0.1.27" />
+    <PackageReference Include="NetCoreKit.Infrastructure" Version="0.1.27" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore" Version="0.1.27" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.CleanArch" Version="0.1.27" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.Miniservice" Version="0.1.27" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.OpenApi" Version="0.1.27" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore" Version="0.1.27" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.27" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.SqlServer" Version="0.1.27" />
+    <PackageReference Include="NetCoreKit.Utils" Version="0.1.27" />
     <PackageReference Include="Scrutor" Version="2.2.2" />
     <PackageReference Include="System.Reactive" Version="4.1.0" />
   </ItemGroup>

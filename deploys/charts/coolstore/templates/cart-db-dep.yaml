@@ -1,25 +1,37 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cart-db-v1
+  name: cartdb-v1
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: cart-db
+        app: cartdb
         version: v1
     spec:
       containers:
-      - name: cart-db
-        image: {{.Values.image.imageRegistry}}/cs-mssqldb:{{.Values.image.dockerTag}}
+      - name: cartdb
+        image: {{.Values.image.imageRegistry}}/cs-mysqldb:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-        - name: ACCEPT_EULA
-          value: Y
-        - name: MSSQL_SA_PASSWORD
-          value: P@ssw0rd
+        - name: MYSQL_ROOT_PASSWORD
+          value: "P@ssw0rd"
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD 
+          value: false
+        - name: MYSQL_RANDOM_ROOT_PASSWORD
+          value: false
+        - name: DB_TYPE
+          value: "mysql"
+        - name: MYSQL_DB_HOST
+          value: "maindb"
+        - name: MYSQL_DB_PORT
+          value: "3306"
+        - name: MYSQL_DB_USER
+          value: "root"
+        - name: MYSQL_DB_PASSWORD
+          value: "P@ssw0rd"
         ports:
-        - containerPort: 1433
+        - containerPort: 3306
 ---

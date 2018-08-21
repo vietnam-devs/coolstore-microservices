@@ -1,9 +1,6 @@
 FROM microsoft/dotnet:2.1.2-aspnetcore-runtime-alpine AS base
 WORKDIR /app
 
-ENV PROJECT /src/src/services/review
-ENV EXECUTE_FILE VND.CoolStore.Services.Review.dll
-
 ARG service_version
 ENV SERVICE_VERSION ${service_version:-0.0.1}
 
@@ -17,7 +14,7 @@ FROM microsoft/dotnet:2.1.302-sdk-alpine AS build
 WORKDIR /src
 COPY . .
 
-WORKDIR $PROJECT
+WORKDIR /src/src/services/review
 
 RUN dotnet restore -nowarn:msb3202,nu1503
 RUN dotnet build --no-restore -c Release -o /app
@@ -28,4 +25,4 @@ RUN dotnet publish --no-restore -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "$EXECUTE_FILE"]
+ENTRYPOINT ["dotnet", "VND.CoolStore.Services.Review.dll"]

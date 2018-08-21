@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using VND.CoolStore.Services.Cart.Domain;
-using VND.CoolStore.Services.Cart.Infrastructure.Gateways;
 
 namespace VND.CoolStore.Services.Cart.Infrastructure.Services
 {
@@ -26,7 +25,7 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Services
       if (cart.CartItems != null && cart.CartItems?.Count() > 0)
       {
         cart.CartItemTotal = 0;
-        foreach (CartItem item in cart.CartItems)
+        foreach (var item in cart.CartItems)
         {
           cart.CartItemPromoSavings = cart.CartItemPromoSavings + (item.PromoSavings * item.Quantity);
           cart.CartItemTotal = cart.CartItemTotal + (item.Product.Price * item.Quantity);

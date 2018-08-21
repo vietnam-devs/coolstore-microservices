@@ -14,15 +14,29 @@ namespace VND.CoolStore.Services.Cart.Domain
     {
     }
 
-    [Required]
-    public int Quantity { get; set; }
+    [Required] public int Quantity { get; set; }
 
     public double Price { get; set; }
 
-    [Required]
-    public double PromoSavings { get; set; }
+    [Required] public double PromoSavings { get; set; }
 
-    [Required]
+    public Cart Cart { get; private set; }
+    public Guid CartId { get; private set; }
+
     public Product Product { get; set; }
+
+    public CartItem LinkCart(Cart cart)
+    {
+      Cart = cart;
+      CartId = cart.Id;
+      return this;
+    }
+
+    public CartItem LinkProduct(Product product)
+    {
+      product.LinkCartItem(this);
+      Product = product;
+      return this;
+    }
   }
 }

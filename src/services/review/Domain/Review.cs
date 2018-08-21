@@ -6,6 +6,8 @@ namespace VND.CoolStore.Services.Review.Domain
 {
   public class Review : EntityBase
   {
+    private Review() { }
+
     internal Review(string content) : base(Guid.NewGuid())
     {
       Content = content;

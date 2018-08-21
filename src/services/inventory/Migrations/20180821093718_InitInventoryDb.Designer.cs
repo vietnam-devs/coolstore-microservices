@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VND.CoolStore.Services.Inventory.Infrastructure.Db;
@@ -10,16 +9,14 @@ using VND.CoolStore.Services.Inventory.Infrastructure.Db;
 namespace VND.CoolStore.Services.Inventory.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20180810092433_InitInvDb")]
-    partial class InitInvDb
+    [Migration("20180821093718_InitInventoryDb")]
+    partial class InitInventoryDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
 
             modelBuilder.Entity("VND.CoolStore.Services.Inventory.Domain.Inventory", b =>
                 {
@@ -39,6 +36,11 @@ namespace VND.CoolStore.Services.Inventory.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Inventories");
+
+                    b.HasData(
+                        new { Id = new Guid("25e6ba6e-fddb-401d-99b2-33ddc9f29322"), Created = new DateTime(2018, 8, 21, 9, 37, 17, 918, DateTimeKind.Utc), Link = "http://nashtechglobal.com", Location = "London, UK", Quantity = 100, Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { Id = new Guid("cab3818f-e459-412f-972f-d4b2d36aa735"), Created = new DateTime(2018, 8, 21, 9, 37, 17, 920, DateTimeKind.Utc), Link = "http://nashtechvietnam.com", Location = "Ho Chi Minh City, Vietnam", Quantity = 1000, Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    );
                 });
 #pragma warning restore 612, 618
         }

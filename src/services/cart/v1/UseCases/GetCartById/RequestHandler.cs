@@ -1,3 +1,5 @@
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using NetCoreKit.Domain;
@@ -13,9 +15,9 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
   public class RequestHandler : RequestHandlerBase<GetCartRequest, GetCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
-    private readonly NoTaxCaculator _priceCalculator;
+    private readonly INoTaxPriceCalculator _priceCalculator;
 
-    public RequestHandler(ICatalogGateway cgw, IQueryRepositoryFactory qrf, NoTaxCaculator priceCalculator)
+    public RequestHandler(ICatalogGateway cgw, IQueryRepositoryFactory qrf, INoTaxPriceCalculator priceCalculator)
       : base(qrf)
     {
       _catalogGateway = cgw;
@@ -24,11 +26,13 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.GetCartById
 
     public override async Task<GetCartResponse> Handle(GetCartRequest request, CancellationToken cancellationToken)
     {
-      var cartRepo = QueryRepositoryFactory?.QueryEfRepository<Domain.Cart>();
+      var cartQuery = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
 
-      var cartInfo = await cartRepo.GetFullCart(request.CartId, false);
-      cartInfo = await cartInfo.InitCart(_catalogGateway, isPopulatePrice: true);
-      cartInfo = _priceCalculator.Execute(cartInfo);
+      var cartInfo = await cartQuery.GetFullCartAsync(request.CartId, false);
+      cartInfo = await cartInfo
+        .InitCart(_catalogGateway, isPopulatePrice: true)
+        .ToObservable()
+        .Select(x => _priceCalculator.Execute(x));
 
       return new GetCartResponse { Result = cartInfo.ToDto() };
     }

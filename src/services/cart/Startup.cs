@@ -4,8 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Infrastructure.AspNetCore.Miniservice;
 using NetCoreKit.Infrastructure.EfCore.MySql;
 using VND.CoolStore.Services.Cart.Infrastructure.Db;
-using VND.CoolStore.Services.Cart.v1.Services;
-using VND.CoolStore.Services.Cart.v2.Services;
 
 namespace VND.CoolStore.Services.Cart
 {
@@ -17,7 +15,7 @@ namespace VND.CoolStore.Services.Cart
         new[] {typeof(Startup)},
         svc =>
         {
-          //svc.AddEfCoreMySqlDb();
+          svc.AddEfCoreMySqlDb();
           svc.AddExternalSystemHealthChecks();
         },
         () => new Dictionary<string, object>
@@ -37,9 +35,6 @@ namespace VND.CoolStore.Services.Cart
           {Constants.Audience, "api"}
         }
       );
-
-      services.AddScoped<NoTaxCaculator>();
-      services.AddScoped<TenPercentTaxCalculator>();
     }
 
     public void Configure(IApplicationBuilder app)

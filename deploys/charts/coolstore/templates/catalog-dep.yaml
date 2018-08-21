@@ -23,7 +23,7 @@ spec:
         ports:
         - containerPort: 5002
       initContainers:
-      - name: init-mydb
-        image: bitnami/mongodb:latest
+      - name: init-mongodb
+        image: busybox
         command: ["sh", "-c", "until nc -z mongodb 27017; do Waiting to connect to a database...; sleep 1; done;"]
 ---

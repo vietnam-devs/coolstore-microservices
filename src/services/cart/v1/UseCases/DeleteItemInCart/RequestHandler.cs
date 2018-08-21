@@ -24,14 +24,14 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
 
     public override async Task<DeleteItemResponse> Handle(DeleteItemRequest request, CancellationToken cancellationToken)
     {
-      var cartRepository = UnitOfWork.Repository<Domain.Cart>();
-      var cartItemRepository = UnitOfWork.Repository<CartItem>();
+      var cartCommander = UnitOfWork.Repository<Domain.Cart>();
+      var cartItemCommander = UnitOfWork.Repository<CartItem>();
+      var cartQuery = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
 
-      var cart = await QueryRepositoryFactory
-        ?.QueryEfRepository<Domain.Cart>()
-        ?.GetFullCart(request.CartId)
-        ?.ToObservable()
-        ?.SelectMany(c => c.InitCart(_catalogGateway));
+      var cart = await cartQuery
+        .GetFullCartAsync(request.CartId)
+        .ToObservable()
+        .SelectMany(c => c.InitCart(_catalogGateway));
 
       var cartItem = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == request.ProductId);
       if (cartItem == null)
@@ -39,10 +39,11 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.DeleteItemInCart
         throw new Exception($"Could not find Product {request.ProductId}.");
       }
 
-      cart = cart.RemoveCartItem(cartItem.Id);
-      var isSucceed = await cartRepository.UpdateAsync(cart) != null;
-      await cartItemRepository.DeleteAsync(cartItem);
+      await cartItemCommander.DeleteAsync(cartItem);
+      await UnitOfWork.SaveChangesAsync(cancellationToken);
 
+      cart = cart.RemoveCartItem(cartItem.Id);
+      await cartCommander.UpdateAsync(cart);
       await UnitOfWork.SaveChangesAsync(cancellationToken);
 
       return new DeleteItemResponse { ProductId = cartItem.Product.ProductId };

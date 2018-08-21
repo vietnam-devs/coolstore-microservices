@@ -16,7 +16,7 @@ namespace VND.CoolStore.Services.Review
         new[] { typeof(Startup) },
         svc =>
         {
-          //svc.AddEfCoreMySqlDb();
+          svc.AddEfCoreMySqlDb();
           svc.AddExternalSystemHealthChecks();
         },
         () => new Dictionary<string, object>

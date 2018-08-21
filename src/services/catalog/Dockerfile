@@ -11,4 +11,4 @@ COPY ./src/services/catalog/ .
 RUN npm install --silent -g rimraf cross-env npm-run-all webpack nodemon ts-node typescript webpack-cli
 RUN yarn install
 RUN yarn add webpack-shell-plugin --dev
-ENTRYPOINT ["yanr", "start"]
+ENTRYPOINT ["yarn", "start"]

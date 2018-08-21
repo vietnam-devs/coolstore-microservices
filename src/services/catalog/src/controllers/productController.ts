@@ -24,7 +24,7 @@ export class ProductController {
   @Get(`{productId}`)
   public Get(productId: string): Promise<any> {
     // @ts-ignore
-    let product = Product.findOne({ id: productId }).exec()
+    let product = Product.findOne({ _id: productId }).exec()
     return Promise.resolve(product)
   }
 

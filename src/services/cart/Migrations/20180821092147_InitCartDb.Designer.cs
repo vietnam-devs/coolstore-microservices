@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VND.CoolStore.Services.Cart.Infrastructure.Db;
@@ -10,7 +9,7 @@ using VND.CoolStore.Services.Cart.Infrastructure.Db;
 namespace VND.CoolStore.Services.Cart.Migrations
 {
     [DbContext(typeof(CartDbContext))]
-    [Migration("20180809085508_InitCartDb")]
+    [Migration("20180821092147_InitCartDb")]
     partial class InitCartDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,8 +17,7 @@ namespace VND.CoolStore.Services.Cart.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.Cart", b =>
                 {
@@ -52,13 +50,11 @@ namespace VND.CoolStore.Services.Cart.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("CartId");
+                    b.Property<Guid>("CartId");
 
                     b.Property<DateTime>("Created");
 
                     b.Property<double>("Price");
-
-                    b.Property<Guid>("ProductId");
 
                     b.Property<double>("PromoSavings");
 
@@ -70,15 +66,12 @@ namespace VND.CoolStore.Services.Cart.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.Product", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<Guid>("Id");
 
                     b.Property<Guid>("ProductId");
 
@@ -89,13 +82,17 @@ namespace VND.CoolStore.Services.Cart.Migrations
 
             modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.CartItem", b =>
                 {
-                    b.HasOne("VND.CoolStore.Services.Cart.Domain.Cart")
+                    b.HasOne("VND.CoolStore.Services.Cart.Domain.Cart", "Cart")
                         .WithMany("CartItems")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.HasOne("VND.CoolStore.Services.Cart.Domain.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
+            modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.Product", b =>
+                {
+                    b.HasOne("VND.CoolStore.Services.Cart.Domain.CartItem", "CartItem")
+                        .WithOne("Product")
+                        .HasForeignKey("VND.CoolStore.Services.Cart.Domain.Product", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -5,11 +5,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using NetCoreKit.Infrastructure.AspNetCore;
 using NetCoreKit.Infrastructure.AspNetCore.Extensions;
+using NetCoreKit.Utils.Attributes;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Dtos;
 
 namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways
 {
+  [AutoScanAwareness]
   public class CatalogGateway : ProxyServiceBase, ICatalogGateway
   {
     private readonly string _catalogServiceUri;
