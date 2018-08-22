@@ -38,7 +38,7 @@ app.use(`${basePath}swagger`, swaggerUI.serve, swaggerUI.setup(swaggerJSON))
 
 function startServer() {
   app.listen(process.env.PORT || 5007, () => {
-    console.info(`App's running at http://localhost:${process.env.PORT || 5002}`)
+    console.info(`App's running at http://localhost:${process.env.PORT || 5007}`)
     console.info('Press CTRL-C to stop\n')
   })
 }

@@ -2,20 +2,15 @@
 ## Node: Rating Service
 ##########################################
 
-@ratingId = "{{$guid}}"
+@ratingId = "954536a0-a5cd-11e8-919f-5ba353fbac59"
 
 ###
-GET http://localhost:5002/api/ratings HTTP/1.1 
+GET http://localhost:5007/api/ratings HTTP/1.1 
 content-type: application/json
 ### 
-GET http://localhost:5002/api/ratings/{{ratingId}} HTTP/1.1
+GET http://localhost:5007/api/ratings/{{ratingId}} HTTP/1.1
 ###
-POST http://localhost:5002/api/ratings HTTP/1.1
+POST http://localhost:5007/api/ratings HTTP/1.1
 content-type: application/json
 
-{
-    "id": "{{$guid}}",
-    "name": "rating {{$guid}}",
-    "desc": "desc for rating {{$guid}}",
-    "price": 20.05
-}
+{"ProductId":"954536a0-a5cd-11e8-919f-5ba353fbac59","UserId":"51db5230-ef16-4e5f-ad5f-1820c2cc7a99","Cost":5}

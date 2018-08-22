@@ -1,6 +1,6 @@
 declare var require: any
 
-var uuid = require('uuid');
+var uuid = require('uuid')
 import { Route, Get, Post, Put, Body } from 'tsoa'
 import { default as Rating, RatingCreateRequest, RatingUpdateRequest } from '../models/rating'
 
@@ -12,10 +12,10 @@ export class RatingController {
   @Get()
   public async GetAll(): Promise<any> {
     // @ts-ignore
-    var ratings = Rating.find({}).exec()
+    var ratings = await Rating.find({}).exec()
 
     var result = []
-    ratings.reduce(function (res, value) {
+    ratings.reduce(function(res, value) {
       if (!res[value.productId]) {
         res[value.productId] = {
           productId: value.productId,
@@ -28,15 +28,17 @@ export class RatingController {
         result.push(res[value.productId])
       }
       res[value.productId].count += 1
-      var nextCost = res[value.productId].totalCost += value.cost
+      var nextCost = (res[value.productId].totalCost += value.cost)
       res[value.productId].cost = nextCost / res[value.productId].count
       return res
     }, {})
-    return Promise.resolve(result.map(function (item) {
-      delete item.count
-      delete item.totalCost
-      return item
-    }))
+    return Promise.resolve(
+      result.map(function(item) {
+        delete item.count
+        delete item.totalCost
+        return item
+      })
+    )
   }
 
   /**
@@ -44,21 +46,25 @@ export class RatingController {
    * @param ratingId rating Id
    */
   @Get(`{productId}`)
-  public GetRatingByProductId(productId: string): Promise<any> {
+  public async GetRatingByProductId(productId: string): Promise<any> {
     // @ts-ignore
     var modelReponse = {
       productId: productId,
       cost: 0
     }
 
-    let ratingolds = Rating.findOne({ productId: productId }).exec()
+    let ratingolds = await Rating.findOne({ productId: productId }).exec()
+    if (ratingolds == null)
+      return {
+        error: 1,
+        message: "Couldn't find product."
+      }
+
     if (ratingolds.length == 0) {
       modelReponse.cost = 0
     } else {
       modelReponse.cost =
-        ratingolds.reduce(
-          (accumulator, currentValue) => accumulator + currentValue.cost, 0
-        ) / ratingolds.length
+        ratingolds.reduce((accumulator, currentValue) => accumulator + currentValue.cost, 0) / ratingolds.length
     }
     return Promise.resolve(modelReponse)
   }
@@ -68,9 +74,9 @@ export class RatingController {
    * @param request This is a rating creation request description
    */
   @Post()
-  public Create(@Body() request: RatingCreateRequest): Promise<any> {
+  public async Create(@Body() request: RatingCreateRequest): Promise<any> {
     let rating = new Rating({ _id: uuid.v1(), ...request })
-    let result = Rating.create(rating)
+    let result = await Rating.create(rating)
     return Promise.resolve(result)
   }
 
@@ -79,11 +85,11 @@ export class RatingController {
    * @param request This is a rating update request description
    */
   @Put()
-  public Update(@Body() request: RatingUpdateRequest): Promise<any> {
-    let rating = Rating.findOne({ id: request.id }).exec()
+  public async Update(@Body() request: RatingUpdateRequest): Promise<any> {
+    let rating = await Rating.findOne({ id: request.id }).exec()
     if (!rating) return null
     rating = { rating, ...request }
-    let result = Rating.update(rating)
+    let result = await Rating.update(rating)
     return Promise.resolve(result)
   }
 }

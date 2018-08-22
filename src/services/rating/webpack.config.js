@@ -1,9 +1,11 @@
+'use strict'
+
 var path = require('path')
 const WebpackShellPlugin = require('webpack-shell-plugin')
 
 var fs = require('fs')
 var nodeModules = {}
-fs.readdirSync('node_modules')
+fs.readdirSync(path.join(__dirname, './node_modules'))
   .filter(function(x) {
     return ['.bin'].indexOf(x) === -1
   })
@@ -24,7 +26,7 @@ module.exports = {
     })
   ],
   resolve: {
-    modules: [path.join(__dirname, './src'), 'node_modules'],
+    modules: [path.join(__dirname, './src'), path.join(__dirname, './node_modules')],
     extensions: ['.ts']
   },
   node: {
@@ -34,7 +36,7 @@ module.exports = {
     rules: [
       {
         use: 'ts-loader',
-        test: /\.ts?$/
+        test: /\.ts$/
       }
     ]
   },
