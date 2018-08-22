@@ -5,11 +5,11 @@
   "license": "MIT",
   "description": "This is a catalog-service for coolstore project.",
   "scripts": {
-    "start": "npm run sysinfo && cross-env NODE_ENV=production && npm-run-all --parallel build && node ./dist/bundle.js",
-    "dev": "cross-env NODE_ENV=development && npm run sysinfo && npm-run-all --parallel watch:server watch:build",
-    "build": "npm run clean && webpack",
-    "watch:server": "nodemon \"./dist/bundle.js\" --watch \"./dist\" ",
+    "start": "npm run sysinfo && cross-env NODE_ENV=production && npm run build && npm run server",
+    "dev": "cross-env NODE_ENV=development && npm run sysinfo && npm-run-all --parallel server watch:build",
+    "build": "npm run clean && npm run swagger-gen && npm run routes-gen && webpack --mode production",
     "watch:build": "webpack --watch",
+    "server": "node ./dist/bundle.js",
     "clean": "rimraf dist",
     "swagger-gen": "cross-env-shell \"tsoa swagger --basePath $BASE_PATH\"",
     "routes-gen": "cross-env-shell \"tsoa routes --basePath $BASE_PATH\"",
@@ -33,16 +33,14 @@
     "@types/node": "^10.7.1",
     "@types/uuid": "^3.4.3",
     "cross-env": "^5.2.0",
-    "nodemon": "^1.18.3",
     "npm-run-all": "^4.1.3",
     "rimraf": "^2.5.2",
-    "ts-loader": "^4.5.0",
     "ts-node": "^7.0.1",
     "tslint": "^3.11.0",
+    "tslint-loader": "^3.6.0",
     "typescript": "^3.0.1",
     "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "webpack-shell-plugin": "^0.5.0"
+    "webpack-cli": "^3.1.0"
   },
   "repository": {
     "type": "git"

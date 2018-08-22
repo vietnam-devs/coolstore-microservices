@@ -1,13 +1,12 @@
 var path = require('path')
-const WebpackShellPlugin = require('webpack-shell-plugin')
 
 var fs = require('fs')
 var nodeModules = {}
 fs.readdirSync('node_modules')
-  .filter(function(x) {
+  .filter(function (x) {
     return ['.bin'].indexOf(x) === -1
   })
-  .forEach(function(mod) {
+  .forEach(function (mod) {
     nodeModules[mod] = 'commonjs ' + mod
   })
 
@@ -18,14 +17,10 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
-  plugins: [
-    new WebpackShellPlugin({
-      onBuildStart: ['npm run swagger-gen && npm run routes-gen']
-    })
-  ],
+  plugins: [],
   resolve: {
-    modules: [path.join(__dirname, './src'), 'node_modules'],
-    extensions: ['.ts']
+    modules: [__dirname, 'node_modules'],
+    extensions: [ '.ts', '.tsx', ".js", ".json"]
   },
   node: {
     fs: 'empty'
@@ -33,7 +28,7 @@ module.exports = {
   module: {
     rules: [
       {
-        use: 'ts-loader',
+        use: 'tslint-loader',
         test: /\.ts?$/
       }
     ]
