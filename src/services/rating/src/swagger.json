@@ -26,9 +26,6 @@
 		},
 		"RatingUpdateRequest": {
 			"properties": {
-				"id": {
-					"type": "string"
-				},
 				"productId": {
 					"type": "string"
 				},
@@ -41,7 +38,6 @@
 				}
 			},
 			"required": [
-				"id",
 				"productId",
 				"userId",
 				"cost"
