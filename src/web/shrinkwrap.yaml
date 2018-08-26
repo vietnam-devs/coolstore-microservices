@@ -111,14 +111,9 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-d+nbxBUGKg7Arpsvbnlq61mc12ek3EY8EQldM3GPAhWJ1UVxC6TDGbIvUMNU6obBX3i1+ptCIzV4vq0gFPEGVQ==
-  /ajv-keywords/3.2.0:
-    dev: true
-    peerDependencies:
-      ajv: ^6.0.0
-    resolution:
-      integrity: sha1-6GuBnGAs+IIa1jdBNpjx3sAhhHo=
   /ajv-keywords/3.2.0/ajv@6.5.2:
-    dependencies: {}
+    dependencies:
+      ajv: 6.5.2
     dev: true
     id: registry.npmjs.org/ajv-keywords/3.2.0
     peerDependencies:
@@ -2412,6 +2407,8 @@ packages:
     engines:
       node: '>=0.8.0'
     optional: true
+    os:
+      - darwin
     requiresBuild: true
     resolution:
       integrity: sha512-z8H8/diyk76B7q5wg+Ud0+CqzcAF3mBBI/bA5ne5zrRUUIvNkJY//D3BqyH571KuAC4Nr7Rw7CjWX4r0y9DvNg==
@@ -4757,7 +4754,7 @@ packages:
   /schema-utils/0.4.5:
     dependencies:
       ajv: 6.5.2
-      ajv-keywords: 3.2.0
+      ajv-keywords: /ajv-keywords/3.2.0/ajv@6.5.2
     dev: true
     engines:
       node: '>= 4.8.0 || >= 6.9.0 || >= 8.9.0'
@@ -5901,7 +5898,7 @@ packages:
     resolution:
       integrity: sha1-YpmpBVsc78lp/355wdkY3Osiw2A=
 registry: 'https://registry.npmjs.org/'
-shrinkwrapMinorVersion: 8
+shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   atob: ^2.1.1

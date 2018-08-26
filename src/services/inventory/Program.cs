@@ -19,6 +19,7 @@ namespace VND.CoolStore.Services.Inventory
 
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
       WebHost.CreateDefaultBuilder(args)
-        .UseStartup<Startup>();
+        .UseStartup<Startup>()
+        .UseDefaultServiceProvider(o => o.ValidateScopes = false);
   }
 }

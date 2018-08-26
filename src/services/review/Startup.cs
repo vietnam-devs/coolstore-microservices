@@ -13,12 +13,12 @@ namespace VND.CoolStore.Services.Review
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMiniService<ReviewDbContext>(
-        new[] { typeof(Startup) },
         svc =>
         {
           svc.AddEfCoreMySqlDb();
           svc.AddExternalSystemHealthChecks();
         },
+        (_, __) => { },
         () => new Dictionary<string, object>
         {
           {

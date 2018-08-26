@@ -21,7 +21,8 @@ namespace VND.CoolStore.Services.Inventory.v1.UseCases
     {
       return await eventor.SendStream<GetInventoryRequest, GetInventoryResponse>(
         new GetInventoryRequest { InventoryId = id },
-        x => x.Result);
+        x => x.Result,
+        cancellationToken);
     }
 
     [HttpGet]

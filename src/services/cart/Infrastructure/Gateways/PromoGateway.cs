@@ -1,9 +1,7 @@
-using NetCoreKit.Utils.Attributes;
 using VND.CoolStore.Services.Cart.Domain;
 
 namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways
 {
-  [AutoScanAwareness]
   public class PromoGateway : IPromoGateway
   {
     public Domain.Cart ApplyCartItemPromotions(Domain.Cart cart)

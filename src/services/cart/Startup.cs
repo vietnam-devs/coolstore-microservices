@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Infrastructure.AspNetCore.Miniservice;
 using NetCoreKit.Infrastructure.EfCore.MySql;
+using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Infrastructure.Db;
+using VND.CoolStore.Services.Cart.Infrastructure.Gateways;
+using VND.CoolStore.Services.Cart.v1.Services;
 
 namespace VND.CoolStore.Services.Cart
 {
@@ -12,11 +16,17 @@ namespace VND.CoolStore.Services.Cart
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMiniService<CartDbContext>(
-        new[] {typeof(Startup)},
         svc =>
         {
           svc.AddEfCoreMySqlDb();
           svc.AddExternalSystemHealthChecks();
+        },
+        (svc, _) =>
+        {
+          svc.AddScoped<INoTaxPriceCalculator, NoTaxCaculator>();
+          svc.AddScoped<ICatalogGateway, CatalogGateway>();
+          svc.AddScoped<IPromoGateway, PromoGateway>();
+          svc.AddScoped<IShippingGateway, ShippingGateway>();
         },
         () => new Dictionary<string, object>
         {

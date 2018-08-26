@@ -24,13 +24,17 @@ namespace VND.CoolStore.Services.Review.v1.UseCases
     {
       return await eventor.SendStream<GetReviewsRequest, GetReviewsResponse>(
         new GetReviewsRequest { ProductId = productId },
-        x => x.Reviews);
+        x => x.Reviews,
+        cancellationToken);
     }
 
     [HttpPost]
     [Auth(Policy = "access_review_api")]
     public async Task<IActionResult> Post([FromServices] IMediator eventor, AddReviewRequest request, CancellationToken cancellationToken) =>
-      await eventor.SendStream<AddReviewRequest, AddReviewResponse>(request, x => x.Result);
+      await eventor.SendStream<AddReviewRequest, AddReviewResponse>(
+        request,
+        x => x.Result,
+        cancellationToken);
 
     [HttpDelete]
     [Auth(Policy = "access_review_api")]
@@ -39,7 +43,8 @@ namespace VND.CoolStore.Services.Review.v1.UseCases
     {
       return await eventor.SendStream<RemoveReviewRequest, RemoveReviewResponse>(
         new RemoveReviewRequest { ReviewId = reviewId },
-        x => x.ReviewId);
+        x => x.ReviewId,
+        cancellationToken);
     }
 
     [HttpPut]
@@ -53,7 +58,8 @@ namespace VND.CoolStore.Services.Review.v1.UseCases
           ReviewId = reviewId,
           Content = content
         },
-        x => x.Result);
+        x => x.Result,
+        cancellationToken);
     }
   }
 }

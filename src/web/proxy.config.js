@@ -1,66 +1,68 @@
-var url = 'http://localhost:5000/'
-var urlSpa = 'http://localhost:8080/'
-var urlIdp = 'http://localhost:5001/'
-var urlCat = 'http://localhost:5002'
-var urlCart = 'http://localhost:5002'
-var urlInv = 'http://localhost:5004'
-var urlRat = 'http://localhost:5007'
+var urls = {
+    web: 'http://localhost:8080/',
+    idp: 'http://localhost:5001/',
+    catalog: 'http://localhost:5002/',
+    cart: 'http://localhost:5003/',
+    inventory: 'http://localhost:5004/',
+    rating: 'http://localhost:5007/'
+}
 
 const env = process.env.NODE_ENV
 const config = {
     mode: env || 'development'
 }
-if (config.mode == 'production') {
-    urlSpa = "http://coolstore.local/"
-    urlIdp = "http://id.coolstore.local/"
-    url = "http://api.coolstore.local/"
 
-    var urlCat = 'http://api.coolstore.local/catalog/'
-    var urlCart = 'http://api.coolstore.local/cart/'
-    var urlInv = 'http://api.coolstore.local/inventory/'
-    var urlRat = 'http://api.coolstore.local/rating/'
+if (config.mode == 'production') {
+    urls = {
+        ...urls,
+        ...{
+            web: 'http://coolstore.local/',
+            idp: 'http://id.coolstore.local/',
+            api: 'http://api.coolstore.local/',
+            catalog: 'http://api.coolstore.local/catalog/',
+            cart: 'http://api.coolstore.local/cart/',
+            inventory: 'http://api.coolstore.local/inventory',
+            rating: 'http://api.coolstore.local/rating'
+        }
+    }
 }
 
+console.info(urls)
 
 const PROXY_CONFIG = {
-    baseUrl: url,
-    idpUrl: urlIdp,
-    spaUrl: urlSpa,
-    '/api/*': {
-        target: url,
-        secure: false,
-        logLevel: 'debug'
-    },
+    baseUrl: `${urls['web']}`,
+    idpUrl: `${urls['idp']}`,
+    spaUrl: `${urls['web']}`,
     '/catalog/api/*': {
-        target: urlCat,
+        target: `${urls['catalog']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
         pathRewrite: { '^/catalog': '' }
     },
     '/rating/api/*': {
-        target: urlRat,
+        target: `${urls['rating']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
         pathRewrite: { '^/rating': '' }
     },
     '/cart/api/*': {
-        target: urlCart,
+        target: `${urls['cart']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
         pathRewrite: { '^/cart': '' }
     },
     '/inventory/api/*': {
-        target: urlInv,
+        target: `${urls['inventory']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
         pathRewrite: { '^/inventory': '' }
     },
     '/config': {
-        target: `${urlIdp}.well-known/openid-configuration`,
+        target: `${urls['idp']}.well-known/openid-configuration`,
         secure: false,
         logLevel: 'debug',
         ignorePath: true,
@@ -68,24 +70,24 @@ const PROXY_CONFIG = {
         pathRewrite: { '^/config': '' }
     },
     '/.well-known/openid-configuration/jwks': {
-        target: `${urlIdp}.well-known/openid-configuration/jwks`,
+        target: `${urls['idp']}.well-known/openid-configuration/jwks`,
         secure: false,
         logLevel: 'debug',
         ignorePath: true
     },
     '/host/*': {
-        target: urlIdp,
+        target: `${urls['idp']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
         pathRewrite: { '^/host': '' }
     },
     '/connect/*': {
-        target: urlIdp,
+        target: `${urls['idp']}`,
         secure: true,
         logLevel: 'debug',
         changeOrigin: true,
-        router: function (req) {
+        router: function(req) {
             return url
         }
     }

@@ -12,12 +12,12 @@ namespace VND.CoolStore.Services.Inventory
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMiniService<InventoryDbContext>(
-        new[] {typeof(Startup)},
         svc =>
         {
           svc.AddEfCoreMySqlDb();
           svc.AddExternalSystemHealthChecks();
         },
+        (_, __) => { },
         () => new Dictionary<string, object>
         {
           {

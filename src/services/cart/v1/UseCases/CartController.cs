@@ -26,18 +26,25 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases
     {
       return await eventor.SendStream<GetCartRequest, GetCartResponse>(
         new GetCartRequest { CartId = id },
-        x => x.Result);
+        x => x.Result,
+        cancellationToken);
     }
 
     [HttpPost]
     [Auth(Policy = "access_cart_api")]
     public async Task<IActionResult> Create([FromServices] IMediator eventor, InsertItemToNewCartRequest request, CancellationToken cancellationToken) =>
-      await eventor.SendStream<InsertItemToNewCartRequest, InsertItemToNewCartResponse>(request, x => x.Result);
+      await eventor.SendStream<InsertItemToNewCartRequest, InsertItemToNewCartResponse>(
+        request,
+        x => x.Result,
+        cancellationToken);
 
     [HttpPut]
     [Auth(Policy = "access_cart_api")]
     public async Task<IActionResult> Put([FromServices] IMediator eventor, UpdateItemInCartRequest request, CancellationToken cancellationToken) =>
-      await eventor.SendStream<UpdateItemInCartRequest, UpdateItemInCartResponse>(request, x => x.Result);
+      await eventor.SendStream<UpdateItemInCartRequest, UpdateItemInCartResponse>(
+        request,
+        x => x.Result,
+        cancellationToken);
 
     [HttpDelete]
     [Route("{cartId:guid}/items/{productId:guid}")]
@@ -46,7 +53,8 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases
     {
       return await eventor.SendStream<DeleteItemRequest, DeleteItemResponse>(
         new DeleteItemRequest { CartId = cartId, ProductId = productId },
-        x => x.ProductId);
+        x => x.ProductId,
+        cancellationToken);
     }
 
     [HttpPut]
@@ -56,7 +64,8 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases
     {
       return await eventor.SendStream<CheckoutRequest, CheckoutResponse>(
         new CheckoutRequest { CartId = cartId },
-        x => x.IsSucceed);
+        x => x.IsSucceed,
+        cancellationToken);
     }
   }
 }
