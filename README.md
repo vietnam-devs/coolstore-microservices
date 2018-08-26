@@ -30,6 +30,7 @@ Our team uses this application to demonstrate Kubernetes, AKS, Istio and similar
 * [µService Development](https://github.com/vietnam-devs/coolstore-microservices#µmicroservice-development)
 * [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
 * [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
+* [Service Mesh](https://github.com/vietnam-devs/coolstore-microservices#service-mesh)
 * [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
 * [Contributors](https://github.com/vietnam-devs/coolstore-microservices#contributors)
 * [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
@@ -168,6 +169,33 @@ TODO
 ## CI/CD
 
 ![Lift and Shift](assets/images/lift-and-shift.PNG?raw=true 'liftandshift')
+
+## Service Mesh
+[Istio](https://istio.io) provide a wealth of benefits for the organizations that use them. There’s no denying, however, that adopting the cloud can put strains on DevOps teams. Developers must use microservices to architect for portability, meanwhile operators are managing extremely large hybrid and multi-cloud deployments. Istio lets you connect, secure, control, and observe services.
+
+At a high level, Istio helps reduce the complexity of these deployments, and eases the strain on your development teams. It is a completely open source service mesh that layers transparently onto existing distributed applications. It is also a platform, including APIs that let it integrate into any logging platform, or telemetry or policy system. Istio’s diverse feature set lets you successfully, and efficiently, run a distributed microservice architecture, and provides a uniform way to secure, connect, and monitor microservices.
+
+### Traffic Shifting
+
+TODO
+
+### Canary Deployment
+
+TODO
+
+### Distributed Tracing
+
+![DAG chart](assets/images/jaeger-dag-1.PNG?raw=true 'DAG')
+
+![Trace chart](assets/images/jaeger-trace-1.PNG?raw=true 'Trace')
+
+### Metrics
+
+![Metrics chart](assets/images/grafana-ui-1.PNG?raw=true 'Metrics')
+
+### Timeouts
+
+TODO
 
 ## Contributing
 
