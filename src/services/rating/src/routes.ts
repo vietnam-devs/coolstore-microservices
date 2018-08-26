@@ -12,7 +12,6 @@ const models: TsoaRoute.Models = {
   },
   "RatingUpdateRequest": {
     "properties": {
-      "id": { "dataType": "string", "required": true },
       "productId": { "dataType": "string", "required": true },
       "userId": { "dataType": "string", "required": true },
       "cost": { "dataType": "double", "required": true },

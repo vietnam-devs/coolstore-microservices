@@ -15,7 +15,6 @@ export interface RatingCreateRequest {
 }
 
 export interface RatingUpdateRequest {
-  id: string,
   productId: string
   userId: string
   cost: number
