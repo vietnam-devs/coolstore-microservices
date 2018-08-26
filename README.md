@@ -11,6 +11,12 @@ CoolStore is a containerised polyglot microservices application consisting of se
 
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
+### Screenshots
+
+| Home Page | Product Page |
+|-----------|--------------|
+| [![home-page](assets/images/ui-screen-1.PNG?raw=true)](assets/images/ui-screen-1.PNG?raw=true) | [![product-page](assets/images/ui-screen-2.PNG?raw=true)](assets/images/ui-screen-2.PNG?raw=true) |
+
 ### Presentation
 Our team uses this application to demonstrate Kubernetes, AKS, Istio and similar cloud-native technologies in events as following
 

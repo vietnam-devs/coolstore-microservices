@@ -18,20 +18,6 @@ spec:
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: "P@ssw0rd"
-        - name: MYSQL_ALLOW_EMPTY_PASSWORD 
-          value: false
-        - name: MYSQL_RANDOM_ROOT_PASSWORD
-          value: false
-        - name: DB_TYPE
-          value: "mysql"
-        - name: MYSQL_DB_HOST
-          value: "maindb"
-        - name: MYSQL_DB_PORT
-          value: "3306"
-        - name: MYSQL_DB_USER
-          value: "root"
-        - name: MYSQL_DB_PASSWORD
-          value: "P@ssw0rd"
         ports:
         - containerPort: 3306
 ---
