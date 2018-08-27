@@ -20,19 +20,15 @@ namespace VND.CoolStore.Services.Inventory
         (_, __) => { },
         () => new Dictionary<string, object>
         {
+          [Constants.ClaimToScopeMap] = new Dictionary<string, string>
           {
-            Constants.ClaimToScopeMap, new Dictionary<string, string>
-            {
-              {"access_inventory_api", "inventory_api_scope"}
-            }
+            ["access_inventory_api"] = "inventory_api_scope"
           },
+          [Constants.Scopes] = new Dictionary<string, string>
           {
-            Constants.Scopes, new Dictionary<string, string>
-            {
-              {"inventory_api_scope", "Inventory APIs"}
-            }
+            ["inventory_api_scope"] = "Inventory APIs"
           },
-          {Constants.Audience, "api"}
+          [Constants.Audience] = "api"
         }
       );
     }

@@ -14,10 +14,8 @@ namespace VND.CoolStore.Services.Cart.Infrastructure.Gateways
   {
     private readonly string _catalogServiceUri;
 
-    public CatalogGateway(
-      RestClient rest,
-      IConfiguration config,
-      IHostingEnvironment env) : base(rest)
+    public CatalogGateway(RestClient rest, IConfiguration config, IHostingEnvironment env)
+      : base(rest)
     {
       _catalogServiceUri = config.GetHostUri(env, "Catalog");
     }

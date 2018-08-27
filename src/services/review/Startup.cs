@@ -21,19 +21,15 @@ namespace VND.CoolStore.Services.Review
         (_, __) => { },
         () => new Dictionary<string, object>
         {
+          [Constants.ClaimToScopeMap] = new Dictionary<string, string>
           {
-            Constants.ClaimToScopeMap, new Dictionary<string, string>
-            {
-              {"access_review_api", "review_api_scope"}
-            }
+            ["access_review_api"] = "review_api_scope"
           },
+          [Constants.Scopes] = new Dictionary<string, string>
           {
-            Constants.Scopes, new Dictionary<string, string>
-            {
-              {"review_api_scope", "Review APIs"}
-            }
+            ["review_api_scope"] = "Review APIs"
           },
-          {Constants.Audience, "api"}
+          [Constants.Audience] = "api"
         }
       );
     }

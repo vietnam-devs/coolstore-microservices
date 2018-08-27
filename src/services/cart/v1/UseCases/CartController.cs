@@ -15,6 +15,7 @@ using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases
 {
+  [ApiController]
   [ApiVersion("1.0")]
   [Route("api/carts")]
   public class CartController : Controller

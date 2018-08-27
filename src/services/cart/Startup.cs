@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Infrastructure.AspNetCore.Miniservice;
 using NetCoreKit.Infrastructure.EfCore.MySql;
@@ -30,19 +29,15 @@ namespace VND.CoolStore.Services.Cart
         },
         () => new Dictionary<string, object>
         {
+          [Constants.ClaimToScopeMap] = new Dictionary<string, string>
           {
-            Constants.ClaimToScopeMap, new Dictionary<string, string>
-            {
-              {"access_cart_api", "cart_api_scope"}
-            }
+            ["access_cart_api"] = "cart_api_scope"
           },
+          [Constants.Scopes] = new Dictionary<string, string>
           {
-            Constants.Scopes, new Dictionary<string, string>
-            {
-              {"cart_api_scope", "Cart APIs"}
-            }
+            ["cart_api_scope"] = "Cart APIs"
           },
-          {Constants.Audience, "api"}
+          [Constants.Audience] = "api"
         }
       );
     }
