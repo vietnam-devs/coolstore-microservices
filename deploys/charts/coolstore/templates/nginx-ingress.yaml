@@ -13,20 +13,36 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: spa-service
+          serviceName: spa
           servicePort: 80
   - host: {{ .Values.hosts.idp }}
     http:
       paths:
       - path: /
         backend:
-          serviceName: idp-service
+          serviceName: idp
           servicePort: 80
   - host: {{ .Values.hosts.api }}
     http:
       paths:
-      - path: /
+      - path: /inventory/
         backend:
-          serviceName: gateway-service
+          serviceName: inventory
+          servicePort: 80
+      - path: /catalog/
+        backend:
+          serviceName: catalog
+          servicePort: 80
+      - path: /rating/
+        backend:
+          serviceName: rating
+          servicePort: 80
+      - path: /cart/
+        backend:
+          serviceName: cart
+          servicePort: 80
+      - path: /review/
+        backend:
+          serviceName: review
           servicePort: 80
 {{- end -}}
