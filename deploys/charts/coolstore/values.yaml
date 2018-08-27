@@ -77,7 +77,21 @@ gateway:
   ip: 127.0.0.1
 
 idpSettings:
-  HostSettings__BasePath: /
-  HostSettings__SwaggerRedirectUri: http://api.coolstore.local/swagger/oauth2-redirect.html
-  HostSettings__SwaggerPostLogoutRedirectUri: http://api.coolstore.local
-  HostSettings__SwaggerAllowedCorsOrigin: http://api.coolstore.local
+  BasePath: /
+  Hosts__Externals__CurrentUri: http://id.coolstore.local/
+  SwaggerRedirectUri: http://api.coolstore.local/swagger/oauth2-redirect.html
+  SwaggerPostLogoutRedirectUri: http://api.coolstore.local
+  SwaggerAllowedCorsOrigin: http://api.coolstore.local
+
+cartSettings:
+  Hosts__Externals__CurrentUri: http://api.coolstore.local/cart
+  Hosts__Externals__Auth__Uri: http://id.coolstore.local
+  Hosts__Externals__Catalog__Uri: http://api.coolstore.local/catalog
+
+inventorySettings:
+  Hosts__Externals__CurrentUri: http://api.coolstore.local/inventory
+  Hosts__Externals__Auth__Uri: http://id.coolstore.local
+
+reviewSettings:
+  Hosts__Externals__CurrentUri: http://api.coolstore.local/review
+  Hosts__Externals__Auth__Uri: http://id.coolstore.local

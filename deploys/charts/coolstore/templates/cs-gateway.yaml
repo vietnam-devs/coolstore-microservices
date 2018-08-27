@@ -111,7 +111,7 @@ metadata:
   name: id-vs
 spec:
   hosts:
-  - id.coolstore.local
+  - {{ .Values.hosts.idp }}
   location: MESH_EXTERNAL
   ports:
   - number: 80
@@ -125,7 +125,7 @@ metadata:
   name: api-vs
 spec:
   hosts:
-  - api.coolstore.local
+  - {{ .Values.hosts.api }}
   location: MESH_EXTERNAL
   ports:
   - number: 80
