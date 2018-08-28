@@ -3,7 +3,7 @@
     <div class="columns is-vcentered">
       <div class="column is-5">
           <picture class="image is-square">
-              <source srcset="https://picsum.photos/1200/900?image=0" type="image/webp" /><img class="lazyload" srcset="https://www.gravatar.com/avatar/dummy?d=mm" :alt="`Image of ${product.name}`" /></picture>
+              <source v-bind:srcset="product.imageUrl" type="image/webp" /><img class="lazyload" v-bind:srcset="product.imageUrl" :alt="`Image of ${product.name}`" /></picture>
       </div>
       <div class="column is-6 is-offset-1">
           <h1 class="title is-2">{{ product.name }}</h1>
@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex"
 
 export default {
-  name: 'review',
+  name: "review",
   data() {
     return {
       quantity: 1
@@ -46,7 +46,7 @@ export default {
       return this.$store.state.products.product || {}
     },
     cartId() {
-      return this.$store.getters['cart/cartId'] || null
+      return this.$store.getters["cart/cartId"] || null
     }
   },
   beforeMount() {
@@ -55,13 +55,13 @@ export default {
 
   methods: {
     loadProduct(id) {
-      this.$store.dispatch('products/GET_PRODUCT_BY_ID', { productId: id })
+      this.$store.dispatch("products/GET_PRODUCT_BY_ID", { productId: id })
     },
     addToCart(productId, quantity) {
       if (!this.cartId) {
-        this.$store.dispatch('cart/ADD_TO_CARD', { productId, quantity })
+        this.$store.dispatch("cart/ADD_TO_CARD", { productId, quantity })
       } else
-        this.$store.dispatch('cart/UPDATE_CARD', {
+        this.$store.dispatch("cart/UPDATE_CARD", {
           cartId: this.cartId,
           productId,
           quantity

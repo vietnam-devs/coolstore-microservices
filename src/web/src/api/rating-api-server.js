@@ -9,9 +9,9 @@ const api = createAPI({
 
 export function setRating(productId, userId, cost) {
     var model = {
-        ProductId: productId,
-        UserId: userId,
-        Cost: cost
+        productId: productId,
+        userId: userId,
+        cost: cost
     }
     return api.post(`ratings`, model)
 }
