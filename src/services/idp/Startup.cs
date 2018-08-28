@@ -54,8 +54,6 @@ namespace IdentityServer4
           .AddTestUsers(TestUsers.Users)
           .AddJwtBearerClientAuthentication();
 
-      var hostSettings = Configuration.GetSection("HostSettings");
-
       // in-memory, code config
       var clients = Config.GetDevClients();
       if (!Environment.IsDevelopment())

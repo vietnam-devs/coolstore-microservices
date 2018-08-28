@@ -17,15 +17,17 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: HostSettings__BasePath
-          value: {{ .Values.idpSettings.HostSettings__BasePath }}
+          value: {{ .Values.idpSettings.BasePath }}
+        - name: Hosts__Externals__CurrentUri
+          value: {{ .Values.idpSettings.Hosts__Externals__CurrentUri }}
         - name: HostSettings__SwaggerRedirectUri
-          value: {{ .Values.idpSettings.HostSettings__SwaggerRedirectUri }}
+          value: {{ .Values.idpSettings.SwaggerRedirectUri }}
         - name: HostSettings__SwaggerPostLogoutRedirectUri
-          value: {{ .Values.idpSettings.HostSettings__SwaggerPostLogoutRedirectUri }}
+          value: {{ .Values.idpSettings.SwaggerPostLogoutRedirectUri }}
         - name: HostSettings__SwaggerAllowedCorsOrigin
-          value: {{ .Values.idpSettings.HostSettings__SwaggerAllowedCorsOrigin }}
+          value: {{ .Values.idpSettings.SwaggerAllowedCorsOrigin }}
         - name: HostSettings__SpaAllowedCorsOrigin
-          value: {{ .Values.idpSettings.HostSettings__SpaAllowedCorsOrigin }}
+          value: {{ .Values.idpSettings.SpaAllowedCorsOrigin }}
         ports:
         - name: http
           containerPort: 5001

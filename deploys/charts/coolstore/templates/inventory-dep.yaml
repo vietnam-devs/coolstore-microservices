@@ -18,6 +18,10 @@ spec:
         env:
         - name: Hosts__BasePath
           value: /inventory/
+        - name: Hosts__Externals__CurrentUri
+          value: {{ .Values.inventorySettings.Hosts__Externals__CurrentUri }}
+        - name: Hosts__Externals__Auth__Uri
+          value: {{ .Values.inventorySettings.Hosts__Externals__Auth__Uri }}
         ports:
         - containerPort: 5004
         livenessProbe:

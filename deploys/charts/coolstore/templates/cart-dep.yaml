@@ -18,6 +18,12 @@ spec:
         env:
         - name: Hosts__BasePath
           value: /cart/
+        - name: Hosts__Externals__CurrentUri
+          value: {{ .Values.cartSettings.Hosts__Externals__CurrentUri }}
+        - name: Hosts__Externals__Auth__Uri
+          value: {{ .Values.cartSettings.Hosts__Externals__Auth__Uri }}
+        - name: Hosts__Externals__Catalog__Uri
+          value: {{ .Values.cartSettings.Hosts__Externals__Catalog__Uri }}
         ports:
         - containerPort: 5003
         livenessProbe:
