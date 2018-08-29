@@ -13,9 +13,9 @@ It demonstrates how to wire up small microservices into a larger application usi
 
 ### Screenshots
 
-| Home Page | Product Page |
+| Home Page | Cart Page |
 |-----------|--------------|
-| [![home-page](assets/images/ui-screen-1.PNG?raw=true)](assets/images/ui-screen-1.PNG?raw=true) | [![product-page](assets/images/ui-screen-2.PNG?raw=true)](assets/images/ui-screen-2.PNG?raw=true) |
+| [![home-page](assets/images/ui-screen-1.PNG?raw=true)](assets/images/ui-screen-1.PNG?raw=true) | [![cart-page](assets/images/ui-screen-2.PNG?raw=true)](assets/images/ui-screen-2.PNG?raw=true) |
 
 ### Presentation
 Our team uses this application to demonstrate Kubernetes, AKS, Istio and similar cloud-native technologies in events as following
