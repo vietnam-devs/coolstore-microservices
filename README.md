@@ -156,7 +156,7 @@ Waiting for the container provision completed
 
 ### Option 2: Up and Running on Azure Kubernetes Service (AKS)
 
-TODO
+[5 steps to bring CoolStore’s Service Mesh to Azure Kubernetes Service](https://medium.com/@thangchung/5-steps-to-bring-coolstores-service-mesh-to-azure-kubernetes-service-aks-9cd1a5aa008a)
 
 ## µService Development
 
