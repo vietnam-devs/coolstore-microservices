@@ -7,15 +7,11 @@
 
 > This project is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) & [Red Hat Demo Central](https://gitlab.com/redhatdemocentral)
 
+> The structure of README is inspired from [GoogleCloudPlatform Demo](https://github.com/GoogleCloudPlatform/microservices-demo). Thank you [@ahmetb](https://github.com/ahmetb)
+
 CoolStore is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh.
 
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
-
-### Screenshots
-
-| Home Page | Cart Page |
-|-----------|--------------|
-| [![home-page](assets/images/ui-screen-1.PNG?raw=true)](assets/images/ui-screen-1.PNG?raw=true) | [![cart-page](assets/images/ui-screen-2.PNG?raw=true)](assets/images/ui-screen-2.PNG?raw=true) |
 
 ### Presentation
 Our team uses this application to demonstrate Kubernetes, AKS, Istio and similar cloud-native technologies in events as following
@@ -175,14 +171,6 @@ Waiting for the container provision completed
 
 At a high level, Istio helps reduce the complexity of these deployments, and eases the strain on your development teams. It is a completely open source service mesh that layers transparently onto existing distributed applications. It is also a platform, including APIs that let it integrate into any logging platform, or telemetry or policy system. Istio’s diverse feature set lets you successfully, and efficiently, run a distributed microservice architecture, and provides a uniform way to secure, connect, and monitor microservices.
 
-### Traffic Shifting
-
-TODO
-
-### Canary Deployment
-
-TODO
-
 ### Distributed Tracing
 
 ![DAG chart](assets/images/jaeger-dag-1.PNG?raw=true 'DAG')
@@ -193,9 +181,15 @@ TODO
 
 ![Metrics chart](assets/images/grafana-ui-1.PNG?raw=true 'Metrics')
 
-### Timeouts
+## Screenshots
 
-TODO
+- Home page
+
+![home-page](assets/images/ui-screen-1.PNG?raw=true)
+
+- Cart page
+
+![cart-page](assets/images/ui-screen-2.PNG?raw=true)
 
 ## Contributing
 
