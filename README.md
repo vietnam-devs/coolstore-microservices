@@ -68,7 +68,7 @@ There are several individual µservices and infrastructure components that make 
 
 ## Installation
 
-### Option 1: Up and Running locally with "Docker for Desktop", development only
+### Developement environment: Up and Running locally with "Docker for Desktop"
 
 1. Make sure we have **`Docker for Desktop`** running with **`Kubernetes`** option enabled. We need to install **`kubectl`**, **`helm`** and **`istioctl`** on the build machine as well.
 
@@ -150,7 +150,7 @@ Waiting for the container provision completed
 > helm install --name cs-nginx stable/nginx-ingress
 > ```
 
-### Option 2: Up and Running on Azure Kubernetes Service (AKS)
+### Staging and Production environments: Up and Running on Azure Kubernetes Service (AKS)
 
 [5 steps to bring CoolStore’s Service Mesh to Azure Kubernetes Service](https://medium.com/@thangchung/5-steps-to-bring-coolstores-service-mesh-to-azure-kubernetes-service-aks-9cd1a5aa008a)
 
