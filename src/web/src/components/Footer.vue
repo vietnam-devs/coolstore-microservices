@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        Su kien microsoft 2018
+        © 2018. Code released under the MIT license.
       </p>
     </div>
   </footer>
