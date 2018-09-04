@@ -68,7 +68,7 @@ There are several individual µservices and infrastructure components that make 
 
 ## Installation
 
-### Developement environment: Up and Running locally with "Docker for Desktop"
+### Development environment: Up and Running locally with "Docker for Desktop"
 
 1. Make sure we have **`Docker for Desktop`** running with **`Kubernetes`** option enabled. We need to install **`kubectl`**, **`helm`** and **`istioctl`** on the build machine as well.
 
