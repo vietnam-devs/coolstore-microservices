@@ -17,12 +17,12 @@ if (config.mode == 'production') {
         ...urls,
         ...{
             web: 'http://coolstore.local/',
-            idp: 'http://id.coolstore.local/',
+            idp: 'http://idp',
             api: 'http://api.coolstore.local/',
-            catalog: 'http://api.coolstore.local/catalog/',
-            cart: 'http://api.coolstore.local/cart/',
-            inventory: 'http://api.coolstore.local/inventory',
-            rating: 'http://api.coolstore.local/rating'
+            catalog: 'http://catalog',
+            cart: 'http://cart',
+            inventory: 'http://inventory',
+            rating: 'http://rating'
         }
     }
 }
@@ -38,28 +38,24 @@ const PROXY_CONFIG = {
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
-        pathRewrite: { '^/catalog': '' }
     },
     '/rating/api/*': {
         target: `${urls['rating']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
-        pathRewrite: { '^/rating': '' }
     },
     '/cart/api/*': {
         target: `${urls['cart']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
-        pathRewrite: { '^/cart': '' }
     },
     '/inventory/api/*': {
         target: `${urls['inventory']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
-        pathRewrite: { '^/inventory': '' }
     },
     '/config': {
         target: `${urls['idp']}.well-known/openid-configuration`,
@@ -86,10 +82,7 @@ const PROXY_CONFIG = {
         target: `${urls['idp']}`,
         secure: true,
         logLevel: 'debug',
-        changeOrigin: true,
-        router: function(req) {
-            return url
-        }
+        changeOrigin: true
     }
 }
 

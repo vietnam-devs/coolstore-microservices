@@ -40,7 +40,7 @@ namespace IdentityServer4
                   .AllowCredentials());
       });
 
-      var host = Configuration.GetSection("Hosts")?.GetSection("Externals")?.GetSection("sCurrentUri")?.Value;
+      var host = Configuration.GetSection("Hosts")?.GetSection("Externals")?.GetSection("CurrentUri")?.Value;
       var builder = services
           .AddIdentityServer(options =>
           {
