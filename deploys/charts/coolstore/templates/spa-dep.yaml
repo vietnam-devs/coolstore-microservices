@@ -15,15 +15,6 @@ spec:
       - name: spa
         image: {{.Values.image.imageRegistry}}/cs-spa:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        env:
-        - name: "WEB_HOST_ALIAS"
-          value: {{ .Values.hosts.web }}
-        - name: "API_HOST_ALIAS"
-          value: {{ .Values.hosts.api }}
-        - name: "ID_HOST_ALIAS"
-          value: {{ .Values.hosts.idp }}
-        - name: "GATEWAY_IP"
-          value: {{ .Values.gateway.ip }}
         ports:
         - containerPort: 8080
 ---

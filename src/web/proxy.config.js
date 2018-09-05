@@ -7,9 +7,9 @@ var urls = {
     rating: 'http://localhost:5007/'
 }
 
-const env = process.env.NODE_ENV
+const env = process.env.NODE_ENV 
 const config = {
-    mode: env || 'development'
+    mode: env || 'development' 
 }
 
 if (config.mode == 'production') {
@@ -17,12 +17,12 @@ if (config.mode == 'production') {
         ...urls,
         ...{
             web: 'http://coolstore.local/',
-            idp: 'http://idp',
+            idp: 'http://idp/',
             api: 'http://api.coolstore.local/',
-            catalog: 'http://catalog',
-            cart: 'http://cart',
-            inventory: 'http://inventory',
-            rating: 'http://rating'
+            catalog: 'http://catalog/',
+            cart: 'http://cart/',
+            inventory: 'http://inventory/',
+            rating: 'http://rating/'
         }
     }
 }
