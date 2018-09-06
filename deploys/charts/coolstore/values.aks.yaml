@@ -3,6 +3,9 @@ hosts:
   api: api.coolstore.aks
   idp: id.coolstore.aks
 
+gateway:
+  ip: 10.0.239.39
+
 idpSettings:
   BashPath: /
   Hosts__Externals__CurrentUri: http://id.coolstore.aks/

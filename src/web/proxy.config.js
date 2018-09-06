@@ -7,9 +7,9 @@ var urls = {
     rating: 'http://localhost:5007/'
 }
 
-const env = process.env.NODE_ENV 
+const env = process.env.NODE_ENV
 const config = {
-    mode: env || 'development' 
+    mode: env || 'development'
 }
 
 if (config.mode == 'production') {
@@ -17,12 +17,12 @@ if (config.mode == 'production') {
         ...urls,
         ...{
             web: 'http://coolstore.local/',
-            idp: 'http://idp/',
+            idp: 'http://id.coolstore.local/',
             api: 'http://api.coolstore.local/',
-            catalog: 'http://catalog/',
-            cart: 'http://cart/',
-            inventory: 'http://inventory/',
-            rating: 'http://rating/'
+            catalog: 'http://api.coolstore.local/catalog/',
+            cart: 'http://api.coolstore.local/cart/',
+            inventory: 'http://api.coolstore.local/inventory',
+            rating: 'http://api.coolstore.local/rating'
         }
     }
 }
@@ -38,24 +38,28 @@ const PROXY_CONFIG = {
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
+        pathRewrite: { '^/catalog': '' }
     },
     '/rating/api/*': {
         target: `${urls['rating']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
+        pathRewrite: { '^/rating': '' }
     },
     '/cart/api/*': {
         target: `${urls['cart']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
+        pathRewrite: { '^/cart': '' }
     },
     '/inventory/api/*': {
         target: `${urls['inventory']}`,
         secure: false,
         logLevel: 'debug',
         changeOrigin: true,
+        pathRewrite: { '^/inventory': '' }
     },
     '/config': {
         target: `${urls['idp']}.well-known/openid-configuration`,
@@ -82,7 +86,10 @@ const PROXY_CONFIG = {
         target: `${urls['idp']}`,
         secure: true,
         logLevel: 'debug',
-        changeOrigin: true
+        changeOrigin: true,
+        router: function(req) {
+            return url
+        }
     }
 }
 

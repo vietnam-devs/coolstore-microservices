@@ -13,4 +13,6 @@ RUN yarn run build
 
 EXPOSE 8080
 
-ENTRYPOINT ["yarn", "start"]
+RUN chmod +x script.sh
+
+ENTRYPOINT ["./script.sh"]

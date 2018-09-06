@@ -73,6 +73,9 @@ hosts:
   api: api.coolstore.local
   idp: id.coolstore.local
 
+gateway:
+  ip: 127.0.0.1
+
 idpSettings:
   BasePath: /
   Hosts__Externals__CurrentUri: http://id.coolstore.local/
