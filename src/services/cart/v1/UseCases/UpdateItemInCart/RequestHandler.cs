@@ -1,6 +1,3 @@
-using System.Linq;
-using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using NetCoreKit.Domain;
@@ -9,61 +6,47 @@ using NetCoreKit.Infrastructure.EfCore.Extensions;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Extensions;
 using VND.CoolStore.Services.Cart.v1.Extensions;
-using VND.CoolStore.Services.Cart.v1.Services;
 
 namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
 {
   public class RequestHandler : TxRequestHandlerBase<UpdateItemInCartRequest, UpdateItemInCartResponse>
   {
     private readonly ICatalogGateway _catalogGateway;
-    private readonly INoTaxPriceCalculator _priceCalculator;
+    private readonly IShippingGateway _shippingGateway;
+    private readonly IPromoGateway _promoGateway;
 
     public RequestHandler(IUnitOfWorkAsync uow, IQueryRepositoryFactory qrf,
-      ICatalogGateway catalogGateway, INoTaxPriceCalculator priceCalculator) : base(uow, qrf)
+      ICatalogGateway catalogGateway, IShippingGateway shippingGateway,
+      IPromoGateway promoGateway) : base(uow, qrf)
     {
       _catalogGateway = catalogGateway;
-      _priceCalculator = priceCalculator;
+      _shippingGateway = shippingGateway;
+      _promoGateway = promoGateway;
     }
 
     public override async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request,
       CancellationToken cancellationToken)
     {
       var cartCommander = UnitOfWork.Repository<Domain.Cart>();
-      var cartItemCommander = UnitOfWork.Repository<CartItem>();
-      var cartQuery = QueryRepositoryFactory.QueryEfRepository<Domain.Cart>();
+      var cartQuery = QueryFactory.QueryEfRepository<Domain.Cart>();
 
-      var isNewItem = false;
       var cart = await cartQuery
-        .GetFullCartAsync(request.CartId)
-        .ToObservable()
-        .SelectMany(c => c.InitCart(_catalogGateway, isPopulatePrice: true));
+        .GetFullCartAsync(request.CartId);
 
-      var item = cart.CartItems.FirstOrDefault(x => x.Product.ProductId == request.ProductId);
+      var cartItem = cart.FindCartItem(request.ProductId);
 
       // if not exists then it should be a new item
-      if (item == null)
+      if (cartItem == null)
       {
-        isNewItem = true;
-        item = new CartItem()
-        {
-          Quantity = request.Quantity
-        };
-        item.LinkProduct(new Product(request.ProductId));
-        cart.CartItems.Add(item);
+        cart.InsertItemToCart(request.ProductId, request.Quantity);
       }
       else
       {
         // otherwise is updating the current item in the cart
-        item.Quantity += request.Quantity;
+        cart.AccumulateCartItemQuantity(cartItem.Id, request.Quantity);
       }
 
-      cart = _priceCalculator.Execute(cart);
-
-      // Todo: refactor to unit of work later
-      if (!isNewItem)
-        await cartItemCommander.UpdateAsync(item);
-      else
-        await cartItemCommander.AddAsync(item);
+      cart = await cart.CalculateCartAsync(TaxType.NoTax, _catalogGateway, _promoGateway, _shippingGateway);
 
       await cartCommander.UpdateAsync(cart);
       await UnitOfWork.SaveChangesAsync(cancellationToken);

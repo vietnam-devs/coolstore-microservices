@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using NetCoreKit.Domain;
+using static NetCoreKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {
@@ -16,7 +17,7 @@ namespace VND.CoolStore.Services.Cart.Domain
     }
 
     public Product(Guid productId, string name, double price, string desc)
-      : this(Guid.NewGuid(), productId, name, price, desc)
+      : this(GenerateId(), productId, name, price, desc)
     { 
     }
 

@@ -16,7 +16,7 @@ namespace VND.CoolStore.Services.Inventory.v1.UseCases.GetInventory
 
     public override async Task<GetInventoryResponse> Handle(GetInventoryRequest request, CancellationToken cancellationToken)
     {
-      var repo = QueryRepositoryFactory?.QueryEfRepository<Domain.Inventory>();
+      var repo = QueryFactory.QueryEfRepository<Domain.Inventory>();
       var inv = await repo.FindOneAsync(x => x.Id == request.InventoryId);
       return new GetInventoryResponse { Result = inv.ToDto() };
     }

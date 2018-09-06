@@ -11,10 +11,9 @@ namespace VND.CoolStore.Services.Cart.v2
   {
     /*private readonly ICartService _cartService;
 
-    public CartController(ICartService cartService, TenPercentTaxCalculator taxCaculator)
+    public CartController(ICartService cartService)
     {
       _cartService = cartService;
-      _cartService.PriceCalculatorContext = taxCaculator;
     }*/
 
     [HttpGet]

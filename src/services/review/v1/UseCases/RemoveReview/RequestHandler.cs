@@ -16,11 +16,11 @@ namespace VND.CoolStore.Services.Review.v1.UseCases.RemoveReview
     public override async Task<RemoveReviewResponse> Handle(RemoveReviewRequest request,
       CancellationToken cancellationToken)
     {
-      var reviewQueryRepo = QueryRepositoryFactory.QueryEfRepository<Domain.Review>();
+      var reviewQueryRepo = QueryFactory.QueryEfRepository<Domain.Review>();
       var reviewRepo = UnitOfWork.Repository<Domain.Review>();
 
       var review = await reviewQueryRepo.FindOneAsync(x => x.Id == request.ReviewId);
-      if (review == null) throw new Exception($"Could not find a review #{request.ReviewId}.");
+      if (review == null) throw new Exception($"Couldn't find a review #{request.ReviewId}.");
 
       var result = await reviewRepo.DeleteAsync(review);
       await UnitOfWork.SaveChangesAsync(cancellationToken);

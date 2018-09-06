@@ -3,7 +3,7 @@ using NetCoreKit.Domain;
 
 namespace VND.CoolStore.Services.Inventory.Domain
 {
-  public class Inventory : EntityBase
+  public class Inventory : AggregateRootBase
   {
     internal Inventory() : base()
     {

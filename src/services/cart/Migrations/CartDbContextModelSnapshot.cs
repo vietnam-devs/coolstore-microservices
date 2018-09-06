@@ -14,7 +14,7 @@ namespace VND.CoolStore.Services.Cart.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.Cart", b =>
@@ -37,6 +37,8 @@ namespace VND.CoolStore.Services.Cart.Migrations
                     b.Property<double>("ShippingTotal");
 
                     b.Property<DateTime>("Updated");
+
+                    b.Property<int>("Version");
 
                     b.HasKey("Id");
 

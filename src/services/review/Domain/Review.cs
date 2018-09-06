@@ -1,14 +1,15 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using NetCoreKit.Domain;
+using static NetCoreKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.Services.Review.Domain
 {
-  public class Review : EntityBase
+  public class Review : AggregateRootBase
   {
     private Review() { }
 
-    internal Review(string content) : base(Guid.NewGuid())
+    internal Review(string content) : base(GenerateId())
     {
       Content = content;
     }

@@ -1,29 +1,43 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using NetCoreKit.Domain;
+using static NetCoreKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {
   public class CartItem : EntityBase
   {
-    internal CartItem() : base(Guid.NewGuid())
+    private CartItem() : base(GenerateId())
     {
     }
 
-    public CartItem(Guid id) : base(id)
+    private CartItem(Guid id, int quantity, double price = 0.0D, double promoSavings = 0.0D) : base(id)
     {
+      Quantity = quantity;
+      Price = price;
+      PromoSavings = promoSavings;
     }
 
-    [Required] public int Quantity { get; set; }
+    public static CartItem Load(Guid productId, int quantity, double price = 0.0D, double promoSavings = 0.0D)
+    {
+      return Load(GenerateId(), productId, quantity, price, promoSavings);
+    }
 
-    public double Price { get; set; }
+    public static CartItem Load(Guid id, Guid productId, int quantity, double price, double promoSavings)
+    {
+      return new CartItem(id, quantity, price, promoSavings).LinkProduct(productId);
+    }
 
-    [Required] public double PromoSavings { get; set; }
+    [Required] public int Quantity { get; private set; }
+
+    [Required] public double Price { get; private set; }
+
+    [Required] public double PromoSavings { get; private set; }
 
     public Cart Cart { get; private set; }
     public Guid CartId { get; private set; }
 
-    public Product Product { get; set; }
+    public Product Product { get; private set; }
 
     public CartItem LinkCart(Cart cart)
     {
@@ -32,10 +46,35 @@ namespace VND.CoolStore.Services.Cart.Domain
       return this;
     }
 
-    public CartItem LinkProduct(Product product)
+    public CartItem LinkProduct(Guid productId)
     {
+      var product = new Product(productId);
       product.LinkCartItem(this);
       Product = product;
+      return this;
+    }
+
+    public CartItem FillUpProductInfo(string name, double price, string desc)
+    {
+      Product = new Product(Product.ProductId, name, price, desc);
+      return this;
+    }
+
+    public CartItem ChangePrice(double price)
+    {
+      Price = price;
+      return this;
+    }
+
+    public CartItem ChangePromoSavings(double promoSavings)
+    {
+      PromoSavings = promoSavings;
+      return this;
+    }
+
+    public CartItem AccumulateQuantity(int quantity)
+    {
+      Quantity += quantity;
       return this;
     }
   }

@@ -19,7 +19,7 @@ namespace VND.CoolStore.Services.Review.v1.UseCases.GetReviews
     public override async Task<GetReviewsResponse> Handle(GetReviewsRequest request,
       CancellationToken cancellationToken)
     {
-      var reviewQueryRepo = QueryRepositoryFactory.QueryEfRepository<Domain.Review>();
+      var reviewQueryRepo = QueryFactory.QueryEfRepository<Domain.Review>();
 
       var reviews = await reviewQueryRepo
         .ListAsync(

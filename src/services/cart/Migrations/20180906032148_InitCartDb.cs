@@ -14,6 +14,7 @@ namespace VND.CoolStore.Services.Cart.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
+                    Version = table.Column<int>(nullable: false),
                     CartItemTotal = table.Column<double>(nullable: false),
                     CartItemPromoSavings = table.Column<double>(nullable: false),
                     ShippingTotal = table.Column<double>(nullable: false),

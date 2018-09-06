@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using NetCoreKit.Domain;
+using static NetCoreKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.Services.Review.Domain
 {
@@ -16,7 +17,7 @@ namespace VND.CoolStore.Services.Review.Domain
     }
 
     internal ReviewProduct(string name, double price, string desc)
-      : this(Guid.NewGuid(), name, price, desc)
+      : this(GenerateId(), name, price, desc)
     { 
     }
 

@@ -19,7 +19,7 @@ namespace VND.CoolStore.Services.Cart.v1.Extensions
         cartQueryable => cartQueryable
           .Include(x => x.CartItems)
           .ThenInclude((CartItem cartItem) => cartItem.Product),
-        tracking);
+        !tracking);
 
       if (cart == null)
       {
