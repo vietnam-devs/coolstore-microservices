@@ -28,23 +28,17 @@ namespace VND.CoolStore.Services.Cart.Domain
       return new Cart(id);
     }
 
-    [Required]
-    public double CartItemTotal { get; private set; }
+    [Required] public double CartItemTotal { get; private set; }
 
-    [Required]
-    public double CartItemPromoSavings { get; private set; }
+    [Required] public double CartItemPromoSavings { get; private set; }
 
-    [Required]
-    public double ShippingTotal { get; private set; }
+    [Required] public double ShippingTotal { get; private set; }
 
-    [Required]
-    public double ShippingPromoSavings { get; private set; }
+    [Required] public double ShippingPromoSavings { get; private set; }
 
-    [Required]
-    public double CartTotal { get; private set; }
+    [Required] public double CartTotal { get; private set; }
 
-    [Required]
-    public List<CartItem> CartItems { get; private set; } = new List<CartItem>();
+    [Required] public List<CartItem> CartItems { get; private set; } = new List<CartItem>();
 
     public bool IsCheckout { get; private set; }
 
@@ -75,44 +69,6 @@ namespace VND.CoolStore.Services.Cart.Domain
       cartItem.AccumulateQuantity(quantity);
       return this;
     }
-
-    /*public async Task<Cart> InitCart(ICatalogGateway catalogGateway, bool isPopulatePrice = false)
-    {
-      if (isPopulatePrice == false)
-      {
-        InitCalculatePrice();
-      }
-
-      if (CartItems == null)
-        return this;
-
-      foreach (var cartItem in CartItems)
-      {
-        var product = await catalogGateway.GetProductByIdAsync(cartItem.Product.ProductId);
-
-        if (product == null)
-        {
-          throw new Exception("Could not find product.");
-        }
-
-        cartItem
-          .FillUpProductInfo(product.Name, product.Price, product.Desc)
-          .ChangePrice(product.Price);
-      }
-
-      return this;
-    }*/
-
-    /*private Cart InitCalculatePrice()
-    {
-      CartItemPromoSavings = 0;
-      CartTotal = 0;
-      ShippingPromoSavings = 0;
-      ShippingTotal = 0;
-      CartItemTotal = 0;
-
-      return this;
-    }*/
 
     public async Task<Cart> CalculateCartAsync(
       TaxType taxType, ICatalogGateway catalogGateway,

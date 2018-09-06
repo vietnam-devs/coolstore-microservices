@@ -7,21 +7,21 @@ namespace VND.CoolStore.Services.Cart.Domain
 {
   public class Product : IdentityBase
   {
-    internal Product() : base()
+    private Product() : base()
     {
     }
 
-    public Product(Guid productId)
+    private Product(Guid productId)
       : this(productId, string.Empty, 0.0D, string.Empty)
     {
     }
 
-    public Product(Guid productId, string name, double price, string desc)
+    private Product(Guid productId, string name, double price, string desc)
       : this(GenerateId(), productId, name, price, desc)
     { 
     }
 
-    public Product(Guid id, Guid productId, string name, double price, string desc)
+    private Product(Guid id, Guid productId, string name, double price, string desc)
     {
       Id = id;
       ProductId = productId;
@@ -30,16 +30,23 @@ namespace VND.CoolStore.Services.Cart.Domain
       Desc = desc;
     }
 
+    public static Product Load(Guid productId)
+    {
+      return new Product(productId);
+    }
+
+    public static Product Load(Guid productId, string name, double price, string desc)
+    {
+      return new Product(productId, name, price, desc);
+    }
+
     public Guid ProductId { get; private set; }
 
-    [NotMapped]
-    public string Name { get; private set; }
+    [NotMapped] public string Name { get; private set; }
 
-    [NotMapped]
-    public double Price { get; private set; }
+    [NotMapped] public double Price { get; private set; }
 
-    [NotMapped]
-    public string Desc { get; private set; }
+    [NotMapped] public string Desc { get; private set; }
 
     public CartItem CartItem { get; private set; }
 

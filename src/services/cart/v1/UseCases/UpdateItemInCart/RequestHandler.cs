@@ -46,7 +46,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
         cart.AccumulateCartItemQuantity(cartItem.Id, request.Quantity);
       }
 
-      cart = await cart.CalculateCartAsync(TaxType.NoTax, _catalogGateway, _promoGateway, _shippingGateway);
+      await cart.CalculateCartAsync(TaxType.NoTax, _catalogGateway, _promoGateway, _shippingGateway);
 
       await cartCommander.UpdateAsync(cart);
       await UnitOfWork.SaveChangesAsync(cancellationToken);

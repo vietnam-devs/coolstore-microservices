@@ -48,7 +48,7 @@ namespace VND.CoolStore.Services.Cart.Domain
 
     public CartItem LinkProduct(Guid productId)
     {
-      var product = new Product(productId);
+      var product = Product.Load(productId);
       product.LinkCartItem(this);
       Product = product;
       return this;
@@ -56,7 +56,7 @@ namespace VND.CoolStore.Services.Cart.Domain
 
     public CartItem FillUpProductInfo(string name, double price, string desc)
     {
-      Product = new Product(Product.ProductId, name, price, desc);
+      Product = Product.Load(Product.ProductId, name, price, desc);
       return this;
     }
 
