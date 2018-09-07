@@ -5,7 +5,7 @@ using static NetCoreKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.Services.Cart.Domain
 {
-  public class CartItem : EntityBase
+  public sealed class CartItem : EntityBase
   {
     private CartItem() : base(GenerateId())
     {

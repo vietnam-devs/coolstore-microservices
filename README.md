@@ -13,15 +13,20 @@ CoolStore is a containerised polyglot microservices application consisting of se
 
 It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
-### Presentation
-Our team uses this application to demonstrate Kubernetes, AKS, Istio and similar cloud-native technologies in events as following
+<details>
+  <summary><strong>Presentation</strong></summary>
+
+Our team uses this demo application to demonstrate Kubernetes, AKS, Istio and similar cloud-native technologies in events as following
 
 - [From Microservices to Service Mesh - DevCafe Event - July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
 - [Service Mesh for Microservices- Vietnam Mobile Day Event - June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
 
+</details>
+
 # Table of contents
 
 * [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
+* [List of µServices](https://github.com/vietnam-devs/coolstore-microservices#µservices)
 * [Installation](https://github.com/vietnam-devs/coolstore-microservices#installation)
 * [µService Development](https://github.com/vietnam-devs/coolstore-microservices#µmicroservice-development)
 * [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
@@ -33,12 +38,15 @@ Our team uses this application to demonstrate Kubernetes, AKS, Istio and similar
 
 ## Prerequisites
 
-- Windows 10
-- Windows Subsystem Linux (WSL - Ubuntu OS)
-- Docker for Desktop (Kubernetes enabled)
-- kubectl
-- helm
-- istioctl
+- **Windows 10:** The OS for developing and building this demo application .
+- **[Windows Subsystem Linux - Ubuntu OS](https://docs.microsoft.com/en-us/windows/wsl/install-win10)**: The subsystem that helps to run easily the bash shell on Windows OS.
+- **[Docker for Desktop (Kubernetes enabled)](https://www.docker.com/products/docker-desktop):** The easiest tool to run Docker, Docker Swarm and Kubernetes on Mac and Windows.
+- **[Kubernetes](https://kubernetes.io)/[AKS](https://docs.microsoft.com/en-us/azure/aks):**
+  The app is designed to run on Kubernetes (both locally on "Docker for
+  Desktop", as well as on the cloud with AKS).
+- **[Istio](https://istio.io):** Application works on Istio service mesh.
+- **[helm](https://helm.sh)**: The best package manager to find, share, and use software built for Kubernetes. 
+- **[NetCoreKit](https://github.com/cloudnative-netcore/netcore-kit):** Set of Cloud-native tools and utilities for .NET Core.
 
 ## µServices
 
@@ -59,16 +67,10 @@ There are several individual µservices and infrastructure components that make 
 
 ![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
 
-## Features
-- **[Kubernetes](https://kubernetes.io)/[AKS](https://docs.microsoft.com/en-us/azure/aks):**
-  The app is designed to run on Kubernetes (both locally on "Docker for
-  Desktop", as well as on the cloud with AKS).
-- **[Istio](https://istio.io):** Application works on Istio service mesh.
-- **[NetCoreKit](https://github.com/cloudnative-netcore/netcore-kit):** Set of Cloud Native tools and utilities for .NET Core.
-
 ## Installation
 
-### Development environment: Up and Running locally with "Docker for Desktop"
+<details>
+  <summary><strong>Development environment</strong>: Up and Running locally with "Docker for Desktop"</summary>
 
 1. Make sure we have **`Docker for Desktop`** running with **`Kubernetes`** option enabled. We need to install **`kubectl`**, **`helm`** and **`istioctl`** on the build machine as well.
 
@@ -150,11 +152,18 @@ Waiting for the container provision completed
 > helm install --name cs-nginx stable/nginx-ingress
 > ```
 
-### Staging and Production environments: Up and Running on Azure Kubernetes Service (AKS)
+</details>
+
+<details>
+  <summary><strong>Staging and Production environments</strong>: Up and Running on Azure Kubernetes Service (AKS)</summary>
 
 [5 steps to bring CoolStore’s Service Mesh to Azure Kubernetes Service](https://medium.com/@thangchung/5-steps-to-bring-coolstores-service-mesh-to-azure-kubernetes-service-aks-9cd1a5aa008a)
 
+</details>
+
 ## µService Development
+
+Guidance for developing µService can be found at [Clean Domain-Driven Design in 10 minutes](https://medium.com/@thangchung/clean-domain-driven-design-in-10-minutes-6037a59c8b7b)
 
 ![µService Screenshot](assets/images/miniservice-development.PNG?raw=true 'Microservice')
 
@@ -183,13 +192,19 @@ At a high level, Istio helps reduce the complexity of these deployments, and eas
 
 ## Screenshots
 
-- Home page
+<details>
+  <summary>Home page</summary>
 
 ![home-page](assets/images/ui-screen-1.PNG?raw=true)
 
-- Cart page
+</details>
+
+<details>
+  <summary>Cart page</summary>
 
 ![cart-page](assets/images/ui-screen-2.PNG?raw=true)
+
+</details>
 
 ## Contributing
 
