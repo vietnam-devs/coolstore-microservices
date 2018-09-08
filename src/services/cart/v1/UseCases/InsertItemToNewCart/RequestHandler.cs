@@ -25,14 +25,17 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
 
     public override async Task<InsertItemToNewCartResponse> Handle(InsertItemToNewCartRequest request, CancellationToken cancellationToken)
     {
-      var cartCommander = UnitOfWork.Repository<Domain.Cart>();
+      var cartCommander = CommandFactory.Repository<Domain.Cart>();
 
       var cart = await Domain.Cart.Load()
         .InsertItemToCart(request.ProductId, request.Quantity)
-        .CalculateCartAsync(TaxType.NoTax, _catalogGateway, _promoGateway, _shippingGateway);
+        .CalculateCartAsync(
+          TaxType.NoTax,
+          _catalogGateway,
+          _promoGateway,
+          _shippingGateway);
 
       await cartCommander.AddAsync(cart);
-      await UnitOfWork.SaveChangesAsync(cancellationToken);
 
       return new InsertItemToNewCartResponse { Result = cart.ToDto() };
     }

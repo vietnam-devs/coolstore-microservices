@@ -18,14 +18,13 @@ namespace VND.CoolStore.Services.Review.v1.UseCases.UpdateReview
       CancellationToken cancellationToken)
     {
       var reviewQueryRepo = QueryFactory.QueryEfRepository<Domain.Review>();
-      var reviewRepo = UnitOfWork.Repository<Domain.Review>();
+      var reviewRepo = CommandFactory.Repository<Domain.Review>();
 
       var review = await reviewQueryRepo.FindOneAsync(x => x.Id == request.ReviewId);
       if (review == null) throw new Exception($"Couldn't find a review #{request.ReviewId}.");
 
       review.Content = request.Content;
       var result = await reviewRepo.UpdateAsync(review);
-      await UnitOfWork.SaveChangesAsync(cancellationToken);
 
       return new UpdateReviewResponse {Result = result.ToDto()};
     }

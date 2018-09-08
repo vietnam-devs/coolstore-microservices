@@ -27,12 +27,10 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
     public override async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request,
       CancellationToken cancellationToken)
     {
-      var cartCommander = UnitOfWork.Repository<Domain.Cart>();
+      var cartCommander = CommandFactory.Repository<Domain.Cart>();
       var cartQuery = QueryFactory.QueryEfRepository<Domain.Cart>();
 
-      var cart = await cartQuery
-        .GetFullCartAsync(request.CartId);
-
+      var cart = await cartQuery.GetFullCartAsync(request.CartId);
       var cartItem = cart.FindCartItem(request.ProductId);
 
       // if not exists then it should be a new item
@@ -47,9 +45,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
       }
 
       await cart.CalculateCartAsync(TaxType.NoTax, _catalogGateway, _promoGateway, _shippingGateway);
-
       await cartCommander.UpdateAsync(cart);
-      await UnitOfWork.SaveChangesAsync(cancellationToken);
 
       return new UpdateItemInCartResponse {Result = cart.ToDto()};
     }

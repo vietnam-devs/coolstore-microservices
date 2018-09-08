@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: idp-vs
+spec:
+  hosts:
+  - {{ .Values.hosts.idp }}
+  gateways:
+  - cs-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: idp
+        port:
+          number: 80
+---

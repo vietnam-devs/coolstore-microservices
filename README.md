@@ -1,9 +1,7 @@
 # Cool Store: Cloud-Native Microservices Application on Service Mesh
 
-<p align="left">
-  <a href="https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE"><img src="https://img.shields.io/badge/price-FREE-0098f7.svg" alt="Price"></a>
-  <a href="https://travis-ci.org/vietnam-devs/coolstore-microservices"><img src="https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?label=travis-ci&branch=master&style=flat-square" alt="Build Status" data-canonical-src="https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?label=travis-ci&branch=master" style="max-width:100%;"></a>
-</p>
+[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg?style=for-the-badge)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
+![Travis (.org)](https://img.shields.io/travis/vietnam-devs/coolstore-microservices.svg?style=for-the-badge)
 
 > This project is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) & [Red Hat Demo Central](https://gitlab.com/redhatdemocentral)
 
@@ -26,7 +24,7 @@ Our team uses this demo application to demonstrate Kubernetes, AKS, Istio and si
 # Table of contents
 
 * [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
-* [List of µServices](https://github.com/vietnam-devs/coolstore-microservices#µservices)
+* [Overall Architecture of µServices](https://github.com/vietnam-devs/coolstore-microservices#overall-architecture-of-µservices)
 * [Installation](https://github.com/vietnam-devs/coolstore-microservices#installation)
 * [µService Development](https://github.com/vietnam-devs/coolstore-microservices#µmicroservice-development)
 * [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
@@ -48,7 +46,12 @@ Our team uses this demo application to demonstrate Kubernetes, AKS, Istio and si
 - **[helm](https://helm.sh)**: The best package manager to find, share, and use software built for Kubernetes. 
 - **[NetCoreKit](https://github.com/cloudnative-netcore/netcore-kit):** Set of Cloud-native tools and utilities for .NET Core.
 
-## µServices
+### Overall Architecture of µServices
+
+![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
+
+<details>
+  <summary><strong>µServices</strong></summary>
 
 There are several individual µservices and infrastructure components that make up this app:
 
@@ -63,9 +66,7 @@ There are several individual µservices and infrastructure components that make 
 | 7 | IdP | Uses [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack | .NET Core | In Memory | [`http://localhost:5001`](http://localhost:5001) or [`http://id.coolstore.local`](http://id.coolstore.local)
 | 8 | Web UI (PWA) | Frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org) | Vuejs + Node.js | N/A | [`http://localhost:8080`](http://localhost:8080) or [`http://coolstore.local`](http://coolstore.local)
 
-### Architecture of µServices
-
-![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
+</details>
 
 ## Installation
 
@@ -79,7 +80,7 @@ There are several individual µservices and infrastructure components that make 
 3. Then `cd` into your root of project
 
 ```
-> ./deploys/cs-build.sh
+> ./deploys/scripts/build-all-images.sh
 ```
 
 It should run and package all docker images.
@@ -96,7 +97,7 @@ It should run and package all docker images.
 
 ```
 > kubectl get services istio-ingressgateway -n istio-system -o=jsonpath={.spec.clusterIP}
-> 10.96.34.68 <== example IP
+> 10.96.34.68 <== for example, we get the IP as the left-hand side
 ```
 
 6. Create `values.dev.local.yaml` file in `deploys/charts/coolstore`, and put content like
@@ -116,12 +117,20 @@ gateway:
 8. Add hosts file with following content
 
 ```
-127.0.0.1   api.coolstore.local
-127.0.0.1   id.coolstore.local
-127.0.0.1   coolstore.local
+127.0.0.1 api.coolstore.local
+127.0.0.1 id.coolstore.local
+127.0.0.1 coolstore.local
 ```
 
 Waiting for the container provision completed
+
+9. Install `coolstore-istio` chart
+
+```
+> helm install deploys\charts\coolstore-istio --name coolstore-istio
+```
+
+10. Access to following URLs
 
 ```
 > curl -I http://coolstore.local # website
@@ -129,10 +138,11 @@ Waiting for the container provision completed
 > curl -I http://id.coolstore.local # identity provider
 ```
 
-9. Clean up `coolstore` chart as
+11. Clean up `coolstore` chart as
 
 ```
 > kubectl delete -f deployment/istio/dev-all-in-one.yaml
+> helm delete coolstore-istio --purge
 > helm delete istio --purge
 ```
 
@@ -176,9 +186,8 @@ Guidance for developing µService can be found at [Clean Domain-Driven Design in
 ![Lift and Shift](assets/images/lift-and-shift.PNG?raw=true 'liftandshift')
 
 ## Service Mesh
-[Istio](https://istio.io) provide a wealth of benefits for the organizations that use them. There’s no denying, however, that adopting the cloud can put strains on DevOps teams. Developers must use microservices to architect for portability, meanwhile operators are managing extremely large hybrid and multi-cloud deployments. Istio lets you connect, secure, control, and observe services.
 
-At a high level, Istio helps reduce the complexity of these deployments, and eases the strain on your development teams. It is a completely open source service mesh that layers transparently onto existing distributed applications. It is also a platform, including APIs that let it integrate into any logging platform, or telemetry or policy system. Istio’s diverse feature set lets you successfully, and efficiently, run a distributed microservice architecture, and provides a uniform way to secure, connect, and monitor microservices.
+[Istio](https://istio.io) provide a wealth of benefits for the organizations that use them. There’s no denying, however, that adopting the cloud can put strains on DevOps teams. Developers must use microservices to architect for portability, meanwhile operators are managing extremely large hybrid and multi-cloud deployments. Istio lets you connect, secure, control, and observe services.
 
 ### Distributed Tracing
 
