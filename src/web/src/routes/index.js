@@ -11,46 +11,53 @@ const CallbackView = () => import('../components/Callback.vue')
 const UnauthorizedView = () => import('../components/Unauthorized.vue')
 const Review = () => import('../components/Review.vue')
 const NewCatalog = () => import('./NewCatalog.vue')
+const Index = () => import('./index.vue')
 
 const router = new Router({
-    mode: 'history',
-    fallback: false,
-    scrollBehavior: () => ({ y: 0 }),
-    routes: [
-        {
-            path: '/',
-            name: 'Home',
-            component: HomeView,
-            beforeEnter: requireAuth
-        },
-        {
-            path: '/cart',
-            name: 'Cart',
-            component: CartView,
-            beforeEnter: requireAuth
-        },
-        {
-            path: '/callback',
-            name: 'callback',
-            component: CallbackView
-        },
-        {
-            path: '/unauthorized',
-            name: 'unauthorized',
-            component: UnauthorizedView
-        },
-        {
-            path: '/review/:id',
-            name: 'reviewproduct',
-            beforeEnter: requireAuth,
-            component: Review
-        },
-        {
-            path: '/new',
-            name: 'new catalog',
-            beforeEnter: requireAuth,
-            component: NewCatalog
-        }
-    ]
+  mode: 'history',
+  fallback: false,
+  scrollBehavior: () => ({ y: 0 }),
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: HomeView,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: CartView,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/callback',
+      name: 'callback',
+      component: CallbackView
+    },
+    {
+      path: '/unauthorized',
+      name: 'unauthorized',
+      component: UnauthorizedView
+    },
+    {
+      path: '/review/:id',
+      name: 'reviewproduct',
+      beforeEnter: requireAuth,
+      component: Review
+    },
+    {
+      path: '/new',
+      name: 'new catalog',
+      beforeEnter: requireAuth,
+      component: NewCatalog
+    },
+    {
+      path: '/index',
+      name: 'index',
+      beforeEnter: requireAuth,
+      component: Index
+    }
+  ]
 })
 export default router
