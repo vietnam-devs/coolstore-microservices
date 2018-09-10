@@ -5,7 +5,6 @@ import { requireAuth } from '../auth/auth'
 Vue.use(Router)
 
 // route-level code splitting
-const HomeView = () => import('./Home.vue')
 const CartView = () => import('./Cart.vue')
 const CallbackView = () => import('../components/Callback.vue')
 const UnauthorizedView = () => import('../components/Unauthorized.vue')
@@ -21,7 +20,7 @@ const router = new Router({
     {
       path: '/',
       name: 'Home',
-      component: HomeView,
+      component: Index,
       beforeEnter: requireAuth
     },
     {
@@ -51,12 +50,6 @@ const router = new Router({
       name: 'new catalog',
       beforeEnter: requireAuth,
       component: NewCatalog
-    },
-    {
-      path: '/index',
-      name: 'index',
-      beforeEnter: requireAuth,
-      component: Index
     }
   ]
 })
