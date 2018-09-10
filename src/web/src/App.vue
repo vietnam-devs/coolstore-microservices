@@ -1,55 +1,30 @@
 <template>
   <no-ssr>
-    <div id="app">
-      <nav class="navbar navigate-color is-transparent" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <router-link to="/" exact class="navbar-item">
-            <img class="logo" src="~public/logo.png" alt="logo">
-          </router-link>
-          <div class="navbar-burger burger" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active'); document.querySelector('.navbar-burger').classList.toggle('is-active');">            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </div>
-        </div>
-        <div  class="navbar-menu">
-          <div class="navbar-start">
-          </div>
-          <div class="navbar-end">
-            <router-link to="/" class="navbar-item">
-              Home
-            </router-link>
-            <router-link to="/new" class="navbar-item">
-              New Catalog
-            </router-link>
-            <router-link to="/cart" class="navbar-item">
-              Carts ({{itemCount}})
-            </router-link>
-            <!-- <div class="navbar-item">
-              {{isLogged}}
-            </div> -->
-            <a href="#" @click="logout" class="navbar-item router-link-exact-active router-link-active">
-              Logout
-            </a>
-          </div>
-        </div>
-      </nav>
-      <transition name="fade" mode="out-in">
+    <section id="app" class="hero">
+      <div class="hero-head">
+          <cs-header></cs-header>
+      </div>
+      <div class="hero-body">
+        <transition name="fade" mode="out-in">
         <router-view class="view"></router-view>
       </transition>
-      <cs-footer></cs-footer>
-    </div>
+      </div>
+      <div class="hero-footer">
+          <cs-footer></cs-footer>
+      </div>
+    </section>
   </no-ssr>
 </template>
 
 <script>
-import Footer from './components/Footer.vue'
-import { getUser, signoutRedirect } from './auth/usermanager'
-import NoSSR from 'vue-no-ssr'
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
+import NoSSR from "vue-no-ssr";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    'no-ssr': NoSSR
+    "no-ssr": NoSSR
   },
   data() {
     return {
@@ -57,69 +32,65 @@ export default {
     };
   },
   computed: {
-    itemCount() {
-      return this.$store.getters['cart/itemCount']
-    },
     isLogged() {
-      let userInfo = this.$store.getters["account/userInfo"] || {}
-      if (userInfo.sub) return 'Logged!'
-    }
-  },
-  methods: {
-    logout() {
-      signoutRedirect(respnose => {
-        this.$store.commit('account/LOGOUT')
-      })
+      let userInfo = this.$store.getters["account/userInfo"] || {};
+      if (userInfo.sub) return "Logged!";
     }
   },
   components: {
-    'cs-footer': Footer
+    "cs-footer": Footer,
+    "cs-header": Header
   }
-}
+};
 </script>
 
 <style lang="stylus">
-.fade-enter-active, .fade-leave-active {
-  transition: all 0.2s ease;
+html {
+  overflow-y: auto;
 }
 
-.fade-enter, .fade-leave-active {
-  opacity: 0;
+.section {
+  padding: 3rem 0 1.5rem;
 }
 
-.navigate-color {
-  background-color: #445f71;
-}
+.hero {
+  min-height: 100vh;
 
-.navigate-color .navbar-item {
-  color: white;
-}
+  .hero-body {
+    flex: 1;
+  }
 
-@media screen and (max-width: 1087px) {
-  .navbar-menu {
-    background-color: #445f71;
+  .hero-footer {
+    margin-bottom: 0.5rem;
   }
 }
 
-@media screen and (max-width: 1087px) and (min-width: 678px) {
-  .navbar-burger {
-    display: none;
+.is-light {
+  background-color: #f5f5f5;
+  color: #363636;
+}
+
+$card-radius = 5px;
+
+.is-radius {
+  border-radius: $card-radius;
+}
+
+@media (max-width: 600px) {
+  aside {
+    width: 100% !important;
+    margin-bottom: 10px !important;
   }
 
-  .navbar, .navbar-menu, .navbar-start, .navbar-end {
-    align-items: stretch;
-    display: flex;
+  .content {
+    width: 100% !important;
+    grid-template-columns: 1fr !important;
   }
+}
 
-  .navbar-menu {
-    margin-left: auto;
-  }
-
-  .navbar > .container {
-    display: flex;
-    justify-content: space-between;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+@media (min-width: 601px) and (max-width: 900px) {
+  .content {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 </style>

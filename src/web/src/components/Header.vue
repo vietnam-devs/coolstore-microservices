@@ -2,19 +2,42 @@
   <header class="navbar is-light" :class="{ 'is-fixed-top': isIndexRoute }" role="navigation" aria-label="main navigation">
       <div class="container is-flex-touch">
           <div class="navbar-brand">
-              <nuxt-link class="navbar-item" exact="exact" :to="{name: 'index'}"><strong><i>PlusGrosLeLogo</i></strong></nuxt-link>
+            <router-link to="/" class="navbar-item">
+	            <strong><i>PlusGrosLeLogo</i></strong>
+	          </router-link>
           </div>
           <div class="navbar-end is-flex-touch">
               <div class="navbar-item">
                   <div class="field">
-                      <p class="control"><a class="button is-light is-marginless-mobile" target="_blank" href="https://github.com/14nrv/buefy-shop" rel="noopener"><span class="icon"><i class="fab fa-github"></i></span><span class="is-hidden-mobile">Fork</span></a></p>
+                    <p class="control">
+                      <router-link to="/new">
+                        <span class="icon cartitem">
+                          <i class="fa fa-plus-circle"></i>
+                        </span>
+                        <span class="is-hidden-mobile">New</span>
+                      </router-link>
+                    </p>
                   </div>
               </div>
               <div class="navbar-item">
                   <div class="field">
-                      <p class="control">
-                          <nuxt-link class="button is-light" exact="exact" :to="{name: 'cart'}"><span class="icon cartitem"><div class="cartcount" v-if="total &gt; 0">{{ total }}</div><i class="fa fa-shopping-cart"></i></span><span class="is-hidden-mobile">Cart</span></nuxt-link>
-                      </p>
+                    <p class="control">
+                      <router-link to="/cart" >
+                        <span class="icon cartitem"><div class="cartcount" v-if="total &gt; 0">{{ total }}</div><i class="fa fa-shopping-cart"></i></span><span class="is-hidden-mobile">Cart</span>
+                      </router-link>
+                    </p>
+                  </div>
+              </div>
+              <div class="navbar-item">
+                  <div class="field">
+                    <p class="control">
+                        <a href="#" @click="logout">
+                          <span class="icon cartitem">
+                            <i class="fa fa-sign-out-alt"></i>
+                          </span>
+                          <span class="is-hidden-mobile">Logout</span>
+                        </a>
+                    </p>
                   </div>
               </div>
           </div>
@@ -23,7 +46,7 @@
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("cart");
+import { getUser, signoutRedirect } from '../auth/usermanager'
 export default {
   name: "AppHeader",
   head() {
@@ -34,9 +57,18 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["total"]),
+    total() {
+      return this.$store.getters["cart/itemCount"];
+    },
     isIndexRoute() {
       return this.$route.name === "index";
+    }
+  },
+  methods: {
+    logout() {
+      signoutRedirect(respnose => {
+        this.$store.commit("account/LOGOUT");
+      });
     }
   }
 };

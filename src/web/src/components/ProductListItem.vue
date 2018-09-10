@@ -17,7 +17,7 @@
             </router-link>
           </div>
           <div class="media-right">
-            <p class="field"><button class="button icon is-large add" @click="addItem(item)" aria-label="Add to cart"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i></span></button></p>
+            <p class="field"><button class="button icon is-large add" @click="addToCart(item.id, 1)" aria-label="Add to cart"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i></span></button></p>
           </div>
         </div>
     </div>
@@ -41,10 +41,23 @@ export default {
   computed: {
     slug() {
       return slug(this.item.name);
+    },
+    cartId() {
+      return this.$store.getters["cart/cartId"] || null;
     }
   },
   methods: {
-    ...mapActions(["addItem"])
+    addToCart(productId, quantity) {
+      debugger;
+      if (!this.cartId) {
+        this.$store.dispatch("cart/ADD_TO_CARD", { productId, quantity });
+      } else
+        this.$store.dispatch("cart/UPDATE_CARD", {
+          cartId: this.cartId,
+          productId,
+          quantity
+        });
+    }
   }
 };
 </script>
