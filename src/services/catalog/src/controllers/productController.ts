@@ -2,7 +2,7 @@ declare var require: any
 
 var uuid = require('uuid')
 var fs = require('fs')
-import { Route, Get, Post, Body } from 'tsoa'
+import { Route, Get, Post, Body, Query } from 'tsoa'
 import { default as Product, ProductCreateRequest } from '../models/product'
 
 @Route(`api/products`)
@@ -11,9 +11,12 @@ export class ProductController {
    * Get the all product
    */
   @Get()
-  public async GetAll(): Promise<any> {
+  public async GetAll(@Query() currentPage: number = 0, @Query() highPrice: number = -1): Promise<any> {
     // @ts-ignore
-    var products = Product.find({}).exec()
+    if (highPrice <= 0) {
+      highPrice = Number.MAX_VALUE
+    }
+    var products = Product.find({ price: { $lt: highPrice }, }).exec()
     return Promise.resolve(products)
   }
 

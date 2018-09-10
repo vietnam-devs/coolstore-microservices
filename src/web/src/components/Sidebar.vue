@@ -1,29 +1,39 @@
 <template lang="pug">
-  <aside class="is-light is-radius">
-      <div class="sidearea"><label class="subtitle is-5" for="pricerange">Highest Price:<span> ${{ pricerange }}</span></label><input class="slider" id="pricerange" type="range" :value="pricerange" :min="min" :max="max" step="1" @input="updateHighprice($event.target.value)"
-          /><span class="min is-pulled-left">${{ min }}</span><span class="max is-pulled-right">${{ max }}</span></div>
-      <app-switch v-if="!sale"></app-switch>
-      <div class="sidearea"><label class="subtitle is-5" for="category">Categories</label>
-          <div class="select"><select id="category" @input="setCategory($event.target.value)"><option v-for="category in categories" :key="category" :selected="category === categorySelected" :value="category">{{ category }}</option></select></div>
-      </div>
-      <div class="sidearea">
-          <h4 class="subtitle is-5">Special Sale!</h4>
-          <p>Shop now because half our items are greatly reduced</p>
-      </div>
-      <div class="sidearea">
-          <h4 class="subtitle is-5">Contact Us</h4>
-          <p>Questions? Call us at 1-888-555-SHOP, we're happy to be of service.</p>
-      </div>
-  </aside>
+ <aside class="is-light is-radius">
+    <div class="sidearea">
+        <label class="subtitle is-5" for="pricerange">
+            Highest Price:<span> ${{ pricerange }}</span>
+        </label>
+        <input class="slider" id="pricerange" type="range" :value="pricerange" :min="min" :max="max" step="1" @input="updateHighprice($event.target.value)" />
+        <span class="min is-pulled-left">${{ min }}</span>
+        <span class="max is-pulled-right">${{ max }}</span>
+    </div>
+    <!-- <app-switch v-if="!sale"></app-switch>
+    <div class="sidearea"><label class="subtitle is-5" for="category">Categories</label>
+        <div class="select">
+          <select id="category" @input="setCategory($event.target.value)">
+            <option v-for="category in categories" :key="category" :selected="category === categorySelected" :value="category">{{ category }}</option>
+              </select>
+              </div>
+    </div> -->
+    <div class="sidearea">
+        <h4 class="subtitle is-5">Special Sale!</h4>
+        <p>Shop now because half our items are greatly reduced</p>
+    </div>
+    <div class="sidearea">
+        <h4 class="subtitle is-5">Contact Us</h4>
+        <p>Questions? Call us at 1-888-555-SHOP, we're happy to be of service.</p>
+    </div>
+</aside>
 </template> 
 <script>
 import { createNamespacedHelpers } from "vuex";
-import Switch from "./Switch.vue";
-const { mapActions, mapGetters } = createNamespacedHelpers("product");
+// import Switch from "./Switch.vue";
+// const { mapActions, mapGetters } = createNamespacedHelpers("products/products");
 export default {
   name: "Sidebar",
   components: {
-    AppSwitch: Switch
+    // AppSwitch: Switch
   },
   props: {
     sale: {
@@ -37,15 +47,23 @@ export default {
   },
   data() {
     return {
-      min: 0,
-      max: 400
+      min: 1,
+      max: 4000,
+      categories: [],
+      categorySelected: {}
     };
   },
   methods: {
-    ...mapActions(["updateHighprice", "setCategory"])
+    updateHighprice(highprice) {
+      this.$store.dispatch("products/GET_LIST_PRODUCT", {
+        page: 0,
+        highprice
+      });
+    }
+    // ...mapActions(["updateHighprice", "setCategory"])
   },
   computed: {
-    ...mapGetters(["categories", "categorySelected"])
+    // ...mapGetters(["categories", "categorySelected"])
   }
 };
 </script>

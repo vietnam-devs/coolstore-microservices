@@ -34,6 +34,9 @@ export default {
                 }
                 return Object.assign(productDefault, product)
             })
+        },
+        highprice: state => {
+            return Math.max.apply(Math, state.products.map(function (product) { return product.price; }))
         }
     },
 
@@ -53,9 +56,9 @@ export default {
     },
 
     actions: {
-        GET_LIST_PRODUCT: ({ commit, dispatch }, { pageIndex }) => {
+        GET_LIST_PRODUCT: ({ commit, dispatch }, { pageIndex,  highprice}) => {
             return new Promise((resolve, reject) => {
-                getProducts(pageIndex)
+                getProducts(pageIndex, highprice)
                     .then(
                         products => {
                             commit('GET_LIST_PRODUCT_SUCSESS', products)

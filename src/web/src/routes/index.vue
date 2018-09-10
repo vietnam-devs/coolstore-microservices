@@ -4,10 +4,10 @@
           <app-hero></app-hero>
       </div>
       <div class="section capsule is-clearfix">
-          <!-- <app-sidebar :pricerange.sync="highprice"></app-sidebar> -->
-          <transition-group class="content is-pulled-right" name="items" tag="div">
-              <app-product-list-item v-for="product in products" :key="product['_id']" :item="product"></app-product-list-item>
-          </transition-group>
+        <app-sidebar :pricerange.sync="highprice"></app-sidebar>
+        <transition-group class="content is-pulled-right" name="items" tag="div">
+            <app-product-list-item v-for="product in products" :key="product['_id']" :item="product"></app-product-list-item>
+        </transition-group>
       </div>
   </div>
 </template>
@@ -23,15 +23,13 @@ export default {
     AppProductListItem: ProductListItem,
     AppSidebar: Sidebar
   },
-  data() {
-    return {
-      highprice: 200,
-    }
-  },
   computed: {
     products() {
       return this.$store.getters['products/products']
     },
+    highprice() {
+      return this.$store.getters['products/highprice']
+    }
     // ...mapGetters(["products", "highprice"])
   },
   beforeMount() {

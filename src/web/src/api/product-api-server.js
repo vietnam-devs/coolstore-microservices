@@ -8,8 +8,8 @@ const api = createAPI({
     }
 })
 
-export function getProducts(pageIndex = 0) {
-    return api.get(`products?current-page=${pageIndex}`)
+export function getProducts(pageIndex = 0, highprice = -1) {
+    return api.get(`products?current-page=${pageIndex}&highPrice=${highprice}`)
 }
 
 export function getProduct(id) {
