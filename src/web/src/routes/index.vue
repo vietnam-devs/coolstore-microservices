@@ -1,25 +1,26 @@
 <template>
   <div class="container">
       <div class="section">
-          <app-hero></app-hero>
+        <div class="container">
+          <p class="title"><strong class="has-text-info">Welcome</strong> to coolstore microservices</p>
+          <p class="subtitle">Below you will find your latests products</p>
+        </div>
       </div>
       <div class="section capsule is-clearfix">
         <app-sidebar :pricerange.sync="highprice"></app-sidebar>
-        <transition-group class="content is-pulled-right" name="items" tag="div">
-            <app-product-list-item v-for="product in products" :key="product['_id']" :item="product"></app-product-list-item>
+        <transition-group v-if="ratings" class="content is-pulled-right" name="items" tag="div">
+            <app-product-list-item :ratings="ratings" v-for="product in products" :key="product['_id']" :item="product"></app-product-list-item>
         </transition-group>
       </div>
   </div>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-import Hero from "../components/Hero.vue";
 import ProductListItem from "../components/ProductListItem.vue";
 import Sidebar from "../components/Sidebar.vue";
 const { mapGetters } = createNamespacedHelpers("product");
 export default {
   components: {
-    AppHero: Hero,
     AppProductListItem: ProductListItem,
     AppSidebar: Sidebar
   },
@@ -29,8 +30,16 @@ export default {
     },
     highprice() {
       return this.$store.getters['products/highprice']
-    }
-    // ...mapGetters(["products", "highprice"])
+    },
+    ratings() {
+      let ratingSet = this.$store.getters["ratings/ratingSet"]
+      let productSet = this.$store.getters["products/products"]
+      return productSet.reduce((obj, item) => {
+        ratingSet[item.id] = ratingSet[item.id] || {}
+        obj[item.id] = ratingSet[item.id]
+        return obj
+      }, {})
+    },
   },
   beforeMount() {
     this.loadItems(this.page);

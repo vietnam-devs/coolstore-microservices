@@ -10,7 +10,7 @@
               <div class="navbar-item">
                   <div class="field">
                     <p class="control">
-                      <router-link to="/new">
+                      <router-link to="/new" class="button is-light">
                         <span class="icon cartitem">
                           <i class="fa fa-plus-circle"></i>
                         </span>
@@ -22,7 +22,7 @@
               <div class="navbar-item">
                   <div class="field">
                     <p class="control">
-                      <router-link to="/cart" >
+                      <router-link to="/cart" class="button is-light">
                         <span class="icon cartitem"><div class="cartcount" v-if="total &gt; 0">{{ total }}</div><i class="fa fa-shopping-cart"></i></span><span class="is-hidden-mobile">Cart</span>
                       </router-link>
                     </p>
@@ -31,7 +31,7 @@
               <div class="navbar-item">
                   <div class="field">
                     <p class="control">
-                        <a href="#" @click="logout">
+                        <a href="#" @click="logout" class="button is-light">
                           <span class="icon cartitem">
                             <i class="fa fa-sign-out-alt"></i>
                           </span>

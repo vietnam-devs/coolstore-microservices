@@ -20,15 +20,21 @@
             <p class="field"><button class="button icon is-large add" @click="addToCart(item.id, 1)" aria-label="Add to cart"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i></span></button></p>
           </div>
         </div>
+        <div>
+          <star-rating @rating-selected="setRating(item.id, $event)" v-bind:star-size="20" v-if="ratings && ratings[item.id]" v-model="ratings[item.id].cost" v-bind:show-rating="false"></star-rating>
+        </div>
     </div>
   </div>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-import { slug } from "../helper/slug";
+import StarRating from 'vue-star-rating'
 const { mapActions } = createNamespacedHelpers("cart");
 export default {
   name: "Card",
+  components: {
+    StarRating
+  },
   filters: {
     usdollar: value => `$${value}`
   },
@@ -36,19 +42,22 @@ export default {
     item: {
       type: Object,
       required: true
+    },
+    ratings: {
+      type: Object,
+      required: true
     }
   },
   computed: {
-    slug() {
-      return slug(this.item.name);
-    },
     cartId() {
       return this.$store.getters["cart/cartId"] || null;
+    },
+    userInfo() {
+      return this.$store.getters["account/userInfo"] || {}
     }
   },
   methods: {
     addToCart(productId, quantity) {
-      debugger;
       if (!this.cartId) {
         this.$store.dispatch("cart/ADD_TO_CARD", { productId, quantity });
       } else
@@ -57,7 +66,14 @@ export default {
           productId,
           quantity
         });
-    }
+    },
+    setRating(productId, rating) {
+      this.$store.dispatch("ratings/SET_RATING_FOR_PRODUCT", {
+        productId,
+        userId: this.userInfo.sub,
+        cost: rating
+      })
+    },
   }
 };
 </script>
