@@ -10,7 +10,6 @@ variables:
   imageName: 'cs-cart-service:$(build.buildId)'
 
 steps:
-- script: 
+- script: |
     chmod 755 ./deploys/scripts/start.sh
     ./deploys/scripts/start.sh
-  displayName: 'docker build'
