@@ -10,9 +10,6 @@ variables:
   imageName: 'cs-cart-service:$(build.buildId)'
 
 steps:
-- script: docker build -f Dockerfile -t $(imageName) .
-  displayName: 'docker build'
-steps:
 - script: 
     ./deploys/scripts/start.sh
   displayName: 'docker build'
