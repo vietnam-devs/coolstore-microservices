@@ -11,5 +11,6 @@ variables:
 
 steps:
 - script: 
+    chmod 755 ./deploys/scripts/start.sh
     ./deploys/scripts/start.sh
   displayName: 'docker build'
