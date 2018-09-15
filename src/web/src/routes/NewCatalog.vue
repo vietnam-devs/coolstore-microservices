@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     getRandomNumber() {
-      debugger
       return Math.floor(Math.random() * 500)
     },
     goBack() {

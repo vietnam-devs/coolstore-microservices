@@ -75,8 +75,4 @@ export default {
 .field.has-addons.div-center {
   justify-content: center;
 }
-
-.container {
-  margin-top: 30px;
-}
 </style>
