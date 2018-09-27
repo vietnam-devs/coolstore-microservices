@@ -1,0 +1,29 @@
+<nav class="navbar navigate-color is-transparent" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <NavLink href="/" exact class="navbar-item" Match=NavLinkMatch.All>
+      <img class="logo" src="logo.png" alt="logo">
+    </NavLink>
+    <div class="navbar-burger burger" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active'); document.querySelector('.navbar-burger').classList.toggle('is-active');">            <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </div>
+  </div>
+  <div  class="navbar-menu">
+    <div class="navbar-start">
+    </div>
+    <div class="navbar-end">
+      <NavLink class="navbar-item" href="" Match=NavLinkMatch.All>
+        Home
+      </NavLink>
+      <NavLink class="navbar-item" href="/new-product">
+        New Product
+      </NavLink>
+      <NavLink class="navbar-item" href="/cart">
+        Cart
+      </NavLink>
+      <a href="#" class="navbar-item router-link-exact-active router-link-active">
+        Logout
+      </a>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,13 @@
+@page "/"
+
+<h1>Home</h1>
+
+@functions {
+
+  protected override async Task OnInitAsync()
+  {
+    await WebUI.Services.JsInterop.WriteLog("home page.");
+  }
+
+}
+
