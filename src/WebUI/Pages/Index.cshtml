@@ -1,13 +1,25 @@
+@using Microsoft.JSInterop
+@using WebUI.Services
 @page "/"
 
 <h1>Home</h1>
+<p>Token: @UserModel.AccessToken</p>
+<p>UserId: @UserModel.Profile.UserId</p>
+<p>Email: @UserModel.Profile.Email</p>
+<p>Website: @UserModel.Profile.Website</p>
 
 @functions {
 
-  protected override async Task OnInitAsync()
-  {
-    await WebUI.Services.JsInterop.WriteLog("home page.");
-  }
+    UserModel UserModel = new UserModel();
+
+    protected override async Task OnInitAsync()
+    {
+      await JsInterop.GetUser().ContinueWith(async t =>
+      {
+        UserModel = t.Result;
+        await JsInterop.WriteLog(Json.Serialize(t.Result));
+        this.StateHasChanged();
+      });
+    }
 
 }
-

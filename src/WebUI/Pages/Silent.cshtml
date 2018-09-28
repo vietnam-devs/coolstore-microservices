@@ -1,0 +1,14 @@
+@page "/silent"
+
+<NavLink href="/">
+  Back to home
+</NavLink>
+
+@functions {
+
+protected override async Task OnInitAsync()
+{
+  await WebUI.Services.JsInterop.Silent();
+}
+
+}

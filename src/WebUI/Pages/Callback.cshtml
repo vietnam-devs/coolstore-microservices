@@ -1,0 +1,17 @@
+@using WebUI.Services
+@page "/callback"
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<NavLink href="/">
+  Back to home
+</NavLink>
+
+@functions {
+
+  protected override async Task OnInitAsync()
+  {
+    await JsInterop.Callback();
+    UriHelper.NavigateTo("/");
+  }
+
+}
