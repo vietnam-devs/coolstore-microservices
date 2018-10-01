@@ -1,49 +1,53 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Blazor.Services;
 using Microsoft.JSInterop;
+using WebUI.Model;
 
 namespace WebUI.Services
 {
-  public static class JsInterop
+  public class JsInterop
   {
-    public static async Task WriteLog(string message)
+    public JsInterop(IUriHelper uriHelper)
+    {
+      UriHelper = uriHelper;
+    }
+
+    public IUriHelper UriHelper { get; }
+
+    public async Task WriteLog(string message)
     {
       await JSRuntime.Current.InvokeAsync<bool>("logToConsole", message);
     }
 
-    public static async Task<UserModel> GetUser()
+    public async Task<UserModel> GetUser()
     {
       return await JSRuntime.Current.InvokeAsync<UserModel>("getUser");
     }
 
-    public static async Task StartSignin()
+    public async Task StartSignin()
     {
       await JSRuntime.Current.InvokeAsync<bool>("startSignin");
     }
 
-    public static async Task Callback()
+    public async Task StartSignOut()
     {
-      await JSRuntime.Current.InvokeAsync<bool>("callback");
+      await JSRuntime.Current.InvokeAsync<bool>("startSignOut");
     }
 
-    public static async Task Silent()
+    public async Task<UserModel> Callback()
+    {
+      return await JSRuntime.Current.InvokeAsync<UserModel>("callback");
+    }
+
+    public async Task Silent()
     {
       await JSRuntime.Current.InvokeAsync<bool>("silent");
     }
-  }
 
-  public class UserModel
-  {
-    public string AccessToken { get; set; }
-    public string TokenType { get; set; }
-    public string Scope { get; set; }
-    public ProfileModel Profile { get; set; } = new ProfileModel();
-  }
-
-  public class ProfileModel
-  {
-    public string UserId { get; set; }
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Website { get; set; }
+    public async Task Navigate(string uri)
+    {
+      UriHelper.NavigateTo(uri);
+      await JSRuntime.Current.InvokeAsync<bool>("refresh", uri);
+    }
   }
 }

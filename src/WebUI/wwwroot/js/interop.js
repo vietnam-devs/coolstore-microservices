@@ -24,24 +24,45 @@ getUser = function() {
 };
 
 startSignin = function() {
-  mgr.signinRedirect({ redirect_uri: "http://localhost:5003/callback" }).then(function() {
+  return mgr.signinRedirect({ redirect_uri: "http://localhost:5003/callback" }).then(function() {
     log("signinRedirect done");
   }).catch(function(err) {
     log(err);
   });
 };
 
+startSignOut = function() {
+  return new Oidc.UserManager(settings).signoutRedirect().then(function(resp) {
+    log("signed out", resp);
+    //return resp;
+    return new Oidc.UserManager(settings).removeUser().then(function() {
+      log("user removed");
+    }).catch(function(err) {
+      log(err);
+    });
+  }).catch(function(err) {
+    log(err);
+  });
+};
+
 callback = function() {
-  new Oidc.UserManager().signinRedirectCallback().then(function(user) {
-    // log("signin response success", user);
+  return new Oidc.UserManager(settings).signinRedirectCallback().then(function(user) {
+    log("signin response success", user);
+    return user;
   }).catch(function(err) {
     log(err);
   });
 };
 
 silent = function() {
-  new Oidc.UserManager().signinSilentCallback();
+  return new Oidc.UserManager().signinSilentCallback();
 };
+
+refresh = function (href) {
+  console.log("calling to redirect...");
+  location.reload(href);
+  return true;
+}
 
 ///////////////////////////////
 // config
@@ -53,7 +74,7 @@ var settings = {
   authority: "https://demo.identityserver.io/",
   client_id: "implicit",
   redirect_uri: "http://localhost:5003/callback",
-  post_logout_redirect_uri: "http://localhost:5003",
+  post_logout_redirect_uri: "http://localhost:5003/callback",
   response_type: "id_token token",
   scope: "openid profile email api",
 

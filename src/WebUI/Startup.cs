@@ -4,6 +4,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Blazor.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
+using WebUI.Services;
 
 namespace WebUI
 {
@@ -12,6 +13,8 @@ namespace WebUI
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddSingleton(GetConfiguration());
+      services.AddSingleton<JsInterop>();
+      services.AddSingleton<AppState>();
     }
 
     public void Configure(IBlazorApplicationBuilder app)

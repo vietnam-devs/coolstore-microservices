@@ -1,0 +1,25 @@
+@page "/profile"
+@inject WebUI.AppState state
+@inject WebUI.Services.JsInterop jsInterop
+
+<h1>Profile.</h1>
+
+<p>Token: @state?.User?.AccessToken</p>
+<p>UserId: @state?.User?.Profile?.UserId</p>
+<p>Email: @state?.User?.Profile?.Email</p>
+<p>Website: @state?.User?.Profile?.Website</p>
+
+<a href="#" onclick=@StartSignOut class="button is-primary">SignOut</a>
+
+@functions {
+
+  async Task StartSignOut(UIEventArgs @event)
+  {
+    await Task.WhenAll(
+      state.UpdateUser(null),
+      jsInterop.StartSignOut(),
+      jsInterop.Navigate("/")
+    );
+  }
+
+}

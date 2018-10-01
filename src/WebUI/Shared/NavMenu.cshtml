@@ -1,3 +1,6 @@
+@inject WebUI.AppState state
+@inject WebUI.Services.JsInterop jsInterop
+
 <nav class="navbar navigate-color is-transparent" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <NavLink href="/" exact class="navbar-item" Match=NavLinkMatch.All>
@@ -22,20 +25,30 @@
       <NavLink class="navbar-item" href="/cart">
         Cart
       </NavLink>
-      <a href="#" onclick="@StartSignin" class="navbar-item router-link-exact-active router-link-active">
-        Login
-      </a>
+      @if (state.IsSignedIn)
+      {
+        <NavLink href="/profile" class="navbar-item router-link-exact-active router-link-active">@state.User?.Profile?.Name</NavLink>
+      }
+      else
+      {
+        <a href="#" onclick=@StartSignin class="navbar-item router-link-exact-active router-link-active">
+          Login
+        </a>
+      }
     </div>
   </div>
 </nav>
 
 @functions {
 
-    async Task<bool> StartSignin(UIEventArgs @event)
-    {
-      await WebUI.Services.JsInterop.StartSignin();
-      StateHasChanged();
-      return false;
-    }
+  protected override async Task OnInitAsync()
+  {
+    await state.InitAppStore(() => this.StateHasChanged());
+  }
+
+  async Task StartSignin(UIEventArgs @event)
+  {
+    await jsInterop.StartSignin();
+  }
 
 }
