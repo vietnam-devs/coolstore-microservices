@@ -9,17 +9,18 @@
 <p>Email: @state?.User?.Profile?.Email</p>
 <p>Website: @state?.User?.Profile?.Website</p>
 
-<a href="#" onclick=@StartSignOut class="button is-primary">SignOut</a>
+<a onclick=@StartSignOut class="button is-primary">SignOut</a>
 
 @functions {
 
-  async Task StartSignOut(UIEventArgs @event)
-  {
-    await Task.WhenAll(
-      state.UpdateUser(null),
-      jsInterop.StartSignOut(),
-      jsInterop.Navigate("/")
-    );
-  }
+    async Task StartSignOut()
+    {
+      /*await Task.WhenAll(
+        state.UpdateUser(null),
+        jsInterop.StartSignOut(@state?.User?.AccessToken),
+        jsInterop.Navigate("/")
+      );*/
+      await jsInterop.StartSignOut(@state?.User?.AccessToken);
+    }
 
 }

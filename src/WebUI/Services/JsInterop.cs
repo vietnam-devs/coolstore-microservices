@@ -29,9 +29,9 @@ namespace WebUI.Services
       await JSRuntime.Current.InvokeAsync<bool>("startSignin");
     }
 
-    public async Task StartSignOut()
+    public async Task StartSignOut(string idToken)
     {
-      await JSRuntime.Current.InvokeAsync<bool>("startSignOut");
+      await JSRuntime.Current.InvokeAsync<bool>("startSignOut", idToken);
     }
 
     public async Task<UserModel> Callback()

@@ -5,7 +5,7 @@ logToConsole = function(message) {
 
 getUser = function() {
   return mgr.getUser().then(function(user) {
-    console.log(user);
+    console.info(user);
     if (user == null) return {};
     return {
       accessToken: user.access_token,
@@ -24,30 +24,24 @@ getUser = function() {
 };
 
 startSignin = function() {
-  return mgr.signinRedirect({ redirect_uri: "http://localhost:5003/callback" }).then(function() {
-    log("signinRedirect done");
+  return mgr.signinRedirect().then(function() {
+    //log("signinRedirect done");
   }).catch(function(err) {
     log(err);
   });
 };
 
-startSignOut = function() {
-  return new Oidc.UserManager(settings).signoutRedirect().then(function(resp) {
-    log("signed out", resp);
-    //return resp;
-    return new Oidc.UserManager(settings).removeUser().then(function() {
-      log("user removed");
-    }).catch(function(err) {
-      log(err);
-    });
+startSignOut = function(idToken) {
+  return mgr.signoutRedirect({ id_token_hint: idToken }).then(function(resp) {
+    //log("signed out", resp);
   }).catch(function(err) {
     log(err);
   });
 };
 
 callback = function() {
-  return new Oidc.UserManager(settings).signinRedirectCallback().then(function(user) {
-    log("signin response success", user);
+  return mgr.signinRedirectCallback().then(function(user) {
+    //log("signin response success", user);
     return user;
   }).catch(function(err) {
     log(err);
@@ -55,14 +49,13 @@ callback = function() {
 };
 
 silent = function() {
-  return new Oidc.UserManager().signinSilentCallback();
+  return mgr.signinSilentCallback();
 };
 
-refresh = function (href) {
-  console.log("calling to redirect...");
+refresh = function(href) {
   location.reload(href);
   return true;
-}
+};
 
 ///////////////////////////////
 // config
@@ -74,9 +67,12 @@ var settings = {
   authority: "https://demo.identityserver.io/",
   client_id: "implicit",
   redirect_uri: "http://localhost:5003/callback",
-  post_logout_redirect_uri: "http://localhost:5003/callback",
+  post_logout_redirect_uri: "http://localhost:5003",
   response_type: "id_token token",
   scope: "openid profile email api",
+
+  popup_redirect_uri: "http://localhost:5003/callback",
+  popup_post_logout_redirect_uri: "http://localhost:5003",
 
   silent_redirect_uri: "http://localhost:5003/silent",
   automaticSilentRenew: true,
