@@ -1,4 +1,14 @@
 @page "/cart"
+@inject WebUI.AppState state
+@inject WebUI.Services.AuthorizedService authorizedService
 
 <h1>Cart</h1>
 
+@functions {
+
+    protected async override Task OnInitAsync()
+    {
+      await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
+    }
+
+}

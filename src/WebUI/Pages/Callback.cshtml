@@ -1,17 +1,17 @@
 @page "/callback"
 @inject AppState state
-@inject JsInterop jsInterop
+@inject JsInteropService jsInteropService
 
 @functions {
 
-  protected override async Task OnInitAsync()
-  {
-    var user = await jsInterop.Callback();
-    if (user != null)
+    protected override async Task OnInitAsync()
     {
-      await state.UpdateUser(user);
-      await jsInterop.Navigate("/");
+      var user = await jsInteropService.Callback();
+      if (user != null)
+      {
+        await state.UpdateUser(user);
+        await jsInteropService.Navigate("/");
+      }
     }
-  }
 
 }

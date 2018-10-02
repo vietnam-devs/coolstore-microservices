@@ -1,0 +1,32 @@
+@layout OutsideLayout
+@page "/unauthorized"
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inject WebUI.Services.JsInteropService jsInteropService
+@inject AppState state
+
+<div class="container">
+  <div class="section">
+    <div class="container">
+      <p class="title">You don't have a permission to access to this page, please help to <a onclick="@StartSignIn">Sign In</a>.</p>
+    </div>
+  </div>
+</div>
+
+@functions {
+
+  protected override Task OnInitAsync()
+  {
+    var userState = state.User;
+    if (userState?.AccessToken != null && userState.Profile != null)
+    {
+      UriHelper.NavigateTo("/");
+    }
+    return Task.CompletedTask;
+  }
+
+  async Task StartSignIn()
+  {
+    await jsInteropService.StartSignin();
+  }
+
+}

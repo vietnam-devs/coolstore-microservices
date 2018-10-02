@@ -1,0 +1,22 @@
+@using WebUI.Model
+@if (Items != null)
+{
+  foreach (var item in Items)
+  {
+    @ItemTemplate(item)
+  }
+}
+else
+{
+  <h2>Looking for items...</h2>
+}
+
+@functions {
+
+  [Parameter]
+  protected IEnumerable<ItemModel> Items { get; set; }
+
+  [Parameter]
+  protected RenderFragment<ItemModel> ItemTemplate { get; set; }
+
+}

@@ -1,7 +1,9 @@
 @inherits BlazorLayoutComponent
 
 <div id="app">
-  <NavMenu />
-  @Body
-  <AppFooter />
+  <AppHeader/>
+  <div class="container">
+    @Body
+  </div>
+  <AppFooter/>
 </div>

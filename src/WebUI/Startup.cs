@@ -13,7 +13,8 @@ namespace WebUI
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddSingleton(GetConfiguration());
-      services.AddSingleton<JsInterop>();
+      services.AddSingleton<JsInteropService>();
+      services.AddSingleton<AuthorizedService>();
       services.AddSingleton<AppState>();
     }
 

@@ -1,5 +1,5 @@
 @page "/silent"
-@inject WebUI.Services.JsInterop jsInterop
+@inject WebUI.Services.JsInteropService jsInteropService
 
 <NavLink href="/">
   Back to home
@@ -9,7 +9,7 @@
 
   protected override async Task OnInitAsync()
   {
-    await jsInterop.Silent();
+    await jsInteropService.Silent();
   }
 
 }

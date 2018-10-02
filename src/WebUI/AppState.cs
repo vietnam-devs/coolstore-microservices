@@ -7,21 +7,22 @@ namespace WebUI
 {
   public class AppState
   {
-    private readonly JsInterop _jsInterop;
+    private readonly JsInteropService _jsInteropService;
 
-    public AppState(JsInterop jsInterop)
+    public AppState(JsInteropService jsInteropService)
     {
-      _jsInterop = jsInterop;
+      _jsInteropService = jsInteropService;
       User = new UserModel();
     }
 
     public bool IsSignedIn => User?.AccessToken != null;
 
     public UserModel User { get; private set; }
+    public SideBarModel SideBar { get; set; }
 
     public async Task InitAppStore(Action doAction = null)
     {
-      var user = await _jsInterop.GetUser();
+      var user = await _jsInteropService.GetUser();
       if (user != null)
       {
         await UpdateUser(user);

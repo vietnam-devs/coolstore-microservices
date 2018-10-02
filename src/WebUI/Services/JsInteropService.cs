@@ -5,9 +5,9 @@ using WebUI.Model;
 
 namespace WebUI.Services
 {
-  public class JsInterop
+  public class JsInteropService
   {
-    public JsInterop(IUriHelper uriHelper)
+    public JsInteropService(IUriHelper uriHelper)
     {
       UriHelper = uriHelper;
     }

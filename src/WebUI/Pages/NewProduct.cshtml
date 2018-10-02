@@ -1,3 +1,14 @@
 @page "/new-product"
+@inject WebUI.AppState state
+@inject WebUI.Services.AuthorizedService authorizedService
 
 <h1>Create a New Product</h1>
+
+@functions {
+
+    protected async override Task OnInitAsync()
+    {
+      await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
+    }
+
+}

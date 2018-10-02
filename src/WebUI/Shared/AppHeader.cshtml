@@ -1,0 +1,56 @@
+@inject WebUI.AppState state
+
+<header class="navbar is-light" class="has-navbar-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="container is-flex-touch">
+    <div class="navbar-brand">
+      <NavLink href="/" exact class="navbar-item">
+        <strong><i>Coolstore UI</i></strong>
+      </NavLink>
+    </div>
+    <div class="navbar-end is-flex-touch">
+      <div class="navbar-item">
+        <div class="field">
+          <p class="control">
+            <NavLink href="/new-product" class="button is-light">
+              <span class="icon cartitem">
+                <i class="fa fa-plus-circle"></i>
+              </span>
+              <span class="is-hidden-mobile">New</span>
+            </NavLink>
+          </p>
+        </div>
+      </div>
+      <div class="navbar-item">
+        <div class="field">
+          <p class="control">
+            <NavLink href="/cart" class="button is-light">
+              <span class="icon cartcount">
+                <i class="fa fa-shopping-cart"></i>
+              </span>
+              <span class="is-hidden-mobile">Cart</span>
+            </NavLink>
+          </p>
+        </div>
+      </div>
+      <div class="navbar-item">
+        <div class="field">
+          <p class="control">
+            @if (state.IsSignedIn)
+            {
+              <NavLink href="/profile" class="button is-light">@state.User?.Profile?.Name</NavLink>
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+@functions {
+
+  protected override async Task OnInitAsync()
+  {
+    await state.InitAppStore(() => this.StateHasChanged());
+  }
+
+}

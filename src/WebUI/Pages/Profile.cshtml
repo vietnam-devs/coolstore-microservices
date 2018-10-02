@@ -1,6 +1,6 @@
 @page "/profile"
 @inject WebUI.AppState state
-@inject WebUI.Services.JsInterop jsInterop
+@inject WebUI.Services.JsInteropService jsInteropService
 
 <h1>Profile.</h1>
 
@@ -15,12 +15,7 @@
 
     async Task StartSignOut()
     {
-      /*await Task.WhenAll(
-        state.UpdateUser(null),
-        jsInterop.StartSignOut(@state?.User?.AccessToken),
-        jsInterop.Navigate("/")
-      );*/
-      await jsInterop.StartSignOut(@state?.User?.AccessToken);
+      await jsInteropService.StartSignOut(@state?.User?.AccessToken);
     }
 
 }
