@@ -1,0 +1,20 @@
+@page "/detail-product/{ProductId}"
+@inject WebUI.AppState state
+@inject WebUI.Services.AuthorizedService authorizedService
+
+<div class="content">
+  <h3>Detail Product.</h3>
+  <p>@ProductId</p>
+</div>
+
+@functions {
+
+    [Parameter]
+    string ProductId { get; set; }
+
+    protected async override Task OnInitAsync()
+    {
+      await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
+    }
+
+}

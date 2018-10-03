@@ -2,20 +2,51 @@
 @inject WebUI.AppState state
 @inject WebUI.Services.JsInteropService jsInteropService
 
-<h1>Profile.</h1>
+<div class="section">
+  <div class="container">
+    <div class="content">
+      <h3>Profile</h3>
+    </div>
+  </div>
 
-<p>Token: @state?.User?.AccessToken</p>
-<p>UserId: @state?.User?.Profile?.UserId</p>
-<p>Email: @state?.User?.Profile?.Email</p>
-<p>Website: @state?.User?.Profile?.Website</p>
-
-<a onclick=@StartSignOut class="button is-primary">SignOut</a>
+  <div class="container">
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <input class="input" type="text" disabled value="@state.User?.Profile?.Name">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Id</label>
+      <div class="control">
+        <input class="input" type="text" disabled value="@state.User?.Profile?.UserId">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+        <input class="input" type="text" disabled value="@state.User?.Profile?.Email">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Website</label>
+      <div class="control">
+        <input class="input" type="text" disabled value="@state.User?.Profile?.Website">
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <a onclick="@StartSignOut" class="button is-primary">SignOut</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 @functions {
 
-    async Task StartSignOut()
-    {
-      await jsInteropService.StartSignOut(@state?.User?.AccessToken);
-    }
+  async Task StartSignOut()
+  {
+    await jsInteropService.StartSignOut(state?.User?.AccessToken);
+  }
 
 }

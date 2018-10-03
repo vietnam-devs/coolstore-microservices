@@ -15,6 +15,9 @@ namespace WebUI
       services.AddSingleton(GetConfiguration());
       services.AddSingleton<JsInteropService>();
       services.AddSingleton<AuthorizedService>();
+      services.AddSingleton<ItemService>();
+      services.AddSingleton<CartService>();
+      services.AddSingleton<RatingService>();
       services.AddSingleton<AppState>();
     }
 

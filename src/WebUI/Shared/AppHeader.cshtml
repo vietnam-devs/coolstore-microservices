@@ -1,10 +1,12 @@
 @inject WebUI.AppState state
 
-<header class="navbar is-light" class="has-navbar-fixed-top" role="navigation" aria-label="main navigation">
+<header class="navbar is-light has-navbar-fixed-top" role="navigation" aria-label="main navigation">
   <div class="container is-flex-touch">
     <div class="navbar-brand">
       <NavLink href="/" exact class="navbar-item">
-        <strong><i>Coolstore UI</i></strong>
+        <strong>
+          COOLSTORE UI
+        </strong>
       </NavLink>
     </div>
     <div class="navbar-end is-flex-touch">
@@ -37,7 +39,12 @@
           <p class="control">
             @if (state.IsSignedIn)
             {
-              <NavLink href="/profile" class="button is-light">@state.User?.Profile?.Name</NavLink>
+              <NavLink href="/profile" class="button is-light">
+                <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span class="is-hidden-mobile">@state.User?.Profile?.Name</span>
+              </NavLink>
             }
           </p>
         </div>

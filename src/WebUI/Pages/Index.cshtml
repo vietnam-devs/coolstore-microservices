@@ -2,7 +2,7 @@
 @page "/"
 @inject WebUI.AppState state
 @inject WebUI.Services.AuthorizedService authorizedService
-
+@inject WebUI.Services.ItemService itemService
 
 <div class="section">
   <div class="container">
@@ -11,14 +11,14 @@
   </div>
 </div>
 
-<div class="section capsule is-clearfix">
-  <AppSidebar></AppSidebar>
+<div class="section is-clearfix">
+  <AppSidebar/>
   <div class="content is-pulled-right">
     <ItemList Items="items">
       <ItemTemplate Context="item">
         <div class="card is-radius">
           <div class="card-image">
-            <NavLink exact href="/product-details">
+            <NavLink exact href="@($"/detail-product/{item.Id}")">
               <picture class="image">
                 <source data-srcset="@item.ImageUrl">
                 <img class="lazyloaded" src="@item.ImageUrl" alt="Image of @item.Name">
@@ -28,9 +28,9 @@
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <NavLink exact href="/product-details">
+                <NavLink exact href="@($"/detail-product/{item.Id}")">
                   <p class="title is-5">@item.Name</p>
-                  <p class="item-price">@item.Price</p>
+                  <p class="item-price">@($"${item.Price}")</p>
                 </NavLink>
               </div>
               <div class="media-right">
@@ -44,10 +44,35 @@
                 </p>
               </div>
             </div>
+            <div style="text-align: left;">
+              <Rating/>
+            </div>
           </div>
         </div>
       </ItemTemplate>
     </ItemList>
+  </div>
+
+  <div class="is-pulled-right">
+    <nav class="pagination" role="navigation" aria-label="pagination">
+      <a class="pagination-previous" title="This is the first page" disabled>
+        <i class="fas fa-angle-left"></i>
+      </a>
+      <a class="pagination-next">
+        <i class="fas fa-angle-right"></i>
+      </a>
+      <ul class="pagination-list">
+        <li>
+          <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+        </li>
+        <li>
+          <a class="pagination-link" aria-label="Goto page 2">2</a>
+        </li>
+        <li>
+          <a class="pagination-link" aria-label="Goto page 3">3</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
 
@@ -59,27 +84,12 @@
   {
     await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
 
-    items = new List<ItemModel>
-    {
-      new ItemModel
-      {
-        Id = Guid.NewGuid(),
-        Name = "IPhone X",
-        Price = 300.50D
-      },
-      new ItemModel
-      {
-        Id = Guid.NewGuid(),
-        Name = "IPhone XS",
-        Price = 1300.50D
-      },
-      new ItemModel
-      {
-        Id = Guid.NewGuid(),
-        Name = "IPad",
-        Price = 1000.50D
-      }
-    };
+    items = await itemService.GetItems();
+  }
+
+  public string FormatCurrency(double price)
+  {
+    return $"${price}";
   }
 
 }

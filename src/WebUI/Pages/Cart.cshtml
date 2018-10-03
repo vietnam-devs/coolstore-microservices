@@ -1,14 +1,131 @@
+@using WebUI.Model
 @page "/cart"
 @inject WebUI.AppState state
 @inject WebUI.Services.AuthorizedService authorizedService
 
-<h1>Cart</h1>
+<div class="section">
+  <div class="container">
+    <div class="content">
+      <h3>Shopping Cart</h3>
+    </div>
+  </div>
+
+  <div class="container">
+    @if (cart == null)
+    {
+      <div class="tile is-ancestor">
+        <div class="tile">
+          <div class="tile is-parent">
+            <div class="div-center has-text-centered">
+              <h1>You have not added any items to your Shopping Cart!</h1>
+              <NavLink href="/" class="btn btn-default btn-lg">
+                Return to Store
+              </NavLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    else
+    {
+      <div class="tile is-ancestor">
+        <div class="is-8 tile">
+          <div class="tile is-parent cart-list">
+            <table class="table is-fullwidth">
+              <thead>
+              <tr>
+                <th class="item-image">
+                  <abbr title="Product">PRODUCT</abbr>
+                </th>
+                <th>
+                  <abbr title="name">NAME</abbr>
+                </th>
+                <th>
+                  <abbr title="Price">PRICE</abbr>
+                </th>
+                <th class="item-quantity">
+                  <abbr title="quantity">QUANTITY</abbr>
+                </th>
+                <th class="item-action">
+                  <abbr title="action"></abbr>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th>
+                  <img class="media-object" alt="">
+                </th>
+                <th>
+                  <span>Product 1</span>
+                </th>
+                <td>
+                  <span>$100</span>
+                </td>
+                <td>
+                  <span>
+                    <input class="quantity-button" type="button" value="-">
+                    <input class="quantity-field" type="text" value="1" readonly>
+                    <input class="quantity-button" type="button" value="+">
+                  </span>
+                </td>
+                <td>
+                  <span class="icon pointer">
+                    <i class="fas fa-backspace"></i>
+                  </span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tile is-4 is-parent">
+          <table class="table is-fullwidth">
+            <tbody>
+            <tr>
+              <th>Shopping Summary</th>
+            </tr>
+            <tr>
+              <td>Cart Total: @($"${cart.CartTotal}")</td>
+            </tr>
+            <tr>
+              <td>Promotional Item Savings: @($"${cart.CartItemPromoSavings}")</td>
+            </tr>
+            <tr>
+              <td>Subtotal: subtotal</td>
+            </tr>
+            <tr>
+              <td>Shipping: @($"${cart.ShippingTotal}")</td>
+            </tr>
+            <tr>
+              <td>Promotional Shipping Savings: @($"${cart.ShippingPromoSavings}")</td>
+            </tr>
+            <tr>
+              <td>Total Order Amount: @($"${cart.CartTotal}")</td>
+            </tr>
+            <tr>
+              <td>
+                <button
+                  class="button is-success" type="button">
+                  Checkout
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+  </div>
+</div>
 
 @functions {
 
-    protected async override Task OnInitAsync()
-    {
-      await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
-    }
+  CartModel cart = new CartModel();
+
+  protected override async Task OnInitAsync()
+  {
+    await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
+  }
 
 }
