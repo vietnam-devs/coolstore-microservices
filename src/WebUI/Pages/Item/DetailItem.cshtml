@@ -1,0 +1,57 @@
+@using WebUI.Model
+@page "/detail-item/{ProductId}"
+@inject WebUI.AppState state
+@inject WebUI.Services.AuthorizedService authorizedService
+@inject WebUI.Services.ItemService itemService
+
+<div class="section">
+  <div class="container">
+    <div class="content">
+      <h3>Detail Product</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="field">
+      <label class="label">Product Name</label>
+      <div class="control">
+        <input class="input" type="text" value="@Item.Name">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Image</label>
+      <div class="control">
+        <img src="@Item.ImageUrl" name="image" alt="image" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Price</label>
+      <div class="control">
+        <input class="input" type="number" value="@Item.Price">
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <a class="button is-primary">Back</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+@functions {
+
+  [Parameter]
+  string ProductId { get; set; }
+
+  ItemModel Item { get; set; } = new ItemModel();
+
+  protected override async Task OnInitAsync()
+  {
+    await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
+
+    if (ProductId != null)
+    {
+      Item = await itemService.GetItem(new Guid(ProductId));
+    }
+  }
+
+}

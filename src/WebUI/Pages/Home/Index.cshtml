@@ -18,7 +18,7 @@
       <ItemTemplate Context="item">
         <div class="card is-radius">
           <div class="card-image">
-            <NavLink exact href="@($"/detail-product/{item.Id}")">
+            <NavLink exact href="@($"/detail-item/{item.Id}")">
               <picture class="image">
                 <source data-srcset="@item.ImageUrl">
                 <img class="lazyloaded" src="@item.ImageUrl" alt="Image of @item.Name">
@@ -28,7 +28,7 @@
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <NavLink exact href="@($"/detail-product/{item.Id}")">
+                <NavLink exact href="@($"/detail-item/{item.Id}")">
                   <p class="title is-5">@item.Name</p>
                   <p class="item-price">@($"${item.Price}")</p>
                 </NavLink>

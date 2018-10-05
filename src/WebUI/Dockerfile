@@ -16,8 +16,8 @@ WORKDIR /app
 COPY --from=publish /app/WebUI/dist /usr/share/nginx/html/
 WORKDIR /usr/share/nginx/html/
 RUN ls -an
-COPY --from=build /src/WebUI/Nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /src/WebUI/Nginx/mime.types /etc/nginx/mime.types
+COPY --from=build /src/WebUI/config/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /src/WebUI/config/nginx/mime.types /etc/nginx/mime.types
 RUN chmod 0644 /etc/nginx/mime.types
 RUN chmod 0644 /etc/nginx/nginx.conf
 

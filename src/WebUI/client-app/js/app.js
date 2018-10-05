@@ -1,7 +1,7 @@
 require("./log.js");
 require("./../styles/app.css");
 
-const config = require("./../../config/config.development.json");
+const config = require("./../../config/config.json");
 
 logToConsole = (message) => {
   console.log(message);

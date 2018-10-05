@@ -1,4 +1,4 @@
-@page "/new-product"
+@page "/new-item"
 @inject WebUI.AppState state
 @inject WebUI.Services.AuthorizedService authorizedService
 
@@ -19,8 +19,8 @@
     <div class="field">
       <label class="label">Image</label>
       <div class="control">
-        <img src="@ImageUrl" name="image" alt="image" />
-        <a class="button is-default" onclick="@( async() => await ChangeImage())">Change Image</a>
+        <img src="@ImageUrl" name="image" alt="image"/>
+        <a class="button is-default" onclick="@(async () => await ChangeImage())">Change Image</a>
       </div>
     </div>
     <div class="field">
@@ -55,7 +55,7 @@
     return Task.CompletedTask;
   }
 
-  protected async override Task OnInitAsync()
+  protected override async Task OnInitAsync()
   {
     await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
   }

@@ -1,6 +1,5 @@
 const buildValidations = require('./client-build/build-validations');
 const commonConfig = require('./client-build/webpack.common');
-
 const webpackMerge = require('webpack-merge');
 
 const addons = (/* string | string[] */ addonsArg) => {

@@ -1,3 +1,5 @@
 {
-  "ApiUrl": "http://api.coolstore.local"
+  "authorityServer": "https://demo.identityserver.io/",
+  "currentServer": "http://coolstore.local",
+  "catalogService": "http://api.coolstore.local/catalog"
 }
