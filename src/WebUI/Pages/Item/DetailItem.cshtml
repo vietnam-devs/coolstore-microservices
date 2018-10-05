@@ -11,29 +11,32 @@
     </div>
   </div>
   <div class="container">
+    @if (ProductId != null && !string.IsNullOrEmpty(ProductId))
+    {
     <div class="field">
       <label class="label">Product Name</label>
       <div class="control">
-        <input class="input" type="text" value="@Item.Name">
+        <input class="input" type="text" disabled="disabled" value="@Item.Name">
       </div>
     </div>
     <div class="field">
       <label class="label">Image</label>
       <div class="control">
-        <img src="@Item.ImageUrl" name="image" alt="image" />
+        <img src="@Item.ImageUrl" name="image" alt="image"/>
       </div>
     </div>
     <div class="field">
       <label class="label">Price</label>
       <div class="control">
-        <input class="input" type="number" value="@Item.Price">
+        <input class="input" type="number" disabled="disabled" value="@Item.Price">
       </div>
     </div>
-    <div class="field">
-      <div class="control">
-        <a class="button is-primary">Back</a>
+      <div class="field">
+        <div class="control">
+          <a class="button is-primary" onclick=@(async () => await state.Redirect("/"))>Back</a>
+        </div>
       </div>
-    </div>
+    }
   </div>
 </div>
 
@@ -48,7 +51,7 @@
   {
     await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
 
-    if (ProductId != null)
+    if (ProductId != null && !string.IsNullOrEmpty(ProductId))
     {
       Item = await itemService.GetItem(new Guid(ProductId));
     }

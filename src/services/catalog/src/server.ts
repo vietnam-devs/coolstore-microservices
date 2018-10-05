@@ -4,13 +4,16 @@ declare var __dirname: any
 
 let express = require('express')
 let methodOverride = require('method-override')
+let Cors = require('cors')
 
 import * as bodyParser from 'body-parser'
 import swaggerUI from 'swagger-ui-express'
 
 import { mongoose, mongoDbUri } from './config/database'
 import { RegisterRoutes } from './routes'
+
 const app = express()
+app.use(Cors())
 
 let basePath = process.env.BASE_PATH
 if (!basePath) {

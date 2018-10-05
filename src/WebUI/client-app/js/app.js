@@ -3,6 +3,36 @@ require("./../styles/app.css");
 
 const config = require("./../../config/config.json");
 
+///////////////////////////////
+// config
+///////////////////////////////
+Oidc.Log.logger = console;
+Oidc.Log.level = Oidc.Log.DEBUG;
+
+const settings = {
+  authority: config.authorityServer,
+  client_id: "implicit",
+  redirect_uri: `${config.webServer}/callback`,
+  post_logout_redirect_uri: `${config.webServer}`,
+  response_type: "id_token token",
+  scope: "openid profile email api",
+
+  popup_redirect_uri: `${config.webServer}/callback`,
+  popup_post_logout_redirect_uri: `${config.webServer}`,
+
+  silent_redirect_uri: `${config.webServer}/silent`,
+  automaticSilentRenew: true,
+  //silentRequestTimeout:10000,
+
+  filterProtocolClaims: true,
+  loadUserInfo: true
+};
+
+const mgr = new Oidc.UserManager(settings);
+
+///////////////////////////////
+// behaviors
+///////////////////////////////
 logToConsole = (message) => {
   console.log(message);
   return true;
@@ -45,33 +75,6 @@ refresh = (href) => {
   location.reload(href);
   return true;
 };
-
-///////////////////////////////
-// config
-///////////////////////////////
-Oidc.Log.logger = console;
-Oidc.Log.level = Oidc.Log.DEBUG;
-
-const settings = {
-  authority: config.authorityServer,
-  client_id: "implicit",
-  redirect_uri: `${config.currentServer}/callback`,
-  post_logout_redirect_uri: `${config.currentServer}`,
-  response_type: "id_token token",
-  scope: "openid profile email api",
-
-  popup_redirect_uri: `${config.currentServer}/callback`,
-  popup_post_logout_redirect_uri: `${config.currentServer}`,
-
-  silent_redirect_uri: `${config.currentServer}/silent`,
-  automaticSilentRenew: true,
-  //silentRequestTimeout:10000,
-
-  filterProtocolClaims: true,
-  loadUserInfo: true
-};
-
-const mgr = new Oidc.UserManager(settings);
 
 ///////////////////////////////
 // events

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Blazor.Services;
 using WebUI.Model;
 using WebUI.Services;
 
@@ -8,10 +9,12 @@ namespace WebUI
   public class AppState
   {
     private readonly JsInteropService _jsInteropService;
+    private readonly IUriHelper _uriHelper;
 
-    public AppState(JsInteropService jsInteropService)
+    public AppState(JsInteropService jsInteropService, IUriHelper uriHelper)
     {
       _jsInteropService = jsInteropService;
+      _uriHelper = uriHelper;
       User = new UserModel();
     }
 
@@ -34,6 +37,12 @@ namespace WebUI
     {
       User = user;
       doAction?.Invoke();
+      return Task.CompletedTask;
+    }
+
+    public Task Redirect(string path = "/")
+    {
+      _uriHelper.NavigateTo(path);
       return Task.CompletedTask;
     }
   }

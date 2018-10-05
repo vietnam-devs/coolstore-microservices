@@ -1,43 +1,42 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Blazor;
 using WebUI.Model;
 
 namespace WebUI.Services
 {
   public class ItemService
   {
-    private readonly IEnumerable<ItemModel> _results;
+    private readonly ConfigModel _config;
+    private readonly HttpClient _httpClient;
 
-    public ItemService()
+    public ItemService(ConfigModel config, HttpClient httpClient)
     {
-      _results = new List<ItemModel>();
-      for (var i = 0; i < 100; i++)
-      {
-        _results = _results.Append(new ItemModel
-        {
-          Id = Guid.NewGuid(),
-          Name = $"Item {i + 1}",
-          Price = 10.5D * (i + 1),
-          ImageUrl = $"https://picsum.photos/1200/900?image={i + 1}"
-        });
-      }
+      _config = config;
+      _httpClient = httpClient;
     }
 
-    public Task<IEnumerable<ItemModel>> GetItems(int page = 1, int pageSize = 9)
+    public async Task<IEnumerable<ItemModel>> GetItems(int page = 1, int pageSize = 9)
     {
-      return Task.FromResult(_results.Skip((page - 1) * pageSize).Take(pageSize));
+      var uri = $"{_config.CatalogService}/api/products";
+      var items = await _httpClient.GetJsonAsync<List<ItemModel>>(uri);
+      return items.Skip((page - 1) * pageSize).Take(pageSize);
     }
 
-    public Task<ItemModel> GetItem(Guid id)
+    public async Task<ItemModel> GetItem(Guid id)
     {
-      return Task.FromResult(_results.FirstOrDefault(x => x.Id == id));
+      var uri = $"{_config.CatalogService}/api/products/{id}";
+      return await _httpClient.GetJsonAsync<ItemModel>(uri);
     }
 
-    public Task<ItemModel> CreateItem(ItemModel item)
+    public async Task<ItemModel> CreateItem(ItemModel item)
     {
-      return Task.FromResult(item);
+      var uri = $"{_config.CatalogService}/api/products";
+      await _httpClient.PostJsonAsync(uri, item);
+      return await _httpClient.GetJsonAsync<ItemModel>(uri);
     }
   }
 }

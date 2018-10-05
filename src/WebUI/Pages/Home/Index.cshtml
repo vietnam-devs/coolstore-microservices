@@ -14,43 +14,46 @@
 <div class="section is-clearfix">
   <AppSidebar/>
   <div class="content is-pulled-right">
-    <ItemList Items="items">
-      <ItemTemplate Context="item">
-        <div class="card is-radius">
-          <div class="card-image">
-            <NavLink exact href="@($"/detail-item/{item.Id}")">
-              <picture class="image">
-                <source data-srcset="@item.ImageUrl">
-                <img class="lazyloaded" src="@item.ImageUrl" alt="Image of @item.Name">
-              </picture>
-            </NavLink>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <NavLink exact href="@($"/detail-item/{item.Id}")">
-                  <p class="title is-5">@item.Name</p>
-                  <p class="item-price">@($"${item.Price}")</p>
-                </NavLink>
+    @if (items != null)
+    {
+      <ItemList Items="items">
+        <ItemTemplate Context="item">
+          <div class="card is-radius">
+            <div class="card-image">
+              <NavLink exact href="@($"/detail-item/{item.Id}")">
+                <picture class="image">
+                  <source data-srcset="@item.ImageUrl">
+                  <img class="lazyloaded" src="@item.ImageUrl" alt="Image of @item.Name">
+                </picture>
+              </NavLink>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <NavLink exact href="@($"/detail-item/{item.Id}")">
+                    <p class="title is-5">@item.Name</p>
+                    <p class="item-price">@($"${item.Price}")</p>
+                  </NavLink>
+                </div>
+                <div class="media-right">
+                  <p class="field">
+                    <button class="button icon is-large add" aria-label="Add to cart">
+                      <span class="fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </button>
+                  </p>
+                </div>
               </div>
-              <div class="media-right">
-                <p class="field">
-                  <button class="button icon is-large add" aria-label="Add to cart">
-                    <span class="fa-stack">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i>
-                    </span>
-                  </button>
-                </p>
+              <div style="text-align: left;">
+                <Rating/>
               </div>
             </div>
-            <div style="text-align: left;">
-              <Rating/>
-            </div>
           </div>
-        </div>
-      </ItemTemplate>
-    </ItemList>
+        </ItemTemplate>
+      </ItemList>
+    }
   </div>
 
   <div class="is-pulled-right">

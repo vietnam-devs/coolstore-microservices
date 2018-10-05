@@ -1,5 +1,0 @@
-{
-  "authorityServer": "https://demo.identityserver.io/",
-  "currentServer": "http://localhost:5003",
-  "catalogService": "http://localhost:5002"
-}

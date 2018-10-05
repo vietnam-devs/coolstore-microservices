@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const port = process.env.PORT || 5003;
 
 const config = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     app: `${commonPaths.appEntry}/js/app.js`
   },
@@ -20,7 +20,7 @@ const config = {
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: commonPaths.configPath + '/config.dev.json',
+        from: commonPaths.configPath + '/config.prod.json',
         to: commonPaths.configPath + '/config.json'
       }
     ])
