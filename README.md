@@ -91,7 +91,10 @@ It should run and package all docker images.
 > cd <istio-1.0.0 path>
 > kubectl create -f install/kubernetes/helm/helm-service-account.yaml
 > helm init --service-account tiller --upgrade
+> helm install install/kubernetes/helm/istio --name istio --namespace istio-system
 ```
+
+More information about installing `istio` can be found at https://istio.io/docs/setup/kubernetes/helm-install
 
 5. Get `istio-ingressgateway` IP address
 
@@ -225,9 +228,36 @@ Guidance for developing µService can be found at [Clean Domain-Driven Design in
 
 ## Contributors
 
-| [Thang Chung](https://github.com/thangchung)                                                         | [Thinh Nguyen](https://github.com/thinhnotes)                                                          |
-| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| <img src="https://avatars3.githubusercontent.com/u/422341?s=460&v=4"  alt="thangchung" width="150"/> | <img src="https://avatars2.githubusercontent.com/u/4660531?s=460&v=4" alt="thinhnguyen" width="150" /> |
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/thangchung.png?s=150">
+        <br>
+        <a href="https://github.com/thangchung">Thang Chung</a>
+        <p>Core Developer & Architect</p>
+      </td>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/thinhnotes.png?s=150">
+        <br>
+        <a href="https://github.com/thinhnotes">Thinh Nguyen</a>
+        <p>Core Developer</p>
+      </td>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/stuartleeks.png?s=150">
+        <br>
+        <a href="https://github.com/stuartleeks">Stuart Leeks</a>
+        <p>Contributor</p>
+      </td>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/trumhemcut.png?s=150">
+        <br>
+        <a href="https://github.com/trumhemcut">Phi Huynh</a>
+        <p>Contributor</p>
+      </td>
+     </tr>
+  </tbody>
+</table>
 
 ## Licence
 

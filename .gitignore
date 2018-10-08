@@ -345,3 +345,4 @@ deploys/k8s/**/*.yaml
 **/*/key*.*
 src/web/shrinkwrap.yaml
 **/dist/
+**/*/WebUI

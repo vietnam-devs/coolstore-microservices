@@ -26,4 +26,11 @@ spec:
           value: {{ .Values.gateway.ip }}
         ports:
         - containerPort: 8080
+        resources:
+          requests:
+            memory: "1G"
+            cpu: "100m"
+          limits:
+            memory: "1G"
+            cpu: "100m"
 ---

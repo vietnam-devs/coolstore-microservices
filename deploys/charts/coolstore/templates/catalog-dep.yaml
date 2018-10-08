@@ -22,6 +22,13 @@ spec:
           value: mongodb://mongodb:27017/catalog
         ports:
         - containerPort: 5002
+        resources:
+          requests:
+            memory: "1G"
+            cpu: "100m"
+          limits:
+            memory: "1G"
+            cpu: "100m"
       initContainers:
       - name: init-mongodb
         image: busybox

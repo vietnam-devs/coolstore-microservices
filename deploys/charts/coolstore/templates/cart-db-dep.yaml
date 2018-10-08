@@ -20,4 +20,11 @@ spec:
           value: "P@ssw0rd"
         ports:
         - containerPort: 3306
+        resources:
+          requests:
+            memory: "1G"
+            cpu: "200m"
+          limits:
+            memory: "1G"
+            cpu: "200m"
 ---
