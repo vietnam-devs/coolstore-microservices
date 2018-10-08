@@ -19,11 +19,18 @@ namespace WebUI.Services
       _httpClient = httpClient;
     }
 
-    public async Task<IEnumerable<ItemModel>> GetItems(int page = 1, int pageSize = 9)
+    public async Task<Pagination<ItemModel>> GetItems(int page = 1, int pageSize = 9)
     {
       var uri = $"{_config.CatalogService}/api/products";
       var items = await _httpClient.GetJsonAsync<List<ItemModel>>(uri);
-      return items.Skip((page - 1) * pageSize).Take(pageSize);
+      var pagination = new Pagination<ItemModel>
+      {
+        Items = items.Skip((page - 1) * pageSize).Take(pageSize),
+        CurrentPage = page,
+        TotalItems = items.Count,
+        PageSize = pageSize
+      };
+      return pagination;
     }
 
     public async Task<ItemModel> GetItem(Guid id)

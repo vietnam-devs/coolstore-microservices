@@ -14,9 +14,9 @@
 <div class="section is-clearfix">
   <AppSidebar/>
   <div class="content is-pulled-right">
-    @if (items != null)
+    @if (Result.Items.Any())
     {
-      <ItemList Items="items">
+      <ItemList Items="Result.Items">
         <ItemTemplate Context="item">
           <div class="card is-radius">
             <div class="card-image">
@@ -56,43 +56,52 @@
     }
   </div>
 
-  <div class="is-pulled-right">
-    <nav class="pagination" role="navigation" aria-label="pagination">
-      <a class="pagination-previous" title="This is the first page" disabled>
-        <i class="fas fa-angle-left"></i>
-      </a>
-      <a class="pagination-next">
-        <i class="fas fa-angle-right"></i>
-      </a>
-      <ul class="pagination-list">
-        <li>
-          <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
-        </li>
-        <li>
-          <a class="pagination-link" aria-label="Goto page 2">2</a>
-        </li>
-        <li>
-          <a class="pagination-link" aria-label="Goto page 3">3</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+  @if (Result.Items.Any())
+  {
+    <div class="content-pagination is-pulled-right">
+      <nav class="pagination" role="navigation" aria-label="pagination">
+        <a class="pagination-previous" title="This is the first page" disabled>
+          <i class="fas fa-angle-left"></i>
+        </a>
+        <a class="pagination-next">
+          <i class="fas fa-angle-right"></i>
+        </a>
+        <ul class="pagination-list">
+          @for (var i = 1; i < Result.TotalItems / Result.PageSize; i++)
+          {
+            if (i == Result.CurrentPage)
+            {
+              <li>
+                <a onclick=@(() => Paging(i)) class="pagination-link is-current" aria-label="Page @i" aria-current="page">@i</a>
+              </li>
+            }
+            else
+            {
+              <li>
+                <a onclick=@(() => Paging(i)) class="pagination-link" aria-label="Goto page @i">@i</a>
+              </li>
+            }
+          }
+        </ul>
+      </nav>
+    </div>
+  }
 </div>
 
 @functions {
 
-  IEnumerable<ItemModel> items;
+    Pagination<ItemModel> Result = new Pagination<ItemModel>();
 
-  protected override async Task OnInitAsync()
+    protected override async Task OnInitAsync()
+    {
+      await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
+      Result = await itemService.GetItems(Result.CurrentPage, Result.PageSize);
+    }
+
+  protected async Task Paging(int currentPage)
   {
-    await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
-
-    items = await itemService.GetItems();
-  }
-
-  public string FormatCurrency(double price)
-  {
-    return $"${price}";
+    Result = await itemService.GetItems(currentPage, Result.PageSize);
+    StateHasChanged();
   }
 
 }

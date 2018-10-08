@@ -92,6 +92,15 @@ html { overflow-y: auto; }
   width: 79.7872%;
 }
 
+.content-pagination {
+  /* grid */
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  padding: 0;
+  /* no grid support */
+  width: 79.7872%;
+}
+
 /* Product List Item */
 
 .card {
