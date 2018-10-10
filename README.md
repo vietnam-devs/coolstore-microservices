@@ -5,7 +5,7 @@
 
 > This project is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) & [Red Hat Demo Central](https://gitlab.com/redhatdemocentral)
 
-> The structure of README is inspired from [GoogleCloudPlatform Demo](https://github.com/GoogleCloudPlatform/microservices-demo). Thank you [@ahmetb](https://github.com/ahmetb)
+> The structure of README is inspired from [GoogleCloudPlatform Demo](https://github.com/GoogleCloudPlatform/microservices-demo).
 
 CoolStore is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh.
 
@@ -113,8 +113,8 @@ gateway:
 7. Apply `istioctl` command to `coolstore` chart
 
 ```
-> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml -f deploys/charts/coolstore/values.dev.local.yaml > deploys/k8s/dev-all-in-one.yaml
-> istioctl kube-inject -f deploys/k8s/dev-all-in-one.yaml | kubectl apply -f -
+> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml -f deploys/charts/coolstore/values.dev.local.yaml > deploys/k8s/coolstore.local.yaml
+> istioctl kube-inject -f deploys/k8s/coolstore.local.yaml | kubectl apply -f -
 ```
 
 8. Add hosts file with following content
@@ -144,7 +144,7 @@ Waiting for the container provision completed
 11. Clean up `coolstore` chart as
 
 ```
-> kubectl delete -f deployment/istio/dev-all-in-one.yaml
+> kubectl delete -f deployment/istio/coolstore.local.yaml
 > helm delete coolstore-istio --purge
 > helm delete istio --purge
 ```
