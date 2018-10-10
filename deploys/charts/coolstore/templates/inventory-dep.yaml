@@ -24,17 +24,17 @@ spec:
           value: {{ .Values.inventorySettings.Hosts__Externals__Auth__Uri }}
         ports:
         - containerPort: 5004
-        resources:
-          requests:
-            memory: "1G"
-            cpu: "100m"
-          limits:
-            memory: "1G"
-            cpu: "100m"
         livenessProbe:
           httpGet:
             path: /healthz
             port: 5004
           initialDelaySeconds: 10
           periodSeconds: 5
+        resources:
+          requests:
+            memory: "400Mi"
+            cpu: "100m"
+          limits:
+            memory: "400Mi"
+            cpu: "100m"
 ---

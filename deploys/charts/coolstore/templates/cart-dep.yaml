@@ -26,17 +26,17 @@ spec:
           value: {{ .Values.cartSettings.Hosts__Externals__Catalog__Uri }}
         ports:
         - containerPort: 5003
-        resources:
-          requests:
-            memory: "1G"
-            cpu: "100m"
-          limits:
-            memory: "1G"
-            cpu: "100m"
         livenessProbe:
           httpGet:
             path: /healthz
             port: 5003
           initialDelaySeconds: 10
           periodSeconds: 5
+        resources:
+          requests:
+            memory: "400Mi"
+            cpu: "100m"
+          limits:
+            memory: "400Mi"
+            cpu: "100m"
 ---

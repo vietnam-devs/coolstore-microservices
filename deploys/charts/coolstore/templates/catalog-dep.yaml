@@ -24,10 +24,10 @@ spec:
         - containerPort: 5002
         resources:
           requests:
-            memory: "1G"
+            memory: "400Mi"
             cpu: "100m"
           limits:
-            memory: "1G"
+            memory: "400Mi"
             cpu: "100m"
       initContainers:
       - name: init-mongodb
