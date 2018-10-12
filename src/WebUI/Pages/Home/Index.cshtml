@@ -1,5 +1,6 @@
 @using WebUI.Model
 @page "/"
+@page "/{Page:int}"
 @inject WebUI.AppState state
 @inject WebUI.Services.AuthorizedService authorizedService
 @inject WebUI.Services.ItemService itemService
@@ -56,29 +57,31 @@
     }
   </div>
 
-  @if (Result.Items.Any())
+  @if (Result.TotalItems > 0)
   {
+    var numberOfLoop = Result.TotalItems / Result.PageSize;
     <div class="content-pagination is-pulled-right">
       <nav class="pagination" role="navigation" aria-label="pagination">
-        <a class="pagination-previous" title="This is the first page" disabled>
-          <i class="fas fa-angle-left"></i>
+        <a onclick=@(async () => await Paging(1)) href="@($"/{1}")" class="pagination-previous">
+          <i class="fas fa-angle-double-left"></i>
         </a>
-        <a class="pagination-next">
-          <i class="fas fa-angle-right"></i>
+        <a onclick=@(async () => await Paging(numberOfLoop - 1)) href="@($"/{numberOfLoop - 1}")" class="pagination-next">
+          <i class="fas fa-angle-double-right"></i>
         </a>
         <ul class="pagination-list">
-          @for (var i = 1; i < Result.TotalItems / Result.PageSize; i++)
+          @for (var i = 1; i < numberOfLoop; i++)
           {
-            if (i == Result.CurrentPage)
+            var page = i;
+            if (page == Result.CurrentPage)
             {
               <li>
-                <a onclick=@(() => Paging(i)) class="pagination-link is-current" aria-label="Page @i" aria-current="page">@i</a>
+                <a onclick=@(async () => await Paging(page)) href="@($"/{page}")" class="pagination-link is-current">@($"{page}")</a>
               </li>
             }
             else
             {
               <li>
-                <a onclick=@(() => Paging(i)) class="pagination-link" aria-label="Goto page @i">@i</a>
+                <a onclick=@(async () => await Paging(page)) href="@($"/{page}")" class="pagination-link">@($"{page}")</a>
               </li>
             }
           }
@@ -90,18 +93,22 @@
 
 @functions {
 
-    Pagination<ItemModel> Result = new Pagination<ItemModel>();
+  Pagination<ItemModel> Result = new Pagination<ItemModel>();
 
-    protected override async Task OnInitAsync()
-    {
-      await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
-      Result = await itemService.GetItems(Result.CurrentPage, Result.PageSize);
-    }
+  [Parameter]
+  int Page { get; set; } = 1;
 
-  protected async Task Paging(int currentPage)
+  protected override async Task OnInitAsync()
   {
-    Result = await itemService.GetItems(currentPage, Result.PageSize);
+    await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
+    Result = await itemService.GetItems(Page, Result.PageSize);
     StateHasChanged();
   }
+
+  async Task Paging(int currentPage)
+    {
+      Result = await itemService.GetItems(currentPage, Result.PageSize);
+      StateHasChanged();
+    }
 
 }
