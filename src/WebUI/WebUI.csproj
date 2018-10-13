@@ -18,7 +18,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Browser" Version="0.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.6.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.1" />
     <DotNetCliToolReference Include="Microsoft.AspNetCore.Blazor.Cli" Version="0.6.0-preview1-final" />
   </ItemGroup>
 

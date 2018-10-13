@@ -1,8 +1,7 @@
 @layout OutsideLayout
 @page "/unauthorized"
-@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
-@inject WebUI.Services.JsInteropService jsInteropService
 @inject AppState state
+@inject WebUI.Services.JsInteropService jsInteropService
 
 <div class="container">
   <div class="section">
@@ -19,7 +18,7 @@
     var userState = state.User;
     if (userState?.AccessToken != null && userState.Profile != null)
     {
-      UriHelper.NavigateTo("/");
+      state.Redirect("/");
     }
     return Task.CompletedTask;
   }

@@ -1,4 +1,4 @@
-@inject WebUI.AppState state
+@using WebUI.Model
 
 <header class="navbar is-black has-navbar-fixed-top" role="navigation" aria-label="main navigation">
   <div class="container is-flex-touch">
@@ -49,13 +49,13 @@
       <div class="navbar-item">
         <div class="field">
           <p class="control">
-            @if (state.IsSignedIn)
+            @if (UserModel != null)
             {
               <NavLink href="/profile" class="button is-black">
                 <span class="icon">
                   <i class="fa fa-user"></i>
                 </span>
-                <span class="is-hidden-mobile">@state.User?.Profile?.Name</span>
+                <span class="is-hidden-mobile">@UserModel.Profile.Name</span>
               </NavLink>
             }
           </p>
@@ -67,9 +67,7 @@
 
 @functions {
 
-  protected override async Task OnInitAsync()
-  {
-    await state.InitAppStore(() => this.StateHasChanged());
-  }
+  [Parameter]
+  protected UserModel UserModel { get; set; }
 
 }

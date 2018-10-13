@@ -4,11 +4,11 @@ using WebUI.Model;
 
 namespace WebUI.Services
 {
-  public class AuthorizedService
+  public class AuthnService
   {
     private readonly IUriHelper _uriHelper;
 
-    public AuthorizedService(IUriHelper uriHelper)
+    public AuthnService(IUriHelper uriHelper)
     {
       _uriHelper = uriHelper;
     }

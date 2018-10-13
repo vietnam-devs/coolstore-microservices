@@ -1,6 +1,6 @@
+@inherits WebUI.Pages.AuthnComponent
 @page "/new-item"
 @inject WebUI.AppState state
-@inject WebUI.Services.AuthorizedService authorizedService
 
 <div class="section">
   <div class="container">
@@ -8,7 +8,6 @@
       <h3>Create a New Product</h3>
     </div>
   </div>
-
   <div class="container">
     <div class="field">
       <label class="label">Product Name</label>
@@ -19,7 +18,7 @@
     <div class="field">
       <label class="label">Image</label>
       <div class="control">
-        <img src="@ImageUrl" name="image" alt="image"/>
+        <img src="@ImageUrl" name="image" alt="image" />
         <a class="button is-default" onclick="@(async () => await ChangeImage())">Change Image</a>
       </div>
     </div>
@@ -42,7 +41,6 @@
     </div>
   </div>
 </div>
-
 @functions {
 
   string ImageUrl { get; set; } = "https://picsum.photos/1200/900?image=8";
@@ -53,11 +51,6 @@
     ImageUrl = $"https://picsum.photos/1200/900?image={randomer.Next(1, 500)}";
     StateHasChanged();
     return Task.CompletedTask;
-  }
-
-  protected override async Task OnInitAsync()
-  {
-    await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
   }
 
 }

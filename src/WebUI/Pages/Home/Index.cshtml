@@ -1,8 +1,8 @@
+@inherits WebUI.Pages.AuthnComponent
 @using WebUI.Model
 @page "/"
 @page "/{Page:int}"
 @inject WebUI.AppState state
-@inject WebUI.Services.AuthorizedService authorizedService
 @inject WebUI.Services.ItemService itemService
 
 <div class="section">
@@ -11,11 +11,15 @@
     <p class="subtitle">Below you will find your latests products</p>
   </div>
 </div>
-
 <div class="section is-clearfix">
   <AppSidebar SideBar=@state.SideBar OnSliderChanged=@(async @event => await OnSideBarSearch(@event)) />
   <div class="content is-pulled-right">
-    @if (Result.Items.Any())
+
+    @if (!Result.Items.Any())
+    {
+      <h2>Looking for items...</h2>
+    }
+    else
     {
       <ItemList Items="Result.Items">
         <ItemTemplate Context="item">
@@ -100,7 +104,7 @@
 
   protected override async Task OnInitAsync()
   {
-    await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
+    await EnsureAuthn();
     await InitData();
   }
 

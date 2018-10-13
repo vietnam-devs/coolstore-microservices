@@ -1,7 +1,7 @@
+@inherits WebUI.Pages.AuthnComponent
 @using WebUI.Model
 @page "/detail-item/{ProductId}"
 @inject WebUI.AppState state
-@inject WebUI.Services.AuthorizedService authorizedService
 @inject WebUI.Services.ItemService itemService
 
 <div class="section">
@@ -13,24 +13,24 @@
   <div class="container">
     @if (ProductId != null && !string.IsNullOrEmpty(ProductId))
     {
-    <div class="field">
-      <label class="label">Product Name</label>
-      <div class="control">
-        <input class="input" type="text" disabled="disabled" value="@Item.Name">
+      <div class="field">
+        <label class="label">Product Name</label>
+        <div class="control">
+          <input class="input" type="text" disabled="disabled" value="@Item.Name">
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label">Image</label>
-      <div class="control">
-        <img src="@Item.ImageUrl" name="image" alt="image"/>
+      <div class="field">
+        <label class="label">Image</label>
+        <div class="control">
+          <img src="@Item.ImageUrl" name="image" alt="image" />
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label">Price</label>
-      <div class="control">
-        <input class="input" type="number" disabled="disabled" value="@Item.Price">
+      <div class="field">
+        <label class="label">Price</label>
+        <div class="control">
+          <input class="input" type="number" disabled="disabled" value="@Item.Price">
+        </div>
       </div>
-    </div>
       <div class="field">
         <div class="control">
           <a class="button is-primary" onclick=@(async () => await state.Redirect("/"))>Back</a>
@@ -39,7 +39,6 @@
     }
   </div>
 </div>
-
 @functions {
 
   [Parameter]
@@ -49,7 +48,7 @@
 
   protected override async Task OnInitAsync()
   {
-    await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
+    await EnsureAuthn();
 
     if (ProductId != null && !string.IsNullOrEmpty(ProductId))
     {

@@ -1,7 +1,6 @@
+@inherits WebUI.Pages.AuthnComponent
 @using WebUI.Model
 @page "/cart"
-@inject WebUI.AppState state
-@inject WebUI.Services.AuthorizedService authorizedService
 
 <div class="section">
   <div class="container">
@@ -9,9 +8,8 @@
       <h3>Shopping Cart</h3>
     </div>
   </div>
-
   <div class="container">
-    @if (cart == null)
+    @if (CartModel == null)
     {
       <div class="tile is-ancestor">
         <div class="tile">
@@ -86,27 +84,26 @@
               <th>Shopping Summary</th>
             </tr>
             <tr>
-              <td>Cart Total: @($"${cart.CartTotal}")</td>
+              <td>Cart Total: @($"${CartModel.CartTotal}")</td>
             </tr>
             <tr>
-              <td>Promotional Item Savings: @($"${cart.CartItemPromoSavings}")</td>
+              <td>Promotional Item Savings: @($"${CartModel.CartItemPromoSavings}")</td>
             </tr>
             <tr>
               <td>Subtotal: subtotal</td>
             </tr>
             <tr>
-              <td>Shipping: @($"${cart.ShippingTotal}")</td>
+              <td>Shipping: @($"${CartModel.ShippingTotal}")</td>
             </tr>
             <tr>
-              <td>Promotional Shipping Savings: @($"${cart.ShippingPromoSavings}")</td>
+              <td>Promotional Shipping Savings: @($"${CartModel.ShippingPromoSavings}")</td>
             </tr>
             <tr>
-              <td>Total Order Amount: @($"${cart.CartTotal}")</td>
+              <td>Total Order Amount: @($"${CartModel.CartTotal}")</td>
             </tr>
             <tr>
               <td>
-                <button
-                  class="button is-success" type="button">
+                <button class="button is-success" type="button">
                   Checkout
                 </button>
               </td>
@@ -121,11 +118,6 @@
 
 @functions {
 
-  CartModel cart = new CartModel();
-
-  protected override async Task OnInitAsync()
-  {
-    await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
-  }
+CartModel CartModel { get; set; } = new CartModel();
 
 }

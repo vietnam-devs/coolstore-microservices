@@ -15,21 +15,11 @@ namespace WebUI
     {
       services.AddSingleton(GetConfiguration());
       services.AddSingleton<JsInteropService>();
-      services.AddSingleton<AuthorizedService>();
+      services.AddSingleton<AuthnService>();
       services.AddSingleton<ItemService>();
       services.AddSingleton<CartService>();
       services.AddSingleton<RatingService>();
       services.AddSingleton<AppState>();
-
-      /*services.AddCors(
-        options =>
-          options.AddDefaultPolicy(
-            builder =>
-              builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials()
-                .SetIsOriginAllowedToAllowWildcardSubdomains()));*/
     }
 
     public void Configure(IBlazorApplicationBuilder app) => app.AddComponent<App>(nameof(app));
