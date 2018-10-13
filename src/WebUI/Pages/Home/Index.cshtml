@@ -13,7 +13,7 @@
 </div>
 
 <div class="section is-clearfix">
-  <AppSidebar/>
+  <AppSidebar SideBar=@state.SideBar OnSliderChanged=@(async @event => await OnSideBarSearch(@event)) />
   <div class="content is-pulled-right">
     @if (Result.Items.Any())
     {
@@ -62,10 +62,10 @@
     var numberOfLoop = Result.TotalItems / Result.PageSize;
     <div class="content-pagination is-pulled-right">
       <nav class="pagination" role="navigation" aria-label="pagination">
-        <a onclick=@(async () => await Paging(1)) href="@($"/{1}")" class="pagination-previous">
+        <a onclick=@(async () => await OnPaging(1)) href="@($"/{1}")" class="pagination-previous">
           <i class="fas fa-angle-double-left"></i>
         </a>
-        <a onclick=@(async () => await Paging(numberOfLoop - 1)) href="@($"/{numberOfLoop - 1}")" class="pagination-next">
+        <a onclick=@(async () => await OnPaging(numberOfLoop - 1)) href="@($"/{numberOfLoop - 1}")" class="pagination-next">
           <i class="fas fa-angle-double-right"></i>
         </a>
         <ul class="pagination-list">
@@ -75,13 +75,13 @@
             if (page == Result.CurrentPage)
             {
               <li>
-                <a onclick=@(async () => await Paging(page)) href="@($"/{page}")" class="pagination-link is-current">@($"{page}")</a>
+                <a onclick=@(async () => await OnPaging(page)) href="@($"/{page}")" class="pagination-link is-current">@($"{page}")</a>
               </li>
             }
             else
             {
               <li>
-                <a onclick=@(async () => await Paging(page)) href="@($"/{page}")" class="pagination-link">@($"{page}")</a>
+                <a onclick=@(async () => await OnPaging(page)) href="@($"/{page}")" class="pagination-link">@($"{page}")</a>
               </li>
             }
           }
@@ -93,7 +93,7 @@
 
 @functions {
 
-  Pagination<ItemModel> Result = new Pagination<ItemModel>();
+  Pagination<ItemModel> Result { get; set; } = new Pagination<ItemModel>();
 
   [Parameter]
   int Page { get; set; } = 1;
@@ -101,14 +101,32 @@
   protected override async Task OnInitAsync()
   {
     await state.InitAppStore(async () => await authorizedService.EnsureAuthz(state.User));
-    Result = await itemService.GetItems(Page, Result.PageSize);
+    await InitData();
+  }
+
+  async Task OnPaging(int currentPage)
+  {
+    Result = await itemService.GetItems(currentPage, Result.PageSize, state.SideBar.PriceRange);
+    state.ItemPagination = Result;
     StateHasChanged();
   }
 
-  async Task Paging(int currentPage)
-    {
-      Result = await itemService.GetItems(currentPage, Result.PageSize);
-      StateHasChanged();
-    }
+  async Task OnSideBarSearch(long price)
+  {
+    await state.LogInfoOut(price.ToString());
+    Result = await itemService.GetItems(Page, Result.PageSize, price);
+
+    state.SideBar.PriceRange = price;
+    state.ItemPagination = Result;
+
+    StateHasChanged();
+  }
+
+  async Task InitData()
+  {
+    Result = await itemService.GetItems(Page, Result.PageSize);
+    state.ItemPagination = Result;
+    StateHasChanged();
+  }
 
 }

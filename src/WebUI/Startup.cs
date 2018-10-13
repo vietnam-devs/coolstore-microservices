@@ -21,7 +21,7 @@ namespace WebUI
       services.AddSingleton<RatingService>();
       services.AddSingleton<AppState>();
 
-      services.AddCors(
+      /*services.AddCors(
         options =>
           options.AddDefaultPolicy(
             builder =>
@@ -29,7 +29,7 @@ namespace WebUI
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()
-                .SetIsOriginAllowedToAllowWildcardSubdomains()));
+                .SetIsOriginAllowedToAllowWildcardSubdomains()));*/
     }
 
     public void Configure(IBlazorApplicationBuilder app) => app.AddComponent<App>(nameof(app));

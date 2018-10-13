@@ -15,13 +15,13 @@ namespace WebUI
     {
       _jsInteropService = jsInteropService;
       _uriHelper = uriHelper;
-      User = new UserModel();
     }
 
     public bool IsSignedIn => User?.AccessToken != null;
 
-    public UserModel User { get; private set; }
-    public SideBarModel SideBar { get; set; }
+    public UserModel User { get; private set; } = new UserModel();
+    public SideBarModel SideBar { get; set; } = new SideBarModel();
+    public Pagination<ItemModel> ItemPagination { get; set; } = new Pagination<ItemModel>();
 
     public async Task InitAppStore(Action doAction = null)
     {
@@ -44,6 +44,11 @@ namespace WebUI
     {
       _uriHelper.NavigateTo(path);
       return Task.CompletedTask;
+    }
+
+    public async Task LogInfoOut(string info)
+    {
+      await _jsInteropService.WriteLog(info);
     }
   }
 }
