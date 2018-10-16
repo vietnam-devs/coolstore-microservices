@@ -4,10 +4,9 @@ using WebUI.Services;
 
 namespace WebUI.Pages
 {
-  public class AuthnComponent : BlazorComponent
+  public class AuthnComponent : BaseComponent
   {
     [Inject] public AuthnService AuthzService { get; set; }
-    [Inject] public AppState AppState { get; set; }
 
     protected override async Task OnInitAsync()
     {

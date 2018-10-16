@@ -1,6 +1,5 @@
-@inherits WebUI.Pages.AuthnComponent
 @page "/new-item"
-@inject WebUI.AppState state
+@inherits WebUI.Pages.AuthnComponent
 
 <div class="section">
   <div class="container">
@@ -41,6 +40,7 @@
     </div>
   </div>
 </div>
+
 @functions {
 
   string ImageUrl { get; set; } = "https://picsum.photos/1200/900?image=8";

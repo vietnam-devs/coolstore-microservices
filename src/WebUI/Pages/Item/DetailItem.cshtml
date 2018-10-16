@@ -1,7 +1,6 @@
+@page "/detail-item/{ProductId}"
 @inherits WebUI.Pages.AuthnComponent
 @using WebUI.Model
-@page "/detail-item/{ProductId}"
-@inject WebUI.AppState state
 @inject WebUI.Services.ItemService itemService
 
 <div class="section">
@@ -33,12 +32,13 @@
       </div>
       <div class="field">
         <div class="control">
-          <a class="button is-primary" onclick=@(async () => await state.Redirect("/"))>Back</a>
+          <a class="button is-primary" onclick=@(async () => await AppState.Redirect("/"))>Back</a>
         </div>
       </div>
     }
   </div>
 </div>
+
 @functions {
 
   [Parameter]

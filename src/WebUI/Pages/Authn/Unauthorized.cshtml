@@ -1,7 +1,6 @@
 @layout OutsideLayout
+@inherits WebUI.Pages.BaseComponent
 @page "/unauthorized"
-@inject AppState state
-@inject WebUI.Services.JsInteropService jsInteropService
 
 <div class="container">
   <div class="section">
@@ -15,17 +14,17 @@
 
   protected override Task OnInitAsync()
   {
-    var userState = state.User;
+    var userState = AppState.User;
     if (userState?.AccessToken != null && userState.Profile != null)
     {
-      state.Redirect("/");
+      AppState.Redirect("/");
     }
     return Task.CompletedTask;
   }
 
   async Task StartSignIn()
   {
-    await jsInteropService.StartSignin();
+    await JsInteropService.StartSignin();
   }
 
 }

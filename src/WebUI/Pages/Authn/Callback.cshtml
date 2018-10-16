@@ -1,16 +1,15 @@
+@inherits WebUI.Pages.BaseComponent
 @page "/callback"
-@inject AppState state
-@inject JsInteropService jsInteropService
 
 @functions {
 
   protected override async Task OnInitAsync()
   {
-    var user = await jsInteropService.Callback();
+    var user = await JsInteropService.Callback();
     if (user != null)
     {
-      await state.UpdateUser(user);
-      await state.Redirect("/");
+      await AppState.UpdateUser(user);
+      await AppState.Redirect("/");
     }
   }
 

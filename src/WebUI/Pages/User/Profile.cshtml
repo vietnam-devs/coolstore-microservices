@@ -1,7 +1,5 @@
 @inherits WebUI.Pages.AuthnComponent
 @page "/profile"
-@inject WebUI.AppState state
-@inject WebUI.Services.JsInteropService jsInteropService
 
 <div class="section">
   <div class="container">
@@ -13,25 +11,25 @@
     <div class="field">
       <label class="label">Name</label>
       <div class="control">
-        <input class="input" type="text" disabled value="@state.User?.Profile?.Name">
+        <input class="input" type="text" disabled value="@AppState.User?.Profile?.Name">
       </div>
     </div>
     <div class="field">
       <label class="label">Id</label>
       <div class="control">
-        <input class="input" type="text" disabled value="@state.User?.Profile?.UserId">
+        <input class="input" type="text" disabled value="@AppState.User?.Profile?.UserId">
       </div>
     </div>
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
-        <input class="input" type="text" disabled value="@state.User?.Profile?.Email">
+        <input class="input" type="text" disabled value="@AppState.User?.Profile?.Email">
       </div>
     </div>
     <div class="field">
       <label class="label">Website</label>
       <div class="control">
-        <input class="input" type="text" disabled value="@state.User?.Profile?.Website">
+        <input class="input" type="text" disabled value="@AppState.User?.Profile?.Website">
       </div>
     </div>
     <div class="field">
@@ -46,7 +44,7 @@
 
   async Task StartSignOut()
   {
-    await jsInteropService.StartSignOut(state?.User?.AccessToken);
+    await JsInteropService.StartSignOut(AppState?.User?.AccessToken);
   }
 
 }

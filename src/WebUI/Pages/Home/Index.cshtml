@@ -1,8 +1,7 @@
 @inherits WebUI.Pages.AuthnComponent
-@using WebUI.Model
 @page "/"
 @page "/{Page:int}"
-@inject WebUI.AppState state
+@using WebUI.Model
 @inject WebUI.Services.ItemService itemService
 
 <div class="section">
@@ -12,9 +11,8 @@
   </div>
 </div>
 <div class="section is-clearfix">
-  <AppSidebar SideBar=@state.SideBar OnSliderChanged=@(async @event => await OnSideBarSearch(@event)) />
+  <AppSidebar SideBar=@AppState.SideBar OnSliderChanged=@(async @event => await OnSideBarSearch(@event)) />
   <div class="content is-pulled-right">
-
     @if (!Result.Items.Any())
     {
       <h2>Looking for items...</h2>
@@ -52,7 +50,7 @@
                 </div>
               </div>
               <div style="text-align: left;">
-                <Rating/>
+                <Rating />
               </div>
             </div>
           </div>
@@ -110,18 +108,18 @@
 
   async Task OnPaging(int currentPage)
   {
-    Result = await itemService.GetItems(currentPage, Result.PageSize, state.SideBar.PriceRange);
-    state.ItemPagination = Result;
+    Result = await itemService.GetItems(currentPage, Result.PageSize, AppState.SideBar.PriceRange);
+    AppState.ItemPagination = Result;
     StateHasChanged();
   }
 
   async Task OnSideBarSearch(long price)
   {
-    await state.LogInfoOut(price.ToString());
+    await AppState.LogInfoOut(price.ToString());
     Result = await itemService.GetItems(Page, Result.PageSize, price);
 
-    state.SideBar.PriceRange = price;
-    state.ItemPagination = Result;
+    AppState.SideBar.PriceRange = price;
+    AppState.ItemPagination = Result;
 
     StateHasChanged();
   }
@@ -129,7 +127,7 @@
   async Task InitData()
   {
     Result = await itemService.GetItems(Page, Result.PageSize);
-    state.ItemPagination = Result;
+    AppState.ItemPagination = Result;
     StateHasChanged();
   }
 
