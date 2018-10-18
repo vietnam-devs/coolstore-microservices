@@ -10,19 +10,18 @@ namespace WebUI.Services
 {
   public class ItemService
   {
-    private readonly ConfigModel _config;
     private readonly HttpClient _httpClient;
+    private readonly string _catalogUrl;
 
     public ItemService(ConfigModel config, HttpClient httpClient)
     {
-      _config = config;
       _httpClient = httpClient;
+      _catalogUrl = $"{config.CatalogService}";
     }
 
     public async Task<Pagination<ItemModel>> GetItems(int page = 1, int pageSize = 9, long price = 4000)
     {
-      var uri = $"{_config.CatalogService}/api/products";
-      var items = await _httpClient.GetJsonAsync<List<ItemModel>>(uri);
+      var items = await _httpClient.GetJsonAsync<List<ItemModel>>($"{_catalogUrl}/api/products");
 
       var itemsFilter = items.Where(x => x.Price <= price).ToList();
       var pagination = new Pagination<ItemModel>
@@ -38,15 +37,14 @@ namespace WebUI.Services
 
     public async Task<ItemModel> GetItem(Guid id)
     {
-      var uri = $"{_config.CatalogService}/api/products/{id}";
-      return await _httpClient.GetJsonAsync<ItemModel>(uri);
+      return await _httpClient.GetJsonAsync<ItemModel>($"{_catalogUrl}/api/products/{id}");
     }
 
     public async Task<ItemModel> CreateItem(ItemModel item)
     {
-      var uri = $"{_config.CatalogService}/api/products";
-      await _httpClient.PostJsonAsync(uri, item);
-      return await _httpClient.GetJsonAsync<ItemModel>(uri);
+      item.Id = Guid.NewGuid();
+      await _httpClient.PostJsonAsync($"{_catalogUrl}/api/products", item);
+      return await _httpClient.GetJsonAsync<ItemModel>($"{_catalogUrl}/api/products/{item.Id}");
     }
   }
 }
