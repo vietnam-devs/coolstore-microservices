@@ -68,3 +68,10 @@ docker build -f ./src/web/Dockerfile -t $DOCKER_USERNAME/cs-spa:$DOCKER_TAG .
 docker tag $DOCKER_USERNAME/cs-spa:$DOCKER_TAG $DOCKER_GROUP/cs-spa:$DOCKER_TAG
 docker push $DOCKER_GROUP/cs-spa:$DOCKER_TAG
 echo "================================================================================"
+
+echo "Build Web Blazor"
+echo "================================================================================"
+docker build -f ./src/WebUI/Dockerfile -t $DOCKER_USERNAME/cs-webui:$DOCKER_TAG .
+docker tag $DOCKER_USERNAME/cs-webui:$DOCKER_TAG $DOCKER_GROUP/cs-webui:$DOCKER_TAG
+docker push $DOCKER_GROUP/cs-webui:$DOCKER_TAG
+echo "================================================================================"

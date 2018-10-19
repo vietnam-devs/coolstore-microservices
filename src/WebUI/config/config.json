@@ -1,8 +1,8 @@
 {
-  "webServer": "http://localhost:8080",
-  "authorityServer": "http://localhost:5001",
-  "catalogService": "http://localhost:5002",
-  "cartService": "http://localhost:5003",
-  "inventoryService": "http://localhost:5004",
-  "ratingService": "http://localhost:5007"
+  "webServer": "http://coolstore.local",
+  "authorityServer": "http://id.coolstore.local/",
+  "catalogService": "http://api.coolstore.local/catalog",
+  "cartService": "http://api.coolstore.local/cart",
+  "inventoryService": "http://api.coolstore.local/inventory",
+  "ratingService": "http://api.coolstore.local/rating"
 }
