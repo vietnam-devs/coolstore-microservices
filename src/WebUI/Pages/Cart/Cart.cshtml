@@ -1,5 +1,7 @@
 @inherits WebUI.Pages.AuthnComponent
 @using WebUI.Model
+@using WebUI.Services
+@inject WebUI.Services.CartService CartService
 @page "/cart"
 
 <div class="section">
@@ -9,7 +11,7 @@
     </div>
   </div>
   <div class="container">
-    @if (CartModel == null)
+    @if (Model == null || !Model.Items.Any())
     {
       <div class="tile is-ancestor">
         <div class="tile">
@@ -50,29 +52,32 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <th>
-                  <img class="media-object" alt="">
-                </th>
-                <th>
-                  <span>Product 1</span>
-                </th>
-                <td>
-                  <span>$100</span>
-                </td>
-                <td>
-                  <span>
-                    <input class="quantity-button" type="button" value="-">
-                    <input class="quantity-field" type="text" value="1" readonly>
-                    <input class="quantity-button" type="button" value="+">
-                  </span>
-                </td>
-                <td>
-                  <span class="icon pointer">
-                    <i class="fas fa-backspace"></i>
-                  </span>
-                </td>
-              </tr>
+              @foreach (var item in Model.Items)
+              {
+                <tr>
+                  <th>
+                    <img class="media-object" src="@item.ImageUrl" alt="@item.Name">
+                  </th>
+                  <th>
+                    <span>@item.Name</span>
+                  </th>
+                  <td>
+                    <span>$@item.Price</span>
+                  </td>
+                  <td>
+                    <span>
+                      <input class="quantity-button" type="button" value="-" onclick=@(async () => await OnQuantityDecrease(item)) />
+                      <input class="quantity-field" type="text" value="@item.Quantity" disabled="disabled" />
+                      <input class="quantity-button" type="button" value="+" onclick=@(async () => await OnQuantityIncrease(item)) />
+                    </span>
+                  </td>
+                  <td>
+                    <span class="icon pointer">
+                      <a onclick=@(async () => await OnDeleteItem(item))><i class="fas fa-backspace"></i></a>
+                    </span>
+                  </td>
+                </tr>
+              }
               </tbody>
             </table>
           </div>
@@ -84,28 +89,28 @@
               <th>Shopping Summary</th>
             </tr>
             <tr>
-              <td>Cart Total: @($"${CartModel.CartTotal}")</td>
+              <td>Cart Total: @($"${Model.CartItemTotal}")</td>
             </tr>
             <tr>
-              <td>Promotional Item Savings: @($"${CartModel.CartItemPromoSavings}")</td>
+              <td>Promotional Item Savings: @($"${Model.CartItemPromoSavings}")</td>
             </tr>
             <tr>
-              <td>Subtotal: subtotal</td>
+              <td>Subtotal: @($"${SubTotalCalculate()}")</td>
             </tr>
             <tr>
-              <td>Shipping: @($"${CartModel.ShippingTotal}")</td>
+              <td>Shipping: @($"${Model.ShippingTotal}")</td>
             </tr>
             <tr>
-              <td>Promotional Shipping Savings: @($"${CartModel.ShippingPromoSavings}")</td>
+              <td>Promotional Shipping Savings: @($"${Model.ShippingPromoSavings}")</td>
             </tr>
             <tr>
-              <td>Total Order Amount: @($"${CartModel.CartTotal}")</td>
+              <td>Total Order Amount: @($"${Model.CartItemTotal}")</td>
             </tr>
             <tr>
               <td>
-                <button class="button is-success" type="button">
+                <a onclick=@(async () => await OnCheckout()) class="button is-success">
                   Checkout
-                </button>
+                </a>
               </td>
             </tr>
             </tbody>
@@ -118,6 +123,52 @@
 
 @functions {
 
-CartModel CartModel { get; set; } = new CartModel();
+  CartModel Model { get; set; }
+
+  protected override async Task OnInitAsync()
+  {
+    await EnsureAuthn();
+    Model = AppState.Cart;
+    Model = await CartService.GetCart(new Guid("{32EF8824-4C37-47BD-91DE-034DC4BAFF0C}"));
+  }
+
+  double SubTotalCalculate()
+  {
+    var total = 0D;
+    foreach (var item in Model.Items)
+    {
+      total += item.Price * item.Quantity;
+    }
+    return total;
+  }
+
+  async Task OnQuantityDecrease(CartItemModel item)
+  {
+    if (item.Quantity > 1)
+    {
+      item.Quantity--;
+    }
+    await Task.CompletedTask;
+  }
+
+  async Task OnQuantityIncrease(CartItemModel item)
+  {
+    if (item.Quantity < 1000)
+    {
+      item.Quantity++;
+    }
+    await Task.CompletedTask;
+  }
+
+  async Task OnDeleteItem(CartItemModel item)
+  {
+    Model.Items.Remove(item);
+    await Task.CompletedTask;
+  }
+
+  async Task OnCheckout()
+  {
+    await Task.CompletedTask;
+  }
 
 }

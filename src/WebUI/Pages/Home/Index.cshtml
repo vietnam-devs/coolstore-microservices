@@ -2,7 +2,9 @@
 @page "/"
 @page "/{Page:int}"
 @using WebUI.Model
-@inject WebUI.Services.ItemService itemService
+@using WebUI.Services
+@inject WebUI.Services.ItemService ItemService
+@inject WebUI.Services.CartService CartService
 
 <div class="section">
   <div class="container">
@@ -40,12 +42,12 @@
                 </div>
                 <div class="media-right">
                   <p class="field">
-                    <button class="button icon is-large add" aria-label="Add to cart">
+                    <a onclick=@(async () => await OnAddToCart(item.Id)) class="button icon is-large add" aria-label="Add to cart">
                       <span class="fa-stack">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i>
                       </span>
-                    </button>
+                    </a>
                   </p>
                 </div>
               </div>
@@ -58,7 +60,6 @@
       </ItemList>
     }
   </div>
-
   @if (Result.TotalItems > 0)
   {
     var numberOfLoop = Result.TotalItems / Result.PageSize;
@@ -108,7 +109,7 @@
 
   async Task OnPaging(int currentPage)
   {
-    Result = await itemService.GetItems(currentPage, Result.PageSize, AppState.SideBar.PriceRange);
+    Result = await ItemService.GetItems(currentPage, Result.PageSize, AppState.SideBar.PriceRange);
     AppState.ItemPagination = Result;
     StateHasChanged();
   }
@@ -116,7 +117,7 @@
   async Task OnSideBarSearch(long price)
   {
     await AppState.LogInfoOut(price.ToString());
-    Result = await itemService.GetItems(Page, Result.PageSize, price);
+    Result = await ItemService.GetItems(Page, Result.PageSize, price);
 
     AppState.SideBar.PriceRange = price;
     AppState.ItemPagination = Result;
@@ -124,9 +125,14 @@
     StateHasChanged();
   }
 
+  async Task OnAddToCart(Guid itemId)
+  {
+    AppState.Cart = await CartService.AddProductToCart(new Guid("{32EF8824-4C37-47BD-91DE-034DC4BAFF0C}"), itemId, 1);
+  }
+
   async Task InitData()
   {
-    Result = await itemService.GetItems(Page, Result.PageSize);
+    Result = await ItemService.GetItems(Page, Result.PageSize);
     AppState.ItemPagination = Result;
     StateHasChanged();
   }

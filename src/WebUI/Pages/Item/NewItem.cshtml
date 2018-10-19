@@ -1,5 +1,9 @@
 @page "/new-item"
+@using WebUI.Model
+@using WebUI.Pages.Item
+@using WebUI.Services
 @inherits WebUI.Pages.AuthnComponent
+@inject WebUI.Services.ItemService ItemService
 
 <div class="section">
   <div class="container">
@@ -11,31 +15,31 @@
     <div class="field">
       <label class="label">Product Name</label>
       <div class="control">
-        <input class="input" type="text" value="">
+        <input class="input" type="text" bind="@Model.ProductName" />
       </div>
     </div>
     <div class="field">
       <label class="label">Image</label>
       <div class="control">
-        <img src="@ImageUrl" name="image" alt="image" />
-        <a class="button is-default" onclick="@(async () => await ChangeImage())">Change Image</a>
+        <img src="@Model.ImageUrl" name="image" alt="image" />
+        <a class="button is-default" onclick="@(async () => await OnChangeImage())">Change Image</a>
       </div>
     </div>
     <div class="field">
       <label class="label">Description</label>
       <div class="control">
-        <input class="input" type="text" value="">
+        <input class="input" type="text" bind="@Model.Description" />
       </div>
     </div>
     <div class="field">
       <label class="label">Price</label>
       <div class="control">
-        <input class="input" type="number" value="$100">
+        <input class="input" type="number" bind="@Model.Price" />
       </div>
     </div>
     <div class="field">
       <div class="control">
-        <a class="button is-primary">Create</a>
+        <a onclick="@(async () => await OnCreate())" class="button is-primary">Create</a>
       </div>
     </div>
   </div>
@@ -43,14 +47,27 @@
 
 @functions {
 
-  string ImageUrl { get; set; } = "https://picsum.photos/1200/900?image=8";
+  NewItemViewModel Model { get; set; } = new NewItemViewModel();
 
-  protected Task ChangeImage()
+  protected Task OnChangeImage()
   {
     var randomer = new Random();
-    ImageUrl = $"https://picsum.photos/1200/900?image={randomer.Next(1, 500)}";
+    Model.ImageUrl = $"https://picsum.photos/1200/900?image={randomer.Next(1, 500)}";
     StateHasChanged();
     return Task.CompletedTask;
+  }
+
+  async Task OnCreate()
+  {
+    await ItemService.CreateItem(new ItemModel
+    {
+      Name = Model.ProductName,
+      Desc = Model.Description,
+      Price = Model.Price,
+      ImageUrl = Model.ImageUrl
+    });
+
+    await AppState.Redirect();
   }
 
 }

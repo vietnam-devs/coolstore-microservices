@@ -40,11 +40,10 @@ namespace WebUI.Services
       return await _httpClient.GetJsonAsync<ItemModel>($"{_catalogUrl}/api/products/{id}");
     }
 
-    public async Task<ItemModel> CreateItem(ItemModel item)
+    public async Task CreateItem(ItemModel item)
     {
       item.Id = Guid.NewGuid();
       await _httpClient.PostJsonAsync($"{_catalogUrl}/api/products", item);
-      return await _httpClient.GetJsonAsync<ItemModel>($"{_catalogUrl}/api/products/{item.Id}");
     }
   }
 }

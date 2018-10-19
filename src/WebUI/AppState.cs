@@ -20,6 +20,7 @@ namespace WebUI
     public bool IsSignedIn => User?.AccessToken != null;
 
     public UserModel User { get; private set; } = new UserModel();
+    public CartModel Cart { get; set; } = new CartModel();
     public SideBarModel SideBar { get; set; } = new SideBarModel();
     public Pagination<ItemModel> ItemPagination { get; set; } = new Pagination<ItemModel>();
 
