@@ -1,7 +1,8 @@
 # Cool Store: Cloud-Native Microservices Application on Service Mesh
 
-[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg?style=for-the-badge)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
-![Travis (.org)](https://img.shields.io/travis/vietnam-devs/coolstore-microservices.svg?style=for-the-badge)
+[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
+[![OpenTracing Badge](https://img.shields.io/badge/OpenTracing-enabled-blue.svg)](http://opentracing.io)
+![Travis (.org)](https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?branch=master)
 
 > This project is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) & [Red Hat Demo Central](https://gitlab.com/redhatdemocentral)
 

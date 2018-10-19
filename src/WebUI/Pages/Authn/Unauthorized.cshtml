@@ -1,0 +1,30 @@
+@layout OutsideLayout
+@inherits WebUI.Pages.BaseComponent
+@page "/unauthorized"
+
+<div class="container">
+  <div class="section">
+    <div class="container">
+      <p class="title">You don't have a permission to access to this page, please help to <a onclick="@StartSignIn">Sign In</a>.</p>
+    </div>
+  </div>
+</div>
+
+@functions {
+
+  protected override Task OnInitAsync()
+  {
+    var userState = AppState.User;
+    if (userState?.AccessToken != null && userState.Profile != null)
+    {
+      AppState.Redirect("/");
+    }
+    return Task.CompletedTask;
+  }
+
+  async Task StartSignIn()
+  {
+    await JsInteropService.StartSignin();
+  }
+
+}

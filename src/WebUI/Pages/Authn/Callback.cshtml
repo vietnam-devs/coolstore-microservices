@@ -1,0 +1,16 @@
+@inherits WebUI.Pages.BaseComponent
+@page "/callback"
+
+@functions {
+
+  protected override async Task OnInitAsync()
+  {
+    var user = await JsInteropService.Callback();
+    if (user != null)
+    {
+      await AppState.UpdateUser(user);
+      await AppState.Redirect("/");
+    }
+  }
+
+}

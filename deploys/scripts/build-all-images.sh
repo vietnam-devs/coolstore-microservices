@@ -30,4 +30,7 @@ docker build -f src/services/review/Dockerfile -t vndg/cs-review-service:$TAG -t
 echo "Build SPA..."
 docker build -f src/web/Dockerfile -t vndg/cs-spa:$TAG -t vndg/cs-spa:latest .
 
+echo "Build Web Blazor..."
+docker build -f src/WebUI/Dockerfile -t vndg/cs-webui:$TAG -t vndg/cs-webui:latest .
+
 #docker rmi $(docker images -f "dangling=true" -q)
