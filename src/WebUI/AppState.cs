@@ -51,5 +51,15 @@ namespace WebUI
     {
       await _jsInteropService.WriteLog(info);
     }
+
+    public string GetToken()
+    {
+      return User.AccessToken;
+    }
+
+    public Guid? GetCurrentCart()
+    {
+      return Cart.Id;
+    }
   }
 }

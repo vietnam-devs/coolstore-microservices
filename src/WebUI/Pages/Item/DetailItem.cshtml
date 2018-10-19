@@ -1,7 +1,8 @@
 @page "/detail-item/{ProductId}"
 @inherits WebUI.Pages.AuthnComponent
 @using WebUI.Model
-@inject WebUI.Services.ItemService itemService
+@using WebUI.Services
+@inject WebUI.Services.ItemService ItemService
 
 <div class="section">
   <div class="container">
@@ -52,7 +53,7 @@
 
     if (ProductId != null && !string.IsNullOrEmpty(ProductId))
     {
-      Item = await itemService.GetItem(new Guid(ProductId));
+      Item = await ItemService.GetItem(new Guid(ProductId));
     }
   }
 

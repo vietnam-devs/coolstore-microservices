@@ -8,20 +8,21 @@ using WebUI.Model;
 
 namespace WebUI.Services
 {
-  public class ItemService
+  public class ItemService : BaseService
   {
-    private readonly HttpClient _httpClient;
     private readonly string _catalogUrl;
 
-    public ItemService(ConfigModel config, HttpClient httpClient)
+    public ItemService(AppState appState, ConfigModel config, HttpClient httpClient)
+      : base(appState, config, httpClient)
     {
-      _httpClient = httpClient;
-      _catalogUrl = $"{config.CatalogService}";
+      _catalogUrl = $"{Config.CatalogService}";
     }
 
     public async Task<Pagination<ItemModel>> GetItems(int page = 1, int pageSize = 9, long price = 4000)
     {
-      var items = await _httpClient.GetJsonAsync<List<ItemModel>>($"{_catalogUrl}/api/products");
+      await SetHeaderToken();
+
+      var items = await RestClient.GetJsonAsync<List<ItemModel>>($"{_catalogUrl}/api/products");
 
       var itemsFilter = items.Where(x => x.Price <= price).ToList();
       var pagination = new Pagination<ItemModel>
@@ -37,13 +38,15 @@ namespace WebUI.Services
 
     public async Task<ItemModel> GetItem(Guid id)
     {
-      return await _httpClient.GetJsonAsync<ItemModel>($"{_catalogUrl}/api/products/{id}");
+      await SetHeaderToken();
+      return await RestClient.GetJsonAsync<ItemModel>($"{_catalogUrl}/api/products/{id}");
     }
 
     public async Task CreateItem(ItemModel item)
     {
+      await SetHeaderToken();
       item.Id = Guid.NewGuid();
-      await _httpClient.PostJsonAsync($"{_catalogUrl}/api/products", item);
+      await RestClient.PostJsonAsync($"{_catalogUrl}/api/products", item);
     }
   }
 }

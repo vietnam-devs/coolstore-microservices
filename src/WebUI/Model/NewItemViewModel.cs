@@ -1,4 +1,4 @@
-namespace WebUI.Pages.Item
+namespace WebUI.Model
 {
   public class NewItemViewModel
   {

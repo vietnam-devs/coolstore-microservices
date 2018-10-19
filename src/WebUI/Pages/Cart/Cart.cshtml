@@ -52,32 +52,34 @@
               </tr>
               </thead>
               <tbody>
-              @foreach (var item in Model.Items)
-              {
-                <tr>
-                  <th>
-                    <img class="media-object" src="@item.ImageUrl" alt="@item.Name">
-                  </th>
-                  <th>
-                    <span>@item.Name</span>
-                  </th>
-                  <td>
-                    <span>$@item.Price</span>
-                  </td>
-                  <td>
-                    <span>
-                      <input class="quantity-button" type="button" value="-" onclick=@(async () => await OnQuantityDecrease(item)) />
-                      <input class="quantity-field" type="text" value="@item.Quantity" disabled="disabled" />
-                      <input class="quantity-button" type="button" value="+" onclick=@(async () => await OnQuantityIncrease(item)) />
-                    </span>
-                  </td>
-                  <td>
-                    <span class="icon pointer">
-                      <a onclick=@(async () => await OnDeleteItem(item))><i class="fas fa-backspace"></i></a>
-                    </span>
-                  </td>
-                </tr>
-              }
+                @{int index = 1;}
+                @foreach (var item in Model.Items)
+                {
+                  <tr>
+                    <th>
+                      <img class="media-object" src="@($"{item.ImageUrl}{index}")" alt="@item.ProductName">
+                    </th>
+                    <th>
+                      <span>@item.ProductName</span>
+                    </th>
+                    <td>
+                      <span>$@item.Price</span>
+                    </td>
+                    <td>
+                      <span>
+                        <input class="quantity-button" type="button" value="-" onclick=@(async () => await OnQuantityDecrease(item)) />
+                        <input class="quantity-field" type="text" value="@item.Quantity" disabled="disabled" />
+                        <input class="quantity-button" type="button" value="+" onclick=@(async () => await OnQuantityIncrease(item)) />
+                      </span>
+                    </td>
+                    <td>
+                      <span class="icon pointer">
+                        <a onclick=@(async ()=>await OnDeleteItem(item))><i class="fas fa-backspace"></i></a>
+                      </span>
+                    </td>
+                  </tr>
+                  index++;
+                }
               </tbody>
             </table>
           </div>
@@ -129,7 +131,7 @@
   {
     await EnsureAuthn();
     Model = AppState.Cart;
-    Model = await CartService.GetCart(new Guid("{32EF8824-4C37-47BD-91DE-034DC4BAFF0C}"));
+    Model = await CartService.GetCart(AppState.GetCurrentCart() ?? new Guid("{90c32631-3ca3-4c3e-adba-52185d568c6e}"));
   }
 
   double SubTotalCalculate()
@@ -147,6 +149,7 @@
     if (item.Quantity > 1)
     {
       item.Quantity--;
+      await CartService.UpdateCart(Model.Id, item.ProductId, -1);
     }
     await Task.CompletedTask;
   }
@@ -156,6 +159,7 @@
     if (item.Quantity < 1000)
     {
       item.Quantity++;
+      await CartService.UpdateCart(Model.Id, item.ProductId, 1);
     }
     await Task.CompletedTask;
   }
@@ -163,6 +167,7 @@
   async Task OnDeleteItem(CartItemModel item)
   {
     Model.Items.Remove(item);
+    await CartService.RemoveFromCart(Model.Id, item.ProductId);
     await Task.CompletedTask;
   }
 

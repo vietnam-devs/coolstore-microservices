@@ -1,6 +1,6 @@
 {
-  "webServer": "http://localhost:5003",
-  "authorityServer": "https://demo.identityserver.io/",
+  "webServer": "http://localhost:8080",
+  "authorityServer": "http://localhost:5001",
   "catalogService": "http://localhost:5002",
   "cartService": "http://localhost:5003",
   "inventoryService": "http://localhost:5004",

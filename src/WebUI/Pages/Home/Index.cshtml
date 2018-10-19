@@ -127,7 +127,7 @@
 
   async Task OnAddToCart(Guid itemId)
   {
-    AppState.Cart = await CartService.AddProductToCart(new Guid("{32EF8824-4C37-47BD-91DE-034DC4BAFF0C}"), itemId, 1);
+    AppState.Cart = await CartService.AddProductToCart(AppState.GetCurrentCart(), itemId, 1);
   }
 
   async Task InitData()

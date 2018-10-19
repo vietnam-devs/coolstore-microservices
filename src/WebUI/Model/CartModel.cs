@@ -5,7 +5,7 @@ namespace WebUI.Model
 {
   public class CartModel
   {
-    public Guid CartId { get; set; }
+    public Guid Id { get; set; }
     // public Guid ProductId { get; set; }
     // public int Quantity { get; set; } = 1;
     public double ShippingTotal { get; set; } = 0D;
@@ -18,9 +18,9 @@ namespace WebUI.Model
   public class CartItemModel
   {
     public Guid ProductId { get; set; }
-    public string Name { get; set; }
+    public string ProductName { get; set; }
     public double Price { get; set; } = 0D;
     public int Quantity { get; set; } = 1;
-    public string ImageUrl { get; set; } = "https://picsum.photos/120/75?image=8";
+    public string ImageUrl { get; set; } = "https://picsum.photos/120/75?image=";
   }
 }

@@ -11,11 +11,11 @@ Oidc.Log.level = Oidc.Log.DEBUG;
 
 const settings = {
   authority: config.authorityServer,
-  client_id: "implicit",
+  client_id: "spa",
   redirect_uri: `${config.webServer}/callback`,
   post_logout_redirect_uri: `${config.webServer}`,
   response_type: "id_token token",
-  scope: "openid profile email api",
+  scope: "inventory_api_scope cart_api_scope pricing_api_scope review_api_scope catalog_api_scope rating_api_scope openid profile",
 
   popup_redirect_uri: `${config.webServer}/callback`,
   popup_post_logout_redirect_uri: `${config.webServer}`,
