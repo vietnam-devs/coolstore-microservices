@@ -333,7 +333,7 @@ ASALocalRun/
 # lock files
 yarn.lock
 package-lock.json
-build
+#build
 
 # log files
 **/*log.txt
