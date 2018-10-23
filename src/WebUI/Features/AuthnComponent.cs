@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Blazor.Components;
 using WebUI.Services;
 
-namespace WebUI.Pages
+namespace WebUI.Features
 {
   public class AuthnComponent : BaseComponent
   {

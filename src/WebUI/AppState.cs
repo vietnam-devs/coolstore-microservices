@@ -1,27 +1,25 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Blazor.Services;
 using WebUI.Model;
 using WebUI.Services;
+using WebUI.Shared.Sidebar;
 
 namespace WebUI
 {
   public class AppState
   {
     private readonly JsInteropService _jsInteropService;
-    private readonly IUriHelper _uriHelper;
 
-    public AppState(JsInteropService jsInteropService, IUriHelper uriHelper)
+    public AppState(JsInteropService jsInteropService)
     {
       _jsInteropService = jsInteropService;
-      _uriHelper = uriHelper;
     }
 
     public bool IsSignedIn => User?.AccessToken != null;
 
     public UserModel User { get; private set; } = new UserModel();
     public CartModel Cart { get; set; } = new CartModel();
-    public SideBarModel SideBar { get; set; } = new SideBarModel();
+    public SideBarViewModel SideBar { get; set; } = new SideBarViewModel();
     public Pagination<ItemModel> ItemPagination { get; set; } = new Pagination<ItemModel>();
 
     public async Task InitAppStore(Action doAction = null)
@@ -38,12 +36,6 @@ namespace WebUI
     {
       User = user;
       doAction?.Invoke();
-      return Task.CompletedTask;
-    }
-
-    public Task Redirect(string path = "/")
-    {
-      _uriHelper.NavigateTo(path);
       return Task.CompletedTask;
     }
 

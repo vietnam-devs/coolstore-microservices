@@ -54,7 +54,23 @@
 				},
 				"description": "Get the all product",
 				"security": [],
-				"parameters": []
+				"parameters": [
+					{
+						"default": 0,
+						"in": "query",
+						"name": "currentPage",
+						"required": false,
+						"format": "double",
+						"type": "number"
+					},
+					{
+						"in": "query",
+						"name": "highPrice",
+						"required": false,
+						"format": "double",
+						"type": "number"
+					}
+				]
 			},
 			"post": {
 				"operationId": "Create",

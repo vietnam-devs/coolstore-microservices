@@ -1,4 +1,5 @@
-@inherits WebUI.Pages.AuthnComponent
+@using WebUI.Features.UserProfile
+@inherits WebUI.Features.AuthnComponent
 @page "/profile"
 
 <div class="section">
@@ -11,25 +12,25 @@
     <div class="field">
       <label class="label">Name</label>
       <div class="control">
-        <input class="input" type="text" disabled value="@AppState.User?.Profile?.Name">
+        <input class="input" type="text" disabled value="@Model.Name">
       </div>
     </div>
     <div class="field">
       <label class="label">Id</label>
       <div class="control">
-        <input class="input" type="text" disabled value="@AppState.User?.Profile?.UserId">
+        <input class="input" type="text" disabled value="@Model.UserId">
       </div>
     </div>
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
-        <input class="input" type="text" disabled value="@AppState.User?.Profile?.Email">
+        <input class="input" type="text" disabled value="@Model.Email">
       </div>
     </div>
     <div class="field">
       <label class="label">Website</label>
       <div class="control">
-        <input class="input" type="text" disabled value="@AppState.User?.Profile?.Website">
+        <input class="input" type="text" disabled value="@Model.WebSite">
       </div>
     </div>
     <div class="field">
@@ -41,6 +42,18 @@
 </div>
 
 @functions {
+
+  UserProfileViewModel Model { get; set; } = new UserProfileViewModel();
+
+  protected override async Task OnInitAsync()
+  {
+    await EnsureAuthn();
+
+    Model.Name = AppState.User.Profile.Name;
+    Model.UserId = AppState.User.Profile.UserId;
+    Model.Email = AppState.User.Profile.Email;
+    Model.WebSite = AppState.User.Profile.Website;
+  }
 
   async Task StartSignOut()
   {

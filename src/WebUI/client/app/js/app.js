@@ -1,7 +1,7 @@
 require("./log.js");
 require("./../styles/app.css");
 
-const config = require("./../../config/config.json");
+const config = require("./../../../config/config.json");
 
 ///////////////////////////////
 // config

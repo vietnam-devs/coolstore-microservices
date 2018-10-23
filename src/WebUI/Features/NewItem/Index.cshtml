@@ -1,7 +1,7 @@
 @page "/new-item"
 @using WebUI.Model
 @using WebUI.Services
-@inherits WebUI.Pages.AuthnComponent
+@inherits WebUI.Features.AuthnComponent
 @inject WebUI.Services.ItemService ItemService
 
 <div class="section">
@@ -66,7 +66,7 @@
       ImageUrl = Model.ImageUrl
     });
 
-    await AppState.Redirect();
+    await JsInteropService.Navigate();
   }
 
 }

@@ -2,7 +2,7 @@
   "name": "web-ui",
   "version": "1.0.0",
   "description": "WebUI for coolstore",
-  "main": "client-app/js/app.js",
+  "main": "client/app/js/app.js",
   "author": "Thang Chung",
   "license": "MIT",
   "scripts": {

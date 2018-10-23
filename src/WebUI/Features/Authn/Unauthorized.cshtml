@@ -1,5 +1,5 @@
 @layout OutsideLayout
-@inherits WebUI.Pages.BaseComponent
+@inherits WebUI.Features.BaseComponent
 @page "/unauthorized"
 
 <div class="container">
@@ -12,14 +12,13 @@
 
 @functions {
 
-  protected override Task OnInitAsync()
+  protected override async Task OnInitAsync()
   {
     var userState = AppState.User;
     if (userState?.AccessToken != null && userState.Profile != null)
     {
-      AppState.Redirect("/");
+      await JsInteropService.Navigate();
     }
-    return Task.CompletedTask;
   }
 
   async Task StartSignIn()

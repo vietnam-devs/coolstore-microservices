@@ -1,5 +1,5 @@
 @page "/detail-item/{ProductId}"
-@inherits WebUI.Pages.AuthnComponent
+@inherits WebUI.Features.AuthnComponent
 @using WebUI.Model
 @using WebUI.Services
 @inject WebUI.Services.ItemService ItemService
@@ -33,7 +33,7 @@
       </div>
       <div class="field">
         <div class="control">
-          <a class="button is-primary" onclick=@(async () => await AppState.Redirect("/"))>Back</a>
+          <a class="button is-primary" onclick=@(async () => await JsInteropService.Navigate())>Back</a>
         </div>
       </div>
     }

@@ -1,6 +1,6 @@
-namespace WebUI.Model
+namespace WebUI.Shared.Sidebar
 {
-  public class SideBarModel
+  public class SideBarViewModel
   {
     public int Min { get; set; } = 1;
     public int Max { get; set; } = 4000;

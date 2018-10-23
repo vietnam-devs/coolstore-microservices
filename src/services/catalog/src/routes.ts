@@ -17,6 +17,8 @@ export function RegisterRoutes(app: any) {
   app.get('/api/products',
     function(request: any, response: any, next: any) {
       const args = {
+        currentPage: { "default": 0, "in": "query", "name": "currentPage", "dataType": "double" },
+        highPrice: { "in": "query", "name": "highPrice", "dataType": "double" },
       };
 
       let validatedArgs: any[] = [];

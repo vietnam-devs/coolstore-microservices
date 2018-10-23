@@ -1,4 +1,4 @@
-@using WebUI.Model
+@using WebUI.Shared.Sidebar
 
 <aside class="is-light is-radius">
   <div class="sidearea">
@@ -30,7 +30,7 @@
 @functions {
 
   [Parameter]
-  SideBarModel SideBar { get; set; } = new SideBarModel();
+  SideBarViewModel SideBar { get; set; } = new SideBarViewModel();
 
   [Parameter]
   Action<long> OnSliderChanged { get; set; }

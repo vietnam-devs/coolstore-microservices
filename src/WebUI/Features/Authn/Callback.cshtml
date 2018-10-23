@@ -1,4 +1,4 @@
-@inherits WebUI.Pages.BaseComponent
+@inherits WebUI.Features.BaseComponent
 @page "/callback"
 
 @functions {
@@ -9,7 +9,7 @@
     if (user != null)
     {
       await AppState.UpdateUser(user);
-      await AppState.Redirect("/");
+      await JsInteropService.Navigate();
     }
   }
 

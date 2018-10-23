@@ -44,7 +44,7 @@ namespace WebUI.Services
       await JSRuntime.Current.InvokeAsync<bool>("silent");
     }
 
-    public async Task Navigate(string uri)
+    public async Task Navigate(string uri = "/")
     {
       UriHelper.NavigateTo(uri);
       //await JSRuntime.Current.InvokeAsync<bool>("refresh", uri);
