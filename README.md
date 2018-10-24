@@ -51,23 +51,119 @@ Our team uses this demo application to demonstrate Kubernetes, AKS, Istio and si
 
 ![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
 
-<details>
-  <summary><strong>µServices</strong></summary>
-
 There are several individual µservices and infrastructure components that make up this app:
 
-| No. | Service | Description | Language | Database | Endpoints |
-|-----|---------|-------------|----------|----------|-----------|
-| 1 | Catalog | Serves products and prices for retail products | Node.js | Mongo | [`http://localhost:5002`](http://localhost:5002) or [`http://api.coolstore.local/catalog`](http://api.coolstore.local/catalog/swagger)
-| 2 | Cart | Manages shopping cart for each customer | .NET Core | MySQL | [`http://localhost:5003`](http://localhost:5003) or [`http://api.coolstore.local/cart`](http://api.coolstore.local/cart/swagger)
-| 3 | Inventory | Serves inventory and availability data for retail products | .NET Core | MySQL | [`http://localhost:5004`](http://localhost:5004) or [`http://api.coolstore.local/inventory`](http://api.coolstore.local/inventory/swagger)
-| 4 | Pricing | Handles a business rules application for product pricing | .NET Core | MySQL | [`http://localhost:5005`](http://localhost:5005) or [`http://api.coolstore.local/pricing`](http://api.coolstore.local/pricing/swagger)
-| 5 | Review | Runs for writing and displaying reviews for products | .NET Core | MySQL | [`http://localhost:5006`](http://localhost:5006) or [`http://api.coolstore.local/review`](http://api.coolstore.local/review/swagger)
-| 6 | Rating | Runs for rating products | Node.js | Mongo | [`http://localhost:5007`](http://localhost:5007) or [`http://api.coolstore.local/rating`](http://api.coolstore.local/rating/swagger)
-| 7 | IdP | Uses [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) to authentication with OAuth 2.0 and OpenID Connect for the whole stack | .NET Core | In Memory | [`http://localhost:5001`](http://localhost:5001) or [`http://id.coolstore.local`](http://id.coolstore.local)
-| 8 | Web UI (PWA) | Frontend based on [vuejs](https://vuejs.org/) and [Node.js](https://nodejs.org) | Vuejs + Node.js | N/A | [`http://localhost:8080`](http://localhost:8080) or [`http://coolstore.local`](http://coolstore.local)
-
-</details>
+<table>
+  <thead>
+    <th>No.</th>
+    <th>Service</th>
+    <th>Description</th>
+    <th>Source</th>
+    <th>Endpoints</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">1.</td>
+      <td>IdP (.NET Core + In-memory database)</td>
+      <td>Uses <a href="https://github.com/IdentityServer/IdentityServer4">IdentityServer4</a> to authentication with OAuth 2.0 and OpenID Connect for the whole stack</td>
+      <td>
+        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/idp">code</a>
+      </td>
+      <td>
+        <a href="http://localhost:5001">development</a> && <a href="http://id.coolstore.local">staging</a>
+      </td>
+     </tr>
+    <tr>
+      <td align="center">2.</td>
+      <td>Catalog (Node.js + Mongo)</td>
+      <td>Serves products and prices for retail products</td>
+      <td>
+        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/catalog">code</a>
+      </td>
+      <td>
+        <a href="http://localhost:5002">development</a> && <a href="http://api.coolstore.local/catalog/swagger">staging</a>
+      </td>
+     </tr>
+     <tr>
+      <td align="center">3.</td>
+      <td>Cart (.NET Core + MySQL)</td>
+      <td>Manages shopping cart for each customer</td>
+      <td>
+        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/cart">code</a>
+      </td>
+      <td>
+        <a href="http://localhost:5003">development</a> && <a href="http://api.coolstore.local/cart/swagger">staging</a>
+      </td>
+     </tr>
+     <tr>
+      <td align="center">4.</td>
+      <td>Inventory (.NET Core + MySQL)</td>
+      <td>Serves inventory and availability data for retail products</td>
+      <td>
+        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/inventory">code</a>
+      </td>
+      <td>
+        <a href="http://localhost:5004">development</a> && <a href="http://api.coolstore.local/inventory/swagger">staging</a>
+      </td>
+     </tr>
+     <tr>
+      <td align="center">5.</td>
+      <td>Pricing (.NET Core + MySQL)</td>
+      <td>Handles a business rules application for product pricing</td>
+      <td>
+        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/pricing">code</a>
+      </td>
+      <td>
+        <a href="http://localhost:5005">development</a> && <a href="http://api.coolstore.local/pricing/swagger">staging</a>
+      </td>
+     </tr>
+     <tr>
+      <td align="center">6.</td>
+      <td>Review (.NET Core + MySQL)</td>
+      <td>Runs for writing and displaying reviews for products</td>
+      <td>
+        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/review">code</a>
+      </td>
+      <td>
+        <a href="http://localhost:5006">development</a> && <a href="http://api.coolstore.local/review/swagger">staging</a>
+      </td>
+     </tr>
+     <tr>
+      <td align="center">7.</td>
+      <td>Rating (Node.js + Mongo)</td>
+      <td>Runs for rating products</td>
+      <td>
+        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/rating">code</a>
+      </td>
+      <td>
+        <a href="http://localhost:5007">development</a> && <a href="http://api.coolstore.local/rating/swagger">staging</a>
+      </td>
+     </tr>
+     <tr>
+      <td align="center">8.</td>
+      <td>Web UI </td>
+      <td>Frontend based on <a href="https://blazor.net">Blazor</a> - Full-stack web development with C# and <a href="https://webassembly.org/">WebAssembly</a></td>
+      <td>
+        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/WebUI">code</a>
+      </td>
+      <td>
+        <a href="http://localhost:8080">development</a> && <a href="http://web.coolstore.local">staging</a>
+      </td>
+     </tr>
+     <tr>
+      <td align="center">9.</td>
+      <td>Web UI (PWA - Vuejs + Node.js) - Obsoleted</td>
+      <td>Frontend based on <a href="https://vuejs.org">vuejs</a> and <a href="https://nodejs.org">Node.js</a></td>
+      <td>
+        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/web">code</a>
+      </td>
+      <td>
+        <a href="http://localhost:8080">development</a> && <a href="http://web.coolstore.local">staging</a>
+      </td>
+     </tr>
+     
+  </tbody>
+</table>
 
 ## Installation
 
