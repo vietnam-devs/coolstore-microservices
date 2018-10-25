@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1.3-aspnetcore-runtime-alpine AS base
+FROM microsoft/dotnet:2.1.5-aspnetcore-runtime-alpine AS base
 WORKDIR /app
 
 ARG service_version
@@ -10,7 +10,7 @@ ENV API_VERSION ${api_version:-1.0}
 ENV ASPNETCORE_URLS http://+:5006
 EXPOSE 5006
 
-FROM microsoft/dotnet:2.1.401-sdk-alpine AS build
+FROM microsoft/dotnet:2.1.403-sdk-alpine AS build
 WORKDIR /src
 COPY . .
 
