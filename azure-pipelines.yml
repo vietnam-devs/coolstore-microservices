@@ -16,6 +16,13 @@ steps:
     docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
   displayName: 'docker login'
 - script: |
+    docker pull microsoft/dotnet:2.1.5-aspnetcore-runtime-alpine
+    docker pull microsoft/dotnet:2.1.403-sdk-alpine
+    docker pull nginx:alpine
+    docker pull node:alpine
+    docker pull mysql:8.0.12
+  displayName: 'Pull Docker Images'
+- script: |
     docker build -f ./deploys/dockers/mysqldb/Dockerfile -t $(DOCKER_USERNAME)/cs-mysqldb:$(DOCKER_TAG) .
     docker tag $(DOCKER_USERNAME)/cs-mysqldb:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-mysqldb:$(DOCKER_TAG)
     docker push $(DOCKER_GROUP)/cs-mysqldb:$(DOCKER_TAG)
