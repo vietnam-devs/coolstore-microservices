@@ -31,6 +31,7 @@ cartSettings:
 inventorySettings:
   Hosts__Externals__CurrentUri: http://api.coolstore.local/inventory
   Hosts__Externals__Auth__Uri: http://id.coolstore.local
+  MySqlDb__FQDN: "inventorydb.coolstore:3306"
 
 reviewSettings:
   Hosts__Externals__CurrentUri: http://api.coolstore.local/review

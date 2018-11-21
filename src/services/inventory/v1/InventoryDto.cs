@@ -1,7 +1,12 @@
-using VND.CoolStore.Services.Inventory.Dtos;
-
-namespace VND.CoolStore.Services.Inventory.Extensions
+namespace VND.CoolStore.Services.Inventory.v1
 {
+  public class InventoryDto
+  {
+    public string Location { get; set; }
+    public int Quantity { get; set; }
+    public string Link { get; set; }
+  }
+
   public static class InventoryExtensions
   {
     public static InventoryDto ToDto(this Domain.Inventory inv)
@@ -9,7 +14,7 @@ namespace VND.CoolStore.Services.Inventory.Extensions
       return new InventoryDto
       {
         Link = inv.Link,
-        Location =  inv.Location,
+        Location = inv.Location,
         Quantity = inv.Quantity
       };
     }

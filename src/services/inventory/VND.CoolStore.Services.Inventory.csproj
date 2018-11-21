@@ -6,22 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
     <PackageReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="2.2.0" />
-    <PackageReference Include="NetCoreKit.Domain" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.CleanArch" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.Miniservice" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.OpenApi" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.SqlServer" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Utils" Version="0.1.43" />
+    <PackageReference Include="NetCoreKit.Domain" Version="0.1.75" />
+    <PackageReference Include="NetCoreKit.Infrastructure" Version="0.1.75" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore" Version="0.1.75" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.CleanArch" Version="0.1.75" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.Miniservice" Version="0.1.75" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.OpenApi" Version="0.1.75" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore" Version="0.1.75" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.75" />
+    <PackageReference Include="NetCoreKit.Utils" Version="0.1.75" />
   </ItemGroup>
 
   <ItemGroup>

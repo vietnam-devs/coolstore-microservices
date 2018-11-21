@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NetCoreKit.Infrastructure.EfCore.Db;
 
-namespace VND.CoolStore.Services.Inventory.Infrastructure.Db
+namespace VND.CoolStore.Services.Inventory.v1.Infrastructure.Db
 {
   public class InventoryDbContext : AppDbContext
   {

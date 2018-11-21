@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1.401-sdk-alpine AS build
+FROM microsoft/dotnet:2.1.403-sdk-alpine AS build
 WORKDIR .
 COPY . .
 WORKDIR /src/WebUI

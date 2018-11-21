@@ -22,6 +22,13 @@ spec:
           value: {{ .Values.inventorySettings.Hosts__Externals__CurrentUri }}
         - name: Hosts__Externals__Auth__Uri
           value: {{ .Values.inventorySettings.Hosts__Externals__Auth__Uri }}
+        - name: MySqlDb__FQDN
+          value: {{ .Values.inventorySettings.MySqlDb__FQDN }}
+        - name: MySqlDb__Password
+          valueFrom:
+            secretKeyRef:
+              name: inventory-secrets
+              key: MySqlDbPassword
         ports:
         - containerPort: 5004
         livenessProbe:

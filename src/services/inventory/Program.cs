@@ -2,7 +2,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Infrastructure.EfCore.Extensions;
-using VND.CoolStore.Services.Inventory.Infrastructure.Db;
+using VND.CoolStore.Services.Inventory.v1.Infrastructure.Db;
 
 namespace VND.CoolStore.Services.Inventory
 {
