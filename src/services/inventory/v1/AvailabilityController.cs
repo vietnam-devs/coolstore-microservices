@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using NetCoreKit.Domain;
 using NetCoreKit.Infrastructure.AspNetCore.Authz;
 using NetCoreKit.Infrastructure.EfCore.Extensions;
+using VND.CoolStore.Services.Inventory.v1.Dtos;
 
-namespace VND.CoolStore.Services.Inventory.v1.UseCases
+namespace VND.CoolStore.Services.Inventory.v1
 {
   [ApiVersion("1.0")]
   [Route("api/availability")]

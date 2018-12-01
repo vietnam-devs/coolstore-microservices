@@ -1,4 +1,4 @@
-namespace VND.CoolStore.Services.Inventory.v1
+namespace VND.CoolStore.Services.Inventory.v1.Dtos
 {
   public class InventoryDto
   {

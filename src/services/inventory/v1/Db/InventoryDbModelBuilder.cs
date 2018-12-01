@@ -2,7 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using NetCoreKit.Infrastructure.EfCore.Db;
 
-namespace VND.CoolStore.Services.Inventory.v1
+namespace VND.CoolStore.Services.Inventory.v1.Db
 {
   public class InventoryDbModelBuilder : ICustomModelBuilder
   {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VND.CoolStore.Services.Inventory.v1.Infrastructure.Db;
+using VND.CoolStore.Services.Inventory.v1.Db;
 
 namespace VND.CoolStore.Services.Inventory.Migrations
 {

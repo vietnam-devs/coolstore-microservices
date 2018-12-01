@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Infrastructure.AspNetCore.Miniservice;
 using NetCoreKit.Infrastructure.EfCore.MySql;
-using VND.CoolStore.Services.Inventory.v1.Infrastructure.Db;
+using VND.CoolStore.Services.Inventory.v1.Db;
 
 namespace VND.CoolStore.Services.Inventory
 {
@@ -10,7 +10,7 @@ namespace VND.CoolStore.Services.Inventory
   {
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddMiniService<InventoryDbContext>(
+      services.AddEfCoreMiniService<InventoryDbContext>(
         svc =>
         {
           svc.AddEfCoreMySqlDb();

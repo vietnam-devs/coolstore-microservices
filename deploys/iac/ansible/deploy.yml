@@ -1,0 +1,6 @@
+---
+- name: Install coolstore app
+  hosts: master1
+  tasks:
+    - name: Pause for seconds
+      pause: seconds=5

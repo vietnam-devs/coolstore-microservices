@@ -1,7 +1,7 @@
 using System;
 using NetCoreKit.Domain;
 
-namespace VND.CoolStore.Services.Inventory.v1.Domain
+namespace VND.CoolStore.Services.Inventory.Domain
 {
   public class Inventory : AggregateRootBase
   {

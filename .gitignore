@@ -340,6 +340,8 @@ package-lock.json
 
 # ignore all *.dev.yaml files
 # **/*/*.dev.yaml
+**/*/.vagrant/
+**/*/*.retry
 **/*/*.local.yaml
 deploys/k8s/**/*.yaml
 **/*/key*.*
