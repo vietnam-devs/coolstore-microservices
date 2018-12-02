@@ -2,12 +2,15 @@
 # vi: set ft=ruby :
 # Source at https://thornelabs.net/2014/11/13/multi-machine-vagrantfile-with-shorter-cleaner-syntax-using-json-and-loops.html
 
-boxes = [
+masters = [
   {
     :name => "master01",
     :mem => "2048",
     :cpu => "2"
-  },
+  }
+]
+
+workers = [
   {
     :name => "worker01",
     :mem => "1024",
@@ -32,7 +35,33 @@ Vagrant.configure(2) do |config|
   # Turn off shared folders
   # config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
 
-  boxes.each do |opts|
+  masters.each do |opts|
+    config.vm.define opts[:name] do |subconfig|
+      subconfig.vm.provider :hyperv do |hyperv|
+        hyperv.vmname = opts[:name]
+        hyperv.memory = opts[:mem]
+        hyperv.cpus = opts[:cpu]
+      end
+
+      subconfig.vm.hostname = opts[:name]
+      subconfig.vm.network "public_network", type: "dhcp", bridge: "sample_switch"
+      subconfig.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/id_rsa.pub"
+
+      $script = <<-SCRIPT
+        cd ~
+        sudo apt-get install software-properties-common
+        sudo apt-add-repository ppa:ansible/ansible
+        sudo apt-get update
+        sudo apt-get dist-upgrade -y
+        sudo apt-get install python
+        sudo apt-get install ansible
+      SCRIPT
+
+      config.vm.provision "shell", inline: $script
+    end
+  end
+
+  workers.each do |opts|
     config.vm.define opts[:name] do |subconfig|
       subconfig.vm.provider :hyperv do |hyperv|
         hyperv.vmname = opts[:name]
