@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+# Source at https://thornelabs.net/2014/11/13/multi-machine-vagrantfile-with-shorter-cleaner-syntax-using-json-and-loops.html
 
-# https://thornelabs.net/2014/11/13/multi-machine-vagrantfile-with-shorter-cleaner-syntax-using-json-and-loops.html
 boxes = [
   {
     :name => "master01",
@@ -30,7 +30,7 @@ Vagrant.configure(2) do |config|
   config.ssh.insert_key = false
 
   # Turn off shared folders
-  config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
+  # config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
 
   boxes.each do |opts|
     config.vm.define opts[:name] do |subconfig|
@@ -41,7 +41,7 @@ Vagrant.configure(2) do |config|
       end
 
       subconfig.vm.hostname = opts[:name]
-      subconfig.vm.network "private_network", type: "dhcp", bridge: "sample_switch"
+      subconfig.vm.network "public_network", type: "dhcp", bridge: "sample_switch"
     end
   end
 end

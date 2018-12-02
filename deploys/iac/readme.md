@@ -1,6 +1,8 @@
+# Up and running 3 nodes (1 master and 2 workers) with Vagrant
+
 - Step 1: Install `Vagrant`
 - Step 2: Enabled `Hyper-V`
-- Step 3: Create `external virtual network` with named `sample_switch`
+- Step 3: Create `Internal Network Switch` with named `sample_switch`, more information at https://gist.github.com/savishy/8ed40cd8692e295d64f45e299c2b83c9
 - Step 4: Up and running as below
 
 ```
