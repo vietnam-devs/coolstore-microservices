@@ -1,6 +1,49 @@
-- hosts: coolstore
+- hosts: all
   become: yes
   tasks:
+    - name: install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: true
+
+    - name: install APT Transport HTTPS
+      apt:
+        name: apt-transport-https
+        state: present
+
+    - name: add Kubernetes apt-key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: add Kubernetes' APT repository
+      apt_repository:
+        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        filename: 'kubernetes'
+
+    - name: install kubelet
+      apt:
+        name: kubelet
+        state: present
+        update_cache: true
+
+    - name: install kubeadm
+      apt:
+        name: kubeadm
+        state: present
+
+    - name: install kubernetes-cni
+      apt:
+        name: kubernetes-cni
+        state: present
+
+    - name: install kubectl
+      apt:
+        name: kubectl
+        state: present
+       
     - name: disable swap
       shell: |
         swapoff -a
