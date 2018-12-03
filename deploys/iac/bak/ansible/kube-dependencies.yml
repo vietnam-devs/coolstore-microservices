@@ -34,11 +34,9 @@
        name: kubeadm
        state: present
 
-   - name: install kubernetes-cni
-     apt:
-       name: kubernetes-cni
-       state: present
-
+- hosts: masters
+  become: yes
+  tasks:
    - name: install kubectl
      apt:
        name: kubectl

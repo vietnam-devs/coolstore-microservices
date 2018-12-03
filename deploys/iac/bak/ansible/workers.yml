@@ -1,7 +1,17 @@
-- hosts: masters
+- hosts: master01
   become: yes
   gather_facts: false
   tasks:
+    - name: disable swap
+      shell: |
+        swapoff -a
+
+    - name: " start and enable Docker service"
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
     - name: get join command
       shell: kubeadm token create --print-join-command
       register: join_command_raw
@@ -14,7 +24,7 @@
   become: yes
   tasks:
     - name: join cluster
-      shell: "{{ hostvars['master'].join_command }} >> node_joined.txt"
+      shell: "{{ hostvars['master01'].join_command }} >> node_joined.txt"
       args:
         chdir: $HOME
         creates: node_joined.txt

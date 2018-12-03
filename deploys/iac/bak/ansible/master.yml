@@ -1,13 +1,9 @@
-- hosts: coolstore
+- hosts: master01
   become: yes
   tasks:
     - name: disable swap
       shell: |
         swapoff -a
-        rm -f /swapfile
-        vi /etc/fstab
-        swapon --summary
-        cat /proc/swaps
 
     - name: " start and enable Docker service"
       service:
@@ -37,10 +33,9 @@
         owner: root
 
     - name: install Pod network
+      #become: yes
+      #become_user: root
       shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml >> pod_network_setup.txt
       args:
         chdir: $HOME
         creates: pod_network_setup.txt
-
-    - name: setup single node cluster
-      shell: kubectl taint nodes --all node-role.kubernetes.io/master-

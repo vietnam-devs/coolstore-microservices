@@ -1,6 +1,7 @@
 - hosts: all
   become: yes
-  tasks:
+  tasks: 
+    #https://stackoverflow.com/questions/37333305/ansible-create-a-user-with-sudo-privileges
     - name: Make sure we have a 'k8s' group
       group:
         name: k8s
