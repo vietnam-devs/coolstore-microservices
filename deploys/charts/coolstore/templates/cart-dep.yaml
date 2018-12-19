@@ -24,12 +24,19 @@ spec:
           value: {{ .Values.cartSettings.Hosts__Externals__Auth__Uri }}
         - name: Hosts__Externals__Catalog__Uri
           value: {{ .Values.cartSettings.Hosts__Externals__Catalog__Uri }}
+        - name: Features__EfCore__MySqlDb__FQDN
+          value: {{ .Values.cartSettings.MySqlDb__FQDN }}
+        - name: Features__EfCore__MySqlDb__Password
+          valueFrom:
+            secretKeyRef:
+              name: cart-secrets
+              key: MySqlDbPassword
         ports:
-        - containerPort: 5003
+        - containerPort: 80
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 5003
+            port: 80
           initialDelaySeconds: 10
           periodSeconds: 5
         resources:

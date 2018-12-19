@@ -30,7 +30,7 @@ spec:
           value: {{ .Values.idpSettings.SpaAllowedCorsOrigin }}
         ports:
         - name: http
-          containerPort: 5001
+          containerPort: 80
         resources:
           requests:
             memory: "400Mi"

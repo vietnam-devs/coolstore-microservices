@@ -25,3 +25,4 @@ deployment
 assets
 docs
 **/*.csproj.user
+deploys/iac/

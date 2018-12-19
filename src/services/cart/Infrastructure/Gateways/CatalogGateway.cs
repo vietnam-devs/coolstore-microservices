@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using NetCoreKit.Infrastructure.AspNetCore;
-using NetCoreKit.Infrastructure.AspNetCore.Extensions;
+using NetCoreKit.Infrastructure.AspNetCore.Configuration;
+using NetCoreKit.Infrastructure.AspNetCore.Rest;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.Dtos;
 

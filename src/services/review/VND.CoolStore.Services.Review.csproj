@@ -1,26 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <TieredCompilation>true</TieredCompilation>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.5" />
-    <PackageReference Include="NetCoreKit.Domain" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.CleanArch" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.Miniservice" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.OpenApi" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.SqlServer" Version="0.1.43" />
-    <PackageReference Include="NetCoreKit.Utils" Version="0.1.43" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Domain\NetCoreKit.Domain.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore.All\NetCoreKit.Infrastructure.AspNetCore.All.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore.OpenApi\NetCoreKit.Infrastructure.AspNetCore.OpenApi.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore\NetCoreKit.Infrastructure.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.EfCore.MySql\NetCoreKit.Infrastructure.EfCore.MySql.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.EfCore\NetCoreKit.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure\NetCoreKit.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Utils\NetCoreKit.Utils.csproj" />
+    <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.EfCore\NetCoreKit.Template.EfCore.csproj" />
   </ItemGroup>
 
 </Project>

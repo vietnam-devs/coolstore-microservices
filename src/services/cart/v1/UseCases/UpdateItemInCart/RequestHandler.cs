@@ -27,7 +27,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.UpdateItemInCart
     public override async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request,
       CancellationToken cancellationToken)
     {
-      var cartCommander = CommandFactory.Repository<Domain.Cart>();
+      var cartCommander = CommandFactory.RepositoryAsync<Domain.Cart>();
       var cartQuery = QueryFactory.QueryEfRepository<Domain.Cart>();
 
       var cart = await cartQuery.GetFullCartAsync(request.CartId);

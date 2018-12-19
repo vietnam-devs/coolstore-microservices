@@ -27,12 +27,14 @@ cartSettings:
   Hosts__Externals__CurrentUri: http://api.coolstore.local/cart
   Hosts__Externals__Auth__Uri: http://id.coolstore.local
   Hosts__Externals__Catalog__Uri: http://api.coolstore.local/catalog
+  Features__EfCore__MySqlDb__FQDN: "cartdb.coolstore:3306"
 
 inventorySettings:
   Hosts__Externals__CurrentUri: http://api.coolstore.local/inventory
   Hosts__Externals__Auth__Uri: http://id.coolstore.local
-  MySqlDb__FQDN: "inventorydb.coolstore:3306"
+  Features__EfCore__MySqlDb__FQDN: "inventorydb.coolstore:3306"
 
 reviewSettings:
   Hosts__Externals__CurrentUri: http://api.coolstore.local/review
   Hosts__Externals__Auth__Uri: http://id.coolstore.local
+  Features__EfCore__MySqlDb__FQDN: "reviewdb.coolstore:3306"

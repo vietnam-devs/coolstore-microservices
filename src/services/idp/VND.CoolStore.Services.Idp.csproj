@@ -1,8 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <TieredCompilation>true</TieredCompilation>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Certificate\coolstore.pfx">
@@ -10,8 +9,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.5" />
-    <PackageReference Include="IdentityServer4" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="IdentityServer4" Version="2.3.2" />
     <PackageReference Include="Serilog" Version="2.7.2-dev-01010" />
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.2-dev-00024" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.2-dev-00777" />

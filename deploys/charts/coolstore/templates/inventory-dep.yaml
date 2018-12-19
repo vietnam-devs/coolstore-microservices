@@ -22,19 +22,19 @@ spec:
           value: {{ .Values.inventorySettings.Hosts__Externals__CurrentUri }}
         - name: Hosts__Externals__Auth__Uri
           value: {{ .Values.inventorySettings.Hosts__Externals__Auth__Uri }}
-        - name: MySqlDb__FQDN
+        - name: Features__EfCore__MySqlDb__FQDN
           value: {{ .Values.inventorySettings.MySqlDb__FQDN }}
-        - name: MySqlDb__Password
+        - name: Features__EfCore__MySqlDb__Password
           valueFrom:
             secretKeyRef:
               name: inventory-secrets
               key: MySqlDbPassword
         ports:
-        - containerPort: 5004
+        - containerPort: 80
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 5004
+            port: 80
           initialDelaySeconds: 10
           periodSeconds: 5
         resources:

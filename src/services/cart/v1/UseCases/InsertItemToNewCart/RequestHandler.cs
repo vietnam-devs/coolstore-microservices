@@ -25,7 +25,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.InsertItemToNewCart
 
     public override async Task<InsertItemToNewCartResponse> Handle(InsertItemToNewCartRequest request, CancellationToken cancellationToken)
     {
-      var cartCommander = CommandFactory.Repository<Domain.Cart>();
+      var cartCommander = CommandFactory.RepositoryAsync<Domain.Cart>();
 
       var cart = await Domain.Cart.Load()
         .InsertItemToCart(request.ProductId, request.Quantity)

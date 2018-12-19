@@ -16,7 +16,7 @@ namespace VND.CoolStore.Services.Cart.v1.UseCases.Checkout
 
     public override async Task<CheckoutResponse> Handle(CheckoutRequest request, CancellationToken cancellationToken)
     {
-      var cartCommander = CommandFactory.Repository<Domain.Cart>();
+      var cartCommander = CommandFactory.RepositoryAsync<Domain.Cart>();
       var cartQuery = QueryFactory.QueryEfRepository<Domain.Cart>();
 
       var cart = await cartQuery.GetFullCartAsync(request.CartId);
