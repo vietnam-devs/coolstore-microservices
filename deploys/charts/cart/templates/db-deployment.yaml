@@ -1,0 +1,38 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-cartdb
+  labels:
+    app: {{ $.Release.Name }}-cartdb
+    chart: {{ template "cart.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name }}-cartdb
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $.Release.Name }}-cartdb
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: cartdb
+        image: "{{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "P@ssw0rd"
+        ports:
+        - containerPort: 3306
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "100m"
+          limits:
+            memory: "500Mi"
+            cpu: "100m"
+---

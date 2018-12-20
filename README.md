@@ -1,9 +1,9 @@
 # Cool Store: Cloud-Native Microservices Application on Service Mesh
 
-[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
-[![OpenTracing Badge](https://img.shields.io/badge/OpenTracing-enabled-blue.svg)](http://opentracing.io)
 ![Travis (.org)](https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?branch=master)
 [![Build Status](https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices)](https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=1)
+[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
+[![OpenTracing Badge](https://img.shields.io/badge/OpenTracing-enabled-blue.svg)](http://opentracing.io)
 
 > This project is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) & [Red Hat Demo Central](https://gitlab.com/redhatdemocentral)
 
@@ -18,8 +18,9 @@ It demonstrates how to wire up small microservices into a larger application usi
 
 Our team uses this demo application to demonstrate Kubernetes, AKS, Istio and similar cloud-native technologies in events as following
 
-- [From Microservices to Service Mesh - DevCafe Event - July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
-- [Service Mesh for Microservices- Vietnam Mobile Day Event - June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
+- [From Microservices to Service Mesh - DevCafe event in July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
+- [Service Mesh for Microservices- Vietnam Mobile Day event in June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
+- [Avoid SPOF in Cloud-native Apps - Vietnam Web Summit event in December 2018](https://www.slideshare.net/ThangChung/avoid-single-point-of-failure-in-cloud-native-application)
 
 </details>
 
@@ -46,6 +47,7 @@ Our team uses this demo application to demonstrate Kubernetes, AKS, Istio and si
   Desktop", as well as on the cloud with AKS).
 - **[Istio](https://istio.io):** Application works on Istio service mesh.
 - **[helm](https://helm.sh)**: The best package manager to find, share, and use software built for Kubernetes. 
+- **[skaffold](https://github.com/GoogleContainerTools/skaffold)**: Easy and Repeatable Kubernetes Development.
 - **[NetCoreKit](https://github.com/cloudnative-netcore/netcore-kit):** Set of Cloud-native tools and utilities for .NET Core.
 
 ### Overall Architecture of µServices
@@ -71,7 +73,7 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/idp">code</a>
       </td>
       <td>
-        <a href="http://localhost:5001">development</a> && <a href="http://id.coolstore.local">staging</a>
+        <a href="http://localhost:5001">dev</a> & <a href="http://id.coolstore.local">staging</a>
       </td>
      </tr>
     <tr>
@@ -82,7 +84,7 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/catalog">code</a>
       </td>
       <td>
-        <a href="http://localhost:5002">development</a> && <a href="http://api.coolstore.local/catalog/swagger">staging</a>
+        <a href="http://localhost:5002">dev</a> & <a href="http://api.coolstore.local/catalog/swagger">staging</a>
       </td>
      </tr>
      <tr>
@@ -93,7 +95,7 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/cart">code</a>
       </td>
       <td>
-        <a href="http://localhost:5003">development</a> && <a href="http://api.coolstore.local/cart/swagger">staging</a>
+        <a href="http://localhost:5003">dev</a> & <a href="http://api.coolstore.local/cart/swagger">staging</a>
       </td>
      </tr>
      <tr>
@@ -104,7 +106,7 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/inventory">code</a>
       </td>
       <td>
-        <a href="http://localhost:5004">development</a> && <a href="http://api.coolstore.local/inventory/swagger">staging</a>
+        <a href="http://localhost:5004">dev</a> & <a href="http://api.coolstore.local/inventory/swagger">staging</a>
       </td>
      </tr>
      <tr>
@@ -115,7 +117,7 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/pricing">code</a>
       </td>
       <td>
-        <a href="http://localhost:5005">development</a> && <a href="http://api.coolstore.local/pricing/swagger">staging</a>
+        <a href="http://localhost:5005">dev</a> & <a href="http://api.coolstore.local/pricing/swagger">staging</a>
       </td>
      </tr>
      <tr>
@@ -126,7 +128,7 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/review">code</a>
       </td>
       <td>
-        <a href="http://localhost:5006">development</a> && <a href="http://api.coolstore.local/review/swagger">staging</a>
+        <a href="http://localhost:5006">dev</a> & <a href="http://api.coolstore.local/review/swagger">staging</a>
       </td>
      </tr>
      <tr>
@@ -137,29 +139,29 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/rating">code</a>
       </td>
       <td>
-        <a href="http://localhost:5007">development</a> && <a href="http://api.coolstore.local/rating/swagger">staging</a>
+        <a href="http://localhost:5007">dev</a> & <a href="http://api.coolstore.local/rating/swagger">staging</a>
       </td>
      </tr>
      <tr>
       <td align="center">8.</td>
-      <td>Web UI </td>
+      <td>Web UI (Obsoleted)</td>
       <td>Frontend based on <a href="https://blazor.net">Blazor</a> - Full-stack web development with C# and <a href="https://webassembly.org/">WebAssembly</a></td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/WebUI">code</a>
       </td>
       <td>
-        <a href="http://localhost:8080">development</a> && <a href="http://web.coolstore.local">staging</a>
+        <a href="http://localhost:8080">dev</a> & <a href="http://web.coolstore.local">staging</a>
       </td>
      </tr>
      <tr>
       <td align="center">9.</td>
-      <td>Web UI (PWA - Vuejs + Node.js) - Obsoleted</td>
+      <td>Web UI (PWA - Vuejs + Node.js)</td>
       <td>Frontend based on <a href="https://vuejs.org">vuejs</a> and <a href="https://nodejs.org">Node.js</a></td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/web">code</a>
       </td>
       <td>
-        <a href="http://localhost:8080">development</a> && <a href="http://web.coolstore.local">staging</a>
+        <a href="http://localhost:8080">dev</a> & <a href="http://web.coolstore.local">staging</a>
       </td>
      </tr>
      
@@ -333,7 +335,7 @@ Guidance for developing µService can be found at [Clean Domain-Driven Design in
         <img width="150" height="150" src="https://github.com/thangchung.png?s=150">
         <br>
         <a href="https://github.com/thangchung">Thang Chung</a>
-        <p>Core Developer & Architect</p>
+        <p>Core Developer</p>
       </td>
       <td align="center" valign="top">
         <img width="150" height="150" src="https://github.com/thinhnotes.png?s=150">
