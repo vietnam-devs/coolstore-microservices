@@ -10,6 +10,19 @@ spec:
   http:
   - match:
     - uri:
+        prefix: /config/
+    - uri:
+        prefix: /config
+    rewrite:
+      uri: /
+      authority: {{ .Values.hosts.idp }}
+    route:
+    - destination:
+        host: idp
+        port:
+          number: 80
+  - match:
+    - uri:
         prefix: /
     route:
     - destination:

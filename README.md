@@ -196,24 +196,10 @@ It should run and package all docker images.
 
 More information about installing `istio` can be found at https://istio.io/docs/setup/kubernetes/helm-install
 
-5. Get `istio-ingressgateway` IP address
+7. Apply `istioctl` command to `coolstore` chart (please create k8s folder in folder deploys)
 
 ```
-> kubectl get services istio-ingressgateway -n istio-system -o=jsonpath={.spec.clusterIP}
-> 10.96.34.68 <== for example, we get the IP as the left-hand side
-```
-
-6. Create `values.dev.local.yaml` file in `deploys/charts/coolstore`, and put content like
-
-```
-gateway:
-  ip: 10.96.34.68
-```
-
-7. Apply `istioctl` command to `coolstore` chart
-
-```
-> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml -f deploys/charts/coolstore/values.dev.local.yaml > deploys/k8s/coolstore.local.yaml
+> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml > deploys/k8s/coolstore.local.yaml
 > istioctl kube-inject -f deploys/k8s/coolstore.local.yaml | kubectl apply -f -
 ```
 
