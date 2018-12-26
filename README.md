@@ -196,28 +196,14 @@ It should run and package all docker images.
 
 More information about installing `istio` can be found at https://istio.io/docs/setup/kubernetes/helm-install
 
-5. Get `istio-ingressgateway` IP address
+5. Apply `istioctl` command to `coolstore` chart (please create k8s folder in folder deploys)
 
 ```
-> kubectl get services istio-ingressgateway -n istio-system -o=jsonpath={.spec.clusterIP}
-> 10.96.34.68 <== for example, we get the IP as the left-hand side
-```
-
-6. Create `values.dev.local.yaml` file in `deploys/charts/coolstore`, and put content like
-
-```
-gateway:
-  ip: 10.96.34.68
-```
-
-7. Apply `istioctl` command to `coolstore` chart
-
-```
-> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml -f deploys/charts/coolstore/values.dev.local.yaml > deploys/k8s/coolstore.local.yaml
+> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml > deploys/k8s/coolstore.local.yaml
 > istioctl kube-inject -f deploys/k8s/coolstore.local.yaml | kubectl apply -f -
 ```
 
-8. Add hosts file with following content
+6. Add hosts file with following content
 
 ```
 127.0.0.1 api.coolstore.local
@@ -227,13 +213,13 @@ gateway:
 
 Waiting for the container provision completed
 
-9. Install `coolstore-istio` chart
+7. Install `coolstore-istio` chart
 
 ```
 > helm install deploys\charts\coolstore-istio --name coolstore-istio
 ```
 
-10. Access to following URLs
+8. Access to following URLs
 
 ```
 > curl -I http://coolstore.local # website
@@ -241,7 +227,7 @@ Waiting for the container provision completed
 > curl -I http://id.coolstore.local # identity provider
 ```
 
-11. Clean up `coolstore` chart as
+9. Clean up `coolstore` chart as
 
 ```
 > kubectl delete -f deployment/istio/coolstore.local.yaml
