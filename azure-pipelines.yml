@@ -19,8 +19,6 @@ resources:
 
 steps:
 - checkout: self
-
-steps:
 - script:
     docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
   displayName: 'docker login'
