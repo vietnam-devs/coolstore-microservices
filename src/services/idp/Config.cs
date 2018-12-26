@@ -186,7 +186,7 @@ namespace IdentityServer4
 
         RedirectUris =
         {
-          $"{hostSettings.GetValue<string>("SpaAllowedCorsOrigin")}/callback",
+          $"/callback",
         },
 
         PostLogoutRedirectUris =

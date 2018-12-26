@@ -16,13 +16,12 @@ if (config.mode == 'production') {
     urls = {
         ...urls,
         ...{
-            web: 'http://coolstore.local/',
-            idp: 'http://id.coolstore.local/',
-            api: 'http://api.coolstore.local/',
-            catalog: 'http://api.coolstore.local/catalog/',
-            cart: 'http://api.coolstore.local/cart/',
-            inventory: 'http://api.coolstore.local/inventory',
-            rating: 'http://api.coolstore.local/rating'
+            web: '',
+            idp: 'idp',
+            catalog: 'http://catalog/catalog/',
+            cart: 'http://cart/cart/',
+            inventory: 'http://inventory/inventory',
+            rating: 'http://rating/rating'
         }
     }
 }
