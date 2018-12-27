@@ -14,7 +14,7 @@ const config = {
 const host = ''
 
 if(process.browser){
-	host = window || window.location.hostname;
+	host = window || window.location.hostname
 }
 
 if (config.mode == 'production') {
