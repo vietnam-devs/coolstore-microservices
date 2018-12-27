@@ -12,17 +12,20 @@ const config = {
     mode: env || 'development'
 }
 
+const host = window || window.location.hostname;
+
 if (config.mode == 'production') {
     urls = {
         ...urls,
         ...{
-            web: '',
-            idp: 'idp',
-            catalog: 'http://catalog/catalog/',
-            cart: 'http://cart/cart/',
-            inventory: 'http://inventory/inventory',
-            rating: 'http://rating/rating'
-        }
+            web: `${host}/`,
+            idp: `id.${host}/`,
+			api: `api.${host}/`,
+            catalog: `api.${host}/catalog/`,
+            cart: `api.${host}/cart/`,
+            inventory: `api.${host}/inventory`,
+            rating: `api.${host}/rating`,
+		}
     }
 }
 
