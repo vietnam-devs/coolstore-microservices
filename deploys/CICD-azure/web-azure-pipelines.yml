@@ -18,8 +18,12 @@ resources:
       submodules: true
 
 trigger:
-- master
-- releases/*
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - src/web/*
       
 steps:
 - checkout: self
