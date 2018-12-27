@@ -11,8 +11,11 @@ const env = process.env.NODE_ENV
 const config = {
     mode: env || 'development'
 }
+const host = ''
 
-const host = window || window.location.hostname;
+if(process.browser){
+	host = window || window.location.hostname;
+}
 
 if (config.mode == 'production') {
     urls = {
