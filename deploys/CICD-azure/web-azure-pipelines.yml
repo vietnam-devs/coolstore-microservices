@@ -17,6 +17,14 @@ resources:
     checkoutOptions:
       submodules: true
 
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - src/web/*      
+      
 steps:
 - checkout: self
 - script:
