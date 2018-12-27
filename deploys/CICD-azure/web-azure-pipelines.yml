@@ -18,7 +18,7 @@ resources:
       submodules: true
 
 trigger:
-  branches:
+  branches: 
     include:
     - master    
       
