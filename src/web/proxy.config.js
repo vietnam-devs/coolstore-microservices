@@ -17,7 +17,7 @@ if(process.browser){
 	host = window || window.location.hostname
 }
 
-if (config.mode == 'development') {
+if (config.mode == 'production') {
     urls = {
         ...urls,
         ...{
