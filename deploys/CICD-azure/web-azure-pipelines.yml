@@ -20,10 +20,7 @@ resources:
 trigger:
   branches:
     include:
-    - master
-  paths:
-    include:
-    - src/web/*      
+    - master    
       
 steps:
 - checkout: self
