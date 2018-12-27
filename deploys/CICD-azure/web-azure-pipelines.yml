@@ -18,9 +18,8 @@ resources:
       submodules: true
 
 trigger:
-  branches: 
-    include:
-    - master    
+- master
+- releases/*
       
 steps:
 - checkout: self
