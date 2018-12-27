@@ -1,4 +1,4 @@
-# Cool Store: Cloud-Native Microservices Application on Service Mesh
+# Cool Store: Cloud-Native Microservices Application on Service Mesh 
 
 ![Travis (.org)](https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?branch=master)
 [![Build Status](https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices)](https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=1)
