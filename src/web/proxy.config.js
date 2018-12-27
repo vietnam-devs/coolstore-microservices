@@ -11,7 +11,7 @@ const env = process.env.NODE_ENV
 const config = {
     mode: env || 'development'
 }
-const host = ''
+var host = ''
 
 if(process.browser){
 	host = window || window.location.hostname
