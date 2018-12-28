@@ -14,7 +14,7 @@ const config = {
 var host = 'coolstore.local'
 
 if(process.browser){
-	host = window || window.location.hostname
+	host = window.location.hostname
 }
 
 if (config.mode == 'production') {
