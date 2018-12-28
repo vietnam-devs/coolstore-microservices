@@ -11,19 +11,24 @@ const env = process.env.NODE_ENV
 const config = {
     mode: env || 'development'
 }
+var host = 'coolstore.local'
+
+if(process.browser){
+	host = window.location.hostname
+}
 
 if (config.mode == 'production') {
     urls = {
         ...urls,
         ...{
-            web: 'http://coolstore.local/',
-            idp: 'http://id.coolstore.local/',
-            api: 'http://api.coolstore.local/',
-            catalog: 'http://api.coolstore.local/catalog/',
-            cart: 'http://api.coolstore.local/cart/',
-            inventory: 'http://api.coolstore.local/inventory',
-            rating: 'http://api.coolstore.local/rating'
-        }
+            web: `http://${host}/`,
+            idp: `http://id.${host}/`,
+			api: `http://api.${host}/`,
+            catalog: `http://api.${host}/catalog/`,
+            cart: `http://api.${host}/cart/`,
+            inventory: `http://api.${host}/inventory`,
+            rating: `http://api.${host}/rating`,
+		}
     }
 }
 

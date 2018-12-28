@@ -11,7 +11,14 @@ variables:
   DOCKER_GROUP: 'vndg'
   DOCKER_ENV: 'production'
 
+resources:
+  repositories:
+  - repository: self
+    checkoutOptions:
+      submodules: true
+
 steps:
+- checkout: self
 - script:
     docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
   displayName: 'docker login'
