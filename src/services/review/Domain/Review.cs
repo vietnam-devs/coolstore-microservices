@@ -6,7 +6,7 @@ using static NetCoreKit.Utils.Helpers.IdHelper;
 namespace VND.CoolStore.Services.Review.Domain
 {
   public class Review : AggregateRootBase
-  {
+    {
     private Review() { }
 
     internal Review(string content) : base(GenerateId())
@@ -31,8 +31,10 @@ namespace VND.CoolStore.Services.Review.Domain
 
     [Required]
     public string Content { get; set; }
+
     [Required]
     public ReviewAuthor ReviewAuthor { get; set; }
+
     [Required]
     public ReviewProduct ReviewProduct { get; set; }
 
