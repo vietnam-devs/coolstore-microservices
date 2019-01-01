@@ -1,0 +1,9 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+  - selector: review.ReviewService.GetReviews
+    get: /v1/reviews
+  - selector: review.EchoService.Ping
+    get: /v1/ping

@@ -5,12 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
+    <Compile Remove="App_Data\**" />
+    <Content Remove="App_Data\**" />
+    <EmbeddedResource Remove="App_Data\**" />
+    <None Remove="App_Data\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +26,10 @@
     <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure\NetCoreKit.Infrastructure.csproj" />
     <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Utils\NetCoreKit.Utils.csproj" />
     <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.EfCore\NetCoreKit.Template.EfCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="App_Build\" />
   </ItemGroup>
 
 </Project>

@@ -6,26 +6,16 @@ option go_package = "review";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
-import "google/api/annotations.proto";
-import "protoc-gen-swagger/options/annotations.proto";
 
 service ReviewService {
-  rpc GetReviews(GetReviewsRequest) returns (GetReviewsResponse) {
-    option (google.api.http) = {
-      get: "/v1/reviews"
-    };
-  }
+  rpc GetReviews(GetReviewsRequest) returns (GetReviewsResponse);
   rpc CreateReview(CreateReviewRequest) returns (CreateReviewResponse);
   rpc DeleteReview(DeleteReviewRequest) returns (DeleteReviewResponse);
   rpc EditReview(EditReviewRequest) returns (EditReviewResponse);
 }
 
 service EchoService {
-  rpc Ping(google.protobuf.Empty) returns (PingResponse) {
-    option (google.api.http) = {
-      get: "/v1/echo"
-    };
-  }
+  rpc Ping(google.protobuf.Empty) returns (PingResponse);
 }
 
 message PingResponse {

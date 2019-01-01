@@ -9,7 +9,7 @@ import (
   "github.com/grpc-ecosystem/grpc-gateway/runtime"
   "google.golang.org/grpc"
 
-  review "github.com/coolstore-microservices/src/services/grpc-proxy/v1/review"
+  review "services/grpc-proxy/v1"
 )
 
 var (

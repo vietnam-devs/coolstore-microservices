@@ -347,4 +347,11 @@ deploys/k8s/**/*.yaml
 **/*/key*.*
 src/web/shrinkwrap.yaml
 **/dist/
+
+#golang
 pkg/
+bin/
+src/github.com/
+src/google.golang.org/
+src/gopkg.in/
+
