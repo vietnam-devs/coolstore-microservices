@@ -28,6 +28,8 @@ func run() error {
     return err
   }
 
+  //mux.HandleFunc("/swagger/", swaggerServer("/swagger-ui"))
+
   return http.ListenAndServe(":8080", mux)
 }
 
