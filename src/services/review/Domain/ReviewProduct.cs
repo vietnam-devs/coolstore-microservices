@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using NetCoreKit.Domain;
 using static NetCoreKit.Utils.Helpers.IdHelper;
 
@@ -29,13 +28,10 @@ namespace VND.CoolStore.Services.Review.Domain
       Desc = desc;
     }
 
-    [NotMapped]
     public string Name { get; private set; }
 
-    [NotMapped]
     public double Price { get; private set; }
 
-    [NotMapped]
     public string Desc { get; private set; }
   }
 }

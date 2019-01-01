@@ -1,7 +1,12 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using NetCoreKit.Domain;
+using NetCoreKit.Infrastructure.Mongo;
+using NetCoreKit.Utils.Extensions;
+using VND.CoolStore.Services.Review.v1.Extensions;
 using VND.CoolStore.Services.Review.v1.Grpc;
 
 namespace VND.CoolStore.Services.Review.v1.Services
@@ -22,24 +27,77 @@ namespace VND.CoolStore.Services.Review.v1.Services
             _logger = loggerFactory.CreateLogger<ReviewServiceImpl>();
         }
 
-        public override Task<GetReviewsResponse> GetReviews(GetReviewsRequest request, ServerCallContext context)
+        public override async Task<GetReviewsResponse> GetReviews(GetReviewsRequest request, ServerCallContext context)
         {
-            return base.GetReviews(request, context);
+            var reviewQueryRepo = _repositoryFactory.MongoQueryRepository<Domain.Review>();
+            var reviews =
+                await reviewQueryRepo.FindListByFieldAsync(r =>
+                    r.ReviewProduct.Id == request.ProductId.ConvertTo<Guid>());
+
+            if (reviews == null)
+                throw new CoreException($"Couldn't find the review with productId#{request.ProductId}.");
+
+            var response = new GetReviewsResponse();
+            response.Reviews.AddRange(
+                reviews
+                    .Select(x => x.ToDto())
+                    .ToList());
+
+            return response;
         }
 
-        public override Task<CreateReviewResponse> CreateReview(CreateReviewRequest request, ServerCallContext context)
+        public override async Task<CreateReviewResponse> CreateReview(CreateReviewRequest request,
+            ServerCallContext context)
         {
-            return base.CreateReview(request, context);
+            var reviewRepository = _uow.RepositoryAsync<Domain.Review>();
+
+            var review = Domain.Review
+                .Load(request.Content)
+                .AddAuthor(request.UserId.ConvertTo<Guid>())
+                .AddProduct(request.ProductId.ConvertTo<Guid>());
+
+            var result = await reviewRepository.AddAsync(review);
+
+            return new CreateReviewResponse
+            {
+                Result = result.ToDto()
+            };
         }
 
-        public override Task<EditReviewResponse> EditReview(EditReviewRequest request, ServerCallContext context)
+        public override async Task<EditReviewResponse> EditReview(EditReviewRequest request, ServerCallContext context)
         {
-            return base.EditReview(request, context);
+            var reviewQueryRepo = _repositoryFactory.MongoQueryRepository<Domain.Review>();
+            var reviewRepo = _uow.RepositoryAsync<Domain.Review>();
+
+            var review = await reviewQueryRepo.FindOneAsync(x => x.Id, request.ReviewId.ConvertTo<Guid>());
+            if (review == null)
+                throw new Exception($"Couldn't find the review #{request.ReviewId}.");
+
+            review.Content = request.Content;
+            var result = await reviewRepo.UpdateAsync(review);
+
+            return new EditReviewResponse
+            {
+                Result = result.ToDto()
+            };
         }
 
-        public override Task<DeleteReviewResponse> DeleteReview(DeleteReviewRequest request, ServerCallContext context)
+        public override async Task<DeleteReviewResponse> DeleteReview(DeleteReviewRequest request,
+            ServerCallContext context)
         {
-            return base.DeleteReview(request, context);
+            var reviewQueryRepo = _repositoryFactory.MongoQueryRepository<Domain.Review>();
+            var reviewRepo = _uow.RepositoryAsync<Domain.Review>();
+
+            var review = await reviewQueryRepo.FindOneAsync(x => x.Id, request.ReviewId.ConvertTo<Guid>());
+            if (review == null)
+                throw new Exception($"Couldn't find the review #{request.ReviewId}.");
+
+            var result = await reviewRepo.DeleteAsync(review);
+
+            return new DeleteReviewResponse
+            {
+                Id = result.Id.ToString()
+            };
         }
     }
 }

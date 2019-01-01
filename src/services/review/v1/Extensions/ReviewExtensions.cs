@@ -1,6 +1,8 @@
+using Grpc.Core;
+using Grpc.Core.Utils;
 using VND.CoolStore.Services.Review.v1.Grpc;
 
-namespace VND.CoolStore.Services.Review.Extensions
+namespace VND.CoolStore.Services.Review.v1.Extensions
 {
     public static class ReviewExtensions
     {

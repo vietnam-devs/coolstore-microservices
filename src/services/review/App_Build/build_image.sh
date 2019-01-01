@@ -1,11 +1,11 @@
 #!/bin/sh
 set -ex
 
-ROOT_DIR=`pwd`
-TAG=${TAG:=$(git rev-parse --short HEAD)}
-NAMESPACE=${NAMESPACE:="vndg"}
-SERVICE_PATH=${ROOT_DIR}/src/services/review
-SERVICE_NAME=review-service
+readonly ROOT_DIR=`pwd`
+readonly TAG=${TAG:=$(git rev-parse --short HEAD)}
+readonly NAMESPACE=${NAMESPACE:="vndg"}
+readonly SERVICE_PATH=${ROOT_DIR}/src/services/review
+readonly SERVICE_NAME=review-service
 
 echo "Namespace is ${NAMESPACE} and tag is ${TAG}"
 echo "Start to build ${SERVICE_NAME}..."

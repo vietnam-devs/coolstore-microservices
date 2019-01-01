@@ -1,16 +1,35 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-import "google/protobuf/empty.proto";
-
 package review;
 option csharp_namespace = "VND.CoolStore.Services.Review.v1.Grpc";
+option go_package = "review";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
 
 service ReviewService {
-  rpc GetReviews(GetReviewsRequest) returns (GetReviewsResponse);
+  rpc GetReviews(GetReviewsRequest) returns (GetReviewsResponse) {
+    option (google.api.http) = {
+      get: "/v1/reviews"
+    };
+  }
   rpc CreateReview(CreateReviewRequest) returns (CreateReviewResponse);
   rpc DeleteReview(DeleteReviewRequest) returns (DeleteReviewResponse);
   rpc EditReview(EditReviewRequest) returns (EditReviewResponse);
+}
+
+service EchoService {
+  rpc Ping(google.protobuf.Empty) returns (PingResponse) {
+    option (google.api.http) = {
+      get: "/v1/echo"
+    };
+  }
+}
+
+message PingResponse {
+  bool Result = 1;
 }
 
 message ReviewDto {
