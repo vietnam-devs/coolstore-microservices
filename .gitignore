@@ -351,8 +351,8 @@ src/web/shrinkwrap.yaml
 #golang
 pkg/
 bin/
-#src/github.com/
-#src/golang.org/
-#src/google.golang.org/
-#src/gopkg.in/
+src/github.com/
+src/golang.org/
+src/google.golang.org/
+src/gopkg.in/
 
