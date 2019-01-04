@@ -21,6 +21,12 @@ namespace VND.CoolStore.Services.Review.Domain
             Content = content;
         }
 
+        [Required] public string Content { get; set; }
+
+        [Required] public ReviewAuthor ReviewAuthor { get; set; }
+
+        [Required] public ReviewProduct ReviewProduct { get; set; }
+
         public static Review Load(string content)
         {
             return new Review(content);
@@ -30,12 +36,6 @@ namespace VND.CoolStore.Services.Review.Domain
         {
             return new Review(id, content);
         }
-
-        [Required] public string Content { get; set; }
-
-        [Required] public ReviewAuthor ReviewAuthor { get; set; }
-
-        [Required] public ReviewProduct ReviewProduct { get; set; }
 
         public Review AddAuthor(Guid userId)
         {

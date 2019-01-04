@@ -20,4 +20,9 @@ $GRPC_PATH/protoc -I $PROTO_PATH -I /usr/local/include \
     --grpc_out $OUTPUT_PATH $PROTO_PATH/review.proto \
     --plugin=protoc-gen-grpc=${GRPC_PATH}/grpc_csharp_plugin
 
+$GRPC_PATH/protoc -I $PROTO_PATH -I /usr/local/include \
+    --csharp_out $OUTPUT_PATH \
+    --grpc_out $OUTPUT_PATH $PROTO_PATH/cart.proto \
+    --plugin=protoc-gen-grpc=${GRPC_PATH}/grpc_csharp_plugin
+
 cd -

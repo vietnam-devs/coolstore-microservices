@@ -20,6 +20,6 @@ namespace VND.CoolStore.Services.Review.Domain
             UserName = username;
         }
 
-        public string UserName { get; private set; }
+        public string UserName { get; }
     }
 }

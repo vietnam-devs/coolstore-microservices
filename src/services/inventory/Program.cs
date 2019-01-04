@@ -22,14 +22,9 @@ namespace VND.CoolStore.Services.Inventory
             var host = new HostBuilder()
                 .ConfigureDefaultSettings<InventoryDbContext>(
                     args,
-                    svc =>
-                    {
-                        svc.AddEfCoreMySqlDb();
-                        
-                    }, svc =>
-                    {
-                        svc.AddHostedService<HostedService>();
-                    });
+                    svc => { svc.AddEfCoreMySqlDb(); },
+                    svc => { svc.AddHostedService<HostedService>(); });
+
             await host.RunAsync();
         }
     }

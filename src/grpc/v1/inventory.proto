@@ -31,7 +31,6 @@ message GetInventoryResponse {
   InventoryDto result = 1;
 }
 
-
 message DbMigrationResponse {
   bool ok = 1;
 }

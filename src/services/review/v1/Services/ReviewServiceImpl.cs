@@ -13,9 +13,9 @@ namespace VND.CoolStore.Services.Review.v1.Services
 {
     public class ReviewServiceImpl : ReviewService.ReviewServiceBase
     {
+        private readonly ILogger<ReviewServiceImpl> _logger;
         private readonly IQueryRepositoryFactory _repositoryFactory;
         private readonly IUnitOfWorkAsync _uow;
-        private readonly ILogger<ReviewServiceImpl> _logger;
 
         public ReviewServiceImpl(
             IQueryRepositoryFactory repositoryFactory,

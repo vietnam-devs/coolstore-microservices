@@ -8,8 +8,8 @@ namespace VND.CoolStore.Services.Cart.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Carts",
-                columns: table => new
+                "Carts",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
@@ -22,14 +22,11 @@ namespace VND.CoolStore.Services.Cart.Migrations
                     CartTotal = table.Column<double>(nullable: false),
                     IsCheckout = table.Column<bool>(nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Carts", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Carts", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "CartItems",
-                columns: table => new
+                "CartItems",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
@@ -43,16 +40,16 @@ namespace VND.CoolStore.Services.Cart.Migrations
                 {
                     table.PrimaryKey("PK_CartItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CartItems_Carts_CartId",
-                        column: x => x.CartId,
-                        principalTable: "Carts",
-                        principalColumn: "Id",
+                        "FK_CartItems_Carts_CartId",
+                        x => x.CartId,
+                        "Carts",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
+                "Products",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ProductId = table.Column<Guid>(nullable: false)
@@ -61,29 +58,29 @@ namespace VND.CoolStore.Services.Cart.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_CartItems_Id",
-                        column: x => x.Id,
-                        principalTable: "CartItems",
-                        principalColumn: "Id",
+                        "FK_Products_CartItems_Id",
+                        x => x.Id,
+                        "CartItems",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItems_CartId",
-                table: "CartItems",
-                column: "CartId");
+                "IX_CartItems_CartId",
+                "CartItems",
+                "CartId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Products");
+                "Products");
 
             migrationBuilder.DropTable(
-                name: "CartItems");
+                "CartItems");
 
             migrationBuilder.DropTable(
-                name: "Carts");
+                "Carts");
         }
     }
 }

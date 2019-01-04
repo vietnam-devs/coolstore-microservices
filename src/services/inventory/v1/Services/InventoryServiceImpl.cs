@@ -14,8 +14,8 @@ namespace VND.CoolStore.Services.Inventory.v1.Services
 {
     public class InventoryServiceImpl : InventoryService.InventoryServiceBase
     {
-        private readonly IServiceProvider _resolver;
         private readonly IQueryRepositoryFactory _queryRepositoryFactory;
+        private readonly IServiceProvider _resolver;
 
         public InventoryServiceImpl(IServiceProvider resolver)
         {
@@ -35,7 +35,8 @@ namespace VND.CoolStore.Services.Inventory.v1.Services
             return response;
         }
 
-        public override async Task<GetInventoryResponse> GetInventory(GetInventoryRequest request, ServerCallContext context)
+        public override async Task<GetInventoryResponse> GetInventory(GetInventoryRequest request,
+            ServerCallContext context)
         {
             var repo = _queryRepositoryFactory.QueryEfRepository<Domain.Inventory>();
 
