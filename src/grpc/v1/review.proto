@@ -14,14 +14,6 @@ service ReviewService {
   rpc EditReview(EditReviewRequest) returns (EditReviewResponse);
 }
 
-service EchoService {
-  rpc Ping(google.protobuf.Empty) returns (PingResponse);
-}
-
-message PingResponse {
-  bool Result = 1;
-}
-
 message ReviewDto {
   string id = 1;
   string content = 2;

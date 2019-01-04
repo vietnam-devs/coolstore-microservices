@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package inventory;
+option csharp_namespace = "VND.CoolStore.Services.Inventory.v1.Grpc";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service InventoryService {
+  rpc GetInventories(google.protobuf.Empty) returns (GetInventoriesResponse);
+  rpc GetInventory(GetInventoryRequest) returns (GetInventoryResponse);
+  rpc DbMigration(google.protobuf.Empty) returns (DbMigrationResponse);
+}
+
+message InventoryDto {
+  string id = 1;
+  string location = 2;
+  int32 quantity = 3;
+  string link = 4;
+}
+
+message GetInventoriesResponse {
+  repeated InventoryDto inventories = 1;
+}
+
+message GetInventoryRequest {
+  string id = 1;
+}
+
+message GetInventoryResponse {
+  InventoryDto result = 1;
+}
+
+
+message DbMigrationResponse {
+  bool ok = 1;
+}
