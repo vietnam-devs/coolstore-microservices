@@ -2,14 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './stores'
 import router from './routes'
-import {
-  sync
-} from 'vuex-router-sync'
+import { sync } from 'vuex-router-sync'
 
 import Buefy from 'buefy'
 import interceptorsSetup from './helper/interceptors'
 
-require("./helper/filter")
+require('./helper/filter')
 interceptorsSetup()
 
 Vue.use(Buefy)

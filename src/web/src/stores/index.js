@@ -8,15 +8,15 @@ import ratings from './modules/ratings'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-    modules: {
-        cart,
-        products,
-        account,
-        ratings
-    },
-    state: {},
-    actions: {},
-    mutations: {},
-    getters: {}
+  modules: {
+    cart,
+    products,
+    account,
+    ratings
+  },
+  state: {},
+  actions: {},
+  mutations: {},
+  getters: {}
 })
 export default store

@@ -13,7 +13,7 @@
         <p>Questions? Call us at 1-888-555-SHOP, we're happy to be of service.</p>
     </div>
 </aside>
-</template> 
+</template>
 <script>
 import { createNamespacedHelpers } from "vuex";
 export default {
@@ -43,7 +43,7 @@ export default {
         highprice
       });
     }
-  },
+  }
 };
 </script>
 

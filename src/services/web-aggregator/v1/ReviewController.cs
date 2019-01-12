@@ -1,9 +1,11 @@
 using System;
 using System.Threading.Tasks;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreKit.Infrastructure.AspNetCore.Authz;
-using VND.CoolStore.Services.Review.v1.Grpc;
-using MyReviewService = VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
+using review;
+using MyReviewService = review.ReviewService;
+using MyPingService = review.PingService;
 
 namespace VND.CoolStore.Services.WebAggregator.v1
 {
@@ -13,20 +15,30 @@ namespace VND.CoolStore.Services.WebAggregator.v1
     public class ReviewController : ControllerBase
     {
         private readonly MyReviewService.ReviewServiceClient _reviewServiceClient;
+        private readonly MyPingService.PingServiceClient _pingServiceClient;
 
-        public ReviewController(MyReviewService.ReviewServiceClient reviewServiceClient)
+        public ReviewController(MyReviewService.ReviewServiceClient reviewServiceClient, PingService.PingServiceClient pingServiceClient)
         {
             _reviewServiceClient = reviewServiceClient;
+            _pingServiceClient = pingServiceClient;
         }
 
         [HttpGet]
         //[Auth(Policy = "access_review_api")]
-        [Route("{productId:guid}/reviews")]
+        [Route("{productId:guid}")]
         public async Task<IActionResult> Get(Guid productId)
         {
             return Ok(
                 await _reviewServiceClient.GetReviewsAsync(new GetReviewsRequest {ProductId = productId.ToString()})
             );
+        }
+
+        [HttpGet]
+        //[Auth(Policy = "access_review_api")]
+        [Route("ping")]
+        public async Task<IActionResult> GetPing()
+        {
+            return Ok(await _pingServiceClient.PingAsync(new Empty()));
         }
 
         [HttpPost]

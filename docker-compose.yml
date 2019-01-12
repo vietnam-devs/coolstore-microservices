@@ -1,0 +1,29 @@
+version: '3'
+services:
+
+  envoy-proxy:
+    container_name: envoy-proxy
+    image: "vndg/cs-envoy-proxy"
+    restart: always
+    expose:
+      - "80"
+      - "9901"
+    ports:
+      - "80:80"
+      - "9901:9901"
+    networks:
+      - server-net
+
+  review-service:
+    container_name: review-service
+    image: "vndg/cs-review-service"
+    restart: always
+    ports:
+      - "5006:5006"
+    expose:
+      - "5006"
+    networks:
+      - server-net
+
+networks:
+  server-net:

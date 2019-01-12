@@ -6,7 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Template.Rest.Standard;
 using MyCartService = VND.CoolStore.Services.Cart.v1.Grpc.CartService;
 using MyInventoryService = VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
-using MyReviewService = VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
+using MyReviewService = review.ReviewService;
+using MyPingService = review.PingService;
 
 namespace VND.CoolStore.Services.WebAggregator
 {
@@ -27,9 +28,12 @@ namespace VND.CoolStore.Services.WebAggregator
                 var reviewChannel = new Channel(config["RpcClients:ReviewService"], ChannelCredentials.Insecure);
                 var reviewClient = new MyReviewService.ReviewServiceClient(reviewChannel);
 
+                var pingClient = new MyPingService.PingServiceClient(reviewChannel);
+
                 services.AddSingleton(typeof(MyCartService.CartServiceClient), cartClient);
                 services.AddSingleton(typeof(MyInventoryService.InventoryServiceClient), inventoryClient);
                 services.AddSingleton(typeof(MyReviewService.ReviewServiceClient), reviewClient);
+                services.AddSingleton(typeof(MyPingService.PingServiceClient), pingClient);
             });
         }
 

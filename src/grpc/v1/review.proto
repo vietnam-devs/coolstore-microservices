@@ -2,16 +2,40 @@ syntax = "proto3";
 
 package review;
 option csharp_namespace = "VND.CoolStore.Services.Review.v1.Grpc";
-option go_package = "review";
 
-import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
+service PingService {
+  rpc Ping(google.protobuf.Empty) returns (PingResponse) {
+    option (google.api.http) = {
+      get: "/ping"
+    };
+  }
+}
+
 service ReviewService {
-  rpc GetReviews(GetReviewsRequest) returns (GetReviewsResponse);
-  rpc CreateReview(CreateReviewRequest) returns (CreateReviewResponse);
-  rpc DeleteReview(DeleteReviewRequest) returns (DeleteReviewResponse);
-  rpc EditReview(EditReviewRequest) returns (EditReviewResponse);
+  rpc GetReviews(GetReviewsRequest) returns (GetReviewsResponse) {
+    option (google.api.http) = {
+      get: "/api/reviews/{product_id}"
+    };
+  }
+  rpc CreateReview(CreateReviewRequest) returns (CreateReviewResponse) {
+    option (google.api.http) = {
+      post: "/api/reviews"
+      body: "*"
+    };
+  }
+  rpc EditReview(EditReviewRequest) returns (EditReviewResponse) {
+    option (google.api.http) = {
+      put: "/api/reviews/{review_id}/{content}"
+    };
+  }
+  rpc DeleteReview(DeleteReviewRequest) returns (DeleteReviewResponse) {
+    option (google.api.http) = {
+      delete: "/api/reviews/{review_id}"
+    };
+  }
 }
 
 message ReviewDto {
@@ -33,6 +57,10 @@ message ProductDto {
 message AuthorDto {
   string id = 1;
   string user_name = 2;
+}
+
+message PingResponse {
+  string message = 1;
 }
 
 message GetReviewsRequest {

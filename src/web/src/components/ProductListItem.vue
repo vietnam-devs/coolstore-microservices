@@ -3,32 +3,49 @@
     <div class="card-image">
       <router-link exact :to="{ name: 'reviewproduct', params: {id: item._id } }">
         <picture class="image">
-            <source :data-srcset="item.imageUrl">
-            <img class="lazyloaded" :src="item.imageUrl" :alt="`Image of ${item.name}`">
+          <source :data-srcset="item.imageUrl">
+          <img class="lazyloaded" :src="item.imageUrl" :alt="`Image of ${item.name}`">
         </picture>
       </router-link>
     </div>
     <div class="card-content">
-        <div class="media">
-          <div class="media-content">
-            <router-link exact :to="{ name: 'reviewproduct', params: {id: item._id } }">
-              <p class="title is-5">{{ item.name }}</p>
-              <p class="item-price">{{ item.price | usdollar }}</p>
-            </router-link>
-          </div>
-          <div class="media-right">
-            <p class="field"><button class="button icon is-large add" @click="addToCart(item.id, 1)" aria-label="Add to cart"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i></span></button></p>
-          </div>
+      <div class="media">
+        <div class="media-content">
+          <router-link exact :to="{ name: 'reviewproduct', params: {id: item._id } }">
+            <p class="title is-5">{{ item.name }}</p>
+            <p class="item-price">{{ item.price | usdollar }}</p>
+          </router-link>
         </div>
-        <div>
-          <star-rating @rating-selected="setRating(item.id, $event)" v-bind:star-size="20" v-if="ratings && ratings[item.id]" v-model="ratings[item.id].cost" v-bind:show-rating="false"></star-rating>
+        <div class="media-right">
+          <p class="field">
+            <button
+              class="button icon is-large add"
+              @click="addToCart(item.id, 1)"
+              aria-label="Add to cart"
+            >
+              <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i>
+              </span>
+            </button>
+          </p>
         </div>
+      </div>
+      <div>
+        <star-rating
+          @rating-selected="setRating(item.id, $event)"
+          v-bind:star-size="20"
+          v-if="ratings && ratings[item.id]"
+          v-model="ratings[item.id].cost"
+          v-bind:show-rating="false"
+        ></star-rating>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-import StarRating from 'vue-star-rating'
+import StarRating from "vue-star-rating";
 const { mapActions } = createNamespacedHelpers("cart");
 export default {
   name: "Card",
@@ -53,7 +70,7 @@ export default {
       return this.$store.getters["cart/cartId"] || null;
     },
     userInfo() {
-      return this.$store.getters["account/userInfo"] || {}
+      return this.$store.getters["account/userInfo"] || {};
     }
   },
   methods: {
@@ -72,8 +89,8 @@ export default {
         productId,
         userId: this.userInfo.sub,
         cost: rating
-      })
-    },
+      });
+    }
   }
 };
 </script>

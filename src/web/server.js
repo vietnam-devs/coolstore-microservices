@@ -5,8 +5,8 @@ const express = require('express')
 const favicon = require('serve-favicon')
 const compression = require('compression')
 const microcache = require('route-cache')
-const proxyConfig = require('./proxy.config.js');
-const proxy = require('http-proxy-middleware');
+const proxyConfig = require('./proxy.config.js')
+const proxy = require('http-proxy-middleware')
 
 const resolve = file => path.resolve(__dirname, file)
 const {

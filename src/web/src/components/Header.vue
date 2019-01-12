@@ -1,52 +1,63 @@
 <template>
-  <header class="navbar is-light" :class="{ 'is-fixed-top': isIndexRoute }" role="navigation" aria-label="main navigation">
-      <div class="container is-flex-touch">
-          <div class="navbar-brand">
-            <router-link to="/" class="navbar-item">
-	            <strong><i>PlusGrosLeLogo</i></strong>
-	          </router-link>
-          </div>
-          <div class="navbar-end is-flex-touch">
-              <div class="navbar-item">
-                  <div class="field">
-                    <p class="control">
-                      <router-link to="/new" class="button is-light">
-                        <span class="icon cartitem">
-                          <i class="fa fa-plus-circle"></i>
-                        </span>
-                        <span class="is-hidden-mobile">New</span>
-                      </router-link>
-                    </p>
-                  </div>
-              </div>
-              <div class="navbar-item">
-                  <div class="field">
-                    <p class="control">
-                      <router-link to="/cart" class="button is-light">
-                        <span class="icon cartitem"><div class="cartcount" v-if="total &gt; 0">{{ total }}</div><i class="fa fa-shopping-cart"></i></span><span class="is-hidden-mobile">Cart</span>
-                      </router-link>
-                    </p>
-                  </div>
-              </div>
-              <div class="navbar-item">
-                  <div class="field">
-                    <p class="control">
-                        <a href="#" @click="logout" class="button is-light">
-                          <span class="icon cartitem">
-                            <i class="fa fa-sign-out-alt"></i>
-                          </span>
-                          <span class="is-hidden-mobile">Logout</span>
-                        </a>
-                    </p>
-                  </div>
-              </div>
-          </div>
+  <header
+    class="navbar is-light"
+    :class="{ 'is-fixed-top': isIndexRoute }"
+    role="navigation"
+    aria-label="main navigation"
+  >
+    <div class="container is-flex-touch">
+      <div class="navbar-brand">
+        <router-link to="/" class="navbar-item">
+          <strong>
+            <i>PlusGrosLeLogo</i>
+          </strong>
+        </router-link>
       </div>
+      <div class="navbar-end is-flex-touch">
+        <div class="navbar-item">
+          <div class="field">
+            <p class="control">
+              <router-link to="/new" class="button is-light">
+                <span class="icon cartitem">
+                  <i class="fa fa-plus-circle"></i>
+                </span>
+                <span class="is-hidden-mobile">New</span>
+              </router-link>
+            </p>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="field">
+            <p class="control">
+              <router-link to="/cart" class="button is-light">
+                <span class="icon cartitem">
+                  <div class="cartcount" v-if="total &gt; 0">{{ total }}</div>
+                  <i class="fa fa-shopping-cart"></i>
+                </span>
+                <span class="is-hidden-mobile">Cart</span>
+              </router-link>
+            </p>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="field">
+            <p class="control">
+              <a href="#" @click="logout" class="button is-light">
+                <span class="icon cartitem">
+                  <i class="fa fa-sign-out-alt"></i>
+                </span>
+                <span class="is-hidden-mobile">Logout</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-import { getUser, signoutRedirect } from '../auth/usermanager'
+import { getUser, signoutRedirect } from "../auth/usermanager";
 export default {
   name: "AppHeader",
   head() {

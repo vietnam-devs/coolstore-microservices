@@ -3,13 +3,26 @@ syntax = "proto3";
 package inventory;
 option csharp_namespace = "VND.CoolStore.Services.Inventory.v1.Grpc";
 
-import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
 service InventoryService {
-  rpc GetInventories(google.protobuf.Empty) returns (GetInventoriesResponse);
-  rpc GetInventory(GetInventoryRequest) returns (GetInventoryResponse);
-  rpc DbMigration(google.protobuf.Empty) returns (DbMigrationResponse);
+  rpc GetInventories(google.protobuf.Empty) returns (GetInventoriesResponse) {
+    option (google.api.http) = {
+      get: "/api/availabilities"
+    };
+  }
+  rpc GetInventory(GetInventoryRequest) returns (GetInventoryResponse) {
+    option (google.api.http) = {
+      get: "/api/availabilities/{id}"
+    };
+  }
+  rpc DbMigration(google.protobuf.Empty) returns (DbMigrationResponse) {
+    option (google.api.http) = {
+      post: "/api/inventory/migrate"
+      body: "*"
+    };
+  }
 }
 
 message InventoryDto {

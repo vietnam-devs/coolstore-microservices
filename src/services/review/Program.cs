@@ -1,13 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Grpc.Core.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NetCoreKit.Domain;
 using NetCoreKit.Infrastructure.Host.gRPC;
 using NetCoreKit.Template.gRPC.MongoDb;
+using NetCoreKit.Utils.Extensions;
 using VND.CoolStore.Services.Review.v1.Grpc;
 using VND.CoolStore.Services.Review.v1.Services;
 
@@ -18,54 +19,44 @@ namespace VND.CoolStore.Services.Review
         public static async Task Main(string[] args)
         {
             var host = new HostBuilder()
-                .ConfigureDefaultSettings(args, svc =>
-                {
-                    svc.AddHostedService<HostedService>();
-                });
+                .ConfigureDefaultSettings(args, svc => { svc.AddHostedService<HostedService>(); });
             await host.RunAsync();
         }
     }
 
     public class HostedService : HostedServiceBase
     {
-        private readonly IQueryRepositoryFactory _repositoryFactory;
-        private readonly IUnitOfWorkAsync _uow;
-        private readonly IHostingEnvironment _env;
+        private readonly IServiceProvider _resolver;
 
-        public HostedService(
-            IQueryRepositoryFactory repositoryFactory,
-            IUnitOfWorkAsync uow,
-            ILoggerFactory loggerFactory,
-            IApplicationLifetime appLifetime,
-            IConfiguration config,
-            IHostingEnvironment env)
-            : base(loggerFactory, appLifetime, config)
+        public HostedService(IServiceProvider resolver)
+            : base(
+                resolver.GetRequiredService<ILoggerFactory>(),
+                resolver.GetRequiredService<IApplicationLifetime>(),
+                resolver.GetRequiredService<IConfiguration>())
         {
-            _repositoryFactory = repositoryFactory;
-            _uow = uow;
-            _env = env;
+            _resolver = resolver;
         }
 
         protected override Server ConfigureServer()
         {
+            GrpcEnvironment.SetLogger(new ConsoleLogger());
+
+            var env = _resolver.GetRequiredService<IHostingEnvironment>();
             var host = Config["Hosts:Local:Host"];
             var port = int.Parse(Config["Hosts:Local:Port"]);
+            var serviceName = Config["Hosts:ServiceName"];
 
-            if (!_env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
-                port = Convert.ToInt32(Environment.GetEnvironmentVariable("EXCHANGE_SERVICE_HOST"));
+                port = Environment.GetEnvironmentVariable($"{serviceName.ToUpperInvariant()}_HOST").ConvertTo<int>();
             }
 
             var server = new Server
             {
                 Services =
                 {
-                    ReviewService.BindService(
-                        new ReviewServiceImpl(
-                            _repositoryFactory,
-                            _uow,
-                            LoggerFactory
-                        )),
+                    ReviewService.BindService(new ReviewServiceImpl(_resolver)),
+                    PingService.BindService(new PingServiceImpl()),
                     Grpc.Health.V1.Health.BindService(new HealthImpl())
                 },
                 Ports = {new ServerPort(host, port, ServerCredentials.Insecure)}

@@ -2,34 +2,45 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetCoreKit.Domain;
 using NetCoreKit.Infrastructure.Mongo;
 using NetCoreKit.Utils.Extensions;
 using VND.CoolStore.Services.Review.v1.Extensions;
 using VND.CoolStore.Services.Review.v1.Grpc;
+using Empty = Google.Protobuf.WellKnownTypes.Empty;
 
 namespace VND.CoolStore.Services.Review.v1.Services
 {
+    public class PingServiceImpl : PingService.PingServiceBase
+    {
+        public override Task<PingResponse> Ping(Empty request, ServerCallContext context)
+        {
+            return Task.FromResult(new PingResponse
+            {
+                Message = $"Say hello from {Environment.MachineName} machine!!!"
+            });
+        }
+    }
+
     public class ReviewServiceImpl : ReviewService.ReviewServiceBase
     {
         private readonly ILogger<ReviewServiceImpl> _logger;
-        private readonly IQueryRepositoryFactory _repositoryFactory;
-        private readonly IUnitOfWorkAsync _uow;
+        private readonly IQueryRepositoryFactory _queryFactory;
+        private readonly IUnitOfWorkAsync _commandFactory;
 
-        public ReviewServiceImpl(
-            IQueryRepositoryFactory repositoryFactory,
-            IUnitOfWorkAsync uow,
-            ILoggerFactory loggerFactory)
+        public ReviewServiceImpl(IServiceProvider resolver)
         {
-            _repositoryFactory = repositoryFactory;
-            _uow = uow;
-            _logger = loggerFactory.CreateLogger<ReviewServiceImpl>();
+            _logger = resolver.GetService<ILoggerFactory>()?.CreateLogger<ReviewServiceImpl>();
+
+            _queryFactory = resolver.GetService<IQueryRepositoryFactory>();
+            _commandFactory = resolver.GetService<IUnitOfWorkAsync>();
         }
 
         public override async Task<GetReviewsResponse> GetReviews(GetReviewsRequest request, ServerCallContext context)
         {
-            var reviewQueryRepo = _repositoryFactory.MongoQueryRepository<Domain.Review>();
+            var reviewQueryRepo = _queryFactory.MongoQueryRepository<Domain.Review>();
             var reviews =
                 await reviewQueryRepo.FindListByFieldAsync(r =>
                     r.ReviewProduct.Id == request.ProductId.ConvertTo<Guid>());
@@ -49,7 +60,7 @@ namespace VND.CoolStore.Services.Review.v1.Services
         public override async Task<CreateReviewResponse> CreateReview(CreateReviewRequest request,
             ServerCallContext context)
         {
-            var reviewRepository = _uow.RepositoryAsync<Domain.Review>();
+            var reviewRepository = _commandFactory.RepositoryAsync<Domain.Review>();
 
             var review = Domain.Review
                 .Load(request.Content)
@@ -66,8 +77,8 @@ namespace VND.CoolStore.Services.Review.v1.Services
 
         public override async Task<EditReviewResponse> EditReview(EditReviewRequest request, ServerCallContext context)
         {
-            var reviewQueryRepo = _repositoryFactory.MongoQueryRepository<Domain.Review>();
-            var reviewRepo = _uow.RepositoryAsync<Domain.Review>();
+            var reviewQueryRepo = _queryFactory.MongoQueryRepository<Domain.Review>();
+            var reviewRepo = _commandFactory.RepositoryAsync<Domain.Review>();
 
             var review = await reviewQueryRepo.FindOneAsync(x => x.Id, request.ReviewId.ConvertTo<Guid>());
             if (review == null)
@@ -85,8 +96,8 @@ namespace VND.CoolStore.Services.Review.v1.Services
         public override async Task<DeleteReviewResponse> DeleteReview(DeleteReviewRequest request,
             ServerCallContext context)
         {
-            var reviewQueryRepo = _repositoryFactory.MongoQueryRepository<Domain.Review>();
-            var reviewRepo = _uow.RepositoryAsync<Domain.Review>();
+            var reviewQueryRepo = _queryFactory.MongoQueryRepository<Domain.Review>();
+            var reviewRepo = _commandFactory.RepositoryAsync<Domain.Review>();
 
             var review = await reviewQueryRepo.FindOneAsync(x => x.Id, request.ReviewId.ConvertTo<Guid>());
             if (review == null)
