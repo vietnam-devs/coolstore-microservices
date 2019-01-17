@@ -7,10 +7,21 @@ services:
     restart: always
     expose:
       - "80"
-      - "9901"
+      - "8081"
     ports:
-      - "80:80"
-      - "9901:9901"
+      - "8082:80"
+      - "8081:8081"
+    networks:
+      - server-net
+
+  open-api-service:
+    container_name: open-api-service
+    image: "vndg/cs-open-api"
+    restart: always
+    ports:
+      - "5010:5010"
+    expose:
+      - "5010"
     networks:
       - server-net
 
@@ -22,6 +33,28 @@ services:
       - "5006:5006"
     expose:
       - "5006"
+    networks:
+      - server-net
+
+  inventory-service:
+    container_name: inventory-service
+    image: "vndg/cs-inventory-service"
+    restart: always
+    ports:
+      - "5004:5004"
+    expose:
+      - "5004"
+    networks:
+      - server-net
+
+  cart-service:
+    container_name: cart-service
+    image: "vndg/cs-cart-service"
+    restart: always
+    ports:
+      - "5003:5003"
+    expose:
+      - "5003"
     networks:
       - server-net
 

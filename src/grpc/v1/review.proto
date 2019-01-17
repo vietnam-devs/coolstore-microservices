@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package review;
+package coolstore;
 option csharp_namespace = "VND.CoolStore.Services.Review.v1.Grpc";
 
 import "google/api/annotations.proto";
@@ -47,12 +47,12 @@ message ReviewDto {
   string product_name = 6;
 }
 
-message ProductDto {
+/*message ProductDto {
   string id = 1;
   string name = 2;
   string desc = 3;
   double price = 4;
-}
+}*/
 
 message AuthorDto {
   string id = 1;

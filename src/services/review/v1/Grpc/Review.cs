@@ -24,42 +24,40 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
     static ReviewReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxyZXZpZXcucHJvdG8SBnJldmlldxocZ29vZ2xlL2FwaS9hbm5vdGF0aW9u",
-            "cy5wcm90bxobZ29vZ2xlL3Byb3RvYnVmL2VtcHR5LnByb3RvInoKCVJldmll",
-            "d0R0bxIKCgJpZBgBIAEoCRIPCgdjb250ZW50GAIgASgJEhEKCWF1dGhvcl9p",
-            "ZBgDIAEoCRITCgthdXRob3JfbmFtZRgEIAEoCRISCgpwcm9kdWN0X2lkGAUg",
-            "ASgJEhQKDHByb2R1Y3RfbmFtZRgGIAEoCSJDCgpQcm9kdWN0RHRvEgoKAmlk",
-            "GAEgASgJEgwKBG5hbWUYAiABKAkSDAoEZGVzYxgDIAEoCRINCgVwcmljZRgE",
-            "IAEoASIqCglBdXRob3JEdG8SCgoCaWQYASABKAkSEQoJdXNlcl9uYW1lGAIg",
-            "ASgJIh8KDFBpbmdSZXNwb25zZRIPCgdtZXNzYWdlGAEgASgJIicKEUdldFJl",
-            "dmlld3NSZXF1ZXN0EhIKCnByb2R1Y3RfaWQYASABKAkiOAoSR2V0UmV2aWV3",
-            "c1Jlc3BvbnNlEiIKB3Jldmlld3MYASADKAsyES5yZXZpZXcuUmV2aWV3RHRv",
-            "IksKE0NyZWF0ZVJldmlld1JlcXVlc3QSEgoKcHJvZHVjdF9pZBgBIAEoCRIP",
-            "Cgd1c2VyX2lkGAIgASgJEg8KB2NvbnRlbnQYAyABKAkiOQoUQ3JlYXRlUmV2",
-            "aWV3UmVzcG9uc2USIQoGcmVzdWx0GAEgASgLMhEucmV2aWV3LlJldmlld0R0",
-            "byIoChNEZWxldGVSZXZpZXdSZXF1ZXN0EhEKCXJldmlld19pZBgBIAEoCSIi",
-            "ChREZWxldGVSZXZpZXdSZXNwb25zZRIKCgJpZBgBIAEoCSI3ChFFZGl0UmV2",
-            "aWV3UmVxdWVzdBIRCglyZXZpZXdfaWQYASABKAkSDwoHY29udGVudBgCIAEo",
-            "CSI3ChJFZGl0UmV2aWV3UmVzcG9uc2USIQoGcmVzdWx0GAEgASgLMhEucmV2",
-            "aWV3LlJldmlld0R0bzJSCgtQaW5nU2VydmljZRJDCgRQaW5nEhYuZ29vZ2xl",
-            "LnByb3RvYnVmLkVtcHR5GhQucmV2aWV3LlBpbmdSZXNwb25zZSINgtPkkwIH",
-            "EgUvcGluZzK5AwoNUmV2aWV3U2VydmljZRJmCgpHZXRSZXZpZXdzEhkucmV2",
-            "aWV3LkdldFJldmlld3NSZXF1ZXN0GhoucmV2aWV3LkdldFJldmlld3NSZXNw",
-            "b25zZSIhgtPkkwIbEhkvYXBpL3Jldmlld3Mve3Byb2R1Y3RfaWR9EmIKDENy",
-            "ZWF0ZVJldmlldxIbLnJldmlldy5DcmVhdGVSZXZpZXdSZXF1ZXN0GhwucmV2",
-            "aWV3LkNyZWF0ZVJldmlld1Jlc3BvbnNlIheC0+STAhEiDC9hcGkvcmV2aWV3",
-            "czoBKhJvCgpFZGl0UmV2aWV3EhkucmV2aWV3LkVkaXRSZXZpZXdSZXF1ZXN0",
-            "GhoucmV2aWV3LkVkaXRSZXZpZXdSZXNwb25zZSIqgtPkkwIkGiIvYXBpL3Jl",
-            "dmlld3Mve3Jldmlld19pZH0ve2NvbnRlbnR9EmsKDERlbGV0ZVJldmlldxIb",
-            "LnJldmlldy5EZWxldGVSZXZpZXdSZXF1ZXN0GhwucmV2aWV3LkRlbGV0ZVJl",
-            "dmlld1Jlc3BvbnNlIiCC0+STAhoqGC9hcGkvcmV2aWV3cy97cmV2aWV3X2lk",
-            "fUIoqgIlVk5ELkNvb2xTdG9yZS5TZXJ2aWNlcy5SZXZpZXcudjEuR3JwY2IG",
-            "cHJvdG8z"));
+            "CgxyZXZpZXcucHJvdG8SCWNvb2xzdG9yZRocZ29vZ2xlL2FwaS9hbm5vdGF0",
+            "aW9ucy5wcm90bxobZ29vZ2xlL3Byb3RvYnVmL2VtcHR5LnByb3RvInoKCVJl",
+            "dmlld0R0bxIKCgJpZBgBIAEoCRIPCgdjb250ZW50GAIgASgJEhEKCWF1dGhv",
+            "cl9pZBgDIAEoCRITCgthdXRob3JfbmFtZRgEIAEoCRISCgpwcm9kdWN0X2lk",
+            "GAUgASgJEhQKDHByb2R1Y3RfbmFtZRgGIAEoCSIqCglBdXRob3JEdG8SCgoC",
+            "aWQYASABKAkSEQoJdXNlcl9uYW1lGAIgASgJIh8KDFBpbmdSZXNwb25zZRIP",
+            "CgdtZXNzYWdlGAEgASgJIicKEUdldFJldmlld3NSZXF1ZXN0EhIKCnByb2R1",
+            "Y3RfaWQYASABKAkiOwoSR2V0UmV2aWV3c1Jlc3BvbnNlEiUKB3Jldmlld3MY",
+            "ASADKAsyFC5jb29sc3RvcmUuUmV2aWV3RHRvIksKE0NyZWF0ZVJldmlld1Jl",
+            "cXVlc3QSEgoKcHJvZHVjdF9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEg8K",
+            "B2NvbnRlbnQYAyABKAkiPAoUQ3JlYXRlUmV2aWV3UmVzcG9uc2USJAoGcmVz",
+            "dWx0GAEgASgLMhQuY29vbHN0b3JlLlJldmlld0R0byIoChNEZWxldGVSZXZp",
+            "ZXdSZXF1ZXN0EhEKCXJldmlld19pZBgBIAEoCSIiChREZWxldGVSZXZpZXdS",
+            "ZXNwb25zZRIKCgJpZBgBIAEoCSI3ChFFZGl0UmV2aWV3UmVxdWVzdBIRCgly",
+            "ZXZpZXdfaWQYASABKAkSDwoHY29udGVudBgCIAEoCSI6ChJFZGl0UmV2aWV3",
+            "UmVzcG9uc2USJAoGcmVzdWx0GAEgASgLMhQuY29vbHN0b3JlLlJldmlld0R0",
+            "bzJVCgtQaW5nU2VydmljZRJGCgRQaW5nEhYuZ29vZ2xlLnByb3RvYnVmLkVt",
+            "cHR5GhcuY29vbHN0b3JlLlBpbmdSZXNwb25zZSINgtPkkwIHEgUvcGluZzLR",
+            "AwoNUmV2aWV3U2VydmljZRJsCgpHZXRSZXZpZXdzEhwuY29vbHN0b3JlLkdl",
+            "dFJldmlld3NSZXF1ZXN0Gh0uY29vbHN0b3JlLkdldFJldmlld3NSZXNwb25z",
+            "ZSIhgtPkkwIbEhkvYXBpL3Jldmlld3Mve3Byb2R1Y3RfaWR9EmgKDENyZWF0",
+            "ZVJldmlldxIeLmNvb2xzdG9yZS5DcmVhdGVSZXZpZXdSZXF1ZXN0Gh8uY29v",
+            "bHN0b3JlLkNyZWF0ZVJldmlld1Jlc3BvbnNlIheC0+STAhEiDC9hcGkvcmV2",
+            "aWV3czoBKhJ1CgpFZGl0UmV2aWV3EhwuY29vbHN0b3JlLkVkaXRSZXZpZXdS",
+            "ZXF1ZXN0Gh0uY29vbHN0b3JlLkVkaXRSZXZpZXdSZXNwb25zZSIqgtPkkwIk",
+            "GiIvYXBpL3Jldmlld3Mve3Jldmlld19pZH0ve2NvbnRlbnR9EnEKDERlbGV0",
+            "ZVJldmlldxIeLmNvb2xzdG9yZS5EZWxldGVSZXZpZXdSZXF1ZXN0Gh8uY29v",
+            "bHN0b3JlLkRlbGV0ZVJldmlld1Jlc3BvbnNlIiCC0+STAhoqGC9hcGkvcmV2",
+            "aWV3cy97cmV2aWV3X2lkfUIoqgIlVk5ELkNvb2xTdG9yZS5TZXJ2aWNlcy5S",
+            "ZXZpZXcudjEuR3JwY2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Api.AnnotationsReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Review.v1.Grpc.ReviewDto), global::VND.CoolStore.Services.Review.v1.Grpc.ReviewDto.Parser, new[]{ "Id", "Content", "AuthorId", "AuthorName", "ProductId", "ProductName" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Review.v1.Grpc.ProductDto), global::VND.CoolStore.Services.Review.v1.Grpc.ProductDto.Parser, new[]{ "Id", "Name", "Desc", "Price" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Review.v1.Grpc.AuthorDto), global::VND.CoolStore.Services.Review.v1.Grpc.AuthorDto.Parser, new[]{ "Id", "UserName" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Review.v1.Grpc.PingResponse), global::VND.CoolStore.Services.Review.v1.Grpc.PingResponse.Parser, new[]{ "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsRequest), global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsRequest.Parser, new[]{ "ProductId" }, null, null, null),
@@ -345,219 +343,6 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
   }
 
-  public sealed partial class ProductDto : pb::IMessage<ProductDto> {
-    private static readonly pb::MessageParser<ProductDto> _parser = new pb::MessageParser<ProductDto>(() => new ProductDto());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ProductDto> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ProductDto() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ProductDto(ProductDto other) : this() {
-      id_ = other.id_;
-      name_ = other.name_;
-      desc_ = other.desc_;
-      price_ = other.price_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ProductDto Clone() {
-      return new ProductDto(this);
-    }
-
-    /// <summary>Field number for the "id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private string id_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Id {
-      get { return id_; }
-      set {
-        id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 2;
-    private string name_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Name {
-      get { return name_; }
-      set {
-        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "desc" field.</summary>
-    public const int DescFieldNumber = 3;
-    private string desc_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Desc {
-      get { return desc_; }
-      set {
-        desc_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "price" field.</summary>
-    public const int PriceFieldNumber = 4;
-    private double price_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public double Price {
-      get { return price_; }
-      set {
-        price_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ProductDto);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ProductDto other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Id != other.Id) return false;
-      if (Name != other.Name) return false;
-      if (Desc != other.Desc) return false;
-      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Price, other.Price)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Id.Length != 0) hash ^= Id.GetHashCode();
-      if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (Desc.Length != 0) hash ^= Desc.GetHashCode();
-      if (Price != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Price);
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Id.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Id);
-      }
-      if (Name.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Name);
-      }
-      if (Desc.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Desc);
-      }
-      if (Price != 0D) {
-        output.WriteRawTag(33);
-        output.WriteDouble(Price);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Id.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
-      }
-      if (Name.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
-      }
-      if (Desc.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Desc);
-      }
-      if (Price != 0D) {
-        size += 1 + 8;
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ProductDto other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Id.Length != 0) {
-        Id = other.Id;
-      }
-      if (other.Name.Length != 0) {
-        Name = other.Name;
-      }
-      if (other.Desc.Length != 0) {
-        Desc = other.Desc;
-      }
-      if (other.Price != 0D) {
-        Price = other.Price;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            Id = input.ReadString();
-            break;
-          }
-          case 18: {
-            Name = input.ReadString();
-            break;
-          }
-          case 26: {
-            Desc = input.ReadString();
-            break;
-          }
-          case 33: {
-            Price = input.ReadDouble();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
   public sealed partial class AuthorDto : pb::IMessage<AuthorDto> {
     private static readonly pb::MessageParser<AuthorDto> _parser = new pb::MessageParser<AuthorDto>(() => new AuthorDto());
     private pb::UnknownFieldSet _unknownFields;
@@ -566,7 +351,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[2]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -723,7 +508,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[3]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -852,7 +637,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[4]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -981,7 +766,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[5]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1102,7 +887,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[6]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1287,7 +1072,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[7]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1422,7 +1207,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[8]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1551,7 +1336,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[9]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1680,7 +1465,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[10]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1837,7 +1622,7 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[11]; }
+      get { return global::VND.CoolStore.Services.Review.v1.Grpc.ReviewReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

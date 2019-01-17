@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package inventory;
+package coolstore;
 option csharp_namespace = "VND.CoolStore.Services.Inventory.v1.Grpc";
 
 import "google/api/annotations.proto";

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package cart;
+package coolstore;
 option csharp_namespace = "VND.CoolStore.Services.Cart.v1.Grpc";
 
 import "google/api/annotations.proto";
@@ -8,7 +8,7 @@ import "google/api/annotations.proto";
 service CartService {
   rpc GetCart(GetCartRequest) returns (GetCartResponse) {
     option (google.api.http) = {
-      get: "/api/carts/{id}"
+      get: "/api/carts/{cart_id}"
     };
   }
   rpc InsertItemToNewCart(InsertItemToNewCartRequest) returns (InsertItemToNewCartResponse) {

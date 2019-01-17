@@ -7,10 +7,8 @@ readonly SERVICE_DIR=${ROOT_DIR}/src/services/review
 
 readonly GRPC_PATH=${HOME}/.nuget/packages/grpc.tools/1.17.1/tools/linux_x64
 readonly PROTO_PATH=${ROOT_DIR}/src/grpc/v1
-readonly PROTO_FILE=review.proto
-readonly API_FILE=review.yaml
-
 readonly OUTPUT_PATH=${SERVICE_DIR}/v1/Grpc
+readonly PROTO_FILE=review.proto
 
 cd `$SERVICE_DIR/App_Build`
 

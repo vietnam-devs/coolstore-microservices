@@ -10,17 +10,17 @@ using grpc = global::Grpc.Core;
 namespace VND.CoolStore.Services.Review.v1.Grpc {
   public static partial class PingService
   {
-    static readonly string __ServiceName = "review.PingService";
+    static readonly string __ServiceName = "coolstore.PingService";
 
     static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Empty.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.PingResponse> __Marshaller_review_PingResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.PingResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.PingResponse> __Marshaller_coolstore_PingResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.PingResponse.Parser.ParseFrom);
 
     static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::VND.CoolStore.Services.Review.v1.Grpc.PingResponse> __Method_Ping = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::VND.CoolStore.Services.Review.v1.Grpc.PingResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "Ping",
         __Marshaller_google_protobuf_Empty,
-        __Marshaller_review_PingResponse);
+        __Marshaller_coolstore_PingResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -104,44 +104,44 @@ namespace VND.CoolStore.Services.Review.v1.Grpc {
   }
   public static partial class ReviewService
   {
-    static readonly string __ServiceName = "review.ReviewService";
+    static readonly string __ServiceName = "coolstore.ReviewService";
 
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsRequest> __Marshaller_review_GetReviewsRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsResponse> __Marshaller_review_GetReviewsResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewRequest> __Marshaller_review_CreateReviewRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewResponse> __Marshaller_review_CreateReviewResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewRequest> __Marshaller_review_EditReviewRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewResponse> __Marshaller_review_EditReviewResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewRequest> __Marshaller_review_DeleteReviewRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewResponse> __Marshaller_review_DeleteReviewResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsRequest> __Marshaller_coolstore_GetReviewsRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsResponse> __Marshaller_coolstore_GetReviewsResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewRequest> __Marshaller_coolstore_CreateReviewRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewResponse> __Marshaller_coolstore_CreateReviewResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewRequest> __Marshaller_coolstore_EditReviewRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewResponse> __Marshaller_coolstore_EditReviewResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewRequest> __Marshaller_coolstore_DeleteReviewRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewResponse> __Marshaller_coolstore_DeleteReviewResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewResponse.Parser.ParseFrom);
 
     static readonly grpc::Method<global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsRequest, global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsResponse> __Method_GetReviews = new grpc::Method<global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsRequest, global::VND.CoolStore.Services.Review.v1.Grpc.GetReviewsResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "GetReviews",
-        __Marshaller_review_GetReviewsRequest,
-        __Marshaller_review_GetReviewsResponse);
+        __Marshaller_coolstore_GetReviewsRequest,
+        __Marshaller_coolstore_GetReviewsResponse);
 
     static readonly grpc::Method<global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewRequest, global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewResponse> __Method_CreateReview = new grpc::Method<global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewRequest, global::VND.CoolStore.Services.Review.v1.Grpc.CreateReviewResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "CreateReview",
-        __Marshaller_review_CreateReviewRequest,
-        __Marshaller_review_CreateReviewResponse);
+        __Marshaller_coolstore_CreateReviewRequest,
+        __Marshaller_coolstore_CreateReviewResponse);
 
     static readonly grpc::Method<global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewRequest, global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewResponse> __Method_EditReview = new grpc::Method<global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewRequest, global::VND.CoolStore.Services.Review.v1.Grpc.EditReviewResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "EditReview",
-        __Marshaller_review_EditReviewRequest,
-        __Marshaller_review_EditReviewResponse);
+        __Marshaller_coolstore_EditReviewRequest,
+        __Marshaller_coolstore_EditReviewResponse);
 
     static readonly grpc::Method<global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewRequest, global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewResponse> __Method_DeleteReview = new grpc::Method<global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewRequest, global::VND.CoolStore.Services.Review.v1.Grpc.DeleteReviewResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "DeleteReview",
-        __Marshaller_review_DeleteReviewRequest,
-        __Marshaller_review_DeleteReviewResponse);
+        __Marshaller_coolstore_DeleteReviewRequest,
+        __Marshaller_coolstore_DeleteReviewResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
