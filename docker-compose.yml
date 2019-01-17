@@ -25,6 +25,17 @@ services:
     networks:
       - server-net
 
+  idp-service:
+    container_name: idp-service
+    image: "vndg/cs-idp-service"
+    restart: always
+    ports:
+      - "8083:80"
+    expose:
+      - "80"
+    networks:
+      - server-net
+
   review-service:
     container_name: review-service
     image: "vndg/cs-review-service"
