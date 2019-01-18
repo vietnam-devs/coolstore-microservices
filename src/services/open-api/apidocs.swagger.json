@@ -1,8 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "cart.proto",
-    "version": "version not set"
+    "title": "Coolstore services",
+    "version": "1.0",
+    "contact": {
+      "name": "coolstore-microservices project",
+      "url": "https://github.com/vietnam-devs/coolstore-microservices",
+      "email": "thangchung.onthenet@gmail.com"
+    }
   },
   "schemes": [
     "http",

@@ -1,9 +1,8 @@
 #!/bin/bash
 set -ex
 
-# should export github folder path to GITHUB_PATH and clone googleapis
 readonly ROOT_DIR=`pwd`
-readonly GOOGLEAPIS_DIR=$GITHUB_PATH/googleapis
+readonly GOOGLEAPIS_DIR=${ROOT_DIR}/src/grpc/third_party/googleapis
 readonly SERVICE_DIR=${ROOT_DIR}/src/services/envoy-proxy
 
 readonly GRPC_PATH=${HOME}/.nuget/packages/grpc.tools/1.17.1/tools/linux_x64

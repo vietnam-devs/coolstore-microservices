@@ -1,0 +1,18 @@
+syntax = "proto3";
+package coolstore;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+  info: {
+    title: "Coolstore services";
+    version: "1.0";
+    contact: {
+      name: "coolstore-microservices project";
+      url: "https://github.com/vietnam-devs/coolstore-microservices";
+      email: "thangchung.onthenet@gmail.com";
+    };
+  }
+};
