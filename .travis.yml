@@ -6,11 +6,15 @@ dotnet: 2.1.302
 env:
   global:
     - NODE_VERSION="10.6.0"
+git:
+  submodules: false
 branches:
   only:
     - master
 before_install:
   - nvm install $NODE_VERSION
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule foreach git pull origin master
 before_script:
   - chmod -R a+x deploys/scripts
 script:
