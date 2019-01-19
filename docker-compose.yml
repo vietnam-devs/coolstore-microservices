@@ -11,8 +11,6 @@ services:
     ports:
       - "8082:80"
       - "8081:8081"
-    networks:
-      - server-net
 
   open-api-service:
     container_name: open-api-service
@@ -22,19 +20,6 @@ services:
       - "5010:5010"
     expose:
       - "5010"
-    networks:
-      - server-net
-
-  idp-service:
-    container_name: idp-service
-    image: "vndg/cs-idp-service"
-    restart: always
-    ports:
-      - "8083:80"
-    expose:
-      - "80"
-    networks:
-      - server-net
 
   review-service:
     container_name: review-service
@@ -44,8 +29,6 @@ services:
       - "5006:5006"
     expose:
       - "5006"
-    networks:
-      - server-net
 
   inventory-service:
     container_name: inventory-service
@@ -55,8 +38,6 @@ services:
       - "5004:5004"
     expose:
       - "5004"
-    networks:
-      - server-net
 
   cart-service:
     container_name: cart-service
@@ -66,8 +47,3 @@ services:
       - "5003:5003"
     expose:
       - "5003"
-    networks:
-      - server-net
-
-networks:
-  server-net:

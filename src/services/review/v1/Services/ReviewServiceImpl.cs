@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using NetCoreKit.Domain;
 using NetCoreKit.Infrastructure.Mongo;
 using NetCoreKit.Utils.Extensions;
+using Newtonsoft.Json;
 using VND.CoolStore.Services.Review.v1.Extensions;
 using VND.CoolStore.Services.Review.v1.Grpc;
 using Empty = Google.Protobuf.WellKnownTypes.Empty;
@@ -17,6 +18,9 @@ namespace VND.CoolStore.Services.Review.v1.Services
     {
         public override Task<PingResponse> Ping(Empty request, ServerCallContext context)
         {
+            Console.WriteLine(JsonConvert.SerializeObject(context.AuthContext));
+            Console.WriteLine(JsonConvert.SerializeObject(context.RequestHeaders));
+            
             return Task.FromResult(new PingResponse
             {
                 Message = $"Say hello from {Environment.MachineName} machine!!!"

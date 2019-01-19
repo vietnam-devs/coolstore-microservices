@@ -1,7 +1,6 @@
 syntax = "proto3";
 package coolstore;
 
-import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 import "protoc-gen-swagger/options/annotations.proto";
 
@@ -14,5 +13,50 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
       url: "https://github.com/vietnam-devs/coolstore-microservices";
       email: "thangchung.onthenet@gmail.com";
     };
+  };
+  security_definitions: {
+    security: {
+      key: "OAuth2";
+      value: {
+        type: TYPE_OAUTH2;
+        flow: FLOW_IMPLICIT;
+        authorization_url: "http://localhost:5001/connect/authorize";
+        token_url: "http://localhost:5001/connect/token";
+        scopes: {
+          scope: {
+            key: "openid";
+            value: "Grants openid access";
+          }
+          scope: {
+            key: "profile";
+            value: "Grants profile access";
+          }
+          scope: {
+            key: "inventory_api_scope";
+            value: "Grants inventory access";
+          }
+          scope: {
+            key: "cart_api_scope";
+            value: "Grants cart access";
+          }
+          scope: {
+            key: "pricing_api_scope";
+            value: "Grants pricing access";
+          }
+          scope: {
+            key: "review_api_scope";
+            value: "Grants review access";
+          }
+          scope: {
+            key: "catalog_api_scope";
+            value: "Grants catalog access";
+          }
+          scope: {
+            key: "rating_api_scope";
+            value: "Grants rating access";
+          }
+        }
+      }
+    }
   }
 };

@@ -27,7 +27,7 @@ static_resources:
                     - name: local_service
                       domains: ["*"]
                       routes:
-                        - match: { prefix: "/swagger-ui" }
+                        - match: { prefix: "/swagger" }
                           route: { cluster: open_api_service }
                         - match: { prefix: "/", grpc: {} }
                           route:

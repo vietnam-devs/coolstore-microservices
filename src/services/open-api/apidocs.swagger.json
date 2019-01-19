@@ -9,16 +9,6 @@
       "email": "thangchung.onthenet@gmail.com"
     }
   },
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
   "paths": {
     "/api/availabilities": {
       "get": {
@@ -331,6 +321,14 @@
         },
         "tags": [
           "PingService"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "openid",
+              "profile"
+            ]
+          }
         ]
       }
     }
@@ -589,6 +587,24 @@
         "result": {
           "$ref": "#/definitions/coolstoreCartDto"
         }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "http://localhost:5001/connect/authorize",
+      "tokenUrl": "http://localhost:5001/connect/token",
+      "scopes": {
+        "cart_api_scope": "Grants cart access",
+        "catalog_api_scope": "Grants catalog access",
+        "inventory_api_scope": "Grants inventory access",
+        "openid": "Grants openid access",
+        "pricing_api_scope": "Grants pricing access",
+        "profile": "Grants profile access",
+        "rating_api_scope": "Grants rating access",
+        "review_api_scope": "Grants review access"
       }
     }
   }
