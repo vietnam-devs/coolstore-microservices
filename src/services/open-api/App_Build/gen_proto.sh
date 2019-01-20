@@ -19,4 +19,6 @@ $GRPC_PATH/protoc -I$PROTO_PATH -I/usr/local/include -I$GOOGLEAPIS_DIR -I$PROTOC
     --swagger_out=logtostderr=true,allow_merge=true:$OUTPUT_PATH/ \
     $PROTO_PATH/$PROTO_FILE
 
+cp $OUTPUT_PATH/apidocs.swagger.json $OUTPUT_PATH/swagger.json
+
 cd -

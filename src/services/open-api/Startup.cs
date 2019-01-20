@@ -19,7 +19,9 @@ namespace VND.CoolStore.Services.OpenApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/apidocs.swagger.json", "V1 Docs"); });
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger.json", "V1 Docs");
+            });
             app.UseStaticFiles();
             app.UseMvc();
         }

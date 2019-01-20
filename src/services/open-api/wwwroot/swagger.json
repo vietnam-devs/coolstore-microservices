@@ -1,0 +1,611 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Coolstore services",
+    "version": "1.0",
+    "contact": {
+      "name": "coolstore-microservices project",
+      "url": "https://github.com/vietnam-devs/coolstore-microservices",
+      "email": "thangchung.onthenet@gmail.com"
+    }
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/availabilities": {
+      "get": {
+        "operationId": "GetInventories",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreGetInventoriesResponse"
+            }
+          }
+        },
+        "tags": [
+          "InventoryService"
+        ]
+      }
+    },
+    "/api/availabilities/{id}": {
+      "get": {
+        "operationId": "GetInventory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreGetInventoryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "InventoryService"
+        ]
+      }
+    },
+    "/api/carts": {
+      "post": {
+        "operationId": "InsertItemToNewCart",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreInsertItemToNewCartResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/coolstoreInsertItemToNewCartRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CartService"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateItemInCart",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreUpdateItemInCartResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/coolstoreUpdateItemInCartRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CartService"
+        ]
+      }
+    },
+    "/api/carts/{cart_id}": {
+      "get": {
+        "operationId": "GetCart",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreGetCartResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "cart_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CartService"
+        ]
+      }
+    },
+    "/api/carts/{cart_id}/checkout": {
+      "put": {
+        "operationId": "Checkout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreCheckoutResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "cart_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CartService"
+        ]
+      }
+    },
+    "/api/carts/{cart_id}/items/{product_id}": {
+      "delete": {
+        "operationId": "DeleteItem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreDeleteItemResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "cart_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CartService"
+        ]
+      }
+    },
+    "/api/inventory/migrate": {
+      "post": {
+        "operationId": "DbMigration",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreDbMigrationResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "properties": {}
+            }
+          }
+        ],
+        "tags": [
+          "InventoryService"
+        ]
+      }
+    },
+    "/api/reviews": {
+      "post": {
+        "operationId": "CreateReview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreCreateReviewResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/coolstoreCreateReviewRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/api/reviews/{product_id}": {
+      "get": {
+        "operationId": "GetReviews",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreGetReviewsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/api/reviews/{review_id}": {
+      "delete": {
+        "operationId": "DeleteReview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreDeleteReviewResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "review_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/api/reviews/{review_id}/{content}": {
+      "put": {
+        "operationId": "EditReview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreEditReviewResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "review_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/ping": {
+      "get": {
+        "operationId": "Ping",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstorePingResponse"
+            }
+          }
+        },
+        "tags": [
+          "PingService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "coolstoreCartDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "cart_item_total": {
+          "type": "number",
+          "format": "double"
+        },
+        "cart_item_promo_savings": {
+          "type": "number",
+          "format": "double"
+        },
+        "shipping_total": {
+          "type": "number",
+          "format": "double"
+        },
+        "shipping_promo_savings": {
+          "type": "number",
+          "format": "double"
+        },
+        "cart_total": {
+          "type": "number",
+          "format": "double"
+        },
+        "is_check_out": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/coolstoreCartItemDto"
+          }
+        }
+      }
+    },
+    "coolstoreCartItemDto": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "type": "number",
+          "format": "double"
+        },
+        "promo_savings": {
+          "type": "number",
+          "format": "double"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "product_name": {
+          "type": "string"
+        }
+      }
+    },
+    "coolstoreCheckoutResponse": {
+      "type": "object",
+      "properties": {
+        "is_succeed": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "coolstoreCreateReviewRequest": {
+      "type": "object",
+      "properties": {
+        "product_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      }
+    },
+    "coolstoreCreateReviewResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/coolstoreReviewDto"
+        }
+      }
+    },
+    "coolstoreDbMigrationResponse": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "coolstoreDeleteItemResponse": {
+      "type": "object",
+      "properties": {
+        "product_id": {
+          "type": "string"
+        }
+      }
+    },
+    "coolstoreDeleteReviewResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "coolstoreEditReviewResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/coolstoreReviewDto"
+        }
+      }
+    },
+    "coolstoreGetCartResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/coolstoreCartDto"
+        }
+      }
+    },
+    "coolstoreGetInventoriesResponse": {
+      "type": "object",
+      "properties": {
+        "inventories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/coolstoreInventoryDto"
+          }
+        }
+      }
+    },
+    "coolstoreGetInventoryResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/coolstoreInventoryDto"
+        }
+      }
+    },
+    "coolstoreGetReviewsResponse": {
+      "type": "object",
+      "properties": {
+        "reviews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/coolstoreReviewDto"
+          }
+        }
+      }
+    },
+    "coolstoreInsertItemToNewCartRequest": {
+      "type": "object",
+      "properties": {
+        "product_id": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "coolstoreInsertItemToNewCartResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/coolstoreCartDto"
+        }
+      }
+    },
+    "coolstoreInventoryDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "link": {
+          "type": "string"
+        }
+      }
+    },
+    "coolstorePingResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "coolstoreReviewDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "author_id": {
+          "type": "string"
+        },
+        "author_name": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "product_name": {
+          "type": "string"
+        }
+      }
+    },
+    "coolstoreUpdateItemInCartRequest": {
+      "type": "object",
+      "properties": {
+        "cart_id": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "coolstoreUpdateItemInCartResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/coolstoreCartDto"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "http://localhost:5001/connect/authorize",
+      "tokenUrl": "http://localhost:5001/connect/token",
+      "scopes": {
+        "cart_api_scope": "Grants cart access",
+        "catalog_api_scope": "Grants catalog access",
+        "inventory_api_scope": "Grants inventory access",
+        "pricing_api_scope": "Grants pricing access",
+        "rating_api_scope": "Grants rating access",
+        "review_api_scope": "Grants review access"
+      }
+    }
+  }
+}
