@@ -84,6 +84,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Services.Revi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Services.WebAggregator", "src\services\web-aggregator\VND.CoolStore.Services.WebAggregator.csproj", "{B10840E2-DCC9-4380-9E8D-325900CBF39E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Services.OpenApi", "src\services\open-api\VND.CoolStore.Services.OpenApi.csproj", "{5F70D050-5511-4009-90AE-FC1BD032C396}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -198,6 +200,10 @@ Global
 		{B10840E2-DCC9-4380-9E8D-325900CBF39E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B10840E2-DCC9-4380-9E8D-325900CBF39E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B10840E2-DCC9-4380-9E8D-325900CBF39E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F70D050-5511-4009-90AE-FC1BD032C396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F70D050-5511-4009-90AE-FC1BD032C396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F70D050-5511-4009-90AE-FC1BD032C396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F70D050-5511-4009-90AE-FC1BD032C396}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -232,6 +238,7 @@ Global
 		{0F86D748-1E5B-4551-8872-C3C93BE5EE0B} = {32C550EA-409E-409D-8183-3E1B6F7B1FF4}
 		{C47C5A58-BA3B-4012-A4C5-74002C59474E} = {A0F90A99-CAD3-491F-9079-D1680D659A9B}
 		{B10840E2-DCC9-4380-9E8D-325900CBF39E} = {A0F90A99-CAD3-491F-9079-D1680D659A9B}
+		{5F70D050-5511-4009-90AE-FC1BD032C396} = {A0F90A99-CAD3-491F-9079-D1680D659A9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277B7E0A-BA8E-4DF8-ABD5-890801FC76F8}

@@ -77,7 +77,6 @@ namespace IdentityServer4
                     "http://localhost:5006/swagger/oauth2-redirect.html",
                     "http://localhost:5007/swagger/oauth2-redirect.html",
                     "http://localhost:8082/swagger/oauth2-redirect.html",
-                    "http://localhost:5010/swagger/oauth2-redirect.html",
                 },
                 PostLogoutRedirectUris =
                 {
@@ -92,7 +91,6 @@ namespace IdentityServer4
                     "http://localhost:5006",
                     "http://localhost:5007",
                     "http://localhost:8082",
-                    "http://localhost:5010"
                 },
                 AccessTokenLifetime = 300,
                 AllowedScopes =

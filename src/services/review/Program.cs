@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Grpc.Core.Interceptors;
 using Grpc.Core.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,7 +57,7 @@ namespace VND.CoolStore.Services.Review
                 Services =
                 {
                     ReviewService.BindService(new ReviewServiceImpl(_resolver)),
-                    PingService.BindService(new PingServiceImpl()),
+                    PingService.BindService(new PingServiceImpl(_resolver)).Intercept(new AuthNInterceptor(_resolver)),
                     Grpc.Health.V1.Health.BindService(new HealthImpl())
                 },
                 Ports = {new ServerPort(host, port, ServerCredentials.Insecure)}

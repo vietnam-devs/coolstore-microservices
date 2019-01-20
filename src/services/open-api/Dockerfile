@@ -1,17 +1,29 @@
-FROM node:alpine
-
-RUN mkdir -p /app
+FROM microsoft/dotnet:2.2.0-aspnetcore-runtime-alpine AS base
+RUN apk update && apk add libc6-compat
 WORKDIR /app
 
-COPY src/services/open-api/package*.json ./
-
-RUN yarn install
-
-COPY src/services/open-api/ .
-
 ARG service_version
-ENV SERVICE_VERSION ${service_version:-v1}
-EXPOSE 5010
-ENV NODE_ENV production
+ENV SERVICE_VERSION ${service_version:-0.0.1}
 
-ENTRYPOINT ["yarn", "start"]
+ARG api_version
+ENV API_VERSION ${api_version:-1.0}
+
+ENV ASPNETCORE_URLS http://+:5010
+EXPOSE 5010
+
+FROM microsoft/dotnet:2.2.100-sdk-alpine AS build
+WORKDIR ./src
+COPY . .
+
+WORKDIR /src/src/services/open-api
+
+RUN dotnet restore -nowarn:msb3202,nu1503
+RUN dotnet build --no-restore -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish --no-restore -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "VND.CoolStore.Services.OpenApi.dll"]

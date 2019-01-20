@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreKit.Infrastructure.AspNetCore.Authz;
-using review;
-using MyReviewService = review.ReviewService;
-using MyPingService = review.PingService;
+using VND.CoolStore.Services.Review.v1.Grpc;
+using MyReviewService = VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
+using MyPingService = VND.CoolStore.Services.Review.v1.Grpc.PingService;
 
 namespace VND.CoolStore.Services.WebAggregator.v1
 {
@@ -17,7 +17,7 @@ namespace VND.CoolStore.Services.WebAggregator.v1
         private readonly MyReviewService.ReviewServiceClient _reviewServiceClient;
         private readonly MyPingService.PingServiceClient _pingServiceClient;
 
-        public ReviewController(MyReviewService.ReviewServiceClient reviewServiceClient, PingService.PingServiceClient pingServiceClient)
+        public ReviewController(MyReviewService.ReviewServiceClient reviewServiceClient, MyPingService.PingServiceClient pingServiceClient)
         {
             _reviewServiceClient = reviewServiceClient;
             _pingServiceClient = pingServiceClient;
@@ -34,7 +34,7 @@ namespace VND.CoolStore.Services.WebAggregator.v1
         }
 
         [HttpGet]
-        //[Auth(Policy = "access_review_api")]
+        // [Auth(Policy = "access_review_api")]
         [Route("ping")]
         public async Task<IActionResult> GetPing()
         {

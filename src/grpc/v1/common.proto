@@ -24,14 +24,6 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
         token_url: "http://localhost:5001/connect/token";
         scopes: {
           scope: {
-            key: "openid";
-            value: "Grants openid access";
-          }
-          scope: {
-            key: "profile";
-            value: "Grants profile access";
-          }
-          scope: {
             key: "inventory_api_scope";
             value: "Grants inventory access";
           }

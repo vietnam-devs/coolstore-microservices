@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Template.Rest.Standard;
 using MyCartService = VND.CoolStore.Services.Cart.v1.Grpc.CartService;
 using MyInventoryService = VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
-using MyReviewService = review.ReviewService;
-using MyPingService = review.PingService;
+using MyReviewService = VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
+using MyPingService = VND.CoolStore.Services.Review.v1.Grpc.PingService;
 
 namespace VND.CoolStore.Services.WebAggregator
 {

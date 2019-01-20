@@ -10,7 +10,7 @@ readonly GRPC_PATH=${HOME}/.nuget/packages/grpc.tools/1.17.1/tools/linux_x64
 readonly PROTO_PATH=${ROOT_DIR}/src/grpc/v1
 readonly PROTO_FILE=*.proto
 
-readonly OUTPUT_PATH=${SERVICE_DIR}
+readonly OUTPUT_PATH=${SERVICE_DIR}/wwwroot
 
 cd `$SERVICE_DIR`
 

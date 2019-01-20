@@ -1,27 +1,127 @@
 using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Authentication;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Grpc.Core.Interceptors;
+using IdentityModel;
+using IdentityModel.Client;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using NetCoreKit.Domain;
 using NetCoreKit.Infrastructure.Mongo;
 using NetCoreKit.Utils.Extensions;
-using Newtonsoft.Json;
 using VND.CoolStore.Services.Review.v1.Extensions;
 using VND.CoolStore.Services.Review.v1.Grpc;
 using Empty = Google.Protobuf.WellKnownTypes.Empty;
 
 namespace VND.CoolStore.Services.Review.v1.Services
 {
+    public class AuthNInterceptor : Interceptor
+    {
+        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IConfiguration _config;
+
+        public AuthNInterceptor(IServiceProvider resolver)
+        {
+            _hostingEnvironment = resolver.GetService<IHostingEnvironment>();
+            _config = resolver.GetService<IConfiguration>();
+        }
+
+        public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request,
+            ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
+        {
+            var attribute = (CheckAttribute)continuation.Method.GetCustomAttributes(typeof(CheckAttribute), false).FirstOrDefault();
+            if (attribute == null)
+            {
+                return await continuation(request, context);
+            }
+
+            var userToken = string.Empty;
+            if (context.RequestHeaders.Any(x => x.Key == "Authorization"))
+            {
+                userToken = context.RequestHeaders.FirstOrDefault(x => x.Key == "Authorization")?.Value;
+            }
+            else
+            {
+                if (_hostingEnvironment.IsDevelopment())
+                {
+                    userToken = _config.GetValue<string>("Jwt_Token_Dev");
+                }
+            }
+
+            var disco = await DiscoveryClient.GetAsync(_config.GetValue<string>("AuthorityUri"));
+            var keys = new List<SecurityKey>();
+
+            foreach (var webKey in disco.KeySet.Keys)
+            {
+                var e = Base64Url.Decode(webKey.E);
+                var n = Base64Url.Decode(webKey.N);
+
+                var key = new RsaSecurityKey(new RSAParameters { Exponent = e, Modulus = n })
+                {
+                    KeyId = webKey.Kid
+                };
+
+                keys.Add(key);
+            }
+
+            var parameters = new TokenValidationParameters
+            {
+                ValidIssuer = disco.Issuer,
+                ValidAudience = _config.GetValue<string>("Jwt_Audience"),
+                IssuerSigningKeys = keys,
+
+                NameClaimType = JwtClaimTypes.Name,
+                RoleClaimType = JwtClaimTypes.Role,
+
+                RequireSignedTokens = true,
+                ValidateLifetime = false
+            };
+
+            var handler = new JwtSecurityTokenHandler();
+            handler.InboundClaimTypeMap.Clear();
+
+            var user = handler.ValidateToken(userToken.TrimStart("Bearer").TrimStart(" "), parameters, out _);
+            if (!user.HasClaim(c => c.Value == attribute.Name))
+            {
+                throw new AuthenticationException("Couldn't access to this API, please check your permission.");
+            }
+
+            return await continuation(request, context);
+        }
+    }
+
+    public class CheckAttribute : Attribute
+    {
+        public CheckAttribute(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; }
+    } 
+
     public class PingServiceImpl : PingService.PingServiceBase
     {
-        public override Task<PingResponse> Ping(Empty request, ServerCallContext context)
+        private readonly ILogger<PingServiceImpl> _logger;
+        
+
+        public PingServiceImpl(IServiceProvider resolver)
         {
-            Console.WriteLine(JsonConvert.SerializeObject(context.AuthContext));
-            Console.WriteLine(JsonConvert.SerializeObject(context.RequestHeaders));
-            
-            return Task.FromResult(new PingResponse
+            _logger = resolver.GetService<ILoggerFactory>()?.CreateLogger<PingServiceImpl>();
+        }
+
+        [Check("review_api_scope")]
+        public override async Task<PingResponse> Ping(Empty request, ServerCallContext context)
+        {
+            return await Task.FromResult(new PingResponse
             {
                 Message = $"Say hello from {Environment.MachineName} machine!!!"
             });
