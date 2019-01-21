@@ -4,7 +4,7 @@ using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreKit.Infrastructure.AspNetCore.Authz;
 using VND.CoolStore.Services.Inventory.v1.Grpc;
-using MyInventoryService = VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
+using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
 
 namespace VND.CoolStore.Services.WebAggregator.v1
 {
@@ -13,9 +13,9 @@ namespace VND.CoolStore.Services.WebAggregator.v1
     [Route("api/availabilities")]
     public class InventoryController : ControllerBase
     {
-        private readonly MyInventoryService.InventoryServiceClient _inventoryServiceClient;
+        private readonly InventoryServiceClient _inventoryServiceClient;
 
-        public InventoryController(MyInventoryService.InventoryServiceClient inventoryServiceClient)
+        public InventoryController(InventoryServiceClient inventoryServiceClient)
         {
             _inventoryServiceClient = inventoryServiceClient;
         }

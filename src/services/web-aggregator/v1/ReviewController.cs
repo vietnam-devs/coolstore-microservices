@@ -4,8 +4,8 @@ using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreKit.Infrastructure.AspNetCore.Authz;
 using VND.CoolStore.Services.Review.v1.Grpc;
-using MyReviewService = VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
-using MyPingService = VND.CoolStore.Services.Review.v1.Grpc.PingService;
+using static VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
+using static VND.CoolStore.Services.Review.v1.Grpc.PingService;
 
 namespace VND.CoolStore.Services.WebAggregator.v1
 {
@@ -14,10 +14,10 @@ namespace VND.CoolStore.Services.WebAggregator.v1
     [Route("api/reviews")]
     public class ReviewController : ControllerBase
     {
-        private readonly MyReviewService.ReviewServiceClient _reviewServiceClient;
-        private readonly MyPingService.PingServiceClient _pingServiceClient;
+        private readonly ReviewServiceClient _reviewServiceClient;
+        private readonly PingServiceClient _pingServiceClient;
 
-        public ReviewController(MyReviewService.ReviewServiceClient reviewServiceClient, MyPingService.PingServiceClient pingServiceClient)
+        public ReviewController(ReviewServiceClient reviewServiceClient, PingServiceClient pingServiceClient)
         {
             _reviewServiceClient = reviewServiceClient;
             _pingServiceClient = pingServiceClient;

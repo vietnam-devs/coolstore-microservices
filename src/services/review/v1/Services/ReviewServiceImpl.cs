@@ -37,7 +37,7 @@ namespace VND.CoolStore.Services.Review.v1.Services
         public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request,
             ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
         {
-            var attribute = (CheckAttribute)continuation.Method.GetCustomAttributes(typeof(CheckAttribute), false).FirstOrDefault();
+            var attribute = (CheckPolicyAttribute)continuation.Method.GetCustomAttributes(typeof(CheckPolicyAttribute), false).FirstOrDefault();
             if (attribute == null)
             {
                 return await continuation(request, context);
@@ -98,9 +98,9 @@ namespace VND.CoolStore.Services.Review.v1.Services
         }
     }
 
-    public class CheckAttribute : Attribute
+    public class CheckPolicyAttribute : Attribute
     {
-        public CheckAttribute(string name)
+        public CheckPolicyAttribute(string name)
         {
             Name = name;
         }
@@ -111,14 +111,13 @@ namespace VND.CoolStore.Services.Review.v1.Services
     public class PingServiceImpl : PingService.PingServiceBase
     {
         private readonly ILogger<PingServiceImpl> _logger;
-        
 
         public PingServiceImpl(IServiceProvider resolver)
         {
             _logger = resolver.GetService<ILoggerFactory>()?.CreateLogger<PingServiceImpl>();
         }
 
-        [Check("review_api_scope")]
+        [CheckPolicy("review_api_scope")]
         public override async Task<PingResponse> Ping(Empty request, ServerCallContext context)
         {
             return await Task.FromResult(new PingResponse
@@ -142,6 +141,7 @@ namespace VND.CoolStore.Services.Review.v1.Services
             _commandFactory = resolver.GetService<IUnitOfWorkAsync>();
         }
 
+        [CheckPolicy("review_api_scope")]
         public override async Task<GetReviewsResponse> GetReviews(GetReviewsRequest request, ServerCallContext context)
         {
             var reviewQueryRepo = _queryFactory.MongoQueryRepository<Domain.Review>();
@@ -161,6 +161,7 @@ namespace VND.CoolStore.Services.Review.v1.Services
             return response;
         }
 
+        [CheckPolicy("review_api_scope")]
         public override async Task<CreateReviewResponse> CreateReview(CreateReviewRequest request,
             ServerCallContext context)
         {
@@ -179,6 +180,7 @@ namespace VND.CoolStore.Services.Review.v1.Services
             };
         }
 
+        [CheckPolicy("review_api_scope")]
         public override async Task<EditReviewResponse> EditReview(EditReviewRequest request, ServerCallContext context)
         {
             var reviewQueryRepo = _queryFactory.MongoQueryRepository<Domain.Review>();
@@ -197,6 +199,7 @@ namespace VND.CoolStore.Services.Review.v1.Services
             };
         }
 
+        [CheckPolicy("review_api_scope")]
         public override async Task<DeleteReviewResponse> DeleteReview(DeleteReviewRequest request,
             ServerCallContext context)
         {

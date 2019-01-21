@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreKit.Template.Rest.Standard;
-using MyCartService = VND.CoolStore.Services.Cart.v1.Grpc.CartService;
-using MyInventoryService = VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
-using MyReviewService = VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
-using MyPingService = VND.CoolStore.Services.Review.v1.Grpc.PingService;
+using static VND.CoolStore.Services.Cart.v1.Grpc.CartService;
+using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
+using static VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
+using static VND.CoolStore.Services.Review.v1.Grpc.PingService;
 
 namespace VND.CoolStore.Services.WebAggregator
 {
@@ -20,20 +20,19 @@ namespace VND.CoolStore.Services.WebAggregator
                 var config = resolver.GetService<IConfiguration>();
 
                 var cartChannel = new Channel(config["RpcClients:CartService"], ChannelCredentials.Insecure);
-                var cartClient = new MyCartService.CartServiceClient(cartChannel);
+                var cartClient = new CartServiceClient(cartChannel);
 
                 var inventoryChannel = new Channel(config["RpcClients:InventoryService"], ChannelCredentials.Insecure);
-                var inventoryClient = new MyInventoryService.InventoryServiceClient(inventoryChannel);
+                var inventoryClient = new InventoryServiceClient(inventoryChannel);
 
                 var reviewChannel = new Channel(config["RpcClients:ReviewService"], ChannelCredentials.Insecure);
-                var reviewClient = new MyReviewService.ReviewServiceClient(reviewChannel);
+                var reviewClient = new ReviewServiceClient(reviewChannel);
+                var pingClient = new PingServiceClient(reviewChannel);
 
-                var pingClient = new MyPingService.PingServiceClient(reviewChannel);
-
-                services.AddSingleton(typeof(MyCartService.CartServiceClient), cartClient);
-                services.AddSingleton(typeof(MyInventoryService.InventoryServiceClient), inventoryClient);
-                services.AddSingleton(typeof(MyReviewService.ReviewServiceClient), reviewClient);
-                services.AddSingleton(typeof(MyPingService.PingServiceClient), pingClient);
+                services.AddSingleton(typeof(CartServiceClient), cartClient);
+                services.AddSingleton(typeof(InventoryServiceClient), inventoryClient);
+                services.AddSingleton(typeof(ReviewServiceClient), reviewClient);
+                services.AddSingleton(typeof(PingServiceClient), pingClient);
             });
         }
 

@@ -20,5 +20,6 @@ $GRPC_PATH/protoc -I$PROTO_PATH -I/usr/local/include -I$GOOGLEAPIS_DIR -I$PROTOC
     $PROTO_PATH/$PROTO_FILE
 
 cp $OUTPUT_PATH/apidocs.swagger.json $OUTPUT_PATH/swagger.json
+rm $OUTPUT_PATH/apidocs.swagger.json
 
 cd -

@@ -1,30 +1,27 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: reviewdb-v1
+  name: open-api-v1
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: reviewdb
+        app: open-api
         version: v1
     spec:
       containers:
-      - name: reviewdb
-        image: {{.Values.image.imageRegistry}}/cs-mysqldb:{{.Values.image.dockerTag}}
+      - name: open-api
+        image: {{.Values.image.imageRegistry}}/cs-open-api:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "P@ssw0rd"
         ports:
-        - containerPort: 3306
+        - containerPort: 5010
         resources:
           requests:
-            memory: "500Mi"
+            memory: "200Mi"
             cpu: "100m"
           limits:
-            memory: "500Mi"
+            memory: "200Mi"
             cpu: "100m"
 ---

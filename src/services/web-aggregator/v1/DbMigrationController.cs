@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreKit.Infrastructure.AspNetCore.Authz;
-using MyInventoryService = VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
+using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
 
 namespace VND.CoolStore.Services.WebAggregator.v1
 {
@@ -11,9 +11,9 @@ namespace VND.CoolStore.Services.WebAggregator.v1
     [Route("api/migrates")]
     public class DbMigrationController : ControllerBase
     {
-        private readonly MyInventoryService.InventoryServiceClient _inventoryServiceClient;
+        private readonly InventoryServiceClient _inventoryServiceClient;
 
-        public DbMigrationController(MyInventoryService.InventoryServiceClient inventoryServiceClient)
+        public DbMigrationController(InventoryServiceClient inventoryServiceClient)
         {
             _inventoryServiceClient = inventoryServiceClient;
         }

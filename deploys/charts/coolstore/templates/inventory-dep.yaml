@@ -16,12 +16,10 @@ spec:
         image: {{.Values.image.imageRegistry}}/cs-inventory-service:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-        - name: Hosts__BasePath
-          value: /inventory/
-        - name: Hosts__Externals__CurrentUri
-          value: {{ .Values.inventorySettings.Hosts__Externals__CurrentUri }}
-        - name: Hosts__Externals__Auth__Uri
-          value: {{ .Values.inventorySettings.Hosts__Externals__Auth__Uri }}
+        - name: Hosts__Local__Host
+          value: {{ .Values.inventorySettings.Hosts__Local__Host }}
+        - name: Hosts__Local__Port
+          value: {{ .Values.inventorySettings.Hosts__Local__Port }}
         - name: Features__EfCore__MySqlDb__FQDN
           value: {{ .Values.inventorySettings.MySqlDb__FQDN }}
         - name: Features__EfCore__MySqlDb__Password
@@ -30,13 +28,16 @@ spec:
               name: inventory-secrets
               key: MySqlDbPassword
         ports:
-        - containerPort: 80
+        - containerPort: 5004
+        readinessProbe:
+          initialDelaySeconds: 15
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5004"]
         livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 5
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5004"]
         resources:
           requests:
             memory: "400Mi"

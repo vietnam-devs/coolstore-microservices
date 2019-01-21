@@ -20,6 +20,7 @@
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="hostsettings.json" />
   </ItemGroup>
 
   <ItemGroup>

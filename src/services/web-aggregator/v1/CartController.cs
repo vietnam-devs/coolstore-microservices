@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreKit.Infrastructure.AspNetCore.Authz;
 using VND.CoolStore.Services.Cart.v1.Grpc;
-using MyCartService = VND.CoolStore.Services.Cart.v1.Grpc.CartService;
+using static VND.CoolStore.Services.Cart.v1.Grpc.CartService;
 
 namespace VND.CoolStore.Services.WebAggregator.v1
 {
@@ -12,9 +12,9 @@ namespace VND.CoolStore.Services.WebAggregator.v1
     [Route("api/carts")]
     public class CartController : ControllerBase
     {
-        private readonly MyCartService.CartServiceClient _cartServiceClient;
+        private readonly CartServiceClient _cartServiceClient;
 
-        public CartController(MyCartService.CartServiceClient cartServiceClient)
+        public CartController(CartServiceClient cartServiceClient)
         {
             _cartServiceClient = cartServiceClient;
         }

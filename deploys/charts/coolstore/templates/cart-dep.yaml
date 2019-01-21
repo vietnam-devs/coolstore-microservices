@@ -16,12 +16,10 @@ spec:
         image: {{.Values.image.imageRegistry}}/cs-cart-service:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-        - name: Hosts__BasePath
-          value: /cart/
-        - name: Hosts__Externals__CurrentUri
-          value: {{ .Values.cartSettings.Hosts__Externals__CurrentUri }}
-        - name: Hosts__Externals__Auth__Uri
-          value: {{ .Values.cartSettings.Hosts__Externals__Auth__Uri }}
+        - name: Hosts__Local__Host
+          value: {{ .Values.cartSettings.Hosts__Local__Host }}
+        - name: Hosts__Local__Port
+          value: {{ .Values.cartSettings.Hosts__Local__Port }}
         - name: Hosts__Externals__Catalog__Uri
           value: {{ .Values.cartSettings.Hosts__Externals__Catalog__Uri }}
         - name: Features__EfCore__MySqlDb__FQDN
@@ -32,13 +30,16 @@ spec:
               name: cart-secrets
               key: MySqlDbPassword
         ports:
-        - containerPort: 80
+        - containerPort: 5003
+        readinessProbe:
+          initialDelaySeconds: 15
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5003"]
         livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 5
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5003"]
         resources:
           requests:
             memory: "400Mi"

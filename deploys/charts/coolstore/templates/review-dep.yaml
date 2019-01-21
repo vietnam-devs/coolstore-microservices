@@ -16,27 +16,23 @@ spec:
         image: {{.Values.image.imageRegistry}}/cs-review-service:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-        - name: Hosts__BasePath
-          value: /review/
-        - name: Hosts__Externals__CurrentUri
-          value: {{ .Values.reviewSettings.Hosts__Externals__CurrentUri }}
-        - name: Hosts__Externals__Auth__Uri
-          value: {{ .Values.reviewSettings.Hosts__Externals__Auth__Uri }}
-        - name: Features__EfCore__MySqlDb__FQDN
-          value: {{ .Values.reviewSettings.MySqlDb__FQDN }}
-        - name: Features__EfCore__MySqlDb__Password
-          valueFrom:
-            secretKeyRef:
-              name: review-secrets
-              key: MySqlDbPassword
+        - name: Hosts__Local__Host
+          value: {{ .Values.reviewSettings.Hosts__Local__Host }}
+        - name: Hosts__Local__Port
+          value: {{ .Values.reviewSettings.Hosts__Local__Port }}
+        - name: Features__Mongo__ConnString
+          value: {{ .Values.reviewSettings.Features__Mongo__ConnString }}
         ports:
-        - containerPort: 80
+        - containerPort: 5006
+        readinessProbe:
+          initialDelaySeconds: 15
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5006"]
         livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 5
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5006"]
         resources:
           requests:
             memory: "400Mi"

@@ -7,10 +7,10 @@ metadata:
     app: review
 spec:
   ports:
-  - port: 80
-    targetPort: 80
+  - name: grpc
+    port: 5006
+    targetPort: 5006
     protocol: TCP
-    name: http
   selector:
     app: review
 ---
