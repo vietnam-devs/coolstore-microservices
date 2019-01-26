@@ -48,7 +48,7 @@ namespace IdentityServer4
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
-                    options.IssuerUri = "http://localhost:5001";
+                    options.IssuerUri = "local_idp";
                     options.PublicOrigin = Environment.IsDevelopment() ? "" : host;
                 })
                 .AddTestUsers(TestUsers.Users)

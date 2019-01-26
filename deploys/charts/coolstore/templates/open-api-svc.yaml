@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: open-api
+  name: openapi
   namespace: {{ .Release.Namespace }}
   labels:
-    app: open-api
+    app: openapi
 spec:
   ports:
-  - port: 80
+  - port: 5010
     targetPort: 5010
     protocol: TCP
     name: http
   selector:
-    app: open-api
+    app: openapi
 ---

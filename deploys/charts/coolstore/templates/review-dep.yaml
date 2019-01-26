@@ -8,6 +8,7 @@ spec:
   template:
     metadata:
       labels:
+        transcode: http
         app: review
         version: v1
     spec:
@@ -23,7 +24,7 @@ spec:
         - name: Features__Mongo__ConnString
           value: {{ .Values.reviewSettings.Features__Mongo__ConnString }}
         ports:
-        - containerPort: 5006
+        - containerPort: {{ .Values.reviewSettings.Hosts__Local__Port }}
         readinessProbe:
           initialDelaySeconds: 15
           exec:

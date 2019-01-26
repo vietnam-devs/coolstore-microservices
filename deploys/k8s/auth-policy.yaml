@@ -1,0 +1,31 @@
+apiVersion: authentication.istio.io/v1alpha1
+kind: Policy
+metadata:
+  name: auth-policy
+  namespace: istio-system
+spec:
+  targets:
+  - name: inventory-service
+    ports:
+    - number: 5004
+  - name: catalog-service
+    ports:
+    - number: 80
+  - name: rating-service
+    ports:
+    - number: 80
+  - name: cart-service
+    ports:
+    - number: 5003
+  - name: review-service
+    ports:
+    - number: 5006
+  origins:
+  - jwt:
+      issuer: {{ .Values.jwts.issuer }}
+      jwksUri: {{ .Values.jwts.jwks_uri }}
+      audiences:
+      - api
+  originIsOptional: true
+  principalBinding: USE_ORIGIN
+---

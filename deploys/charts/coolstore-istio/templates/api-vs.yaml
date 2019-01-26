@@ -10,42 +10,18 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /inventory/
+        prefix: /v1/
     route:
     - destination:
-        host: inventory
+        host: openapi
         port:
-          number: 80
+          number: 5010
   - match:
     - uri:
-        prefix: /catalog/
-    route:
-    - destination:
-        host: catalog
-        port:
-          number: 80
-  - match:
-    - uri:
-        prefix: /rating/
-    route:
-    - destination:
-        host: rating
-        port:
-          number: 80
-  - match:
-    - uri:
-        prefix: /cart/
-    route:
-    - destination:
-        host: cart
-        port:
-          number: 80
-  - match:
-    - uri:
-        prefix: /review/
+        prefix: /
     route:
     - destination:
         host: review
         port:
-          number: 80
+          number: 5006
 ---

@@ -1,20 +1,23 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: open-api-v1
+  name: openapi-v1
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: open-api
+        app: openapi
         version: v1
     spec:
       containers:
-      - name: open-api
+      - name: openapi
         image: {{.Values.image.imageRegistry}}/cs-open-api:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: BASE_PATH
+          value: /v1/
         ports:
         - containerPort: 5010
         resources:

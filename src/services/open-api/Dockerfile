@@ -1,5 +1,4 @@
 FROM microsoft/dotnet:2.2.0-aspnetcore-runtime-alpine AS base
-RUN apk update && apk add libc6-compat
 WORKDIR /app
 
 ARG service_version

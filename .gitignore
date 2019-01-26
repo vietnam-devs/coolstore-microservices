@@ -343,7 +343,7 @@ package-lock.json
 **/*/.vagrant/
 **/*/*.retry
 **/*/*.local.yaml
-deploys/k8s/**/*.yaml
+deploys/out/**/*.yaml
 **/*/key*.*
 src/web/shrinkwrap.yaml
 **/dist/

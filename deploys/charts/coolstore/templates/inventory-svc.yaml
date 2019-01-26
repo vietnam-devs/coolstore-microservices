@@ -7,8 +7,8 @@ metadata:
     app: inventory
 spec:
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 5004
+    targetPort: 5004
     protocol: TCP
     name: http
   selector:

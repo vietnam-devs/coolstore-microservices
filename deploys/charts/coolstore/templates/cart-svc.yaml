@@ -8,8 +8,8 @@ metadata:
 spec:
   ports:
   - name: grpc
-    port: 5003
-    targetPort: 5003
+    port: {{ .Values.cartSettings.Hosts__Local__Port }}
+    targetPort: {{ .Values.cartSettings.Hosts__Local__Port }}
     protocol: TCP
   selector:
     app: cart

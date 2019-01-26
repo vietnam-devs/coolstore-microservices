@@ -106,7 +106,7 @@ namespace VND.CoolStore.Services.Review.v1.Services
         }
 
         public string Name { get; }
-    } 
+    }
 
     public class PingServiceImpl : PingService.PingServiceBase
     {
@@ -117,7 +117,7 @@ namespace VND.CoolStore.Services.Review.v1.Services
             _logger = resolver.GetService<ILoggerFactory>()?.CreateLogger<PingServiceImpl>();
         }
 
-        [CheckPolicy("review_api_scope")]
+        //[CheckPolicy("review_api_scope")]
         public override async Task<PingResponse> Ping(Empty request, ServerCallContext context)
         {
             return await Task.FromResult(new PingResponse
