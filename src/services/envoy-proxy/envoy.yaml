@@ -29,21 +29,21 @@ static_resources:
                       routes:
                         - match: { prefix: "/swagger" }
                           route: { cluster: open_api_service }
-                        - match: { prefix: "/", grpc: {} }
+                        - match: { prefix: "/catalog/", grpc: {} }
                           route:
-                            {
-                              cluster: review_grpc_service,
-                              max_grpc_timeout: 0s,
-                            }
-                        - match: { prefix: "/", grpc: {} }
-                          route:
-                            {
-                              cluster: inventory_grpc_service,
-                              max_grpc_timeout: 0s,
-                            }
-                        - match: { prefix: "/", grpc: {} }
+                            { cluster: catalog_grpc_service, max_grpc_timeout: 0s }
+                        - match: { prefix: "/cart/", grpc: {} }
                           route:
                             { cluster: cart_grpc_service, max_grpc_timeout: 0s }
+                        - match: { prefix: "/inventory/", grpc: {} }
+                          route:
+                            { cluster: inventory_grpc_service, max_grpc_timeout: 0s }
+                        - match: { prefix: "/rating/", grpc: {} }
+                          route:
+                            { cluster: rating_grpc_service, max_grpc_timeout: 0s }
+                        - match: { prefix: "/review/", grpc: {} }
+                          route:
+                            { cluster: review_grpc_service, max_grpc_timeout: 0s }
                       cors:
                         allow_origin:
                           - "*"
@@ -61,6 +61,8 @@ static_resources:
                           coolstore.ReviewService,
                           coolstore.CartService,
                           coolstore.InventoryService,
+                          coolstore.CatalogService,
+                          coolstore.RatingService
                         ]
                       print_options:
                         add_whitespace: true
@@ -78,24 +80,15 @@ static_resources:
         - socket_address:
             address: open-api-service
             port_value: 5010
-    - name: review_grpc_service
+    - name: catalog_grpc_service
       connect_timeout: 0.25s
       type: logical_dns
       lb_policy: round_robin
       http2_protocol_options: {}
       hosts:
         - socket_address:
-            address: review-service
-            port_value: 5006
-    - name: inventory_grpc_service
-      connect_timeout: 0.25s
-      type: logical_dns
-      lb_policy: round_robin
-      http2_protocol_options: {}
-      hosts:
-        - socket_address:
-            address: inventory-service
-            port_value: 5004
+            address: catalog-service
+            port_value: 5002
     - name: cart_grpc_service
       connect_timeout: 0.25s
       type: logical_dns
@@ -105,3 +98,32 @@ static_resources:
         - socket_address:
             address: cart-service
             port_value: 5003
+    - name: inventory_grpc_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      hosts:
+        - socket_address:
+            address: inventory-service
+            port_value: 5004
+    - name: rating_grpc_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      hosts:
+        - socket_address:
+            address: rating-service
+            port_value: 5005
+    - name: review_grpc_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      hosts:
+        - socket_address:
+            address: review-service
+            port_value: 5006
+
+

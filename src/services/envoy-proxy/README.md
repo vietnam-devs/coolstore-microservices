@@ -7,6 +7,13 @@
 > bash
 ```
 
+- Build catalog service
+
+```bash
+> src/services/catalog/build/gen_proto.sh
+> src/services/catalog/build/build_image.sh
+```
+
 - Build cart service
 
 ```bash
@@ -19,6 +26,13 @@
 ```bash
 > src/services/inventory/App_Build/gen_proto.sh
 > src/services/inventory/App_Build/build_image.sh
+```
+
+- Build rating service
+
+```bash
+> src/services/rating/build/build_image.sh
+> src/services/rating/build/gen_proto.sh
 ```
 
 - Build review service

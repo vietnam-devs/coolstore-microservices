@@ -1,0 +1,60 @@
+syntax = "proto3";
+package coolstore;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service CatalogService {
+  rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {
+    option (google.api.http) = {
+      get: "/catalog/api/products"
+    };
+  }
+  rpc GetProductById(GetProductByIdRequest) returns (GetProductByIdResponse) {
+    option (google.api.http) = {
+      get: "/catalog/api/product/{product_id}"
+    };
+  }
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {
+    option (google.api.http) = {
+      post: "/catalog/api/product"
+      body: "*"
+    };
+  }
+}
+
+message CatalogProductDto {
+  string id = 1;
+  string name = 2;
+  string desc = 3;
+  double price = 4;
+  string image_url = 5;
+}
+
+message GetProductsRequest {
+  int32 current_page = 1;
+  double high_price = 2;
+}
+
+message GetProductsResponse {
+  repeated CatalogProductDto products = 1;
+}
+
+message GetProductByIdRequest {
+  string product_id = 1;
+}
+
+message GetProductByIdResponse {
+  CatalogProductDto product = 1;
+}
+
+message CreateProductRequest {
+  string name = 1;
+  string desc = 2;
+  double price = 3;
+  string image_url = 4;
+}
+
+message CreateProductResponse {
+  CatalogProductDto product = 1;
+}

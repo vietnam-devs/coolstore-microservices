@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 service PingService {
   rpc Ping(google.protobuf.Empty) returns (PingResponse) {
     option (google.api.http) = {
-      get: "/ping"
+      get: "/review/ping"
     };
   }
 }
@@ -16,23 +16,23 @@ service PingService {
 service ReviewService {
   rpc GetReviews(GetReviewsRequest) returns (GetReviewsResponse) {
     option (google.api.http) = {
-      get: "/api/reviews/{product_id}"
+      get: "/review/api/reviews/{product_id}"
     };
   }
   rpc CreateReview(CreateReviewRequest) returns (CreateReviewResponse) {
     option (google.api.http) = {
-      post: "/api/reviews"
+      post: "/review/api/reviews"
       body: "*"
     };
   }
   rpc EditReview(EditReviewRequest) returns (EditReviewResponse) {
     option (google.api.http) = {
-      put: "/api/reviews/{review_id}/{content}"
+      put: "/review/api/reviews/{review_id}/{content}"
     };
   }
   rpc DeleteReview(DeleteReviewRequest) returns (DeleteReviewResponse) {
     option (google.api.http) = {
-      delete: "/api/reviews/{review_id}"
+      delete: "/review/api/reviews/{review_id}"
     };
   }
 }

@@ -8,17 +8,17 @@ import "google/protobuf/empty.proto";
 service InventoryService {
   rpc GetInventories(google.protobuf.Empty) returns (GetInventoriesResponse) {
     option (google.api.http) = {
-      get: "/api/availabilities"
+      get: "/inventory/api/availabilities"
     };
   }
   rpc GetInventory(GetInventoryRequest) returns (GetInventoryResponse) {
     option (google.api.http) = {
-      get: "/api/availabilities/{id}"
+      get: "/inventory/api/availabilities/{id}"
     };
   }
   rpc DbMigration(google.protobuf.Empty) returns (DbMigrationResponse) {
     option (google.api.http) = {
-      post: "/api/inventory/migrate"
+      post: "/inventory/api/inventory/migrate"
       body: "*"
     };
   }

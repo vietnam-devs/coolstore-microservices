@@ -18,5 +18,7 @@ spec:
         - coolstore.ReviewService
         - coolstore.CartService
         - coolstore.InventoryService
+        - coolstore.CatalogService
+        - coolstore.RatingService
       printOptions:
         alwaysPrintPrimitiveFields: True

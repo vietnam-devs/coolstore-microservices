@@ -21,14 +21,23 @@ services:
     expose:
       - "5010"
 
-  review-service:
-    container_name: review-service
-    image: "vndg/cs-review-service"
+  catalog-service:
+    container_name: catalog-service
+    image: "vndg/cs-catalog-service"
     restart: always
     ports:
-      - "5006:5006"
+      - "5002:5002"
     expose:
-      - "5006"
+      - "5002"
+
+  cart-service:
+    container_name: cart-service
+    image: "vndg/cs-cart-service"
+    restart: always
+    ports:
+      - "5003:5003"
+    expose:
+      - "5003"
 
   inventory-service:
     container_name: inventory-service
@@ -39,11 +48,20 @@ services:
     expose:
       - "5004"
 
-  cart-service:
-    container_name: cart-service
-    image: "vndg/cs-cart-service"
+  rating-service:
+    container_name: rating-service
+    image: "vndg/cs-rating-service"
     restart: always
     ports:
-      - "5003:5003"
+      - "5005:5005"
     expose:
-      - "5003"
+      - "5005"
+
+  review-service:
+    container_name: review-service
+    image: "vndg/cs-review-service"
+    restart: always
+    ports:
+      - "5006:5006"
+    expose:
+      - "5006"
