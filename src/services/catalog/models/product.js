@@ -1,25 +1,4 @@
-import { mongoose } from '../config/database'
-import { Document, Model, Schema } from 'mongoose'
-import v1 = require('uuid/v1')
-
-export interface ProductDoc extends Document {
-  id: string
-  name: string
-  desc: string
-  price: number
-  imageUrl: string
-}
-
-export interface ProductCreateRequest {
-  name: string
-  desc: string
-  price: number
-  imageUrl: string
-}
-
-/*export interface ProductModel extends Model<ProductDoc> {
-  createProduct(product: ProductCreateRequest): Promise<{ product: ProductDoc }>
-}*/
+const Schema = Mongoose.Schema
 
 let productSchema = new Schema({
   _id: {
@@ -37,7 +16,7 @@ let productSchema = new Schema({
     type: Number,
     required: `Price can't be blank.`
   },
-  imageUrl: {
+  image_url: {
     type: String,
     required: `Image can't be blank.`
   }
@@ -58,7 +37,6 @@ productSchema.path('price').required(true, `Price can't be blank.`)
 productSchema.path('price').validate(function(price) {
   return Number(price).toString() === price.toString()
 }, `Price must be a float number.`)
-productSchema.path('imageUrl').required(true, `Image can't be blank.`)
+productSchema.path('image_url').required(true, `Image can't be blank.`)
 
-const Product = mongoose.model('Product', productSchema)
-export default Product
+module.exports = Mongoose.model('Product', productSchema)
