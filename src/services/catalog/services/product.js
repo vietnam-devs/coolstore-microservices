@@ -6,10 +6,10 @@ let Product = class {
   }
 
   allProducts(cb) {
-    if (this.payload.highPrice <= 0) {
-      this.payload.highPrice = Number.MAX_VALUE
+    if (this.payload.high_price <= 0) {
+      this.payload.high_price = Number.MAX_VALUE
     }
-    productModel.find({ price: { $lt: this.payload.price } }, cb)
+    productModel.find({ price: { $lt: this.payload.high_price } }, cb)
   }
 
   getProduct(cb) {

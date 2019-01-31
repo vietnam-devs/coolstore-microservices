@@ -27,21 +27,24 @@ static_resources:
                     - name: local_service
                       domains: ["*"]
                       routes:
-                        - match: { prefix: "/swagger" }
+                        - match: { prefix: "/v1" }
                           route: { cluster: open_api_service }
-                        - match: { prefix: "/catalog/", grpc: {} }
+                        - match: { prefix: "/coolstore.CatalogService/", grpc: {} }
                           route:
                             { cluster: catalog_grpc_service, max_grpc_timeout: 0s }
-                        - match: { prefix: "/cart/", grpc: {} }
+                        - match: { prefix: "/coolstore.CartService/", grpc: {} }
                           route:
                             { cluster: cart_grpc_service, max_grpc_timeout: 0s }
-                        - match: { prefix: "/inventory/", grpc: {} }
+                        - match: { prefix: "/coolstore.InventoryService/", grpc: {} }
                           route:
                             { cluster: inventory_grpc_service, max_grpc_timeout: 0s }
-                        - match: { prefix: "/rating/", grpc: {} }
+                        #- match: { prefix: "/coolstore.RatingService/", grpc: {} }
+                        #  route:
+                        #    { cluster: rating_grpc_service, max_grpc_timeout: 0s }
+                        - match: { prefix: "/coolstore.ReviewService/", grpc: {} }
                           route:
-                            { cluster: rating_grpc_service, max_grpc_timeout: 0s }
-                        - match: { prefix: "/review/", grpc: {} }
+                            { cluster: review_grpc_service, max_grpc_timeout: 0s }
+                        - match: { prefix: "/coolstore.PingService/", grpc: {} }
                           route:
                             { cluster: review_grpc_service, max_grpc_timeout: 0s }
                       cors:
@@ -107,15 +110,15 @@ static_resources:
         - socket_address:
             address: inventory-service
             port_value: 5004
-    - name: rating_grpc_service
-      connect_timeout: 0.25s
-      type: logical_dns
-      lb_policy: round_robin
-      http2_protocol_options: {}
-      hosts:
-        - socket_address:
-            address: rating-service
-            port_value: 5005
+    #- name: rating_grpc_service
+    #  connect_timeout: 0.25s
+    #  type: logical_dns
+    #  lb_policy: round_robin
+    #  http2_protocol_options: {}
+    #  hosts:
+    #    - socket_address:
+    #        address: rating-service
+    #        port_value: 5005
     - name: review_grpc_service
       connect_timeout: 0.25s
       type: logical_dns

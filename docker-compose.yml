@@ -21,10 +21,23 @@ services:
     expose:
       - "5010"
 
+  mongodb:
+    container_name: mongodb
+    image: "bitnami/mongodb"
+    restart: always
+    environment:
+      - MONGO_DB_URL=mongodb://mongodb/catalog
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+
   catalog-service:
     container_name: catalog-service
     image: "vndg/cs-catalog-service"
     restart: always
+    depends_on:
+      - mongodb
     ports:
       - "5002:5002"
     expose:
@@ -48,14 +61,14 @@ services:
     expose:
       - "5004"
 
-  rating-service:
-    container_name: rating-service
-    image: "vndg/cs-rating-service"
-    restart: always
-    ports:
-      - "5005:5005"
-    expose:
-      - "5005"
+#  rating-service:
+#    container_name: rating-service
+#    image: "vndg/cs-rating-service"
+#    restart: always
+#    ports:
+#      - "5005:5005"
+#    expose:
+#      - "5005"
 
   review-service:
     container_name: review-service
