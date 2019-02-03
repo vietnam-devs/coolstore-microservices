@@ -1,8 +1,9 @@
 #!/bin/bash
 set -ex
 
-mkdir -p proto
-cd ./../../
-echo `pwd`
+readonly ROOT_DIR=`pwd`
+readonly SERVICE_DIR=${ROOT_DIR}/src/services/catalog
+readonly PROTO_PATH=${ROOT_DIR}/src/grpc/v1
 
-cp -r ./grpc/v1/catalog.proto ./services/catalog/proto/
+mkdir -p $SERVICE_DIR/proto
+cp -r $PROTO_PATH/catalog.proto $SERVICE_DIR/proto/

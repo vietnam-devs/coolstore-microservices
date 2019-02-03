@@ -1,6 +1,6 @@
-const Schema = Mongoose.Schema
+const mongoose = require('mongoose')
 
-let productSchema = new Schema({
+let productSchema = new mongoose.Schema({
   _id: {
     type: String,
     required: `Enter an guid id.`
@@ -34,9 +34,10 @@ productSchema.set('toJSON', {
 
 productSchema.path('name').required(true, `Product name can't be blank.`)
 productSchema.path('price').required(true, `Price can't be blank.`)
-productSchema.path('price').validate(function(price) {
+/*productSchema.path('price').validate(function(price) {
   return Number(price).toString() === price.toString()
-}, `Price must be a float number.`)
+}, `Price must be a float number.`)*/
 productSchema.path('image_url').required(true, `Image can't be blank.`)
 
-module.exports = Mongoose.model('Product', productSchema)
+const Product = mongoose.model('Product', productSchema)
+module.exports = Product

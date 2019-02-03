@@ -76,7 +76,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v1", "v1", "{0F86D748-1E5B-4551-8872-C3C93BE5EE0B}"
 	ProjectSection(SolutionItems) = preProject
 		src\grpc\v1\cart.proto = src\grpc\v1\cart.proto
+		src\grpc\v1\catalog.proto = src\grpc\v1\catalog.proto
+		src\grpc\v1\common.proto = src\grpc\v1\common.proto
 		src\grpc\v1\inventory.proto = src\grpc\v1\inventory.proto
+		src\grpc\v1\rating.proto = src\grpc\v1\rating.proto
 		src\grpc\v1\review.proto = src\grpc\v1\review.proto
 	EndProjectSection
 EndProject

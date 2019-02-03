@@ -148,7 +148,7 @@
         ]
       }
     },
-    "/catalog/api/product": {
+    "/catalog/api/products": {
       "post": {
         "operationId": "CreateProduct",
         "responses": {
@@ -174,7 +174,39 @@
         ]
       }
     },
-    "/catalog/api/product/{product_id}": {
+    "/catalog/api/products/{current_page}/{high_price}": {
+      "get": {
+        "operationId": "GetProducts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/coolstoreGetProductsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "current_page",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "high_price",
+            "in": "path",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "tags": [
+          "CatalogService"
+        ]
+      }
+    },
+    "/catalog/api/products/{product_id}": {
       "get": {
         "operationId": "GetProductById",
         "responses": {
@@ -191,38 +223,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "tags": [
-          "CatalogService"
-        ]
-      }
-    },
-    "/catalog/api/products": {
-      "get": {
-        "operationId": "GetProducts",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/coolstoreGetProductsResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "current_page",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "high_price",
-            "in": "query",
-            "required": false,
-            "type": "number",
-            "format": "double"
           }
         ],
         "tags": [

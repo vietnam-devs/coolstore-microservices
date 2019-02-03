@@ -1,5 +1,6 @@
 syntax = "proto3";
 package coolstore;
+option csharp_namespace = "VND.CoolStore.Services.Rating.v1.Grpc";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";

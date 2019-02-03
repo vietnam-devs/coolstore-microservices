@@ -1,23 +1,23 @@
 syntax = "proto3";
 package coolstore;
+option csharp_namespace = "VND.CoolStore.Services.Catalog.v1.Grpc";
 
 import "google/api/annotations.proto";
-import "google/protobuf/empty.proto";
 
 service CatalogService {
   rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {
     option (google.api.http) = {
-      get: "/catalog/api/products"
+      get: "/catalog/api/products/{current_page}/{high_price}"
     };
   }
   rpc GetProductById(GetProductByIdRequest) returns (GetProductByIdResponse) {
     option (google.api.http) = {
-      get: "/catalog/api/product/{product_id}"
+      get: "/catalog/api/products/{product_id}"
     };
   }
   rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {
     option (google.api.http) = {
-      post: "/catalog/api/product"
+      post: "/catalog/api/products"
       body: "*"
     };
   }
