@@ -13,13 +13,18 @@ export default class {
     return await productModel.findOne({ _id: productId }).exec()
   }
 
-  async addProduct(payload: AddProductRequest) {
+  static async findProducts() {
+    return await productModel.find({}).exec()
+  }
+
+  static async createProduct(payload: AddProductRequest) {
     console.log({ ...payload, _id: uuid.v1() })
     await new productModel({ ...payload, _id: uuid.v1() }).save()
   }
 }
 
 export interface AddProductRequest {
+  id: string
   name: string
   desc: string
   price: number

@@ -6,7 +6,8 @@ import * as protoLoader from '@grpc/proto-loader'
 import * as grpc from 'grpc'
 import * as mongoose from 'mongoose'
 
-import ProductService from './services/product'
+import { default as ProductService, AddProductRequest } from './services/product'
+const ProductData = require('./products.json')
 
 const logger = Pino({
   name: 'catalog-service',
@@ -42,8 +43,7 @@ const getProductById = async (call: any, callback: any) => {
 
 const createProduct = async (call: any, callback: any) => {
   logger.info('request', call.request)
-  let product = new ProductService()
-  await product.addProduct({ ...call.request })
+  await ProductService.createProduct({ ...call.request })
   callback(null, {})
 }
 
@@ -58,8 +58,18 @@ if (mongoose.connection.readyState == 0) {
   })
 }
 
-mongoose.connection.once('open', () => {
+mongoose.connection.once('open', async () => {
   logger.info(`Connected to ${mongoUri}.`)
+  const products = (await ProductService.findProducts()) || []
+  if (products.length == 0) {
+    logger.info(
+      `Seed data to database #${JSON.stringify(ProductData)} in current database count is #${products.length}`
+    )
+    ProductData.map(async (p: AddProductRequest) => {
+      await ProductService.createProduct(p)
+    })
+  }
+
   eventEmitter.emit('ready')
 })
 
