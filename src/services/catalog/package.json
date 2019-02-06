@@ -2,10 +2,18 @@
   "name": "catalog-service",
   "version": "0.1.0",
   "description": "The catalog service for coolstore-microservices project",
+  "author": "Thang Chung",
   "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vietnam-devs/coolstore-microservices.git"
+  },
+  "license": "MIT",
   "scripts": {
-    "start": "npm run server",
-    "server": "node ./server.js",
+    "start": "node ./dist/server.js",
+    "dev": "cross-env NODE_ENV=development && npm run postinstall && node ./dist/server.js",
+    "postinstall": "tsc -d",
+    "lint": "tslint *.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -17,14 +25,16 @@
     "pino": "^5.11.1",
     "uuid": "^3.3.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vietnam-devs/coolstore-microservices.git"
+  "devDependencies": {
+    "@types/mongoose": "^5.3.12",
+    "@types/node": "^10.12.21",
+    "@types/pino": "^5.8.4",
+    "@types/uuid": "^3.4.4",
+    "cross-env": "^5.2.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.1"
   },
-  "author": "Thang Chung",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/vietnam-devs/coolstore-microservices/issues"
-  },
-  "homepage": "https://github.com/vietnam-devs/coolstore-microservices#readme"
+  "engines": {
+    "node": ">= 9.2.0"
+  }
 }

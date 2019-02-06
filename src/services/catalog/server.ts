@@ -1,22 +1,21 @@
 require('dotenv').config()
 
-const EventEmitter = require('events')
-const pino = require('pino')
+import * as EventEmitter from 'events'
+import * as Pino from 'pino'
+import * as protoLoader from '@grpc/proto-loader'
+import * as grpc from 'grpc'
+import * as mongoose from 'mongoose'
 
-const protoLoader = require('@grpc/proto-loader')
-const grpc = require('grpc')
+import ProductService from './services/product'
 
-const mongoose = require('mongoose')
-const productService = require('./services/product')
-
-const logger = pino({
+const logger = Pino({
   name: 'catalog-service',
   messageKey: 'message',
   changeLevelName: 'severity',
   useLevelLabels: true
 })
 
-const getProto = protofile => {
+const getProto = (protofile: any) => {
   const packageDefinition = protoLoader.loadSync(protofile, {
     keepCase: true,
     longs: String,
@@ -28,48 +27,46 @@ const getProto = protofile => {
   return grpc.loadPackageDefinition(packageDefinition)
 }
 
-const getProducts = async (call, callback) => {
-  logger.info('called endpoint', call.request)
-
-  const results = await productService.allProducts({ high_price: call.request.high_price })
+const getProducts = async (call: any, callback: any) => {
+  logger.info('request', call.request)
+  const results = await ProductService.allProducts({ high_price: call.request.high_price })
   logger.info(results)
   return callback(null, { products: results })
 }
 
-getProductById = async (call, callback) => {
-  logger.info('called endpoint', call.request)
-
-  const product = await productService.getProduct(call.request.product_id)
-  console.log(product)
+const getProductById = async (call: any, callback: any) => {
+  logger.info('request', call.request)
+  const product = await ProductService.getProduct(call.request.product_id)
   callback(null, { product: product })
 }
 
-createProduct = async (call, callback) => {
-  let product = new productService({
-    ...call.request
-  })
-  await product.addProduct()
+const createProduct = async (call: any, callback: any) => {
+  logger.info('request', call.request)
+  let product = new ProductService()
+  await product.addProduct({ ...call.request })
   callback(null, {})
 }
 
 const eventEmitter = new EventEmitter()
 const mongoUri = `${process.env.MONGO_DB_URL || 'mongodb://localhost/catalog'}`
 
-if (mongoose.connection.readyState == 0) {
-  mongoose.set('debug', true)
-  console.info(`Trying to connect to ${mongoUri}.`)
-  mongoose.connect(mongoUri, {
-    useNewUrlParser: true,
-    keepAlive: 120
-  })
-}
+const timeout = setTimeout(() => {
+  if (mongoose.connection.readyState == 0) {
+    mongoose.set('debug', true)
+    console.info(`Trying to connect to ${mongoUri}.`)
+    mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      keepAlive: true
+    })
+  }
+}, 2000)
 
-mongoose.connection.once('open', function() {
+mongoose.connection.once('open', () => {
   logger.info(`Connected to ${mongoUri}.`)
   eventEmitter.emit('ready')
 })
 
-async function main() {
+const main = async () => {
   const server = new grpc.Server()
   const proto = getProto('./proto/catalog.proto')
 
@@ -86,4 +83,5 @@ async function main() {
 
 eventEmitter.on('ready', async () => {
   await main().catch(console.error)
+  clearTimeout(timeout)
 })

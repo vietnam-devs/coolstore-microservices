@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import { Schema, model } from 'mongoose'
 
-let productSchema = new mongoose.Schema({
+let productSchema = new Schema({
   _id: {
     type: String,
     required: `Enter an guid id.`
@@ -39,5 +39,5 @@ productSchema.path('price').required(true, `Price can't be blank.`)
 }, `Price must be a float number.`)*/
 productSchema.path('image_url').required(true, `Image can't be blank.`)
 
-const Product = mongoose.model('Product', productSchema)
-module.exports = Product
+const Product = model('Product', productSchema)
+export default Product

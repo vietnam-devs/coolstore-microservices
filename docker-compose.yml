@@ -36,6 +36,10 @@ services:
     container_name: catalog-service
     image: "vndg/cs-catalog-service"
     restart: always
+    environment:
+      - NODE_ENV=production
+      - MONGO_DB_URL=mongodb://mongodb/catalog
+      - PORT=5002
     depends_on:
       - mongodb
     ports:

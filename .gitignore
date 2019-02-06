@@ -356,3 +356,4 @@ src/golang.org/
 src/google.golang.org/
 src/gopkg.in/
 
+**/*/*.env
