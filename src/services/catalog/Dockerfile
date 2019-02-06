@@ -1,4 +1,5 @@
 FROM node:alpine
+RUN npm install -g typescript
 
 ARG service_version
 ENV SERVICE_VERSION ${service_version:-v1}

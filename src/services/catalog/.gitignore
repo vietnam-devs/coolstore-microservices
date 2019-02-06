@@ -1,2 +1,6 @@
 proto/
 catalog-bak/
+*.js
+*.d.ts
+**/*/*.js
+**/*/*.d.ts
