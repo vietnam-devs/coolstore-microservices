@@ -49,17 +49,14 @@ const createProduct = async (call: any, callback: any) => {
 
 const eventEmitter = new EventEmitter()
 const mongoUri = `${process.env.MONGO_DB_URL || 'mongodb://localhost/catalog'}`
-
-const timeout = setTimeout(() => {
-  if (mongoose.connection.readyState == 0) {
-    mongoose.set('debug', true)
-    console.info(`Trying to connect to ${mongoUri}.`)
-    mongoose.connect(mongoUri, {
-      useNewUrlParser: true,
-      keepAlive: true
-    })
-  }
-}, 2000)
+if (mongoose.connection.readyState == 0) {
+  mongoose.set('debug', true)
+  console.info(`Trying to connect to ${mongoUri}.`)
+  mongoose.connect(mongoUri, {
+    useNewUrlParser: true,
+    keepAlive: true
+  })
+}
 
 mongoose.connection.once('open', () => {
   logger.info(`Connected to ${mongoUri}.`)
@@ -83,5 +80,4 @@ const main = async () => {
 
 eventEmitter.on('ready', async () => {
   await main().catch(console.error)
-  clearTimeout(timeout)
 })
