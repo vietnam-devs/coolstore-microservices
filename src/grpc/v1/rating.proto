@@ -60,9 +60,10 @@ message CreateRatingResponse {
 }
 
 message UpdateRatingRequest {
-  string product_id = 1;
-  string user_id = 2;
-  double cost = 3;
+  string id = 1;
+  string product_id = 2;
+  string user_id = 3;
+  double cost = 4;
 }
 
 message UpdateRatingResponse {

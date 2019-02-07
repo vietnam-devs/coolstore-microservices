@@ -9,6 +9,7 @@ using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
 using static VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
 using static VND.CoolStore.Services.Review.v1.Grpc.PingService;
 using static VND.CoolStore.Services.Catalog.v1.Grpc.CatalogService;
+using static VND.CoolStore.Services.Rating.v1.Grpc.RatingService;
 
 namespace VND.CoolStore.Services.WebAggregator
 {
@@ -33,11 +34,15 @@ namespace VND.CoolStore.Services.WebAggregator
                 var catalogChannel = new Channel(config["RpcClients:CatalogService"], ChannelCredentials.Insecure);
                 var catalogClient = new CatalogServiceClient(catalogChannel);
 
+                var ratingChannel = new Channel(config["RpcClients:RatingService"], ChannelCredentials.Insecure);
+                var ratingClient = new RatingServiceClient(ratingChannel);
+
                 services.AddSingleton(typeof(CartServiceClient), cartClient);
                 services.AddSingleton(typeof(InventoryServiceClient), inventoryClient);
                 services.AddSingleton(typeof(ReviewServiceClient), reviewClient);
                 services.AddSingleton(typeof(PingServiceClient), pingClient);
                 services.AddSingleton(typeof(CatalogServiceClient), catalogClient);
+                services.AddSingleton(typeof(RatingServiceClient), ratingClient);
             });
         }
 

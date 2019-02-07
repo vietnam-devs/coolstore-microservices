@@ -60,15 +60,6 @@ services:
     expose:
       - "5004"
 
-  #  rating-service:
-  #    container_name: rating-service
-  #    image: "vndg/cs-rating-service"
-  #    restart: always
-  #    ports:
-  #      - "5005:5005"
-  #    expose:
-  #      - "5005"
-
   review-service:
     container_name: review-service
     image: "vndg/cs-review-service"
@@ -77,3 +68,16 @@ services:
       - "5006:5006"
     expose:
       - "5006"
+
+  rating-service:
+    container_name: rating-service
+    image: "vndg/cs-rating-service"
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - MONGO_DB_URL=mongodb://mongodb/rating
+      - PORT=5007
+    ports:
+      - "5007:5007"
+    expose:
+      - "5007"

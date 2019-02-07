@@ -1,32 +1,11 @@
-import { mongoose } from '../config/database'
-import { Document, Model, Schema } from 'mongoose'
+import { Schema, model } from 'mongoose'
 
-export interface RatingDoc extends Document {
+export interface RatingModel {
   id: string
   productId: string
   userId: string
   cost: number
 }
-
-export interface RatingCreateRequest {
-  productId: string
-  userId: string
-  cost: number
-}
-
-export interface RatingUpdateRequest {
-  productId: string
-  userId: string
-  cost: number
-}
-
-/*export interface RatingModel extends Model<RatingDoc> {
-  createRating(rating: RatingCreateRequest): Promise<{ rating: RatingDoc }>
-}*/
-
-/*export interface RatingModel extends Model<RatingDoc> {
-  updateRating(rating: RatingUpdateRequest): Promise<{ rating: RatingDoc }>
-}*/
 
 let ratingSchema = new Schema({
   _id: {
@@ -57,11 +36,10 @@ ratingSchema.set('toJSON', {
   virtuals: true
 })
 
-ratingSchema.path('productId').required(true, `Prodcut id can't be blank.`)
+ratingSchema.path('productId').required(true, `Product id can't be blank.`)
 ratingSchema.path('userId').required(true, `User id can't be blank.`)
 ratingSchema.path('cost').validate(function(price) {
   return Number(price).toString() === price.toString()
 }, `Cost must be a float number.`)
 
-const Rating = mongoose.model('Rating', ratingSchema)
-export default Rating
+export default model('Rating', ratingSchema)

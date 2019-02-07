@@ -34,22 +34,22 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
             "ASABKAsyFC5jb29sc3RvcmUuUmF0aW5nRHRvIkgKE0NyZWF0ZVJhdGluZ1Jl",
             "cXVlc3QSEgoKcHJvZHVjdF9pZBgBIAEoCRIPCgd1c2VyX2lkGAIgASgJEgwK",
             "BGNvc3QYAyABKAEiPAoUQ3JlYXRlUmF0aW5nUmVzcG9uc2USJAoGcmF0aW5n",
-            "GAEgASgLMhQuY29vbHN0b3JlLlJhdGluZ0R0byJIChNVcGRhdGVSYXRpbmdS",
-            "ZXF1ZXN0EhIKCnByb2R1Y3RfaWQYASABKAkSDwoHdXNlcl9pZBgCIAEoCRIM",
-            "CgRjb3N0GAMgASgBIjwKFFVwZGF0ZVJhdGluZ1Jlc3BvbnNlEiQKBnJhdGlu",
-            "ZxgBIAEoCzIULmNvb2xzdG9yZS5SYXRpbmdEdG8y5wMKDVJhdGluZ1NlcnZp",
-            "Y2USYAoKR2V0UmF0aW5ncxIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRodLmNv",
-            "b2xzdG9yZS5HZXRSYXRpbmdzUmVzcG9uc2UiG4LT5JMCFRITL3JhdGluZy9h",
-            "cGkvcmF0aW5ncxKRAQoUR2V0UmF0aW5nQnlQcm9kdWN0SWQSJi5jb29sc3Rv",
-            "cmUuR2V0UmF0aW5nQnlQcm9kdWN0SWRSZXF1ZXN0GicuY29vbHN0b3JlLkdl",
-            "dFJhdGluZ0J5UHJvZHVjdElkUmVzcG9uc2UiKILT5JMCIhIgL3JhdGluZy9h",
-            "cGkvcmF0aW5ncy97cHJvZHVjdF9pZH0SbwoMQ3JlYXRlUmF0aW5nEh4uY29v",
-            "bHN0b3JlLkNyZWF0ZVJhdGluZ1JlcXVlc3QaHy5jb29sc3RvcmUuQ3JlYXRl",
-            "UmF0aW5nUmVzcG9uc2UiHoLT5JMCGCITL3JhdGluZy9hcGkvcmF0aW5nczoB",
-            "KhJvCgxVcGRhdGVSYXRpbmcSHi5jb29sc3RvcmUuVXBkYXRlUmF0aW5nUmVx",
-            "dWVzdBofLmNvb2xzdG9yZS5VcGRhdGVSYXRpbmdSZXNwb25zZSIegtPkkwIY",
-            "GhMvcmF0aW5nL2FwaS9yYXRpbmdzOgEqQiiqAiVWTkQuQ29vbFN0b3JlLlNl",
-            "cnZpY2VzLlJhdGluZy52MS5HcnBjYgZwcm90bzM="));
+            "GAEgASgLMhQuY29vbHN0b3JlLlJhdGluZ0R0byJUChNVcGRhdGVSYXRpbmdS",
+            "ZXF1ZXN0EgoKAmlkGAEgASgJEhIKCnByb2R1Y3RfaWQYAiABKAkSDwoHdXNl",
+            "cl9pZBgDIAEoCRIMCgRjb3N0GAQgASgBIjwKFFVwZGF0ZVJhdGluZ1Jlc3Bv",
+            "bnNlEiQKBnJhdGluZxgBIAEoCzIULmNvb2xzdG9yZS5SYXRpbmdEdG8y5wMK",
+            "DVJhdGluZ1NlcnZpY2USYAoKR2V0UmF0aW5ncxIWLmdvb2dsZS5wcm90b2J1",
+            "Zi5FbXB0eRodLmNvb2xzdG9yZS5HZXRSYXRpbmdzUmVzcG9uc2UiG4LT5JMC",
+            "FRITL3JhdGluZy9hcGkvcmF0aW5ncxKRAQoUR2V0UmF0aW5nQnlQcm9kdWN0",
+            "SWQSJi5jb29sc3RvcmUuR2V0UmF0aW5nQnlQcm9kdWN0SWRSZXF1ZXN0Gicu",
+            "Y29vbHN0b3JlLkdldFJhdGluZ0J5UHJvZHVjdElkUmVzcG9uc2UiKILT5JMC",
+            "IhIgL3JhdGluZy9hcGkvcmF0aW5ncy97cHJvZHVjdF9pZH0SbwoMQ3JlYXRl",
+            "UmF0aW5nEh4uY29vbHN0b3JlLkNyZWF0ZVJhdGluZ1JlcXVlc3QaHy5jb29s",
+            "c3RvcmUuQ3JlYXRlUmF0aW5nUmVzcG9uc2UiHoLT5JMCGCITL3JhdGluZy9h",
+            "cGkvcmF0aW5nczoBKhJvCgxVcGRhdGVSYXRpbmcSHi5jb29sc3RvcmUuVXBk",
+            "YXRlUmF0aW5nUmVxdWVzdBofLmNvb2xzdG9yZS5VcGRhdGVSYXRpbmdSZXNw",
+            "b25zZSIegtPkkwIYGhMvcmF0aW5nL2FwaS9yYXRpbmdzOgEqQiiqAiVWTkQu",
+            "Q29vbFN0b3JlLlNlcnZpY2VzLlJhdGluZy52MS5HcnBjYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Api.AnnotationsReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -59,7 +59,7 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Rating.v1.Grpc.GetRatingByProductIdResponse), global::VND.CoolStore.Services.Rating.v1.Grpc.GetRatingByProductIdResponse.Parser, new[]{ "Rating" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Rating.v1.Grpc.CreateRatingRequest), global::VND.CoolStore.Services.Rating.v1.Grpc.CreateRatingRequest.Parser, new[]{ "ProductId", "UserId", "Cost" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Rating.v1.Grpc.CreateRatingResponse), global::VND.CoolStore.Services.Rating.v1.Grpc.CreateRatingResponse.Parser, new[]{ "Rating" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Rating.v1.Grpc.UpdateRatingRequest), global::VND.CoolStore.Services.Rating.v1.Grpc.UpdateRatingRequest.Parser, new[]{ "ProductId", "UserId", "Cost" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Rating.v1.Grpc.UpdateRatingRequest), global::VND.CoolStore.Services.Rating.v1.Grpc.UpdateRatingRequest.Parser, new[]{ "Id", "ProductId", "UserId", "Cost" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VND.CoolStore.Services.Rating.v1.Grpc.UpdateRatingResponse), global::VND.CoolStore.Services.Rating.v1.Grpc.UpdateRatingResponse.Parser, new[]{ "Rating" }, null, null, null)
           }));
     }
@@ -1010,6 +1010,7 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UpdateRatingRequest(UpdateRatingRequest other) : this() {
+      id_ = other.id_;
       productId_ = other.productId_;
       userId_ = other.userId_;
       cost_ = other.cost_;
@@ -1021,8 +1022,19 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
       return new UpdateRatingRequest(this);
     }
 
+    /// <summary>Field number for the "id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private string id_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Id {
+      get { return id_; }
+      set {
+        id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "product_id" field.</summary>
-    public const int ProductIdFieldNumber = 1;
+    public const int ProductIdFieldNumber = 2;
     private string productId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ProductId {
@@ -1033,7 +1045,7 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
     }
 
     /// <summary>Field number for the "user_id" field.</summary>
-    public const int UserIdFieldNumber = 2;
+    public const int UserIdFieldNumber = 3;
     private string userId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string UserId {
@@ -1044,7 +1056,7 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
     }
 
     /// <summary>Field number for the "cost" field.</summary>
-    public const int CostFieldNumber = 3;
+    public const int CostFieldNumber = 4;
     private double cost_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public double Cost {
@@ -1067,6 +1079,7 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Id != other.Id) return false;
       if (ProductId != other.ProductId) return false;
       if (UserId != other.UserId) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Cost, other.Cost)) return false;
@@ -1076,6 +1089,7 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (Id.Length != 0) hash ^= Id.GetHashCode();
       if (ProductId.Length != 0) hash ^= ProductId.GetHashCode();
       if (UserId.Length != 0) hash ^= UserId.GetHashCode();
       if (Cost != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Cost);
@@ -1092,16 +1106,20 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (ProductId.Length != 0) {
+      if (Id.Length != 0) {
         output.WriteRawTag(10);
+        output.WriteString(Id);
+      }
+      if (ProductId.Length != 0) {
+        output.WriteRawTag(18);
         output.WriteString(ProductId);
       }
       if (UserId.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(UserId);
       }
       if (Cost != 0D) {
-        output.WriteRawTag(25);
+        output.WriteRawTag(33);
         output.WriteDouble(Cost);
       }
       if (_unknownFields != null) {
@@ -1112,6 +1130,9 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (Id.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
+      }
       if (ProductId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ProductId);
       }
@@ -1131,6 +1152,9 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
     public void MergeFrom(UpdateRatingRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.Id.Length != 0) {
+        Id = other.Id;
       }
       if (other.ProductId.Length != 0) {
         ProductId = other.ProductId;
@@ -1153,14 +1177,18 @@ namespace VND.CoolStore.Services.Rating.v1.Grpc {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            ProductId = input.ReadString();
+            Id = input.ReadString();
             break;
           }
           case 18: {
+            ProductId = input.ReadString();
+            break;
+          }
+          case 26: {
             UserId = input.ReadString();
             break;
           }
-          case 25: {
+          case 33: {
             Cost = input.ReadDouble();
             break;
           }

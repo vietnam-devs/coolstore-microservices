@@ -2,12 +2,12 @@ import * as EventEmitter from 'events'
 import * as mongoose from 'mongoose'
 
 import { default as Logger } from './logger'
-import { ProductModel } from '../models/product'
-import { ProductService } from './product'
-const ProductData = require('./products.json')
+import { RatingModel } from '../models/rating'
+import { RatingService } from './rating'
+const RatingData = require('./ratings.json')
 
 const eventEmitter = new EventEmitter()
-const mongoUri = `${process.env.MONGO_DB_URL || 'mongodb://localhost/catalog'}`
+const mongoUri = `${process.env.MONGO_DB_URL || 'mongodb://localhost/rating'}`
 if (mongoose.connection.readyState == 0) {
   mongoose.set('debug', true)
   console.info(`Trying to connect to ${mongoUri}.`)
@@ -21,14 +21,14 @@ mongoose.connection.once('open', async () => {
   Logger.info(`Connected to ${mongoUri}.`)
 
   // seed data for this service
-  const products = (await ProductService.findProducts()) || []
-  if (products.length == 0) {
+  const ratings = (await RatingService.findRatings()) || []
+  if (ratings.length == 0) {
     Logger.info(
-      `Seed data to database #${JSON.stringify(ProductData)} in current database count is #${products.length}`
+      `Seed data to database #${JSON.stringify(RatingData)} in current database count is #${ratings.length}`
     )
-    ProductData.map(async (model: ProductModel) => {
+    RatingData.map(async (model: RatingModel) => {
       Logger.info(model)
-      await ProductService.createProduct(model)
+      await RatingService.createRating(model)
     })
   }
 

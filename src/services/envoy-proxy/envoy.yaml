@@ -59,6 +59,13 @@ static_resources:
                               cluster: review_grpc_service,
                               max_grpc_timeout: 0s,
                             }
+                        - match:
+                            { prefix: "/coolstore.RatingService/", grpc: {} }
+                          route:
+                            {
+                              cluster: rating_grpc_service,
+                              max_grpc_timeout: 0s,
+                            }
                       cors:
                         allow_origin:
                           - "*"
@@ -131,3 +138,12 @@ static_resources:
         - socket_address:
             address: review-service
             port_value: 5006
+    - name: rating_grpc_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      hosts:
+        - socket_address:
+            address: rating-service
+            port_value: 5007

@@ -37,7 +37,7 @@ namespace VND.CoolStore.Services.WebAggregator.v1
         }
 
         [HttpPost]
-        public async Task<IActionResult> Get(CreateProductRequest request)
+        public async Task<IActionResult> Create(CreateProductRequest request)
         {
             var result = await _serviceClient.CreateProductAsync(request);
             return Ok(result);

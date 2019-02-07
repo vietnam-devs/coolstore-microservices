@@ -1,7 +1,7 @@
 import * as protoLoader from '@grpc/proto-loader'
 import * as grpc from 'grpc'
 import { default as Logger } from './logger'
-import { ProductProtoServices } from './product'
+import { RatingProtoServices } from './rating'
 
 const getProto = (protofile: any) => {
   const packageDefinition = protoLoader.loadSync(protofile, {
@@ -17,14 +17,14 @@ const getProto = (protofile: any) => {
 
 export default async () => {
   const server = new grpc.Server()
-  const proto: any = getProto('../proto/catalog.proto')
+  const proto: any = getProto('../proto/rating.proto')
 
-  Logger.info(ProductProtoServices)
-  await server.addService(proto.coolstore.CatalogService.service, {
-    ...ProductProtoServices
+  Logger.info(RatingProtoServices)
+  await server.addService(proto.coolstore.RatingService.service, {
+    ...RatingProtoServices
   })
 
-  server.bind(`0.0.0.0:${process.env.PORT || 5002}`, grpc.ServerCredentials.createInsecure())
+  server.bind(`0.0.0.0:${process.env.PORT || 5007}`, grpc.ServerCredentials.createInsecure())
   server.start()
   Logger.info(`gRPC server running on port ${process.env.PORT}.\n Press CTRL-C to stop.\n`)
 }
