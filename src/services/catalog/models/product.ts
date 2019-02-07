@@ -1,5 +1,13 @@
 import { Schema, model } from 'mongoose'
 
+export interface ProductModel {
+  id: string
+  name: string
+  desc: string
+  price: number
+  imageUrl: string
+}
+
 let productSchema = new Schema({
   _id: {
     type: String,
@@ -16,14 +24,14 @@ let productSchema = new Schema({
     type: Number,
     required: `Price can't be blank.`
   },
-  image_url: {
+  imageUrl: {
     type: String,
     required: `Image can't be blank.`
   }
 })
 
 // Duplicate the ID field.
-productSchema.virtual('id').get(function() {
+productSchema.virtual('id').get(() => {
   return this._id
 })
 
@@ -37,7 +45,6 @@ productSchema.path('price').required(true, `Price can't be blank.`)
 /*productSchema.path('price').validate(function(price) {
   return Number(price).toString() === price.toString()
 }, `Price must be a float number.`)*/
-productSchema.path('image_url').required(true, `Image can't be blank.`)
+productSchema.path('imageUrl').required(true, `ImageUri can't be blank.`)
 
-const Product = model('Product', productSchema)
-export default Product
+export default model('Product', productSchema)

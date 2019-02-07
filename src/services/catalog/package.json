@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "description": "The catalog service for coolstore-microservices project",
   "author": "Thang Chung",
-  "main": "server.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vietnam-devs/coolstore-microservices.git"
   },
   "license": "MIT",
   "scripts": {
-    "start": "node ./server.js",
-    "dev": "cross-env NODE_ENV=development && npm run postinstall && node ./server.js",
+    "start": "node ./index.js",
+    "dev": "cross-env NODE_ENV=development && npm run postinstall && node ./index.js",
     "postinstall": "tsc -d",
     "lint": "tslint *.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
