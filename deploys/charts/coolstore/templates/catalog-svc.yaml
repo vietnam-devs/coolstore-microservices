@@ -7,10 +7,10 @@ metadata:
     app: catalog
 spec:
   ports:
-  - port: 80
-    targetPort: 5002
+  - name: grpc
+    port: {{ .Values.catalogSettings.Port }}
+    targetPort: {{ .Values.catalogSettings.Port }}
     protocol: TCP
-    name: http
   selector:
     app: catalog
 ---

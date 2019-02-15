@@ -7,10 +7,10 @@ metadata:
     app: rating
 spec:
   ports:
-  - port: 80
-    targetPort: 5007
+  - name: grpc
+    port: {{ .Values.ratingSettings.Port }}
+    targetPort: {{ .Values.ratingSettings.Port }}
     protocol: TCP
-    name: http
   selector:
     app: rating
 ---

@@ -1,7 +1,7 @@
 require('dotenv').config()
-import { eventEmitter } from './services/database'
-import { default as initServer } from './services/grpc-server'
+import initDb from './services/database'
+import initServer from './services/grpc-server'
 
-eventEmitter.on('ready', async () => {
+initDb(async () => {
   await initServer().catch(console.error)
 })

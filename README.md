@@ -24,18 +24,20 @@ Our team uses this demo application to demonstrate Kubernetes, AKS, Istio and si
 
 </details>
 
+Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
+
 # Table of contents
 
-* [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
-* [Overall Architecture of µServices](https://github.com/vietnam-devs/coolstore-microservices#overall-architecture-of-µservices)
-* [Installation](https://github.com/vietnam-devs/coolstore-microservices#installation)
-* [µService Development](https://github.com/vietnam-devs/coolstore-microservices#µmicroservice-development)
-* [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
-* [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
-* [Service Mesh](https://github.com/vietnam-devs/coolstore-microservices#service-mesh)
-* [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
-* [Contributors](https://github.com/vietnam-devs/coolstore-microservices#contributors)
-* [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
+- [Prerequisites](https://github.com/vietnam-devs/coolstore-microservices#prerequisites)
+- [Overall Architecture of µServices](https://github.com/vietnam-devs/coolstore-microservices#overall-architecture-of-µservices)
+- [Installation](https://github.com/vietnam-devs/coolstore-microservices#installation)
+- [µService Development](https://github.com/vietnam-devs/coolstore-microservices#µmicroservice-development)
+- [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
+- [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
+- [Service Mesh](https://github.com/vietnam-devs/coolstore-microservices#service-mesh)
+- [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
+- [Contributors](https://github.com/vietnam-devs/coolstore-microservices#contributors)
+- [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
 
 ## Prerequisites
 
@@ -46,7 +48,7 @@ Our team uses this demo application to demonstrate Kubernetes, AKS, Istio and si
   The app is designed to run on Kubernetes (both locally on "Docker for
   Desktop", as well as on the cloud with AKS).
 - **[Istio](https://istio.io):** Application works on Istio service mesh.
-- **[helm](https://helm.sh)**: The best package manager to find, share, and use software built for Kubernetes. 
+- **[helm](https://helm.sh)**: The best package manager to find, share, and use software built for Kubernetes.
 - **[skaffold](https://github.com/GoogleContainerTools/skaffold)**: Easy and Repeatable Kubernetes Development.
 - **[NetCoreKit](https://github.com/cloudnative-netcore/netcore-kit):** Set of Cloud-native tools and utilities for .NET Core.
 
@@ -238,18 +240,22 @@ Waiting for the container provision completed
 **Notes**:
 
 1. Global path
-> Set `PATH` for `docker`, `kubectl`, `helm`, and `istioctl`.
+
+   > Set `PATH` for `docker`, `kubectl`, `helm`, and `istioctl`.
 
 2. Run with Nginx (not recommendation)
-> If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml`, and modify as following
->```
-> nginx:
->    enabled: true
->```
-> Then run the `helm` command as
-> ```
-> helm install --name cs-nginx stable/nginx-ingress
-> ```
+   > If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml`, and modify as following
+   >
+   > ```
+   > nginx:
+   >    enabled: true
+   > ```
+   >
+   > Then run the `helm` command as
+   >
+   > ```
+   > helm install --name cs-nginx stable/nginx-ingress
+   > ```
 
 </details>
 

@@ -17,12 +17,23 @@ spec:
         image: {{.Values.image.imageRegistry}}/cs-rating-service:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-        - name: BASE_PATH
-          value: /rating/
+        - name: NODE_ENV
+          value: {{ .Values.ratingSettings.NodeEnv }}
+        - name: PORT
+          value: {{ .Values.ratingSettings.Port }}
         - name: MONGO_DB_URL
-          value: mongodb://mongodb:27017/rating
+          value: {{ .Values.ratingSettings.MongoDbUri }}
         ports:
-        - containerPort: 5007
+        - containerPort: {{ .Values.ratingSettings.Port }}
+        readinessProbe:
+          initialDelaySeconds: 15
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5007"]
+        livenessProbe:
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5007"]
         resources:
           requests:
             memory: "400Mi"

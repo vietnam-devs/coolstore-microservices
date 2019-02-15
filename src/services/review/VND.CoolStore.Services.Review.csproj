@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App_Build\" />
     <Folder Include="Properties\" />
     <Folder Include="v1\Grpc\" />
   </ItemGroup>

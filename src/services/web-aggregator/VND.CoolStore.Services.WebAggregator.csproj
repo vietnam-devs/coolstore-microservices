@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -9,10 +9,6 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Google.Api.Gax.Grpc" Version="2.5.0" />
     <PackageReference Include="Grpc" Version="1.17.1" />
-    <PackageReference Include="Grpc.Tools" Version="1.17.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Google.Protobuf" Version="3.6.1" />
   </ItemGroup>
 
@@ -27,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App_Build\" />
     <Folder Include="v1\Grpc\" />
   </ItemGroup>
 

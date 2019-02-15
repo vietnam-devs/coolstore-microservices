@@ -23,6 +23,11 @@ idpSettings:
   SwaggerPostLogoutRedirectUri: http://api.coolstore.local
   SwaggerAllowedCorsOrigin: http://api.coolstore.local
 
+catalogSettings:
+  Port: 5002
+  NodeEnv: production
+  MongoDbUri: mongodb://mongodb:27017/catalog
+
 cartSettings:
   Hosts__Local__Host: 0.0.0.0
   Hosts__Local__Port: 5003
@@ -38,3 +43,8 @@ reviewSettings:
   Hosts__Local__Host: 0.0.0.0
   Hosts__Local__Port: 5006
   Features__Mongo__ConnString: "mongodb://mongodb.istio-system:27017"
+
+ratingSettings:
+  Port: 5007
+  NodeEnv: production
+  MongoDbUri: mongodb://mongodb:27017/rating

@@ -17,12 +17,23 @@ spec:
         image: {{.Values.image.imageRegistry}}/cs-catalog-service:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-        - name: BASE_PATH
-          value: /catalog/
+        - name: NODE_ENV
+          value: {{ .Values.catalogSettings.NodeEnv }}
+        - name: PORT
+          value: {{ .Values.catalogSettings.Port }}
         - name: MONGO_DB_URL
-          value: mongodb://mongodb:27017/catalog
+          value: {{ .Values.catalogSettings.MongoDbUri }}
         ports:
-        - containerPort: 5002
+        - containerPort: {{ .Values.catalogSettings.Port }}
+        readinessProbe:
+          initialDelaySeconds: 15
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5002"]
+        livenessProbe:
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5002"]
         resources:
           requests:
             memory: "400Mi"

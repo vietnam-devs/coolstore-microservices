@@ -42,18 +42,18 @@ spec:
           number: 5004
   - match:
     - uri:
-        prefix: /rating/
-    route:
-    - destination:
-        host: rating
-        port:
-          number: 5005
-  - match:
-    - uri:
         prefix: /review/
     route:
     - destination:
         host: review
         port:
           number: 5006
+  - match:
+    - uri:
+        prefix: /rating/
+    route:
+    - destination:
+        host: rating
+        port:
+          number: 5007
 ---
