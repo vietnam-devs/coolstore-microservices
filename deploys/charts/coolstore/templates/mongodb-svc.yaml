@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
+  name: mymongodb
   namespace: {{ .Release.Namespace }}
   labels:
-    app: mongodb
+    app: mymongodb
 spec:
   ports:
   - port: 27017
     name: mongo
   selector:
-    app: mongodb
+    app: mymongodb
 ---

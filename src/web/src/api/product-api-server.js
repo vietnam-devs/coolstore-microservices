@@ -9,7 +9,7 @@ const api = createAPI({
 })
 
 export function getProducts(pageIndex = 0, highprice = -1) {
-  return api.get(`products?current-page=${pageIndex}&highPrice=${highprice}`)
+  return api.get(`products/${pageIndex}/${highprice}`).then(res => res.products)
 }
 
 export function getProduct(id) {

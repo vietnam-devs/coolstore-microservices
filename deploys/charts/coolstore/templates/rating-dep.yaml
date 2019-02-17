@@ -12,6 +12,10 @@ spec:
         app: rating
         version: v1
     spec:
+      initContainers:
+      - name: init-mongodb
+        image: busybox
+        command: ["sh", "-c", "while nc -z {{ .Values.ratingSettings.MongoDb.Host }} {{ .Values.ratingSettings.MongoDb.Port }}; do sleep 1; done"]
       containers:
       - name: rating
         image: {{.Values.image.imageRegistry}}/cs-rating-service:{{.Values.image.dockerTag}}
@@ -21,28 +25,24 @@ spec:
           value: {{ .Values.ratingSettings.NodeEnv }}
         - name: PORT
           value: {{ .Values.ratingSettings.Port }}
-        - name: MONGO_DB_URL
-          value: {{ .Values.ratingSettings.MongoDbUri }}
+        - name: MONGO_DB_URI
+          value: "mongodb://{{ .Values.ratingSettings.MongoDb.Host }}:{{ .Values.ratingSettings.MongoDb.Port }}/{{ .Values.ratingSettings.MongoDb.Name }}"
         ports:
         - containerPort: {{ .Values.ratingSettings.Port }}
         readinessProbe:
           initialDelaySeconds: 15
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5007"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.ratingSettings.Port }}"]
         livenessProbe:
           initialDelaySeconds: 15
           periodSeconds: 10
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5007"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.ratingSettings.Port }}"]
         resources:
           requests:
-            memory: "400Mi"
-            cpu: "100m"
+            cpu: 100m
+            memory: 64Mi
           limits:
-            memory: "400Mi"
-            cpu: "100m"
-      initContainers:
-      - name: init-mongodb
-        image: busybox
-        command: ["sh", "-c", "until nc -z mongodb 27017; do Waiting to connect to a database...; sleep 1; done;"]
+            cpu: 200m
+            memory: 128Mi
 ---

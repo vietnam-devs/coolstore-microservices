@@ -1,10 +1,10 @@
 var urls = {
   web: 'http://localhost:8080/',
   idp: 'http://localhost:5001/',
-  catalog: 'http://localhost:5002/',
-  cart: 'http://localhost:5003/',
-  inventory: 'http://localhost:5004/',
-  rating: 'http://localhost:5007/'
+  catalog: 'http://localhost:8082/',
+  cart: 'http://localhost:8082/',
+  inventory: 'http://localhost:8082/',
+  rating: 'http://localhost:8082/'
 }
 
 const env = process.env.NODE_ENV
@@ -24,8 +24,8 @@ if (config.mode == 'production') {
       web: `http://${host}/`,
       idp: `http://id.${host}/`,
       api: `http://api.${host}/`,
-      catalog: `http://api.${host}/catalog/`,
-      cart: `http://api.${host}/cart/`,
+      catalog: `http://api.${host}/catalog`,
+      cart: `http://api.${host}/cart`,
       inventory: `http://api.${host}/inventory`,
       rating: `http://api.${host}/rating`
     }
@@ -42,37 +42,37 @@ const PROXY_CONFIG = {
     target: `${urls['catalog']}`,
     secure: false,
     logLevel: 'debug',
-    changeOrigin: true,
-    pathRewrite: { '^/catalog': '' }
+    changeOrigin: true
+    //pathRewrite: { '^/catalog': '' }
   },
   '/rating/api/*': {
     target: `${urls['rating']}`,
     secure: false,
     logLevel: 'debug',
-    changeOrigin: true,
-    pathRewrite: { '^/rating': '' }
+    changeOrigin: true
+    //pathRewrite: { '^/rating': '' }
   },
   '/cart/api/*': {
     target: `${urls['cart']}`,
     secure: false,
     logLevel: 'debug',
-    changeOrigin: true,
-    pathRewrite: { '^/cart': '' }
+    changeOrigin: true
+    //pathRewrite: { '^/cart': '' }
   },
   '/inventory/api/*': {
     target: `${urls['inventory']}`,
     secure: false,
     logLevel: 'debug',
-    changeOrigin: true,
-    pathRewrite: { '^/inventory': '' }
+    changeOrigin: true
+    //pathRewrite: { '^/inventory': '' }
   },
   '/config': {
     target: `${urls['idp']}.well-known/openid-configuration`,
     secure: false,
     logLevel: 'debug',
     ignorePath: true,
-    changeOrigin: true,
-    pathRewrite: { '^/config': '' }
+    changeOrigin: true
+    //pathRewrite: { '^/config': '' }
   },
   '/.well-known/openid-configuration/jwks': {
     target: `${urls['idp']}.well-known/openid-configuration/jwks`,

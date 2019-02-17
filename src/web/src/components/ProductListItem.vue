@@ -1,7 +1,7 @@
 <template>
   <div class="card is-radius">
     <div class="card-image">
-      <router-link exact :to="{ name: 'reviewproduct', params: {id: item._id } }">
+      <router-link exact :to="{ name: 'reviewproduct', params: {id: item.id } }">
         <picture class="image">
           <source :data-srcset="item.imageUrl">
           <img class="lazyloaded" :src="item.imageUrl" :alt="`Image of ${item.name}`">
@@ -11,7 +11,7 @@
     <div class="card-content">
       <div class="media">
         <div class="media-content">
-          <router-link exact :to="{ name: 'reviewproduct', params: {id: item._id } }">
+          <router-link exact :to="{ name: 'reviewproduct', params: {id: item.id } }">
             <p class="title is-5">{{ item.name }}</p>
             <p class="item-price">{{ item.price | usdollar }}</p>
           </router-link>

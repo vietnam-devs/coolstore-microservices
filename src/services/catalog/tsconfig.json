@@ -11,15 +11,11 @@
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
     "skipLibCheck": true,
+    "removeComments": true,
     "paths": {
       "*": ["node_modules/*"]
     }
   },
-  "include": [
-     "./*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "docs"
-  ]
+  "include": ["./*.ts"],
+  "exclude": ["node_modules", "docs"]
 }

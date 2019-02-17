@@ -9,9 +9,7 @@ const proxyConfig = require('./proxy.config.js')
 const proxy = require('http-proxy-middleware')
 
 const resolve = file => path.resolve(__dirname, file)
-const {
-  createBundleRenderer
-} = require('vue-server-renderer')
+const { createBundleRenderer } = require('vue-server-renderer')
 
 const isProd = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
@@ -23,17 +21,20 @@ const app = express()
 
 function createRenderer(bundle, options) {
   // https://github.com/vuejs/vue/blob/dev/packages/vue-server-renderer/README.md#why-use-bundlerenderer
-  return createBundleRenderer(bundle, Object.assign(options, {
-    // for component caching
-    cache: LRU({
-      max: 1000,
-      maxAge: 1000 * 60 * 15
-    }),
-    // this is only needed when vue-server-renderer is npm-linked
-    basedir: resolve('./dist'),
-    // recommended for performance
-    runInNewContext: false
-  }))
+  return createBundleRenderer(
+    bundle,
+    Object.assign(options, {
+      // for component caching
+      cache: LRU({
+        max: 1000,
+        maxAge: 1000 * 60 * 15
+      }),
+      // this is only needed when vue-server-renderer is npm-linked
+      basedir: resolve('./dist'),
+      // recommended for performance
+      runInNewContext: false
+    })
+  )
 }
 
 let renderer
@@ -55,31 +56,30 @@ if (isProd) {
 } else {
   // In development: setup the dev server with watch and hot-reload,
   // and create a new renderer on bundle / index template update.
-  readyPromise = require('./build/setup-dev-server')(
-    app,
-    templatePath,
-    (bundle, options) => {
-      renderer = createRenderer(bundle, options)
-    }
-  )
+  readyPromise = require('./build/setup-dev-server')(app, templatePath, (bundle, options) => {
+    renderer = createRenderer(bundle, options)
+  })
 }
 
-const serve = (path, cache) => express.static(resolve(path), {
-  maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
-})
+const serve = (path, cache) =>
+  express.static(resolve(path), {
+    maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
+  })
 
-for(config in proxyConfig) {
-    app.use(config, proxy(proxyConfig[config]));
+for (config in proxyConfig) {
+  app.use(config, proxy(proxyConfig[config]))
 }
 
 // app.use('/api/*', proxy({
-	// target: host,
-	// logLevel: "debug"
+// target: host,
+// logLevel: "debug"
 // }));
 
-app.use(compression({
-  threshold: 0
-}))
+app.use(
+  compression({
+    threshold: 0
+  })
+)
 app.use(favicon('./public/logo-48.png'))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('./public', true))
@@ -97,8 +97,8 @@ app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl))
 function render(req, res) {
   const s = Date.now()
 
-  res.setHeader("Content-Type", "text/html")
-  res.setHeader("Server", serverInfo)
+  res.setHeader('Content-Type', 'text/html')
+  res.setHeader('Server', serverInfo)
 
   const handleError = err => {
     if (err.url) {
@@ -128,9 +128,14 @@ function render(req, res) {
   })
 }
 
-app.get('*', isProd ? render : (req, res) => {
-  readyPromise.then(() => render(req, res))
-})
+app.get(
+  '*',
+  isProd
+    ? render
+    : (req, res) => {
+        readyPromise.then(() => render(req, res))
+      }
+)
 
 port = process.env.PORT || 8080
 app.listen(port, () => {

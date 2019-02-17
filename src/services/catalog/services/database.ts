@@ -1,45 +1,37 @@
-import * as EventEmitter from 'events'
-import * as mongoose from 'mongoose'
-
-import { default as Logger } from './logger'
+import { default as logger, SimpleLogger as xLogger } from './logger'
 import { ProductModel } from '../models/product'
-import { ProductService } from './product'
+import { ProductService } from './product-service'
+const mongoose = require('mongoose')
 const ProductData = require('./products.json')
 
-const initDb = (initApp: () => void) => {
-  const eventEmitter = new EventEmitter()
-  const mongoUri = `${process.env.MONGO_DB_URL || 'mongodb://localhost/catalog'}`
+  // @ts-ignore: ignore to check global variables
+;(mongoose as any).Promise = global.Promise
+const initDb = async () => {
+  mongoose.set('debug', true)
+  const mongoUri = `${process.env.MONGO_DB_URI || 'mongodb://localhost/catalog'}`
+  let db = await mongoose.connect(mongoUri, {
+    useNewUrlParser: true,
+    keepAlive: true,
+    autoReconnect: true,
+    reconnectTries: Number.MAX_VALUE,
+    reconnectInterval: 500
+  })
+  xLogger.info(`Connected to ${mongoUri}.`)
 
-  if (mongoose.connection.readyState == 0) {
-    mongoose.set('debug', true)
-    console.info(`Trying to connect to ${mongoUri}.`)
-    mongoose.connect(mongoUri, {
-      useNewUrlParser: true,
-      keepAlive: true
-    })
-  }
-
-  mongoose.connection.once('open', async () => {
-    Logger.info(`Connected to ${mongoUri}.`)
-
-    // seed data for this service
+  db.connection.once('open', async () => {
     const products = (await ProductService.findProducts()) || []
-    if (products.length == 0) {
-      Logger.info(
-        `Seed data to database #${JSON.stringify(ProductData)} in current database count is #${products.length}`
-      )
-      ProductData.map(async (model: ProductModel) => {
-        Logger.info(model)
+    if (products.length <= 0) {
+      await ProductData.map(async (model: ProductModel) => {
+        logger.info(model)
         await ProductService.createProduct(model)
       })
+      xLogger.info(
+        `Seed data to database #${JSON.stringify(ProductData)} in current database count is #${products.length}`
+      )
     }
-
-    eventEmitter.emit('ready')
   })
 
-  eventEmitter.on('ready', async () => {
-    await initApp()
-  })
+  db.connection.on('error', xLogger.error.bind(console, 'MongoDB connection error'))
 }
 
-export default initDb
+export { initDb }

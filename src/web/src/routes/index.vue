@@ -14,7 +14,7 @@
         <app-product-list-item
           :ratings="ratings"
           v-for="product in products"
-          :key="product['_id']"
+          :key="product['id']"
           :item="product"
         ></app-product-list-item>
       </transition-group>

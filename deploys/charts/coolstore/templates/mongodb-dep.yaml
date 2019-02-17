@@ -1,18 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: mongodb-v1
+  name: mymongodb-v1
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: mongodb
+        app: mymongodb
         version: v1
     spec:
       containers:
-      - name: mongodb 
+      - name: mymongodb
         image: bitnami/mongodb:latest
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:

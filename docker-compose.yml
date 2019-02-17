@@ -35,7 +35,7 @@ services:
     restart: always
     environment:
       - NODE_ENV=development
-      - MONGO_DB_URL=mongodb://mongodb/catalog
+      - MONGO_DB_URI=mongodb://mongodb/catalog
       - PORT=5002
     ports:
       - "5002:5002"
@@ -75,7 +75,7 @@ services:
     restart: always
     environment:
       - NODE_ENV=development
-      - MONGO_DB_URL=mongodb://mongodb/rating
+      - MONGO_DB_URI=mongodb://mongodb/rating
       - PORT=5007
     ports:
       - "5007:5007"

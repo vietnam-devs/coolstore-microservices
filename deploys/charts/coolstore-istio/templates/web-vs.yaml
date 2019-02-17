@@ -10,6 +10,56 @@ spec:
   http:
   - match:
     - uri:
+        prefix: /catalog/
+    - uri:
+        prefix: /catalog
+    route:
+    - destination:
+        host: catalog
+        port:
+          number: 5002
+  - match:
+    - uri:
+        prefix: /cart/
+    - uri:
+        prefix: /cart
+    route:
+    - destination:
+        host: cart
+        port:
+          number: 5003
+  - match:
+    - uri:
+        prefix: /inventory/
+    - uri:
+        prefix: /inventory
+    route:
+    - destination:
+        host: inventory
+        port:
+          number: 5004
+  - match:
+    - uri:
+        prefix: /review/
+    - uri:
+        prefix: /review
+    route:
+    - destination:
+        host: review
+        port:
+          number: 5006
+  - match:
+    - uri:
+        prefix: /rating/
+    - uri:
+        prefix: /rating
+    route:
+    - destination:
+        host: rating
+        port:
+          number: 5007
+  - match:
+    - uri:
         prefix: /config/
     - uri:
         prefix: /config

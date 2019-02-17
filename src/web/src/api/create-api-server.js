@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export function createAPI({ config, version }) {
   let api
-  var baseUrl = `${config.databaseURL}${version}`
+  const baseUrl = `${config.databaseURL}${version}`
   // this piece of code may run multiple times in development mode,
   // so we attach the instantiated API to `process` to avoid duplications
   if (process.__API__) {
@@ -14,17 +14,23 @@ export function createAPI({ config, version }) {
 
   api.get = function(path) {
     return new Promise(function(resolve, reject) {
-      axios.get(`${baseUrl}/${path}`).then(
-        response => {
-          response = response || {}
-          response.data = response.data || {}
-          resolve(response.data)
-        },
-        error => {
-          reject()
-          errorHandler(error)
-        }
-      )
+      axios
+        .get(`${baseUrl}/${path}`, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(
+          response => {
+            response = response || {}
+            response.data = response.data || {}
+            resolve(response.data)
+          },
+          error => {
+            reject()
+            errorHandler(error)
+          }
+        )
     })
   }
 

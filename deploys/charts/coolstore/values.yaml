@@ -24,27 +24,35 @@ idpSettings:
   SwaggerAllowedCorsOrigin: http://api.coolstore.local
 
 catalogSettings:
+  NodeEnv: "production"
+  Host: "0.0.0.0"
   Port: 5002
-  NodeEnv: production
-  MongoDbUri: mongodb://mongodb:27017/catalog
+  MongoDb:
+    Host: "mymongodb.coolstore"
+    Port: "27017"
+    Name: "catalog"
 
 cartSettings:
-  Hosts__Local__Host: 0.0.0.0
+  Hosts__Local__Host: "0.0.0.0"
   Hosts__Local__Port: 5003
-  Features__EfCore__MySqlDb__FQDN: "cartdb.istio-system:3306"
-  Hosts__Externals__Catalog__Uri: http://api.coolstore.local/catalog
+  Features__EfCore__MySqlDb__FQDN: "cartdb.coolstore:3306"
+  Hosts__Externals__Catalog__Uri: "http://api.coolstore.local/catalog"
 
 inventorySettings:
-  Hosts__Local__Host: 0.0.0.0
+  Hosts__Local__Host: "0.0.0.0"
   Hosts__Local__Port: 5004
-  Features__EfCore__MySqlDb__FQDN: "inventorydb.istio-system:3306"
+  Features__EfCore__MySqlDb__FQDN: "inventorydb.coolstore:3306"
 
 reviewSettings:
-  Hosts__Local__Host: 0.0.0.0
+  Hosts__Local__Host: "0.0.0.0"
   Hosts__Local__Port: 5006
-  Features__Mongo__ConnString: "mongodb://mongodb.istio-system:27017"
+  Features__Mongo__ConnString: "mongodb://mymongodb.coolstore:27017"
 
 ratingSettings:
+  NodeEnv: "production"
+  Host: "0.0.0.0"
   Port: 5007
-  NodeEnv: production
-  MongoDbUri: mongodb://mongodb:27017/rating
+  MongoDb:
+    Host: "mymongodb.coolstore"
+    Port: "27017"
+    Name: "rating"

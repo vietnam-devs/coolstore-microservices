@@ -12,6 +12,10 @@ spec:
         app: catalog
         version: v1
     spec:
+      initContainers:
+      - name: init-mongodb
+        image: busybox
+        command: ["sh", "-c", "while nc -z {{ .Values.catalogSettings.MongoDb.Host }} {{ .Values.catalogSettings.MongoDb.Port }}; do sleep 1; done"]
       containers:
       - name: catalog
         image: {{.Values.image.imageRegistry}}/cs-catalog-service:{{.Values.image.dockerTag}}
@@ -21,28 +25,24 @@ spec:
           value: {{ .Values.catalogSettings.NodeEnv }}
         - name: PORT
           value: {{ .Values.catalogSettings.Port }}
-        - name: MONGO_DB_URL
-          value: {{ .Values.catalogSettings.MongoDbUri }}
+        - name: MONGO_DB_URI
+          value: "mongodb://{{ .Values.catalogSettings.MongoDb.Host }}:{{ .Values.catalogSettings.MongoDb.Port }}/{{ .Values.catalogSettings.MongoDb.Name }}"
         ports:
         - containerPort: {{ .Values.catalogSettings.Port }}
         readinessProbe:
           initialDelaySeconds: 15
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5002"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.catalogSettings.Port }}"]
         livenessProbe:
           initialDelaySeconds: 15
           periodSeconds: 10
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5002"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.catalogSettings.Port }}"]
         resources:
           requests:
-            memory: "400Mi"
-            cpu: "100m"
+            cpu: 100m
+            memory: 64Mi
           limits:
-            memory: "400Mi"
-            cpu: "100m"
-      initContainers:
-      - name: init-mongodb
-        image: busybox
-        command: ["sh", "-c", "until nc -z mongodb 27017; do Waiting to connect to a database...; sleep 1; done;"]
+            cpu: 200m
+            memory: 128Mi
 ---
