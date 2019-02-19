@@ -13,13 +13,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Utils\NetCoreKit.Utils.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Domain\NetCoreKit.Domain.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure\NetCoreKit.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore.OpenApi\NetCoreKit.Infrastructure.AspNetCore.OpenApi.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore\NetCoreKit.Infrastructure.AspNetCore.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.Bus\NetCoreKit.Infrastructure.Bus.csproj" />
-    <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.Rest.Standard\NetCoreKit.Template.Rest.Standard.csproj" />
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+      <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Utils\NetCoreKit.Utils.csproj" />
+      <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Domain\NetCoreKit.Domain.csproj" />
+      <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure\NetCoreKit.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore.OpenApi\NetCoreKit.Infrastructure.AspNetCore.OpenApi.csproj" />
+      <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore\NetCoreKit.Infrastructure.AspNetCore.csproj" />
+      <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.Bus\NetCoreKit.Infrastructure.Bus.csproj" />
+      <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.Rest.Standard\NetCoreKit.Template.Rest.Standard.csproj" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+      <PackageReference Include="NetCoreKit.Utils" Version="0.1.122" />
+      <PackageReference Include="NetCoreKit.Domain" Version="0.1.122" />
+      <PackageReference Include="NetCoreKit.Infrastructure" Version="0.1.122" />
+      <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.OpenApi" Version="0.1.122" />
+      <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore" Version="0.1.122" />
+      <PackageReference Include="NetCoreKit.Infrastructure.Bus" Version="0.1.122" />
+      <PackageReference Include="NetCoreKit.Template.Rest.Standard" Version="0.1.122" />
+    </ItemGroup>
   </ItemGroup>
 
   <ItemGroup>

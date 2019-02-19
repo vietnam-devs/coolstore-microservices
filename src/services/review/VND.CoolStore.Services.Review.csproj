@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.gRPC.MongoDb\NetCoreKit.Template.gRPC.MongoDb.csproj" />
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+      <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.gRPC.MongoDb\NetCoreKit.Template.gRPC.MongoDb.csproj" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+      <PackageReference Include="NetCoreKit.Template.gRPC.MongoDb" Version="0.1.122" />
+    </ItemGroup>
   </ItemGroup>
 
   <ItemGroup>
