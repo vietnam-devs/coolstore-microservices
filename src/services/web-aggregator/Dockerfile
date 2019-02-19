@@ -14,7 +14,7 @@ COPY . .
 
 WORKDIR /src/src/services/web-aggregator
 
-RUN dotnet restore -nowarn:msb3202,nu1503
+RUN dotnet restore /property:Configuration=Release -nowarn:msb3202,nu1503
 RUN dotnet build --no-restore -c Release -o /app
 
 FROM build AS publish
