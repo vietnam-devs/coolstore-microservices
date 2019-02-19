@@ -39,7 +39,8 @@ export default {
       return this.$store.getters["products/highprice"];
     },
     ratings() {
-      let ratingSet = this.$store.getters["ratings/ratingSet"];
+      //TODO: will be implement ratting again
+      let ratingSet = [];
       let productSet = this.$store.getters["products/products"];
       return productSet.reduce((obj, item) => {
         ratingSet[item.id] = ratingSet[item.id] || {};

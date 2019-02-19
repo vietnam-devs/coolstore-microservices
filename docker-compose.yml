@@ -1,5 +1,14 @@
 version: "3"
 services:
+  mongodb:
+    container_name: mongodb
+    image: "bitnami/mongodb"
+    restart: always
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+
   envoy-proxy:
     container_name: envoy-proxy
     image: "vndg/cs-envoy-proxy"
@@ -10,6 +19,9 @@ services:
     ports:
       - "8082:80"
       - "8081:8081"
+    build:
+      context: .
+      dockerfile: ./src/services/envoy-proxy/Dockerfile
 
   open-api-service:
     container_name: open-api-service
@@ -19,15 +31,9 @@ services:
       - "5010:5010"
     expose:
       - "5010"
-
-  mongodb:
-    container_name: mongodb
-    image: "bitnami/mongodb"
-    restart: always
-    expose:
-      - "27017"
-    ports:
-      - "27017:27017"
+    build:
+      context: .
+      dockerfile: ./src/services/open-api/Dockerfile
 
   catalog-service:
     container_name: catalog-service
@@ -41,6 +47,9 @@ services:
       - "5002:5002"
     expose:
       - "5002"
+    build:
+      context: .
+      dockerfile: ./src/services/catalog/Dockerfile
 
   cart-service:
     container_name: cart-service
@@ -50,6 +59,9 @@ services:
       - "5003:5003"
     expose:
       - "5003"
+    build:
+      context: .
+      dockerfile: ./src/services/cart/Dockerfile
 
   inventory-service:
     container_name: inventory-service
@@ -59,6 +71,9 @@ services:
       - "5004:5004"
     expose:
       - "5004"
+    build:
+      context: .
+      dockerfile: ./src/services/inventory/Dockerfile
 
   review-service:
     container_name: review-service
@@ -68,6 +83,9 @@ services:
       - "5006:5006"
     expose:
       - "5006"
+    build:
+      context: .
+      dockerfile: ./src/services/review/Dockerfile
 
   rating-service:
     container_name: rating-service
@@ -81,3 +99,34 @@ services:
       - "5007:5007"
     expose:
       - "5007"
+    build:
+      context: .
+      dockerfile: ./src/services/rating/Dockerfile  
+      
+  idp-service:
+    container_name: idp-service
+    image: "vndg/cs-idp-service"
+    restart: always
+    environment: 
+      - HostSettings__SpaAllowedCorsOrigin=http://localhost:8080
+      - HostSettings__BasePath=/
+      - Hosts__Externals__CurrentUri=http://localhost:5001
+    ports:
+      - "5001:80"
+    expose:
+      - "5001"
+    build:
+      context: .
+      dockerfile: ./src/services/idp/Dockerfile
+      
+  web:
+    container_name: cs-spa
+    image: "vndg/cs-spa"
+    restart: always
+    ports:
+      - "8089:8080"
+    expose:
+      - "8089"
+    build:
+      context: .
+      dockerfile: ./src/web/Dockerfile

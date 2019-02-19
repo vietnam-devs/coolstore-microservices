@@ -28,7 +28,7 @@ const ProductProtoServices = {
     /*const products = await productSchema.find({ price: { $lt: call.request.high_price } }).exec()*/
     const results = products.map((x: any) => {
       return {
-        id: x._id,
+        id: x.id,
         name: x.name,
         desc: x.desc,
         price: x.price,
