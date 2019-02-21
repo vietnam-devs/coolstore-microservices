@@ -1,41 +1,30 @@
-var urls = {
-  web: 'http://localhost:8080/',
-  idp: 'http://localhost:5001/',
-  catalog: 'http://localhost:8082/',
-  cart: 'http://localhost:8082/',
-  inventory: 'http://localhost:8082/',
-  rating: 'http://localhost:8082/'
-}
 
 const env = process.env.NODE_ENV
 const config = {
   mode: env || 'development'
 }
-var host = 'coolstore.local'
+
+var urls = {
+  web: process.env.NODE_WEB_ENV || 'http://localhost:8080/',
+  idp: process.env.NODE_IDP_ENV || 'http://localhost:5001/',
+  idpHost: process.env.NODE_IDP_HOST || 'http://localhost:5001/',
+  catalog: process.env.NODE_CATALOG_ENV || 'http://localhost:8082/',
+  cart:  process.env.NODE_CART_ENV || 'http://localhost:8082/',
+  inventory: process.env.NODE_INVENTORY_ENV || 'http://localhost:8082/',
+  rating: process.env.NODE_RATING_ENV || 'http://localhost:8082/'
+}
+
+var host = 'http://localhost:8080/'
 
 if (process.browser) {
   host = window.location.hostname
 }
 
-if (config.mode == 'production') {
-  urls = {
-    ...urls,
-    ...{
-      web: `http://${host}/`,
-      idp: `http://id.${host}/`,
-      api: `http://api.${host}/`,
-      catalog: `http://api.${host}/catalog`,
-      cart: `http://api.${host}/cart`,
-      inventory: `http://api.${host}/inventory`,
-      rating: `http://api.${host}/rating`
-    }
-  }
-}
 
 console.info(urls)
 
 const PROXY_CONFIG = {
-  baseUrl: `${urls['web']}`,
+  baseUrl: host,
   idpUrl: `${urls['idp']}`,
   spaUrl: `${urls['web']}`,
   '/catalog/api/*': {
@@ -56,7 +45,7 @@ const PROXY_CONFIG = {
     target: `${urls['cart']}`,
     secure: false,
     logLevel: 'debug',
-    changeOrigin: true
+    changeOrigin: true,
     //pathRewrite: { '^/cart': '' }
   },
   '/inventory/api/*': {
@@ -71,7 +60,7 @@ const PROXY_CONFIG = {
     secure: false,
     logLevel: 'debug',
     ignorePath: true,
-    changeOrigin: true
+	headers: { Host :`${urls['idpHost']}`}
     //pathRewrite: { '^/config': '' }
   },
   '/.well-known/openid-configuration/jwks': {
@@ -97,5 +86,5 @@ const PROXY_CONFIG = {
     }
   }
 }
-
+console.log(PROXY_CONFIG.spaUrl)
 module.exports = PROXY_CONFIG

@@ -108,13 +108,13 @@ services:
     image: "vndg/cs-idp-service"
     restart: always
     environment: 
-      - HostSettings__SpaAllowedCorsOrigin=http://localhost:8080
+      - HostSettings__SpaAllowedCorsOrigin=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}
       - HostSettings__BasePath=/
-      - Hosts__Externals__CurrentUri=http://localhost:5001
+      - Hosts__Externals__CurrentUri=http://${IDENTITY_WEB_PUBLISH_HOST}:${IDENTITY_WEB_PUBLISH_PORT}
     ports:
-      - "5001:80"
+      - "${IDENTITY_WEB_PUBLISH_PORT}:80"
     expose:
-      - "5001"
+      - "${IDENTITY_WEB_PUBLISH_PORT}"
     build:
       context: .
       dockerfile: ./src/services/idp/Dockerfile
@@ -123,10 +123,19 @@ services:
     container_name: cs-spa
     image: "vndg/cs-spa"
     restart: always
+    environment: 
+      - NODE_ENV=development 
+      - NODE_WEB_ENV=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}/
+      - NODE_IDP_ENV=http://idp-service/
+      - NODE_CATALOG_ENV=http://envoy-proxy/
+      - NODE_CART_ENV=http://envoy-proxy/
+      - NODE_INVENTORY_ENV=http://envoy-proxy/
+      - NODE_RATING_ENV=http://envoy-proxy/
+      - NODE_IDP_HOST=localhost:${IDENTITY_WEB_PUBLISH_PORT}
     ports:
-      - "8089:8080"
+      - "${PORTAL_WEB_PUBLISH_PORT}:8080"
     expose:
-      - "8089"
+      - "${PORTAL_WEB_PUBLISH_PORT}"
     build:
       context: .
       dockerfile: ./src/web/Dockerfile
