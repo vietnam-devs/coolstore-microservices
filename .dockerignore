@@ -4,6 +4,7 @@
 .gitignore
 .vs
 .vscode
+Dockerfile
 docker-compose*.yml
 docker-compose.dcproj
 *.sln

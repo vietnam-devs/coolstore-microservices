@@ -9,12 +9,16 @@ ARG service_version
 ENV SERVICE_VERSION ${service_version:-0.0.1}
 
 FROM microsoft/dotnet:2.2.100-sdk-alpine AS build
-WORKDIR /src
-COPY . .
 
 WORKDIR /src/src/services/cart
 
+COPY /src/services/cart/*csproj /src/src/services/cart/
+COPY /src/netcorekit /src/src/netcorekit/
+
+RUN ls -an 
 RUN dotnet restore -nowarn:msb3202,nu1503
+COPY /src/services/cart/. /src/src/services/cart/
+
 RUN dotnet build --no-restore -c Release -o /app
 
 FROM build AS publish
