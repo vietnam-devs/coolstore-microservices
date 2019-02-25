@@ -4,38 +4,31 @@
 # https://docs.microsoft.com/vsts/pipelines/languages/docker
 
 pool:
-  vmImage: 'Ubuntu 16.04'
+  vmImage: "Ubuntu 16.04"
 
 variables:
-  DOCKER_TAG: 'latest'
-  DOCKER_GROUP: 'vndg'
-  DOCKER_ENV: 'production'
-
-resources:
-  repositories:
-  - repository: self
-    checkoutOptions:
-      submodules: true
+  DOCKER_TAG: "latest"
+  DOCKER_GROUP: "vndg"
+  DOCKER_ENV: "production"
 
 trigger:
   branches:
     include:
-    - master
+      - master
   paths:
     include:
-    - src/services/rating/*          
-      
+      - src/services/rating/*
+
 steps:
-- checkout: self
-- script:
-    docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
-  displayName: 'docker login'
-- script: |
-    docker pull microsoft/dotnet:2.1.5-aspnetcore-runtime-alpine
-  displayName: 'Pull Docker Images'
-- script: |
-    echo "Build Rating Service"
-    docker build -f ./src/services/rating/Dockerfile -t $(DOCKER_USERNAME)/cs-rating-service:$(DOCKER_TAG) .
-    docker tag $(DOCKER_USERNAME)/cs-rating-service:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-rating-service:$(DOCKER_TAG)
-    docker push $(DOCKER_GROUP)/cs-rating-service:$(DOCKER_TAG)
-  displayName: 'Build Rating Service'
+  - checkout: self
+  - script: docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
+    displayName: "docker login"
+  - script: |
+      docker pull microsoft/dotnet:2.2.0-aspnetcore-runtime-alpine
+    displayName: "Pull Docker Images"
+  - script: |
+      echo "Build Rating Service"
+      docker build -f ./src/services/rating/Dockerfile -t $(DOCKER_USERNAME)/cs-rating-service:$(DOCKER_TAG) .
+      docker tag $(DOCKER_USERNAME)/cs-rating-service:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-rating-service:$(DOCKER_TAG)
+      docker push $(DOCKER_GROUP)/cs-rating-service:$(DOCKER_TAG)
+    displayName: "Build Rating Service"

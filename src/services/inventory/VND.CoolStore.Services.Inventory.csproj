@@ -6,9 +6,14 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.EfCore.MySql\NetCoreKit.Infrastructure.EfCore.MySql.csproj" />
     <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.gRPC.EfCore\NetCoreKit.Template.gRPC.EfCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.122" />
+    <PackageReference Include="NetCoreKit.Template.gRPC.EfCore" Version="0.1.122" />
   </ItemGroup>
 
   <ItemGroup>

@@ -348,12 +348,5 @@ deploys/out/**/*.yaml
 src/web/shrinkwrap.yaml
 **/dist/
 
-#golang
-pkg/
-bin/
-src/github.com/
-src/golang.org/
-src/google.golang.org/
-src/gopkg.in/
-
 **/*/*.env
+.gitmodules
