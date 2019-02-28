@@ -24,7 +24,7 @@ Our team uses this demo application to demonstrate Kubernetes, AKS, Istio and si
 
 </details>
 
-Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
+Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.chat/net-core) or say hi on [Twitter](https://twitter.com/thangchung)!
 
 # Table of contents
 
