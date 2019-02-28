@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
+import mongoosedb from "../services/database";
+
 
 export interface ProductModel {
   id: string
@@ -47,4 +49,4 @@ productSchema.path('price').required(true, `Price can't be blank.`)
   return Number(price).toString() === price.toString()
 }, `Price must be a float number.`)*/
 productSchema.path('imageUrl').required(true, `ImageUri can't be blank.`)
-export default mongoose.model('Product', productSchema)
+export default mongoosedb.model('Product', productSchema)

@@ -11,9 +11,8 @@ ARG service_version
 ENV SERVICE_VERSION ${service_version:-v1}
 
 WORKDIR /app
-COPY ./src/services/rating/package*.json ./
-RUN yarn install
 COPY ./src/services/rating .
+RUN yarn install
 
 EXPOSE 5007
 ENV NODE_ENV production

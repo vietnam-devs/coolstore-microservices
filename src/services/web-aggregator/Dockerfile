@@ -9,12 +9,12 @@ ENV ASPNETCORE_URLS http://+:80
 EXPOSE 80
 
 FROM microsoft/dotnet:2.2.100-sdk-alpine AS build
-WORKDIR /src
-COPY . .
-
 WORKDIR /src/src/services/web-aggregator
 
+COPY /src/services/web-aggregator/*csproj /src/src/services/web-aggregator/
 RUN dotnet restore /property:Configuration=Release -nowarn:msb3202,nu1503
+
+COPY /src/services/web-aggregator/. /src/src/services/web-aggregator/
 RUN dotnet build --no-restore -c Release -o /app
 
 FROM build AS publish
