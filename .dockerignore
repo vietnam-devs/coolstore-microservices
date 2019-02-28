@@ -4,7 +4,6 @@
 .gitignore
 .vs
 .vscode
-Dockerfile
 docker-compose*.yml
 docker-compose.dcproj
 *.sln
@@ -27,11 +26,3 @@ assets
 docs
 **/*.csproj.user
 deploys/iac/
-
-#golang
-pkg/
-bin/
-src/github.com/
-src/golang.org/
-src/google.golang.org/
-src/gopkg.in/

@@ -32,7 +32,7 @@ const ProductProtoServices = {
         name: x.name,
         desc: x.desc,
         price: x.price,
-        imageUrl: x.imageUrl
+        image_url: x.imageUrl
       }
     })
     logger.info(results)

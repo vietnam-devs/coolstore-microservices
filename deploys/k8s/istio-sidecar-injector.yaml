@@ -5,8 +5,8 @@ metadata:
   namespace: istio-system
   labels:
     app: istio
-    chart: istio-1.0.3
-    release: istio
+    chart: istio-1.0.6
+    release: RELEASE-NAME
     heritage: Tiller
     istio: sidecar-injector
 data:
@@ -15,7 +15,7 @@ data:
     template: |-
       initContainers:
       - name: istio-init
-        image: "docker.io/istio/proxy_init:1.0.5"
+        image: "docker.io/istio/proxy_init:1.0.6"
         args:
         - "-p"
         - [[ .MeshConfig.ProxyListenPort ]]
@@ -40,7 +40,7 @@ data:
         restartPolicy: Always
       containers:
       - name: istio-proxy
-        image: [[ annotation .ObjectMeta `sidecar.istio.io/proxyImage`  "docker.io/istio/proxyv2:1.0.5"  ]]
+        image: [[ annotation .ObjectMeta `sidecar.istio.io/proxyImage`  "docker.io/istio/proxyv2:1.0.6"  ]]
 
         ports:
         - containerPort: 15090
@@ -108,12 +108,12 @@ data:
         [[ if .ObjectMeta.Annotations ]]
         - name: ISTIO_METAJSON_ANNOTATIONS
           value: |
-                [[ toJson .ObjectMeta.Annotations ]]
+                 [[ toJson .ObjectMeta.Annotations ]]
         [[ end ]]
         [[ if .ObjectMeta.Labels ]]
         - name: ISTIO_METAJSON_LABELS
           value: |
-                [[ toJson .ObjectMeta.Labels ]]
+                 [[ toJson .ObjectMeta.Labels ]]
         [[ end ]]
         imagePullPolicy: IfNotPresent
         [[ if (ne (annotation .ObjectMeta `status.sidecar.istio.io/port`  0 ) "0") ]]

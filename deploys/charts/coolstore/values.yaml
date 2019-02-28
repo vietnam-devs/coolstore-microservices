@@ -56,3 +56,13 @@ ratingSettings:
     Host: "mymongodb.coolstore"
     Port: "27017"
     Name: "rating"
+
+spaSettings:
+  NodeEnv: "development"
+  WebUri: "http://coolstore.local/"
+  IdpUri: "http://id.coolstore.local/"
+  IdpHost: "http://id.coolstore.local/"
+  CatalogUri: "http://api.coolstore.local/catalog/"
+  CartUri: "http://api.coolstore.local/cart/"
+  InventoryUri: "http://api.coolstore.local/inventory/"
+  RatingUri: "http://api.coolstore.local/rating/"

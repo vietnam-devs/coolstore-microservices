@@ -1,4 +1,3 @@
-
 const env = process.env.NODE_ENV
 const config = {
   mode: env || 'development'
@@ -9,7 +8,7 @@ var urls = {
   idp: process.env.NODE_IDP_ENV || 'http://localhost:5001/',
   idpHost: process.env.NODE_IDP_HOST || 'http://localhost:5001/',
   catalog: process.env.NODE_CATALOG_ENV || 'http://localhost:8082/',
-  cart:  process.env.NODE_CART_ENV || 'http://localhost:8082/',
+  cart: process.env.NODE_CART_ENV || 'http://localhost:8082/',
   inventory: process.env.NODE_INVENTORY_ENV || 'http://localhost:8082/',
   rating: process.env.NODE_RATING_ENV || 'http://localhost:8082/'
 }
@@ -19,7 +18,6 @@ var host = 'http://localhost:8080/'
 if (process.browser) {
   host = window.location.hostname
 }
-
 
 console.info(urls)
 
@@ -45,7 +43,7 @@ const PROXY_CONFIG = {
     target: `${urls['cart']}`,
     secure: false,
     logLevel: 'debug',
-    changeOrigin: true,
+    changeOrigin: true
     //pathRewrite: { '^/cart': '' }
   },
   '/inventory/api/*': {
@@ -60,7 +58,7 @@ const PROXY_CONFIG = {
     secure: false,
     logLevel: 'debug',
     ignorePath: true,
-	headers: { Host :`${urls['idpHost']}`}
+    headers: { Host: `${urls['idpHost']}` }
     //pathRewrite: { '^/config': '' }
   },
   '/.well-known/openid-configuration/jwks': {
