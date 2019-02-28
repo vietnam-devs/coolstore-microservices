@@ -25,7 +25,7 @@ const ProductProtoServices = {
     if (call.request.high_price <= 0) {
       call.request.high_price = Number.MAX_VALUE
     }
-    /*const products = await productSchema.find({ price: { $lt: call.request.high_price } }).exec()*/
+    const products = await ProductService.findProducts({ price: { $lt: call.request.high_price } })
     const results = products.map((x: any) => {
       return {
         id: x._id,
@@ -41,6 +41,7 @@ const ProductProtoServices = {
   getProductById: async (call: any, callback: any) => {
     logger.info(call.request)
     const product: any = await ProductService.findProduct(call.request.product_id)
+    logger.info(product)
     callback(null, {
       product: {
         id: product._id,

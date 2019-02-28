@@ -9,12 +9,12 @@ ARG service_version
 ENV SERVICE_VERSION ${service_version:-0.0.1}
 
 FROM microsoft/dotnet:2.2.100-sdk-alpine AS build
-WORKDIR /src
-COPY . .
-
 WORKDIR /src/src/services/review
 
+COPY /src/services/review/*csproj /src/src/services/review/
 RUN dotnet restore /property:Configuration=Release -nowarn:msb3202,nu1503
+
+COPY /src/services/review/. /src/src/services/review/
 RUN dotnet build --no-restore -c Release -o /app
 
 FROM build AS publish
