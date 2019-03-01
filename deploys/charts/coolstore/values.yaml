@@ -56,3 +56,13 @@ ratingSettings:
     Host: "mymongodb.coolstore"
     Port: "27017"
     Name: "rating"
+    
+webSettings:
+  NODE_ENV: development
+  NODE_WEB_ENV: http://coolstore.local/
+  NODE_IDP_ENV: http://id.coolstore.local/
+  NODE_CATALOG_ENV: http://api.coolstore.local/
+  NODE_CART_ENV: http://api.coolstore.local/
+  NODE_INVENTORY_ENV: http://api.coolstore.local/
+  NODE_RATING_ENV: http://api.coolstore.local/
+  NODE_IDP_HOST: id.coolstore.local
