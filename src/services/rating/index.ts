@@ -1,5 +1,5 @@
 require('dotenv').config()
-import * as mongoose from 'mongoose'
+const mongoose = require('mongoose')
 import { SimpleLogger as xLogger } from './services/logger'
 import { seedData } from './services/database'
 import initServer from './services/grpc-server'
@@ -15,7 +15,8 @@ const run = async () => {
     keepAlive: true,
     autoReconnect: true,
     reconnectTries: 1000000,
-    reconnectInterval: 3000
+    reconnectInterval: 3000,
+    family: 4
   })
   xLogger.info(`Connected to ${mongoUri}.`)
 
