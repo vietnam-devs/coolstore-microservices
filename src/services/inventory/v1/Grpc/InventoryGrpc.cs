@@ -10,34 +10,34 @@ using grpc = global::Grpc.Core;
 namespace VND.CoolStore.Services.Inventory.v1.Grpc {
   public static partial class InventoryService
   {
-    static readonly string __ServiceName = "inventory.InventoryService";
+    static readonly string __ServiceName = "coolstore.InventoryService";
 
     static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Empty.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse> __Marshaller_inventory_GetInventoriesResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryRequest> __Marshaller_inventory_GetInventoryRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryResponse> __Marshaller_inventory_GetInventoryResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.DbMigrationResponse> __Marshaller_inventory_DbMigrationResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.DbMigrationResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse> __Marshaller_coolstore_GetInventoriesResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryRequest> __Marshaller_coolstore_GetInventoryRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryResponse> __Marshaller_coolstore_GetInventoryResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.DbMigrationResponse> __Marshaller_coolstore_DbMigrationResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.DbMigrationResponse.Parser.ParseFrom);
 
     static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse> __Method_GetInventories = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "GetInventories",
         __Marshaller_google_protobuf_Empty,
-        __Marshaller_inventory_GetInventoriesResponse);
+        __Marshaller_coolstore_GetInventoriesResponse);
 
     static readonly grpc::Method<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryRequest, global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryResponse> __Method_GetInventory = new grpc::Method<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryRequest, global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "GetInventory",
-        __Marshaller_inventory_GetInventoryRequest,
-        __Marshaller_inventory_GetInventoryResponse);
+        __Marshaller_coolstore_GetInventoryRequest,
+        __Marshaller_coolstore_GetInventoryResponse);
 
     static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::VND.CoolStore.Services.Inventory.v1.Grpc.DbMigrationResponse> __Method_DbMigration = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::VND.CoolStore.Services.Inventory.v1.Grpc.DbMigrationResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "DbMigration",
         __Marshaller_google_protobuf_Empty,
-        __Marshaller_inventory_DbMigrationResponse);
+        __Marshaller_coolstore_DbMigrationResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor

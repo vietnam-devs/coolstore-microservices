@@ -345,8 +345,13 @@ package-lock.json
 **/*/*.local.yaml
 deploys/out/**/*.yaml
 **/*/key*.*
+
+# web host
 src/web/shrinkwrap.yaml
 **/dist/
 
 **/*/*.env
+
+# git submodules
+src/netcorekit/
 .gitmodules
