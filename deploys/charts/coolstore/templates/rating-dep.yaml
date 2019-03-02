@@ -24,7 +24,7 @@ spec:
         - name: NODE_ENV
           value: {{ .Values.ratingSettings.NodeEnv }}
         - name: PORT
-          value: {{ .Values.ratingSettings.Port }}
+          value: {{ .Values.ratingSettings.Port  | quote }}
         - name: MONGO_DB_URI
           value: "mongodb://{{ .Values.ratingSettings.MongoDb.Host }}:{{ .Values.ratingSettings.MongoDb.Port }}/{{ .Values.ratingSettings.MongoDb.Name }}"
         ports:
