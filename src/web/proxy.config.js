@@ -13,7 +13,7 @@ var urls = {
   rating: process.env.NODE_RATING_ENV || 'http://localhost:8082/'
 }
 
-var host = 'http://localhost:8080/'
+var host = process.env.NODE_WEB_ENV || 'http://localhost:8080/'
 
 if (process.browser) {
   host = window.location.hostname
@@ -30,28 +30,24 @@ const PROXY_CONFIG = {
     secure: false,
     logLevel: 'debug',
     changeOrigin: true
-    //pathRewrite: { '^/catalog': '' }
   },
   '/rating/api/*': {
     target: `${urls['rating']}`,
     secure: false,
     logLevel: 'debug',
     changeOrigin: true
-    //pathRewrite: { '^/rating': '' }
   },
   '/cart/api/*': {
     target: `${urls['cart']}`,
     secure: false,
     logLevel: 'debug',
     changeOrigin: true
-    //pathRewrite: { '^/cart': '' }
   },
   '/inventory/api/*': {
     target: `${urls['inventory']}`,
     secure: false,
     logLevel: 'debug',
     changeOrigin: true
-    //pathRewrite: { '^/inventory': '' }
   },
   '/config': {
     target: `${urls['idp']}.well-known/openid-configuration`,
@@ -59,7 +55,6 @@ const PROXY_CONFIG = {
     logLevel: 'debug',
     ignorePath: true,
     headers: { Host: `${urls['idpHost']}` }
-    //pathRewrite: { '^/config': '' }
   },
   '/.well-known/openid-configuration/jwks': {
     target: `${urls['idp']}.well-known/openid-configuration/jwks`,

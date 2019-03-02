@@ -59,11 +59,11 @@ ratingSettings:
     Name: "rating"
 
 spaSettings:
-  NodeEnv: "development"
-  WebUri: "http://coolstore.local/"
-  IdpUri: "http://id.coolstore.local/"
-  IdpHost: "http://id.coolstore.local/"
-  CatalogUri: "http://api.coolstore.local/catalog/"
-  CartUri: "http://api.coolstore.local/cart/"
-  InventoryUri: "http://api.coolstore.local/inventory/"
-  RatingUri: "http://api.coolstore.local/rating/"
+  NodeEnv: development
+  WebUri: http://coolstore.local/
+  IdpUri: http://id.coolstore.local/
+  IdpHost: http://id.coolstore.local/
+  CatalogUri: http://coolstore.local/catalog/
+  CartUri: http://coolstore.local/cart/
+  InventoryUri: http://coolstore.local/inventory/
+  RatingUri: http://coolstore.local/rating/

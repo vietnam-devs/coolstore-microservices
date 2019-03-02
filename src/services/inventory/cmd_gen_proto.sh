@@ -10,7 +10,7 @@ readonly PROTO_PATH=${ROOT_DIR}/src/grpc/v1
 readonly OUTPUT_PATH=${SERVICE_DIR}/v1/Grpc
 readonly PROTO_FILE=inventory.proto
 
-cd `$SERVICE_DIR/App_Build`
+cd `$SERVICE_DIR`
 
 $GRPC_PATH/protoc -I$PROTO_PATH -I/usr/local/include -I$GOOGLEAPIS_DIR \
     --csharp_out $OUTPUT_PATH \

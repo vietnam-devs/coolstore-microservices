@@ -9,7 +9,7 @@
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item">
           <strong>
-            <i>PlusGrosLeLogo</i>
+            <i>CoolStore Shop</i>
           </strong>
         </router-link>
       </div>
