@@ -1,8 +1,0 @@
-{
-  "webServer": "http://coolstore.local",
-  "authorityServer": "http://id.coolstore.local/",
-  "catalogService": "http://api.coolstore.local/catalog",
-  "cartService": "http://api.coolstore.local/cart",
-  "inventoryService": "http://api.coolstore.local/inventory",
-  "ratingService": "http://api.coolstore.local/rating"
-}

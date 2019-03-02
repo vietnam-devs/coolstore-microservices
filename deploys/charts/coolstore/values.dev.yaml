@@ -1,7 +1,0 @@
-idpSettings:
-  BashPath: /
-  Hosts__Externals__CurrentUri: http://id.coolstore.local/
-  SwaggerRedirectUri: http://api.coolstore.local/swagger/oauth2-redirect.html
-  SwaggerPostLogoutRedirectUri: http://api.coolstore.local
-  SwaggerAllowedCorsOrigin: http://api.coolstore.local
-  SpaAllowedCorsOrigin: http://coolstore.local
