@@ -1,0 +1,149 @@
+admin:
+  access_log_path: "/dev/null"
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 8081
+
+cluster_manager:
+  outlier_detection:
+    event_log_path: "/dev/stdout"
+
+static_resources:
+  listeners:
+    - address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 80
+      filter_chains:
+        - filters:
+            - name: envoy.http_connection_manager
+              config:
+                stat_prefix: ingress_http
+                codec_type: AUTO
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: local_service
+                      domains: ["*"]
+                      routes:
+                        - match: { prefix: "/v1" }
+                          route: { cluster: open_api_service }
+                        - match:
+                            { prefix: "/coolstore.CatalogService/", grpc: {} }
+                          route:
+                            {
+                              cluster: catalog_grpc_service,
+                              max_grpc_timeout: 0s,
+                            }
+                        - match: { prefix: "/coolstore.CartService/", grpc: {} }
+                          route:
+                            { cluster: cart_grpc_service, max_grpc_timeout: 0s }
+                        - match:
+                            { prefix: "/coolstore.InventoryService/", grpc: {} }
+                          route:
+                            {
+                              cluster: inventory_grpc_service,
+                              max_grpc_timeout: 0s,
+                            }
+                        - match:
+                            { prefix: "/coolstore.ReviewService/", grpc: {} }
+                          route:
+                            {
+                              cluster: review_grpc_service,
+                              max_grpc_timeout: 0s,
+                            }
+                        - match: { prefix: "/coolstore.PingService/", grpc: {} }
+                          route:
+                            {
+                              cluster: review_grpc_service,
+                              max_grpc_timeout: 0s,
+                            }
+                        - match:
+                            { prefix: "/coolstore.RatingService/", grpc: {} }
+                          route:
+                            {
+                              cluster: rating_grpc_service,
+                              max_grpc_timeout: 0s,
+                            }
+                      cors:
+                        allow_origin:
+                          - "*"
+                        allow_methods: GET, PUT, DELETE, POST, OPTIONS
+                        allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
+                        max_age: "1728000"
+                        enabled: true
+                http_filters:
+                  - name: envoy.grpc_json_transcoder
+                    config:
+                      proto_descriptor: /tmp/envoy/proto.pb
+                      services:
+                        [
+                          coolstore.PingService,
+                          coolstore.ReviewService,
+                          coolstore.CartService,
+                          coolstore.InventoryService,
+                          coolstore.CatalogService,
+                          coolstore.RatingService,
+                        ]
+                      print_options:
+                        add_whitespace: true
+                        always_print_primitive_fields: true
+                        always_print_enums_as_ints: false
+                        preserve_proto_field_names: false
+                  - name: envoy.cors
+                  - name: envoy.router
+  clusters:
+    - name: open_api_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      hosts:
+        - socket_address:
+            address: open-api-service
+            port_value: 5010
+    - name: catalog_grpc_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      hosts:
+        - socket_address:
+            address: catalog-service
+            port_value: 5002
+    - name: cart_grpc_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      hosts:
+        - socket_address:
+            address: cart-service
+            port_value: 5003
+    - name: inventory_grpc_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      hosts:
+        - socket_address:
+            address: inventory-service
+            port_value: 5004
+    - name: review_grpc_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      hosts:
+        - socket_address:
+            address: review-service
+            port_value: 5006
+    - name: rating_grpc_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      hosts:
+        - socket_address:
+            address: rating-service
+            port_value: 5007

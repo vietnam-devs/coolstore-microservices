@@ -1,0 +1,10 @@
+#dependencies:
+  #- name: nginx-ingress
+  #  version: 0.20.3
+  #  repository: https://kubernetes-charts.storage.googleapis.com
+  #- name: mongodb
+  #  version: 3.0.1
+  #  repository: https://kubernetes-charts.storage.googleapis.com
+  # - name: ambassador
+  #   version: 0.35.0
+  #   repository: https://www.getambassador.io

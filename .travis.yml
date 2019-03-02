@@ -1,0 +1,23 @@
+language: csharp
+dist: trusty
+sudo: required
+mono: none
+dotnet: 2.1.302
+env:
+  global:
+    - NODE_VERSION="10.6.0"
+git:
+  submodules: true
+branches:
+  only:
+    - master
+before_install:
+  - nvm install $NODE_VERSION
+before_script:
+  - chmod -R a+x deploys/scripts
+script:
+  - ./deploys/scripts/start.sh
+notifications:
+  email:
+    on_success: never
+    on_failure: always

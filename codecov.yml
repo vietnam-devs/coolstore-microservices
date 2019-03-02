@@ -1,0 +1,15 @@
+codecov:
+  notify: null
+  require_ci_to_pass: no
+coverage:
+  precision: 2
+  round: down
+  range: 70…100
+status:
+  project: yes
+  patch: yes
+  changes: no
+comment:
+  layout: '"reach, diff, flags, files, footer"'
+  behavior: default
+  require_changes: no

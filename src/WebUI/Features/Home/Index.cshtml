@@ -1,0 +1,140 @@
+@inherits WebUI.Features.AuthnComponent
+@page "/"
+@page "/{Page:int}"
+@using WebUI.Model
+@using WebUI.Services
+@inject WebUI.Services.ItemService ItemService
+@inject WebUI.Services.CartService CartService
+
+<div class="section">
+  <div class="container">
+    <p class="title"><strong class="has-text-info">Welcome</strong> to coolstore microservices</p>
+    <p class="subtitle">Below you will find your latests products</p>
+  </div>
+</div>
+<div class="section is-clearfix">
+  <AppSidebar SideBar=@AppState.SideBar OnSliderChanged=@(async @event => await OnSideBarSearch(@event)) />
+  <div class="content is-pulled-right">
+    @if (!Result.Items.Any())
+    {
+      <h2>Looking for items...</h2>
+    }
+    else
+    {
+      <ItemList Items="Result.Items">
+        <ItemTemplate Context="item">
+          <div class="card is-radius">
+            <div class="card-image">
+              <NavLink exact href="@($"/detail-item/{item.Id}")">
+                <picture class="image">
+                  <source data-srcset="@item.ImageUrl">
+                  <img class="lazyloaded" src="@item.ImageUrl" alt="Image of @item.Name">
+                </picture>
+              </NavLink>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <NavLink exact href="@($"/detail-item/{item.Id}")">
+                    <p class="title is-5">@item.Name</p>
+                    <p class="item-price">@($"${item.Price}")</p>
+                  </NavLink>
+                </div>
+                <div class="media-right">
+                  <p class="field">
+                    <a onclick=@(async () => await OnAddToCart(item.Id)) class="button icon is-large add" aria-label="Add to cart">
+                      <span class="fa-stack">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div style="text-align: left;">
+                <Rating />
+              </div>
+            </div>
+          </div>
+        </ItemTemplate>
+      </ItemList>
+    }
+  </div>
+  @if (Result.TotalItems > 0)
+  {
+    var numberOfLoop = Result.TotalItems / Result.PageSize;
+    <div class="content-pagination is-pulled-right">
+      <nav class="pagination" role="navigation" aria-label="pagination">
+        <a onclick=@(async () => await OnPaging(1)) href="@($"/{1}")" class="pagination-previous">
+          <i class="fas fa-angle-double-left"></i>
+        </a>
+        <a onclick=@(async () => await OnPaging(numberOfLoop - 1)) href="@($"/{numberOfLoop - 1}")" class="pagination-next">
+          <i class="fas fa-angle-double-right"></i>
+        </a>
+        <ul class="pagination-list">
+          @for (var i = 1; i < numberOfLoop; i++)
+          {
+            var page = i;
+            if (page == Result.CurrentPage)
+            {
+              <li>
+                <a onclick=@(async () => await OnPaging(page)) href="@($"/{page}")" class="pagination-link is-current">@($"{page}")</a>
+              </li>
+            }
+            else
+            {
+              <li>
+                <a onclick=@(async () => await OnPaging(page)) href="@($"/{page}")" class="pagination-link">@($"{page}")</a>
+              </li>
+            }
+          }
+        </ul>
+      </nav>
+    </div>
+  }
+</div>
+
+@functions {
+
+  Pagination<ItemModel> Result { get; set; } = new Pagination<ItemModel>();
+
+  [Parameter]
+  int Page { get; set; } = 1;
+
+  protected override async Task OnInitAsync()
+  {
+    await EnsureAuthn();
+    await InitData();
+  }
+
+  async Task OnPaging(int currentPage)
+  {
+    Result = await ItemService.GetItems(currentPage, Result.PageSize, AppState.SideBar.PriceRange);
+    AppState.ItemPagination = Result;
+    StateHasChanged();
+  }
+
+  async Task OnSideBarSearch(long price)
+  {
+    await AppState.LogInfoOut(price.ToString());
+    Result = await ItemService.GetItems(Page, Result.PageSize, price);
+
+    AppState.SideBar.PriceRange = price;
+    AppState.ItemPagination = Result;
+
+    StateHasChanged();
+  }
+
+  async Task OnAddToCart(Guid itemId)
+  {
+    AppState.Cart = await CartService.AddProductToCart(AppState.GetCurrentCart(), itemId, 1);
+  }
+
+  async Task InitData()
+  {
+    Result = await ItemService.GetItems(Page, Result.PageSize);
+    AppState.ItemPagination = Result;
+    StateHasChanged();
+  }
+
+}

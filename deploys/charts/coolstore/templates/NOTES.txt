@@ -1,0 +1,11 @@
+1. Put below value to your hosts file:
+
+{{ .Values.gateway.ip }} {{ .Values.hosts.web }}
+{{ .Values.gateway.ip }} {{ .Values.hosts.api }}
+{{ .Values.gateway.ip }} {{ .Values.hosts.idp }}
+
+2. Get accessing to application as following URLs: 
+
+http://{{ .Values.hosts.web }}
+http://{{ .Values.hosts.api }}
+http://{{ .Values.hosts.idp }}

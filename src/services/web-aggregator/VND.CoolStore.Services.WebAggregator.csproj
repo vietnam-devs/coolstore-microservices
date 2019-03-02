@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>inprocess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Google.Api.Gax.Grpc" Version="2.5.0" />
+    <PackageReference Include="Grpc" Version="1.17.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.6.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Utils\NetCoreKit.Utils.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Domain\NetCoreKit.Domain.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure\NetCoreKit.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore.OpenApi\NetCoreKit.Infrastructure.AspNetCore.OpenApi.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore\NetCoreKit.Infrastructure.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.Bus\NetCoreKit.Infrastructure.Bus.csproj" />
+    <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.Rest.Standard\NetCoreKit.Template.Rest.Standard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <PackageReference Include="NetCoreKit.Utils" Version="0.1.122" />
+    <PackageReference Include="NetCoreKit.Domain" Version="0.1.122" />
+    <PackageReference Include="NetCoreKit.Infrastructure" Version="0.1.122" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.OpenApi" Version="0.1.122" />
+    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore" Version="0.1.122" />
+    <PackageReference Include="NetCoreKit.Infrastructure.Bus" Version="0.1.122" />
+    <PackageReference Include="NetCoreKit.Template.Rest.Standard" Version="0.1.122" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="v1\Grpc\" />
+  </ItemGroup>
+
+</Project>

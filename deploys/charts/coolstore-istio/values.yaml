@@ -1,0 +1,11 @@
+hosts:
+  web: coolstore.local
+  api: api.coolstore.local
+  idp: id.coolstore.local
+
+jwts:
+  issuer: "local_idp"
+  jwks_uri: "http://id.coolstore.local/.well-known/openid-configuration/jwks"
+
+coolstore:
+  namespace: coolstore

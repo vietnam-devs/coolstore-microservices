@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: review-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        transcode: http
+        app: review
+        version: v1
+    spec:
+      containers:
+      - name: review
+        image: {{.Values.image.imageRegistry}}/cs-review-service:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: Hosts__Local__Host
+          value: {{ .Values.reviewSettings.Hosts__Local__Host }}
+        - name: Hosts__Local__Port
+          value: {{ .Values.reviewSettings.Hosts__Local__Port }}
+        - name: Features__Mongo__ConnString
+          value: {{ .Values.reviewSettings.Features__Mongo__ConnString }}
+        ports:
+        - containerPort: {{ .Values.reviewSettings.Hosts__Local__Port }}
+        readinessProbe:
+          initialDelaySeconds: 15
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5006"]
+        livenessProbe:
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5006"]
+        resources:
+          requests:
+            memory: "400Mi"
+            cpu: "100m"
+          limits:
+            memory: "400Mi"
+            cpu: "100m"
+---

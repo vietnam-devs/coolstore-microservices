@@ -1,0 +1,79 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# Source at https://thornelabs.net/2014/11/13/multi-machine-vagrantfile-with-shorter-cleaner-syntax-using-json-and-loops.html
+
+masters = [
+  {
+    :name => "master01",
+    :mem => "2048",
+    :cpu => "2",
+    :ip => "192.168.137.10"
+  }
+]
+
+workers = [
+  {
+    :name => "worker01",
+    :mem => "2048",
+    :cpu => "1",
+    :ip => "192.168.137.11"
+  },
+  {
+    :name => "worker02",
+    :mem => "2048",
+    :cpu => "1",
+    :ip => "192.168.137.12"
+  }
+]
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "generic/ubuntu1810"
+
+  # Disable the new default behavior introduced in Vagrant 1.7, to
+  # ensure that all Vagrant machines will use the same SSH key pair.
+  # See https://github.com/mitchellh/vagrant/issues/5005
+  config.ssh.insert_key = false
+
+  # Turn off shared folders
+  # config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
+
+  masters.each do |opts|
+    config.vm.define opts[:name] do |subconfig|
+      subconfig.vm.provider :hyperv do |hyperv|
+        hyperv.vmname = opts[:name]
+        hyperv.memory = opts[:mem]
+        hyperv.cpus = opts[:cpu]
+      end
+
+      subconfig.vm.hostname = opts[:name]
+      subconfig.vm.network "private_network", ip: opts[:ip], bridge: "sample_switch"
+      subconfig.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/id_rsa.pub"
+
+      $script = <<-SCRIPT
+        cd ~
+        sudo apt-get install software-properties-common
+        sudo apt-add-repository ppa:ansible/ansible
+        sudo apt-get update
+        sudo apt-get dist-upgrade -y
+        sudo apt-get install python
+        sudo apt-get install ansible
+      SCRIPT
+
+      config.vm.provision "shell", inline: $script
+    end
+  end
+
+  workers.each do |opts|
+    config.vm.define opts[:name] do |subconfig|
+      subconfig.vm.provider :hyperv do |hyperv|
+        hyperv.vmname = opts[:name]
+        hyperv.memory = opts[:mem]
+        hyperv.cpus = opts[:cpu]
+      end
+
+      subconfig.vm.hostname = opts[:name]
+      subconfig.vm.network "private_network", ip: opts[:ip], bridge: "sample_switch"
+    end
+  end
+end

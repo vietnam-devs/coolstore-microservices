@@ -1,0 +1,24 @@
+- hosts: all
+  become: yes
+  tasks: 
+    #https://stackoverflow.com/questions/37333305/ansible-create-a-user-with-sudo-privileges
+    - name: Make sure we have a 'k8s' group
+      group:
+        name: k8s
+        state: present
+
+    - name: allow 'k8s' group to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%k8s'
+        line: '%k8s ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: create the 'ubuntu' user to k8s group
+      user: name=ubuntu groups=k8s append=yes state=present createhome=yes shell=/bin/bash
+
+    - name: set up authorized keys for the ubuntu user
+      authorized_key: user=ubuntu key="{{item}}"
+      with_file:
+        - ~/.ssh/id_rsa.pub

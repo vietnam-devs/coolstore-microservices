@@ -1,0 +1,4 @@
+hosts:
+  web: coolstore.aks
+  api: api.coolstore.aks
+  idp: id.coolstore.aks

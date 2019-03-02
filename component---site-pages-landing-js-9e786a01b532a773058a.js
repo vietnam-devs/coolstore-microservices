@@ -1,2 +1,0 @@
-webpackJsonp([95710047193689],{221:function(e,n){},123:function(e,n,t){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}n.__esModule=!0;var l=t(1),r=o(l);t(221);var u=function(){return r.default.createElement("div",{className:"landing"},r.default.createElement("h1",null,"Coolstore Microservices"),r.default.createElement("p",null,"A containerized polyglot gRPC microservices based on .NET Core, Nodejs, Vuejs and more running on Istio"))};n.default=u,e.exports=n.default}});
-//# sourceMappingURL=component---site-pages-landing-js-9e786a01b532a773058a.js.map

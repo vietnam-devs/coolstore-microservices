@@ -1,0 +1,141 @@
+version: "3"
+services:
+  mongodb:
+    container_name: mongodb
+    image: "bitnami/mongodb"
+    restart: always
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+
+  envoy-proxy:
+    container_name: envoy-proxy
+    image: "vndg/cs-envoy-proxy"
+    restart: always
+    expose:
+      - "80"
+      - "8081"
+    ports:
+      - "8082:80"
+      - "8081:8081"
+    build:
+      context: .
+      dockerfile: ./src/services/envoy-proxy/Dockerfile
+
+  open-api-service:
+    container_name: open-api-service
+    image: "vndg/cs-open-api"
+    restart: always
+    ports:
+      - "5010:5010"
+    expose:
+      - "5010"
+    build:
+      context: .
+      dockerfile: ./src/services/open-api/Dockerfile
+
+  catalog-service:
+    container_name: catalog-service
+    image: "vndg/cs-catalog-service"
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - MONGO_DB_URI=mongodb://mongodb/catalog
+      - PORT=5002
+    ports:
+      - "5002:5002"
+    expose:
+      - "5002"
+    build:
+      context: .
+      dockerfile: ./src/services/catalog/Dockerfile
+
+  cart-service:
+    container_name: cart-service
+    image: "vndg/cs-cart-service"
+    restart: always
+    ports:
+      - "5003:5003"
+    expose:
+      - "5003"
+    build:
+      context: .
+      dockerfile: ./src/services/cart/Dockerfile
+
+  inventory-service:
+    container_name: inventory-service
+    image: "vndg/cs-inventory-service"
+    restart: always
+    ports:
+      - "5004:5004"
+    expose:
+      - "5004"
+    build:
+      context: .
+      dockerfile: ./src/services/inventory/Dockerfile
+
+  review-service:
+    container_name: review-service
+    image: "vndg/cs-review-service"
+    restart: always
+    ports:
+      - "5006:5006"
+    expose:
+      - "5006"
+    build:
+      context: .
+      dockerfile: ./src/services/review/Dockerfile
+
+  rating-service:
+    container_name: rating-service
+    image: "vndg/cs-rating-service"
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - MONGO_DB_URI=mongodb://mongodb/rating
+      - PORT=5007
+    ports:
+      - "5007:5007"
+    expose:
+      - "5007"
+    build:
+      context: .
+      dockerfile: ./src/services/rating/Dockerfile  
+      
+  idp-service:
+    container_name: idp-service
+    image: "vndg/cs-idp-service"
+    restart: always
+    environment: 
+      - HostSettings__SpaAllowedCorsOrigin=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}
+      - HostSettings__BasePath=/
+      - Hosts__Externals__CurrentUri=http://${IDENTITY_WEB_PUBLISH_HOST}:${IDENTITY_WEB_PUBLISH_PORT}
+    ports:
+      - "${IDENTITY_WEB_PUBLISH_PORT}:80"
+    expose:
+      - "${IDENTITY_WEB_PUBLISH_PORT}"
+    build:
+      context: .
+      dockerfile: ./src/services/idp/Dockerfile
+      
+  web:
+    container_name: cs-spa
+    image: "vndg/cs-spa"
+    restart: always
+    environment: 
+      - NODE_ENV=development 
+      - NODE_WEB_ENV=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}/
+      - NODE_IDP_ENV=http://idp-service/
+      - NODE_CATALOG_ENV=http://envoy-proxy/
+      - NODE_CART_ENV=http://envoy-proxy/
+      - NODE_INVENTORY_ENV=http://envoy-proxy/
+      - NODE_RATING_ENV=http://envoy-proxy/
+      - NODE_IDP_HOST=localhost:${IDENTITY_WEB_PUBLISH_PORT}
+    ports:
+      - "${PORTAL_WEB_PUBLISH_PORT}:8080"
+    expose:
+      - "${PORTAL_WEB_PUBLISH_PORT}"
+    build:
+      context: .
+      dockerfile: ./src/web/Dockerfile

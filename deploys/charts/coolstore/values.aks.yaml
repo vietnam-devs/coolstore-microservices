@@ -1,0 +1,28 @@
+hosts:
+  web: coolstore.aks
+  api: api.coolstore.aks
+  idp: id.coolstore.aks
+
+gateway:
+  ip: 10.0.239.39
+
+idpSettings:
+  BashPath: /
+  Hosts__Externals__CurrentUri: http://id.coolstore.aks/
+  SwaggerRedirectUri: http://api.coolstore.aks/swagger/oauth2-redirect.html
+  SwaggerPostLogoutRedirectUri: http://api.coolstore.aks
+  SwaggerAllowedCorsOrigin: http://api.coolstore.aks
+  SpaAllowedCorsOrigin: http://coolstore.aks
+
+cartSettings:
+  Hosts__Externals__CurrentUri: http://api.coolstore.aks/cart
+  Hosts__Externals__Auth__Uri: http://id.coolstore.aks
+  Hosts__Externals__Catalog__Uri: http://api.coolstore.aks/catalog
+
+inventorySettings:
+  Hosts__Externals__CurrentUri: http://api.coolstore.aks/inventory
+  Hosts__Externals__Auth__Uri: http://id.coolstore.aks
+
+reviewSettings:
+  Hosts__Externals__CurrentUri: http://api.coolstore.aks/review
+  Hosts__Externals__Auth__Uri: http://id.coolstore.aks

@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: inventory-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        transcode: http
+        app: inventory
+        version: v1
+    spec:
+      containers:
+      - name: inventory
+        image: {{.Values.image.imageRegistry}}/cs-inventory-service:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: Hosts__Local__Host
+          value: {{ .Values.inventorySettings.Hosts__Local__Host }}
+        - name: Hosts__Local__Port
+          value: {{ .Values.inventorySettings.Hosts__Local__Port }}
+        - name: Features__EfCore__MySqlDb__FQDN
+          value: {{ .Values.inventorySettings.MySqlDb__FQDN }}
+        - name: Features__EfCore__MySqlDb__Password
+          valueFrom:
+            secretKeyRef:
+              name: inventory-secrets
+              key: MySqlDbPassword
+        ports:
+        - containerPort: 5004
+        readinessProbe:
+          initialDelaySeconds: 15
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5004"]
+        livenessProbe:
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:5004"]
+        resources:
+          requests:
+            memory: "400Mi"
+            cpu: "100m"
+          limits:
+            memory: "400Mi"
+            cpu: "100m"
+---

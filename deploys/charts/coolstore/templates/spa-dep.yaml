@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spa-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spa
+        version: v1
+    spec:
+      containers:
+      - name: spa
+        image: {{.Values.image.imageRegistry}}/cs-spa:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: NODE_ENV
+          value: {{ .Values.spaSettings.NodeEnv }}
+        - name: NODE_WEB_ENV
+          value: {{ .Values.spaSettings.WebUri }}
+        - name: NODE_IDP_ENV
+          value: {{ .Values.spaSettings.IdpUri }}
+        - name: NODE_IDP_HOST
+          value: {{ .Values.spaSettings.IdpHost }}
+        - name: NODE_CATALOG_ENV
+          value: {{ .Values.spaSettings.CatalogUri }}
+        - name: NODE_CART_ENV
+          value: {{ .Values.spaSettings.CartUri }}
+        - name: NODE_INVENTORY_ENV
+          value: {{ .Values.spaSettings.InventoryUri }}
+        - name: NODE_RATING_ENV
+          value: {{ .Values.spaSettings.RatingUri }}
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "100m"
+          limits:
+            memory: "400Mi"
+            cpu: "200m"
+---

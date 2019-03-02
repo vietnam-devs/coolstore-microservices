@@ -1,0 +1,5 @@
+Get accessing to application as following URLs: 
+
+http://{{ .Values.hosts.web }}
+http://{{ .Values.hosts.api }}
+http://{{ .Values.hosts.idp }}

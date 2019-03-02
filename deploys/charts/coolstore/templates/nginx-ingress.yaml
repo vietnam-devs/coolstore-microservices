@@ -1,0 +1,48 @@
+{{- if .Values.nginx.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: coolstore-ingress
+  namespace: default
+spec:
+  rules:
+  - host: {{ .Values.hosts.web }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: spa
+          servicePort: 80
+  - host: {{ .Values.hosts.idp }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: idp
+          servicePort: 80
+  - host: {{ .Values.hosts.api }}
+    http:
+      paths:
+      - path: /inventory/
+        backend:
+          serviceName: inventory
+          servicePort: 80
+      - path: /catalog/
+        backend:
+          serviceName: catalog
+          servicePort: 80
+      - path: /rating/
+        backend:
+          serviceName: rating
+          servicePort: 80
+      - path: /cart/
+        backend:
+          serviceName: cart
+          servicePort: 80
+      - path: /review/
+        backend:
+          serviceName: review
+          servicePort: 80
+{{- end -}}

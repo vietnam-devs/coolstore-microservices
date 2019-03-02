@@ -1,0 +1,105 @@
+syntax = "proto3";
+package coolstore;
+option csharp_namespace = "VND.CoolStore.Services.Cart.v1.Grpc";
+
+import "google/api/annotations.proto";
+
+service CartService {
+  rpc GetCart(GetCartRequest) returns (GetCartResponse) {
+    option (google.api.http) = {
+      get: "/cart/api/carts/{cart_id}"
+    };
+  }
+  rpc InsertItemToNewCart(InsertItemToNewCartRequest) returns (InsertItemToNewCartResponse) {
+    option (google.api.http) = {
+      post: "/cart/api/carts"
+      body: "*"
+    };
+  }
+  rpc UpdateItemInCart(UpdateItemInCartRequest) returns (UpdateItemInCartResponse) {
+    option (google.api.http) = {
+      put: "/cart/api/carts"
+      body: "*"
+    };
+  }
+  rpc Checkout(CheckoutRequest) returns (CheckoutResponse) {
+    option (google.api.http) = {
+      put: "/cart/api/carts/{cart_id}/checkout"
+    };
+  }
+  rpc DeleteItem(DeleteItemRequest) returns (DeleteItemResponse) {
+    option (google.api.http) = {
+      delete: "/cart/api/carts/{cart_id}/items/{product_id}"
+    };
+  }
+}
+
+message ProductDto {
+  string id = 1;
+  string name = 2;
+  string desc = 3;
+  double price = 4;
+}
+
+message CartDto {
+  string id = 1;
+  double cart_item_total = 2;
+  double cart_item_promo_savings = 3;
+  double shipping_total = 4;
+  double shipping_promo_savings = 5;
+  double cart_total = 6;
+  bool is_check_out = 7;
+  repeated CartItemDto items = 8;
+}
+
+message CartItemDto {
+  int32 quantity = 1;
+  double price = 2;
+  double promo_savings = 3;
+  string product_id = 4;
+  string product_name = 5;
+}
+
+message GetCartRequest {
+  string cart_id = 1;
+}
+
+message GetCartResponse {
+  CartDto result = 1;
+}
+
+message InsertItemToNewCartRequest {
+  string product_id = 1;
+  int32 quantity = 2;
+}
+
+message InsertItemToNewCartResponse {
+  CartDto result = 1;
+}
+
+message UpdateItemInCartRequest {
+  string cart_id = 1;
+  string product_id = 2;
+  int32 quantity = 3;
+}
+
+message UpdateItemInCartResponse {
+  CartDto result = 1;
+}
+
+message DeleteItemRequest {
+  string cart_id = 1;
+  string product_id = 2;
+}
+
+message DeleteItemResponse {
+  string product_id = 1;
+}
+
+message CheckoutRequest {
+  string cart_id = 1;
+}
+
+message CheckoutResponse {
+  bool is_succeed = 1;
+}

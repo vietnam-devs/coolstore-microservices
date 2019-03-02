@@ -1,0 +1,39 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "generic/ubuntu1810"
+
+  # Disable the new default behavior introduced in Vagrant 1.7, to
+  # ensure that all Vagrant machines will use the same SSH key pair.
+  # See https://github.com/mitchellh/vagrant/issues/5005
+  config.ssh.insert_key = false
+
+  # Turn off shared folders
+  # config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
+
+  config.vm.define "coolstore" do |subconfig|
+    subconfig.vm.provider :hyperv do |hyperv|
+      hyperv.vmname = "coolstore"
+      hyperv.memory = 2048
+      hyperv.cpus = 2
+    end
+
+    subconfig.vm.hostname = "coolstore"
+    subconfig.vm.network "public_network", bridge: "sample_switch"
+
+    $script = <<-SCRIPT
+      cd ~
+      sudo apt-get install software-properties-common
+      sudo apt-add-repository ppa:ansible/ansible
+      sudo apt-get update
+      sudo apt-get dist-upgrade -y
+      sudo apt-get install -y python
+      sudo apt-get install -y ansible
+    SCRIPT
+
+    config.vm.provision "shell", inline: $script
+  end
+
+end

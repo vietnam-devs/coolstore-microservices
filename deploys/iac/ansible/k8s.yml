@@ -1,0 +1,89 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: true
+
+    - name: install APT Transport HTTPS
+      apt:
+        name: apt-transport-https
+        state: present
+
+    - name: add Kubernetes apt-key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: add Kubernetes' APT repository
+      apt_repository:
+        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        filename: 'kubernetes'
+
+    - name: install kubelet
+      apt:
+        name: kubelet
+        state: present
+        update_cache: true
+
+    - name: install kubeadm
+      apt:
+        name: kubeadm
+        state: present
+
+    - name: install kubernetes-cni
+      apt:
+        name: kubernetes-cni
+        state: present
+
+    - name: install kubectl
+      apt:
+        name: kubectl
+        state: present
+       
+    - name: disable swap
+      shell: |
+        swapoff -a
+        rm -f /swapfile
+        vi /etc/fstab
+        swapon --summary
+        cat /proc/swaps
+
+    - name: " start and enable Docker service"
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: initialize the cluster
+      shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
+      args:
+        chdir: $HOME
+        creates: cluster_initialized.txt
+
+    - name: create .kube directory
+      become: yes
+      become_user: root
+      file:
+        path: $HOME/.kube
+        state: directory
+        mode: 0755
+
+    - name: copy admin.conf to user's kube config
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/vagrant/.kube/config
+        remote_src: yes
+        owner: root
+
+    - name: install Pod network
+      shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml >> pod_network_setup.txt
+      args:
+        chdir: $HOME
+        creates: pod_network_setup.txt
+
+    - name: setup single node cluster
+      shell: kubectl taint nodes --all node-role.kubernetes.io/master-

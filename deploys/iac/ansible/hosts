@@ -1,0 +1,8 @@
+[controller]
+coolstore ansible_connection=local
+
+[coolstore]
+coolstore ansible_host=coolstore ansible_user=vagrant
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3

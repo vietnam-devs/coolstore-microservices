@@ -1,0 +1,41 @@
+{
+  "name": "rating-service",
+  "version": "0.1.0",
+  "description": "The rating service for coolstore-microservices project",
+  "author": "Thang Chung",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vietnam-devs/coolstore-microservices.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "cross-env NODE_ENV=development && npm run postinstall && node ./index.js",
+    "postinstall": "tsc index.ts",
+    "lint": "tslint *.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.4.0",
+    "dotenv": "^6.2.0",
+    "google-proto-files": "^0.18.0",
+    "grpc": "^1.18.0",
+    "mongoose": "^5.4.2",
+    "pino": "^5.11.1",
+    "uuid": "^3.3.2",
+    "chalk": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.3.12",
+    "@types/node": "^10.12.21",
+    "@types/pino": "^5.8.4",
+    "@types/uuid": "^3.4.4",
+    "cross-env": "^5.2.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.1"
+  },
+  "engines": {
+    "node": ">= 9.2.0"
+  }
+}

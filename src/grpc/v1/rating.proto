@@ -1,0 +1,71 @@
+syntax = "proto3";
+package coolstore;
+option csharp_namespace = "VND.CoolStore.Services.Rating.v1.Grpc";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service RatingService {
+  rpc GetRatings(google.protobuf.Empty) returns (GetRatingsResponse) {
+    option (google.api.http) = {
+      get: "/rating/api/ratings"
+    };
+  }
+  rpc GetRatingByProductId(GetRatingByProductIdRequest) returns (GetRatingByProductIdResponse) {
+    option (google.api.http) = {
+      get: "/rating/api/ratings/{product_id}"
+    };
+  }
+  rpc CreateRating(CreateRatingRequest) returns (CreateRatingResponse) {
+    option (google.api.http) = {
+      post: "/rating/api/ratings"
+      body: "*"
+    };
+  }
+  rpc UpdateRating(UpdateRatingRequest) returns (UpdateRatingResponse) {
+    option (google.api.http) = {
+      put: "/rating/api/ratings"
+      body: "*"
+    };
+  }
+}
+
+message RatingDto {
+  string id = 1;
+  string product_id = 2;
+  string user_id = 3;
+  double cost = 4;
+}
+
+message GetRatingsResponse {
+  repeated RatingDto ratings = 1;
+}
+
+message GetRatingByProductIdRequest {
+  string product_id = 1;
+}
+
+message GetRatingByProductIdResponse {
+  RatingDto rating = 1;
+}
+
+message CreateRatingRequest {
+  string product_id = 1;
+  string user_id = 2;
+  double cost = 3;
+}
+
+message CreateRatingResponse {
+  RatingDto rating = 1;
+}
+
+message UpdateRatingRequest {
+  string id = 1;
+  string product_id = 2;
+  string user_id = 3;
+  double cost = 4;
+}
+
+message UpdateRatingResponse {
+  RatingDto rating = 1;
+}

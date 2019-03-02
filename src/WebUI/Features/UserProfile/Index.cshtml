@@ -1,0 +1,63 @@
+@using WebUI.Features.UserProfile
+@inherits WebUI.Features.AuthnComponent
+@page "/profile"
+
+<div class="section">
+  <div class="container">
+    <div class="content">
+      <h3>Profile</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <input class="input" type="text" disabled value="@Model.Name">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Id</label>
+      <div class="control">
+        <input class="input" type="text" disabled value="@Model.UserId">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+        <input class="input" type="text" disabled value="@Model.Email">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Website</label>
+      <div class="control">
+        <input class="input" type="text" disabled value="@Model.WebSite">
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <a onclick="@StartSignOut" class="button is-primary">SignOut</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+@functions {
+
+  UserProfileViewModel Model { get; set; } = new UserProfileViewModel();
+
+  protected override async Task OnInitAsync()
+  {
+    await EnsureAuthn();
+
+    Model.Name = AppState.User.Profile.Name;
+    Model.UserId = AppState.User.Profile.UserId;
+    Model.Email = AppState.User.Profile.Email;
+    Model.WebSite = AppState.User.Profile.Website;
+  }
+
+  async Task StartSignOut()
+  {
+    await JsInteropService.StartSignOut(AppState?.User?.AccessToken);
+  }
+
+}

@@ -1,0 +1,12 @@
+[controller]
+master01 ansible_connection=local
+
+[masters]
+master01 ansible_host=master01 ansible_user=vagrant
+
+[workers]
+worker01 ansible_host=worker01 ansible_user=vagrant
+worker02 ansible_host=worker02 ansible_user=vagrant
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
