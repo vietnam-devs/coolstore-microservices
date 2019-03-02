@@ -22,13 +22,14 @@ idpSettings:
   SwaggerRedirectUri: http://api.coolstore.local/swagger/oauth2-redirect.html
   SwaggerPostLogoutRedirectUri: http://api.coolstore.local
   SwaggerAllowedCorsOrigin: http://api.coolstore.local
+  SpaAllowedCorsOrigin: http://coolstore.local
 
 catalogSettings:
   NodeEnv: "production"
   Host: "0.0.0.0"
   Port: 5002
   MongoDb:
-    Host: "mymongodb.coolstore"
+    Host: "mymongodb"
     Port: "27017"
     Name: "catalog"
 
@@ -53,7 +54,7 @@ ratingSettings:
   Host: "0.0.0.0"
   Port: 5007
   MongoDb:
-    Host: "mymongodb.coolstore"
+    Host: "mymongodb"
     Port: "27017"
     Name: "rating"
 

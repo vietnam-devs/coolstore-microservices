@@ -12,8 +12,13 @@ metadata:
 data:
   config: |-
     policy: enabled
-    template: |-
+    template: |-      
       initContainers:
+      - name: copy-proto
+        image: "vndg/docker-volume:latest"
+        volumeMounts:
+        - name: xproto
+          mountPath: "/tmp/"
       - name: istio-init
         image: "docker.io/istio/proxy_init:1.0.6"
         args:
