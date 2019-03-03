@@ -3,10 +3,19 @@ import './landing.css'
 
 const LandingPage = () => (
   <div className="landing">
-    <h1>Coolstore Microservices</h1>
+    <h1>Vietnam Developer Group</h1>
     <p>
-      A containerized polyglot gRPC microservices based on .NET Core, Nodejs,
-      Vuejs and more running on Istio
+      The projects and communities in Vietnam come together to get better things
+      in open-source world.
+    </p>
+    <p>
+      Our group on{' '}
+      <a
+        href="https://www.facebook.com/groups/645391349250568/"
+        target="_blank"
+      >
+        Facebook
+      </a>
     </p>
   </div>
 )

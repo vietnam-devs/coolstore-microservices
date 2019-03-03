@@ -4,15 +4,12 @@ const settings = {
 }
 
 module.exports = {
-  pathPrefix: '/coolstore-microservices.github.io',
   siteMetadata: {
-    title: 'coolstore-microservices',
-    description:
-      'The coolstore-microservices application builds for .NET ecosystem',
-    githubUrl: 'https://github.com/vietnam-devs/coolstore-microservices',
+    title: 'vietnam-devs group',
+    description: 'Vietnam-devs Group Documents',
     githubEditUrl:
       'https://github.com/vietnam-devs/coolstore-microservices/edit/master/docs/site',
-    keywords: 'coolstore, microservices'
+    keywords: 'coolstore, microservices, .net core'
   },
   plugins: [
     {

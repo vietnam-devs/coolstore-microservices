@@ -3,12 +3,21 @@
   url: /
   file: pages/landing.js
 
-- title: Docs
+- title: Coolstore Microservices
   dir: ./docs
   url: docs
   sidemenu:
-    - title: Getting Started
-      dir: getting-started
+    - title: Overview
+      dir: overview
       items:
         - title: Introduction
           file: introduction.md
+    - title: Model Microservices
+      dir: model-microservices
+      items:
+        - title: Domain Analysis
+          file: domain-analysis.md
+        - title: Tactical DDD
+          file: tactical-ddd.md
+        - title: Identify Microservice Boundaries
+          file: identify-microservice-boundaries.md

@@ -13,7 +13,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "gatsby": "1.9.273",
-    "gatsby-link": "^1.6.40",
+    "gatsby-link": "^1.6.46",
     "gatsby-plugin-react-helmet": "^2.0.10",
     "gatsby-remark-autolink-headers": "^1.4.19",
     "gatsby-remark-images": "^1.5.67",
@@ -24,8 +24,6 @@
     "normalize.css": "^8.0.0",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.2",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
     "react-helmet": "^5.2.0"
   },
   "devDependencies": {

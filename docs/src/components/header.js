@@ -10,21 +10,15 @@ const buildLinks = links => {
   ))
 }
 
-const Header = ({ siteTitle, links, githubUrl }) => (
+const Header = ({ siteTitle, links }) => (
   <nav className="header">
-    <ul>
-      {buildLinks(links)}
-      <li key="github-link">
-        <a href={githubUrl} rel="noopener noreferrer" target="_blank">GitHub</a>
-      </li>
-    </ul>
+    <ul>{buildLinks(links)}</ul>
   </nav>
 )
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
-  links: PropTypes.array,
-  githubUrl: PropTypes.string
+  links: PropTypes.array
 }
 
 export default Header

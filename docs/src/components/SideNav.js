@@ -6,7 +6,7 @@ import classnames from 'classnames'
 const createMenuList = (listData, location) => (
   <nav>
     <ul>
-      {listData.map( element => (
+      {listData.map(element => (
         <li key={element.title}>
           {element.file && (
             <Link
@@ -18,10 +18,10 @@ const createMenuList = (listData, location) => (
               {element.title}
             </Link>
           )}
-          {!element.file && (
-            <span>{element.title}</span>
-          )}
-          {element.items && element.items.length > 0 && createMenuList(element.items, location)}
+          {!element.file && <span>{element.title}</span>}
+          {element.items &&
+            element.items.length > 0 &&
+            createMenuList(element.items, location)}
         </li>
       ))}
     </ul>
@@ -29,9 +29,7 @@ const createMenuList = (listData, location) => (
 )
 
 const SideNav = ({ activeItem, location }) => (
-  <div className="nav">
-    {createMenuList(activeItem.sidemenu, location)}
-  </div>
+  <div className="nav">{createMenuList(activeItem.sidemenu, location)}</div>
 )
 
 SideNav.propTypes = {

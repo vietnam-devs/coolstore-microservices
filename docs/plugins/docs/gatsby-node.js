@@ -37,39 +37,39 @@ exports.createPages = ({ graphql, boundActionCreators }, options) => {
         }
       }
     `).then(result => {
-      result.data.docsMenu.pages.forEach(page => {
-        if (page.file && page.file.endsWith('.js')) {
-          createPage({
-            path: page.url,
-            component: path.resolve(
-              path.join(docsSiteDirectory, `${page.file || path.join('/')}`)
-            ),
-            context: {
-              relativePath: page.url
-            }
-          })
-          return
-        }
-
-        if (!page.sidemenu) return
-
-        page.sidemenu.forEach(side => {
-          side.items.forEach(item => {
-            const pagePath = path.join(page.dir, side.dir)
-            const basename = path.basename(item.file, path.extname(item.file))
-            const slug = slugger.slug(basename)
+      resolve(
+        result.data.docsMenu.pages.forEach(page => {
+          if (page.file && page.file.endsWith('.js')) {
             createPage({
-              path: path.join(pagePath, slug),
-              component: path.resolve('./src/templates/docs-page.js'),
+              path: page.url,
+              component: path.resolve(
+                path.join(docsSiteDirectory, `${page.file || path.join('/')}`)
+              ),
               context: {
-                relativePath: path.join(pagePath, item.file)
+                relativePath: page.url
               }
+            })
+            return
+          }
+
+          if (!page.sidemenu) return
+
+          page.sidemenu.forEach(side => {
+            side.items.forEach(item => {
+              const pagePath = path.join(page.dir, side.dir)
+              const basename = path.basename(item.file, path.extname(item.file))
+              const slug = slugger.slug(basename)
+              createPage({
+                path: path.join(pagePath, slug),
+                component: path.resolve('./src/templates/docs-page.js'),
+                context: {
+                  relativePath: path.join(pagePath, item.file)
+                }
+              })
             })
           })
         })
-      })
-
-      resolve()
+      )
     })
   })
 }

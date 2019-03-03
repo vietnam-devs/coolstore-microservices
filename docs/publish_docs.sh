@@ -17,6 +17,6 @@ yarn gatsby build
 
 echo Publishing
 
-gh-pages -d public -b master -r git@github.com:vietnam-devs/coolstore-microservices.github.io.git -m "Documentation update for $1"
+gh-pages -d public -b master -r git@github.com:vietnam-devs/vietnam-devs.github.io.git -m "Documentation update for $1"
 
 fi
