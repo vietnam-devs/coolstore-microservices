@@ -20,9 +20,9 @@ spec:
         - name: Hosts__Local__Host
           value: {{ .Values.inventorySettings.Hosts__Local__Host }}
         - name: Hosts__Local__Port
-          value: {{ .Values.inventorySettings.Hosts__Local__Port }}
+          value: {{ .Values.inventorySettings.Hosts__Local__Port | quote }}
         - name: Features__EfCore__MySqlDb__FQDN
-          value: {{ .Values.inventorySettings.MySqlDb__FQDN }}
+          value: {{ .Values.inventorySettings.Features__EfCore__MySqlDb__FQDN }}
         - name: Features__EfCore__MySqlDb__Password
           valueFrom:
             secretKeyRef:
@@ -41,9 +41,9 @@ spec:
             command: ["/bin/grpc_health_probe", "-addr=:5004"]
         resources:
           requests:
-            memory: "400Mi"
+            memory: "300Mi"
             cpu: "100m"
           limits:
-            memory: "400Mi"
+            memory: "300Mi"
             cpu: "100m"
 ---

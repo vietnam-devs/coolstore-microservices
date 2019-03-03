@@ -20,7 +20,7 @@ spec:
         - name: Hosts__Local__Host
           value: {{ .Values.cartSettings.Hosts__Local__Host }}
         - name: Hosts__Local__Port
-          value: {{ .Values.cartSettings.Hosts__Local__Port }}
+          value: {{ .Values.cartSettings.Hosts__Local__Port | quote }}
         - name: Hosts__Externals__Catalog__Uri
           value: {{ .Values.cartSettings.Hosts__Externals__Catalog__Uri }}
         - name: Features__EfCore__MySqlDb__FQDN
@@ -43,9 +43,9 @@ spec:
             command: ["/bin/grpc_health_probe", "-addr=:5003"]
         resources:
           requests:
-            memory: "400Mi"
+            memory: "300Mi"
             cpu: "100m"
           limits:
-            memory: "400Mi"
+            memory: "300Mi"
             cpu: "100m"
 ---

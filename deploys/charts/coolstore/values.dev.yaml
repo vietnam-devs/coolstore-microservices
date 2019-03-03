@@ -5,3 +5,13 @@ idpSettings:
   SwaggerPostLogoutRedirectUri: http://api.coolstore.local
   SwaggerAllowedCorsOrigin: http://api.coolstore.local
   SpaAllowedCorsOrigin: http://coolstore.local
+
+webSettings:
+  NODE_ENV: development
+  NODE_WEB_ENV: http://coolstore.local/
+  NODE_IDP_ENV: http://id.coolstore.local/
+  NODE_CATALOG_ENV: http://api.coolstore.local/
+  NODE_CART_ENV: http://api.coolstore.local/
+  NODE_INVENTORY_ENV: http://api.coolstore.local/
+  NODE_RATING_ENV: http://api.coolstore.local/
+  NODE_IDP_HOST: id.coolstore.local

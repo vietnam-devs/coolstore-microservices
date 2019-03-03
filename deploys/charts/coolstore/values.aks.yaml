@@ -3,9 +3,6 @@ hosts:
   api: api.coolstore.aks
   idp: id.coolstore.aks
 
-gateway:
-  ip: 10.0.239.39
-
 idpSettings:
   BashPath: /
   Hosts__Externals__CurrentUri: http://id.coolstore.aks/
@@ -26,3 +23,13 @@ inventorySettings:
 reviewSettings:
   Hosts__Externals__CurrentUri: http://api.coolstore.aks/review
   Hosts__Externals__Auth__Uri: http://id.coolstore.aks
+  
+webSettings:
+  NODE_ENV: development
+  NODE_WEB_ENV: http://coolstore.aks/
+  NODE_IDP_ENV: http://id.coolstore.aks/
+  NODE_CATALOG_ENV: http://api.coolstore.aks/
+  NODE_CART_ENV: http://api.coolstore.aks/
+  NODE_INVENTORY_ENV: http://api.coolstore.aks/
+  NODE_RATING_ENV: http://api.coolstore.aks/
+  NODE_IDP_HOST: id.coolstore.aks
