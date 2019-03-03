@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
   mongodb:
     container_name: mongodb
@@ -103,13 +103,13 @@ services:
       - "5007"
     build:
       context: .
-      dockerfile: ./src/services/rating/Dockerfile  
-      
+      dockerfile: ./src/services/rating/Dockerfile
+
   idp-service:
     container_name: idp-service
     image: "vndg/cs-idp-service"
     restart: always
-    environment: 
+    environment:
       - HostSettings__SpaAllowedCorsOrigin=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}
       - HostSettings__BasePath=/
       - Hosts__Externals__CurrentUri=http://${IDENTITY_WEB_PUBLISH_HOST}:${IDENTITY_WEB_PUBLISH_PORT}
@@ -120,13 +120,13 @@ services:
     build:
       context: .
       dockerfile: ./src/services/idp/Dockerfile
-      
+
   web:
-    container_name: cs-spa
+    container_name: spa
     image: "vndg/cs-spa"
     restart: always
-    environment: 
-      - NODE_ENV=development 
+    environment:
+      - NODE_ENV=development
       - NODE_WEB_ENV=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}/
       - NODE_IDP_ENV=http://idp-service/
       - NODE_CATALOG_ENV=http://envoy-proxy/
@@ -141,10 +141,10 @@ services:
     build:
       context: .
       dockerfile: ./src/web/Dockerfile
-      
+
   docker-volume:
     container_name: docker-volume
-    image: "vndg/docker-volume"
+    image: "vndg/cs-docker-volume"
     build:
       context: .
       dockerfile: ./src/services/docker-volume/Dockerfile

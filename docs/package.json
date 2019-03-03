@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "gatsby": "1.9.273",
+    "gatsby": "1.9.279",
     "gatsby-link": "^1.6.46",
     "gatsby-plugin-react-helmet": "^2.0.10",
     "gatsby-remark-autolink-headers": "^1.4.19",
