@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "graphiql@0.13.0",
+      "destination": "wwwroot/"
+    }
+  ]
+}

@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="v1\Grpc\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
