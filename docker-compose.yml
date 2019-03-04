@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   mongodb:
     container_name: mongodb
@@ -8,6 +8,20 @@ services:
       - "27017"
     ports:
       - "27017:27017"
+
+  mysqldb:
+    container_name: mysqldb
+    image: "vndg/cs-mysqldb"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=P@ssw0rd
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    build:
+      context: .
+      dockerfile: ./deploys/dockers/mysqldb/Dockerfile
 
   envoy-proxy:
     container_name: envoy-proxy
@@ -21,9 +35,18 @@ services:
       - "8081:8081"
     build:
       context: .
-      dockerfile: ./src/services/envoy-proxy/Dockerfile
+      dockerfile: ./deploys/dockers/envoy-proxy/Dockerfile
     volumes:
       - shareData:/tmp/envoy/
+
+  docker-volume:
+    container_name: docker-volume
+    image: "vndg/cs-docker-volume"
+    build:
+      context: .
+      dockerfile: ./deploys/dockers/docker-volume/Dockerfile
+    volumes:
+      - shareData:/tmp/
 
   open-api-service:
     container_name: open-api-service
@@ -57,6 +80,8 @@ services:
     container_name: cart-service
     image: "vndg/cs-cart-service"
     restart: always
+    environment:
+      - Features__EfCore__MySqlDb__FQDN=mysqldb:3306
     ports:
       - "5003:5003"
     expose:
@@ -69,6 +94,8 @@ services:
     container_name: inventory-service
     image: "vndg/cs-inventory-service"
     restart: always
+    environment:
+      - Features__EfCore__MySqlDb__FQDN=mysqldb:3306
     ports:
       - "5004:5004"
     expose:
@@ -141,15 +168,6 @@ services:
     build:
       context: .
       dockerfile: ./src/web/Dockerfile
-
-  docker-volume:
-    container_name: docker-volume
-    image: "vndg/cs-docker-volume"
-    build:
-      context: .
-      dockerfile: ./src/services/docker-volume/Dockerfile
-    volumes:
-      - shareData:/tmp/
 
 volumes:
   shareData:
