@@ -27,8 +27,10 @@ static_resources:
                     - name: local_service
                       domains: ["*"]
                       routes:
-                        - match: { prefix: "/v1" }
+                        - match: { prefix: "/oai" }
                           route: { cluster: open_api_service }
+                        - match: { prefix: "/gql" }
+                          route: { cluster: graphql_service }
                         - match:
                             { prefix: "/coolstore.CatalogService/", grpc: {} }
                           route:
@@ -102,6 +104,14 @@ static_resources:
         - socket_address:
             address: open-api-service
             port_value: 5010
+    - name: graphql_service
+      connect_timeout: 0.25s
+      type: logical_dns
+      lb_policy: round_robin
+      hosts:
+        - socket_address:
+            address: graphql-service
+            port_value: 5011
     - name: catalog_grpc_service
       connect_timeout: 0.25s
       type: logical_dns

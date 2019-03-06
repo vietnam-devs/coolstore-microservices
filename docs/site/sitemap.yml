@@ -12,6 +12,13 @@
       items:
         - title: Introduction
           file: introduction.md
+    - title: Development
+      dir: development
+      items:
+        - title: Install and prepare NetCoreKit
+          file: netcorekit.md
+        - title: Running Docker Compose
+          file: docker-compose.md
     - title: Model Microservices
       dir: model-microservices
       items:

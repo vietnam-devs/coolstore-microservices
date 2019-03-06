@@ -31,8 +31,8 @@ services:
       - "80"
       - "8081"
     ports:
-      - "8082:80"
-      - "8081:8081"
+      - "${ENVOY_PUBLISH_PORT}:80"
+      - "${ENVOY_ADMIN_PUBLISH_PORT}:8081"
     build:
       context: .
       dockerfile: ./deploys/dockers/envoy-proxy/Dockerfile
@@ -48,10 +48,26 @@ services:
     volumes:
       - shareData:/tmp/
 
+  graphql-service:
+    container_name: graphql-service
+    image: "vndg/cs-graphql"
+    restart: always
+    environment:
+      - Hosts__BasePath=/gql/
+    ports:
+      - "5011:5011"
+    expose:
+      - "5011"
+    build:
+      context: .
+      dockerfile: ./src/services/graphql/Dockerfile
+
   open-api-service:
     container_name: open-api-service
     image: "vndg/cs-open-api"
     restart: always
+    environment:
+      - BASE_PATH=/oai/
     ports:
       - "5010:5010"
     expose:

@@ -1,0 +1,11 @@
+type Sample {
+  name: String!
+}
+
+type Query {
+  samples(page: Int): [Sample]
+}
+
+schema {
+  query: Query
+}
