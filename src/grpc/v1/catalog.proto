@@ -8,7 +8,7 @@ service CatalogService {
   rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {
     option (google.api.http) = {
       get: "/catalog/api/products/{current_page}/{high_price}"
-    };
+    };  
   }
   rpc GetProductById(GetProductByIdRequest) returns (GetProductByIdResponse) {
     option (google.api.http) = {

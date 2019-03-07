@@ -9,7 +9,8 @@
 html {
   color: #2c3e50;
   /* font: 400 1em/1.4 'Open Sans', sans-serif; */
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-size: 16px;
@@ -19,7 +20,8 @@ html {
 body {
   margin: 0;
   overflow: auto;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-size: 16px;
@@ -136,7 +138,7 @@ a {
 }
 
 .nav li span {
-  padding: .25rem 1rem .25rem 1.5rem;
+  padding: 0.25rem 1rem 0.25rem 1.5rem;
   font-weight: 600;
   display: block;
 }
@@ -147,8 +149,8 @@ a {
 
 .nav ul a {
   color: #2c3e50;
-  padding: .25rem 1rem .25rem 1.25rem;
-  border-left: .25rem solid transparent;
+  padding: 0.25rem 1rem 0.25rem 1.25rem;
+  border-left: 0.25rem solid transparent;
   display: inline-block;
   text-decoration: none;
   line-height: 1.4;
@@ -160,14 +162,16 @@ a {
 
 .nav ul a.active {
   color: #3eaf7c;
-  border-left: .25rem solid #3eaf7c;
+  border-left: 0.25rem solid #3eaf7c;
   text-decoration: none;
 }
 
 @media (min-width: 768px) {
-  html, body, #___gatsby {
+  html,
+  body,
+  #___gatsby {
     height: 100%;
-    overflow-y: hidden;
+    overflow-y: auto;
   }
 
   .page-body {
@@ -176,7 +180,8 @@ a {
   .content {
     overflow-y: auto;
   }
-  .nav, .ads {
+  .nav,
+  .ads {
     order: -1;
   }
 

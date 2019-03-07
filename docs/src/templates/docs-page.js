@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const DocsPage = ({ data }) => {
-  //console.debug(data)
   const page = data.markdownRemark
   const metadata = data.site.siteMetadata
   const editUrl =
