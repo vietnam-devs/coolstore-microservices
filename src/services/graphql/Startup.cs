@@ -13,7 +13,6 @@ using NetCoreKit.Infrastructure.AspNetCore.Configuration;
 using NetCoreKit.Template.Rest.Standard;
 using tanka.graphql.server;
 using VND.CoolStore.Services.GraphQL.v1;
-using VND.CoolStore.Services.GraphQL.v1.Idl;
 using static VND.CoolStore.Services.Cart.v1.Grpc.CartService;
 using static VND.CoolStore.Services.Catalog.v1.Grpc.CatalogService;
 using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;

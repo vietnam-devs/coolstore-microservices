@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using tanka.graphql;
 using tanka.graphql.server.utilities;
-using VND.CoolStore.Services.GraphQL.v1.Idl;
 using static tanka.graphql.Executor;
 using static tanka.graphql.Parser;
 

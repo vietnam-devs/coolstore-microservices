@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="v1\Idl\CoolStore.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="v1\Idl\coolstore.graphql" />
+    <EmbeddedResource Include="v1\coolstore.graphql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,11 +16,11 @@
     <PackageReference Include="GraphQL.Server.Ui.GraphiQL" Version="3.4.0" />
     <PackageReference Include="Google.Api.Gax.Grpc" Version="2.6.0" />
     <PackageReference Include="Grpc" Version="1.19.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.6.1" />
-    <PackageReference Include="tanka.graphql" Version="0.3.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.7.0" />
+    <PackageReference Include="tanka.graphql" Version="0.3.2-beta.17" />
     <PackageReference Include="tanka.graphql.server" Version="0.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.113" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.172" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">

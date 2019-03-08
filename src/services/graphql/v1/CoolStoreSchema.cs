@@ -8,7 +8,7 @@ using tanka.graphql.sdl;
 using tanka.graphql.tools;
 using tanka.graphql.type;
 
-namespace VND.CoolStore.Services.GraphQL.v1.Idl
+namespace VND.CoolStore.Services.GraphQL.v1
 {
     public static class IdlSchema
     {
@@ -24,7 +24,7 @@ namespace VND.CoolStore.Services.GraphQL.v1.Idl
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourceStream =
-                assembly.GetManifestResourceStream("VND.CoolStore.Services.GraphQL.v1.Idl.coolstore.graphql");
+                assembly.GetManifestResourceStream("VND.CoolStore.Services.GraphQL.v1.coolstore.graphql");
 
             using (var reader =
                 new StreamReader(resourceStream ?? throw new InvalidOperationException(), Encoding.UTF8))
@@ -43,8 +43,8 @@ namespace VND.CoolStore.Services.GraphQL.v1.Idl
 
             CoolStore = SchemaTools.MakeExecutableSchemaWithIntrospection(
                 schema,
-                resolvers,
-                resolvers).Result;
+                resolvers
+                ).Result;
         }
 
         public Task<ISchema> FromIdlAsync()

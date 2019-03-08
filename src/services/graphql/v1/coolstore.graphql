@@ -1,0 +1,78 @@
+type Product {
+  id: String!
+  name: String!
+  price: Float!
+  imageUrl: String!
+  desc: String
+}
+
+type Cart {
+  id: String!
+  cartItemTotal: Float!
+  cartItemPromoSavings: Float!
+  shippingTotal: Float!
+  shippingPromoSavings: Float!
+  cartTotal: Float!
+  isCheckOut: Boolean!
+  items: [CartItem]
+}
+
+type CartItem {
+  productId: String!
+  productName: String!
+  quantity: Int!
+  price: Float!
+  promoSavings: Float!
+}
+
+type Inventory {
+  id: String!
+  location: String!
+  quantity: Int!
+  link: String!
+}
+
+type Rating {
+  id: String!
+  productId: String!
+  userId: String!
+  cost: Float!
+}
+
+type Review {
+  id: String!
+  content: String!
+  authorId: String!
+  authorName: String!
+  productId: String!
+  productName: String!
+}
+
+type Query {
+  products(currentPage: Int!, highPrice: Float!): [Product]
+  product(_id: String!): Product
+  carts(_id: String!): Cart
+  availabilities: [Inventory]
+  availability(_id: String!): Inventory
+  ratings: [Rating]
+  rating(productId: String!): Rating
+  reviews(productId: String!): [Review]
+}
+
+type Mutation {
+  createProduct(name: String!, price: Float!, desc: String!, imageUrl: String): Product!
+  insertItemToNewCart(productId: String!, quantity: Int!): Cart!
+  updateItemInCart(cartId: String!, productId: String!, quantity: Int!): Cart!
+  deleteItem(cartId: String!, productId: String!): String!
+  checkout(cartId: String!): Boolean!
+  createRating(productId: String!, userId: String!, cost: Float!): Rating!
+  updateRating(id: String!, productId: String!, userId: String!, cost: Float!): Rating!
+  createReview(productId: String!, userId: String!, content: String!): Review!
+  editReview(id: String!, content: String!): Review!
+  deleteReview(id: String!): String!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
