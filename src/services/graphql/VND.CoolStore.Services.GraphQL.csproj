@@ -17,8 +17,8 @@
     <PackageReference Include="Google.Api.Gax.Grpc" Version="2.6.0" />
     <PackageReference Include="Grpc" Version="1.19.0" />
     <PackageReference Include="Google.Protobuf" Version="3.7.0" />
-    <PackageReference Include="tanka.graphql" Version="0.3.2-beta.17" />
-    <PackageReference Include="tanka.graphql.server" Version="0.3.1" />
+    <PackageReference Include="tanka.graphql" Version="0.3.2" />
+    <PackageReference Include="tanka.graphql.server" Version="0.3.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.172" />
   </ItemGroup>

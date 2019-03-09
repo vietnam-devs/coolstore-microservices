@@ -3,7 +3,7 @@
   url: /
   file: pages/landing.js
 
-- title: Coolstore Microservices
+- title: Coolstore Docs
   dir: ./docs
   url: docs
   sidemenu:
@@ -12,14 +12,7 @@
       items:
         - title: Introduction
           file: introduction.md
-    - title: Development
-      dir: development
-      items:
-        - title: Install and prepare NetCoreKit
-          file: netcorekit.md
-        - title: Running Docker Compose
-          file: docker-compose.md
-    - title: Model Microservices
+    - title: Modeling CoolStore Microservices
       dir: model-microservices
       items:
         - title: Domain Analysis
@@ -28,3 +21,32 @@
           file: tactical-ddd.md
         - title: Identify Microservice Boundaries
           file: identify-microservice-boundaries.md
+    - title: Design CoolStore Microservices
+      dir: design-microservices
+      items:
+        - title: Api Design
+          file: api-design.md
+        - title: Api Gateways
+          file: api-gateways.md
+        - title: Interservice Communication
+          file: interservice-communication.md
+    - title: Development CoolStore Microservices
+      dir: development
+      items:
+        - title: Development .NET Core with NetCoreKit library
+          file: netcorekit.md
+        - title: Local development Installation
+          file: development.md
+        - title: Running Docker Compose
+          file: docker-compose.md
+    - title: Orchestrator and Service Mesh
+      dir: orchestrator-service-mesh
+      items:
+        - title: Kubernetes
+          file: kubernetes.md
+        - title: Service Mesh
+          file: service-mesh.md
+        - title: Logging and Monitoring
+          file: logging-monitoring.md
+        - title: CI/CD
+          file: ci-cd.md
