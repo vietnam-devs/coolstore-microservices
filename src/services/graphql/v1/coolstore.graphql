@@ -6,6 +6,13 @@ type Product {
   desc: String
 }
 
+input CreateProductInput {
+  name: String!
+  price: Float!
+  imageUrl: String!
+  desc: String
+}
+
 type Cart {
   id: String!
   cartItemTotal: Float!
@@ -15,6 +22,26 @@ type Cart {
   cartTotal: Float!
   isCheckOut: Boolean!
   items: [CartItem]
+}
+
+input InsertItemToNewCartInput {
+  productId: String!
+  quantity: Int!
+}
+
+input UpdateItemInCartInput {
+  cartId: String!
+  productId: String!
+  quantity: Int!
+}
+
+input DeleteItemInput {
+  cartId: String!
+  productId: String!
+}
+
+input CheckoutInput {
+  cartId: String!
 }
 
 type CartItem {
@@ -39,6 +66,19 @@ type Rating {
   cost: Float!
 }
 
+input CreateRatingInput {
+  productId: String!
+  userId: String!
+  cost: Float!
+}
+
+input UpdateRatingInput {
+  id: String!
+  productId: String!
+  userId: String!
+  cost: Float!
+}
+
 type Review {
   id: String!
   content: String!
@@ -46,6 +86,21 @@ type Review {
   authorName: String!
   productId: String!
   productName: String!
+}
+
+input CreateReviewInput {
+  productId: String!
+  userId: String!
+  content: String!
+}
+
+input EditReviewInput {
+  reviewId: String!
+  content: String!
+}
+
+input DeleteReviewInput {
+  reviewId: String!
 }
 
 type Query {
@@ -60,16 +115,16 @@ type Query {
 }
 
 type Mutation {
-  createProduct(name: String!, price: Float!, desc: String!, imageUrl: String): Product!
-  insertItemToNewCart(productId: String!, quantity: Int!): Cart!
-  updateItemInCart(cartId: String!, productId: String!, quantity: Int!): Cart!
-  deleteItem(cartId: String!, productId: String!): String!
-  checkout(cartId: String!): Boolean!
-  createRating(productId: String!, userId: String!, cost: Float!): Rating!
-  updateRating(id: String!, productId: String!, userId: String!, cost: Float!): Rating!
-  createReview(productId: String!, userId: String!, content: String!): Review!
-  editReview(id: String!, content: String!): Review!
-  deleteReview(id: String!): String!
+  createProduct(input: CreateProductInput!): Product!
+  insertItemToNewCart(input: InsertItemToNewCartInput!): Cart!
+  updateItemInCart(input: UpdateItemInCartInput!): Cart!
+  deleteItem(input: DeleteItemInput!): String!
+  checkout(input: CheckoutInput!): Boolean!
+  createRating(input: CreateRatingInput!): Rating!
+  updateRating(input: UpdateRatingInput!): Rating!
+  createReview(input: CreateReviewInput!): Review!
+  editReview(input: EditReviewInput!): Review!
+  deleteReview(input: DeleteReviewInput!): String!
 }
 
 schema {
