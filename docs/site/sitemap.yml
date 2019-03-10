@@ -39,6 +39,8 @@
           file: development.md
         - title: Running Docker Compose
           file: docker-compose.md
+        - title: Client Apps Development
+          file: client-apps-development.md
     - title: Orchestrator and Service Mesh
       dir: orchestrator-service-mesh
       items:

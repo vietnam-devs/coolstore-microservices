@@ -23,7 +23,7 @@ type State = {
   open: boolean
 }
 
-class Index extends React.Component<WithStyles<typeof styles>, State> {
+class Home extends React.Component<WithStyles<typeof styles>, State> {
   state = {
     open: false
   }
@@ -68,4 +68,4 @@ class Index extends React.Component<WithStyles<typeof styles>, State> {
   }
 }
 
-export default withRoot(withStyles(styles)(Index))
+export default withRoot(withStyles(styles)(Home))

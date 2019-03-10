@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router'
-import './App.css'
+
 import Layout from './components/Layout'
-import Index from './pages/index'
-import Another from './pages/Another'
+import Home from './routes/Home'
+import ProductList from './routes/ProductList'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <Layout>
-          <Route path="/" exact component={Index} />
-          <Route path="/another" component={Another} />
+          <Route path="/" exact component={Home} />
+          <Route path="/products" component={ProductList} />
         </Layout>
       </div>
     )

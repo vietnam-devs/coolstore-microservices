@@ -4,7 +4,7 @@ import { onError } from 'apollo-link-error'
 import { ApolloLink } from 'apollo-link'
 import { TankaLink, TankaClient } from '@tanka/tanka-graphql-server-link'
 
-const serverClient = new TankaClient('/api/graphql')
+const serverClient = new TankaClient(`${process.env.REACT_APP_GRAPHQL_ENDPOINT}/graphql`)
 const serverLink = new TankaLink(serverClient)
 
 const client = new ApolloClient({

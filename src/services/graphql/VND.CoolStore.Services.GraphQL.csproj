@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="v1\coolstore.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="GraphQL.Server.Ui.Playground" Version="3.4.0" />
     <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="3.4.0" />
     <PackageReference Include="GraphQL.Server.Ui.GraphiQL" Version="3.4.0" />
@@ -46,6 +42,10 @@
   <ItemGroup>
     <Folder Include="v1\Grpc\" />
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\graphql\coolstore.graphql" Link="v1\coolstore.graphql" />
   </ItemGroup>
 
 </Project>

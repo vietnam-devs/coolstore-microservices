@@ -5,7 +5,6 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import Drawer from '@material-ui/core/Drawer'
 import AppBar from '@material-ui/core/AppBar'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -39,7 +38,6 @@ class Layout extends React.Component<WithStyles<typeof styles>> {
   render() {
     return (
       <div className={this.props.classes.root}>
-        <CssBaseline />
         <AppBar position="fixed" className={this.props.classes.appBar}>
           <Toolbar>
             <Typography variant="h6" color="inherit" noWrap>
@@ -60,7 +58,7 @@ class Layout extends React.Component<WithStyles<typeof styles>> {
               <Link to="/">Home</Link>
             </ListItem>
             <ListItem button key={'another'}>
-              <Link to="/another">Another</Link>
+              <Link to="/products">Products</Link>
             </ListItem>
           </List>
         </Drawer>

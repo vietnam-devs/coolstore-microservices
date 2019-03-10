@@ -43,8 +43,8 @@ namespace VND.CoolStore.Services.GraphQL.v1
 
             CoolStore = SchemaTools.MakeExecutableSchemaWithIntrospection(
                 schema,
-                resolvers
-                ).Result;
+                resolvers,
+                resolvers).Result;
         }
 
         public Task<ISchema> FromIdlAsync()

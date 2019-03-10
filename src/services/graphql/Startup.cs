@@ -66,20 +66,19 @@ namespace VND.CoolStore.Services.GraphQL
                 services.AddSingleton<CoolStoreSchema>();
                 services.AddSingleton(provider => provider.GetRequiredService<CoolStoreSchema>().CoolStore);
 
-                services.AddSignalR(options => options.EnableDetailedErrors = true)
-                    .AddQueryStreamHubWithTracing();
-
                 services.AddCors(options =>
                 {
-                    options.AddDefaultPolicy(policy =>
-                    {
-                        policy.WithOrigins("*");
-                        policy.AllowAnyHeader();
-                        policy.AllowAnyMethod();
-                        policy.AllowCredentials();
-                        policy.WithHeaders("X-Requested-With", "authorization");
-                    });
+                    options.AddPolicy("CorsPolicy",
+                        policy => policy
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            /* https://github.com/aspnet/AspNetCore/issues/4457 */
+                            .SetIsOriginAllowed(host => true) 
+                            .AllowCredentials());
                 });
+
+                services.AddSignalR(options => options.EnableDetailedErrors = true)
+                    .AddQueryStreamHubWithTracing();
 
                 services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             });
@@ -94,7 +93,7 @@ namespace VND.CoolStore.Services.GraphQL
                 basePath = basePath.Substring(0, basePath.Length - 1);
             }
 
-            app.UseCors();
+            app.UseCors("CorsPolicy");
             app.UseStaticFiles();
             app.UseWebSockets();
 
