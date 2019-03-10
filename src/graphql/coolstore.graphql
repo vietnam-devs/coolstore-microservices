@@ -6,6 +6,15 @@ type Product {
   desc: String
 }
 
+input GetProductsInput {
+  currentPage: Int!
+  highPrice: Float!
+}
+
+input GetProductByIdInput {
+  productId: String!
+}
+
 input CreateProductInput {
   name: String!
   price: Float!
@@ -22,6 +31,10 @@ type Cart {
   cartTotal: Float!
   isCheckOut: Boolean!
   items: [CartItem]
+}
+
+input GetCartInput {
+  cartId: String!
 }
 
 input InsertItemToNewCartInput {
@@ -59,11 +72,19 @@ type Inventory {
   link: String!
 }
 
+input GetInventoryInput {
+  id: String!
+}
+
 type Rating {
   id: String!
   productId: String!
   userId: String!
   cost: Float!
+}
+
+input GetRatingByProductIdInput {
+  productId: String!
 }
 
 input CreateRatingInput {
@@ -88,6 +109,10 @@ type Review {
   productName: String!
 }
 
+input GetReviewsInput {
+  productId: String!
+}
+
 input CreateReviewInput {
   productId: String!
   userId: String!
@@ -104,14 +129,14 @@ input DeleteReviewInput {
 }
 
 type Query {
-  products(currentPage: Int!, highPrice: Float!): [Product]
-  product(_id: String!): Product
-  carts(_id: String!): Cart
+  products(input: GetProductsInput!): [Product]
+  product(input: GetProductByIdInput!): Product
+  carts(input: GetCartInput!): Cart
   availabilities: [Inventory]
-  availability(_id: String!): Inventory
+  availability(input: GetInventoryInput!): Inventory
   ratings: [Rating]
-  rating(productId: String!): Rating
-  reviews(productId: String!): [Review]
+  rating(input: GetRatingByProductIdInput!): Rating
+  reviews(input: GetReviewsInput!): [Review]
 }
 
 type Mutation {

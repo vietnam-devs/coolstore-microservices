@@ -1,6 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Google.Protobuf.WellKnownTypes;
 using tanka.graphql;
 using tanka.graphql.resolvers;
 using VND.CoolStore.Services.Cart.v1.Grpc;
@@ -9,6 +8,11 @@ using VND.CoolStore.Services.Inventory.v1.Grpc;
 using VND.CoolStore.Services.Rating.v1.Grpc;
 using VND.CoolStore.Services.Review.v1.Grpc;
 using static tanka.graphql.resolvers.Resolve;
+using static VND.CoolStore.Services.Cart.v1.Grpc.CartService;
+using static VND.CoolStore.Services.Catalog.v1.Grpc.CatalogService;
+using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
+using static VND.CoolStore.Services.Rating.v1.Grpc.RatingService;
+using static VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
 
 namespace VND.CoolStore.Services.GraphQL.v1
 {
@@ -86,16 +90,16 @@ namespace VND.CoolStore.Services.GraphQL.v1
 
             this["Mutation"] = new FieldResolverMap
             {
-                {"createProduct",  resolverService.CreateProductAsync},
-                {"insertItemToNewCart",  resolverService.InsertItemToNewCartAsync},
-                {"updateItemInCart",  resolverService.UpdateItemInCartAsync},
-                {"deleteItem",  resolverService.DeleteItemAsync},
-                {"checkout",  resolverService.CheckoutAsync},
-                {"createRating",  resolverService.CreateRatingAsync},
-                {"updateRating",  resolverService.UpdateRatingAsync},
-                {"createReview",  resolverService.CreateReviewAsync},
-                {"editReview",  resolverService.EditReviewAsync},
-                {"deleteReview",  resolverService.DeleteReviewAsync}
+                {"createProduct", resolverService.CreateProductAsync},
+                {"insertItemToNewCart", resolverService.InsertItemToNewCartAsync},
+                {"updateItemInCart", resolverService.UpdateItemInCartAsync},
+                {"deleteItem", resolverService.DeleteItemAsync},
+                {"checkout", resolverService.CheckoutAsync},
+                {"createRating", resolverService.CreateRatingAsync},
+                {"updateRating", resolverService.UpdateRatingAsync},
+                {"createReview", resolverService.CreateReviewAsync},
+                {"editReview", resolverService.EditReviewAsync},
+                {"deleteReview", resolverService.DeleteReviewAsync}
             };
         }
     }
@@ -124,138 +128,148 @@ namespace VND.CoolStore.Services.GraphQL.v1
 
     public class CoolStoreResolverService : ICoolStoreResolverService
     {
+        private readonly CatalogServiceClient _catalogServiceClient;
+        private readonly CartServiceClient _cartServiceClient;
+        private readonly InventoryServiceClient _inventoryServiceClient;
+        private readonly RatingServiceClient _ratingServiceClient;
+        private readonly ReviewServiceClient _reviewServiceClient;
+
+        public CoolStoreResolverService(
+            CatalogServiceClient catalogServiceClient,
+            CartServiceClient cartServiceClient,
+            InventoryServiceClient inventoryServiceClient,
+            RatingServiceClient ratingServiceClient,
+            ReviewServiceClient reviewServiceClient)
+        {
+            _catalogServiceClient = catalogServiceClient;
+            _cartServiceClient = cartServiceClient;
+            _inventoryServiceClient = inventoryServiceClient;
+            _ratingServiceClient = ratingServiceClient;
+            _reviewServiceClient = reviewServiceClient;
+        }
+
         public async ValueTask<IResolveResult> GetProductsAsync(ResolverContext context)
         {
-            var currentPage = context.Arguments["currentPage"] ?? 1;
-            var highPrice = context.Arguments["highPrice"] ?? 100;
-            return await new ValueTask<IResolveResult>(
-                As(new List<CatalogProductDto>
-                    {new CatalogProductDto {Name = $"sample at currentPage={currentPage} and highPrice={highPrice}"}}));
+            var input = context.GetArgument<GetProductsRequest>("input");
+            var results = await _catalogServiceClient.GetProductsAsync(input);
+            return As(results.Products);
         }
 
         public async ValueTask<IResolveResult> GetProductAsync(ResolverContext context)
         {
-            var id = context.Arguments["_id"] ?? Guid.NewGuid();
-            return await new ValueTask<IResolveResult>(As(new CatalogProductDto
-                {Name = $"{id}"}));
+            var input = context.GetArgument<GetProductByIdRequest>("input");
+            var result = await _catalogServiceClient.GetProductByIdAsync(input);
+            return As(result.Product);
         }
 
         public async ValueTask<IResolveResult> CreateProductAsync(ResolverContext context)
         {
-            var input  = context.GetArgument<CreateProductRequest>("input");
-
-            var product = new CatalogProductDto
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = input.Name,
-                Price = input.Price,
-                Desc = input.Desc,
-                ImageUrl = input.ImageUrl
-            };
-            return await Task.FromResult(As(product));
+            var input = context.GetArgument<CreateProductRequest>("input");
+            var result = await _catalogServiceClient.CreateProductAsync(input);
+            return As(result.Product);
         }
 
         public async ValueTask<IResolveResult> InsertItemToNewCartAsync(ResolverContext context)
         {
             var input = context.GetArgument<InsertItemToNewCartRequest>("input");
-
-            return await Task.FromResult(As(new CartDto()));
+            var result = await _cartServiceClient.InsertItemToNewCartAsync(input);
+            return As(result.Result);
         }
 
         public async ValueTask<IResolveResult> UpdateItemInCartAsync(ResolverContext context)
         {
             var input = context.GetArgument<UpdateItemInCartRequest>("input");
-
-            return await Task.FromResult(As(new CartDto()));
+            var result = await _cartServiceClient.UpdateItemInCartAsync(input);
+            return As(result.Result);
         }
 
         public async ValueTask<IResolveResult> DeleteItemAsync(ResolverContext context)
         {
             var input = context.GetArgument<DeleteItemRequest>("input");
-
-            return await Task.FromResult(As(input.CartId));
+            var result = await _cartServiceClient.DeleteItemAsync(input);
+            return As(result.ProductId);
         }
 
         public async ValueTask<IResolveResult> CheckoutAsync(ResolverContext context)
         {
             var input = context.GetArgument<CheckoutRequest>("input");
-
-            return await Task.FromResult(As(true));
+            var result = await _cartServiceClient.CheckoutAsync(input);
+            return As(result.IsSucceed);
         }
 
         public async ValueTask<IResolveResult> GetCartAsync(ResolverContext context)
         {
-            var id = context.Arguments["_id"] ?? Guid.NewGuid();
-            return await new ValueTask<IResolveResult>(As(new CartDto {Id = $"{id}"}));
+            var input = context.GetArgument<GetCartRequest>("input");
+            var result = await _cartServiceClient.GetCartAsync(input);
+            return As(result.Result);
         }
 
         public async ValueTask<IResolveResult> GetAvailabilitiesAsync(ResolverContext context)
         {
-            return await new ValueTask<IResolveResult>(
-                As(new List<InventoryDto>
-                    {new InventoryDto {Id = $"{Guid.NewGuid()}"}}));
+            var result = await _inventoryServiceClient.GetInventoriesAsync(new Empty());
+            return As(result.Inventories);
         }
 
         public async ValueTask<IResolveResult> GetAvailabilityAsync(ResolverContext context)
         {
-            var id = context.Arguments["_id"] ?? Guid.NewGuid();
-            return await new ValueTask<IResolveResult>(As(new InventoryDto {Id = $"{id}"}));
+            var input = context.GetArgument<GetInventoryRequest>("input");
+            var result = await _inventoryServiceClient.GetInventoryAsync(input);
+            return As(result.Result);
         }
 
         public async ValueTask<IResolveResult> GetRatingsAsync(ResolverContext context)
         {
-            return await new ValueTask<IResolveResult>(
-                As(new List<RatingDto>
-                    {new RatingDto {Id = $"{Guid.NewGuid()}"}}));
+            var result = await _ratingServiceClient.GetRatingsAsync(new Empty());
+            return As(result.Ratings);
         }
 
         public async ValueTask<IResolveResult> GetRatingAsync(ResolverContext context)
         {
-            var productId = context.Arguments["productId"] ?? Guid.NewGuid();
-            return await new ValueTask<IResolveResult>(As(new InventoryDto { Id = $"{productId}" }));
+            var input = context.GetArgument<GetRatingByProductIdRequest>("input");
+            var result = await _ratingServiceClient.GetRatingByProductIdAsync(input);
+            return As(result.Rating);
         }
 
         public async ValueTask<IResolveResult> CreateRatingAsync(ResolverContext context)
         {
             var input = context.GetArgument<CreateRatingRequest>("input");
-
-            return await Task.FromResult(As(new RatingDto()));
+            var result = await _ratingServiceClient.CreateRatingAsync(input);
+            return As(result.Rating);
         }
 
         public async ValueTask<IResolveResult> UpdateRatingAsync(ResolverContext context)
         {
             var input = context.GetArgument<UpdateRatingRequest>("input");
-
-            return await Task.FromResult(As(new RatingDto()));
+            var result = await _ratingServiceClient.UpdateRatingAsync(input);
+            return As(result.Rating);
         }
 
         public async ValueTask<IResolveResult> GetReviewsAsync(ResolverContext context)
         {
-            var productId = context.Arguments["productId"] ?? Guid.NewGuid();
-            return await new ValueTask<IResolveResult>(
-                As(new List<RatingDto>
-                    {new RatingDto {Id = $"{productId}"}}));
+            var input = context.GetArgument<GetReviewsRequest>("input");
+            var result = await _reviewServiceClient.GetReviewsAsync(input);
+            return As(result.Reviews);
         }
 
         public async ValueTask<IResolveResult> CreateReviewAsync(ResolverContext context)
         {
             var input = context.GetArgument<CreateReviewRequest>("input");
-
-            return await Task.FromResult(As(new ReviewDto()));
+            var result = await _reviewServiceClient.CreateReviewAsync(input);
+            return As(result.Result);
         }
 
         public async ValueTask<IResolveResult> EditReviewAsync(ResolverContext context)
         {
             var input = context.GetArgument<EditReviewRequest>("input");
-
-            return await Task.FromResult(As(new ReviewDto()));
+            var result = await _reviewServiceClient.EditReviewAsync(input);
+            return As(result.Result);
         }
 
         public async ValueTask<IResolveResult> DeleteReviewAsync(ResolverContext context)
         {
             var input = context.GetArgument<DeleteReviewRequest>("input");
-
-            return await Task.FromResult(As(input.ReviewId));
+            var result = await _reviewServiceClient.DeleteReviewAsync(input);
+            return As(result.Id);
         }
     }
 }
