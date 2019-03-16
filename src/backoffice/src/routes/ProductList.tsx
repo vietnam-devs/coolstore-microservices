@@ -17,7 +17,6 @@ const ProductList = () => {
       {({ loading, error, data }) => {
         if (loading) return 'Loading..'
         if (error) return `Error: ${error}`
-        console.log(data)
         return (
           <div>
             <h3>Product List</h3>

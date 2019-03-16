@@ -137,6 +137,43 @@ namespace IdentityServer4
                     "openid",
                     "profile"
                 }
+            },
+            new Client // graphql
+            {
+                ClientId = "graphql",
+                ClientName = "graphql client",
+                AllowedGrantTypes = GrantTypes.Code,
+                ClientSecrets = new List<Secret> {new Secret("secret".Sha256())},
+                AccessTokenLifetime = 3600,
+
+                RedirectUris =
+                {
+                    "https://www.getpostman.com/oauth2/callback",
+                    "http://localhost:5011"
+                },
+
+                PostLogoutRedirectUris =
+                {
+                    "https://www.getpostman.com/oauth2/callback/",
+                    "http://localhost:5011"
+                },
+                AllowedCorsOrigins =
+                {
+                    "https://www.getpostman.com",
+                    "http://localhost:5011"
+                },
+
+                AllowedScopes =
+                {
+                    "inventory_api_scope",
+                    "cart_api_scope",
+                    "pricing_api_scope",
+                    "review_api_scope",
+                    "catalog_api_scope",
+                    "rating_api_scope",
+                    "openid",
+                    "profile"
+                }
             }
         };
 

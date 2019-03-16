@@ -128,9 +128,11 @@ input DeleteReviewInput {
   reviewId: String!
 }
 
+directive @authorize on FIELD_DEFINITION
+
 type Query {
-  products(input: GetProductsInput!): [Product]
-  product(input: GetProductByIdInput!): Product
+  products(input: GetProductsInput!): [Product] @authorize
+  product(input: GetProductByIdInput!): Product @authorize
   carts(input: GetCartInput!): Cart
   availabilities: [Inventory]
   availability(input: GetInventoryInput!): Inventory

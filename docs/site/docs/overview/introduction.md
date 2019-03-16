@@ -25,3 +25,9 @@ We have the [Vietnam Microservices Community Group](https://www.facebook.com/gro
 - **[helm](https://github.com/helm/helm):** The best package manager to find, share, and use software built for Kubernetes
 - **[Envoy Proxy](https://github.com/envoyproxy/envoy):** Cloud-native high-performance edge/middle/service proxy
 - **[NetCoreKit](https://github.com/cloudnative-netcore/netcore-kit):** Set of Cloud-native tools and utilities for .NET Core
+
+## Microservice Design Patterns
+
+![](https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/ba865aef-4e7f-4b97-a94b-517aacf8d29a.png)
+
+Reference more at https://azure.microsoft.com/en-us/blog/design-patterns-for-microservices

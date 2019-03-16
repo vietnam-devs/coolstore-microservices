@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using tanka.graphql;
+using tanka.graphql.resolvers;
 using tanka.graphql.sdl;
 using tanka.graphql.tools;
 using tanka.graphql.type;
@@ -16,7 +19,6 @@ namespace VND.CoolStore.Services.GraphQL.v1
         {
             var idl = await LoadIdlFromResourcesAsync();
             var schema = Sdl.Schema(Parser.ParseDocument(idl));
-
             return schema;
         }
 
@@ -36,22 +38,42 @@ namespace VND.CoolStore.Services.GraphQL.v1
 
     public class CoolStoreSchema
     {
-        public CoolStoreSchema(ICoolStoreResolverService resolverService)
+        private static IHttpContextAccessor _httpContext;
+
+        public CoolStoreSchema(IHttpContextAccessor httpContext, ICoolStoreResolverService resolverService)
         {
-            var schema = FromIdlAsync().Result;
+            _httpContext = httpContext;
+            var schema = IdlSchema.CreateAsync().Result;
+            var schemaBuilder = new SchemaBuilder(schema);
             var resolvers = new CoolStoreResolvers(resolverService);
 
             CoolStore = SchemaTools.MakeExecutableSchemaWithIntrospection(
-                schema,
+                schemaBuilder,
                 resolvers,
-                resolvers).Result;
-        }
-
-        public Task<ISchema> FromIdlAsync()
-        {
-            return IdlSchema.CreateAsync();
+                resolvers, new Dictionary<string, CreateDirectiveVisitor>
+                {
+                    ["authorize"] = AuthorizeVisitor()
+                });
         }
 
         public ISchema CoolStore { get; set; }
+
+        public static CreateDirectiveVisitor AuthorizeVisitor()
+        {
+            return builder => new DirectiveVisitor
+            {
+                FieldDefinition = (directive, fieldDefinition) =>
+                {
+                    return fieldDefinition.WithResolver(resolver => resolver.Use((context, next) =>
+                    {
+                        var user = _httpContext.HttpContext.User;
+                        if(!user.Identity.IsAuthenticated)
+                            return new ValueTask<IResolveResult>(Resolve.As("Require login."));
+
+                        return next(context);
+                    }).Run(fieldDefinition.Resolver));
+                }
+            };
+        }
     }
 }
