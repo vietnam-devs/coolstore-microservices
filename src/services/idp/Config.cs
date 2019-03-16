@@ -174,6 +174,41 @@ namespace IdentityServer4
                     "openid",
                     "profile"
                 }
+            },
+            new Client // backoffice
+            {
+                ClientId = "backoffice",
+                ClientName = "backoffice Client",
+                ClientUri = "http://localhost:3000",
+                AllowedGrantTypes = GrantTypes.Implicit,
+                AllowAccessTokensViaBrowser = true,
+
+                RedirectUris =
+                {
+                    "http://localhost:3000/signin-callback.html",
+                    "http://localhost:3000/silent-renew.html"
+                },
+
+                PostLogoutRedirectUris =
+                {
+                    "http://localhost:3000"
+                },
+                AllowedCorsOrigins =
+                {
+                    "http://localhost:3000"
+                },
+
+                AllowedScopes =
+                {
+                    "inventory_api_scope",
+                    "cart_api_scope",
+                    "pricing_api_scope",
+                    "review_api_scope",
+                    "catalog_api_scope",
+                    "rating_api_scope",
+                    "openid",
+                    "profile"
+                }
             }
         };
 

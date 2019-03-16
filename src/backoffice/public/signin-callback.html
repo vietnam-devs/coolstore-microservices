@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Authentification callback processing..</title>
+  </head>
+
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+
+    <h1>Authentification callback processing...</h1>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.7.0/oidc-client.js"></script>
+    <script>
+      var mgr = new Oidc.UserManager()
+      mgr.signinRedirectCallback().then(
+        function() {
+          window.history.replaceState({}, window.document.title, window.location.origin)
+          window.location = '/'
+        },
+        function(error) {
+          console.error(error)
+        }
+      )
+    </script>
+  </body>
+</html>

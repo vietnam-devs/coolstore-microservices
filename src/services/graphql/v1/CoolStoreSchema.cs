@@ -67,10 +67,11 @@ namespace VND.CoolStore.Services.GraphQL.v1
                     return fieldDefinition.WithResolver(resolver => resolver.Use((context, next) =>
                     {
                         var user = _httpContext.HttpContext.User;
-                        if(!user.Identity.IsAuthenticated)
-                            return new ValueTask<IResolveResult>(Resolve.As("Require login."));
 
-                        return next(context);
+                        return !user.Identity.IsAuthenticated
+                            ? new ValueTask<IResolveResult>(Resolve.As("Require login."))
+                            : next(context);
+
                     }).Run(fieldDefinition.Resolver));
                 }
             };

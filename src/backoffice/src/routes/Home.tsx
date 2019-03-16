@@ -10,6 +10,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import createStyles from '@material-ui/core/styles/createStyles'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
 import withRoot from '../withRoot'
+import { AuthService } from '../services/AuthService'
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -24,6 +25,12 @@ type State = {
 }
 
 class Home extends React.Component<WithStyles<typeof styles>, State> {
+  public authService: AuthService
+  constructor(props: WithStyles<typeof styles>) {
+    super(props)
+    this.authService = new AuthService()
+  }
+
   state = {
     open: false
   }
@@ -38,6 +45,14 @@ class Home extends React.Component<WithStyles<typeof styles>, State> {
     this.setState({
       open: true
     })
+  }
+
+  public loginClick = async () => {
+    await this.authService.login()
+  }
+
+  public logoutClick = async () => {
+    await this.authService.logout()
   }
 
   render() {
@@ -62,6 +77,12 @@ class Home extends React.Component<WithStyles<typeof styles>, State> {
         </Typography>
         <Button variant="contained" color="secondary" onClick={this.handleClick}>
           Super Secret Password
+        </Button>
+        <Button variant="contained" color="primary" onClick={this.loginClick}>
+          Login
+        </Button>
+        <Button variant="contained" color="default" onClick={this.logoutClick}>
+          Logout
         </Button>
       </div>
     )

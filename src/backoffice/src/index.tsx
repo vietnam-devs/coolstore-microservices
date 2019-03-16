@@ -9,18 +9,20 @@ import client from './client'
 
 import * as serviceWorker from './serviceWorker'
 
-const rootElement = document.getElementById('root')
+client().then(c => {
+  const rootElement = document.getElementById('root')
 
-ReactDOM.render(
-  <ApolloProvider client={client}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ApolloProvider>,
-  rootElement
-)
+  ReactDOM.render(
+    <ApolloProvider client={c}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ApolloProvider>,
+    rootElement
+  )
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister()
+  // If you want your app to work offline and load faster, you can change
+  // unregister() to register() below. Note this comes with some pitfalls.
+  // Learn more about service workers: http://bit.ly/CRA-PWA
+  serviceWorker.unregister()
+})

@@ -13,7 +13,10 @@ const GET_PRODUCTS = gql`
 
 const ProductList = () => {
   return (
-    <Query query={GET_PRODUCTS} variables={{ message: { currentPage: 1, highPrice: 999 } }}>
+    <Query
+      query={GET_PRODUCTS}
+      variables={{ message: { currentPage: 1, highPrice: 999 } }} /*fetchPolicy="network-only"*/
+    >
       {({ loading, error, data }) => {
         if (loading) return 'Loading..'
         if (error) return `Error: ${error}`

@@ -44,6 +44,19 @@ namespace VND.CoolStore.Services.GraphQL
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    policy => policy
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins("http://localhost:3000", "http://localhost:5011")
+                        .AllowCredentials()
+                        /* https://github.com/aspnet/AspNetCore/issues/4457 */
+                        .SetIsOriginAllowed(host => true)
+                );
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var cartChannel = new Channel(Configuration["RpcClients:CartService"], ChannelCredentials.Insecure);
@@ -84,7 +97,6 @@ namespace VND.CoolStore.Services.GraphQL
                 })
                 .AddJwtBearer(options =>
                 {
-                    // Configure JWT Bearer Auth to expect our security key
                     options.TokenValidationParameters =
                         new TokenValidationParameters
                         {
@@ -102,13 +114,19 @@ namespace VND.CoolStore.Services.GraphQL
 
                     options.Events = new JwtBearerEvents
                     {
+                        OnTokenValidated = context =>
+                        {
+                            // this will help us to authentication inside schema authorized
+                            context.HttpContext.User = context.Principal;
+                            return Task.CompletedTask;
+                        },
                         OnMessageReceived = context =>
                         {
-                            var accessToken = context.Request.Query["access_token"];
+                            var accessToken = context.Request.Query["access_token"].ToString();
 
                             var path = context.HttpContext.Request.Path;
                             if (!string.IsNullOrEmpty(accessToken) &&
-                                (path.StartsWithSegments("graphql")))
+                                (path.StartsWithSegments("/graphql")))
                             {
                                 context.Token = accessToken;
                             }
@@ -117,19 +135,6 @@ namespace VND.CoolStore.Services.GraphQL
                         }
                     };
                 });
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    policy => policy
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowAnyOrigin()
-                        .AllowCredentials()
-                        /* https://github.com/aspnet/AspNetCore/issues/4457 */
-                        .SetIsOriginAllowed(host => true)
-                );
-            });
 
             services.AddSignalR(options => options.EnableDetailedErrors = true)
                 .AddQueryStreamHubWithTracing();
@@ -178,7 +183,7 @@ namespace VND.CoolStore.Services.GraphQL
             {
                 builder.MapGet(basePath, context =>
                 {
-                    context.Response.Redirect($"{basePath}/playground");
+                    context.Response.Redirect($"{basePath}/voyager");
                     return Task.CompletedTask;
                 });
             });
