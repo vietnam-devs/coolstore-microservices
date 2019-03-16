@@ -17,30 +17,6 @@
     <PackageReference Include="tanka.graphql.server" Version="0.3.3-beta.17" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.172" />
-    <PackageReference Include="IdentityModel" Version="3.10.3" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.3.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.3.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Logging" Version="5.3.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Utils\NetCoreKit.Utils.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Domain\NetCoreKit.Domain.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure\NetCoreKit.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore.OpenApi\NetCoreKit.Infrastructure.AspNetCore.OpenApi.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.AspNetCore\NetCoreKit.Infrastructure.AspNetCore.csproj" />
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.Bus\NetCoreKit.Infrastructure.Bus.csproj" />
-    <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.Rest.Standard\NetCoreKit.Template.Rest.Standard.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="NetCoreKit.Utils" Version="0.1.122" />
-    <PackageReference Include="NetCoreKit.Domain" Version="0.1.122" />
-    <PackageReference Include="NetCoreKit.Infrastructure" Version="0.1.122" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore.OpenApi" Version="0.1.122" />
-    <PackageReference Include="NetCoreKit.Infrastructure.AspNetCore" Version="0.1.122" />
-    <PackageReference Include="NetCoreKit.Infrastructure.Bus" Version="0.1.122" />
-    <PackageReference Include="NetCoreKit.Template.Rest.Standard" Version="0.1.122" />
   </ItemGroup>
 
   <ItemGroup>

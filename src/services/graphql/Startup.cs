@@ -1,27 +1,18 @@
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Authentication;
-using System.Security.Cryptography;
+using System;
 using System.Threading.Tasks;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.Server.Ui.Voyager;
 using Grpc.Core;
-using IdentityModel;
-using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
-using NetCoreKit.Infrastructure.AspNetCore.Configuration;
-using NetCoreKit.Utils.Extensions;
 using tanka.graphql.server;
 using VND.CoolStore.Services.GraphQL.v1;
 using static VND.CoolStore.Services.Cart.v1.Grpc.CartService;
@@ -35,6 +26,8 @@ namespace VND.CoolStore.Services.GraphQL
 {
     public class Startup
     {
+        public static readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
+
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
@@ -82,6 +75,49 @@ namespace VND.CoolStore.Services.GraphQL
             services.AddSingleton<CoolStoreSchema>();
             services.AddSingleton(provider => provider.GetRequiredService<CoolStoreSchema>().CoolStore);
 
+            // https://github.com/aspnet/Docs/blob/master/aspnetcore/signalr/authn-and-authz/sample/Startup.cs
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    // Configure JWT Bearer Auth to expect our security key
+                    options.TokenValidationParameters =
+                        new TokenValidationParameters
+                        {
+                            LifetimeValidator = (before, expires, token, param) => expires > DateTime.UtcNow,
+                            ValidateAudience = false,
+                            ValidateIssuer = false,
+                            ValidateActor = false,
+                            ValidateLifetime = true,
+                            IssuerSigningKey = SecurityKey,
+                        };
+
+                    options.Authority = Configuration["AuthN:Authority"];
+                    options.Audience = Configuration["AuthN:Audience"];
+                    options.RequireHttpsMetadata = false; // for demo only
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                                (path.StartsWithSegments("graphql")))
+                            {
+                                context.Token = accessToken;
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -90,7 +126,8 @@ namespace VND.CoolStore.Services.GraphQL
                         .AllowAnyHeader()
                         .AllowAnyOrigin()
                         .AllowCredentials()
-                        .SetIsOriginAllowed(host => true) /* https://github.com/aspnet/AspNetCore/issues/4457 */
+                        /* https://github.com/aspnet/AspNetCore/issues/4457 */
+                        .SetIsOriginAllowed(host => true)
                 );
             });
 
@@ -102,7 +139,7 @@ namespace VND.CoolStore.Services.GraphQL
 
         public void Configure(IApplicationBuilder app)
         {
-            var basePath = Configuration.GetBasePath();
+            var basePath = Configuration["Hosts:BasePath"];
             basePath = basePath.EndsWith('/') ? basePath.TrimEnd('/') : basePath;
 
             if (Environment.IsDevelopment())
@@ -115,12 +152,14 @@ namespace VND.CoolStore.Services.GraphQL
                 app.UseExceptionHandler("/error");
             }
 
-            app.UseMiddleware<AuthenticationMiddleware>();
-
             app.UseCors("CorsPolicy");
             app.UseStaticFiles();
-            app.UseWebSockets();
 
+            app.UseAuthentication();
+
+            app.UseMvc();
+
+            app.UseWebSockets();
             app.UseSignalR(routes => { routes.MapHub<QueryStreamHub>(new PathString($"{basePath}/graphql")); });
 
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()
@@ -143,82 +182,6 @@ namespace VND.CoolStore.Services.GraphQL
                     return Task.CompletedTask;
                 });
             });
-            
-            app.UseMvc();
-        }
-    }
-
-    internal class AuthenticationMiddleware
-    {
-        private readonly RequestDelegate _next;
-
-        public AuthenticationMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task Invoke(HttpContext context, IConfiguration config)
-        {
-            var displayUrl = context.Request.GetDisplayUrl().ToLower();
-
-            if (displayUrl.Contains("/api/graphql"))
-            {
-                var authorizedKeyValue = context.Request.Headers.FirstOrDefault(k => k.Key.ToLowerInvariant() == "authorization");
-                if (!string.IsNullOrEmpty(authorizedKeyValue.Value))
-                {
-                    var authority = config["AuthN:Authority"];
-                    var audience = config["AuthN:Audience"];
-
-                    var token = authorizedKeyValue.Value.ToString();
-
-                    var client = new HttpClient();
-                    var disco = await client.GetDiscoveryDocumentAsync(authority);
-                    if (disco.IsError)
-                    {
-                        throw new AuthenticationException($"Could not discovery the OAuth Server at {authority}");
-                    }
-
-                    var keys = new List<SecurityKey>();
-
-                    foreach (var webKey in disco.KeySet.Keys)
-                    {
-                        var e = Base64Url.Decode(webKey.E);
-                        var n = Base64Url.Decode(webKey.N);
-
-                        var key = new RsaSecurityKey(new RSAParameters { Exponent = e, Modulus = n })
-                        {
-                            KeyId = webKey.Kid
-                        };
-
-                        keys.Add(key);
-                    }
-
-                    var parameters = new TokenValidationParameters
-                    {
-                        ValidIssuer = disco.Issuer,
-                        ValidAudience = audience,
-                        IssuerSigningKeys = keys,
-
-                        NameClaimType = JwtClaimTypes.Name,
-                        RoleClaimType = JwtClaimTypes.Role,
-
-                        RequireSignedTokens = true,
-                        ValidateLifetime = true,
-                        ValidateIssuer = false
-                    };
-
-                    var handler = new JwtSecurityTokenHandler();
-                    handler.InboundClaimTypeMap.Clear();
-
-                    var user = handler.ValidateToken(token.TrimStart("bearer").TrimStart(" "), parameters, out _);
-                    if (user != null)
-                    {
-                        context.User = user; // for internal usage
-                    }
-                }
-            }
-
-            await _next.Invoke(context);
         }
     }
 }
