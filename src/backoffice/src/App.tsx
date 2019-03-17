@@ -25,7 +25,6 @@ class App extends Component<any, any> {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="App">
         <Layout>

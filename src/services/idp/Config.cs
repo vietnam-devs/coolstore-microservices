@@ -284,6 +284,41 @@ namespace IdentityServer4
                     "openid",
                     "profile"
                 }
+            },
+            new Client // backoffice
+            {
+                ClientId = "backoffice",
+                ClientName = "backoffice Client",
+                ClientUri = hostSettings.GetValue<string>("BackOfficeAllowedCorsOrigin"),
+                AllowedGrantTypes = GrantTypes.Implicit,
+                AllowAccessTokensViaBrowser = true,
+
+                RedirectUris =
+                {
+                    $"{hostSettings.GetValue<string>("BackOfficeAllowedCorsOrigin")}/signin-callback.html",
+                    $"{hostSettings.GetValue<string>("BackOfficeAllowedCorsOrigin")}/silent-renew.html"
+                },
+
+                PostLogoutRedirectUris =
+                {
+                    $"{hostSettings.GetValue<string>("BackOfficeAllowedCorsOrigin")}/"
+                },
+                AllowedCorsOrigins =
+                {
+                    hostSettings.GetValue<string>("BackOfficeAllowedCorsOrigin")
+                },
+
+                AllowedScopes =
+                {
+                    "inventory_api_scope",
+                    "cart_api_scope",
+                    "pricing_api_scope",
+                    "review_api_scope",
+                    "catalog_api_scope",
+                    "rating_api_scope",
+                    "openid",
+                    "profile"
+                }
             }
         };
     }

@@ -1,4 +1,10 @@
-# Introduction
+# Up and Running with Docker and Docker Compose
+
+## Docker
+
+TODO
+
+## Docker Compose
 
 To make the development easy, we've usually used `docker-compose` to boost up all microservices and related components. We can make it run or debug the local microservices using this approach
 
@@ -9,36 +15,36 @@ Library and tool:
 - Open Api
 - Rest and gRPC protocols
 
-# List of endpoints
+### List of endpoints
 
-### Envoy Proxy Endpoints
+#### Envoy Proxy Endpoints
 
 - Main Uri: http://localhost:8082
 - Admin Uri: http://localhost:8081
 
-### Web UI Endpoint
+#### Web UI Endpoint
 
 - http://localhost:8084
 
-### Identity Server Endpoint
+#### Identity Server Endpoint
 
 - http://localhost:8085
 
-### Open Api Endpoint
+#### Open Api Endpoint
 
 - http://localhost:8082/oai/
 
-### GraphQL Endpoint
+#### GraphQL Endpoint
 
 - http://localhost:8082/gql/graphiql
 - http://localhost:8082/gql/playground
 - http://localhost:8082/gql/voyager
 
-# Debugging
+### Debugging
 
 Let says we want to debug `review-service` so we need to do some steps below
 
-### _Step 1_:
+#### _Step 1_:
 
 Open `docker-compose.yml`, find the section below, then comment or remove it
 
@@ -56,7 +62,7 @@ review-service:
     dockerfile: ./src/services/review/Dockerfile
 ```
 
-### _Step 2_:
+#### _Step 2_:
 
 Open `src/deploys/dockers/envoy-proxy/envoy.yaml` file, then change a bit as below
 
@@ -76,15 +82,15 @@ Open `src/deploys/dockers/envoy-proxy/envoy.yaml` file, then change a bit as bel
 
 Then, on the command prompt type `bash`, and `./deploys/dockers/envoy-proxy/cmd_build_image.sh`
 
-### _Step 3_:
+#### _Step 3_:
 
 Run `docker-compose up`
 
-### _Step 4_:
+#### _Step 4_:
 
 Run your gRPC service in debug mode
 
-### _Step 5_:
+#### _Step 5_:
 
 Go to `http://localhost:8082/oai/swagger/index.html`, click to any `review-service` endpoints in there
 

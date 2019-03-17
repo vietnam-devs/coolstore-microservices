@@ -5,13 +5,14 @@ export class AuthService {
 
   constructor() {
     const settings = {
-      authority: process.env.REACT_APP_AUTHORITY,
-      client_id: process.env.REACT_APP_CLIENT_ID,
+      authority: `${process.env.REACT_APP_AUTHORITY}`,
+      client_id: 'backoffice',
       redirect_uri: `${process.env.REACT_APP_ROOT_URL}/signin-callback.html`,
       silent_redirect_uri: `${process.env.REACT_APP_ROOT_URL}/silent-renew.html`,
       post_logout_redirect_uri: `${process.env.REACT_APP_ROOT_URL}`,
       response_type: 'id_token token',
-      scope: process.env.REACT_APP_SCOPES
+      scope:
+        'inventory_api_scope cart_api_scope pricing_api_scope review_api_scope catalog_api_scope rating_api_scope openid profile'
     }
     this.userManager = new UserManager(settings)
 

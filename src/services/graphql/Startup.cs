@@ -33,7 +33,7 @@ namespace VND.CoolStore.Services.GraphQL
             Configuration = configuration;
             Environment = environment;
 
-            if (Environment.IsDevelopment())
+            //if (Environment.IsDevelopment())
             {
                 IdentityModelEventSource.ShowPII = true;
             }
@@ -46,19 +46,92 @@ namespace VND.CoolStore.Services.GraphQL
         {
             services.AddCors(options =>
             {
+                var cors = Configuration.GetValue<string>("Cors:Origins").Split(',');
                 options.AddPolicy("CorsPolicy",
-                    policy => policy
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .WithOrigins("http://localhost:3000", "http://localhost:5011")
-                        .AllowCredentials()
-                        /* https://github.com/aspnet/AspNetCore/issues/4457 */
-                        .SetIsOriginAllowed(host => true)
-                );
+                    policy =>
+                    {
+                        var builder = policy
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials()
+                            .WithOrigins(cors)
+                            /* https://github.com/aspnet/AspNetCore/issues/4457 */
+                            .SetIsOriginAllowed(host => true);
+                    });
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            RegisterGrpcServices(services);
+            RegisterGraphQl(services);
+            RegisterAuth(services);
+
+            services.AddSignalR(options => options.EnableDetailedErrors = true)
+                .AddQueryStreamHubWithTracing();
+        }
+
+        public void Configure(IApplicationBuilder app)
+        {
+            var basePath = Configuration["Hosts:BasePath"];
+            basePath = basePath.EndsWith('/') ? basePath.TrimEnd('/') : basePath;
+
+            if (Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
+
+            app.UseCors("CorsPolicy");
+            app.UseStaticFiles();
+
+            app.UseAuthentication();
+
+            app.UseMvc();
+
+            app.UseWebSockets();
+            app.UseSignalR(routes => { routes.MapHub<QueryStreamHub>(new PathString($"{basePath}/graphql")); });
+
+            UseDevTools(app, basePath);
+        }
+
+        private static void UseDevTools(IApplicationBuilder app, string basePath)
+        {
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()
+            {
+                Path = $"{basePath}/playground",
+                GraphQLEndPoint = $"{basePath}/api/graphql"
+            });
+
+            app.UseGraphQLVoyager(new GraphQLVoyagerOptions()
+            {
+                Path = $"{basePath}/voyager",
+                GraphQLEndPoint = $"{basePath}/api/graphql"
+            });
+
+            app.UseRouter(builder =>
+            {
+                builder.MapGet(basePath, context =>
+                {
+                    context.Response.Redirect($"{basePath}/voyager");
+                    return Task.CompletedTask;
+                });
+            });
+        }
+
+        private static void RegisterGraphQl(IServiceCollection services)
+        {
+            services.AddSingleton<ICoolStoreResolverService, CoolStoreResolverService>();
+            services.AddSingleton<CoolStoreSchema>();
+            services.AddSingleton(provider => provider.GetRequiredService<CoolStoreSchema>().CoolStore);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        }
+
+        private void RegisterGrpcServices(IServiceCollection services)
+        {
             var cartChannel = new Channel(Configuration["RpcClients:CartService"], ChannelCredentials.Insecure);
             var cartClient = new CartServiceClient(cartChannel);
 
@@ -83,11 +156,10 @@ namespace VND.CoolStore.Services.GraphQL
             services.AddSingleton(typeof(PingServiceClient), pingClient);
             services.AddSingleton(typeof(CatalogServiceClient), catalogClient);
             services.AddSingleton(typeof(RatingServiceClient), ratingClient);
+        }
 
-            services.AddSingleton<ICoolStoreResolverService, CoolStoreResolverService>();
-            services.AddSingleton<CoolStoreSchema>();
-            services.AddSingleton(provider => provider.GetRequiredService<CoolStoreSchema>().CoolStore);
-
+        private void RegisterAuth(IServiceCollection services)
+        {
             // https://github.com/aspnet/Docs/blob/master/aspnetcore/signalr/authn-and-authz/sample/Startup.cs
             services
                 .AddAuthentication(options =>
@@ -135,58 +207,6 @@ namespace VND.CoolStore.Services.GraphQL
                         }
                     };
                 });
-
-            services.AddSignalR(options => options.EnableDetailedErrors = true)
-                .AddQueryStreamHubWithTracing();
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        }
-
-        public void Configure(IApplicationBuilder app)
-        {
-            var basePath = Configuration["Hosts:BasePath"];
-            basePath = basePath.EndsWith('/') ? basePath.TrimEnd('/') : basePath;
-
-            if (Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/error");
-            }
-
-            app.UseCors("CorsPolicy");
-            app.UseStaticFiles();
-
-            app.UseAuthentication();
-
-            app.UseMvc();
-
-            app.UseWebSockets();
-            app.UseSignalR(routes => { routes.MapHub<QueryStreamHub>(new PathString($"{basePath}/graphql")); });
-
-            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()
-            {
-                Path = $"{basePath}/playground",
-                GraphQLEndPoint = $"{basePath}/api/graphql"
-            });
-
-            app.UseGraphQLVoyager(new GraphQLVoyagerOptions()
-            {
-                Path = $"{basePath}/voyager",
-                GraphQLEndPoint = $"{basePath}/api/graphql"
-            });
-
-            app.UseRouter(builder =>
-            {
-                builder.MapGet(basePath, context =>
-                {
-                    context.Response.Redirect($"{basePath}/voyager");
-                    return Task.CompletedTask;
-                });
-            });
         }
     }
 }
