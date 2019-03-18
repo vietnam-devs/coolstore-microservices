@@ -33,9 +33,31 @@ Reference at https://stackoverflow.com/questions/5828324/update-git-submodule-to
 
 ## Identity Server
 
-TODO
+- IdentityServer4
+
+### Postman
+
+![](postman-graphql.png)
+
+> TODO
+
+### Open API
+
+> TODO
+
+### GraphQL Server
+
+> TODO
+
+### Front and Back Office Websites
+
+> TODO
 
 ## gRPC Service
+
+- Grpc
+- Google.Protobuf
+- Google.Api.Gax.Grpc
 
 Before you can generate `gRPC` files for all microservices in this project you need to install some of tool as below
 
@@ -53,23 +75,39 @@ At the root of each microservice, we put one `bash` script with named `cmd_gen_p
 
 ## Envoy Proxy
 
-TODO
+- envoy-proxy
+
+> TODO
 
 ## Open Api
 
-TODO
+- Swashbuckle.AspNetCore.SwaggerUI
+
+> TODO
 
 ## GraphQL Server
 
-TODO
+- tanka.graphql
+- tanka.graphql.server
+- GraphQL.Server.Ui.Playground
+- GraphQL.Server.Ui.Voyager
+
+> TODO
 
 ## Front and back office websites
 
 ### Front office website
 
-TODO
+- vuejs
+- webpack
+
+> TODO
 
 ### Back office website
+
+- create-react-app
+- apollo-client
+- tanka-graphql-client
 
 - At the root of `src/backoffice`, we create a `.env` with content as below
 

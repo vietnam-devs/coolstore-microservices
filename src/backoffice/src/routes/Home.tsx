@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -8,9 +8,45 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Typography from '@material-ui/core/Typography'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import createStyles from '@material-ui/core/styles/createStyles'
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles'
+import withStyles from '@material-ui/core/styles/withStyles'
 import withRoot from '../withRoot'
 import { AuthService } from '../services/AuthService'
+
+const authService = new AuthService()
+
+const home = (props: any) => {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className={props.classes.root}>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle>Super Secret Password</DialogTitle>
+        <DialogContent>
+          <DialogContentText>1-2-3-4-5</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="primary" onClick={() => setOpen(false)}>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Typography variant="h4" gutterBottom>
+        Material-UI
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom>
+        example project
+      </Typography>
+      <Button variant="contained" color="secondary" onClick={() => setOpen(true)}>
+        Super Secret Password
+      </Button>
+      <Button variant="contained" color="primary" onClick={() => authService.login()}>
+        Login
+      </Button>
+      <Button variant="contained" color="default" onClick={() => authService.logout()}>
+        Logout
+      </Button>
+    </div>
+  )
+}
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -20,73 +56,4 @@ const styles = (theme: Theme) =>
     }
   })
 
-type State = {
-  open: boolean
-}
-
-class Home extends React.Component<WithStyles<typeof styles>, State> {
-  public authService: AuthService
-  constructor(props: WithStyles<typeof styles>) {
-    super(props)
-    this.authService = new AuthService()
-  }
-
-  state = {
-    open: false
-  }
-
-  handleClose = () => {
-    this.setState({
-      open: false
-    })
-  }
-
-  handleClick = () => {
-    this.setState({
-      open: true
-    })
-  }
-
-  public loginClick = async () => {
-    await this.authService.login()
-  }
-
-  public logoutClick = async () => {
-    await this.authService.logout()
-  }
-
-  render() {
-    return (
-      <div className={this.props.classes.root}>
-        <Dialog open={this.state.open} onClose={this.handleClose}>
-          <DialogTitle>Super Secret Password</DialogTitle>
-          <DialogContent>
-            <DialogContentText>1-2-3-4-5</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={this.handleClose}>
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Typography variant="h4" gutterBottom>
-          Material-UI
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          example project
-        </Typography>
-        <Button variant="contained" color="secondary" onClick={this.handleClick}>
-          Super Secret Password
-        </Button>
-        <Button variant="contained" color="primary" onClick={this.loginClick}>
-          Login
-        </Button>
-        <Button variant="contained" color="default" onClick={this.logoutClick}>
-          Logout
-        </Button>
-      </div>
-    )
-  }
-}
-
-export default withRoot(withStyles(styles)(Home))
+export default withRoot(withStyles(styles)(home))

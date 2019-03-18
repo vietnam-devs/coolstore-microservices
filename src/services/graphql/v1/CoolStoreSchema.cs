@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using tanka.graphql;
-using tanka.graphql.resolvers;
+using tanka.graphql.error;
 using tanka.graphql.sdl;
 using tanka.graphql.tools;
 using tanka.graphql.type;
@@ -67,11 +67,11 @@ namespace VND.CoolStore.Services.GraphQL.v1
                     return fieldDefinition.WithResolver(resolver => resolver.Use((context, next) =>
                     {
                         var user = _httpContext.HttpContext.User;
-
-                        return !user.Identity.IsAuthenticated
-                            ? new ValueTask<IResolveResult>(Resolve.As("Require login."))
-                            : next(context);
-
+                        if (!user.Identity.IsAuthenticated)
+                        {
+                            throw new GraphQLError("Auth is required.");
+                        }
+                        return next(context);
                     }).Run(fieldDefinition.Resolver));
                 }
             };
