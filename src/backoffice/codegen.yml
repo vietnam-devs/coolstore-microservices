@@ -1,0 +1,18 @@
+overwrite: true
+schema:
+  - ../graphql/coolstore.graphql
+documents: "src/!(generated)/*.{tsx,ts}"
+generates:
+  src/generated/graphql.tsx:
+    config:
+      noNamespaces: true
+      contextType: ../context#MyContext
+      withHooks: true
+      noHOC: true
+      noComponents: true
+    plugins:
+      - "typescript-common"
+      - "typescript-client"
+      - "typescript-react-apollo"
+      - "typescript-server"
+      - "typescript-resolvers"

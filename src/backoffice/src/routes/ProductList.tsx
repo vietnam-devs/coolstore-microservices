@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
+import { useQuery } from 'react-apollo-hooks'
 
 const GET_PRODUCTS = gql`
   query GetProducts($message: GetProductsInput!) {
@@ -11,27 +11,55 @@ const GET_PRODUCTS = gql`
   }
 `
 
-const ProductList = () => {
+interface Props {}
+
+const ProductList: React.FC<Props> = () => {
+  const [price, setPrice] = useState(999)
+  const [page, _] = useState(1)
+
+  const { data, error, loading } = useQuery(GET_PRODUCTS, {
+    variables: {
+      message: {
+        currentPage: page,
+        highPrice: price
+      }
+    }
+  })
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+  if (error) {
+    return <div>Error! {error.message}</div>
+  }
+
+  const SearchPrice = () => {
+    return (
+      <div>
+        Price:
+        <input
+          type="text"
+          value={price}
+          onChange={e => {
+            setPrice(parseInt(e.target.value))
+            e.target.focus()
+          }}
+        />
+      </div>
+    )
+  }
+
   return (
-    <Query
-      query={GET_PRODUCTS}
-      variables={{ message: { currentPage: 1, highPrice: 999 } }} /*fetchPolicy="network-only"*/
-    >
-      {({ loading, error, data }) => {
-        if (loading) return 'Loading..'
-        if (error) return `Error: ${error}`
-        return (
-          <div>
-            <h3>Product List</h3>
-            <ul>
-              {data.products.map((value: any, index: any) => {
-                return <li key={index}>{value.name}</li>
-              })}
-            </ul>
-          </div>
-        )
-      }}
-    </Query>
+    <div>
+      <h3>Product List</h3>
+      <SearchPrice />
+
+      <ul>
+        {data.products.map((value: any, index: any) => {
+          return <li key={index}>{value.name}</li>
+        })}
+      </ul>
+    </div>
   )
 }
 

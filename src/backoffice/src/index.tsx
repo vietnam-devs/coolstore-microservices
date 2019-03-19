@@ -1,15 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import { ApolloProvider } from 'react-apollo'
+//import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider } from 'react-apollo-hooks'
 
 import './index.css'
 import App from './App'
-import client from './client'
+import client from './apollo-client'
 
 import * as serviceWorker from './serviceWorker'
 
 client().then(c => {
+  const initData = () =>
+    c.writeData({
+      data: {
+        searchPrice: 999
+      }
+    })
+
+  initData()
+
+  // client.resetStore()
+  c.onResetStore(async () => {
+    initData()
+  })
+  // client.clearStore()
+  c.onClearStore(async () => {
+    initData()
+  })
+
   const rootElement = document.getElementById('root')
 
   ReactDOM.render(

@@ -19,7 +19,7 @@ export default () => {
         <Route
           path="/products"
           render={() =>
-            state != null && state.token != null ? (
+            !state.loading && state.value != null && state.value.access_token != null ? (
               <ProductList />
             ) : (
               <Redirect

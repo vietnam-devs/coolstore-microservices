@@ -3,9 +3,12 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
 import { ApolloLink } from 'apollo-link'
 import { TankaLink, TankaClient } from '@tanka/tanka-graphql-server-link'
-import { AuthService } from '../services/AuthService'
+
+import { AuthService } from './services/AuthService'
+import { resolvers } from './resolvers'
 
 const client = async () => {
+  const cache = new InMemoryCache()
   const authService: AuthService = new AuthService()
   const user = await authService.getUser()
   const options = {
@@ -27,7 +30,8 @@ const client = async () => {
       }),
       serverLink
     ]),
-    cache: new InMemoryCache()
+    cache: cache,
+    resolvers: resolvers as any
   })
 }
 
