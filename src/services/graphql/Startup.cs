@@ -26,7 +26,8 @@ namespace VND.CoolStore.Services.GraphQL
 {
     public class Startup
     {
-        public static readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
+        public static readonly SymmetricSecurityKey
+            SecurityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
 
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
@@ -66,7 +67,8 @@ namespace VND.CoolStore.Services.GraphQL
             RegisterGraphQl(services);
             RegisterAuth(services);
 
-            services.AddSignalR(options => options.EnableDetailedErrors = true)
+            services
+                .AddSignalR(options => options.EnableDetailedErrors = true)
                 .AddQueryStreamHubWithTracing();
         }
 
@@ -92,9 +94,7 @@ namespace VND.CoolStore.Services.GraphQL
 
             app.UseMvc();
 
-            app.UseWebSockets();
             app.UseSignalR(routes => { routes.MapHub<QueryStreamHub>(new PathString($"{basePath}/graphql")); });
-
             UseDevTools(app, basePath);
         }
 
@@ -132,35 +132,45 @@ namespace VND.CoolStore.Services.GraphQL
 
         private void RegisterGrpcServices(IServiceCollection services)
         {
-            var cartChannel = new Channel(Configuration["RpcClients:CartService"], ChannelCredentials.Insecure);
-            var cartClient = new CartServiceClient(cartChannel);
+            services.AddSingleton(
+                typeof(CartServiceClient),
+                RegisterGrpcService<CartServiceClient>("CartService"));
 
-            var inventoryChannel = new Channel(Configuration["RpcClients:InventoryService"],
-                ChannelCredentials.Insecure);
-            var inventoryClient = new InventoryServiceClient(inventoryChannel);
+            services.AddSingleton(
+                typeof(InventoryServiceClient),
+                RegisterGrpcService<InventoryServiceClient>("InventoryService"));
 
-            var reviewChannel = new Channel(Configuration["RpcClients:ReviewService"], ChannelCredentials.Insecure);
-            var reviewClient = new ReviewServiceClient(reviewChannel);
-            var pingClient = new PingServiceClient(reviewChannel);
+            services.AddSingleton(
+                typeof(ReviewServiceClient),
+                RegisterGrpcService<ReviewServiceClient>("ReviewService"));
 
-            var catalogChannel =
-                new Channel(Configuration["RpcClients:CatalogService"], ChannelCredentials.Insecure);
-            var catalogClient = new CatalogServiceClient(catalogChannel);
+            services.AddSingleton(
+                typeof(PingServiceClient),
+                RegisterGrpcService<PingServiceClient>("ReviewService"));
 
-            var ratingChannel = new Channel(Configuration["RpcClients:RatingService"], ChannelCredentials.Insecure);
-            var ratingClient = new RatingServiceClient(ratingChannel);
+            services.AddSingleton(
+                typeof(CatalogServiceClient),
+                RegisterGrpcService<CatalogServiceClient>("CatalogService"));
 
-            services.AddSingleton(typeof(CartServiceClient), cartClient);
-            services.AddSingleton(typeof(InventoryServiceClient), inventoryClient);
-            services.AddSingleton(typeof(ReviewServiceClient), reviewClient);
-            services.AddSingleton(typeof(PingServiceClient), pingClient);
-            services.AddSingleton(typeof(CatalogServiceClient), catalogClient);
-            services.AddSingleton(typeof(RatingServiceClient), ratingClient);
+            services.AddSingleton(
+                typeof(RatingServiceClient),
+                RegisterGrpcService<RatingServiceClient>("RatingService"));
+        }
+
+        private TService RegisterGrpcService<TService>(string serviceName)
+            where TService : ClientBase<TService>
+        {
+            var rpcClients = Configuration.GetSection("RpcClients");
+            var channel = new Channel(rpcClients[serviceName], ChannelCredentials.Insecure);
+            var client = (TService)typeof(TService)
+                .GetConstructor(new[] {typeof(Channel)})
+                .Invoke(new object[] {channel});
+
+            return client;
         }
 
         private void RegisterAuth(IServiceCollection services)
         {
-            // https://github.com/aspnet/Docs/blob/master/aspnetcore/signalr/authn-and-authz/sample/Startup.cs
             services
                 .AddAuthentication(options =>
                 {
@@ -195,8 +205,8 @@ namespace VND.CoolStore.Services.GraphQL
                         OnMessageReceived = context =>
                         {
                             var accessToken = context.Request.Query["access_token"].ToString();
-
                             var path = context.HttpContext.Request.Path;
+
                             if (!string.IsNullOrEmpty(accessToken) &&
                                 (path.StartsWithSegments("/graphql")))
                             {

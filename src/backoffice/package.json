@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "@tanka/tanka-graphql-server-link": "^0.3.2",
     "@types/jest": "24.0.6",
     "@types/lodash": "^4.14.123",
@@ -22,6 +23,7 @@
     "graphql-tag": "^2.10.1",
     "lodash": "^4.17.11",
     "oidc-client": "^1.7.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.2",
     "react-apollo": "^2.5.2",
     "react-apollo-hooks": "^0.4.3",
