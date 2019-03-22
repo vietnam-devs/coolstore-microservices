@@ -7,8 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NetCoreKit.Infrastructure.Host.gRPC;
-using NetCoreKit.Template.gRPC.MongoDb;
+using Microsoft.IdentityModel.Logging;
+using NetCoreKit.GrpcTemplate.MongoDb;
+using NetCoreKit.Infrastructure.GrpcHost;
 using NetCoreKit.Utils.Extensions;
 using VND.CoolStore.Services.Review.v1.Grpc;
 using VND.CoolStore.Services.Review.v1.Services;
@@ -20,7 +21,8 @@ namespace VND.CoolStore.Services.Review
         public static async Task Main(string[] args)
         {
             var host = new HostBuilder()
-                .ConfigureDefaultSettings(args, svc => { svc.AddHostedService<HostedService>(); });
+                .ConfigureDefaultSettings(
+                    args, svc => { svc.AddHostedService<HostedService>(); });
             await host.RunAsync();
         }
     }
@@ -28,6 +30,7 @@ namespace VND.CoolStore.Services.Review
     public class HostedService : HostedServiceBase
     {
         private readonly IServiceProvider _resolver;
+        private Server _server;
 
         public HostedService(IServiceProvider resolver)
             : base(
@@ -44,19 +47,24 @@ namespace VND.CoolStore.Services.Review
 
             var env = _resolver.GetRequiredService<IHostingEnvironment>();
             var host = Config["Hosts:Local:Host"];
-            var port = int.Parse(Config["Hosts:Local:Port"]);
+            var port = Config["Hosts:Local:Port"].ConvertTo<int>();
             var serviceName = Config["Hosts:ServiceName"];
+
+            if (env.IsDevelopment())
+            {
+                IdentityModelEventSource.ShowPII = true;
+            }
 
             if (!env.IsDevelopment())
             {
                 port = Environment.GetEnvironmentVariable($"{serviceName.ToUpperInvariant()}_HOST").ConvertTo<int>();
             }
 
-            var server = new Server
+            _server = new Server
             {
                 Services =
                 {
-                    ReviewService.BindService(new ReviewServiceImpl(_resolver)),
+                    ReviewService.BindService(new ReviewServiceImpl(_resolver)).Intercept(new AuthNInterceptor(_resolver)),
                     PingService.BindService(new PingServiceImpl(_resolver)).Intercept(new AuthNInterceptor(_resolver)),
                     Grpc.Health.V1.Health.BindService(new HealthImpl())
                 },
@@ -64,11 +72,15 @@ namespace VND.CoolStore.Services.Review
             };
 
             Logger.LogInformation($"{nameof(ReviewService)} is listening on {host}:{port}.");
-            return server;
+            return _server;
         }
 
         protected override void SuppressFinalize()
         {
+            if (_server != null)
+            {
+                GC.SuppressFinalize(_server);
+            }
         }
     }
 }

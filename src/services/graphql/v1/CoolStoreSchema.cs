@@ -69,7 +69,7 @@ namespace VND.CoolStore.Services.GraphQL.v1
                         var user = _httpContext.HttpContext.User;
                         if (!user.Identity.IsAuthenticated)
                         {
-                            throw new GraphQLError("Auth is required.");
+                            throw new GraphQLError("Provide a valid bearer token in the header.");
                         }
                         return next(context);
                     }).Run(fieldDefinition.Resolver));

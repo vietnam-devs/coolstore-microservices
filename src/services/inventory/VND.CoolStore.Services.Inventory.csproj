@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -8,12 +8,14 @@
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.EfCore.MySql\NetCoreKit.Infrastructure.EfCore.MySql.csproj" />
-    <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.Template.gRPC.EfCore\NetCoreKit.Template.gRPC.EfCore.csproj" />
+    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.GrpcHost\NetCoreKit.Infrastructure.GrpcHost.csproj" />
+    <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.GrpcTemplate.EfCore\NetCoreKit.GrpcTemplate.EfCore.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.122" />
-    <PackageReference Include="NetCoreKit.Template.gRPC.EfCore" Version="0.1.122" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.132" />
+    <PackageReference Include="NetCoreKit.Infrastructure.GrpcHost" Version="0.1.132" />
+    <PackageReference Include="NetCoreKit.GrpcTemplate.EfCore" Version="0.1.132" />
   </ItemGroup>
 
   <ItemGroup>

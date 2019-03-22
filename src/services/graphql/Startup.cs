@@ -26,8 +26,7 @@ namespace VND.CoolStore.Services.GraphQL
 {
     public class Startup
     {
-        public static readonly SymmetricSecurityKey
-            SecurityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
+        public static readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
 
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
@@ -134,33 +133,33 @@ namespace VND.CoolStore.Services.GraphQL
         {
             services.AddSingleton(
                 typeof(CartServiceClient),
-                RegisterGrpcService<CartServiceClient>("CartService"));
+                RegisterGrpcService<CartServiceClient>("CartEndPoint"));
 
             services.AddSingleton(
                 typeof(InventoryServiceClient),
-                RegisterGrpcService<InventoryServiceClient>("InventoryService"));
+                RegisterGrpcService<InventoryServiceClient>("InventoryEndPoint"));
 
             services.AddSingleton(
                 typeof(ReviewServiceClient),
-                RegisterGrpcService<ReviewServiceClient>("ReviewService"));
+                RegisterGrpcService<ReviewServiceClient>("ReviewEndPoint"));
 
             services.AddSingleton(
                 typeof(PingServiceClient),
-                RegisterGrpcService<PingServiceClient>("ReviewService"));
+                RegisterGrpcService<PingServiceClient>("ReviewEndPoint"));
 
             services.AddSingleton(
                 typeof(CatalogServiceClient),
-                RegisterGrpcService<CatalogServiceClient>("CatalogService"));
+                RegisterGrpcService<CatalogServiceClient>("CatalogEndPoint"));
 
             services.AddSingleton(
                 typeof(RatingServiceClient),
-                RegisterGrpcService<RatingServiceClient>("RatingService"));
+                RegisterGrpcService<RatingServiceClient>("RatingEndPoint"));
         }
 
         private TService RegisterGrpcService<TService>(string serviceName)
             where TService : ClientBase<TService>
         {
-            var rpcClients = Configuration.GetSection("RpcClients");
+            var rpcClients = Configuration.GetSection("GrpcEndPoints");
             var channel = new Channel(rpcClients[serviceName], ChannelCredentials.Insecure);
             var client = (TService)typeof(TService)
                 .GetConstructor(new[] {typeof(Channel)})
@@ -190,8 +189,8 @@ namespace VND.CoolStore.Services.GraphQL
                             IssuerSigningKey = SecurityKey,
                         };
 
-                    options.Authority = Configuration["AuthN:Authority"];
-                    options.Audience = Configuration["AuthN:Audience"];
+                    options.Authority = Configuration["Idp:Authority"];
+                    options.Audience = Configuration["Idp:Audience"];
                     options.RequireHttpsMetadata = false; // for demo only
 
                     options.Events = new JwtBearerEvents

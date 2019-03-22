@@ -8,7 +8,7 @@ export class AuthService {
       authority: `${process.env.REACT_APP_AUTHORITY}`,
       client_id: 'backoffice',
       redirect_uri: `${process.env.REACT_APP_ROOT_URL}/signin-callback.html`,
-      silent_redirect_uri: `${process.env.REACT_APP_ROOT_URL}/silent-renew.html`,
+      //silent_redirect_uri: `${process.env.REACT_APP_ROOT_URL}/silent-renew.html`,
       post_logout_redirect_uri: `${process.env.REACT_APP_ROOT_URL}`,
       response_type: 'id_token token',
       scope:
@@ -16,8 +16,8 @@ export class AuthService {
     }
     this.userManager = new UserManager(settings)
 
-    //Log.logger = console
-    //Log.level = Log.INFO
+    Log.logger = console
+    Log.level = Log.INFO
   }
 
   public getUser = async (): Promise<User> => {

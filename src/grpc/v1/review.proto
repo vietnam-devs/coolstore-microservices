@@ -46,13 +46,6 @@ message ReviewDto {
   string product_name = 6;
 }
 
-/*message ProductDto {
-  string id = 1;
-  string name = 2;
-  string desc = 3;
-  double price = 4;
-}*/
-
 message AuthorDto {
   string id = 1;
   string user_name = 2;

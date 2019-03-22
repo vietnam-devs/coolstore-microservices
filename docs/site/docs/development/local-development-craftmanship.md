@@ -4,6 +4,24 @@
 
 All .NET microservices are developed by using [NetCoreKit](https://github.com/cloudnative-netcore/netcorekit) library. So we need to make it as a `submodule` in `coolstore-microservices` project.
 
+### Remove submodule
+
+If you have already added submodules for `netcorekit`, then you need to remove it first. Let doing following steps to remove it.
+
+At root of `coolstore-microservices` project, run command below
+
+```
+> rm -Rf src\netcorekit
+> rm -rf .git\modules\src
+```
+
+Then open up `.git\config` file, and delete the section with `src\netcorekit`.
+
+Refs:
+
+- https://stackoverflow.com/questions/12218420/add-a-submodule-which-cant-be-removed-from-the-index/39189599
+- https://stackoverflow.com/questions/43789152/git-removing-submodule-error
+
 ### Add submodule
 
 Run the command at the root of `coolstore-microservices` project as following

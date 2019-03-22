@@ -133,25 +133,25 @@ directive @authorize on FIELD_DEFINITION
 type Query {
   products(input: GetProductsInput!): [Product] @authorize
   product(input: GetProductByIdInput!): Product @authorize
-  carts(input: GetCartInput!): Cart
-  availabilities: [Inventory]
-  availability(input: GetInventoryInput!): Inventory
-  ratings: [Rating]
-  rating(input: GetRatingByProductIdInput!): Rating
-  reviews(input: GetReviewsInput!): [Review]
+  carts(input: GetCartInput!): Cart @authorize
+  availabilities: [Inventory] @authorize
+  availability(input: GetInventoryInput!): Inventory @authorize
+  ratings: [Rating] @authorize
+  rating(input: GetRatingByProductIdInput!): Rating @authorize
+  reviews(input: GetReviewsInput!): [Review] @authorize
 }
 
 type Mutation {
-  createProduct(input: CreateProductInput!): Product!
-  insertItemToNewCart(input: InsertItemToNewCartInput!): Cart!
-  updateItemInCart(input: UpdateItemInCartInput!): Cart!
-  deleteItem(input: DeleteItemInput!): String!
-  checkout(input: CheckoutInput!): Boolean!
-  createRating(input: CreateRatingInput!): Rating!
-  updateRating(input: UpdateRatingInput!): Rating!
-  createReview(input: CreateReviewInput!): Review!
-  editReview(input: EditReviewInput!): Review!
-  deleteReview(input: DeleteReviewInput!): String!
+  createProduct(input: CreateProductInput!): Product! @authorize
+  insertItemToNewCart(input: InsertItemToNewCartInput!): Cart! @authorize
+  updateItemInCart(input: UpdateItemInCartInput!): Cart! @authorize
+  deleteItem(input: DeleteItemInput!): String! @authorize
+  checkout(input: CheckoutInput!): Boolean! @authorize
+  createRating(input: CreateRatingInput!): Rating! @authorize
+  updateRating(input: UpdateRatingInput!): Rating! @authorize
+  createReview(input: CreateReviewInput!): Review! @authorize
+  editReview(input: EditReviewInput!): Review! @authorize
+  deleteReview(input: DeleteReviewInput!): String! @authorize
 }
 
 schema {
