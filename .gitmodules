@@ -1,3 +1,4 @@
-[submodule "src/netcorekit"]
-	path = src/netcorekit
+
+[submodule "src/netcorekit1"]
+	path = src/netcorekit1
 	url = https://github.com/cloudnative-netcore/netcorekit
