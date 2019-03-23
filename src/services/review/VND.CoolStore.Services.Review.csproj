@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -32,11 +32,6 @@
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="v1\Grpc\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.GrpcHost\NetCoreKit.Infrastructure.GrpcHost.csproj" />
-    <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.GrpcTemplate.MongoDb\NetCoreKit.GrpcTemplate.MongoDb.csproj" />
   </ItemGroup>
 
 </Project>

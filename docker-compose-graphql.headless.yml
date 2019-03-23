@@ -7,13 +7,13 @@ services:
     environment:
       - Hosts__BasePath=/
       - Cors__Origins=http://localhost:3000,http://localhost:5011
-      - AuthN__Authority=http://${IDENTITY_WEB_EXTERNAL_HOST}:8085
-      - AuthN__Audience=api
-      - RpcClients__CatalogService=catalog-service:5002
-      - RpcClients__CartService=cart-service:5003
-      - RpcClients__InventoryService=inventory-service:5004
-      - RpcClients__ReviewService=review-service:5006
-      - RpcClients__RatingService=rating-service:5007
+      - Idp__Authority=http://${IDENTITY_WEB_EXTERNAL_HOST}:8085
+      - Idp__Audience=api
+      - GrpcEndPoints__CatalogEndPoint=catalog-service:5002
+      - GrpcEndPoints__CartEndPoint=cart-service:5003
+      - GrpcEndPoints__InventoryEndPoint=inventory-service:5004
+      - GrpcEndPoints__ReviewEndPoint=review-service:5006
+      - GrpcEndPoints__RatingEndPoint=rating-service:5007
     ports:
       - "5011:5011"
     expose:
