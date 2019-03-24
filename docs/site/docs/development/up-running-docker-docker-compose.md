@@ -1,8 +1,36 @@
 # Up and Running with Docker and Docker Compose
 
+# Environment variables
+
+To developing in the localhost, we need to add `.env` file and put it to the root of `coolstore-microservices` project. The content of it as below
+
+```
+WEB_PORT=8084
+BACKOFFICE_PORT=3000
+
+OPENAPI_SVR_PORT=5010
+GRAPHQL_SVR_PORT=5011
+IDP_SVR_PORT=8085
+
+CATALOG_SVC_PORT=5002
+CART_SVC_PORT=5003
+INVENTORY_SVC_PORT=5004
+REVIEW_SVC_PORT=5006
+RATING_SVC_PORT=5007
+
+MONGODB_PORT=27017
+MYSQLDB_PORT=3306
+
+HOST_IP=<localhost ip get from ipconfig>
+```
+
+## Protobuf
+
+In each microservices, we also have `cmd_gen_proto.sh` to use `protobuf` tools which generates `C#` target file for .NET microservice project.
+
 ## Docker
 
-TODO
+In each microservices, we also have `cmd_build_image.sh` to build the standalone service and tag it with `vndg` prefix.
 
 ## Docker Compose
 
@@ -14,6 +42,13 @@ Library and tool:
 - Envoy Proxy
 - Open Api
 - Rest and gRPC protocols
+
+We support 4 modes of docker-compose at the moment:
+
+- `docker-compose.yml`: full running with all services, server and web endpoints
+- `docker-compose-graphql.yml`: only graphql endpoints with its backoffice app
+- `docker-compose-graphql.headless.yml`: only headless graphql endpoints
+- `docker-compose-graphql.dev.yml`: only microservices
 
 ### List of endpoints
 

@@ -28,9 +28,9 @@ static_resources:
                       domains: ["*"]
                       routes:
                         - match: { prefix: "/oai" }
-                          route: { cluster: open_api_service }
+                          route: { cluster: openapi }
                         - match: { prefix: "/gql" }
-                          route: { cluster: graphql_service }
+                          route: { cluster: graphql_server }
                         - match:
                             { prefix: "/coolstore.CatalogService/", grpc: {} }
                           route:
@@ -96,15 +96,15 @@ static_resources:
                   - name: envoy.cors
                   - name: envoy.router
   clusters:
-    - name: open_api_service
+    - name: openapi
       connect_timeout: 0.25s
       type: logical_dns
       lb_policy: round_robin
       hosts:
         - socket_address:
-            address: open-api-service
+            address: openapi
             port_value: 5010
-    - name: graphql_service
+    - name: graphql_server
       connect_timeout: 0.25s
       type: logical_dns
       lb_policy: round_robin

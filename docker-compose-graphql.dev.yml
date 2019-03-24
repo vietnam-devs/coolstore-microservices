@@ -1,31 +1,17 @@
 version: "3"
 services:
-  catalog-service:
-    container_name: catalog-service
-    image: "vndg/cs-catalog-service"
-    restart: always
-    environment:
-      - NODE_ENV=development
-      - MONGO_DB_URI=mongodb://mongodb/catalog
-      - PORT=5002
-    ports:
-      - "5002:5002"
-    expose:
-      - "5002"
-    build:
-      context: ./
-      dockerfile: ./src/services/catalog/Dockerfile
-
   cart-service:
     container_name: cart-service
     image: "vndg/cs-cart-service"
     restart: always
     environment:
-      - Features__EfCore__MySqlDb__FQDN=mysqldb:3306
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
+      - Features__EfCore__MySqlDb__FQDN=mysqldb:${MYSQLDB_PORT}
     ports:
-      - "5003:5003"
+      - "${CART_SVC_PORT}:${CART_SVC_PORT}"
     expose:
-      - "5003"
+      - "${CART_SVC_PORT}"
     build:
       context: .
       dockerfile: ./src/services/cart/Dockerfile
@@ -35,11 +21,13 @@ services:
     image: "vndg/cs-inventory-service"
     restart: always
     environment:
-      - Features__EfCore__MySqlDb__FQDN=mysqldb:3306
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
+      - Features__EfCore__MySqlDb__FQDN=mysqldb:${MYSQLDB_PORT}
     ports:
-      - "5004:5004"
+      - "${INVENTORY_SVC_PORT}:${INVENTORY_SVC_PORT}"
     expose:
-      - "5004"
+      - "${INVENTORY_SVC_PORT}"
     build:
       context: .
       dockerfile: ./src/services/inventory/Dockerfile
@@ -48,13 +36,33 @@ services:
     container_name: review-service
     image: "vndg/cs-review-service"
     restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
+      - Features__Mongo__ConnString=mongodb://mongodb:${MONGODB_PORT}
     ports:
-      - "5006:5006"
+      - "${REVIEW_SVC_PORT}:${REVIEW_SVC_PORT}"
     expose:
-      - "5006"
+      - "${REVIEW_SVC_PORT}"
     build:
       context: .
       dockerfile: ./src/services/review/Dockerfile
+
+  catalog-service:
+    container_name: catalog-service
+    image: "vndg/cs-catalog-service"
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - MONGO_DB_URI=mongodb://mongodb/catalog
+      - PORT=${CATALOG_SVC_PORT}
+    ports:
+      - "${CATALOG_SVC_PORT}:${CATALOG_SVC_PORT}"
+    expose:
+      - "${CATALOG_SVC_PORT}"
+    build:
+      context: ./
+      dockerfile: ./src/services/catalog/Dockerfile
 
   rating-service:
     container_name: rating-service
@@ -63,11 +71,11 @@ services:
     environment:
       - NODE_ENV=development
       - MONGO_DB_URI=mongodb://mongodb/rating
-      - PORT=5007
+      - PORT=${RATING_SVC_PORT}
     ports:
-      - "5007:5007"
+      - "${RATING_SVC_PORT}:${RATING_SVC_PORT}"
     expose:
-      - "5007"
+      - "${RATING_SVC_PORT}"
     build:
       context: .
       dockerfile: ./src/services/rating/Dockerfile
@@ -77,9 +85,9 @@ services:
     image: "bitnami/mongodb"
     restart: always
     expose:
-      - "27017"
+      - "${MONGODB_PORT}"
     ports:
-      - "27017:27017"
+      - "${MONGODB_PORT}:${MONGODB_PORT}"
 
   mysqldb:
     container_name: mysqldb
@@ -88,9 +96,9 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=P@ssw0rd
     expose:
-      - "3306"
+      - "${MYSQLDB_PORT}"
     ports:
-      - "3306:3306"
+      - "${MYSQLDB_PORT}:${MYSQLDB_PORT}"
     build:
       context: .
       dockerfile: ./deploys/dockers/mysqldb/Dockerfile

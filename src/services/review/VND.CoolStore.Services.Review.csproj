@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <OutputType>Exe</OutputType>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -11,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="NetCoreKit.GrpcTemplate.MongoDb" Version="0.1.132" />
-    <PackageReference Include="NetCoreKit.Infrastructure.GrpcHost" Version="0.1.132" />
+    <PackageReference Include="NetCoreKit.GrpcTemplate.MongoDb" Version="0.1.136" />
+    <PackageReference Include="NetCoreKit.Infrastructure.GrpcHost" Version="0.1.136" />
   </ItemGroup>
 
   <ItemGroup>

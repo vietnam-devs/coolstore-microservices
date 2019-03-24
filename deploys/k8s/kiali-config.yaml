@@ -1,3 +1,4 @@
+# https://istio.io/docs/tasks/telemetry/kiali/
 # https://github.com/istio/istio/issues/11742
 apiVersion: v1
 kind: Secret

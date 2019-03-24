@@ -383,6 +383,21 @@ namespace VND.CoolStore.Services.GraphQL.v1
                     metadata.Add("authorization", _httpContext.HttpContext.Request?.Headers["authorization"]);
                 }
 
+                // add supporting for OpenTracing standard
+                _httpContext.HttpContext.Request?.Headers.ToList().ForEach(h =>
+                {
+                    if (h.Key == "x-request-id" ||
+                        h.Key == "x-b3-traceid" ||
+                        h.Key == "x-b3-spanid" ||
+                        h.Key == "x-b3-parentspanid" ||
+                        h.Key == "x-b3-sampled" ||
+                        h.Key == "x-b3-flags" ||
+                        h.Key == "x-ot-span-context")
+                    {
+                        metadata.Add(h.Key, h.Value);
+                    }
+                });
+
                 return await catchAction(metadata);
             }
             catch (RpcException ex)

@@ -19,10 +19,11 @@ README
 **/bower_components/
 **/appsettings.localhost.json
 **/build/
-!**/web/build/
 **/dist/
 deployment
 assets
 docs
 **/*.csproj.user
 deploys/iac/
+!**/web/build/
+!**/netcorekit/build/

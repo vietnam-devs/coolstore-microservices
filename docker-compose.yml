@@ -1,28 +1,5 @@
 version: "3"
 services:
-  mongodb:
-    container_name: mongodb
-    image: "bitnami/mongodb"
-    restart: always
-    expose:
-      - "27017"
-    ports:
-      - "27017:27017"
-
-  mysqldb:
-    container_name: mysqldb
-    image: "vndg/cs-mysqldb"
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=P@ssw0rd
-    expose:
-      - "3306"
-    ports:
-      - "3306:3306"
-    build:
-      context: .
-      dockerfile: ./deploys/dockers/mysqldb/Dockerfile
-
   envoy-proxy:
     container_name: envoy-proxy
     image: "vndg/cs-envoy-proxy"
@@ -39,6 +16,43 @@ services:
     volumes:
       - shareData:/tmp/envoy/
 
+  idp-service:
+    container_name: idp-service
+    image: "vndg/cs-idp-service"
+    restart: always
+    environment:
+      - HostSettings__SpaAllowedCorsOrigin=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}
+      - HostSettings__BasePath=/
+      - Hosts__Externals__CurrentUri=http://${IDENTITY_WEB_PUBLISH_HOST}:${IDENTITY_WEB_PUBLISH_PORT}
+    ports:
+      - "${IDENTITY_WEB_PUBLISH_PORT}:80"
+    expose:
+      - "${IDENTITY_WEB_PUBLISH_PORT}"
+    build:
+      context: .
+      dockerfile: ./src/services/idp/Dockerfile
+
+  web:
+    container_name: spa
+    image: "vndg/cs-spa"
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - NODE_WEB_ENV=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}/
+      - NODE_IDP_ENV=http://idp-service/
+      - NODE_CATALOG_ENV=http://envoy-proxy/
+      - NODE_CART_ENV=http://envoy-proxy/
+      - NODE_INVENTORY_ENV=http://envoy-proxy/
+      - NODE_RATING_ENV=http://envoy-proxy/
+      - NODE_IDP_HOST=localhost:${IDENTITY_WEB_PUBLISH_PORT}
+    ports:
+      - "${PORTAL_WEB_PUBLISH_PORT}:8080"
+    expose:
+      - "${PORTAL_WEB_PUBLISH_PORT}"
+    build:
+      context: .
+      dockerfile: ./src/web/Dockerfile
+
   docker-volume:
     container_name: docker-volume
     image: "vndg/cs-docker-volume"
@@ -48,12 +62,20 @@ services:
     volumes:
       - shareData:/tmp/
 
-  graphql-service:
-    container_name: graphql-service
+  graphql-server:
+    container_name: graphql-server
     image: "vndg/cs-graphql"
     restart: always
     environment:
       - Hosts__BasePath=/gql/
+      - Cors__Origins=http://localhost:3000,http://localhost:5011
+      - Idp__Authority=http://${IDENTITY_WEB_EXTERNAL_HOST}:8085
+      - Idp__Audience=api
+      - GrpcEndPoints__CatalogEndPoint=catalog-service:5002
+      - GrpcEndPoints__CartEndPoint=cart-service:5003
+      - GrpcEndPoints__InventoryEndPoint=inventory-service:5004
+      - GrpcEndPoints__ReviewEndPoint=review-service:5006
+      - GrpcEndPoints__RatingEndPoint=rating-service:5007
     ports:
       - "5011:5011"
     expose:
@@ -62,9 +84,9 @@ services:
       context: .
       dockerfile: ./src/services/graphql/Dockerfile
 
-  open-api-service:
-    container_name: open-api-service
-    image: "vndg/cs-open-api"
+  openapi:
+    container_name: openapi
+    image: "vndg/cs-openapi"
     restart: always
     environment:
       - BASE_PATH=/oai/
@@ -148,42 +170,28 @@ services:
       context: .
       dockerfile: ./src/services/rating/Dockerfile
 
-  idp-service:
-    container_name: idp-service
-    image: "vndg/cs-idp-service"
+  mongodb:
+    container_name: mongodb
+    image: "bitnami/mongodb"
     restart: always
-    environment:
-      - HostSettings__SpaAllowedCorsOrigin=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}
-      - HostSettings__BasePath=/
-      - Hosts__Externals__CurrentUri=http://${IDENTITY_WEB_PUBLISH_HOST}:${IDENTITY_WEB_PUBLISH_PORT}
-    ports:
-      - "${IDENTITY_WEB_PUBLISH_PORT}:80"
     expose:
-      - "${IDENTITY_WEB_PUBLISH_PORT}"
-    build:
-      context: .
-      dockerfile: ./src/services/idp/Dockerfile
+      - "27017"
+    ports:
+      - "27017:27017"
 
-  web:
-    container_name: spa
-    image: "vndg/cs-spa"
+  mysqldb:
+    container_name: mysqldb
+    image: "vndg/cs-mysqldb"
     restart: always
     environment:
-      - NODE_ENV=development
-      - NODE_WEB_ENV=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}/
-      - NODE_IDP_ENV=http://idp-service/
-      - NODE_CATALOG_ENV=http://envoy-proxy/
-      - NODE_CART_ENV=http://envoy-proxy/
-      - NODE_INVENTORY_ENV=http://envoy-proxy/
-      - NODE_RATING_ENV=http://envoy-proxy/
-      - NODE_IDP_HOST=localhost:${IDENTITY_WEB_PUBLISH_PORT}
-    ports:
-      - "${PORTAL_WEB_PUBLISH_PORT}:8080"
+      - MYSQL_ROOT_PASSWORD=P@ssw0rd
     expose:
-      - "${PORTAL_WEB_PUBLISH_PORT}"
+      - "3306"
+    ports:
+      - "3306:3306"
     build:
       context: .
-      dockerfile: ./src/web/Dockerfile
+      dockerfile: ./deploys/dockers/mysqldb/Dockerfile
 
 volumes:
   shareData:

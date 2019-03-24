@@ -26,10 +26,18 @@ namespace VND.CoolStore.Services.Review.v1.Services
         [CheckPolicy("review_api_scope")]
         public override async Task<PingResponse> Ping(Empty request, ServerCallContext context)
         {
-            return await Task.FromResult(new PingResponse
+            try
             {
-                Message = $"Say hello from {Environment.MachineName} machine!!!"
-            });
+                return await Task.FromResult(new PingResponse
+                {
+                    Message = $"Say hello from {Environment.MachineName} machine!!!"
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new RpcException(new Status(StatusCode.Internal, ex.Message));
+            }
         }
     }
 

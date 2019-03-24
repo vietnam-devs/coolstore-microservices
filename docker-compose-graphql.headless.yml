@@ -6,38 +6,21 @@ services:
     restart: always
     environment:
       - Hosts__BasePath=/
-      - Cors__Origins=http://localhost:3000,http://localhost:5011
-      - Idp__Authority=http://${IDENTITY_WEB_EXTERNAL_HOST}:8085
+      - Cors__Origins=http://localhost:${BACKOFFICE_PORT},http://localhost:${GRAPHQL_SVR_PORT}
+      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
       - Idp__Audience=api
-      - GrpcEndPoints__CatalogEndPoint=catalog-service:5002
-      - GrpcEndPoints__CartEndPoint=cart-service:5003
-      - GrpcEndPoints__InventoryEndPoint=inventory-service:5004
-      - GrpcEndPoints__ReviewEndPoint=review-service:5006
-      - GrpcEndPoints__RatingEndPoint=rating-service:5007
+      - GrpcEndPoints__CatalogEndPoint=catalog-service:${CATALOG_SVC_PORT}
+      - GrpcEndPoints__CartEndPoint=cart-service:${CART_SVC_PORT}
+      - GrpcEndPoints__InventoryEndPoint=inventory-service:${INVENTORY_SVC_PORT}
+      - GrpcEndPoints__ReviewEndPoint=review-service:${REVIEW_SVC_PORT}
+      - GrpcEndPoints__RatingEndPoint=rating-service:${RATING_SVC_PORT}
     ports:
-      - "5011:5011"
+      - "${GRAPHQL_SVR_PORT}:${GRAPHQL_SVR_PORT}"
     expose:
-      - "5011"
+      - "${GRAPHQL_SVR_PORT}"
     build:
       context: .
       dockerfile: ./src/services/graphql/Dockerfile
-
-  idp-service:
-    container_name: idp-service
-    image: "vndg/cs-idp-service"
-    restart: always
-    environment:
-      - HostSettings__BasePath=/
-      - HostSettings__SpaAllowedCorsOrigin=http://${PORTAL_WEB_PUBLISH_HOST}:${PORTAL_WEB_PUBLISH_PORT}
-      - HostSettings__BackOfficeAllowedCorsOrigin=http://localhost:3000
-      - Hosts__Externals__CurrentUri=http://${IDENTITY_WEB_PUBLISH_HOST}:${IDENTITY_WEB_PUBLISH_PORT}
-    ports:
-      - "${IDENTITY_WEB_PUBLISH_PORT}:80"
-    expose:
-      - "${IDENTITY_WEB_PUBLISH_PORT}"
-    build:
-      context: .
-      dockerfile: ./src/services/idp/Dockerfile
 
   openapi-service:
     container_name: openapi-service
@@ -46,39 +29,42 @@ services:
     environment:
       - BASE_PATH=/
     ports:
-      - "5010:5010"
+      - "${OPENAPI_SVR_PORT}:${OPENAPI_SVR_PORT}"
     expose:
-      - "5010"
+      - "${OPENAPI_SVR_PORT}"
     build:
       context: .
       dockerfile: ./src/services/open-api/Dockerfile
 
-  catalog-service:
-    container_name: catalog-service
-    image: "vndg/cs-catalog-service"
+  idp-service:
+    container_name: idp-service
+    image: "vndg/cs-idp-service"
     restart: always
     environment:
-      - NODE_ENV=development
-      - MONGO_DB_URI=mongodb://mongodb/catalog
-      - PORT=5002
+      - HostSettings__BasePath=/
+      - HostSettings__SpaAllowedCorsOrigin=http://localhost:${WEB_PORT}
+      - HostSettings__BackOfficeAllowedCorsOrigin=http://localhost:${BACKOFFICE_PORT}
+      - Hosts__Externals__CurrentUri=http://${HOST_IP}:${IDP_SVR_PORT}
     ports:
-      - "5002:5002"
+      - "${IDP_SVR_PORT}:80"
     expose:
-      - "5002"
+      - "${IDP_SVR_PORT}"
     build:
-      context: ./
-      dockerfile: ./src/services/catalog/Dockerfile
+      context: .
+      dockerfile: ./src/services/idp/Dockerfile
 
   cart-service:
     container_name: cart-service
     image: "vndg/cs-cart-service"
     restart: always
     environment:
-      - Features__EfCore__MySqlDb__FQDN=mysqldb:3306
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
+      - Features__EfCore__MySqlDb__FQDN=mysqldb:${MYSQLDB_PORT}
     ports:
-      - "5003:5003"
+      - "${CART_SVC_PORT}:${CART_SVC_PORT}"
     expose:
-      - "5003"
+      - "${CART_SVC_PORT}"
     build:
       context: .
       dockerfile: ./src/services/cart/Dockerfile
@@ -88,11 +74,13 @@ services:
     image: "vndg/cs-inventory-service"
     restart: always
     environment:
-      - Features__EfCore__MySqlDb__FQDN=mysqldb:3306
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
+      - Features__EfCore__MySqlDb__FQDN=mysqldb:${MYSQLDB_PORT}
     ports:
-      - "5004:5004"
+      - "${INVENTORY_SVC_PORT}:${INVENTORY_SVC_PORT}"
     expose:
-      - "5004"
+      - "${INVENTORY_SVC_PORT}"
     build:
       context: .
       dockerfile: ./src/services/inventory/Dockerfile
@@ -101,13 +89,33 @@ services:
     container_name: review-service
     image: "vndg/cs-review-service"
     restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
+      - Features__Mongo__ConnString=mongodb://mongodb:${MONGODB_PORT}
     ports:
-      - "5006:5006"
+      - "${REVIEW_SVC_PORT}:${REVIEW_SVC_PORT}"
     expose:
-      - "5006"
+      - "${REVIEW_SVC_PORT}"
     build:
       context: .
       dockerfile: ./src/services/review/Dockerfile
+
+  catalog-service:
+    container_name: catalog-service
+    image: "vndg/cs-catalog-service"
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - MONGO_DB_URI=mongodb://mongodb/catalog
+      - PORT=${CATALOG_SVC_PORT}
+    ports:
+      - "${CATALOG_SVC_PORT}:${CATALOG_SVC_PORT}"
+    expose:
+      - "${CATALOG_SVC_PORT}"
+    build:
+      context: ./
+      dockerfile: ./src/services/catalog/Dockerfile
 
   rating-service:
     container_name: rating-service
@@ -116,11 +124,11 @@ services:
     environment:
       - NODE_ENV=development
       - MONGO_DB_URI=mongodb://mongodb/rating
-      - PORT=5007
+      - PORT=${RATING_SVC_PORT}
     ports:
-      - "5007:5007"
+      - "${RATING_SVC_PORT}:${RATING_SVC_PORT}"
     expose:
-      - "5007"
+      - "${RATING_SVC_PORT}"
     build:
       context: .
       dockerfile: ./src/services/rating/Dockerfile
@@ -130,9 +138,9 @@ services:
     image: "bitnami/mongodb"
     restart: always
     expose:
-      - "27017"
+      - "${MONGODB_PORT}"
     ports:
-      - "27017:27017"
+      - "${MONGODB_PORT}:${MONGODB_PORT}"
 
   mysqldb:
     container_name: mysqldb
@@ -141,9 +149,9 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=P@ssw0rd
     expose:
-      - "3306"
+      - "${MYSQLDB_PORT}"
     ports:
-      - "3306:3306"
+      - "${MYSQLDB_PORT}:${MYSQLDB_PORT}"
     build:
       context: .
       dockerfile: ./deploys/dockers/mysqldb/Dockerfile
