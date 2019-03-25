@@ -49,6 +49,8 @@ To update the content from `NetCoreKit` project, run
 
 Reference at https://stackoverflow.com/questions/5828324/update-git-submodule-to-latest-commit-on-origin
 
+_Notes_: we can also check out a branch or a tag at https://stackoverflow.com/questions/1777854/how-can-i-specify-a-branch-tag-when-adding-a-git-submodule
+
 ## Identity Server
 
 - IdentityServer4
