@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <EmbeddedResource Include="..\..\graphql\coolstore.graphql" Link="v1\coolstore.graphql" />
+    <EmbeddedResource Include="..\..\gql\coolstore.graphql" Link="v1\coolstore.graphql" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">

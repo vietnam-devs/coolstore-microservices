@@ -1,6 +1,6 @@
 overwrite: true
 schema:
-  - ../graphql/coolstore.graphql
+  - ../gql/coolstore.graphql
 documents: "src/!(generated)/*.{tsx,ts}"
 generates:
   src/generated/graphql.tsx:
