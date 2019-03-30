@@ -7,7 +7,7 @@
 
 CoolStore is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read https://vietnam-devs.github.io for more information about how can we design and implement it.
 
-The business domain for internal µservice is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) & [Red Hat Demo Central](https://gitlab.com/redhatdemocentral). The readme file is inspired from [GoogleCloudPlatform Demo](https://github.com/GoogleCloudPlatform/microservices-demo).
+The business domain for internal µservice is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral). The readme file is inspired from [GoogleCloudPlatform Demo](https://github.com/GoogleCloudPlatform/microservices-demo).
 
 ## Public presentation
 
@@ -57,7 +57,7 @@ Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.
 - **[`envoy-proxy`](https://www.envoyproxy.io/)** - open source edge and service proxy, designed for cloud-native applications
 - **[`.NET Core SDK 2.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
 - **[`nodejs 10.x`](https://nodejs.org/en/download)** - JavaScript runtime built on Chrome's V8 JavaScript engine
-- **[typescript](https://www.typescriptlang.org)** - a typed superset of JavaScript that compiles to plain JavaScript
+- **[`typescript`](https://www.typescriptlang.org)** - a typed superset of JavaScript that compiles to plain JavaScript
 - **[`gRPC`](https://grpc.io)** - a high-performance, open-source universal RPC framework
 - **[`create-react-app`](https://facebook.github.io/create-react-app)** - a modern web app by running one command
 - **[`vue-cli`](https://cli.vuejs.org/)** - standard tooling for Vue.js development
@@ -88,7 +88,7 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/idp">code</a>
       </td>
       <td>
-        <a href="http://localhost:5001">dev</a> & <a href="http://id.coolstore.local">staging</a>
+        <a href="http://localhost:5001">dev</a> and <a href="http://id.coolstore.local">staging</a>
       </td>
     </tr>
     <tr>
@@ -99,7 +99,7 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/graphql">code</a>
       </td>
       <td>
-        <a href="http://localhost:5011">dev</a> & <a href="http://api.coolstore.local/graphql/playground">staging</a>
+        <a href="http://localhost:5011">dev</a> and <a href="http://api.coolstore.local/graphql/playground">staging</a>
       </td>
      </tr>
      <tr>
@@ -110,29 +110,29 @@ There are several individual µservices and infrastructure components that make 
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/openapi">code</a>
       </td>
       <td>
-        <a href="http://localhost:5010">dev</a> & <a href="http://api.coolstore.local/openapi/swagger">staging</a>
+        <a href="http://localhost:5010">dev</a> and <a href="http://api.coolstore.local/openapi/swagger">staging</a>
       </td>
      </tr>
      <tr>
       <td align="center">4.</td>
-      <td>Web UI (PWA - Vuejs + Node.js)</td>
+      <td>Web (PWA - Vuejs + Node.js)</td>
       <td>Frontend based on <a href="https://vuejs.org">vuejs</a> and <a href="https://nodejs.org">Node.js</a></td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/web">code</a>
       </td>
       <td>
-        <a href="http://localhost:8080">dev</a> & <a href="http://web.coolstore.local">staging</a>
+        <a href="http://localhost:8080">dev</a> and <a href="http://web.coolstore.local">staging</a>
       </td>
      </tr>
      <tr>
       <td align="center">5.</td>
-      <td>Backoffice</td>
+      <td>Backoffice (React + TypeScript + Apollo-client)</td>
       <td>The back office application for management business entities in the system</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/backoffice">code</a>
       </td>
       <td>
-        <a href="http://localhost:8081">dev</a> & <a href="http://backoffice.coolstore.local">staging</a>
+        <a href="http://localhost:8081">dev</a> and <a href="http://backoffice.coolstore.local">staging</a>
       </td>
     </tr>
     <tr>
