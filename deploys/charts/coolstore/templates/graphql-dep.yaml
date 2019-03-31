@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: graphql-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: graphql
+        version: v1
+    spec:
+      containers:
+      - name: graphql
+        image: {{.Values.image.imageRegistry}}/cs-graphql:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: Hosts__BasePath
+          value: {{ .Values.graphqlSettings.HostsBasePath }}
+        - name: Cors__Origins
+          value: {{ .Values.graphqlSettings.CorsOrigins  | quote }}
+        - name: Idp__Authority
+          value: {{ .Values.graphqlSettings.IdpAuthority }}
+        - name: Idp__Audience
+          value: {{ .Values.graphqlSettings.IdpAudience }}
+        - name: GrpcEndPoints__CatalogEndPoint
+          value: {{ .Values.graphqlSettings.CatalogEndPoint }}
+        - name: GrpcEndPoints__CartEndPoint
+          value: {{ .Values.graphqlSettings.CartEndPoint }}
+        - name: GrpcEndPoints__InventoryEndPoint
+          value: {{ .Values.graphqlSettings.InventoryEndPoint }}
+        - name: GrpcEndPoints__ReviewEndPoint
+          value: {{ .Values.graphqlSettings.ReviewEndPoint }}
+        - name: GrpcEndPoints__RatingEndPoint
+          value: {{ .Values.graphqlSettings.RatingEndPoint }}
+        ports:
+        - containerPort: 5011
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+          limits:
+            cpu: 20m
+            memory: 128Mi
+---

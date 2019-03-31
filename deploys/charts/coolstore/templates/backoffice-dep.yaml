@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: backoffice-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backoffice
+        version: v1
+    spec:
+      containers:
+      - name: backoffice
+        image: {{.Values.image.imageRegistry}}/cs-backoffice:{{.Values.image.dockerTag}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: REACT_APP_GRAPHQL_ENDPOINT
+          value: {{ .Values.backofficeSettings.GraphQLEndPoint }}
+        - name: REACT_APP_AUTHORITY
+          value: {{ .Values.backofficeSettings.Authority }}
+        - name: REACT_APP_CLIENT_ID
+          value: {{ .Values.backofficeSettings.ClientId }}
+        - name: REACT_APP_ROOT_URL
+          value: {{ .Values.backofficeSettings.RootUrl }}
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: 30m
+            memory: 64Mi
+          limits:
+            cpu: 30m
+            memory: 128Mi
+---

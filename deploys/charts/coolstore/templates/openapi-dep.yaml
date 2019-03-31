@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: openapi
-        image: {{.Values.image.imageRegistry}}/cs-open-api:{{.Values.image.dockerTag}}
+        image: {{.Values.image.imageRegistry}}/cs-openapi:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: BASE_PATH
@@ -22,9 +22,9 @@ spec:
         - containerPort: 5010
         resources:
           requests:
-            memory: "200Mi"
-            cpu: "100m"
+            cpu: 10m
+            memory: 64Mi
           limits:
-            memory: "200Mi"
-            cpu: "100m"
+            cpu: 20m
+            memory: 128Mi
 ---

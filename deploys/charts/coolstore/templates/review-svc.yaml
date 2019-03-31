@@ -8,8 +8,8 @@ metadata:
 spec:
   ports:
   - name: grpc
-    port: 5006
-    targetPort: 5006
+    port: {{ .Values.reviewSettings.Port }}
+    targetPort: {{ .Values.reviewSettings.Port }}
     protocol: TCP
   selector:
     app: review

@@ -18,32 +18,32 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: Hosts__Local__Host
-          value: {{ .Values.inventorySettings.Hosts__Local__Host }}
+          value: {{ .Values.inventorySettings.Host }}
         - name: Hosts__Local__Port
-          value: {{ .Values.inventorySettings.Hosts__Local__Port | quote }}
+          value: {{ .Values.inventorySettings.Port | quote }}
         - name: Features__EfCore__MySqlDb__FQDN
-          value: {{ .Values.inventorySettings.Features__EfCore__MySqlDb__FQDN }}
+          value: {{ .Values.inventorySettings.MySqlDbFQDN }}
         - name: Features__EfCore__MySqlDb__Password
           valueFrom:
             secretKeyRef:
               name: inventory-secrets
               key: MySqlDbPassword
         ports:
-        - containerPort: 5004
+        - containerPort: {{ .Values.inventorySettings.Port }}
         readinessProbe:
           initialDelaySeconds: 15
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5004"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.inventorySettings.Port }}"]
         livenessProbe:
           initialDelaySeconds: 15
           periodSeconds: 10
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5004"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.inventorySettings.Port }}"]
         resources:
           requests:
-            memory: "300Mi"
-            cpu: "100m"
+            cpu: 30m
+            memory: 64Mi
           limits:
-            memory: "300Mi"
-            cpu: "100m"
+            cpu: 30m
+            memory: 64Mi
 ---

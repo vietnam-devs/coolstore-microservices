@@ -15,7 +15,7 @@ spec:
       initContainers:
       - name: init-mongodb
         image: busybox
-        command: ["sh", "-c", "while nc -z {{ .Values.ratingSettings.MongoDb.Host }} {{ .Values.ratingSettings.MongoDb.Port }}; do sleep 1; done"]
+        command: ["sh", "-c", "while nc -z {{ .Values.ratingSettings.MongoDbHost }} {{ .Values.ratingSettings.MongoDbPort }}; do sleep 1; done"]
       containers:
       - name: rating
         image: {{.Values.image.imageRegistry}}/cs-rating-service:{{.Values.image.dockerTag}}
@@ -26,7 +26,7 @@ spec:
         - name: PORT
           value: {{ .Values.ratingSettings.Port  | quote }}
         - name: MONGO_DB_URI
-          value: "mongodb://{{ .Values.ratingSettings.MongoDb.Host }}:{{ .Values.ratingSettings.MongoDb.Port }}/{{ .Values.ratingSettings.MongoDb.Name }}"
+          value: "mongodb://{{ .Values.ratingSettings.MongoDbHost }}:{{ .Values.ratingSettings.MongoDbPort }}/{{ .Values.ratingSettings.MongoDbName }}"
         ports:
         - containerPort: {{ .Values.ratingSettings.Port }}
         readinessProbe:
@@ -40,9 +40,9 @@ spec:
             command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.ratingSettings.Port }}"]
         resources:
           requests:
-            cpu: 100m
+            cpu: 50m
             memory: 64Mi
           limits:
-            cpu: 200m
+            cpu: 50m
             memory: 128Mi
 ---

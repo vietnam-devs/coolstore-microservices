@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphql
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: graphql
+spec:
+  ports:
+  - port: 5011
+    targetPort: 5011
+    protocol: TCP
+    name: http
+  selector:
+    app: graphql
+---

@@ -7,8 +7,8 @@ metadata:
     app: inventory
 spec:
   ports:
-  - port: 5004
-    targetPort: 5004
+  - port: {{ .Values.inventorySettings.Port }}
+    targetPort: {{ .Values.inventorySettings.Port }}
     protocol: TCP
     name: http
   selector:

@@ -19,7 +19,7 @@ spec:
         - name: HostSettings__BasePath
           value: {{ .Values.idpSettings.BasePath }}
         - name: Hosts__Externals__CurrentUri
-          value: {{ .Values.idpSettings.Hosts__Externals__CurrentUri }}
+          value: {{ .Values.idpSettings.ExternalCurrentUri }}
         - name: HostSettings__SwaggerRedirectUri
           value: {{ .Values.idpSettings.SwaggerRedirectUri }}
         - name: HostSettings__SwaggerPostLogoutRedirectUri
@@ -28,14 +28,16 @@ spec:
           value: {{ .Values.idpSettings.SwaggerAllowedCorsOrigin }}
         - name: HostSettings__SpaAllowedCorsOrigin
           value: {{ .Values.idpSettings.SpaAllowedCorsOrigin }}
+        - name: HostSettings__BackOfficeAllowedCorsOrigin
+          value: {{ .Values.idpSettings.BackOfficeAllowedCorsOrigin }}
         ports:
         - name: http
           containerPort: 80
         resources:
           requests:
-            memory: "300Mi"
-            cpu: "100m"
+            cpu: 20m
+            memory: 64Mi
           limits:
-            memory: "300Mi"
-            cpu: "100m"
+            cpu: 40m
+            memory: 128Mi
 ---

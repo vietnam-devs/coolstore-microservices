@@ -12,6 +12,7 @@ spec:
       protocol: HTTP
     hosts:
     - {{ .Values.hosts.web }}
+    - {{ .Values.hosts.backoffice }}
     - {{ .Values.hosts.api }}
     - {{ .Values.hosts.idp }}
 ---

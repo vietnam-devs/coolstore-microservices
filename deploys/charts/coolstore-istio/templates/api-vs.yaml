@@ -18,6 +18,14 @@ spec:
           number: 5010
   - match:
     - uri:
+        prefix: /gql/
+    route:
+    - destination:
+        host: graphql
+        port:
+          number: 5011
+  - match:
+    - uri:
         prefix: /catalog/
     route:
     - destination:

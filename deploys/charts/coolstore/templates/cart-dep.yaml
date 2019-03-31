@@ -18,34 +18,34 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: Hosts__Local__Host
-          value: {{ .Values.cartSettings.Hosts__Local__Host }}
+          value: {{ .Values.cartSettings.Host }}
         - name: Hosts__Local__Port
-          value: {{ .Values.cartSettings.Hosts__Local__Port | quote }}
+          value: {{ .Values.cartSettings.Port | quote }}
         - name: Hosts__Externals__Catalog__Uri
-          value: {{ .Values.cartSettings.Hosts__Externals__Catalog__Uri }}
+          value: {{ .Values.cartSettings.CatalogUri }}
         - name: Features__EfCore__MySqlDb__FQDN
-          value: {{ .Values.cartSettings.Features__EfCore__MySqlDb__FQDN }}
+          value: {{ .Values.cartSettings.MySqlDbFQDN }}
         - name: Features__EfCore__MySqlDb__Password
           valueFrom:
             secretKeyRef:
               name: cart-secrets
               key: MySqlDbPassword
         ports:
-        - containerPort: {{ .Values.cartSettings.Hosts__Local__Port }}
+        - containerPort: {{ .Values.cartSettings.Port }}
         readinessProbe:
           initialDelaySeconds: 15
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5003"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.cartSettings.Port }}"]
         livenessProbe:
           initialDelaySeconds: 15
           periodSeconds: 10
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5003"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.cartSettings.Port }}"]
         resources:
           requests:
-            memory: "300Mi"
-            cpu: "100m"
+            cpu: 30m
+            memory: 64Mi
           limits:
-            memory: "300Mi"
-            cpu: "100m"
+            cpu: 30m
+            memory: 128Mi
 ---

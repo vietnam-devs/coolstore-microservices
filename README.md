@@ -58,7 +58,7 @@ Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.
 - **[`.NET Core SDK 2.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
 - **[`nodejs 10.x`](https://nodejs.org/en/download)** - JavaScript runtime built on Chrome's V8 JavaScript engine
 - **[`typescript`](https://www.typescriptlang.org)** - a typed superset of JavaScript that compiles to plain JavaScript
-- **[identityserver](https://identityserver.io)** - the Identity and Access Control solution for .NET Core
+- **[`identityserver`](https://identityserver.io)** - the Identity and Access Control solution for .NET Core
 - **[`gRPC`](https://grpc.io)** - a high-performance, open-source universal RPC framework
 - **[`create-react-app`](https://facebook.github.io/create-react-app)** - a modern web app by running one command
 - **[`vue-cli`](https://cli.vuejs.org/)** - standard tooling for Vue.js development
@@ -207,11 +207,24 @@ There are several individual µservices and infrastructure components that make 
 
 ## Installation
 
-### <strong>Development environment</strong> - up and running locally with "Docker for desktop"
+### Development environment
+
+#### Up and running manually with `Docker for desktop`
 
 See https://vietnam-devs.github.io/docs/development/up-running-d4d-aks/#docker-for-desktop
 
-### <strong>Staging and Production environments</strong> - up and Running on Azure Kubernetes Service (AKS)
+#### Up and running with `docker compose`
+
+```bash
+$ docker-compose up
+$ docker-compose -f docker-compose-graphql.yml up
+$ docker-compose -f docker-compose-graphql.headless.yml up
+$ docker-compose -f docker-compose-graphql.dev.yml up
+```
+
+### Staging and Production environments
+
+#### Up and Running on `Azure Kubernetes Service` (`AKS`)
 
 See https://vietnam-devs.github.io/docs/development/up-running-d4d-aks/#azure-kubernetes-service-aks
 
@@ -231,7 +244,7 @@ Guidance for developing µService can be found at [Clean Domain-Driven Design in
 
 ## Service mesh
 
-[Istio](https://istio.io) provide a wealth of benefits for the organizations that use them. There’s no denying, however, that adopting the cloud can put strains on DevOps teams. Developers must use microservices to architect for portability, meanwhile operators are managing extremely large hybrid and multi-cloud deployments. Istio lets you connect, secure, control, and observe services.
+[`istio`](https://istio.io) provide a wealth of benefits for the organizations that use them. There’s no denying, however, that adopting the cloud can put strains on DevOps teams. Developers must use microservices to architect for portability, meanwhile operators are managing extremely large hybrid and multi-cloud deployments. Istio lets you connect, secure, control, and observe services.
 
 ### Distributed tracing
 

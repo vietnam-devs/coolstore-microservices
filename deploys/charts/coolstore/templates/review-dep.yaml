@@ -18,27 +18,27 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: Hosts__Local__Host
-          value: {{ .Values.reviewSettings.Hosts__Local__Host }}
+          value: {{ .Values.reviewSettings.Host }}
         - name: Hosts__Local__Port
-          value: {{ .Values.reviewSettings.Hosts__Local__Port | quote}}
+          value: {{ .Values.reviewSettings.Port | quote}}
         - name: Features__Mongo__ConnString
-          value: {{ .Values.reviewSettings.Features__Mongo__ConnString }}
+          value: {{ .Values.reviewSettings.MongoConnString }}
         ports:
-        - containerPort: {{ .Values.reviewSettings.Hosts__Local__Port }}
+        - containerPort: {{ .Values.reviewSettings.Port }}
         readinessProbe:
           initialDelaySeconds: 15
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5006"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.reviewSettings.Port }}"]
         livenessProbe:
           initialDelaySeconds: 15
           periodSeconds: 10
           exec:
-            command: ["/bin/grpc_health_probe", "-addr=:5006"]
+            command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.reviewSettings.Port }}"]
         resources:
           requests:
-            memory: "300Mi"
-            cpu: "100m"
+            cpu: 40m
+            memory: 128Mi
           limits:
-            memory: "300Mi"
-            cpu: "100m"
+            cpu: 40m
+            memory: 128Mi
 ---
