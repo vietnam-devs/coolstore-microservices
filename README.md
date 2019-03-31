@@ -58,6 +58,7 @@ Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.
 - **[`.NET Core SDK 2.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
 - **[`nodejs 10.x`](https://nodejs.org/en/download)** - JavaScript runtime built on Chrome's V8 JavaScript engine
 - **[`typescript`](https://www.typescriptlang.org)** - a typed superset of JavaScript that compiles to plain JavaScript
+- **[identityserver](https://identityserver.io)** - the Identity and Access Control solution for .NET Core
 - **[`gRPC`](https://grpc.io)** - a high-performance, open-source universal RPC framework
 - **[`create-react-app`](https://facebook.github.io/create-react-app)** - a modern web app by running one command
 - **[`vue-cli`](https://cli.vuejs.org/)** - standard tooling for Vue.js development
@@ -208,91 +209,11 @@ There are several individual µservices and infrastructure components that make 
 
 ### <strong>Development environment</strong> - up and running locally with "Docker for desktop"
 
-1. Make sure we have **`Docker for Desktop`** running with **`Kubernetes`** option enabled. We need to install **`kubectl`**, **`helm`** and **`istioctl`** on the build machine as well.
-
-2. From current console, type `bash` to enter `Linux Subsystem (Ubuntu)`
-
-3. Then `cd` into your root of project
-
-```
-> ./deploys/scripts/build-all-images.sh
-```
-
-It should run and package all docker images.
-
-4. Download and install [istio-1.0.0](https://github.com/istio/istio/releases/tag/1.0.0) on the box, and unzip it into somewhere, then initialize it with following commands
-
-```
-> cd <istio-1.0.0 path>
-> kubectl create -f install/kubernetes/helm/helm-service-account.yaml
-> helm init --service-account tiller --upgrade
-> helm install install/kubernetes/helm/istio --name istio --namespace istio-system
-```
-
-More information about installing `istio` can be found at https://istio.io/docs/setup/kubernetes/helm-install
-
-5. Apply `istioctl` command to `coolstore` chart (please create k8s folder in folder deploys)
-
-```
-> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml > deploys/k8s/coolstore.local.yaml
-> istioctl kube-inject -f deploys/k8s/coolstore.local.yaml | kubectl apply -f -
-```
-
-6. Add hosts file with following content
-
-```
-127.0.0.1 api.coolstore.local
-127.0.0.1 id.coolstore.local
-127.0.0.1 coolstore.local
-```
-
-Waiting for the container provision completed
-
-7. Install `coolstore-istio` chart
-
-```
-> helm install deploys\charts\coolstore-istio --name coolstore-istio
-```
-
-8. Access to following URLs
-
-```
-> curl -I http://coolstore.local # website
-> curl -I http://api.coolstore.local # api gateway
-> curl -I http://id.coolstore.local # identity provider
-```
-
-9. Clean up `coolstore` chart as
-
-```
-> kubectl delete -f deployment/istio/coolstore.local.yaml
-> helm delete coolstore-istio --purge
-> helm delete istio --purge
-```
-
-**Notes**:
-
-1. Global path
-
-   > Set `PATH` for `docker`, `kubectl`, `helm`, and `istioctl`.
-
-2. Run with Nginx (not recommendation)
-   > If you want to run just only `Kubernetes` + `nginx-ingress` go to `deploys/charts/coolstore/values.yaml`, and modify as following
-   >
-   > ```
-   > nginx:
-   >    enabled: true
-   > ```
-   >
-   > Then run the `helm` command as
-   >
-   > ```
-   > helm install --name cs-nginx stable/nginx-ingress
-   > ```
+See https://vietnam-devs.github.io/docs/development/up-running-d4d-aks/#docker-for-desktop
 
 ### <strong>Staging and Production environments</strong> - up and Running on Azure Kubernetes Service (AKS)
 
-[5 steps to bring CoolStore’s Service Mesh to Azure Kubernetes Service](https://medium.com/@thangchung/5-steps-to-bring-coolstores-service-mesh-to-azure-kubernetes-service-aks-9cd1a5aa008a)
+See https://vietnam-devs.github.io/docs/development/up-running-d4d-aks/#azure-kubernetes-service-aks
 
 ## µService development
 
