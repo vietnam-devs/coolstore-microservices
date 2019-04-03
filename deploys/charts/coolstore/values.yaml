@@ -37,13 +37,13 @@ catalogSettings:
 cartSettings:
   Host: "0.0.0.0"
   Port: 5003
-  MySqlDbFQDN: "cartdb:3306"
+  MySqlDbFQDN: "mysqldb:3306"
   CatalogUri: "http://api.coolstore.local/catalog"
 
 inventorySettings:
   Host: "0.0.0.0"
   Port: 5004
-  MySqlDbFQDN: "inventorydb:3306"
+  MySqlDbFQDN: "mysqldb:3306"
 
 reviewSettings:
   Host: "0.0.0.0"

@@ -1,30 +1,33 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cartdb-v1
+  name: mysqldb-v1
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: cartdb
+        app: mysqldb
         version: v1
     spec:
       containers:
-      - name: cartdb
+      - name: mysqldb
         image: {{.Values.image.imageRegistry}}/cs-mysqldb:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "P@ssw0rd"
+          valueFrom:
+            secretKeyRef:
+              name: mysqldb-secrets
+              key: MySqlDbPassword
         ports:
         - containerPort: 3306
         resources:
           requests:
-            cpu: 10m
-            memory: 64Mi
+            cpu: 250m
+            memory: 256Mi
           limits:
-            cpu: 20m
-            memory: 128Mi
+            cpu: 500m
+            memory: 512Mi
 ---
