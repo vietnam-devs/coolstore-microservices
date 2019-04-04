@@ -15,7 +15,7 @@ COPY /src/services/graphql/*csproj /src/src/services/graphql/
 RUN dotnet restore /property:Configuration=Release -nowarn:msb3202,nu1503
 
 COPY /src/services/graphql/ /src/src/services/graphql/
-COPY /src/graphql/coolstore.graphql /src/src/services/graphql/v1/coolstore.graphql
+COPY /src/gql/coolstore.graphql /src/src/services/graphql/v1/coolstore.graphql
 RUN dotnet build --no-restore -c Release -o /app
 
 FROM build AS publish
