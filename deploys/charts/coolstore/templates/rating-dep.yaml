@@ -47,9 +47,9 @@ spec:
             command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.ratingSettings.Port }}"]
         resources:
           requests:
-            cpu: 150m
-            memory: 64Mi
-          limits:
             cpu: 200m
             memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
 ---

@@ -16,6 +16,7 @@ spec:
         host: graphql
         port:
           number: 5011
+    websocketUpgrade: true
   - match:
     - uri:
         prefix: /catalog/

@@ -55,7 +55,7 @@ ratingSettings:
 
 graphqlSettings:
   HostsBasePath: /gql/
-  CorsOrigins: http://backoffice.coolstore.local,http://api.coolstore.local/gql/
+  CorsOrigins: http://backoffice.coolstore.local/,http://api.coolstore.local/
   IdpAuthority: http://id.coolstore.local/
   IdpAudience: api
   CatalogEndPoint: http://api.coolstore.local/catalog/
@@ -74,7 +74,7 @@ spaSettings:
   RatingUri: http://coolstore.local/rating/
 
 backofficeSettings:
-  GraphQLEndPoint: http://api.coolstore.local/gql/graphql
+  GraphQLEndPoint: http://api.coolstore.local/gql
   Authority: http://id.coolstore.local/
   ClientId: backoffice
   RootUrl: http://backoffice.coolstore.local
