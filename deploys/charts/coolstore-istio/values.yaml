@@ -1,5 +1,6 @@
 hosts:
   web: coolstore.local
+  backoffice: backoffice.coolstore.local
   api: api.coolstore.local
   idp: id.coolstore.local
 
