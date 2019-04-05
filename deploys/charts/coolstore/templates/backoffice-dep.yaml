@@ -3,8 +3,15 @@ kind: Deployment
 metadata:
   name: backoffice-v1
   namespace: {{ .Release.Namespace }}
+  labels:
+    app: backoffice
+    version: v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: backoffice
+      version: v1
   template:
     metadata:
       labels:
@@ -28,9 +35,9 @@ spec:
         - containerPort: 3000
         resources:
           requests:
-            cpu: 200m
-            memory: 128Mi
-          limits:
-            cpu: 400m
+            cpu: 300m
             memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
 ---

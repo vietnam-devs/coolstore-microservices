@@ -1,10 +1,17 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: idp-v1
   namespace: {{ .Release.Namespace }}
+  labels:
+    app: idp
+    version: v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: idp
+      version: v1
   template:
     metadata:
       labels:

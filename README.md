@@ -183,7 +183,7 @@ There are several individual µservices and infrastructure components that make 
       </td>
      </tr>
      <tr>
-      <td align="center">11.</td>
+      <td align="center">10.</td>
       <td>Rating (Node.js + TypeScript + Mongo)</td>
       <td>Runs for rating products</td>
       <td>

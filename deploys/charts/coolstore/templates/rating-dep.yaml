@@ -1,10 +1,17 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rating-v1
   namespace: {{ .Release.Namespace }}
+  labels:
+    app: rating
+    version: v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: rating
+      version: v1
   template:
     metadata:
       labels:
@@ -40,7 +47,7 @@ spec:
             command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.ratingSettings.Port }}"]
         resources:
           requests:
-            cpu: 100m
+            cpu: 150m
             memory: 64Mi
           limits:
             cpu: 200m

@@ -1,10 +1,17 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spa-v1
   namespace: {{ .Release.Namespace }}
+  labels:
+    app: spa
+    version: v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: spa
+      version: v1
   template:
     metadata:
       labels:
@@ -36,9 +43,9 @@ spec:
         - containerPort: 8080
         resources:
           requests:
-            cpu: 200m
+            cpu: 300m
             memory: 128Mi
           limits:
-            cpu: 400m
+            cpu: 500m
             memory: 256Mi
 ---
