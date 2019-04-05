@@ -173,17 +173,6 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">9.</td>
-      <td>Pricing (.NET Core + MySQL)</td>
-      <td>Handles a business rules application for product pricing</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/pricing">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5005">dev</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">10.</td>
       <td>Rating (Node.js + TypeScript + Mongo)</td>
       <td>Runs for rating products</td>
       <td>
@@ -273,15 +262,15 @@ Guidance for developing µService can be found at [Clean Domain-Driven Design in
         <p>Developer</p>
       </td>
       <td align="center" valign="top">
-        <img width="150" height="150" src="https://github.com/stuartleeks.png?s=150">
-        <br>
-        <a href="https://github.com/stuartleeks">Stuart Leeks</a>
-        <p>Contributor</p>
-      </td>
-      <td align="center" valign="top">
         <img width="150" height="150" src="https://github.com/trumhemcut.png?s=150">
         <br>
         <a href="https://github.com/trumhemcut">Phi Huynh</a>
+        <p>Contributor</p>
+      </td>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/stuartleeks.png?s=150">
+        <br>
+        <a href="https://github.com/stuartleeks">Stuart Leeks</a>
         <p>Contributor</p>
       </td>
      </tr>

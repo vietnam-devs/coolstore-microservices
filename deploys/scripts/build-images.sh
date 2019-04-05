@@ -11,6 +11,11 @@ echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ./deploys/dockers/envoy-proxy/cmd_build_image.sh
 
 echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+echo "Build Docker Volume..."
+echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+./deploys/dockers/docker-volume/cmd_build_image.sh
+
+echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 echo "Build IdP..."
 echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ./src/services/idp/cmd_build_image.sh
@@ -49,5 +54,10 @@ echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 echo "Build SPA..."
 echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ./src/web/cmd_build_image.sh
+
+echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+echo "Build BackOffice..."
+echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+./src/backoffice/cmd_build_image.sh
 
 #docker rmi $(docker images -f "dangling=true" -q)
