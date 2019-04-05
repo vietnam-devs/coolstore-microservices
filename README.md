@@ -17,6 +17,8 @@ The business domain for internal µservice is inspired from [CoolStore project](
 
 Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.chat/net-core) or say hi on [Twitter](https://twitter.com/thangchung)!
 
+[Become a sponsor on Patreon](https://www.patreon.com/thangchung)
+
 ## Screenshots
 
 <details>
@@ -178,17 +180,6 @@ There are several individual µservices and infrastructure components that make 
       </td>
       <td>
         <a href="http://localhost:5005">dev</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">10.</td>
-      <td>Review (.NET Core + MySQL)</td>
-      <td>Runs for writing and displaying reviews for products</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/review">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5006">dev</a>
       </td>
      </tr>
      <tr>

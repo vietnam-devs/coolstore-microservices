@@ -55,11 +55,6 @@ steps:
     docker push $(DOCKER_GROUP)/cs-cart-service:$(DOCKER_TAG)
   displayName: 'Build Cart Service'
 - script: |
-    docker build -f ./src/services/review/Dockerfile -t $(DOCKER_USERNAME)/cs-review-service:$(DOCKER_TAG) .
-    docker tag $(DOCKER_USERNAME)/cs-review-service:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-review-service:$(DOCKER_TAG)
-    docker push $(DOCKER_GROUP)/cs-review-service:$(DOCKER_TAG)
-  displayName: 'Build Review Service'
-- script: |
     docker build -f ./src/web/Dockerfile -t $(DOCKER_USERNAME)/cs-spa:$(DOCKER_TAG) .
     docker tag $(DOCKER_USERNAME)/cs-spa:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-spa:$(DOCKER_TAG)
     docker push $(DOCKER_GROUP)/cs-spa:$(DOCKER_TAG)

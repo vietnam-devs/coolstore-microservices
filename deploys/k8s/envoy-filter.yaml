@@ -14,8 +14,6 @@ spec:
       filterConfig:
         protoDescriptor: "/tmp/proto.pb"
         services:
-          - coolstore.PingService
-          - coolstore.ReviewService
           - coolstore.CartService
           - coolstore.InventoryService
           - coolstore.CatalogService

@@ -10,14 +10,6 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /v1/
-    route:
-    - destination:
-        host: openapi
-        port:
-          number: 5010
-  - match:
-    - uri:
         prefix: /gql/
     route:
     - destination:
@@ -48,14 +40,6 @@ spec:
         host: inventory
         port:
           number: 5004
-  - match:
-    - uri:
-        prefix: /review/
-    route:
-    - destination:
-        host: review
-        port:
-          number: 5006
   - match:
     - uri:
         prefix: /rating/

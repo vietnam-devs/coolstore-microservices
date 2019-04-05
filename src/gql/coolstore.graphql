@@ -100,34 +100,6 @@ input UpdateRatingInput {
   cost: Float!
 }
 
-type Review {
-  id: String!
-  content: String!
-  authorId: String!
-  authorName: String!
-  productId: String!
-  productName: String!
-}
-
-input GetReviewsInput {
-  productId: String!
-}
-
-input CreateReviewInput {
-  productId: String!
-  userId: String!
-  content: String!
-}
-
-input EditReviewInput {
-  reviewId: String!
-  content: String!
-}
-
-input DeleteReviewInput {
-  reviewId: String!
-}
-
 directive @authorize on FIELD_DEFINITION
 
 type Query {
@@ -138,7 +110,6 @@ type Query {
   availability(input: GetInventoryInput!): Inventory @authorize
   ratings: [Rating] @authorize
   rating(input: GetRatingByProductIdInput!): Rating @authorize
-  reviews(input: GetReviewsInput!): [Review] @authorize
 }
 
 type Mutation {
@@ -149,9 +120,6 @@ type Mutation {
   checkout(input: CheckoutInput!): Boolean! @authorize
   createRating(input: CreateRatingInput!): Rating! @authorize
   updateRating(input: UpdateRatingInput!): Rating! @authorize
-  createReview(input: CreateReviewInput!): Review! @authorize
-  editReview(input: EditReviewInput!): Review! @authorize
-  deleteReview(input: DeleteReviewInput!): String! @authorize
 }
 
 schema {

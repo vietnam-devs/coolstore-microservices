@@ -11,21 +11,19 @@ using VND.CoolStore.Services.Cart.v1.Grpc;
 using VND.CoolStore.Services.Catalog.v1.Grpc;
 using VND.CoolStore.Services.Inventory.v1.Grpc;
 using VND.CoolStore.Services.Rating.v1.Grpc;
-using VND.CoolStore.Services.Review.v1.Grpc;
 using static tanka.graphql.resolvers.Resolve;
 using static VND.CoolStore.Services.Cart.v1.Grpc.CartService;
 using static VND.CoolStore.Services.Catalog.v1.Grpc.CatalogService;
 using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
 using static VND.CoolStore.Services.Rating.v1.Grpc.RatingService;
-using static VND.CoolStore.Services.Review.v1.Grpc.ReviewService;
 
 namespace VND.CoolStore.Services.GraphQL.v1
 {
-    public class CoolStoreResolvers : ResolverMap
+  public class CoolStoreResolvers : ResolverMap
+  {
+    public CoolStoreResolvers(ICoolStoreResolverService resolverService)
     {
-        public CoolStoreResolvers(ICoolStoreResolverService resolverService)
-        {
-            this["Product"] = new FieldResolverMap
+      this["Product"] = new FieldResolverMap
             {
                 {"id", PropertyOf<CatalogProductDto>(m => m.Id)},
                 {"name", PropertyOf<CatalogProductDto>(m => m.Name)},
@@ -34,7 +32,7 @@ namespace VND.CoolStore.Services.GraphQL.v1
                 {"desc", PropertyOf<CatalogProductDto>(m => m.Desc)}
             };
 
-            this["Cart"] = new FieldResolverMap
+      this["Cart"] = new FieldResolverMap
             {
                 {"id", PropertyOf<CartDto>(m => m.Id)},
                 {"cartItemTotal", PropertyOf<CartDto>(m => m.CartItemTotal)},
@@ -46,7 +44,7 @@ namespace VND.CoolStore.Services.GraphQL.v1
                 {"items", PropertyOf<CartDto>(m => m.Items)}
             };
 
-            this["CartItem"] = new FieldResolverMap
+      this["CartItem"] = new FieldResolverMap
             {
                 {"productId", PropertyOf<CartItemDto>(m => m.ProductId)},
                 {"productName", PropertyOf<CartItemDto>(m => m.ProductName)},
@@ -55,7 +53,7 @@ namespace VND.CoolStore.Services.GraphQL.v1
                 {"promoSavings", PropertyOf<CartItemDto>(m => m.PromoSavings)}
             };
 
-            this["Inventory"] = new FieldResolverMap
+      this["Inventory"] = new FieldResolverMap
             {
                 {"id", PropertyOf<InventoryDto>(m => m.Id)},
                 {"location", PropertyOf<InventoryDto>(m => m.Location)},
@@ -63,7 +61,7 @@ namespace VND.CoolStore.Services.GraphQL.v1
                 {"link", PropertyOf<InventoryDto>(m => m.Link)}
             };
 
-            this["Rating"] = new FieldResolverMap
+      this["Rating"] = new FieldResolverMap
             {
                 {"id", PropertyOf<RatingDto>(m => m.Id)},
                 {"productId", PropertyOf<RatingDto>(m => m.ProductId)},
@@ -71,17 +69,7 @@ namespace VND.CoolStore.Services.GraphQL.v1
                 {"cost", PropertyOf<RatingDto>(m => m.Cost)}
             };
 
-            this["Review"] = new FieldResolverMap
-            {
-                {"id", PropertyOf<ReviewDto>(m => m.Id)},
-                {"content", PropertyOf<ReviewDto>(m => m.Content)},
-                {"authorId", PropertyOf<ReviewDto>(m => m.AuthorId)},
-                {"authorName", PropertyOf<ReviewDto>(m => m.AuthorName)},
-                {"productId", PropertyOf<ReviewDto>(m => m.ProductId)},
-                {"productName", PropertyOf<ReviewDto>(m => m.ProductName)}
-            };
-
-            this["Query"] = new FieldResolverMap
+      this["Query"] = new FieldResolverMap
             {
                 {"products", resolverService.GetProductsAsync},
                 {"product", resolverService.GetProductAsync},
@@ -90,10 +78,9 @@ namespace VND.CoolStore.Services.GraphQL.v1
                 {"availability", resolverService.GetAvailabilityAsync},
                 {"ratings", resolverService.GetRatingsAsync},
                 {"rating", resolverService.GetRatingAsync},
-                {"reviews", resolverService.GetReviewsAsync}
             };
 
-            this["Mutation"] = new FieldResolverMap
+      this["Mutation"] = new FieldResolverMap
             {
                 {"createProduct", resolverService.CreateProductAsync},
                 {"insertItemToNewCart", resolverService.InsertItemToNewCartAsync},
@@ -102,308 +89,249 @@ namespace VND.CoolStore.Services.GraphQL.v1
                 {"checkout", resolverService.CheckoutAsync},
                 {"createRating", resolverService.CreateRatingAsync},
                 {"updateRating", resolverService.UpdateRatingAsync},
-                {"createReview", resolverService.CreateReviewAsync},
-                {"editReview", resolverService.EditReviewAsync},
-                {"deleteReview", resolverService.DeleteReviewAsync}
             };
-        }
     }
+  }
 
-    public interface ICoolStoreResolverService
+  public interface ICoolStoreResolverService
+  {
+    ValueTask<IResolveResult> GetProductsAsync(ResolverContext context);
+    ValueTask<IResolveResult> GetProductAsync(ResolverContext context);
+    ValueTask<IResolveResult> CreateProductAsync(ResolverContext context);
+    ValueTask<IResolveResult> InsertItemToNewCartAsync(ResolverContext context);
+    ValueTask<IResolveResult> UpdateItemInCartAsync(ResolverContext context);
+    ValueTask<IResolveResult> DeleteItemAsync(ResolverContext context);
+    ValueTask<IResolveResult> CheckoutAsync(ResolverContext context);
+    ValueTask<IResolveResult> GetCartAsync(ResolverContext context);
+    ValueTask<IResolveResult> GetAvailabilitiesAsync(ResolverContext context);
+    ValueTask<IResolveResult> GetAvailabilityAsync(ResolverContext context);
+    ValueTask<IResolveResult> GetRatingsAsync(ResolverContext context);
+    ValueTask<IResolveResult> GetRatingAsync(ResolverContext context);
+    ValueTask<IResolveResult> CreateRatingAsync(ResolverContext context);
+    ValueTask<IResolveResult> UpdateRatingAsync(ResolverContext context);
+  }
+
+  public class CoolStoreResolverService : ICoolStoreResolverService
+  {
+    private readonly IHttpContextAccessor _httpContext;
+    private readonly CatalogServiceClient _catalogServiceClient;
+    private readonly CartServiceClient _cartServiceClient;
+    private readonly InventoryServiceClient _inventoryServiceClient;
+    private readonly RatingServiceClient _ratingServiceClient;
+    public CoolStoreResolverService(
+        IHttpContextAccessor httpContext,
+        CatalogServiceClient catalogServiceClient,
+        CartServiceClient cartServiceClient,
+        InventoryServiceClient inventoryServiceClient,
+        RatingServiceClient ratingServiceClient)
     {
-        ValueTask<IResolveResult> GetProductsAsync(ResolverContext context);
-        ValueTask<IResolveResult> GetProductAsync(ResolverContext context);
-        ValueTask<IResolveResult> CreateProductAsync(ResolverContext context);
-        ValueTask<IResolveResult> InsertItemToNewCartAsync(ResolverContext context);
-        ValueTask<IResolveResult> UpdateItemInCartAsync(ResolverContext context);
-        ValueTask<IResolveResult> DeleteItemAsync(ResolverContext context);
-        ValueTask<IResolveResult> CheckoutAsync(ResolverContext context);
-        ValueTask<IResolveResult> GetCartAsync(ResolverContext context);
-        ValueTask<IResolveResult> GetAvailabilitiesAsync(ResolverContext context);
-        ValueTask<IResolveResult> GetAvailabilityAsync(ResolverContext context);
-        ValueTask<IResolveResult> GetRatingsAsync(ResolverContext context);
-        ValueTask<IResolveResult> GetRatingAsync(ResolverContext context);
-        ValueTask<IResolveResult> CreateRatingAsync(ResolverContext context);
-        ValueTask<IResolveResult> UpdateRatingAsync(ResolverContext context);
-        ValueTask<IResolveResult> GetReviewsAsync(ResolverContext context);
-        ValueTask<IResolveResult> CreateReviewAsync(ResolverContext context);
-        ValueTask<IResolveResult> EditReviewAsync(ResolverContext context);
-        ValueTask<IResolveResult> DeleteReviewAsync(ResolverContext context);
+      _httpContext = httpContext;
+      _catalogServiceClient = catalogServiceClient;
+      _cartServiceClient = cartServiceClient;
+      _inventoryServiceClient = inventoryServiceClient;
+      _ratingServiceClient = ratingServiceClient;
     }
 
-    public class CoolStoreResolverService : ICoolStoreResolverService
+    public async ValueTask<IResolveResult> GetProductsAsync(ResolverContext context)
     {
-        private readonly IHttpContextAccessor _httpContext;
-        private readonly CatalogServiceClient _catalogServiceClient;
-        private readonly CartServiceClient _cartServiceClient;
-        private readonly InventoryServiceClient _inventoryServiceClient;
-        private readonly RatingServiceClient _ratingServiceClient;
-        private readonly ReviewServiceClient _reviewServiceClient;
-
-        public CoolStoreResolverService(
-            IHttpContextAccessor httpContext,
-            CatalogServiceClient catalogServiceClient,
-            CartServiceClient cartServiceClient,
-            InventoryServiceClient inventoryServiceClient,
-            RatingServiceClient ratingServiceClient,
-            ReviewServiceClient reviewServiceClient)
-        {
-            _httpContext = httpContext;
-            _catalogServiceClient = catalogServiceClient;
-            _cartServiceClient = cartServiceClient;
-            _inventoryServiceClient = inventoryServiceClient;
-            _ratingServiceClient = ratingServiceClient;
-            _reviewServiceClient = reviewServiceClient;
-        }
-
-        public async ValueTask<IResolveResult> GetProductsAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "catalog-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<GetProductsRequest>("input");
-                    var results = await _catalogServiceClient.GetProductsAsync(input, headers);
-                    return As(results.Products);
-                });
-        }
-
-        public async ValueTask<IResolveResult> GetProductAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "catalog-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<GetProductByIdRequest>("input");
-                    var result = await _catalogServiceClient.GetProductByIdAsync(input, headers);
-                    return As(result.Product);
-                });
-        }
-
-        public async ValueTask<IResolveResult> CreateProductAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "catalog-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<CreateProductRequest>("input");
-                    var result = await _catalogServiceClient.CreateProductAsync(input, headers);
-                    return As(result.Product);
-                });
-        }
-
-        public async ValueTask<IResolveResult> InsertItemToNewCartAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "cart-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<InsertItemToNewCartRequest>("input");
-                    var result = await _cartServiceClient.InsertItemToNewCartAsync(input, headers);
-                    return As(result.Result);
-                });
-        }
-
-        public async ValueTask<IResolveResult> UpdateItemInCartAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "cart-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<UpdateItemInCartRequest>("input");
-                    var result = await _cartServiceClient.UpdateItemInCartAsync(input, headers);
-                    return As(result.Result);
-                });
-        }
-
-        public async ValueTask<IResolveResult> DeleteItemAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "cart-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<DeleteItemRequest>("input");
-                    var result = await _cartServiceClient.DeleteItemAsync(input, headers);
-                    return As(result.ProductId);
-                });
-        }
-
-        public async ValueTask<IResolveResult> CheckoutAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "cart-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<CheckoutRequest>("input");
-                    var result = await _cartServiceClient.CheckoutAsync(input, headers);
-                    return As(result.IsSucceed);
-                });
-        }
-
-        public async ValueTask<IResolveResult> GetCartAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "cart-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<GetCartRequest>("input");
-                    var result = await _cartServiceClient.GetCartAsync(input, headers);
-                    return As(result.Result);
-                });
-        }
-
-        public async ValueTask<IResolveResult> GetAvailabilitiesAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "inventory-service",
-                async headers =>
-                {
-                    var result = await _inventoryServiceClient.GetInventoriesAsync(new Empty(), headers);
-                    return As(result.Inventories);
-                });
-        }
-
-        public async ValueTask<IResolveResult> GetAvailabilityAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "inventory-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<GetInventoryRequest>("input");
-                    var result = await _inventoryServiceClient.GetInventoryAsync(input, headers);
-                    return As(result.Result);
-                });
-        }
-
-        public async ValueTask<IResolveResult> GetRatingsAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "rating-service",
-                async headers =>
-                {
-                    var result = await _ratingServiceClient.GetRatingsAsync(new Empty(), headers);
-                    return As(result.Ratings);
-                });
-        }
-
-        public async ValueTask<IResolveResult> GetRatingAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "rating-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<GetRatingByProductIdRequest>("input");
-                    var result = await _ratingServiceClient.GetRatingByProductIdAsync(input, headers);
-                    return As(result.Rating);
-                });
-        }
-
-        public async ValueTask<IResolveResult> CreateRatingAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "rating-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<CreateRatingRequest>("input");
-                    var result = await _ratingServiceClient.CreateRatingAsync(input, headers);
-                    return As(result.Rating);
-                });
-        }
-
-        public async ValueTask<IResolveResult> UpdateRatingAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "rating-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<UpdateRatingRequest>("input");
-                    var result = await _ratingServiceClient.UpdateRatingAsync(input, headers);
-                    return As(result.Rating);
-                });
-        }
-
-        public async ValueTask<IResolveResult> GetReviewsAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "review-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<GetReviewsRequest>("input");
-                    var result = await _reviewServiceClient.GetReviewsAsync(input, headers);
-                    return As(result.Reviews);
-                });
-        }
-
-        public async ValueTask<IResolveResult> CreateReviewAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "review-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<CreateReviewRequest>("input");
-                    var result = await _reviewServiceClient.CreateReviewAsync(input, headers);
-                    return As(result.Result);
-                });
-        }
-
-        public async ValueTask<IResolveResult> EditReviewAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "review-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<EditReviewRequest>("input");
-                    var result = await _reviewServiceClient.EditReviewAsync(input, headers);
-                    return As(result.Result);
-                });
-        }
-
-        public async ValueTask<IResolveResult> DeleteReviewAsync(ResolverContext context)
-        {
-            return await GrpcClientCatch(
-                "review-service",
-                async headers =>
-                {
-                    var input = context.GetArgument<DeleteReviewRequest>("input");
-                    var result = await _reviewServiceClient.DeleteReviewAsync(input, headers);
-                    return As(result.Id);
-                });
-        }
-
-        private async ValueTask<IResolveResult> GrpcClientCatch(string scope,
-            Func<Metadata, ValueTask<IResolveResult>> catchAction)
-        {
-            try
-            {
-                var metadata = new Metadata();
-                if (_httpContext.HttpContext.Request != null
-                    && _httpContext.HttpContext.Request.Headers.Any(
-                        h => h.Key.ToLower().Contains("authorization")))
-                {
-                    metadata.Add("authorization", _httpContext.HttpContext.Request?.Headers["authorization"]);
-                }
-
-                // add supporting for OpenTracing standard
-                _httpContext.HttpContext.Request?.Headers.ToList().ForEach(h =>
-                {
-                    if (h.Key == "x-request-id" ||
-                        h.Key == "x-b3-traceid" ||
-                        h.Key == "x-b3-spanid" ||
-                        h.Key == "x-b3-parentspanid" ||
-                        h.Key == "x-b3-sampled" ||
-                        h.Key == "x-b3-flags" ||
-                        h.Key == "x-ot-span-context")
-                    {
-                        metadata.Add(h.Key, h.Value);
-                    }
-                });
-
-                return await catchAction(metadata);
-            }
-            catch (RpcException ex)
-            {
-                throw new GraphQLError($"{scope}: {ex.Message}");
-            }
-        }
+      return await GrpcClientCatch(
+          "catalog-service",
+          async headers =>
+          {
+            var input = context.GetArgument<GetProductsRequest>("input");
+            var results = await _catalogServiceClient.GetProductsAsync(input, headers);
+            return As(results.Products);
+          });
     }
+
+    public async ValueTask<IResolveResult> GetProductAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "catalog-service",
+          async headers =>
+          {
+            var input = context.GetArgument<GetProductByIdRequest>("input");
+            var result = await _catalogServiceClient.GetProductByIdAsync(input, headers);
+            return As(result.Product);
+          });
+    }
+
+    public async ValueTask<IResolveResult> CreateProductAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "catalog-service",
+          async headers =>
+          {
+            var input = context.GetArgument<CreateProductRequest>("input");
+            var result = await _catalogServiceClient.CreateProductAsync(input, headers);
+            return As(result.Product);
+          });
+    }
+
+    public async ValueTask<IResolveResult> InsertItemToNewCartAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "cart-service",
+          async headers =>
+          {
+            var input = context.GetArgument<InsertItemToNewCartRequest>("input");
+            var result = await _cartServiceClient.InsertItemToNewCartAsync(input, headers);
+            return As(result.Result);
+          });
+    }
+
+    public async ValueTask<IResolveResult> UpdateItemInCartAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "cart-service",
+          async headers =>
+          {
+            var input = context.GetArgument<UpdateItemInCartRequest>("input");
+            var result = await _cartServiceClient.UpdateItemInCartAsync(input, headers);
+            return As(result.Result);
+          });
+    }
+
+    public async ValueTask<IResolveResult> DeleteItemAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "cart-service",
+          async headers =>
+          {
+            var input = context.GetArgument<DeleteItemRequest>("input");
+            var result = await _cartServiceClient.DeleteItemAsync(input, headers);
+            return As(result.ProductId);
+          });
+    }
+
+    public async ValueTask<IResolveResult> CheckoutAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "cart-service",
+          async headers =>
+          {
+            var input = context.GetArgument<CheckoutRequest>("input");
+            var result = await _cartServiceClient.CheckoutAsync(input, headers);
+            return As(result.IsSucceed);
+          });
+    }
+
+    public async ValueTask<IResolveResult> GetCartAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "cart-service",
+          async headers =>
+          {
+            var input = context.GetArgument<GetCartRequest>("input");
+            var result = await _cartServiceClient.GetCartAsync(input, headers);
+            return As(result.Result);
+          });
+    }
+
+    public async ValueTask<IResolveResult> GetAvailabilitiesAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "inventory-service",
+          async headers =>
+          {
+            var result = await _inventoryServiceClient.GetInventoriesAsync(new Empty(), headers);
+            return As(result.Inventories);
+          });
+    }
+
+    public async ValueTask<IResolveResult> GetAvailabilityAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "inventory-service",
+          async headers =>
+          {
+            var input = context.GetArgument<GetInventoryRequest>("input");
+            var result = await _inventoryServiceClient.GetInventoryAsync(input, headers);
+            return As(result.Result);
+          });
+    }
+
+    public async ValueTask<IResolveResult> GetRatingsAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "rating-service",
+          async headers =>
+          {
+            var result = await _ratingServiceClient.GetRatingsAsync(new Empty(), headers);
+            return As(result.Ratings);
+          });
+    }
+
+    public async ValueTask<IResolveResult> GetRatingAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "rating-service",
+          async headers =>
+          {
+            var input = context.GetArgument<GetRatingByProductIdRequest>("input");
+            var result = await _ratingServiceClient.GetRatingByProductIdAsync(input, headers);
+            return As(result.Rating);
+          });
+    }
+
+    public async ValueTask<IResolveResult> CreateRatingAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "rating-service",
+          async headers =>
+          {
+            var input = context.GetArgument<CreateRatingRequest>("input");
+            var result = await _ratingServiceClient.CreateRatingAsync(input, headers);
+            return As(result.Rating);
+          });
+    }
+
+    public async ValueTask<IResolveResult> UpdateRatingAsync(ResolverContext context)
+    {
+      return await GrpcClientCatch(
+          "rating-service",
+          async headers =>
+          {
+            var input = context.GetArgument<UpdateRatingRequest>("input");
+            var result = await _ratingServiceClient.UpdateRatingAsync(input, headers);
+            return As(result.Rating);
+          });
+    }
+
+    private async ValueTask<IResolveResult> GrpcClientCatch(string scope,
+        Func<Metadata, ValueTask<IResolveResult>> catchAction)
+    {
+      try
+      {
+        var metadata = new Metadata();
+        if (_httpContext.HttpContext.Request != null
+            && _httpContext.HttpContext.Request.Headers.Any(
+                h => h.Key.ToLower().Contains("authorization")))
+        {
+          metadata.Add("authorization", _httpContext.HttpContext.Request?.Headers["authorization"]);
+        }
+
+        // add supporting for OpenTracing standard
+        _httpContext.HttpContext.Request?.Headers.ToList().ForEach(h =>
+        {
+          if (h.Key == "x-request-id" ||
+                      h.Key == "x-b3-traceid" ||
+                      h.Key == "x-b3-spanid" ||
+                      h.Key == "x-b3-parentspanid" ||
+                      h.Key == "x-b3-sampled" ||
+                      h.Key == "x-b3-flags" ||
+                      h.Key == "x-ot-span-context")
+          {
+            metadata.Add(h.Key, h.Value);
+          }
+        });
+
+        return await catchAction(metadata);
+      }
+      catch (RpcException ex)
+      {
+        throw new GraphQLError($"{scope}: {ex.Message}");
+      }
+    }
+  }
 }

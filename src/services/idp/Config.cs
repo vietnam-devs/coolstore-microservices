@@ -8,16 +8,16 @@ using Microsoft.Extensions.Configuration;
 
 namespace IdentityServer4
 {
-    public static class Config
+  public static class Config
+  {
+    public static IEnumerable<IdentityResource> GetIdentityResources() => new IdentityResource[]
     {
-        public static IEnumerable<IdentityResource> GetIdentityResources() => new IdentityResource[]
-        {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile()
-        };
+    };
 
-        public static IEnumerable<ApiResource> GetApis() => new[]
-        {
+    public static IEnumerable<ApiResource> GetApis() => new[]
+    {
             new ApiResource
             {
                 Name = "api",
@@ -41,11 +41,6 @@ namespace IdentityServer4
                     },
                     new Scope
                     {
-                        Name = "review_api_scope",
-                        Description = "Review API Scope"
-                    },
-                    new Scope
-                    {
                         Name = "catalog_api_scope",
                         Description = "Catalog API Scope"
                     },
@@ -58,8 +53,8 @@ namespace IdentityServer4
             }
         };
 
-        public static IEnumerable<Client> GetDevClients() => new[]
-        {
+    public static IEnumerable<Client> GetDevClients() => new[]
+    {
             // Inventory Swagger UI
             new Client
             {
@@ -98,7 +93,6 @@ namespace IdentityServer4
                     "inventory_api_scope",
                     "cart_api_scope",
                     "pricing_api_scope",
-                    "review_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope"
                 }
@@ -131,7 +125,6 @@ namespace IdentityServer4
                     "inventory_api_scope",
                     "cart_api_scope",
                     "pricing_api_scope",
-                    "review_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -168,7 +161,6 @@ namespace IdentityServer4
                     "inventory_api_scope",
                     "cart_api_scope",
                     "pricing_api_scope",
-                    "review_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -203,7 +195,6 @@ namespace IdentityServer4
                     "inventory_api_scope",
                     "cart_api_scope",
                     "pricing_api_scope",
-                    "review_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -212,8 +203,8 @@ namespace IdentityServer4
             }
         };
 
-        public static IEnumerable<Client> GetClients(IConfigurationSection hostSettings) => new[]
-        {
+    public static IEnumerable<Client> GetClients(IConfigurationSection hostSettings) => new[]
+    {
             // Inventory Swagger UI
             new Client
             {
@@ -245,7 +236,6 @@ namespace IdentityServer4
                     "inventory_api_scope",
                     "cart_api_scope",
                     "pricing_api_scope",
-                    "review_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope"
                 }
@@ -280,7 +270,6 @@ namespace IdentityServer4
                     "inventory_api_scope",
                     "cart_api_scope",
                     "pricing_api_scope",
-                    "review_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -314,7 +303,6 @@ namespace IdentityServer4
                     "inventory_api_scope",
                     "cart_api_scope",
                     "pricing_api_scope",
-                    "review_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -349,7 +337,6 @@ namespace IdentityServer4
                     "inventory_api_scope",
                     "cart_api_scope",
                     "pricing_api_scope",
-                    "review_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -357,5 +344,5 @@ namespace IdentityServer4
                 }
             }
         };
-    }
+  }
 }

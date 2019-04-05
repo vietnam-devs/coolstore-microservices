@@ -41,8 +41,4 @@ spec:
         backend:
           serviceName: cart
           servicePort: 80
-      - path: /review/
-        backend:
-          serviceName: review
-          servicePort: 80
 {{- end -}}

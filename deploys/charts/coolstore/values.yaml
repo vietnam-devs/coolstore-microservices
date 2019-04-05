@@ -45,11 +45,6 @@ inventorySettings:
   Port: 5004
   MySqlDbFQDN: "mysqldb:3306"
 
-reviewSettings:
-  Host: "0.0.0.0"
-  Port: 5006
-  MongoConnString: "mongodb://mymongodb:27017"
-
 ratingSettings:
   NodeEnv: "production"
   Host: "0.0.0.0"
@@ -66,7 +61,6 @@ graphqlSettings:
   CatalogEndPoint: http://api.coolstore.local/catalog/
   CartEndPoint: http://api.coolstore.local/cart/
   InventoryEndPoint: http://api.coolstore.local/inventory/
-  ReviewEndPoint: http://api.coolstore.local/review/
   RatingEndPoint: http://api.coolstore.local/rating/
 
 spaSettings:

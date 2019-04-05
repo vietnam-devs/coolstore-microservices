@@ -12,7 +12,4 @@ docker build -f src/services/inventory/Dockerfile -t vndg/cs-inventory-service:$
 echo "Build Cart..."
 docker build -f src/services/cart/Dockerfile -t vndg/cs-cart-service:$TAG -t vndg/cs-cart-service:latest .
 
-echo "Build Review..."
-docker build -f src/services/review/Dockerfile -t vndg/cs-review-service:$TAG -t vndg/cs-review-service:latest .
-
 #docker rmi $(docker images -f "dangling=true" -q)

@@ -1,7 +1,7 @@
-### Up and running on local development 
+### Up and running on local development
 
 - Change you working location
-  
+
 ```bash
 > cd <root of project>
 > bash
@@ -33,13 +33,6 @@
 ```bash
 > src/services/rating/build/build_image.sh
 > src/services/rating/build/gen_proto.sh
-```
-
-- Build review service
-
-```bash
-> src/services/review/App_Build/build_image.sh
-> src/services/review/App_Build/gen_proto.sh
 ```
 
 - Build idp service

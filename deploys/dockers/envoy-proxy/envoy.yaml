@@ -49,19 +49,6 @@ static_resources:
                               max_grpc_timeout: 0s,
                             }
                         - match:
-                            { prefix: "/coolstore.ReviewService/", grpc: {} }
-                          route:
-                            {
-                              cluster: review_grpc_service,
-                              max_grpc_timeout: 0s,
-                            }
-                        - match: { prefix: "/coolstore.PingService/", grpc: {} }
-                          route:
-                            {
-                              cluster: review_grpc_service,
-                              max_grpc_timeout: 0s,
-                            }
-                        - match:
                             { prefix: "/coolstore.RatingService/", grpc: {} }
                           route:
                             {
@@ -81,8 +68,6 @@ static_resources:
                       proto_descriptor: /tmp/envoy/proto.pb
                       services:
                         [
-                          coolstore.PingService,
-                          coolstore.ReviewService,
                           coolstore.CartService,
                           coolstore.InventoryService,
                           coolstore.CatalogService,
@@ -139,15 +124,6 @@ static_resources:
         - socket_address:
             address: inventory-service
             port_value: 5004
-    - name: review_grpc_service
-      connect_timeout: 0.25s
-      type: logical_dns
-      lb_policy: round_robin
-      http2_protocol_options: {}
-      hosts:
-        - socket_address:
-            address: review-service
-            port_value: 5006
     - name: rating_grpc_service
       connect_timeout: 0.25s
       type: logical_dns

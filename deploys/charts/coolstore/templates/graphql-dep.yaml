@@ -30,8 +30,6 @@ spec:
           value: {{ .Values.graphqlSettings.CartEndPoint }}
         - name: GrpcEndPoints__InventoryEndPoint
           value: {{ .Values.graphqlSettings.InventoryEndPoint }}
-        - name: GrpcEndPoints__ReviewEndPoint
-          value: {{ .Values.graphqlSettings.ReviewEndPoint }}
         - name: GrpcEndPoints__RatingEndPoint
           value: {{ .Values.graphqlSettings.RatingEndPoint }}
         ports:

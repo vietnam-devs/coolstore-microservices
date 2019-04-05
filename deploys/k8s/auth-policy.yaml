@@ -18,9 +18,6 @@
 #   - name: cart-service
 #     ports:
 #     - number: 5003
-#   - name: review-service
-#     ports:
-#     - number: 5006
 #   origins:
 #   - jwt:
 #       issuer: {{ .Values.jwts.issuer }}

@@ -74,7 +74,6 @@ services:
       - GrpcEndPoints__CatalogEndPoint=catalog-service:5002
       - GrpcEndPoints__CartEndPoint=cart-service:5003
       - GrpcEndPoints__InventoryEndPoint=inventory-service:5004
-      - GrpcEndPoints__ReviewEndPoint=review-service:5006
       - GrpcEndPoints__RatingEndPoint=rating-service:5007
     ports:
       - "5011:5011"
@@ -141,18 +140,6 @@ services:
     build:
       context: .
       dockerfile: ./src/services/inventory/Dockerfile
-
-  review-service:
-    container_name: review-service
-    image: "vndg/cs-review-service"
-    restart: always
-    ports:
-      - "5006:5006"
-    expose:
-      - "5006"
-    build:
-      context: .
-      dockerfile: ./src/services/review/Dockerfile
 
   rating-service:
     container_name: rating-service

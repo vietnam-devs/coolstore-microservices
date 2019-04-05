@@ -20,10 +20,6 @@ inventorySettings:
   Hosts__Externals__CurrentUri: http://api.coolstore.aks/inventory
   Hosts__Externals__Auth__Uri: http://id.coolstore.aks
 
-reviewSettings:
-  Hosts__Externals__CurrentUri: http://api.coolstore.aks/review
-  Hosts__Externals__Auth__Uri: http://id.coolstore.aks
-  
 webSettings:
   NODE_ENV: development
   NODE_WEB_ENV: http://coolstore.aks/

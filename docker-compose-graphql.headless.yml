@@ -12,7 +12,6 @@ services:
       - GrpcEndPoints__CatalogEndPoint=catalog-service:${CATALOG_SVC_PORT}
       - GrpcEndPoints__CartEndPoint=cart-service:${CART_SVC_PORT}
       - GrpcEndPoints__InventoryEndPoint=inventory-service:${INVENTORY_SVC_PORT}
-      - GrpcEndPoints__ReviewEndPoint=review-service:${REVIEW_SVC_PORT}
       - GrpcEndPoints__RatingEndPoint=rating-service:${RATING_SVC_PORT}
     ports:
       - "${GRAPHQL_SVR_PORT}:${GRAPHQL_SVR_PORT}"
@@ -84,22 +83,6 @@ services:
     build:
       context: .
       dockerfile: ./src/services/inventory/Dockerfile
-
-  review-service:
-    container_name: review-service
-    image: "vndg/cs-review-service"
-    restart: always
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
-      - Features__Mongo__ConnString=mongodb://mongodb:${MONGODB_PORT}
-    ports:
-      - "${REVIEW_SVC_PORT}:${REVIEW_SVC_PORT}"
-    expose:
-      - "${REVIEW_SVC_PORT}"
-    build:
-      context: .
-      dockerfile: ./src/services/review/Dockerfile
 
   catalog-service:
     container_name: catalog-service
