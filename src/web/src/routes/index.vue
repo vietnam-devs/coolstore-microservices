@@ -22,10 +22,10 @@
   </div>
 </template>
 <script>
-import { createNamespacedHelpers } from "vuex";
-import ProductListItem from "../components/ProductListItem.vue";
+import { createNamespacedHelpers } from "vuex"
+import ProductListItem from "../components/ProductListItem.vue"
 import Sidebar from "../components/Sidebar.vue";
-const { mapGetters } = createNamespacedHelpers("product");
+const { mapGetters } = createNamespacedHelpers("product")
 export default {
   components: {
     AppProductListItem: ProductListItem,
@@ -33,54 +33,51 @@ export default {
   },
   computed: {
     products() {
-      return this.$store.getters["products/products"];
+      return this.$store.getters["products/products"]
     },
     highprice() {
-      return this.$store.getters["products/highprice"];
+      return this.$store.getters["products/highprice"]
     },
     ratings() {
-      let ratingSet = this.$store.getters["ratings/ratingSet"];	
-      let productSet = this.$store.getters["products/products"];
+      let ratingSet = this.$store.getters["ratings/ratingSet"]
+      let productSet = this.$store.getters["products/products"]
       return productSet.reduce((obj, item) => {
-        ratingSet[item.id] = ratingSet[item.id] || {};
-        obj[item.id] = ratingSet[item.id];
-        return obj;
-      }, {});
+        ratingSet[item.id] = ratingSet[item.id] || {}
+        obj[item.id] = ratingSet[item.id]
+        return obj
+      }, {})
     }
   },
   beforeMount() {
-    this.loadItems(this.page);
+    this.loadItems(this.page)
   },
   asyncData({ store }) {
     return [
       store.dispatch("products/GET_LIST_PRODUCT", { page: 0 }),
       store.dispatch("ratings/GET_LIST_RATING")
-    ];
+    ]
   },
   methods: {
     loadItems(page) {
       Promise.all([
         this.$store.dispatch("products/GET_LIST_PRODUCT", { page: 0 }),
         this.$store.dispatch("ratings/GET_LIST_RATING")
-      ]);
+      ])
     },
-
     formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      let val = (value / 1).toFixed(2).replace(".", ",")
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     },
-
     setRating(productId, rating) {
       this.$store.dispatch("ratings/SET_RATING_FOR_PRODUCT", {
         productId,
         userId: this.userInfo.sub,
         cost: rating
-      });
+      })
     },
-
     showReviews(product) {
-      this.productReview = product;
-      this.$router.push("/review/" + product.id);
+      this.productReview = product
+      this.$router.push("/review/" + product.id)
     }
   }
 };

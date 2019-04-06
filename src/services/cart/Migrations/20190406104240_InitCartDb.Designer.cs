@@ -9,14 +9,14 @@ using VND.CoolStore.Services.Cart.Infrastructure.Db;
 namespace VND.CoolStore.Services.Cart.Migrations
 {
     [DbContext(typeof(CartDbContext))]
-    [Migration("20180906032148_InitCartDb")]
+    [Migration("20190406104240_InitCartDb")]
     partial class InitCartDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.Cart", b =>
@@ -74,8 +74,6 @@ namespace VND.CoolStore.Services.Cart.Migrations
             modelBuilder.Entity("VND.CoolStore.Services.Cart.Domain.Product", b =>
                 {
                     b.Property<Guid>("Id");
-
-                    b.Property<Guid>("ProductId");
 
                     b.HasKey("Id");
 

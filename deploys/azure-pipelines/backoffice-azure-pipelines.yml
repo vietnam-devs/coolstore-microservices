@@ -17,18 +17,17 @@ trigger:
       - master
   paths:
     include:
-      - src/services/inventory/*
+      - src/backoffice/*
 
 steps:
   - checkout: self
   - script: docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
     displayName: "docker login"
   - script: |
-      docker pull microsoft/dotnet:2.2.100-sdk-alpine
-      docker pull microsoft/dotnet:2.2.0-aspnetcore-runtime-alpine
+      docker pull node:alpine
     displayName: "Pull Docker Images"
   - script: |
-      docker build -f ./src/services/inventory/Dockerfile -t $(DOCKER_USERNAME)/cs-inventory-service:$(DOCKER_TAG) .
-      docker tag $(DOCKER_USERNAME)/cs-inventory-service:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-inventory-service:$(DOCKER_TAG)
-      docker push $(DOCKER_GROUP)/cs-inventory-service:$(DOCKER_TAG)
-    displayName: "Build Inventoty Service"
+      docker build -f ./src/backoffice/Dockerfile -t $(DOCKER_USERNAME)/cs-backoffice:$(DOCKER_TAG) .
+      docker tag $(DOCKER_USERNAME)/cs-backoffice:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-backoffice:$(DOCKER_TAG)
+      docker push $(DOCKER_GROUP)/cs-backoffice:$(DOCKER_TAG)
+    displayName: "Build Backoffice - React / Apollo Cient"

@@ -4,7 +4,7 @@
   "description": "Coolstore Website",
   "main": "index.js",
   "scripts": {
-    "dev": "node server",
+    "dev": "cross-env NODE_ENV=production node server",
     "start": "npm run build && node server",
     "build": "rimraf dist && npm run build:client && npm run build:server",
     "build:client": "webpack --config build/webpack.client.config.js --progress --hide-modules",

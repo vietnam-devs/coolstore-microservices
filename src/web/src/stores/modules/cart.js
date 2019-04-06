@@ -39,7 +39,7 @@ export default {
 
   mutations: {
     GET_CART_SUCCESS(state, cart) {
-      state.cart = cart || {}
+      state.cart = cart.result || {}
       state.cartId = cart.id
     },
 

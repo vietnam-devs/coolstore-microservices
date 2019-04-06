@@ -17,7 +17,7 @@ trigger:
       - master
   paths:
     include:
-      - src/services/inventory/*
+      - src/services/open-api/*
 
 steps:
   - checkout: self
@@ -28,7 +28,7 @@ steps:
       docker pull microsoft/dotnet:2.2.0-aspnetcore-runtime-alpine
     displayName: "Pull Docker Images"
   - script: |
-      docker build -f ./src/services/inventory/Dockerfile -t $(DOCKER_USERNAME)/cs-inventory-service:$(DOCKER_TAG) .
-      docker tag $(DOCKER_USERNAME)/cs-inventory-service:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-inventory-service:$(DOCKER_TAG)
-      docker push $(DOCKER_GROUP)/cs-inventory-service:$(DOCKER_TAG)
-    displayName: "Build Inventoty Service"
+      docker build -f ./src/services/open-api/Dockerfile -t $(DOCKER_USERNAME)/cs-openapi:$(DOCKER_TAG) .
+      docker tag $(DOCKER_USERNAME)/cs-openapi:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-openapi:$(DOCKER_TAG)
+      docker push $(DOCKER_GROUP)/cs-openapi:$(DOCKER_TAG)
+    displayName: "Build Open Api"

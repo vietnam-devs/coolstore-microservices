@@ -38,8 +38,8 @@ services:
       context: .
       dockerfile: ./src/services/graphql/Dockerfile
 
-  openapi-service:
-    container_name: openapi-service
+  openapi:
+    container_name: openapi
     image: "vndg/cs-openapi"
     restart: always
     environment:

@@ -1,11 +1,16 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Grpc.Health.V1;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NetCoreKit.GrpcTemplate.EfCore;
+using NetCoreKit.Infrastructure;
+using NetCoreKit.Infrastructure.EfCore;
+using NetCoreKit.Infrastructure.EfCore.Db;
 using NetCoreKit.Infrastructure.EfCore.MySql;
 using NetCoreKit.Infrastructure.GrpcHost;
 using NetCoreKit.Utils.Extensions;
@@ -22,9 +27,23 @@ namespace VND.CoolStore.Services.Cart
         public static async Task Main(string[] args)
         {
             var host = new HostBuilder()
-                .ConfigureDefaultSettings<CartDbContext>(
+                .ConfigureDefaultSettings(
                     args,
-                    svc => { svc.AddEfCoreMySqlDb(); },
+                    services =>
+                    {
+                        services.AddDbContext<CartDbContext>((sp, o) =>
+                        {
+                            var config = sp.GetService<IConfiguration>();
+                            var extendOptionsBuilder = sp.GetRequiredService<IExtendDbContextOptionsBuilder>();
+                            var connStringFactory = sp.GetRequiredService<IDatabaseConnectionStringFactory>();
+                            extendOptionsBuilder.Extend(o, connStringFactory,
+                                config.LoadApplicationAssemblies().FirstOrDefault()?.GetName().Name);
+                        });
+
+                        services.AddScoped<DbContext>(resolver => resolver.GetService<CartDbContext>());
+                        services.AddGenericRepository();
+                        services.AddEfCoreMySqlDb();
+                    },
                     svc =>
                     {
                         svc.AddHostedService<HostedService>();
@@ -67,7 +86,7 @@ namespace VND.CoolStore.Services.Cart
                 Services =
                 {
                     CartService.BindService(new CartServiceImpl(_resolver)),
-                    Grpc.Health.V1.Health.BindService(new HealthImpl())
+                    Health.BindService(new HealthImpl())
                 },
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };

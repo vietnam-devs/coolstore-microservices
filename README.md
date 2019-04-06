@@ -85,7 +85,12 @@ There are several individual µservices and infrastructure components that make 
   <tbody>
     <tr>
       <td align="center">1.</td>
-      <td>IdP (.NET Core + In-memory database)</td>
+      <td>
+        IdP (.NET Core + In-memory database)
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=4&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-idp-build?branchName=master" />
+        </a>
+      </td>
       <td>Uses <a href="https://github.com/IdentityServer/IdentityServer4">IdentityServer4</a> to authentication with OAuth 2.0 and OpenID Connect for the whole stack</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/idp">code</a>
@@ -96,7 +101,9 @@ There are several individual µservices and infrastructure components that make 
     </tr>
     <tr>
       <td align="center">2.</td>
-      <td>GraphQL server (.NET Core)</td>
+      <td>
+        GraphQL server (.NET Core)
+      </td>
       <td>The GraphQL server for backoffice application</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/graphql">code</a>
@@ -118,7 +125,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">4.</td>
-      <td>Web (PWA - Vuejs + Node.js)</td>
+      <td>
+        Web (PWA - Vuejs + Node.js)
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=8&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-web-build?branchName=master" />
+        </a>
+      </td>
       <td>Frontend based on <a href="https://vuejs.org">vuejs</a> and <a href="https://nodejs.org">Node.js</a></td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/web">code</a>
@@ -140,7 +152,12 @@ There are several individual µservices and infrastructure components that make 
     </tr>
     <tr>
       <td align="center">6.</td>
-      <td>Catalog (Node.js + TypeScript + Mongo)</td>
+      <td>
+        Catalog (Node.js + TypeScript + Mongo)
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=3&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-catalog-build?branchName=master" />
+        </a>
+      </td>
       <td>Serves products and prices for retail products</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/catalog">code</a>
@@ -151,7 +168,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">7.</td>
-      <td>Cart (.NET Core + MySQL)</td>
+      <td>
+        Cart (.NET Core + MySQL)
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=2&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-cart-build?branchName=master" />
+        </a>
+      </td>
       <td>Manages shopping cart for each customer</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/cart">code</a>
@@ -162,7 +184,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">8.</td>
-      <td>Inventory (.NET Core + MySQL)</td>
+      <td>
+        Inventory (.NET Core + MySQL)
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=5&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-inventory-build?branchName=master" />
+        </a>
+      </td>
       <td>Serves inventory and availability data for retail products</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/inventory">code</a>
@@ -173,7 +200,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">9.</td>
-      <td>Rating (Node.js + TypeScript + Mongo)</td>
+      <td>
+        Rating (Node.js + TypeScript + Mongo)
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=6&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-rating-build?branchName=master" />
+        </a>
+      </td>
       <td>Runs for rating products</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/rating">code</a>

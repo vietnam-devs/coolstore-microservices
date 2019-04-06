@@ -29,9 +29,9 @@ export default {
           quantity: 1 //value default when add to cart
         }
         if (!product.availability) {
-          product.availability = Object.assign(productDefault.availability)
+          product.availability = { ...productDefault.availability }
         }
-        return Object.assign(productDefault, product)
+        return { ...productDefault, ...product }
       })
     },
     highprice: state => {
@@ -58,7 +58,7 @@ export default {
     },
 
     GET_PRODUCT_BY_ID_SUCCESS(state, product) {
-      state.product = product
+      state.product = product.product
     },
 
     SET_HIGTHEST_PRICE(state, highprice) {

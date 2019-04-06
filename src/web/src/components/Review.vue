@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from "vuex"
 
 export default {
   name: "review",
@@ -53,32 +53,31 @@ export default {
   },
   computed: {
     product() {
-      return this.$store.state.products.product || {};
+      return { ...this.$store.state.products.product } || {}
     },
     cartId() {
-      return this.$store.getters["cart/cartId"] || null;
+      return this.$store.getters["cart/cartId"] || null
     }
   },
   beforeMount() {
     this.loadProduct(this.$route.params.id);
   },
-
   methods: {
     loadProduct(id) {
-      this.$store.dispatch("products/GET_PRODUCT_BY_ID", { productId: id });
+      this.$store.dispatch("products/GET_PRODUCT_BY_ID", { productId: id })
     },
     addToCart(productId, quantity) {
       if (!this.cartId) {
-        this.$store.dispatch("cart/ADD_TO_CARD", { productId, quantity });
+        this.$store.dispatch("cart/ADD_TO_CARD", { productId, quantity })
       } else
         this.$store.dispatch("cart/UPDATE_CARD", {
           cartId: this.cartId,
           productId,
           quantity
-        });
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="stylus">

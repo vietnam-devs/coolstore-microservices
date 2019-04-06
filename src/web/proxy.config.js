@@ -14,7 +14,6 @@ var urls = {
 }
 
 var host = process.env.NODE_WEB_ENV || 'http://localhost:8080/'
-
 if (process.browser) {
   host = window.location.hostname
 }
@@ -79,5 +78,6 @@ const PROXY_CONFIG = {
     }
   }
 }
+
 console.log(PROXY_CONFIG.spaUrl)
 module.exports = PROXY_CONFIG

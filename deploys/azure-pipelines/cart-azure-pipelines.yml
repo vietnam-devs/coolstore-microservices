@@ -24,6 +24,7 @@ steps:
   - script: docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
     displayName: "docker login"
   - script: |
+      docker pull microsoft/dotnet:2.2.100-sdk-alpine
       docker pull microsoft/dotnet:2.2.0-aspnetcore-runtime-alpine
     displayName: "Pull Docker Images"
   - script: |

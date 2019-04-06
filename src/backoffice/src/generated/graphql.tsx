@@ -1,77 +1,77 @@
-export type Maybe<T> = T | null
+export type Maybe<T> = T | null;
 
 export interface GetProductsInput {
-  currentPage: number
+  currentPage: number;
 
-  highPrice: number
+  highPrice: number;
 }
 
 export interface GetProductByIdInput {
-  productId: string
+  productId: string;
 }
 
 export interface GetCartInput {
-  cartId: string
+  cartId: string;
 }
 
 export interface GetInventoryInput {
-  id: string
+  id: string;
 }
 
 export interface GetRatingByProductIdInput {
-  productId: string
+  productId: string;
 }
 
 export interface CreateProductInput {
-  name: string
+  name: string;
 
-  price: number
+  price: number;
 
-  imageUrl: string
+  imageUrl: string;
 
-  desc?: Maybe<string>
+  desc?: Maybe<string>;
 }
 
 export interface InsertItemToNewCartInput {
-  productId: string
+  productId: string;
 
-  quantity: number
+  quantity: number;
 }
 
 export interface UpdateItemInCartInput {
-  cartId: string
+  cartId: string;
 
-  productId: string
+  productId: string;
 
-  quantity: number
+  quantity: number;
 }
 
 export interface DeleteItemInput {
-  cartId: string
+  cartId: string;
 
-  productId: string
+  productId: string;
 }
 
 export interface CheckoutInput {
-  cartId: string
+  cartId: string;
 }
 
 export interface CreateRatingInput {
-  productId: string
+  productId: string;
 
-  userId: string
+  userId: string;
 
-  cost: number
+  cost: number;
 }
 
 export interface UpdateRatingInput {
-  id: string
+  id: string;
 
-  productId: string
+  productId: string;
 
-  userId: string
+  userId: string;
 
-  cost: number
+  cost: number;
 }
 
 // ====================================================
@@ -79,117 +79,97 @@ export interface UpdateRatingInput {
 // ====================================================
 
 export interface Query {
-  products?: Maybe<(Maybe<Product>)[]>
+  products?: Maybe<(Maybe<Product>)[]>;
 
-  product?: Maybe<Product>
+  product?: Maybe<Product>;
 
-  carts?: Maybe<Cart>
+  carts?: Maybe<Cart>;
 
-  availabilities?: Maybe<(Maybe<Inventory>)[]>
+  availabilities?: Maybe<(Maybe<Inventory>)[]>;
 
-  availability?: Maybe<Inventory>
+  availability?: Maybe<Inventory>;
 
-  ratings?: Maybe<(Maybe<Rating>)[]>
+  ratings?: Maybe<(Maybe<Rating>)[]>;
 
-  rating?: Maybe<Rating>
+  rating?: Maybe<Rating>;
 }
 
 export interface Product {
-  id: string
+  id: string;
 
-  name: string
+  name: string;
 
-  price: number
+  price: number;
 
-  imageUrl: string
+  imageUrl: string;
 
-  desc?: Maybe<string>
+  desc?: Maybe<string>;
 }
 
 export interface Cart {
-  id: string
+  id: string;
 
-  cartItemTotal: number
+  cartItemTotal: number;
 
-  cartItemPromoSavings: number
+  cartItemPromoSavings: number;
 
-  shippingTotal: number
+  shippingTotal: number;
 
-  shippingPromoSavings: number
+  shippingPromoSavings: number;
 
-  cartTotal: number
+  cartTotal: number;
 
-  isCheckOut: boolean
+  isCheckOut: boolean;
 
-  items?: Maybe<(Maybe<CartItem>)[]>
+  items?: Maybe<(Maybe<CartItem>)[]>;
 }
 
 export interface CartItem {
-  productId: string
+  productId: string;
 
-  productName: string
+  productName: string;
 
-  quantity: number
+  quantity: number;
 
-  price: number
+  price: number;
 
-  promoSavings: number
+  promoSavings: number;
 }
 
 export interface Inventory {
-  id: string
+  id: string;
 
-  location: string
+  location: string;
 
-  quantity: number
+  quantity: number;
 
-  link: string
+  link: string;
 }
 
 export interface Rating {
-  id: string
+  id: string;
 
-  productId: string
+  productId: string;
 
-  userId: string
+  userId: string;
 
-  cost: number
-}
-
-export interface Review {
-  id: string
-
-  content: string
-
-  authorId: string
-
-  authorName: string
-
-  productId: string
-
-  productName: string
+  cost: number;
 }
 
 export interface Mutation {
-  createProduct: Product
+  createProduct: Product;
 
-  insertItemToNewCart: Cart
+  insertItemToNewCart: Cart;
 
-  updateItemInCart: Cart
+  updateItemInCart: Cart;
 
-  deleteItem: string
+  deleteItem: string;
 
-  checkout: boolean
+  checkout: boolean;
 
-  createRating: Rating
+  createRating: Rating;
 
-  updateRating: Rating
-
-  createReview: Review
-
-  editReview: Review
-
-  deleteReview: string
+  updateRating: Rating;
 }
 
 // ====================================================
@@ -197,64 +177,52 @@ export interface Mutation {
 // ====================================================
 
 export interface ProductsQueryArgs {
-  input: GetProductsInput
+  input: GetProductsInput;
 }
 export interface ProductQueryArgs {
-  input: GetProductByIdInput
+  input: GetProductByIdInput;
 }
 export interface CartsQueryArgs {
-  input: GetCartInput
+  input: GetCartInput;
 }
 export interface AvailabilityQueryArgs {
-  input: GetInventoryInput
+  input: GetInventoryInput;
 }
 export interface RatingQueryArgs {
-  input: GetRatingByProductIdInput
-}
-export interface ReviewsQueryArgs {
-  input: GetReviewsInput
+  input: GetRatingByProductIdInput;
 }
 export interface CreateProductMutationArgs {
-  input: CreateProductInput
+  input: CreateProductInput;
 }
 export interface InsertItemToNewCartMutationArgs {
-  input: InsertItemToNewCartInput
+  input: InsertItemToNewCartInput;
 }
 export interface UpdateItemInCartMutationArgs {
-  input: UpdateItemInCartInput
+  input: UpdateItemInCartInput;
 }
 export interface DeleteItemMutationArgs {
-  input: DeleteItemInput
+  input: DeleteItemInput;
 }
 export interface CheckoutMutationArgs {
-  input: CheckoutInput
+  input: CheckoutInput;
 }
 export interface CreateRatingMutationArgs {
-  input: CreateRatingInput
+  input: CreateRatingInput;
 }
 export interface UpdateRatingMutationArgs {
-  input: UpdateRatingInput
-}
-export interface CreateReviewMutationArgs {
-  input: CreateReviewInput
-}
-export interface EditReviewMutationArgs {
-  input: EditReviewInput
-}
-export interface DeleteReviewMutationArgs {
-  input: DeleteReviewInput
+  input: UpdateRatingInput;
 }
 
-import { GraphQLResolveInfo } from 'graphql'
+import { GraphQLResolveInfo } from "graphql";
 
-import { MyContext } from '../context'
+import { MyContext } from "../context";
 
 export type Resolver<Result, Parent = {}, TContext = {}, Args = {}> = (
   parent: Parent,
   args: Args,
   context: TContext,
   info: GraphQLResolveInfo
-) => Promise<Result> | Result
+) => Promise<Result> | Result;
 
 export interface ISubscriptionResolverObject<Result, Parent, TContext, Args> {
   subscribe<R = Result, P = Parent>(
@@ -262,26 +230,33 @@ export interface ISubscriptionResolverObject<Result, Parent, TContext, Args> {
     args: Args,
     context: TContext,
     info: GraphQLResolveInfo
-  ): AsyncIterator<R | Result> | Promise<AsyncIterator<R | Result>>
+  ): AsyncIterator<R | Result> | Promise<AsyncIterator<R | Result>>;
   resolve?<R = Result, P = Parent>(
     parent: P,
     args: Args,
     context: TContext,
     info: GraphQLResolveInfo
-  ): R | Result | Promise<R | Result>
+  ): R | Result | Promise<R | Result>;
 }
 
-export type SubscriptionResolver<Result, Parent = {}, TContext = {}, Args = {}> =
-  | ((...args: any[]) => ISubscriptionResolverObject<Result, Parent, TContext, Args>)
-  | ISubscriptionResolverObject<Result, Parent, TContext, Args>
+export type SubscriptionResolver<
+  Result,
+  Parent = {},
+  TContext = {},
+  Args = {}
+> =
+  | ((
+      ...args: any[]
+    ) => ISubscriptionResolverObject<Result, Parent, TContext, Args>)
+  | ISubscriptionResolverObject<Result, Parent, TContext, Args>;
 
 export type TypeResolveFn<Types, Parent = {}, TContext = {}> = (
   parent: Parent,
   context: TContext,
   info: GraphQLResolveInfo
-) => Maybe<Types>
+) => Maybe<Types>;
 
-export type NextResolverFn<T> = () => Promise<T>
+export type NextResolverFn<T> = () => Promise<T>;
 
 export type DirectiveResolverFn<TResult, TArgs = {}, TContext = {}> = (
   next: NextResolverFn<TResult>,
@@ -289,411 +264,443 @@ export type DirectiveResolverFn<TResult, TArgs = {}, TContext = {}> = (
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) => TResult | Promise<TResult>
+) => TResult | Promise<TResult>;
 
 export interface QueryResolvers<TContext = MyContext, TypeParent = {}> {
-  products?: QueryProductsResolver<Maybe<(Maybe<Product>)[]>, TypeParent, TContext>
+  products?: QueryProductsResolver<
+    Maybe<(Maybe<Product>)[]>,
+    TypeParent,
+    TContext
+  >;
 
-  product?: QueryProductResolver<Maybe<Product>, TypeParent, TContext>
+  product?: QueryProductResolver<Maybe<Product>, TypeParent, TContext>;
 
-  carts?: QueryCartsResolver<Maybe<Cart>, TypeParent, TContext>
+  carts?: QueryCartsResolver<Maybe<Cart>, TypeParent, TContext>;
 
-  availabilities?: QueryAvailabilitiesResolver<Maybe<(Maybe<Inventory>)[]>, TypeParent, TContext>
+  availabilities?: QueryAvailabilitiesResolver<
+    Maybe<(Maybe<Inventory>)[]>,
+    TypeParent,
+    TContext
+  >;
 
-  availability?: QueryAvailabilityResolver<Maybe<Inventory>, TypeParent, TContext>
+  availability?: QueryAvailabilityResolver<
+    Maybe<Inventory>,
+    TypeParent,
+    TContext
+  >;
 
-  ratings?: QueryRatingsResolver<Maybe<(Maybe<Rating>)[]>, TypeParent, TContext>
+  ratings?: QueryRatingsResolver<
+    Maybe<(Maybe<Rating>)[]>,
+    TypeParent,
+    TContext
+  >;
 
-  rating?: QueryRatingResolver<Maybe<Rating>, TypeParent, TContext>
-
-  reviews?: QueryReviewsResolver<Maybe<(Maybe<Review>)[]>, TypeParent, TContext>
+  rating?: QueryRatingResolver<Maybe<Rating>, TypeParent, TContext>;
 }
 
-export type QueryProductsResolver<R = Maybe<(Maybe<Product>)[]>, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  QueryProductsArgs
->
+export type QueryProductsResolver<
+  R = Maybe<(Maybe<Product>)[]>,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, QueryProductsArgs>;
 export interface QueryProductsArgs {
-  input: GetProductsInput
+  input: GetProductsInput;
 }
 
-export type QueryProductResolver<R = Maybe<Product>, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  QueryProductArgs
->
+export type QueryProductResolver<
+  R = Maybe<Product>,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, QueryProductArgs>;
 export interface QueryProductArgs {
-  input: GetProductByIdInput
+  input: GetProductByIdInput;
 }
 
-export type QueryCartsResolver<R = Maybe<Cart>, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  QueryCartsArgs
->
+export type QueryCartsResolver<
+  R = Maybe<Cart>,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, QueryCartsArgs>;
 export interface QueryCartsArgs {
-  input: GetCartInput
+  input: GetCartInput;
 }
 
-export type QueryAvailabilitiesResolver<R = Maybe<(Maybe<Inventory>)[]>, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
-export type QueryAvailabilityResolver<R = Maybe<Inventory>, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  QueryAvailabilityArgs
->
+export type QueryAvailabilitiesResolver<
+  R = Maybe<(Maybe<Inventory>)[]>,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type QueryAvailabilityResolver<
+  R = Maybe<Inventory>,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, QueryAvailabilityArgs>;
 export interface QueryAvailabilityArgs {
-  input: GetInventoryInput
+  input: GetInventoryInput;
 }
 
-export type QueryRatingsResolver<R = Maybe<(Maybe<Rating>)[]>, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
-export type QueryRatingResolver<R = Maybe<Rating>, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  QueryRatingArgs
->
+export type QueryRatingsResolver<
+  R = Maybe<(Maybe<Rating>)[]>,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type QueryRatingResolver<
+  R = Maybe<Rating>,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, QueryRatingArgs>;
 export interface QueryRatingArgs {
-  input: GetRatingByProductIdInput
-}
-
-export type QueryReviewsResolver<R = Maybe<(Maybe<Review>)[]>, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  QueryReviewsArgs
->
-export interface QueryReviewsArgs {
-  input: GetReviewsInput
+  input: GetRatingByProductIdInput;
 }
 
 export interface ProductResolvers<TContext = MyContext, TypeParent = Product> {
-  id?: ProductIdResolver<string, TypeParent, TContext>
+  id?: ProductIdResolver<string, TypeParent, TContext>;
 
-  name?: ProductNameResolver<string, TypeParent, TContext>
+  name?: ProductNameResolver<string, TypeParent, TContext>;
 
-  price?: ProductPriceResolver<number, TypeParent, TContext>
+  price?: ProductPriceResolver<number, TypeParent, TContext>;
 
-  imageUrl?: ProductImageUrlResolver<string, TypeParent, TContext>
+  imageUrl?: ProductImageUrlResolver<string, TypeParent, TContext>;
 
-  desc?: ProductDescResolver<Maybe<string>, TypeParent, TContext>
+  desc?: ProductDescResolver<Maybe<string>, TypeParent, TContext>;
 }
 
-export type ProductIdResolver<R = string, Parent = Product, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type ProductNameResolver<R = string, Parent = Product, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type ProductPriceResolver<R = number, Parent = Product, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type ProductImageUrlResolver<R = string, Parent = Product, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type ProductDescResolver<R = Maybe<string>, Parent = Product, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
+export type ProductIdResolver<
+  R = string,
+  Parent = Product,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type ProductNameResolver<
+  R = string,
+  Parent = Product,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type ProductPriceResolver<
+  R = number,
+  Parent = Product,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type ProductImageUrlResolver<
+  R = string,
+  Parent = Product,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type ProductDescResolver<
+  R = Maybe<string>,
+  Parent = Product,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
 
 export interface CartResolvers<TContext = MyContext, TypeParent = Cart> {
-  id?: CartIdResolver<string, TypeParent, TContext>
+  id?: CartIdResolver<string, TypeParent, TContext>;
 
-  cartItemTotal?: CartCartItemTotalResolver<number, TypeParent, TContext>
+  cartItemTotal?: CartCartItemTotalResolver<number, TypeParent, TContext>;
 
-  cartItemPromoSavings?: CartCartItemPromoSavingsResolver<number, TypeParent, TContext>
+  cartItemPromoSavings?: CartCartItemPromoSavingsResolver<
+    number,
+    TypeParent,
+    TContext
+  >;
 
-  shippingTotal?: CartShippingTotalResolver<number, TypeParent, TContext>
+  shippingTotal?: CartShippingTotalResolver<number, TypeParent, TContext>;
 
-  shippingPromoSavings?: CartShippingPromoSavingsResolver<number, TypeParent, TContext>
+  shippingPromoSavings?: CartShippingPromoSavingsResolver<
+    number,
+    TypeParent,
+    TContext
+  >;
 
-  cartTotal?: CartCartTotalResolver<number, TypeParent, TContext>
+  cartTotal?: CartCartTotalResolver<number, TypeParent, TContext>;
 
-  isCheckOut?: CartIsCheckOutResolver<boolean, TypeParent, TContext>
+  isCheckOut?: CartIsCheckOutResolver<boolean, TypeParent, TContext>;
 
-  items?: CartItemsResolver<Maybe<(Maybe<CartItem>)[]>, TypeParent, TContext>
+  items?: CartItemsResolver<Maybe<(Maybe<CartItem>)[]>, TypeParent, TContext>;
 }
 
-export type CartIdResolver<R = string, Parent = Cart, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type CartCartItemTotalResolver<R = number, Parent = Cart, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type CartCartItemPromoSavingsResolver<R = number, Parent = Cart, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
-export type CartShippingTotalResolver<R = number, Parent = Cart, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type CartShippingPromoSavingsResolver<R = number, Parent = Cart, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
-export type CartCartTotalResolver<R = number, Parent = Cart, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type CartIsCheckOutResolver<R = boolean, Parent = Cart, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type CartItemsResolver<R = Maybe<(Maybe<CartItem>)[]>, Parent = Cart, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
+export type CartIdResolver<
+  R = string,
+  Parent = Cart,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartCartItemTotalResolver<
+  R = number,
+  Parent = Cart,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartCartItemPromoSavingsResolver<
+  R = number,
+  Parent = Cart,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartShippingTotalResolver<
+  R = number,
+  Parent = Cart,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartShippingPromoSavingsResolver<
+  R = number,
+  Parent = Cart,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartCartTotalResolver<
+  R = number,
+  Parent = Cart,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartIsCheckOutResolver<
+  R = boolean,
+  Parent = Cart,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartItemsResolver<
+  R = Maybe<(Maybe<CartItem>)[]>,
+  Parent = Cart,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
 
-export interface CartItemResolvers<TContext = MyContext, TypeParent = CartItem> {
-  productId?: CartItemProductIdResolver<string, TypeParent, TContext>
+export interface CartItemResolvers<
+  TContext = MyContext,
+  TypeParent = CartItem
+> {
+  productId?: CartItemProductIdResolver<string, TypeParent, TContext>;
 
-  productName?: CartItemProductNameResolver<string, TypeParent, TContext>
+  productName?: CartItemProductNameResolver<string, TypeParent, TContext>;
 
-  quantity?: CartItemQuantityResolver<number, TypeParent, TContext>
+  quantity?: CartItemQuantityResolver<number, TypeParent, TContext>;
 
-  price?: CartItemPriceResolver<number, TypeParent, TContext>
+  price?: CartItemPriceResolver<number, TypeParent, TContext>;
 
-  promoSavings?: CartItemPromoSavingsResolver<number, TypeParent, TContext>
+  promoSavings?: CartItemPromoSavingsResolver<number, TypeParent, TContext>;
 }
 
-export type CartItemProductIdResolver<R = string, Parent = CartItem, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
-export type CartItemProductNameResolver<R = string, Parent = CartItem, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
-export type CartItemQuantityResolver<R = number, Parent = CartItem, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
-export type CartItemPriceResolver<R = number, Parent = CartItem, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type CartItemPromoSavingsResolver<R = number, Parent = CartItem, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
+export type CartItemProductIdResolver<
+  R = string,
+  Parent = CartItem,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartItemProductNameResolver<
+  R = string,
+  Parent = CartItem,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartItemQuantityResolver<
+  R = number,
+  Parent = CartItem,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartItemPriceResolver<
+  R = number,
+  Parent = CartItem,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type CartItemPromoSavingsResolver<
+  R = number,
+  Parent = CartItem,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
 
-export interface InventoryResolvers<TContext = MyContext, TypeParent = Inventory> {
-  id?: InventoryIdResolver<string, TypeParent, TContext>
+export interface InventoryResolvers<
+  TContext = MyContext,
+  TypeParent = Inventory
+> {
+  id?: InventoryIdResolver<string, TypeParent, TContext>;
 
-  location?: InventoryLocationResolver<string, TypeParent, TContext>
+  location?: InventoryLocationResolver<string, TypeParent, TContext>;
 
-  quantity?: InventoryQuantityResolver<number, TypeParent, TContext>
+  quantity?: InventoryQuantityResolver<number, TypeParent, TContext>;
 
-  link?: InventoryLinkResolver<string, TypeParent, TContext>
+  link?: InventoryLinkResolver<string, TypeParent, TContext>;
 }
 
-export type InventoryIdResolver<R = string, Parent = Inventory, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type InventoryLocationResolver<R = string, Parent = Inventory, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
-export type InventoryQuantityResolver<R = number, Parent = Inventory, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext
->
-export type InventoryLinkResolver<R = string, Parent = Inventory, TContext = MyContext> = Resolver<R, Parent, TContext>
+export type InventoryIdResolver<
+  R = string,
+  Parent = Inventory,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type InventoryLocationResolver<
+  R = string,
+  Parent = Inventory,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type InventoryQuantityResolver<
+  R = number,
+  Parent = Inventory,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type InventoryLinkResolver<
+  R = string,
+  Parent = Inventory,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
 
 export interface RatingResolvers<TContext = MyContext, TypeParent = Rating> {
-  id?: RatingIdResolver<string, TypeParent, TContext>
+  id?: RatingIdResolver<string, TypeParent, TContext>;
 
-  productId?: RatingProductIdResolver<string, TypeParent, TContext>
+  productId?: RatingProductIdResolver<string, TypeParent, TContext>;
 
-  userId?: RatingUserIdResolver<string, TypeParent, TContext>
+  userId?: RatingUserIdResolver<string, TypeParent, TContext>;
 
-  cost?: RatingCostResolver<number, TypeParent, TContext>
+  cost?: RatingCostResolver<number, TypeParent, TContext>;
 }
 
-export type RatingIdResolver<R = string, Parent = Rating, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type RatingProductIdResolver<R = string, Parent = Rating, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type RatingUserIdResolver<R = string, Parent = Rating, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type RatingCostResolver<R = number, Parent = Rating, TContext = MyContext> = Resolver<R, Parent, TContext>
-
-export interface ReviewResolvers<TContext = MyContext, TypeParent = Review> {
-  id?: ReviewIdResolver<string, TypeParent, TContext>
-
-  content?: ReviewContentResolver<string, TypeParent, TContext>
-
-  authorId?: ReviewAuthorIdResolver<string, TypeParent, TContext>
-
-  authorName?: ReviewAuthorNameResolver<string, TypeParent, TContext>
-
-  productId?: ReviewProductIdResolver<string, TypeParent, TContext>
-
-  productName?: ReviewProductNameResolver<string, TypeParent, TContext>
-}
-
-export type ReviewIdResolver<R = string, Parent = Review, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type ReviewContentResolver<R = string, Parent = Review, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type ReviewAuthorIdResolver<R = string, Parent = Review, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type ReviewAuthorNameResolver<R = string, Parent = Review, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type ReviewProductIdResolver<R = string, Parent = Review, TContext = MyContext> = Resolver<R, Parent, TContext>
-export type ReviewProductNameResolver<R = string, Parent = Review, TContext = MyContext> = Resolver<R, Parent, TContext>
+export type RatingIdResolver<
+  R = string,
+  Parent = Rating,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type RatingProductIdResolver<
+  R = string,
+  Parent = Rating,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type RatingUserIdResolver<
+  R = string,
+  Parent = Rating,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
+export type RatingCostResolver<
+  R = number,
+  Parent = Rating,
+  TContext = MyContext
+> = Resolver<R, Parent, TContext>;
 
 export interface MutationResolvers<TContext = MyContext, TypeParent = {}> {
-  createProduct?: MutationCreateProductResolver<Product, TypeParent, TContext>
+  createProduct?: MutationCreateProductResolver<Product, TypeParent, TContext>;
 
-  insertItemToNewCart?: MutationInsertItemToNewCartResolver<Cart, TypeParent, TContext>
+  insertItemToNewCart?: MutationInsertItemToNewCartResolver<
+    Cart,
+    TypeParent,
+    TContext
+  >;
 
-  updateItemInCart?: MutationUpdateItemInCartResolver<Cart, TypeParent, TContext>
+  updateItemInCart?: MutationUpdateItemInCartResolver<
+    Cart,
+    TypeParent,
+    TContext
+  >;
 
-  deleteItem?: MutationDeleteItemResolver<string, TypeParent, TContext>
+  deleteItem?: MutationDeleteItemResolver<string, TypeParent, TContext>;
 
-  checkout?: MutationCheckoutResolver<boolean, TypeParent, TContext>
+  checkout?: MutationCheckoutResolver<boolean, TypeParent, TContext>;
 
-  createRating?: MutationCreateRatingResolver<Rating, TypeParent, TContext>
+  createRating?: MutationCreateRatingResolver<Rating, TypeParent, TContext>;
 
-  updateRating?: MutationUpdateRatingResolver<Rating, TypeParent, TContext>
-
-  createReview?: MutationCreateReviewResolver<Review, TypeParent, TContext>
-
-  editReview?: MutationEditReviewResolver<Review, TypeParent, TContext>
-
-  deleteReview?: MutationDeleteReviewResolver<string, TypeParent, TContext>
+  updateRating?: MutationUpdateRatingResolver<Rating, TypeParent, TContext>;
 }
 
-export type MutationCreateProductResolver<R = Product, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationCreateProductArgs
->
+export type MutationCreateProductResolver<
+  R = Product,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, MutationCreateProductArgs>;
 export interface MutationCreateProductArgs {
-  input: CreateProductInput
+  input: CreateProductInput;
 }
 
-export type MutationInsertItemToNewCartResolver<R = Cart, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationInsertItemToNewCartArgs
->
+export type MutationInsertItemToNewCartResolver<
+  R = Cart,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, MutationInsertItemToNewCartArgs>;
 export interface MutationInsertItemToNewCartArgs {
-  input: InsertItemToNewCartInput
+  input: InsertItemToNewCartInput;
 }
 
-export type MutationUpdateItemInCartResolver<R = Cart, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationUpdateItemInCartArgs
->
+export type MutationUpdateItemInCartResolver<
+  R = Cart,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, MutationUpdateItemInCartArgs>;
 export interface MutationUpdateItemInCartArgs {
-  input: UpdateItemInCartInput
+  input: UpdateItemInCartInput;
 }
 
-export type MutationDeleteItemResolver<R = string, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationDeleteItemArgs
->
+export type MutationDeleteItemResolver<
+  R = string,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, MutationDeleteItemArgs>;
 export interface MutationDeleteItemArgs {
-  input: DeleteItemInput
+  input: DeleteItemInput;
 }
 
-export type MutationCheckoutResolver<R = boolean, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationCheckoutArgs
->
+export type MutationCheckoutResolver<
+  R = boolean,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, MutationCheckoutArgs>;
 export interface MutationCheckoutArgs {
-  input: CheckoutInput
+  input: CheckoutInput;
 }
 
-export type MutationCreateRatingResolver<R = Rating, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationCreateRatingArgs
->
+export type MutationCreateRatingResolver<
+  R = Rating,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, MutationCreateRatingArgs>;
 export interface MutationCreateRatingArgs {
-  input: CreateRatingInput
+  input: CreateRatingInput;
 }
 
-export type MutationUpdateRatingResolver<R = Rating, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationUpdateRatingArgs
->
+export type MutationUpdateRatingResolver<
+  R = Rating,
+  Parent = {},
+  TContext = MyContext
+> = Resolver<R, Parent, TContext, MutationUpdateRatingArgs>;
 export interface MutationUpdateRatingArgs {
-  input: UpdateRatingInput
-}
-
-export type MutationCreateReviewResolver<R = Review, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationCreateReviewArgs
->
-export interface MutationCreateReviewArgs {
-  input: CreateReviewInput
-}
-
-export type MutationEditReviewResolver<R = Review, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationEditReviewArgs
->
-export interface MutationEditReviewArgs {
-  input: EditReviewInput
-}
-
-export type MutationDeleteReviewResolver<R = string, Parent = {}, TContext = MyContext> = Resolver<
-  R,
-  Parent,
-  TContext,
-  MutationDeleteReviewArgs
->
-export interface MutationDeleteReviewArgs {
-  input: DeleteReviewInput
+  input: UpdateRatingInput;
 }
 
 export type AuthorizeDirectiveResolver<Result> = DirectiveResolverFn<
   Result,
   {},
   MyContext
-> /** Directs the executor to skip this field or fragment when the `if` argument is true. */
-export type SkipDirectiveResolver<Result> = DirectiveResolverFn<Result, SkipDirectiveArgs, MyContext>
+>; /** Directs the executor to skip this field or fragment when the `if` argument is true. */
+export type SkipDirectiveResolver<Result> = DirectiveResolverFn<
+  Result,
+  SkipDirectiveArgs,
+  MyContext
+>;
 export interface SkipDirectiveArgs {
   /** Skipped when true. */
-  if: boolean
+  if: boolean;
 }
 
 /** Directs the executor to include this field or fragment only when the `if` argument is true. */
-export type IncludeDirectiveResolver<Result> = DirectiveResolverFn<Result, IncludeDirectiveArgs, MyContext>
+export type IncludeDirectiveResolver<Result> = DirectiveResolverFn<
+  Result,
+  IncludeDirectiveArgs,
+  MyContext
+>;
 export interface IncludeDirectiveArgs {
   /** Included when true. */
-  if: boolean
+  if: boolean;
 }
 
 /** Marks an element of a GraphQL schema as no longer supported. */
-export type DeprecatedDirectiveResolver<Result> = DirectiveResolverFn<Result, DeprecatedDirectiveArgs, MyContext>
+export type DeprecatedDirectiveResolver<Result> = DirectiveResolverFn<
+  Result,
+  DeprecatedDirectiveArgs,
+  MyContext
+>;
 export interface DeprecatedDirectiveArgs {
   /** Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted using the Markdown syntax (as specified by [CommonMark](https://commonmark.org/). */
-  reason?: string
+  reason?: string;
 }
 
 export type IResolvers<TContext = MyContext> = {
-  Query?: QueryResolvers<TContext>
-  Product?: ProductResolvers<TContext>
-  Cart?: CartResolvers<TContext>
-  CartItem?: CartItemResolvers<TContext>
-  Inventory?: InventoryResolvers<TContext>
-  Rating?: RatingResolvers<TContext>
-  Review?: ReviewResolvers<TContext>
-  Mutation?: MutationResolvers<TContext>
-} & { [typeName: string]: never }
+  Query?: QueryResolvers<TContext>;
+  Product?: ProductResolvers<TContext>;
+  Cart?: CartResolvers<TContext>;
+  CartItem?: CartItemResolvers<TContext>;
+  Inventory?: InventoryResolvers<TContext>;
+  Rating?: RatingResolvers<TContext>;
+  Mutation?: MutationResolvers<TContext>;
+} & { [typeName: string]: never };
 
 export type IDirectiveResolvers<Result> = {
-  authorize?: AuthorizeDirectiveResolver<Result>
-  skip?: SkipDirectiveResolver<Result>
-  include?: IncludeDirectiveResolver<Result>
-  deprecated?: DeprecatedDirectiveResolver<Result>
-} & { [directiveName: string]: never }
+  authorize?: AuthorizeDirectiveResolver<Result>;
+  skip?: SkipDirectiveResolver<Result>;
+  include?: IncludeDirectiveResolver<Result>;
+  deprecated?: DeprecatedDirectiveResolver<Result>;
+} & { [directiveName: string]: never };

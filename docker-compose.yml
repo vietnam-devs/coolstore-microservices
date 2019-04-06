@@ -53,6 +53,23 @@ services:
       context: .
       dockerfile: ./src/web/Dockerfile
 
+  backoffice:
+    container_name: backoffice
+    image: "vndg/cs-backoffice"
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_GRAPHQL_ENDPOINT=http://localhost:${GRAPHQL_SVR_PORT}
+      - REACT_APP_AUTHORITY=http://${HOST_IP}:${IDP_SVR_PORT}
+      - REACT_APP_ROOT_URL=http://localhost:${BACKOFFICE_PORT}
+    ports:
+      - "${BACKOFFICE_PORT}:${BACKOFFICE_PORT}"
+    expose:
+      - "${BACKOFFICE_PORT}"
+    build:
+      context: .
+      dockerfile: ./src/backoffice/Dockerfile
+
   docker-volume:
     container_name: docker-volume
     image: "vndg/cs-docker-volume"
@@ -67,18 +84,18 @@ services:
     image: "vndg/cs-graphql"
     restart: always
     environment:
-      - Hosts__BasePath=/gql/
-      - Cors__Origins=http://localhost:3000,http://localhost:5011
-      - Idp__Authority=http://${IDENTITY_WEB_EXTERNAL_HOST}:8085
+      - Hosts__BasePath=/
+      - Cors__Origins=http://localhost:${BACKOFFICE_PORT},http://localhost:${GRAPHQL_SVR_PORT}
+      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
       - Idp__Audience=api
-      - GrpcEndPoints__CatalogEndPoint=catalog-service:5002
-      - GrpcEndPoints__CartEndPoint=cart-service:5003
-      - GrpcEndPoints__InventoryEndPoint=inventory-service:5004
-      - GrpcEndPoints__RatingEndPoint=rating-service:5007
+      - GrpcEndPoints__CatalogEndPoint=catalog-service:${CATALOG_SVC_PORT}
+      - GrpcEndPoints__CartEndPoint=cart-service:${CART_SVC_PORT}
+      - GrpcEndPoints__InventoryEndPoint=inventory-service:${INVENTORY_SVC_PORT}
+      - GrpcEndPoints__RatingEndPoint=rating-service:${RATING_SVC_PORT}
     ports:
-      - "5011:5011"
+      - "${GRAPHQL_SVR_PORT}:${GRAPHQL_SVR_PORT}"
     expose:
-      - "5011"
+      - "${GRAPHQL_SVR_PORT}"
     build:
       context: .
       dockerfile: ./src/services/graphql/Dockerfile

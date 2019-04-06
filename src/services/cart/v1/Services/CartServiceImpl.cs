@@ -74,6 +74,7 @@ namespace VND.CoolStore.Services.Cart.v1.Services
                         _shippingGateway);
 
                 await cartCommander.AddAsync(cart);
+                await _commandFactory.SaveChangesAsync(default);
 
                 return new InsertItemToNewCartResponse {Result = cart.ToDto()};
             }
@@ -109,6 +110,7 @@ namespace VND.CoolStore.Services.Cart.v1.Services
 
                 await cart.CalculateCartAsync(TaxType.NoTax, _catalogGateway, _promoGateway, _shippingGateway);
                 await cartCommander.UpdateAsync(cart);
+                await _commandFactory.SaveChangesAsync(default);
 
                 return new UpdateItemInCartResponse {Result = cart.ToDto()};
             }
@@ -129,6 +131,7 @@ namespace VND.CoolStore.Services.Cart.v1.Services
 
                 var cart = await cartQuery.GetFullCartAsync(request.CartId.ConvertTo<Guid>());
                 var checkoutCart = await cartCommander.UpdateAsync(cart.Checkout());
+                await _commandFactory.SaveChangesAsync(default);
 
                 return new CheckoutResponse
                 {
@@ -156,6 +159,7 @@ namespace VND.CoolStore.Services.Cart.v1.Services
                 cart.RemoveCartItem(cartItem.Id);
                 await cart.CalculateCartAsync(TaxType.NoTax, _catalogGateway, _promoGateway, _shippingGateway);
                 await cartCommander.UpdateAsync(cart);
+                await _commandFactory.SaveChangesAsync(default);
 
                 return new DeleteItemResponse {ProductId = cartItem.Product.ProductId.ToString()};
             }
