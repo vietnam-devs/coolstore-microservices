@@ -9,16 +9,9 @@
       "email": "thangchung.onthenet@gmail.com"
     }
   },
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/cart/api/carts": {
       "post": {
@@ -41,9 +34,7 @@
             }
           }
         ],
-        "tags": [
-          "CartService"
-        ]
+        "tags": ["CartService"]
       },
       "put": {
         "operationId": "UpdateItemInCart",
@@ -65,9 +56,7 @@
             }
           }
         ],
-        "tags": [
-          "CartService"
-        ]
+        "tags": ["CartService"]
       }
     },
     "/cart/api/carts/{cart_id}": {
@@ -89,9 +78,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "CartService"
-        ]
+        "tags": ["CartService"]
       }
     },
     "/cart/api/carts/{cart_id}/checkout": {
@@ -113,9 +100,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "CartService"
-        ]
+        "tags": ["CartService"]
       }
     },
     "/cart/api/carts/{cart_id}/items/{product_id}": {
@@ -143,9 +128,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "CartService"
-        ]
+        "tags": ["CartService"]
       }
     },
     "/catalog/api/products": {
@@ -169,9 +152,7 @@
             }
           }
         ],
-        "tags": [
-          "CatalogService"
-        ]
+        "tags": ["CatalogService"]
       }
     },
     "/catalog/api/products/{current_page}/{high_price}": {
@@ -201,9 +182,7 @@
             "format": "double"
           }
         ],
-        "tags": [
-          "CatalogService"
-        ]
+        "tags": ["CatalogService"]
       }
     },
     "/catalog/api/products/{product_id}": {
@@ -225,9 +204,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "CatalogService"
-        ]
+        "tags": ["CatalogService"]
       }
     },
     "/inventory/api/availabilities": {
@@ -241,9 +218,7 @@
             }
           }
         },
-        "tags": [
-          "InventoryService"
-        ]
+        "tags": ["InventoryService"]
       }
     },
     "/inventory/api/availabilities/{id}": {
@@ -265,9 +240,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "InventoryService"
-        ]
+        "tags": ["InventoryService"]
       }
     },
     "/inventory/api/inventory/migrate": {
@@ -291,9 +264,7 @@
             }
           }
         ],
-        "tags": [
-          "InventoryService"
-        ]
+        "tags": ["InventoryService"]
       }
     },
     "/rating/api/ratings": {
@@ -307,9 +278,7 @@
             }
           }
         },
-        "tags": [
-          "RatingService"
-        ]
+        "tags": ["RatingService"]
       },
       "post": {
         "operationId": "CreateRating",
@@ -331,9 +300,7 @@
             }
           }
         ],
-        "tags": [
-          "RatingService"
-        ]
+        "tags": ["RatingService"]
       },
       "put": {
         "operationId": "UpdateRating",
@@ -355,9 +322,7 @@
             }
           }
         ],
-        "tags": [
-          "RatingService"
-        ]
+        "tags": ["RatingService"]
       }
     },
     "/rating/api/ratings/{product_id}": {
@@ -379,9 +344,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "RatingService"
-        ]
+        "tags": ["RatingService"]
       }
     },
     "/review/api/reviews": {
@@ -405,9 +368,7 @@
             }
           }
         ],
-        "tags": [
-          "ReviewService"
-        ]
+        "tags": ["ReviewService"]
       }
     },
     "/review/api/reviews/{product_id}": {
@@ -429,9 +390,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "ReviewService"
-        ]
+        "tags": ["ReviewService"]
       }
     },
     "/review/api/reviews/{review_id}": {
@@ -453,9 +412,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "ReviewService"
-        ]
+        "tags": ["ReviewService"]
       }
     },
     "/review/api/reviews/{review_id}/{content}": {
@@ -483,9 +440,7 @@
             "type": "string"
           }
         ],
-        "tags": [
-          "ReviewService"
-        ]
+        "tags": ["ReviewService"]
       }
     },
     "/review/ping": {
@@ -499,9 +454,7 @@
             }
           }
         },
-        "tags": [
-          "PingService"
-        ]
+        "tags": ["PingService"]
       }
     }
   },
@@ -924,7 +877,6 @@
         "cart_api_scope": "Grants cart access",
         "catalog_api_scope": "Grants catalog access",
         "inventory_api_scope": "Grants inventory access",
-        "pricing_api_scope": "Grants pricing access",
         "rating_api_scope": "Grants rating access",
         "review_api_scope": "Grants review access"
       }

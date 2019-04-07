@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VND.CoolStore.Services.Cart.Infrastructure.Db;
+using VND.CoolStore.Services.Cart.v1.Db;
 
 namespace VND.CoolStore.Services.Cart.Migrations
 {

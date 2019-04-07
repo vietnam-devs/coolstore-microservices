@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -7,15 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\..\netcorekit\templates\NetCoreKit.GrpcTemplate.EfCore\NetCoreKit.GrpcTemplate.EfCore.csproj" />
     <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.EfCore.MySql\NetCoreKit.Infrastructure.EfCore.MySql.csproj" />
     <ProjectReference Include="..\..\netcorekit\src\NetCoreKit.Infrastructure.GrpcHost\NetCoreKit.Infrastructure.GrpcHost.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="NetCoreKit.GrpcTemplate.EfCore" Version="0.1.136" />
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.136" />
-    <PackageReference Include="NetCoreKit.Infrastructure.GrpcHost" Version="0.1.136" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.141" />
+    <PackageReference Include="NetCoreKit.Infrastructure.GrpcHost" Version="0.1.141" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,8 +31,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="Properties\" />
     <Folder Include="v1\Grpc\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="Grpc" Version="1.19.0" />
+    <PackageReference Include="Grpc.Reflection" Version="1.19.0" />
+    <PackageReference Include="Grpc.HealthCheck" Version="1.19.0" />
+    <PackageReference Include="Google.Api.Gax.Grpc" Version="2.6.0" />
   </ItemGroup>
 
 </Project>

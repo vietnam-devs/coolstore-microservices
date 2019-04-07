@@ -86,9 +86,9 @@ There are several individual µservices and infrastructure components that make 
     <tr>
       <td align="center">1.</td>
       <td>
-        IdP (.NET Core + In-memory database)
+        IdP (.NET Core + In-memory database)<br/>
         <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=4&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-idp-build?branchName=master" />
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/identity?branchName=master" />
         </a>
       </td>
       <td>Uses <a href="https://github.com/IdentityServer/IdentityServer4">IdentityServer4</a> to authentication with OAuth 2.0 and OpenID Connect for the whole stack</td>
@@ -102,7 +102,10 @@ There are several individual µservices and infrastructure components that make 
     <tr>
       <td align="center">2.</td>
       <td>
-        GraphQL server (.NET Core)
+        GraphQL server (.NET Core)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=12&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/graphql?branchName=master" />
+        </a>
       </td>
       <td>The GraphQL server for backoffice application</td>
       <td>
@@ -114,7 +117,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">3.</td>
-      <td>OpenApi (.NET Core + envoy-proxy)</td>
+      <td>
+        OpenApi (.NET Core + envoy-proxy)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=11&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/openapi?branchName=master" />
+        </a>
+      </td>
       <td>The OpenAPI which generated from gRPC contract files, hosted in OpenAPI format, and used envoy-proxy to proxy it</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/openapi">code</a>
@@ -126,9 +134,9 @@ There are several individual µservices and infrastructure components that make 
      <tr>
       <td align="center">4.</td>
       <td>
-        Web (PWA - Vuejs + Node.js)
+        Web (PWA - Vuejs + Node.js)<br/>
         <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=8&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-web-build?branchName=master" />
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/web?branchName=master" />
         </a>
       </td>
       <td>Frontend based on <a href="https://vuejs.org">vuejs</a> and <a href="https://nodejs.org">Node.js</a></td>
@@ -141,7 +149,11 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">5.</td>
-      <td>Backoffice (React + TypeScript + Apollo-client)</td>
+      <td>
+        Backoffice (React + TypeScript + Apollo-client)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=10&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/backoffice?branchName=master" />
+      </td>
       <td>The back office application for management business entities in the system</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/backoffice">code</a>
@@ -153,9 +165,9 @@ There are several individual µservices and infrastructure components that make 
     <tr>
       <td align="center">6.</td>
       <td>
-        Catalog (Node.js + TypeScript + Mongo)
+        Catalog (Node.js + TypeScript + Mongo)<br/>
         <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=3&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-catalog-build?branchName=master" />
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/catalog?branchName=master" />
         </a>
       </td>
       <td>Serves products and prices for retail products</td>
@@ -169,9 +181,9 @@ There are several individual µservices and infrastructure components that make 
      <tr>
       <td align="center">7.</td>
       <td>
-        Cart (.NET Core + MySQL)
+        Cart (.NET Core + MySQL)<br/>
         <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=2&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-cart-build?branchName=master" />
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/cart?branchName=master" />
         </a>
       </td>
       <td>Manages shopping cart for each customer</td>
@@ -185,9 +197,9 @@ There are several individual µservices and infrastructure components that make 
      <tr>
       <td align="center">8.</td>
       <td>
-        Inventory (.NET Core + MySQL)
+        Inventory (.NET Core + MySQL)<br/>
         <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=5&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-inventory-build?branchName=master" />
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/inventory?branchName=master" />
         </a>
       </td>
       <td>Serves inventory and availability data for retail products</td>
@@ -201,9 +213,9 @@ There are several individual µservices and infrastructure components that make 
      <tr>
       <td align="center">9.</td>
       <td>
-        Rating (Node.js + TypeScript + Mongo)
+        Rating (Node.js + TypeScript + Mongo)<br/>
         <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=6&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices-rating-build?branchName=master" />
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/rating?branchName=master" />
         </a>
       </td>
       <td>Runs for rating products</td>
@@ -228,10 +240,8 @@ See https://vietnam-devs.github.io/docs/development/up-running-d4d-aks/#docker-f
 #### Up and running with `docker compose`
 
 ```bash
+$ docker-compose build
 $ docker-compose up
-$ docker-compose -f docker-compose-graphql.yml up
-$ docker-compose -f docker-compose-graphql.headless.yml up
-$ docker-compose -f docker-compose-graphql.dev.yml up
 ```
 
 ### Staging and Production environments

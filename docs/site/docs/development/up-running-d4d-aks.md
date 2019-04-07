@@ -14,21 +14,23 @@ From current console, type `bash` to enter `Linux Subsystem (Ubuntu)`
 
 Then `cd` into your root of project
 
-```
-> ./deploys/scripts/build-all-images.sh
+```bash
+$ ./deploys/scripts/build-images.sh
 ```
 
 It should run and package all docker images.
 
+_**Notes**_: it normally takes around 20 minutes for the first time
+
 ### Step 4
 
-Download and install [istio-1.0.0](https://github.com/istio/istio/releases/tag/1.0.0) on the box, and unzip it into somewhere, then initialize it with following commands
+Download and install [istio-1.1.1](https://github.com/istio/istio/releases/tag/1.1.1) on the box, and unzip it into somewhere, then initialize it with following commands
 
-```
-> cd <istio-1.0.0 path>
-> kubectl create -f install/kubernetes/helm/helm-service-account.yaml
-> helm init --service-account tiller --upgrade
-> helm install install/kubernetes/helm/istio --name istio --namespace istio-system
+```bash
+$ cd <istio-1.1.1 path>
+$ kubectl create -f install/kubernetes/helm/helm-service-account.yaml
+$ helm init --service-account tiller --upgrade
+$ helm install install/kubernetes/helm/istio --name istio --namespace istio-system
 ```
 
 More information about installing `istio` can be found at https://istio.io/docs/setup/kubernetes/helm-install
@@ -37,9 +39,9 @@ More information about installing `istio` can be found at https://istio.io/docs/
 
 Apply `istioctl` command to `coolstore` chart (please create k8s folder in folder deploys)
 
-```
-> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml > deploys/k8s/coolstore.local.yaml
-> istioctl kube-inject -f deploys/k8s/coolstore.local.yaml | kubectl apply -f -
+```bash
+$ helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.dev.yaml > deploys/out/coolstore.local.yaml
+$ istioctl kube-inject -f deploys/out/coolstore.local.yaml | kubectl apply -f -
 ```
 
 ### Step 6
@@ -50,6 +52,7 @@ Add hosts file with following content
 127.0.0.1 api.coolstore.local
 127.0.0.1 id.coolstore.local
 127.0.0.1 coolstore.local
+127.0.0.1 backoffice.coolstore.local
 ```
 
 Waiting for the container provision completed
@@ -58,28 +61,38 @@ Waiting for the container provision completed
 
 Install `coolstore-istio` chart
 
-```
-> helm install deploys\charts\coolstore-istio --name coolstore-istio
+```bash
+$ helm install deploys\charts\coolstore-istio --name coolstore-istio
 ```
 
 ### Step 8
 
-Access to following URLs
+Install `envoy-proxy` stuffs for routing directly from Rest to internal gRPC services
 
-```
-> curl -I http://coolstore.local # website
-> curl -I http://api.coolstore.local # api gateway
-> curl -I http://id.coolstore.local # identity provider
+```bash
+$ kubectl apply -f deploys\k8s\istio-sidecar-injector.yaml
+$ kubectl apply -f deploys\k8s\envoy-filter.yaml
 ```
 
 ### Step 9
 
+Access to following URLs
+
+```bash
+$ curl -I http://coolstore.local # website
+$ curl -I http://backoffice.coolstore.local # backoffice website
+$ curl -I http://api.coolstore.local # api gateway
+$ curl -I http://id.coolstore.local # identity provider
+```
+
+### Step 10
+
 Clean up `coolstore` chart as
 
-```
-> kubectl delete -f deployment/istio/coolstore.local.yaml
-> helm delete coolstore-istio --purge
-> helm delete istio --purge
+```bash
+$ kubectl delete -f deployment/istio/coolstore.local.yaml
+$ helm delete coolstore-istio --purge
+$ helm delete istio --purge
 ```
 
 **_Notes_**:
@@ -96,7 +109,7 @@ Clean up `coolstore` chart as
   Then run the `helm` command as
 
   ```bash
-  helm install --name cs-nginx stable/nginx-ingress
+  $ helm install --name cs-nginx stable/nginx-ingress
   ```
 
 ## Azure Kubernetes Service (AKS)
@@ -160,7 +173,7 @@ ip: 10.0.106.82
 Then run helm command
 
 ```bash
-> helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.aks.yaml > deploys/k8s/dev-all-in-one.aks.yaml
+$ helm template deploys/charts/coolstore -f deploys/charts/coolstore/values.aks.yaml > deploys/k8s/dev-all-in-one.aks.yaml
 ```
 
 Finally, we `inject sidecar` with this command
@@ -191,14 +204,13 @@ Then, we only need to copy `10.106.52.19` to `C:\Windows\System32\drivers\etc\ho
 10.106.52.19 id.coolstore.aks
 10.106.52.19 api.coolstore.aks
 10.106.52.19 coolstore.aks
+10.106.52.19 backoffice.coolstore.aks
 ```
 
-From now on, we can access website at `http://coolstore.aks`, identity provider at `http://id.coolstore.aks`, and api gateway at `http://api.coolstore.aks`
+From now on, we can access website at `http://coolstore.aks`, backoffice website at `http://backoffice.coolstore.aks`, identity provider at `http://id.coolstore.aks`, and api gateway at `http://api.coolstore.aks`
 
-Let say we access to `http://api.coolstore.aks/cart/swagger`, then we should see
+Let say we access to `http://api.coolstore.aks/oai/swagger/index.html`, then we should see
 
-![](cart-svc-open-api.png)
-
-And the website at `http://coolstore.aks`
+![](open-api.png)
 
 More information at https://hackernoon.com/5-steps-to-bring-coolstores-service-mesh-to-azure-kubernetes-service-aks-9cd1a5aa008a

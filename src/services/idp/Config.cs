@@ -36,11 +36,6 @@ namespace IdentityServer4
                     },
                     new Scope
                     {
-                        Name = "pricing_api_scope",
-                        Description = "Pricing API Scope"
-                    },
-                    new Scope
-                    {
                         Name = "catalog_api_scope",
                         Description = "Catalog API Scope"
                     },
@@ -92,7 +87,6 @@ namespace IdentityServer4
                 {
                     "inventory_api_scope",
                     "cart_api_scope",
-                    "pricing_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope"
                 }
@@ -124,7 +118,6 @@ namespace IdentityServer4
                 {
                     "inventory_api_scope",
                     "cart_api_scope",
-                    "pricing_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -160,7 +153,6 @@ namespace IdentityServer4
                 {
                     "inventory_api_scope",
                     "cart_api_scope",
-                    "pricing_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -194,7 +186,6 @@ namespace IdentityServer4
                 {
                     "inventory_api_scope",
                     "cart_api_scope",
-                    "pricing_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -234,7 +225,6 @@ namespace IdentityServer4
                 {
                     "inventory_api_scope",
                     "cart_api_scope",
-                    "pricing_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope"
                 }
@@ -268,7 +258,6 @@ namespace IdentityServer4
                 {
                     "inventory_api_scope",
                     "cart_api_scope",
-                    "pricing_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -301,7 +290,6 @@ namespace IdentityServer4
                 {
                     "inventory_api_scope",
                     "cart_api_scope",
-                    "pricing_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",
@@ -335,7 +323,6 @@ namespace IdentityServer4
                 {
                     "inventory_api_scope",
                     "cart_api_scope",
-                    "pricing_api_scope",
                     "catalog_api_scope",
                     "rating_api_scope",
                     "openid",

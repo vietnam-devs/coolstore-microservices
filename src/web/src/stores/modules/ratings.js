@@ -9,6 +9,7 @@ export default {
 
   getters: {
     ratingSet: state => {
+      console.log(state)
       let ratingSet = state.ratings.reduce((obj, item) => {
         obj[item.productId] = item
         return obj

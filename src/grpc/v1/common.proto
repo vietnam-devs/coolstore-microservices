@@ -32,10 +32,6 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
             value: "Grants cart access";
           }
           scope: {
-            key: "pricing_api_scope";
-            value: "Grants pricing access";
-          }
-          scope: {
             key: "catalog_api_scope";
             value: "Grants catalog access";
           }

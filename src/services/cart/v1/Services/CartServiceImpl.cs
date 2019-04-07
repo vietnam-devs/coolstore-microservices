@@ -10,7 +10,6 @@ using NetCoreKit.Infrastructure.EfCore.Extensions;
 using NetCoreKit.Infrastructure.GrpcHost;
 using NetCoreKit.Utils.Extensions;
 using VND.CoolStore.Services.Cart.Domain;
-using VND.CoolStore.Services.Cart.Extensions;
 using VND.CoolStore.Services.Cart.v1.Extensions;
 using VND.CoolStore.Services.Cart.v1.Grpc;
 

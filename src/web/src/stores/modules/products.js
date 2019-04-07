@@ -16,6 +16,7 @@ export default {
 
   getters: {
     products: state => {
+      console.log(state)
       return state.products.map(product => {
         let productDefault = {
           price: 0,
@@ -35,6 +36,7 @@ export default {
       })
     },
     highprice: state => {
+      console.log(state)
       state.highprice =
         state.highprice ||
         Math.max.apply(

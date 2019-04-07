@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NetCoreKit.Infrastructure.EfCore.Db;
 using VND.CoolStore.Services.Cart.Domain;
 
-namespace VND.CoolStore.Services.Cart.Infrastructure.Db
+namespace VND.CoolStore.Services.Cart.v1.Db
 {
     public class CartDbModelBuilder : ICustomModelBuilder
     {

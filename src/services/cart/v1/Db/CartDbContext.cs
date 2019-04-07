@@ -7,23 +7,23 @@ using NetCoreKit.Infrastructure;
 using NetCoreKit.Infrastructure.EfCore.Db;
 using NetCoreKit.Infrastructure.EfCore.MySql;
 
-namespace VND.CoolStore.Services.Inventory.v1.Db
+namespace VND.CoolStore.Services.Cart.v1.Db
 {
-    public class InventoryDbContext : AppDbContext
+    public class CartDbContext : AppDbContext
     {
-        public InventoryDbContext(DbContextOptions options, IConfiguration config, IDomainEventDispatcher eventBus = null)
+        public CartDbContext(DbContextOptions options, IConfiguration config, IDomainEventDispatcher eventBus = null)
             : base(options, config, eventBus)
         {
         }
     }
 
-    public class InventoryDbContextDesignFactory : IDesignTimeDbContextFactory<InventoryDbContext>
+    public class CartDbContextDesignFactory : IDesignTimeDbContextFactory<CartDbContext>
     {
-        public InventoryDbContext CreateDbContext(string[] args)
+        public CartDbContext CreateDbContext(string[] args)
         {
             var dbConnFactory = new DatabaseConnectionStringFactory();
             var conn = dbConnFactory.Create();
-            var optionsBuilder = new DbContextOptionsBuilder<InventoryDbContext>()
+            var optionsBuilder = new DbContextOptionsBuilder<CartDbContext>()
                 .UseMySql(
                     conn, sqlOptions =>
                     {
@@ -33,7 +33,7 @@ namespace VND.CoolStore.Services.Inventory.v1.Db
                     }
                 );
 
-            return new InventoryDbContext(optionsBuilder.Options, ConfigurationHelper.GetConfiguration());
+            return new CartDbContext(optionsBuilder.Options, ConfigurationHelper.GetConfiguration());
         }
     }
 }

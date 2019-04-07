@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VND.CoolStore.Services.Cart.Infrastructure.Db;
+using VND.CoolStore.Services.Cart.v1.Db;
 
 namespace VND.CoolStore.Services.Cart.Migrations
 {
     [DbContext(typeof(CartDbContext))]
-    [Migration("20190406104240_InitCartDb")]
+    [Migration("20190407074456_InitCartDb")]
     partial class InitCartDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

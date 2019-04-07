@@ -1,7 +1,7 @@
 using System.Linq;
 using VND.CoolStore.Services.Cart.v1.Grpc;
 
-namespace VND.CoolStore.Services.Cart.Extensions
+namespace VND.CoolStore.Services.Cart.v1.Extensions
 {
     public static class CartExtensions
     {

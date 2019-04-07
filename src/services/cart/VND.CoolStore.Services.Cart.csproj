@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.136" />
-    <PackageReference Include="NetCoreKit.Infrastructure.GrpcHost" Version="0.1.136" />
+    <PackageReference Include="NetCoreKit.Infrastructure.EfCore.MySql" Version="0.1.141" />
+    <PackageReference Include="NetCoreKit.Infrastructure.GrpcHost" Version="0.1.141" />
   </ItemGroup>
 
   <ItemGroup>
