@@ -71,15 +71,6 @@ services:
       context: .
       dockerfile: ./src/backoffice/Dockerfile
 
-  docker-volume:
-    container_name: docker-volume
-    image: "vndg/cs-docker-volume"
-    build:
-      context: .
-      dockerfile: ./deploys/dockers/docker-volume/Dockerfile
-    volumes:
-      - shareData:/tmp/
-
   graphql-server:
     container_name: graphql-server
     image: "vndg/cs-graphql"
@@ -178,6 +169,15 @@ services:
     build:
       context: .
       dockerfile: ./src/services/rating/Dockerfile
+
+  docker-volume:
+    container_name: docker-volume
+    image: "vndg/cs-docker-volume"
+    build:
+      context: .
+      dockerfile: ./deploys/dockers/docker-volume/Dockerfile
+    volumes:
+      - shareData:/tmp/
 
   mongodb:
     container_name: mongodb
