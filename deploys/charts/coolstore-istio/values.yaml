@@ -4,8 +4,8 @@ hosts:
   api: api.coolstore.local
   idp: id.coolstore.local
 
-jwts:
-  issuer: "local_idp"
+idp:
+  issuer: "http://id.coolstore.local"
   jwks_uri: "http://id.coolstore.local/.well-known/openid-configuration/jwks"
 
 coolstore:
