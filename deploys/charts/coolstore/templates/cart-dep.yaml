@@ -50,7 +50,7 @@ spec:
             command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.cartSettings.Port }}"]
         resources:
           requests:
-            cpu: 150m
+            cpu: 50m
             memory: 64Mi
           limits:
             cpu: 200m
