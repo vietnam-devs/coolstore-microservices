@@ -196,9 +196,6 @@ data:
           [[ end ]]
           [[- end ]]
       volumes:
-      - name: xproto
-        hostpath:
-          path: /c/tmp/ # this is map into current host path
       [[- if (isset .ObjectMeta.Annotations `sidecar.istio.io/bootstrapOverride`) ]]
       - name: custom-bootstrap-volume
         configMap:
