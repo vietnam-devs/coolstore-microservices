@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using NetCoreKit.Infrastructure;
 using NetCoreKit.Infrastructure.EfCore;
 using NetCoreKit.Infrastructure.EfCore.Db;
@@ -34,7 +35,10 @@ namespace VND.CoolStore.Services.Inventory
                         services.AddGenericRepository();
                         services.AddEfCoreMySqlDb();
                     },
-                    svc => { svc.AddHostedService<HostedService>(); });
+                    svc => {
+                        IdentityModelEventSource.ShowPII = true;
+                        svc.AddHostedService<HostedService>();
+                    });
 
             await host.RunAsync();
         }

@@ -1,5 +1,7 @@
-﻿using System;
+using System;
 using Grpc.Core;
+using Grpc.Core.Interceptors;
+using Grpc.Core.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +28,8 @@ namespace VND.CoolStore.Services.Inventory
 
         protected override Server ConfigureServer()
         {
+            GrpcEnvironment.SetLogger(new ConsoleLogger());
+
             var env = _resolver.GetRequiredService<IHostingEnvironment>();
             var host = Config["Hosts:Local:Host"];
             var port = Config["Hosts:Local:Port"].ConvertTo<int>();
@@ -40,7 +44,7 @@ namespace VND.CoolStore.Services.Inventory
             {
                 Services =
                 {
-                    InventoryService.BindService(new InventoryServiceImpl(_resolver)),
+                    InventoryService.BindService(new InventoryServiceImpl(_resolver)).Intercept(new AuthNInterceptor(_resolver)),
                     Grpc.Health.V1.Health.BindService(new HealthImpl())
                 },
                 Ports = {new ServerPort(host, port, ServerCredentials.Insecure)}

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using NetCoreKit.Infrastructure;
 using NetCoreKit.Infrastructure.EfCore;
 using NetCoreKit.Infrastructure.EfCore.Db;
@@ -39,6 +40,7 @@ namespace VND.CoolStore.Services.Cart
                     },
                     svc =>
                     {
+                        IdentityModelEventSource.ShowPII = true;
                         svc.AddHostedService<HostedService>();
                         svc.AddScoped<ICatalogGateway, CatalogGateway>();
                         svc.AddScoped<IPromoGateway, PromoGateway>();
