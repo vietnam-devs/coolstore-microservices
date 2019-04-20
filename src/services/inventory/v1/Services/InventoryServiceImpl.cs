@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetCoreKit.Domain;
 using NetCoreKit.Infrastructure.EfCore.Extensions;
-using NetCoreKit.Infrastructure.GrpcHost;
 using NetCoreKit.Utils.Extensions;
 using VND.CoolStore.Services.Inventory.v1.Extensions;
 using VND.CoolStore.Services.Inventory.v1.Grpc;
@@ -27,7 +26,6 @@ namespace VND.CoolStore.Services.Inventory.v1.Services
             _queryRepositoryFactory = resolver.GetService<IQueryRepositoryFactory>();
         }
 
-        [CheckPolicy("inventory_api_scope")]
         public override async Task<GetInventoriesResponse> GetInventories(Empty request, ServerCallContext context)
         {
             try
@@ -48,7 +46,6 @@ namespace VND.CoolStore.Services.Inventory.v1.Services
             }
         }
 
-        [CheckPolicy("inventory_api_scope")]
         public override async Task<GetInventoryResponse> GetInventory(GetInventoryRequest request,
             ServerCallContext context)
         {
@@ -71,7 +68,6 @@ namespace VND.CoolStore.Services.Inventory.v1.Services
             }
         }
 
-        [CheckPolicy("inventory_api_scope")]
         public override async Task<DbMigrationResponse> DbMigration(Empty request, ServerCallContext context)
         {
             try

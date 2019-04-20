@@ -1,6 +1,5 @@
 using System;
 using Grpc.Core;
-using Grpc.Core.Interceptors;
 using Grpc.Core.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +43,7 @@ namespace VND.CoolStore.Services.Inventory
             {
                 Services =
                 {
-                    InventoryService.BindService(new InventoryServiceImpl(_resolver)).Intercept(new AuthNInterceptor(_resolver)),
+                    InventoryService.BindService(new InventoryServiceImpl(_resolver)),
                     Grpc.Health.V1.Health.BindService(new HealthImpl())
                 },
                 Ports = {new ServerPort(host, port, ServerCredentials.Insecure)}

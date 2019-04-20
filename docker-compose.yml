@@ -112,7 +112,6 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
       - Features__EfCore__MySqlDb__FQDN=mysqldb:${MYSQLDB_PORT}
     ports:
       - "${CART_SVC_PORT}:${CART_SVC_PORT}"
@@ -128,7 +127,6 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - Idp__Authority=http://${HOST_IP}:${IDP_SVR_PORT}
       - Features__EfCore__MySqlDb__FQDN=mysqldb:${MYSQLDB_PORT}
     ports:
       - "${INVENTORY_SVC_PORT}:${INVENTORY_SVC_PORT}"
