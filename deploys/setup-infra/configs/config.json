@@ -1,0 +1,30 @@
+{
+    "azure" : {
+        "tenant_id" : "",
+        "client_id" : "",
+        "client_secret" : "",
+        "supscription_id" : ""
+    },
+    "resource_group" : {
+        "name" : "lab-01",
+        "location" : "South Central US"
+    },
+    "virtual_network" : {
+        "vnet_name" : "vnet-lab-01",
+        "location" : "South Central US",
+        "address_space" : {
+            "address_prefixes" : ["172.10.0.0/16"]
+        },
+        "subnet_1" : {
+            "name" : "subnet-1",
+            "address_prefix" : "172.10.0.0/20"
+        }
+    },
+    "aks" : {
+        "name" : "lab-aks-01",
+        "location" : "South Central US",
+        "k8s_version" : "1.11.9",
+        "vm_size" : "Standard_B4ms",
+        "vm_count" : 2
+    }
+}
