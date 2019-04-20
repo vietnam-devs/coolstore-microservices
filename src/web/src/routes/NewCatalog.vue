@@ -86,7 +86,6 @@ export default {
         price: this.price,
         imageUrl: this.imageShow
       };
-      console.log(model);
       this.$store
         .dispatch("products/CREATE_CATEGORY", { model })
         .then(response => {

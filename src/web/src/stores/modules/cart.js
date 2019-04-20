@@ -18,7 +18,6 @@ export default {
 
   getters: {
     cartReducer: state => {
-      console.log(state)
       state.cart = state.cart || {}
       state.cart.item = state.cart.item || []
       let flat = {
@@ -31,11 +30,9 @@ export default {
       return Object.assign(state.cart, flat)
     },
     cartId: state => {
-      console.log(state)
       return state.cartId
     },
     itemCount: state => {
-      console.log(state)
       state.cart = state.cart || {}
       state.cart.items = state.cart.items || []
       return state.cart.items.length

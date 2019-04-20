@@ -176,48 +176,45 @@
 #             cpu: 100m
 #             memory: 128Mi
 
-#         [[ end -]]
-#         volumeMounts:
-#         [[- if (isset .ObjectMeta.Annotations `sidecar.istio.io/bootstrapOverride`) ]]
-#         - mountPath: /etc/istio/custom-bootstrap
-#           name: custom-bootstrap-volume
-#         [[- end ]]
-#         - mountPath: "/tmp/"
-#           name: xproto
-#         - mountPath: /etc/istio/proxy
-#           name: istio-envoy
-#         - mountPath: /etc/certs/
-#           name: istio-certs
-#           readOnly: true
-#           [[- if isset .ObjectMeta.Annotations `sidecar.istio.io/userVolumeMount` ]]
-#           [[ range $index, $value := fromJSON (index .ObjectMeta.Annotations `sidecar.istio.io/userVolumeMount`) ]]
-#         - name: "[[ $index ]]"
-#           [[ toYaml $value | indent 4 ]]
-#           [[ end ]]
-#           [[- end ]]
-#       volumes:
-#       - name: xproto
-#         hostpath:
-#           path: /c/tmp/ # this is map into current host path
-#       [[- if (isset .ObjectMeta.Annotations `sidecar.istio.io/bootstrapOverride`) ]]
-#       - name: custom-bootstrap-volume
-#         configMap:
-#           name: [[ annotation .ObjectMeta `sidecar.istio.io/bootstrapOverride` `` ]]
-#       [[- end ]]
-#       - emptyDir:
-#           medium: Memory
-#         name: istio-envoy
-#       - name: istio-certs
-#         secret:
-#           optional: true
-#           [[ if eq .Spec.ServiceAccountName "" -]]
-#           secretName: istio.default
-#           [[ else -]]
-#           secretName: [[ printf "istio.%s" .Spec.ServiceAccountName ]]
-#           [[ end -]]
-#         [[- if isset .ObjectMeta.Annotations `sidecar.istio.io/userVolume` ]]
-#         [[ range $index, $value := fromJSON (index .ObjectMeta.Annotations `sidecar.istio.io/userVolume`) ]]
-#       - name: "[[ $index ]]"
-#         [[ toYaml $value | indent 2 ]]
-#         [[ end ]]
-#         [[ end ]]
+        [[ end -]]
+        volumeMounts:
+        [[- if (isset .ObjectMeta.Annotations `sidecar.istio.io/bootstrapOverride`) ]]
+        - mountPath: /etc/istio/custom-bootstrap
+          name: custom-bootstrap-volume
+        [[- end ]]
+        - mountPath: "/tmp/"
+          name: xproto
+        - mountPath: /etc/istio/proxy
+          name: istio-envoy
+        - mountPath: /etc/certs/
+          name: istio-certs
+          readOnly: true
+          [[- if isset .ObjectMeta.Annotations `sidecar.istio.io/userVolumeMount` ]]
+          [[ range $index, $value := fromJSON (index .ObjectMeta.Annotations `sidecar.istio.io/userVolumeMount`) ]]
+        - name: "[[ $index ]]"
+          [[ toYaml $value | indent 4 ]]
+          [[ end ]]
+          [[- end ]]
+      volumes:
+      [[- if (isset .ObjectMeta.Annotations `sidecar.istio.io/bootstrapOverride`) ]]
+      - name: custom-bootstrap-volume
+        configMap:
+          name: [[ annotation .ObjectMeta `sidecar.istio.io/bootstrapOverride` `` ]]
+      [[- end ]]
+      - emptyDir:
+          medium: Memory
+        name: istio-envoy
+      - name: istio-certs
+        secret:
+          optional: true
+          [[ if eq .Spec.ServiceAccountName "" -]]
+          secretName: istio.default
+          [[ else -]]
+          secretName: [[ printf "istio.%s" .Spec.ServiceAccountName ]]
+          [[ end -]]
+        [[- if isset .ObjectMeta.Annotations `sidecar.istio.io/userVolume` ]]
+        [[ range $index, $value := fromJSON (index .ObjectMeta.Annotations `sidecar.istio.io/userVolume`) ]]
+      - name: "[[ $index ]]"
+        [[ toYaml $value | indent 2 ]]
+        [[ end ]]
+        [[ end ]]

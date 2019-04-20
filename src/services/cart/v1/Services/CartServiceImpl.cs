@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetCoreKit.Domain;
 using NetCoreKit.Infrastructure.EfCore.Extensions;
-using NetCoreKit.Infrastructure.GrpcHost;
 using NetCoreKit.Utils.Extensions;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.v1.Extensions;
@@ -36,7 +35,6 @@ namespace VND.CoolStore.Services.Cart.v1.Services
             _promoGateway = resolver.GetService<IPromoGateway>();
         }
 
-        [CheckPolicy("cart_api_scope")]
         public override async Task<GetCartResponse> GetCart(GetCartRequest request, ServerCallContext context)
         {
             try
@@ -56,7 +54,6 @@ namespace VND.CoolStore.Services.Cart.v1.Services
             }
         }
 
-        [CheckPolicy("cart_api_scope")]
         public override async Task<InsertItemToNewCartResponse> InsertItemToNewCart(InsertItemToNewCartRequest request,
             ServerCallContext context)
         {
@@ -84,7 +81,6 @@ namespace VND.CoolStore.Services.Cart.v1.Services
             }
         }
 
-        [CheckPolicy("cart_api_scope")]
         public override async Task<UpdateItemInCartResponse> UpdateItemInCart(UpdateItemInCartRequest request,
             ServerCallContext context)
         {
@@ -120,7 +116,6 @@ namespace VND.CoolStore.Services.Cart.v1.Services
             }
         }
 
-        [CheckPolicy("cart_api_scope")]
         public override async Task<CheckoutResponse> Checkout(CheckoutRequest request, ServerCallContext context)
         {
             try
@@ -144,7 +139,6 @@ namespace VND.CoolStore.Services.Cart.v1.Services
             }
         }
 
-        [CheckPolicy("cart_api_scope")]
         public override async Task<DeleteItemResponse> DeleteItem(DeleteItemRequest request, ServerCallContext context)
         {
             try

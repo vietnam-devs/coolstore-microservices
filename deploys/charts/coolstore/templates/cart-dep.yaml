@@ -48,11 +48,11 @@ spec:
           periodSeconds: 10
           exec:
             command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.cartSettings.Port }}"]
-        resources:
-          requests:
-            cpu: 50m
-            memory: 64Mi
-          limits:
-            cpu: 200m
-            memory: 128Mi
+        # resources:
+        #   requests:
+        #     cpu: 70m
+        #     memory: 128Mi
+        #   limits:
+        #     cpu: 250m
+        #     memory: 256Mi
 ---

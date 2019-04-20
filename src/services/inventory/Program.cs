@@ -34,7 +34,9 @@ namespace VND.CoolStore.Services.Inventory
                         services.AddGenericRepository();
                         services.AddEfCoreMySqlDb();
                     },
-                    svc => { svc.AddHostedService<HostedService>(); });
+                    svc => {
+                        svc.AddHostedService<HostedService>();
+                    });
 
             await host.RunAsync();
         }

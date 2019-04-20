@@ -45,11 +45,11 @@ spec:
           periodSeconds: 10
           exec:
             command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.ratingSettings.Port }}"]
-        resources:
-          requests:
-            cpu: 200m
-            memory: 128Mi
-          limits:
-            cpu: 250m
-            memory: 256Mi
+        # resources:
+        #   requests:
+        #     cpu: 70m
+        #     memory: 128Mi
+        #   limits:
+        #     cpu: 250m
+        #     memory: 256Mi
 ---
