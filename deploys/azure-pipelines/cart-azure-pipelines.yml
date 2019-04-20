@@ -15,6 +15,7 @@ trigger:
   branches:
     include:
       - master
+      - build-2019
   paths:
     include:
       - src/services/cart/*
