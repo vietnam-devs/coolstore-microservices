@@ -113,6 +113,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - Features__EfCore__MySqlDb__FQDN=mysqldb:${MYSQLDB_PORT}
+      - GrpcEndPoints__CatalogEndPoint=catalog-service:${CATALOG_SVC_PORT}
     ports:
       - "${CART_SVC_PORT}:${CART_SVC_PORT}"
     expose:
