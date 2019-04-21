@@ -38,12 +38,11 @@ steps:
     displayName: "docker login"
 
   - script: |
-      docker pull node:alpine
-    displayName: "pull docker images"
+      docker build -f ./src/backoffice/Dockerfile -t $(IMAGE_NAME) -t $(IMAGE_NAME_LATEST) .
+    displayName: "build backoffice - react/apollo client"
 
   - script: |
-      docker build -f ./src/backoffice/Dockerfile -t $(IMAGE_NAME) -t $(IMAGE_NAME_LATEST) .
       docker tag $(IMAGE_NAME) $(IMAGE_NAME_LATEST)
       docker push $(IMAGE_NAME)
       docker push $(IMAGE_NAME_LATEST)
-    displayName: "build backoffice - React / Apollo Cient"
+    displayName: "tag and push image to docker hub"

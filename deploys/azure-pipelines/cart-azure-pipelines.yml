@@ -7,9 +7,11 @@ pool:
   vmImage: "Ubuntu 16.04"
 
 variables:
-  DOCKER_TAG: "latest"
-  DOCKER_GROUP: "vndg"
   DOCKER_ENV: "production"
+  DOCKER_GROUP: "vndg"
+  SERVICE_NAME: cs-cart-service
+  IMAGE_NAME: "$(DOCKER_GROUP)/$(SERVICE_NAME):$(GitVersion.NuGetVersion)"
+  IMAGE_NAME_LATEST: "$(DOCKER_GROUP)/$(SERVICE_NAME):latest"
 
 trigger:
   branches:
@@ -22,14 +24,25 @@ trigger:
 
 steps:
   - checkout: self
+
+  - task: NuGetCommand@2
+    inputs:
+      command: custom
+      arguments: install GitVersion.CommandLine -Version 4.0.0 -OutputDirectory $(Build.BinariesDirectory)/tools -ExcludeVersion
+    displayName: "install gitversion"
+
+  - script: mono $(Build.BinariesDirectory)/tools/GitVersion.CommandLine/tools/GitVersion.exe /output buildserver /nofetch
+    displayName: "fetch version"
+
   - script: docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
     displayName: "docker login"
+
   - script: |
-      docker pull microsoft/dotnet:2.2.100-sdk-alpine
-      docker pull microsoft/dotnet:2.2.0-aspnetcore-runtime-alpine
-    displayName: "Pull Docker Images"
+      docker build -f ./src/services/cart/Dockerfile -t $(IMAGE_NAME) -t $(IMAGE_NAME_LATEST) .
+    displayName: "build cart-service"
+
   - script: |
-      docker build -f ./src/services/cart/Dockerfile -t $(DOCKER_USERNAME)/cs-cart-service:$(DOCKER_TAG) .
-      docker tag $(DOCKER_USERNAME)/cs-cart-service:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-cart-service:$(DOCKER_TAG)
-      docker push $(DOCKER_GROUP)/cs-cart-service:$(DOCKER_TAG)
-    displayName: "Build Cart Service"
+      docker tag $(IMAGE_NAME) $(IMAGE_NAME_LATEST)
+      docker push $(IMAGE_NAME)
+      docker push $(IMAGE_NAME_LATEST)
+    displayName: "tag and push image to docker hub"
