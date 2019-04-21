@@ -1,0 +1,5 @@
+# GitVersion.yml
+mode: Mainline
+branches: {}
+ignore:
+  sha: []
