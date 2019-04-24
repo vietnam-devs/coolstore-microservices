@@ -8,16 +8,16 @@ using Microsoft.Extensions.Configuration;
 
 namespace IdentityServer4
 {
-  public static class Config
-  {
-    public static IEnumerable<IdentityResource> GetIdentityResources() => new IdentityResource[]
+    public static class Config
     {
+        public static IEnumerable<IdentityResource> GetIdentityResources() => new IdentityResource[]
+        {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile()
-    };
+        };
 
-    public static IEnumerable<ApiResource> GetApis() => new[]
-    {
+        public static IEnumerable<ApiResource> GetApis() => new[]
+        {
             new ApiResource
             {
                 Name = "api",
@@ -48,8 +48,8 @@ namespace IdentityServer4
             }
         };
 
-    public static IEnumerable<Client> GetDevClients() => new[]
-    {
+        public static IEnumerable<Client> GetDevClients() => new[]
+        {
             // Inventory Swagger UI
             new Client
             {
@@ -194,8 +194,8 @@ namespace IdentityServer4
             }
         };
 
-    public static IEnumerable<Client> GetClients(IConfigurationSection hostSettings) => new[]
-    {
+        public static IEnumerable<Client> GetClients(IConfigurationSection hostSettings) => new[]
+        {
             // Inventory Swagger UI
             new Client
             {
@@ -330,5 +330,5 @@ namespace IdentityServer4
                 }
             }
         };
-  }
+    }
 }
