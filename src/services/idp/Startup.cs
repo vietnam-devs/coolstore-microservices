@@ -40,7 +40,7 @@ namespace IdentityServer4
                       .AllowCredentials());
       });
 
-      var host = Configuration.GetSection("Hosts")?.GetSection("Externals")?.GetSection("CurrentUri")?.Value;
+      var host = Configuration.GetValue<string>("Hosts:Externals:CurrentUri");
       var builder = services
           .AddIdentityServer(options =>
           {
@@ -110,7 +110,7 @@ namespace IdentityServer4
         app.UseExceptionHandler("/Home/Error");
       }
 
-      var basePath = Configuration.GetSection("HostSettings")?.GetValue<string>("BasePath");
+      var basePath = Configuration.GetValue<string>("HostSettings:BasePath");
       if (!string.IsNullOrEmpty(basePath))
       {
         loggerFactory.CreateLogger("init").LogDebug($"Using PATH BASE '{basePath}'");
