@@ -6,11 +6,11 @@
         "supscription_id" : ""
     },
     "resource_group" : {
-        "name" : "lab-01",
+        "name" : "lab-03",
         "location" : "South Central US"
     },
     "virtual_network" : {
-        "vnet_name" : "vnet-lab-01",
+        "vnet_name" : "vnet-lab-03",
         "location" : "South Central US",
         "address_space" : {
             "address_prefixes" : ["172.10.0.0/16"]
@@ -21,10 +21,10 @@
         }
     },
     "aks" : {
-        "name" : "lab-aks-01",
+        "name" : "lab-aks-03",
         "location" : "South Central US",
         "k8s_version" : "1.11.9",
         "vm_size" : "Standard_B4ms",
-        "vm_count" : 2
+        "vm_count" : 1
     }
 }
