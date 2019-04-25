@@ -6,6 +6,11 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
 service InventoryService {
+  rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/inventory/api/ping"
+    };
+  }
   rpc GetInventories(google.protobuf.Empty) returns (GetInventoriesResponse) {
     option (google.api.http) = {
       get: "/inventory/api/availabilities"

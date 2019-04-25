@@ -2,8 +2,19 @@ syntax = "proto3";
 package coolstore;
 
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 
 service CatalogService {
+  rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/catalog/api/ping"
+    };
+  }
+  rpc AdminPing(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/catalog/api/admin-ping"
+    };
+  }
   rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {
     option (google.api.http) = {
       get: "/catalog/api/products/{current_page}/{high_price}"

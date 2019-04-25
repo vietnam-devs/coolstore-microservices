@@ -5,6 +5,11 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
 service RatingService {
+  rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/rating/api/ping"
+    };
+  }
   rpc GetRatings(google.protobuf.Empty) returns (GetRatingsResponse) {
     option (google.api.http) = {
       get: "/rating/api/ratings"

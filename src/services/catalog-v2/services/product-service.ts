@@ -5,11 +5,11 @@ const ProductData = require('./products.json')
 
 export class ProductService {
   static async findProduct(productId: string) {
-    Logger.info('ProductService find product with product id ' + productId)
+    Logger.info("ProductService find product with product id "+ productId)
     return await productSchema.findOne({ _id: productId }).exec()
   }
   static async findProducts(filter?: any) {
-    Logger.info('ProductService find all product with filter ' + filter)
+    Logger.info("ProductService find all product with filter "+ filter)
     try {
       await productSchema.find(filter).exec()
     } catch (error) {
@@ -23,10 +23,10 @@ export class ProductService {
     return await new productSchema({ ...model, _id: id }).save()
   }
 
-  static async initDb() {
+  static async initDb(){
     var products = await productSchema.find().exec()
-    Logger.info('Init db with products count in db: ' + products.length)
-    if (products.length <= 0) {
+    Logger.info("Init db with products count in db: " + products.length)
+    if(products.length <= 0){
       await ProductData.map(async (model: ProductModel) => {
         await ProductService.createProduct(model)
       })

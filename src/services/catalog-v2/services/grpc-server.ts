@@ -20,12 +20,6 @@ const getProto = (protofile: any): any => {
 }
 
 const ProductProtoServices = {
-  ping: async (call: any, callback: any) => {
-    callback(null, {})
-  },
-  adminPing: async (call: any, callback: any) => {
-    callback(null, {})
-  },
   getProducts: async (call: any, callback: any) => {
     logger.info(call.request)
     if (call.request.high_price <= 0) {

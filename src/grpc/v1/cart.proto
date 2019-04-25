@@ -3,8 +3,14 @@ package coolstore;
 option csharp_namespace = "VND.CoolStore.Services.Cart.v1.Grpc";
 
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 
 service CartService {
+  rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/cart/api/ping"
+    };
+  }
   rpc GetCart(GetCartRequest) returns (GetCartResponse) {
     option (google.api.http) = {
       get: "/cart/api/carts/{cart_id}"

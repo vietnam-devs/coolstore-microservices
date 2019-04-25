@@ -32,6 +32,8 @@ spec:
           value: {{ .Values.cartSettings.CatalogUri }}
         - name: Features__EfCore__MySqlDb__FQDN
           value: {{ .Values.cartSettings.MySqlDbFQDN }}
+        - name: Features__EfCore__MySqlDb__UserName
+          value: {{ .Values.cartSettings.MySqlDbUserName }}
         - name: Features__EfCore__MySqlDb__Password
           valueFrom:
             secretKeyRef:

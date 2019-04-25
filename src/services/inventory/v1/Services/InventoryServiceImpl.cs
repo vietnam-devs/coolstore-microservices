@@ -26,6 +26,19 @@ namespace VND.CoolStore.Services.Inventory.v1.Services
             _queryRepositoryFactory = resolver.GetService<IQueryRepositoryFactory>();
         }
 
+        public override async Task<Empty> Ping(Empty request, ServerCallContext context)
+        {
+            try
+            {
+                return await Task.FromResult(new Empty());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new RpcException(new Status(StatusCode.Internal, ex.Message));
+            }
+        }
+
         public override async Task<GetInventoriesResponse> GetInventories(Empty request, ServerCallContext context)
         {
             try

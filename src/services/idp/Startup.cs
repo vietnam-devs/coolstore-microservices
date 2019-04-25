@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
+using VND.CoolStore.Services.Idp.Customized;
 
 namespace IdentityServer4
 {
@@ -52,7 +53,8 @@ namespace IdentityServer4
             options.PublicOrigin = Environment.IsDevelopment() ? "" : host;
           })
           .AddTestUsers(TestUsers.Users)
-          .AddJwtBearerClientAuthentication();
+          .AddJwtBearerClientAuthentication()
+          .AddProfileService<CustomizedProfileService>();
 
       // in-memory, code config
       var clients = Config.GetDevClients();

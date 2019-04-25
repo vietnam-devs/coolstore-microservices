@@ -2,6 +2,7 @@ using System;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,10 +12,11 @@ using NetCoreKit.Utils.Extensions;
 using VND.CoolStore.Services.Cart.Domain;
 using VND.CoolStore.Services.Cart.v1.Extensions;
 using VND.CoolStore.Services.Cart.v1.Grpc;
+using static VND.CoolStore.Services.Cart.v1.Grpc.CartService;
 
 namespace VND.CoolStore.Services.Cart.v1.Services
 {
-    public class CartServiceImpl : CartService.CartServiceBase
+    public class CartServiceImpl : CartServiceBase
     {
         private readonly ILogger<CartServiceImpl> _logger;
         private readonly IQueryRepositoryFactory _queryFactory;
@@ -33,6 +35,19 @@ namespace VND.CoolStore.Services.Cart.v1.Services
             _catalogGateway = resolver.GetService<ICatalogGateway>();
             _shippingGateway = resolver.GetService<IShippingGateway>();
             _promoGateway = resolver.GetService<IPromoGateway>();
+        }
+
+        public override async Task<Empty> Ping(Empty request, ServerCallContext context)
+        {
+            try
+            {
+                return await Task.FromResult(new Empty());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new RpcException(new Status(StatusCode.Internal, ex.Message));
+            }
         }
 
         public override async Task<GetCartResponse> GetCart(GetCartRequest request, ServerCallContext context)

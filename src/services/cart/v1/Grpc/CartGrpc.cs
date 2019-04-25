@@ -12,6 +12,7 @@ namespace VND.CoolStore.Services.Cart.v1.Grpc {
   {
     static readonly string __ServiceName = "coolstore.CartService";
 
+    static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Empty.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartRequest> __Marshaller_coolstore_GetCartRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartResponse> __Marshaller_coolstore_GetCartResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VND.CoolStore.Services.Cart.v1.Grpc.InsertItemToNewCartRequest> __Marshaller_coolstore_InsertItemToNewCartRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Cart.v1.Grpc.InsertItemToNewCartRequest.Parser.ParseFrom);
@@ -22,6 +23,13 @@ namespace VND.CoolStore.Services.Cart.v1.Grpc {
     static readonly grpc::Marshaller<global::VND.CoolStore.Services.Cart.v1.Grpc.CheckoutResponse> __Marshaller_coolstore_CheckoutResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Cart.v1.Grpc.CheckoutResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VND.CoolStore.Services.Cart.v1.Grpc.DeleteItemRequest> __Marshaller_coolstore_DeleteItemRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Cart.v1.Grpc.DeleteItemRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VND.CoolStore.Services.Cart.v1.Grpc.DeleteItemResponse> __Marshaller_coolstore_DeleteItemResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Cart.v1.Grpc.DeleteItemResponse.Parser.ParseFrom);
+
+    static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty> __Method_Ping = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Ping",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_google_protobuf_Empty);
 
     static readonly grpc::Method<global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartRequest, global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartResponse> __Method_GetCart = new grpc::Method<global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartRequest, global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartResponse>(
         grpc::MethodType.Unary,
@@ -67,6 +75,11 @@ namespace VND.CoolStore.Services.Cart.v1.Grpc {
     /// <summary>Base class for server-side implementations of CartService</summary>
     public abstract partial class CartServiceBase
     {
+      public virtual global::System.Threading.Tasks.Task<global::Google.Protobuf.WellKnownTypes.Empty> Ping(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
       public virtual global::System.Threading.Tasks.Task<global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartResponse> GetCart(global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
@@ -117,6 +130,22 @@ namespace VND.CoolStore.Services.Cart.v1.Grpc {
       {
       }
 
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty Ping(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Ping(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty Ping(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Ping, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> PingAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return PingAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> PingAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Ping, null, options, request);
+      }
       public virtual global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartResponse GetCart(global::VND.CoolStore.Services.Cart.v1.Grpc.GetCartRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetCart(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -209,6 +238,7 @@ namespace VND.CoolStore.Services.Cart.v1.Grpc {
     public static grpc::ServerServiceDefinition BindService(CartServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_Ping, serviceImpl.Ping)
           .AddMethod(__Method_GetCart, serviceImpl.GetCart)
           .AddMethod(__Method_InsertItemToNewCart, serviceImpl.InsertItemToNewCart)
           .AddMethod(__Method_UpdateItemInCart, serviceImpl.UpdateItemInCart)
@@ -222,6 +252,7 @@ namespace VND.CoolStore.Services.Cart.v1.Grpc {
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     public static void BindService(grpc::ServiceBinderBase serviceBinder, CartServiceBase serviceImpl)
     {
+      serviceBinder.AddMethod(__Method_Ping, serviceImpl.Ping);
       serviceBinder.AddMethod(__Method_GetCart, serviceImpl.GetCart);
       serviceBinder.AddMethod(__Method_InsertItemToNewCart, serviceImpl.InsertItemToNewCart);
       serviceBinder.AddMethod(__Method_UpdateItemInCart, serviceImpl.UpdateItemInCart);

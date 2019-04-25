@@ -18,6 +18,13 @@ namespace VND.CoolStore.Services.Inventory.v1.Grpc {
     static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryResponse> __Marshaller_coolstore_GetInventoryResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoryResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::VND.CoolStore.Services.Inventory.v1.Grpc.DbMigrationResponse> __Marshaller_coolstore_DbMigrationResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::VND.CoolStore.Services.Inventory.v1.Grpc.DbMigrationResponse.Parser.ParseFrom);
 
+    static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty> __Method_Ping = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Ping",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_google_protobuf_Empty);
+
     static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse> __Method_GetInventories = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
@@ -48,6 +55,11 @@ namespace VND.CoolStore.Services.Inventory.v1.Grpc {
     /// <summary>Base class for server-side implementations of InventoryService</summary>
     public abstract partial class InventoryServiceBase
     {
+      public virtual global::System.Threading.Tasks.Task<global::Google.Protobuf.WellKnownTypes.Empty> Ping(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
       public virtual global::System.Threading.Tasks.Task<global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse> GetInventories(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
@@ -88,6 +100,22 @@ namespace VND.CoolStore.Services.Inventory.v1.Grpc {
       {
       }
 
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty Ping(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Ping(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty Ping(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Ping, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> PingAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return PingAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> PingAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Ping, null, options, request);
+      }
       public virtual global::VND.CoolStore.Services.Inventory.v1.Grpc.GetInventoriesResponse GetInventories(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetInventories(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -148,6 +176,7 @@ namespace VND.CoolStore.Services.Inventory.v1.Grpc {
     public static grpc::ServerServiceDefinition BindService(InventoryServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_Ping, serviceImpl.Ping)
           .AddMethod(__Method_GetInventories, serviceImpl.GetInventories)
           .AddMethod(__Method_GetInventory, serviceImpl.GetInventory)
           .AddMethod(__Method_DbMigration, serviceImpl.DbMigration).Build();
@@ -159,6 +188,7 @@ namespace VND.CoolStore.Services.Inventory.v1.Grpc {
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     public static void BindService(grpc::ServiceBinderBase serviceBinder, InventoryServiceBase serviceImpl)
     {
+      serviceBinder.AddMethod(__Method_Ping, serviceImpl.Ping);
       serviceBinder.AddMethod(__Method_GetInventories, serviceImpl.GetInventories);
       serviceBinder.AddMethod(__Method_GetInventory, serviceImpl.GetInventory);
       serviceBinder.AddMethod(__Method_DbMigration, serviceImpl.DbMigration);

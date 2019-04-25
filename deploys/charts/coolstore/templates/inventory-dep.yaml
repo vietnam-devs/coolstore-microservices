@@ -30,6 +30,8 @@ spec:
           value: {{ .Values.inventorySettings.Port | quote }}
         - name: Features__EfCore__MySqlDb__FQDN
           value: {{ .Values.inventorySettings.MySqlDbFQDN }}
+        - name: Features__EfCore__MySqlDb__UserName
+          value: {{ .Values.inventorySettings.MySqlDbUserName }}
         - name: Features__EfCore__MySqlDb__Password
           valueFrom:
             secretKeyRef:

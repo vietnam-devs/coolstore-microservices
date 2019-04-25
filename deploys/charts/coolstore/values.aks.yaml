@@ -15,10 +15,14 @@ cartSettings:
   Hosts__Externals__CurrentUri: http://api.cool-store.ml/cart
   Hosts__Externals__Auth__Uri: http://id.cool-store.ml
   Hosts__Externals__Catalog__Uri: http://api.cool-store.ml/catalog
+  MySqlDbFQDN: "13.66.62.124:3306"
+  MySqlDbUserName: "dbuser@mysqldblab01"
 
 inventorySettings:
   Hosts__Externals__CurrentUri: http://api.cool-store.ml/inventory
   Hosts__Externals__Auth__Uri: http://id.cool-store.ml
+  MySqlDbFQDN: "13.66.62.124:3306"
+  MySqlDbUserName: "dbuser@mysqldblab01"
 
 spaSettings:
   NodeEnv: development

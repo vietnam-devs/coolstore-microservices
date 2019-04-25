@@ -12,12 +12,27 @@ namespace Coolstore {
   {
     static readonly string __ServiceName = "coolstore.CatalogService";
 
+    static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Empty.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Coolstore.GetProductsRequest> __Marshaller_coolstore_GetProductsRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Coolstore.GetProductsRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Coolstore.GetProductsResponse> __Marshaller_coolstore_GetProductsResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Coolstore.GetProductsResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Coolstore.GetProductByIdRequest> __Marshaller_coolstore_GetProductByIdRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Coolstore.GetProductByIdRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Coolstore.GetProductByIdResponse> __Marshaller_coolstore_GetProductByIdResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Coolstore.GetProductByIdResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Coolstore.CreateProductRequest> __Marshaller_coolstore_CreateProductRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Coolstore.CreateProductRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Coolstore.CreateProductResponse> __Marshaller_coolstore_CreateProductResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Coolstore.CreateProductResponse.Parser.ParseFrom);
+
+    static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty> __Method_Ping = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Ping",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_google_protobuf_Empty);
+
+    static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty> __Method_AdminPing = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "AdminPing",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_google_protobuf_Empty);
 
     static readonly grpc::Method<global::Coolstore.GetProductsRequest, global::Coolstore.GetProductsResponse> __Method_GetProducts = new grpc::Method<global::Coolstore.GetProductsRequest, global::Coolstore.GetProductsResponse>(
         grpc::MethodType.Unary,
@@ -49,6 +64,16 @@ namespace Coolstore {
     /// <summary>Base class for server-side implementations of CatalogService</summary>
     public abstract partial class CatalogServiceBase
     {
+      public virtual global::System.Threading.Tasks.Task<global::Google.Protobuf.WellKnownTypes.Empty> Ping(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::Google.Protobuf.WellKnownTypes.Empty> AdminPing(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
       public virtual global::System.Threading.Tasks.Task<global::Coolstore.GetProductsResponse> GetProducts(global::Coolstore.GetProductsRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
@@ -89,6 +114,38 @@ namespace Coolstore {
       {
       }
 
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty Ping(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Ping(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty Ping(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Ping, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> PingAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return PingAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> PingAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Ping, null, options, request);
+      }
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty AdminPing(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return AdminPing(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty AdminPing(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_AdminPing, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> AdminPingAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return AdminPingAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> AdminPingAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_AdminPing, null, options, request);
+      }
       public virtual global::Coolstore.GetProductsResponse GetProducts(global::Coolstore.GetProductsRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetProducts(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -149,6 +206,8 @@ namespace Coolstore {
     public static grpc::ServerServiceDefinition BindService(CatalogServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_Ping, serviceImpl.Ping)
+          .AddMethod(__Method_AdminPing, serviceImpl.AdminPing)
           .AddMethod(__Method_GetProducts, serviceImpl.GetProducts)
           .AddMethod(__Method_GetProductById, serviceImpl.GetProductById)
           .AddMethod(__Method_CreateProduct, serviceImpl.CreateProduct).Build();
@@ -160,6 +219,8 @@ namespace Coolstore {
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     public static void BindService(grpc::ServiceBinderBase serviceBinder, CatalogServiceBase serviceImpl)
     {
+      serviceBinder.AddMethod(__Method_Ping, serviceImpl.Ping);
+      serviceBinder.AddMethod(__Method_AdminPing, serviceImpl.AdminPing);
       serviceBinder.AddMethod(__Method_GetProducts, serviceImpl.GetProducts);
       serviceBinder.AddMethod(__Method_GetProductById, serviceImpl.GetProductById);
       serviceBinder.AddMethod(__Method_CreateProduct, serviceImpl.CreateProduct);
