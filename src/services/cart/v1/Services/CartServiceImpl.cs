@@ -149,6 +149,16 @@ namespace VND.CoolStore.Services.Cart.v1.Services
                 var cart = await cartQuery.GetFullCartAsync(request.CartId.ConvertTo<Guid>());
                 var cartItem = cart.FindCartItem(request.ProductId.ConvertTo<Guid>());
 
+                if(cart == null)
+                {
+                    throw new CoreException($"Cart #{request.CartId} is null.");
+                }
+
+                if(cartItem ==null)
+                {
+                    throw new CoreException($"Product #{request.ProductId} is null.");
+                }
+
                 cart.RemoveCartItem(cartItem.Id);
                 await cart.CalculateCartAsync(TaxType.NoTax, _catalogGateway, _promoGateway, _shippingGateway);
                 await cartCommander.UpdateAsync(cart);

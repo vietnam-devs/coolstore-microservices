@@ -48,7 +48,11 @@ export default {
     GET_CART_FALURE(state, error) {
       state.error = error
     },
-    REMOVE_FROM_CARD_SUCCESS(state) {}
+    REMOVE_FROM_CARD_SUCCESS(state, productId) {
+      state.cart.items = state.cart.items || []
+      const index = state.cart.items.map(item => item.productId).indexOf(productId)
+      state.cart.items.splice(index, 1)
+    }
   },
 
   actions: {
@@ -136,8 +140,7 @@ export default {
         removeFomCart(cartId, productId)
           .then(
             cart => {
-              commit('REMOVE_FROM_CARD_SUCCESS', cart)
-              dispatch('cart/GET_CART', cartId)
+              commit('REMOVE_FROM_CARD_SUCCESS', cart.productId)
               resolve()
             },
             error => {
