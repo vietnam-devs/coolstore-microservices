@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: mysql-external
+  namespace: dev-env  
+spec:
+  hosts:
+  - mysqldblab01.mysql.database.azure.com
+  ports: 
+  - name: tcp
+    number: 3306
+    protocol: tcp
+  location: MESH_EXTERNAL
+  resolution: DNS
+---

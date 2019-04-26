@@ -32,3 +32,9 @@ spaSettings:
   InventoryUri: http://api.cool-store.ml/
   RatingUri: http://api.cool-store.ml/
   IdpHost: id.cool-store.ml
+
+openAPISettings:
+  CatalogEndPoint: catalog:5002
+  CartEndPoint: cart:5003
+  InventoryEndPoint: inventory:5004
+  RatingEndPoint: rating:5007

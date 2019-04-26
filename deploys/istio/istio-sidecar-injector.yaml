@@ -52,11 +52,6 @@ data:
             add:
             - NET_ADMIN
         restartPolicy: Always
-      - name: coolstore-init
-        image: "vndg/docker-volume:latest"
-        volumeMounts:
-        - name: xproto
-          mountPath: "/tmp/"
       [[ end -]]
       containers:
       - name: istio-proxy
@@ -196,8 +191,6 @@ data:
           [[ toYaml $value | indent 4 ]]
           [[ end ]]
           [[- end ]]
-        - mountPath: "/tmp/"
-          name: xproto
       volumes:
       [[- if (isset .ObjectMeta.Annotations `sidecar.istio.io/bootstrapOverride`) ]]
       - name: custom-bootstrap-volume
@@ -221,6 +214,3 @@ data:
         [[ toYaml $value | indent 2 ]]
         [[ end ]]
         [[ end ]]
-      - emptyDir:
-          medium: Memory
-        name: xproto

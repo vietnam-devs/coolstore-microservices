@@ -1,8 +1,0 @@
-hosts:
-  web: cool-store.ml
-  api: api.cool-store.ml
-  idp: id.cool-store.ml
-
-idp:
-  issuer: "http://id.cool-store.ml"
-  jwks_uri: "http://id.cool-store.ml/.well-known/openid-configuration/jwks"

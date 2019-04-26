@@ -15,9 +15,9 @@ spec:
         prefix: /catalog
     route:
     - destination:
-        host: catalog
+        host: open-api
         port:
-          number: 5002
+          number: 80
   - match:
     - uri:
         prefix: /cart/
@@ -50,6 +50,31 @@ spec:
           number: 5007
   - match:
     - uri:
+        prefix: /open-api/
+    - uri:
+        prefix: /open-api
+    route:
+    - destination:
+        host: open-api
+        # uncomment when apply shodow - mirroring      
+        # subset: v1
+        port:
+          number: 80
+      weight: 100
+    # uncomment when apply shodow - mirroring
+    # mirror:
+    #   host: open-api
+    #   subset: v2
+    # uncomment when apply canary
+    # - destination:
+    #     host: open-api
+    #     subset: v2
+    #     port:
+    #       number: 80
+    #   weight: 50
+
+  - match:
+    - uri:
         prefix: /config/
     - uri:
         prefix: /config
@@ -70,3 +95,18 @@ spec:
         port:
           number: 80
 ---
+
+# uncomment when apply shodow - mirroring
+# apiVersion: networking.istio.io/v1alpha3
+# kind: DestinationRule
+# metadata:
+#   name: open-api-destination-rule
+# spec:
+#   host: open-api
+#   subsets:
+#   - name: v1
+#     labels:
+#       version: v1
+#   - name: v2
+#     labels:
+#       version: v2

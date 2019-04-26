@@ -1,0 +1,4 @@
+hosts:
+  web: cool-store.ml
+  api: api.cool-store.ml
+  idp: id.cool-store.ml
