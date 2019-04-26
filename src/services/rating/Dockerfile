@@ -11,7 +11,7 @@ ARG service_version
 ENV SERVICE_VERSION ${service_version:-v1}
 
 WORKDIR /app
-COPY ./src/grpc/v1/catalog.proto ./proto/
+COPY ./src/grpc/v1/rating.proto ./proto/
 COPY ./src/grpc/health/v1/health.proto ./proto/
 COPY ./src/services/rating .
 RUN yarn install
