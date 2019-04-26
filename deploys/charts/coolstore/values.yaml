@@ -1,7 +1,7 @@
 fullnameOverride: coolstore
 image:
   repository: https://github.com/vietnam-devs/coolstore-microservices
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   imageRegistry: vndg
   dockerTag: latest
 

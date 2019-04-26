@@ -1,3 +1,6 @@
+image:
+  pullPolicy: Always
+
 hosts:
   web: cool-store.ml
   api: api.cool-store.ml
@@ -6,21 +9,17 @@ hosts:
 idpSettings:
   BashPath: /
   ExternalCurrentUri: http://id.cool-store.ml/
-  SwaggerRedirectUri: http://api.cool-store1.ml/swagger/oauth2-redirect.html
+  SwaggerRedirectUri: http://api.cool-store.ml/swagger/oauth2-redirect.html
   SwaggerPostLogoutRedirectUri: http://api.cool-store.ml
   SwaggerAllowedCorsOrigin: http://api.cool-store.ml
   SpaAllowedCorsOrigin: http://cool-store.ml
 
 cartSettings:
-  Hosts__Externals__CurrentUri: http://api.cool-store.ml/cart
-  Hosts__Externals__Auth__Uri: http://id.cool-store.ml
-  Hosts__Externals__Catalog__Uri: http://api.cool-store.ml/catalog
+  CatalogUri: "http://api.cool-store.ml/catalog"
   MySqlDbFQDN: "13.66.62.124:3306"
   MySqlDbUserName: "dbuser@mysqldblab01"
 
 inventorySettings:
-  Hosts__Externals__CurrentUri: http://api.cool-store.ml/inventory
-  Hosts__Externals__Auth__Uri: http://id.cool-store.ml
   MySqlDbFQDN: "13.66.62.124:3306"
   MySqlDbUserName: "dbuser@mysqldblab01"
 
