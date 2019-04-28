@@ -38,7 +38,6 @@ steps:
     displayName: "docker login"
 
   - script: |
-      echo "Build Rating Service"
       docker build -f ./src/services/rating/Dockerfile -t $(IMAGE_NAME) -t $(IMAGE_NAME_LATEST) .
     displayName: "build rating-service"
 
