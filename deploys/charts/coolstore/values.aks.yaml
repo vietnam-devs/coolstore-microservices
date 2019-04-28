@@ -27,11 +27,7 @@ spaSettings:
   NodeEnv: development
   WebUri: http://cool-store.ml/
   IdpUri: http://id.cool-store.ml/
-  CatalogUri: http://api.cool-store.ml/
-  CartUri: http://api.cool-store.ml/
-  InventoryUri: http://api.cool-store.ml/
-  RatingUri: http://api.cool-store.ml/
-  IdpHost: id.cool-store.ml
+  OpenApiUri: http://api.cool-store.ml/
 
 openAPISettings:
   CatalogEndPoint: catalog:5002

@@ -69,11 +69,7 @@ spaSettings:
   NodeEnv: development
   WebUri: http://coolstore.local/
   IdpUri: http://id.coolstore.local/
-  IdpHost: http://id.coolstore.local/
-  CatalogUri: http://coolstore.local/catalog/
-  CartUri: http://coolstore.local/cart/
-  InventoryUri: http://coolstore.local/inventory/
-  RatingUri: http://coolstore.local/rating/
+  OpenApiUri: http://coolstore.local/
 
 backofficeSettings:
   GraphQLEndPoint: http://api.coolstore.local/gql

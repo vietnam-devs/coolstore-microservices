@@ -56,7 +56,7 @@ spec:
     route:
     - destination:
         host: open-api
-        # uncomment when apply shodow - mirroring      
+        # uncomment when apply shodow - mirroring
         # subset: v1
         port:
           number: 80
