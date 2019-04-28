@@ -17,22 +17,22 @@ services:
       context: .
       dockerfile: ./src/services/idp/Dockerfile
 
-  # web:
-  #   container_name: web
-  #   image: "vndg/cs-spa"
-  #   restart: always
-  #   environment:
-  #     - NODE_ENV=development
-  #     - NODE_WEB_ENV=http://localhost:${WEB_PORT}/
-  #     - NODE_IDP_ENV=http://${HOST_IP}:${IDP_SVR_PORT}/
-  #     - NODE_OPENAPI_ENV=http://${HOST_IP}:${OPENAPIV1_SVR_PORT}
-  #   ports:
-  #     - "${WEB_PORT}:${WEB_PORT}"
-  #   expose:
-  #     - "${WEB_PORT}"
-  #   build:
-  #     context: .
-  #     dockerfile: ./src/web/Dockerfile
+  web:
+    container_name: web
+    image: "vndg/cs-spa"
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - NODE_WEB_ENV=http://localhost:${WEB_PORT}/
+      - NODE_IDP_ENV=http://${HOST_IP}:${IDP_SVR_PORT}/
+      - NODE_OPENAPI_ENV=http://${HOST_IP}:${OPENAPIV1_SVR_PORT}
+    ports:
+      - "${WEB_PORT}:${WEB_PORT}"
+    expose:
+      - "${WEB_PORT}"
+    build:
+      context: .
+      dockerfile: ./src/web/Dockerfile
 
   openapiv1:
     container_name: openapiv1
