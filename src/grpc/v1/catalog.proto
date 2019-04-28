@@ -7,12 +7,12 @@ import "google/protobuf/empty.proto";
 service CatalogService {
   rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      get: "/catalog/api/ping"
+      get: "/catalog/api/products/ping"
     };
   }
   rpc AdminPing(google.protobuf.Empty) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      get: "/catalog/api/admin-ping"
+      get: "/catalog/api/products/admin-ping"
     };
   }
   rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {

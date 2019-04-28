@@ -33,7 +33,7 @@ export default {
           .then(
             ratings => {
               ratings = ratings || {}
-              commit('GET_LIST_RATING_SUCSESS', ratings.ratings)
+              commit('GET_LIST_RATING_SUCSESS', ratings)
               resolve()
             },
             error => {

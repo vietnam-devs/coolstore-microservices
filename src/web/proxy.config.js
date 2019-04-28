@@ -1,19 +1,10 @@
-const env = process.env.NODE_ENV
-const config = {
-  mode: env || 'development'
-}
-
 var urls = {
-  web: process.env.NODE_WEB_ENV || 'http://localhost:8084/',
-  idp: process.env.NODE_IDP_ENV || 'http://localhost:8083/',
-  idpHost: process.env.NODE_IDP_HOST || 'http://localhost:8083/',
-  catalog: process.env.NODE_CATALOG_ENV || 'http://localhost:8082/',
-  cart: process.env.NODE_CART_ENV || 'http://localhost:8082/',
-  inventory: process.env.NODE_INVENTORY_ENV || 'http://localhost:8082/',
-  rating: process.env.NODE_RATING_ENV || 'http://localhost:8082/'
+  web: existedOrDefault(process.env.NODE_WEB_ENV, 'http://localhost:8084/'),
+  idp: existedOrDefault(process.env.NODE_IDP_ENV, 'http://localhost:8083/'),
+  openapi: existedOrDefault(process.env.NODE_OPENAPI_ENV, 'http://localhost:5012/')
 }
 
-var host = process.env.NODE_WEB_ENV || 'http://localhost:8084/'
+var host = existedOrDefault(process.env.NODE_WEB_ENV, 'http://localhost:8084/')
 if (process.browser) {
   host = window.location.hostname
 }
@@ -25,25 +16,25 @@ const PROXY_CONFIG = {
   idpUrl: `${urls['idp']}`,
   spaUrl: `${urls['web']}`,
   '/catalog/api/*': {
-    target: `${urls['catalog']}`,
+    target: `${urls['openapi']}`,
     secure: false,
     logLevel: 'debug',
     changeOrigin: true
   },
   '/rating/api/*': {
-    target: `${urls['rating']}`,
+    target: `${urls['openapi']}`,
     secure: false,
     logLevel: 'debug',
     changeOrigin: true
   },
   '/cart/api/*': {
-    target: `${urls['cart']}`,
+    target: `${urls['openapi']}`,
     secure: false,
     logLevel: 'debug',
     changeOrigin: true
   },
   '/inventory/api/*': {
-    target: `${urls['inventory']}`,
+    target: `${urls['openapi']}`,
     secure: false,
     logLevel: 'debug',
     changeOrigin: true
@@ -53,7 +44,7 @@ const PROXY_CONFIG = {
     secure: false,
     logLevel: 'debug',
     ignorePath: true,
-    headers: { Host: `${urls['idpHost']}` }
+    pathRewrite: { '^/config': '' }
   },
   '/.well-known/openid-configuration/jwks': {
     target: `${urls['idp']}.well-known/openid-configuration/jwks`,
@@ -76,6 +67,14 @@ const PROXY_CONFIG = {
     router: function(req) {
       return url
     }
+  }
+}
+
+function existedOrDefault(envVariable, defaultOne) {
+  if (typeof envVariable !== 'undefined') {
+    return envVariable
+  } else {
+    return defaultOne
   }
 }
 

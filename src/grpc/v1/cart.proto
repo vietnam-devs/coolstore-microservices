@@ -8,7 +8,7 @@ import "google/protobuf/empty.proto";
 service CartService {
   rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      get: "/cart/api/ping"
+      get: "/cart/api/carts/ping"
     };
   }
   rpc GetCart(GetCartRequest) returns (GetCartResponse) {

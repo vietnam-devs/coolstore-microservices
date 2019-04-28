@@ -88,6 +88,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreKit.RestTemplate.Mon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreKit.RestTemplate.Standard", "src\netcorekit\templates\NetCoreKit.RestTemplate.Standard\NetCoreKit.RestTemplate.Standard.csproj", "{B6A7144A-3C38-45D3-965E-7FA41C646E96}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Services.OpenApiV1", "src\services\open-api-v1\VND.CoolStore.Services.OpenApiV1.csproj", "{77554222-0755-4CF1-AACF-A94BE4E66EE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -198,6 +200,10 @@ Global
 		{B6A7144A-3C38-45D3-965E-7FA41C646E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6A7144A-3C38-45D3-965E-7FA41C646E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6A7144A-3C38-45D3-965E-7FA41C646E96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77554222-0755-4CF1-AACF-A94BE4E66EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77554222-0755-4CF1-AACF-A94BE4E66EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77554222-0755-4CF1-AACF-A94BE4E66EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77554222-0755-4CF1-AACF-A94BE4E66EE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -231,6 +237,7 @@ Global
 		{204866E4-77B3-42B0-91BD-391BB6DA1DCF} = {C9ECAC4A-177D-421F-9C8D-7C12E2BEBA72}
 		{51B2C782-72F6-4DC1-8D8F-35B95DD75211} = {C9ECAC4A-177D-421F-9C8D-7C12E2BEBA72}
 		{B6A7144A-3C38-45D3-965E-7FA41C646E96} = {C9ECAC4A-177D-421F-9C8D-7C12E2BEBA72}
+		{77554222-0755-4CF1-AACF-A94BE4E66EE0} = {A0F90A99-CAD3-491F-9079-D1680D659A9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277B7E0A-BA8E-4DF8-ABD5-890801FC76F8}

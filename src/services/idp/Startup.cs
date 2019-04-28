@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
+using VND.CoolStore.Services.Idp.Certificate;
 using VND.CoolStore.Services.Idp.Customized;
 
 namespace IdentityServer4
@@ -49,8 +50,8 @@ namespace IdentityServer4
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
-              //options.IssuerUri = "local_idp";
-              options.PublicOrigin = Environment.IsDevelopment() ? "" : host;
+                    //options.IssuerUri = "local_idp";
+                    options.PublicOrigin = Environment.IsDevelopment() ? "" : host;
                 })
                 .AddTestUsers(TestUsers.Users)
                 .AddJwtBearerClientAuthentication()
@@ -77,8 +78,8 @@ namespace IdentityServer4
             // builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
             // builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
-            builder.AddDeveloperSigningCredential();
-            // builder.AddSigningCredential(Certificate.Get());
+            // builder.AddDeveloperSigningCredential();
+            builder.AddSigningCredential(Certificate.Get());
 
             services
                 .AddAuthentication(options =>

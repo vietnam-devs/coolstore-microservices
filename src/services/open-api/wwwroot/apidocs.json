@@ -148,54 +148,6 @@
         ]
       }
     },
-    "/cart/api/ping": {
-      "get": {
-        "operationId": "Ping",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          }
-        },
-        "tags": [
-          "CartService"
-        ]
-      }
-    },
-    "/catalog/api/admin-ping": {
-      "get": {
-        "operationId": "AdminPing",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          }
-        },
-        "tags": [
-          "CatalogService"
-        ]
-      }
-    },
-    "/catalog/api/ping": {
-      "get": {
-        "operationId": "Ping",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          }
-        },
-        "tags": [
-          "CatalogService"
-        ]
-      }
-    },
     "/catalog/api/products": {
       "post": {
         "operationId": "CreateProduct",
@@ -217,6 +169,38 @@
             }
           }
         ],
+        "tags": [
+          "CatalogService"
+        ]
+      }
+    },
+    "/catalog/api/products/admin-ping": {
+      "get": {
+        "operationId": "AdminPing",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          }
+        },
+        "tags": [
+          "CatalogService"
+        ]
+      }
+    },
+    "/catalog/api/products/ping": {
+      "get": {
+        "operationId": "Ping",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          }
+        },
         "tags": [
           "CatalogService"
         ]
@@ -341,38 +325,6 @@
         ],
         "tags": [
           "InventoryService"
-        ]
-      }
-    },
-    "/inventory/api/ping": {
-      "get": {
-        "operationId": "Ping",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          }
-        },
-        "tags": [
-          "InventoryService"
-        ]
-      }
-    },
-    "/rating/api/ping": {
-      "get": {
-        "operationId": "Ping",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          }
-        },
-        "tags": [
-          "RatingService"
         ]
       }
     },

@@ -58,7 +58,7 @@ export default {
     },
 
     GET_PRODUCT_BY_ID_SUCCESS(state, product) {
-      state.product = product.product
+      state.product = product
     },
 
     SET_HIGTHEST_PRICE(state, highprice) {

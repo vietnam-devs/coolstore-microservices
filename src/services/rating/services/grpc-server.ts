@@ -19,9 +19,6 @@ const getProto = (protofile: any): any => {
 }
 
 const RatingProtoServices = {
-  ping: async (call: any, callback: any) => {
-    callback(null, {})
-  },
   getRatings: async (call: any, callback: any) => {
     logger.info('request', call.request)
     const ratings = await ratingSchema.find({}).exec()

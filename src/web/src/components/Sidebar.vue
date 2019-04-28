@@ -16,6 +16,8 @@
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
+import _ from "lodash";
+
 export default {
   name: "Sidebar",
   props: {
@@ -37,12 +39,12 @@ export default {
     };
   },
   methods: {
-    updateHighprice(highprice) {
+    updateHighprice: _.throttle(function(highprice) {
       this.$store.dispatch("products/GET_LIST_PRODUCT", {
         page: 0,
         highprice
       });
-    }
+    }, 1000)
   }
 };
 </script>

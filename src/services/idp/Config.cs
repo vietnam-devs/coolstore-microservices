@@ -96,22 +96,22 @@ namespace IdentityServer4
             {
                 ClientId = "spa",
                 ClientName = "SPA Client",
-                ClientUri = "http://localhost:8080",
+                ClientUri = "http://localhost:8084",
                 AllowedGrantTypes = GrantTypes.Implicit,
                 AllowAccessTokensViaBrowser = true,
 
                 RedirectUris =
                 {
-                    "http://localhost:8080/callback"
+                    "http://localhost:8084/callback"
                 },
 
                 PostLogoutRedirectUris =
                 {
-                    "http://localhost:8080/"
+                    "http://localhost:8084/"
                 },
                 AllowedCorsOrigins =
                 {
-                    "http://localhost:8080"
+                    "http://localhost:8084"
                 },
 
                 AllowedScopes =
