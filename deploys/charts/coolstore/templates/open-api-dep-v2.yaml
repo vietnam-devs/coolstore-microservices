@@ -26,6 +26,14 @@ spec:
         env:
         - name: Hosts__BasePath
           value: "/open-api"
+        - name: GrpcEndPoints__CatalogEndPoint
+          value: {{ .Values.openAPISettings.CatalogEndPoint }}
+        - name: GrpcEndPoints__CartEndPoint
+          value: {{ .Values.openAPISettings.CartEndPoint }}
+        - name: GrpcEndPoints__InventoryEndPoint
+          value: {{ .Values.openAPISettings.InventoryEndPoint }}
+        - name: GrpcEndPoints__RatingEndPoint
+          value: {{ .Values.openAPISettings.RatingEndPoint }}
         ports:
         - containerPort: 5012
         resources:

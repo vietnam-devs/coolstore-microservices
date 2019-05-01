@@ -8,6 +8,28 @@ spec:
   gateways:
   - cs-gateway
   http:
+  # uncomment for fault injection
+  # - fault:
+  #     # delay: 
+  #     #   fixedDelay: 5s
+  #     #   percent: 100
+  #     abort:
+  #       httpStatus: 500
+  #       percent: 100
+  #   match:
+  #   - headers:
+  #       x-username:
+  #         exact: thang
+  #     uri:
+  #       prefix: /catalog
+  #   route:
+  #   - destination:
+  #       host: open-api
+  #       subset: v1
+  #       port:
+  #         number: 80
+  #     weight: 100
+
   - match:
     - uri:
         prefix: /catalog/
@@ -23,6 +45,20 @@ spec:
         port:
           number: 80
       weight: 100
+    # uncomment when apply shadow - mirroring
+    # mirror:
+    #   host: open-api
+    #   subset: v2
+    #   port:
+    #       number: 80
+    # uncomment when apply canary
+    # - destination:
+    #     host: open-api
+    #     subset: v2
+    #     port:
+    #       number: 80
+    #   weight: 30
+
   - match:
     - uri:
         prefix: /cart/
@@ -53,21 +89,21 @@ spec:
         port:
           number: 80
       weight: 100
-  - match:
-    - uri:
-        prefix: /rating/
-    - uri:
-        prefix: /rating
-    rewrite:
-      uri: /rating/
-      authority: {{ .Values.hosts.api }}
-    route:
-    - destination:
-        host: open-api
-        subset: v1
-        port:
-          number: 80
-      weight: 100
+  # - match:
+  #   - uri:
+  #       prefix: /rating/
+  #   - uri:
+  #       prefix: /rating
+  #   rewrite:
+  #     uri: /rating/
+  #     authority: {{ .Values.hosts.api }}
+  #   route:
+  #   - destination:
+  #       host: open-api
+  #       subset: v1
+  #       port:
+  #         number: 80
+  #     weight: 100
   - match:
     - uri:
         prefix: /open-api/
@@ -79,22 +115,10 @@ spec:
     route:
     - destination:
         host: open-api
-        # uncomment when apply shadow - mirroring
         subset: v1
         port:
           number: 80
       weight: 100
-    # uncomment when apply shadow - mirroring
-    # mirror:
-    #   host: open-api
-    #   subset: v2
-    # uncomment when apply canary
-    # - destination:
-    #     host: open-api
-    #     subset: v2
-    #     port:
-    #       number: 80
-    #   weight: 50
 
   - match:
     - uri:
