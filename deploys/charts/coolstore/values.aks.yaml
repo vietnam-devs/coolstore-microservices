@@ -16,12 +16,6 @@ idpSettings:
 
 cartSettings:
   CatalogUri: "http://api.cool-store.ml/catalog"
-  MySqlDbFQDN: "13.66.62.124:3306"
-  MySqlDbUserName: "dbuser@mysqldblab01"
-
-inventorySettings:
-  MySqlDbFQDN: "13.66.62.124:3306"
-  MySqlDbUserName: "dbuser@mysqldblab01"
 
 spaSettings:
   NodeEnv: development

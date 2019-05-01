@@ -67,19 +67,5 @@ namespace VND.CoolStore.Services.Inventory.v1.Services
                 throw new RpcException(new Status(StatusCode.Internal, ex.Message));
             }
         }
-
-        public override async Task<DbMigrationResponse> DbMigration(Empty request, ServerCallContext context)
-        {
-            try
-            {
-                var ok = await Task.Run(() => _resolver.MigrateDbContext() != null);
-                return await Task.FromResult(new DbMigrationResponse {Ok = ok});
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                throw new RpcException(new Status(StatusCode.Internal, ex.Message));
-            }
-        }
     }
 }

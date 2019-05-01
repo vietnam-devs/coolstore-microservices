@@ -8,6 +8,9 @@ image:
 nginx:
   enabled: false
 
+backoffice:
+  enabled: false
+
 hosts:
   web: coolstore.local
   backoffice: backoffice.coolstore.local

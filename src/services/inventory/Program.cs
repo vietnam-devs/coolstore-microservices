@@ -20,7 +20,8 @@ namespace VND.CoolStore.Services.Inventory
             var host = new HostBuilder()
                 .ConfigureDefaultSettings(
                     args,
-                    services => {
+                    services =>
+                    {
                         services.AddDbContext<InventoryDbContext>((sp, o) =>
                         {
                             var config = sp.GetService<IConfiguration>();
@@ -34,8 +35,17 @@ namespace VND.CoolStore.Services.Inventory
                         services.AddGenericRepository();
                         services.AddEfCoreMySqlDb();
                     },
-                    svc => {
-                        svc.AddHostedService<HostedService>();
+                    async services =>
+                    {
+                        services.AddHostedService<HostedService>();
+
+                        // ensure running the first migration
+                        using (var scope = services.BuildServiceProvider().CreateScope())
+                        {
+                            var revolver = scope.ServiceProvider;
+                            var dbContext = revolver.GetService<InventoryDbContext>();
+                            await dbContext?.Database?.MigrateAsync();
+                        }
                     });
 
             await host.RunAsync();

@@ -1,3 +1,4 @@
+{{- if .Values.backoffice.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -49,3 +50,4 @@ spec:
             cpu: 200m
             memory: 64Mi
 ---
+{{- end -}}

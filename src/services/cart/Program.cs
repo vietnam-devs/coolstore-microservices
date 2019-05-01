@@ -39,13 +39,21 @@ namespace VND.CoolStore.Services.Cart
                         services.AddGenericRepository();
                         services.AddEfCoreMySqlDb();
                     },
-                    svc =>
+                    async services =>
                     {
-                        svc.AddHostedService<HostedService>();
-                        svc.AddScoped<ICatalogGateway, CatalogGateway>();
-                        svc.AddScoped<IPromoGateway, PromoGateway>();
-                        svc.AddScoped<IShippingGateway, ShippingGateway>();
-                        svc.AddSingleton(typeof(CatalogServiceClient), RegisterGrpcService<CatalogServiceClient>(svc, "CatalogEndPoint"));
+                        services.AddHostedService<HostedService>();
+                        services.AddScoped<ICatalogGateway, CatalogGateway>();
+                        services.AddScoped<IPromoGateway, PromoGateway>();
+                        services.AddScoped<IShippingGateway, ShippingGateway>();
+                        services.AddSingleton(typeof(CatalogServiceClient), RegisterGrpcService<CatalogServiceClient>(services, "CatalogEndPoint"));
+
+                        // ensure running the first migration
+                        using (var scope = services.BuildServiceProvider().CreateScope())
+                        {
+                            var revolver = scope.ServiceProvider;
+                            var dbContext = revolver.GetService<CartDbContext>();
+                            await dbContext?.Database?.MigrateAsync();
+                        }
                     });
 
             await host.RunAsync();
