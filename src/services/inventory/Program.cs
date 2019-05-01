@@ -35,17 +35,9 @@ namespace VND.CoolStore.Services.Inventory
                         services.AddGenericRepository();
                         services.AddEfCoreMySqlDb();
                     },
-                    async services =>
+                    services =>
                     {
                         services.AddHostedService<HostedService>();
-
-                        // ensure running the first migration
-                        using (var scope = services.BuildServiceProvider().CreateScope())
-                        {
-                            var revolver = scope.ServiceProvider;
-                            var dbContext = revolver.GetService<InventoryDbContext>();
-                            await dbContext?.Database?.MigrateAsync();
-                        }
                     });
 
             await host.RunAsync();
