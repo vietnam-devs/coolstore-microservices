@@ -17,14 +17,17 @@ namespace VND.CoolStore.Services.Idp.Customized
             if (userId == "4696cdd0-d20d-414b-8cf0-4d272def8861")
             {
                 context.IssuedClaims.Add(new Claim("role", "admin"));
+                context.IssuedClaims.Add(new Claim("username", "phi"));
             }
             else if (userId == "C025822B-74D9-4899-98B0-DAF1EF0D5D6E")
             {
                 context.IssuedClaims.Add(new Claim("role", "tester"));
+                context.IssuedClaims.Add(new Claim("username", "thang"));
             }
             else
             {
                 context.IssuedClaims.Add(new Claim("role", "user"));
+                context.IssuedClaims.Add(new Claim("username", "phuong"));
             }
 
             return Task.CompletedTask;

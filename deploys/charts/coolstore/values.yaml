@@ -79,3 +79,9 @@ backofficeSettings:
   Authority: http://id.coolstore.local/
   ClientId: backoffice
   RootUrl: http://backoffice.coolstore.local
+
+openAPISettings:
+  CatalogEndPoint: catalog:5002
+  CartEndPoint: cart:5003
+  InventoryEndPoint: inventory:5004
+  RatingEndPoint: rating:5007
