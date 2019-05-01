@@ -12,7 +12,12 @@
       <div class="media">
         <div class="media-content">
           <router-link exact :to="{ name: 'reviewproduct', params: {id: item.id } }">
-            <p class="title is-5">{{ item.name }}</p>
+            <p class="title is-5">
+              {{ item.name }}
+              <span v-if="item.isHot" class="is-hot">
+                <i class="fas fa-sun fa-spin"></i>
+              </span>
+            </p>
             <p class="item-price">{{ item.price | usdollar }}</p>
           </router-link>
         </div>
@@ -114,6 +119,10 @@ export default {
 
   .title, .subtitle {
     color: inherit;
+
+    .is-hot {
+      color: #ff0000;
+    }
   }
 
   .title {

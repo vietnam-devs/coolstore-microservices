@@ -22,8 +22,7 @@ namespace IdentityServer4.Quickstart.UI
                     new Claim(JwtClaimTypes.Email, "phi.huynh@nashtechglobal.com"),
                     new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
                     new Claim(JwtClaimTypes.WebSite, "http://nashtechglobal.com"),
-                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
-                    new Claim("role", "admin")
+                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
                 }
             },
             new TestUser{SubjectId = "51db5230-ef16-4e5f-ad5f-1820c2cc7a99", Username = "phuong", Password = "123", 
@@ -35,8 +34,7 @@ namespace IdentityServer4.Quickstart.UI
                     new Claim(JwtClaimTypes.Email, "phuong.le@nashtechglobal.com"),
                     new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
                     new Claim(JwtClaimTypes.WebSite, "http://nashtechglobal.com"),
-                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
-                    new Claim("role", "user")
+                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
                 }
             },
             new TestUser{SubjectId = "C025822B-74D9-4899-98B0-DAF1EF0D5D6E", Username = "thang", Password = "123",
@@ -48,8 +46,7 @@ namespace IdentityServer4.Quickstart.UI
                     new Claim(JwtClaimTypes.Email, "thang.chung@nashtechglobal.com"),
                     new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
                     new Claim(JwtClaimTypes.WebSite, "http://nashtechglobal.com"),
-                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
-                    new Claim("role", "tester")
+                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
                 }
             }
         };

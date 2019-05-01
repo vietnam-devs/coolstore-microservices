@@ -23,6 +23,10 @@ export default {
       return state.accessToken
     },
 
+    tokenInfo: state => {
+      return JSON.parse(parseJwt(state.accessToken))
+    },
+
     userInfo: state => {
       return JSON.parse(parseJwt(state.idToken))
     }

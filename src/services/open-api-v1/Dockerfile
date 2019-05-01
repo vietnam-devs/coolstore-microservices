@@ -3,10 +3,10 @@ RUN apk update && apk add libc6-compat
 WORKDIR /app
 
 ARG service_version
-ENV SERVICE_VERSION ${service_version:-0.0.1}
+ENV ServiceVersion ${service_version:-0.0.1}
 
 ARG api_version
-ENV API_VERSION ${api_version:-1.0}
+ENV ApiVersion ${api_version:-1.0}
 
 ENV ASPNETCORE_URLS http://+:5012
 EXPOSE 5012

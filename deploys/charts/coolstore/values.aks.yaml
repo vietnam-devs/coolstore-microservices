@@ -22,9 +22,3 @@ spaSettings:
   WebUri: http://cool-store.ml/
   IdpUri: http://id.cool-store.ml/
   OpenApiUri: http://api.cool-store.ml/
-
-openAPISettings:
-  CatalogEndPoint: catalog:5002
-  CartEndPoint: cart:5003
-  InventoryEndPoint: inventory:5004
-  RatingEndPoint: rating:5007

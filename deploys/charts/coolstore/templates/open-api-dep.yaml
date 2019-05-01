@@ -24,6 +24,8 @@ spec:
         image: {{.Values.image.imageRegistry}}/cs-open-api-v1:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
+        - name: ApiVersion
+          value: "1.0"
         - name: Hosts__BasePath
           value: "/open-api"
         - name: GrpcEndPoints__CatalogEndPoint
