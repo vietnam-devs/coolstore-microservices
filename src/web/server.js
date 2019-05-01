@@ -67,7 +67,7 @@ const serve = (path, cache) =>
   })
 
 for (config in proxyConfig) {
-  app.use(config, proxy(proxyConfig[config]))
+  if (proxyConfig[config] !== 'undefined') app.use(config, proxy(proxyConfig[config]))
 }
 
 // app.use('/api/*', proxy({

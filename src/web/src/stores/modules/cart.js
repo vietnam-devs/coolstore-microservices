@@ -41,8 +41,8 @@ export default {
 
   mutations: {
     GET_CART_SUCCESS(state, cart) {
-      state.cart = cart.result || {}
-      state.cartId = cart.result.id
+      state.cart = cart || {}
+      state.cartId = cart.id
     },
 
     GET_CART_FALURE(state, error) {
@@ -139,8 +139,8 @@ export default {
       return new Promise((resolve, reject) => {
         removeFomCart(cartId, productId)
           .then(
-            cart => {
-              commit('REMOVE_FROM_CARD_SUCCESS', cart.productId)
+            productId => {
+              commit('REMOVE_FROM_CARD_SUCCESS', productId)
               resolve()
             },
             error => {

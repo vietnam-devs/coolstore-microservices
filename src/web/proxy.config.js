@@ -1,10 +1,10 @@
 var urls = {
-  web: existedOrDefault(process.env.NODE_WEB_ENV, 'http://localhost:8084/'),
-  idp: existedOrDefault(process.env.NODE_IDP_ENV, 'http://localhost:8083/'),
-  openapi: existedOrDefault(process.env.NODE_OPENAPI_ENV, 'http://localhost:5012/')
+  web: process.env.NODE_WEB_ENV || 'http://localhost:8084/',
+  idp: process.env.NODE_IDP_ENV || 'http://localhost:8083/',
+  openapi: process.env.NODE_OPENAPI_ENV || 'http://localhost:5012/'
 }
 
-var host = existedOrDefault(process.env.NODE_WEB_ENV, 'http://localhost:8084/')
+var host = urls['web']
 if (process.browser) {
   host = window.location.hostname
 }
@@ -12,9 +12,13 @@ if (process.browser) {
 console.info(urls)
 
 const PROXY_CONFIG = {
-  baseUrl: host,
-  idpUrl: `${urls['idp']}`,
-  spaUrl: `${urls['web']}`,
+  baseUrl: {
+    target: host
+  },
+  idpUrl: { target: `${urls['idp']}` },
+  spaUrl: {
+    target: `${urls['web']}`
+  },
   '/catalog/api/*': {
     target: `${urls['openapi']}`,
     secure: false,
@@ -70,13 +74,5 @@ const PROXY_CONFIG = {
   }
 }
 
-function existedOrDefault(envVariable, defaultOne) {
-  if (typeof envVariable !== 'undefined') {
-    return envVariable
-  } else {
-    return defaultOne
-  }
-}
-
-console.log(PROXY_CONFIG.spaUrl)
+console.log(PROXY_CONFIG.spaUrl.target)
 module.exports = PROXY_CONFIG
