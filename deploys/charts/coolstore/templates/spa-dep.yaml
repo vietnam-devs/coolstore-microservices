@@ -32,7 +32,7 @@ spec:
         - name: NODE_OPENAPI_ENV
           value: {{ .Values.spaSettings.OpenApiUri }}
         ports:
-        - containerPort: 8080
+        - containerPort: 8084
         resources:
           requests:
             cpu: 100m

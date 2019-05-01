@@ -13,6 +13,9 @@ spec:
         prefix: /catalog/
     - uri:
         prefix: /catalog
+    rewrite:
+      uri: /catalog/
+      authority: {{ .Values.hosts.api }}
     route:
     - destination:
         host: open-api
@@ -23,31 +26,40 @@ spec:
         prefix: /cart/
     - uri:
         prefix: /cart
+    rewrite:
+      uri: /cart/
+      authority: {{ .Values.hosts.api }}
     route:
     - destination:
-        host: cart
+        host: open-api
         port:
-          number: 5003
+          number: 80
   - match:
     - uri:
         prefix: /inventory/
     - uri:
         prefix: /inventory
+    rewrite:
+      uri: /inventory/
+      authority: {{ .Values.hosts.api }}
     route:
     - destination:
-        host: inventory
+        host: open-api
         port:
-          number: 5004
+          number: 80
   - match:
     - uri:
         prefix: /rating/
     - uri:
         prefix: /rating
+    rewrite:
+      uri: /rating/
+      authority: {{ .Values.hosts.api }}
     route:
     - destination:
-        host: rating
+        host: open-api
         port:
-          number: 5007
+          number: 80
   - match:
     - uri:
         prefix: /open-api/
@@ -56,12 +68,12 @@ spec:
     route:
     - destination:
         host: open-api
-        # uncomment when apply shodow - mirroring
+        # uncomment when apply shadow - mirroring
         # subset: v1
         port:
           number: 80
       weight: 100
-    # uncomment when apply shodow - mirroring
+    # uncomment when apply shadow - mirroring
     # mirror:
     #   host: open-api
     #   subset: v2

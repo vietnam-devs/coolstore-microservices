@@ -66,8 +66,10 @@ const serve = (path, cache) =>
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
   })
 
-for (config in proxyConfig) {
-  if (proxyConfig[config] !== 'undefined') app.use(config, proxy(proxyConfig[config]))
+if (!isProd) {
+  for (config in proxyConfig) {
+    if (proxyConfig[config] !== 'undefined') app.use(config, proxy(proxyConfig[config]))
+  }
 }
 
 // app.use('/api/*', proxy({
