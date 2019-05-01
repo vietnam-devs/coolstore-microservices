@@ -19,8 +19,10 @@ spec:
     route:
     - destination:
         host: open-api
+        subset: v1
         port:
           number: 80
+      weight: 100
   - match:
     - uri:
         prefix: /cart/
@@ -32,8 +34,10 @@ spec:
     route:
     - destination:
         host: open-api
+        subset: v1
         port:
           number: 80
+      weight: 100
   - match:
     - uri:
         prefix: /inventory/
@@ -45,8 +49,10 @@ spec:
     route:
     - destination:
         host: open-api
+        subset: v1
         port:
           number: 80
+      weight: 100
   - match:
     - uri:
         prefix: /rating/
@@ -58,18 +64,23 @@ spec:
     route:
     - destination:
         host: open-api
+        subset: v1
         port:
           number: 80
+      weight: 100
   - match:
     - uri:
         prefix: /open-api/
     - uri:
         prefix: /open-api
+    rewrite:
+      uri: /open-api/
+      authority: {{ .Values.hosts.api }}
     route:
     - destination:
         host: open-api
         # uncomment when apply shadow - mirroring
-        # subset: v1
+        subset: v1
         port:
           number: 80
       weight: 100
@@ -109,16 +120,16 @@ spec:
 ---
 
 # uncomment when apply shodow - mirroring
-# apiVersion: networking.istio.io/v1alpha3
-# kind: DestinationRule
-# metadata:
-#   name: open-api-destination-rule
-# spec:
-#   host: open-api
-#   subsets:
-#   - name: v1
-#     labels:
-#       version: v1
-#   - name: v2
-#     labels:
-#       version: v2
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: open-api-destination-rule
+spec:
+  host: open-api
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2

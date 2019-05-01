@@ -9,7 +9,7 @@ pool:
 variables:
   DOCKER_ENV: "production"
   DOCKER_GROUP: "vndg"
-  SERVICE_NAME: cs-openapiv1
+  SERVICE_NAME: cs-open-api-v1
   IMAGE_NAME: "$(DOCKER_GROUP)/$(SERVICE_NAME):$(GitVersion.NuGetVersion)"
   IMAGE_NAME_LATEST: "$(DOCKER_GROUP)/$(SERVICE_NAME):latest"
 
