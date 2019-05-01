@@ -44,6 +44,7 @@ services:
       - GrpcEndPoints__CartEndPoint=cart-service:${CART_SVC_PORT}
       - GrpcEndPoints__InventoryEndPoint=inventory-service:${INVENTORY_SVC_PORT}
       - GrpcEndPoints__RatingEndPoint=rating-service:${RATING_SVC_PORT}
+      - ApiVersion=1.0
     ports:
       - "${OPENAPIV1_SVR_PORT}:${OPENAPIV1_SVR_PORT}"
     expose:
