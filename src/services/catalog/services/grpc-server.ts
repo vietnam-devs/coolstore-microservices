@@ -5,7 +5,6 @@ import * as grpc from 'grpc'
 import { default as logger, SimpleLogger as xLogger } from './logger'
 import { default as productSchema, ProductModel } from '../models/product'
 import { ProductService } from './product-service'
-const products = require('./products.json')
 
 const getProto = (protofile: any): any => {
   const packageDefinition = protoLoader.loadSync(protofile, {
@@ -38,7 +37,8 @@ const ProductProtoServices = {
         name: x.name,
         desc: x.desc,
         price: x.price,
-        image_url: x.imageUrl
+        image_url: x.imageUrl,
+        inventory_id: x.inventoryId
       }
     })
     logger.info(results)
@@ -54,7 +54,8 @@ const ProductProtoServices = {
         name: product.name,
         desc: product.desc,
         price: product.price,
-        image_url: product.imageUrl
+        image_url: product.imageUrl,
+        inventory_id: product.inventoryId
       }
     })
   },
@@ -65,7 +66,8 @@ const ProductProtoServices = {
       name: call.request.name,
       desc: call.request.desc,
       price: call.request.price,
-      imageUrl: call.request.image_url
+      imageUrl: call.request.image_url,
+      inventoryId: call.request.inventory_id
     }
     const product: any = await ProductService.createProduct(model)
     callback(null, {
@@ -74,7 +76,8 @@ const ProductProtoServices = {
         name: product.name,
         desc: product.desc,
         price: product.price,
-        image_url: product.imageUrl
+        image_url: product.imageUrl,
+        inventory_id: product.inventoryId
       }
     })
   }

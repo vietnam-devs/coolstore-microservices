@@ -5,6 +5,7 @@ using Coolstore;
 using Microsoft.AspNetCore.Mvc;
 using VND.CoolStore.Services.OpenApiV1.v1.Grpc;
 using static Coolstore.CatalogService;
+using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
 
 namespace VND.CoolStore.Services.OpenApiV1.v2
 {
@@ -14,10 +15,12 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
     public class CatalogController : ControllerBase
     {
         private readonly CatalogServiceClient _catalogServiceClient;
+        private readonly InventoryServiceClient _inventoryServiceClient;
 
-        public CatalogController(CatalogServiceClient catalogServiceClient)
+        public CatalogController(CatalogServiceClient catalogServiceClient, InventoryServiceClient inventoryServiceClient)
         {
             _catalogServiceClient = catalogServiceClient;
+            _inventoryServiceClient = inventoryServiceClient;
         }
 
         [HttpGet("ping")]
@@ -73,7 +76,29 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         ProductId = productId.ToString()
                     };
                     var response = await _catalogServiceClient.GetProductByIdAsync(request, headers);
-                    return Ok(response.Product);
+
+                    if (response?.Product == null)
+                        throw new Exception($"Couldn't find product with id#{productId}.");
+
+                    var inventory = await _inventoryServiceClient.GetInventoryAsync(new Inventory.v1.Grpc.GetInventoryRequest
+                    {
+                        Id = response.Product.InventoryId
+                    });
+
+                    if (inventory == null)
+                        throw new Exception($"Couldn't find inventory of product with id#{productId}.");
+
+                    return Ok(new
+                    {
+                        response.Product.Id,
+                        response.Product.Name,
+                        response.Product.Desc,
+                        response.Product.Price,
+                        response.Product.ImageUrl,
+                        InventoryId = inventory.Result.Id,
+                        InventoryLink = inventory.Result.Link,
+                        InventoryLocation = inventory.Result.Location,
+                    });
                 });
         }
 

@@ -11,6 +11,10 @@
         <h1 class="title is-2">{{ product.name }}</h1>
         <h2 class="subtitle is-4">{{product.desc}}</h2>
         <p class="is-size-6">${{ product.price }}</p>
+        <p class="is-size-6">{{ product.inventoryLocation }}</p>
+        <p class="is-size-6">
+          <a v-bind:href="product.inventoryLink">{{ product.inventoryLink }}</a>
+        </p>
         <br>
         <section>
           <b-field class="div-center">
@@ -42,7 +46,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState } from "vuex";
 
 export default {
   name: "review",
@@ -53,10 +57,10 @@ export default {
   },
   computed: {
     product() {
-      return { ...this.$store.state.products.product } || {}
+      return { ...this.$store.state.products.product } || {};
     },
     cartId() {
-      return this.$store.getters["cart/cartId"] || null
+      return this.$store.getters["cart/cartId"] || null;
     }
   },
   beforeMount() {
@@ -64,20 +68,20 @@ export default {
   },
   methods: {
     loadProduct(id) {
-      this.$store.dispatch("products/GET_PRODUCT_BY_ID", { productId: id })
+      this.$store.dispatch("products/GET_PRODUCT_BY_ID", { productId: id });
     },
     addToCart(productId, quantity) {
       if (!this.cartId) {
-        this.$store.dispatch("cart/ADD_TO_CARD", { productId, quantity })
+        this.$store.dispatch("cart/ADD_TO_CARD", { productId, quantity });
       } else
         this.$store.dispatch("cart/UPDATE_CARD", {
           cartId: this.cartId,
           productId,
           quantity
-        })
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="stylus">

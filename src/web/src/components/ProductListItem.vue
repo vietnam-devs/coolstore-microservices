@@ -14,8 +14,9 @@
           <router-link exact :to="{ name: 'reviewproduct', params: {id: item.id } }">
             <p class="title is-5">
               {{ item.name }}
-              <span v-if="item.isHot" class="is-hot">
-                <i class="fas fa-sun fa-spin"></i>
+              <span>
+                <i v-if="item.isHot  === true" class="fas fa-heart feature"></i>
+                <i v-else class="fas fa-heart"></i>
               </span>
             </p>
             <p class="item-price">{{ item.price | usdollar }}</p>
@@ -36,7 +37,7 @@
           </p>
         </div>
       </div>
-      <div>
+      <!-- <div>
         <star-rating
           @rating-selected="setRating(item.id, $event)"
           v-bind:star-size="20"
@@ -44,18 +45,18 @@
           v-model="ratings[item.id].cost"
           v-bind:show-rating="false"
         ></star-rating>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-import StarRating from "vue-star-rating";
+//import StarRating from "vue-star-rating";
 const { mapActions } = createNamespacedHelpers("cart");
 export default {
   name: "Card",
   components: {
-    StarRating
+    //StarRating
   },
   filters: {
     usdollar: value => `$${value}`
@@ -88,14 +89,14 @@ export default {
           productId,
           quantity
         });
-    },
-    setRating(productId, rating) {
+    }
+    /*setRating(productId, rating) {
       this.$store.dispatch("ratings/SET_RATING_FOR_PRODUCT", {
         productId,
         userId: this.userInfo.sub,
         cost: rating
       });
-    }
+    }*/
   }
 };
 </script>
@@ -120,7 +121,7 @@ export default {
   .title, .subtitle {
     color: inherit;
 
-    .is-hot {
+    .feature {
       color: #ff0000;
     }
   }
