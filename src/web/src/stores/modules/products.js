@@ -35,15 +35,12 @@ export default {
       })
     },
     highprice: state => {
-      state.highprice =
-        state.highprice ||
-        Math.max.apply(
-          Math,
-          state.products.map(function(product) {
-            return product.price
-          })
-        )
-      return state.highprice
+      return Math.max.apply(
+        Math,
+        state.products.map(function(product) {
+          return product.price
+        })
+      )
     }
   },
 

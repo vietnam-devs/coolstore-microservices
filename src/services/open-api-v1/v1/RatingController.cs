@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Coolstore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using VND.CoolStore.Services.OpenApiV1.v1.Grpc;
 using static Coolstore.RatingService;
 
@@ -12,10 +13,12 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
     [ApiController]
     public class RatingController : ControllerBase
     {
+        private readonly AppOptions _appOptions;
         private readonly RatingServiceClient _ratingServiceClient;
 
-        public RatingController(RatingServiceClient ratingServiceClient)
+        public RatingController(IOptions<AppOptions> options, RatingServiceClient ratingServiceClient)
         {
+            _appOptions = options.Value;
             _ratingServiceClient = ratingServiceClient;
         }
 
@@ -32,7 +35,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "rating-service",
                 async headers =>
                 {
-                    var response = await _ratingServiceClient.GetRatingsAsync(new Google.Protobuf.WellKnownTypes.Empty(), headers, DateTime.UtcNow.AddSeconds(3));
+                    var response = await _ratingServiceClient.GetRatingsAsync(
+                        new Google.Protobuf.WellKnownTypes.Empty(),
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
                     return Ok(response.Ratings);
                 });
         }
@@ -48,7 +54,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                     {
                         ProductId = productId.ToString()
                     };
-                    var response = await _ratingServiceClient.GetRatingByProductIdAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
+                    var response = await _ratingServiceClient.GetRatingByProductIdAsync(
+                        request,
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
                     return Ok(response.Rating);
                 });
         }
@@ -60,7 +69,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "rating-service",
                 async headers =>
                 {
-                    var response = await _ratingServiceClient.CreateRatingAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
+                    var response = await _ratingServiceClient.CreateRatingAsync(
+                        request,
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
                     return Ok(response.Rating);
                 });
         }
@@ -72,7 +84,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "rating-service",
                 async headers =>
                 {
-                    var response = await _ratingServiceClient.UpdateRatingAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
+                    var response = await _ratingServiceClient.UpdateRatingAsync(
+                        request,
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
                     return Ok(response.Rating);
                 });
         }

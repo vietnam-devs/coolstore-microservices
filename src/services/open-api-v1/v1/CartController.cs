@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using VND.CoolStore.Services.Cart.v1.Grpc;
 using VND.CoolStore.Services.OpenApiV1.v1.Grpc;
 using static VND.CoolStore.Services.Cart.v1.Grpc.CartService;
@@ -12,10 +13,12 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
     [ApiController]
     public class CartController : ControllerBase
     {
+        private readonly AppOptions _appOptions;
         private readonly CartServiceClient _cartServiceClient;
 
-        public CartController(CartServiceClient cartServiceClient)
+        public CartController(IOptions<AppOptions> options, CartServiceClient cartServiceClient)
         {
+            _appOptions = options.Value;
             _cartServiceClient = cartServiceClient;
         }
 
@@ -36,7 +39,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                     {
                         CartId = cartId.ToString()
                     };
-                    var response = await _cartServiceClient.GetCartAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
+                    var response = await _cartServiceClient.GetCartAsync(
+                        request,
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
                     return Ok(response.Result);
                 });
         }
@@ -48,7 +54,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "cart-service",
                 async headers =>
                 {
-                    var response = await _cartServiceClient.InsertItemToNewCartAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
+                    var response = await _cartServiceClient.InsertItemToNewCartAsync(
+                        request,
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
                     return Ok(response.Result);
                 });
         }
@@ -60,7 +69,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "cart-service",
                 async headers =>
                 {
-                    var response = await _cartServiceClient.UpdateItemInCartAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
+                    var response = await _cartServiceClient.UpdateItemInCartAsync(
+                        request,
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
                     return Ok(response.Result);
                 });
         }
@@ -77,7 +89,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                         CartId = cartId.ToString(),
                         ProductId = productId.ToString()
                     };
-                    var response = await _cartServiceClient.DeleteItemAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
+                    var response = await _cartServiceClient.DeleteItemAsync(
+                        request,
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
                     return Ok(response.ProductId);
                 });
         }
@@ -92,7 +107,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                     var request = new CheckoutRequest {
                         CartId = cartId.ToString()
                     };
-                    var response = await _cartServiceClient.CheckoutAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
+                    var response = await _cartServiceClient.CheckoutAsync(
+                        request,
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
                     return Ok(response.IsSucceed);
                 });
         }

@@ -48,8 +48,8 @@ export default {
   },
   asyncData({ store }) {
     return [
-      store.dispatch("products/GET_LIST_PRODUCT", { page: 0 })
-      //store.dispatch("ratings/GET_LIST_RATING")
+      // store.dispatch("products/GET_LIST_PRODUCT", { page: 0 })
+      // store.dispatch("ratings/GET_LIST_RATING")
     ];
   },
   methods: {

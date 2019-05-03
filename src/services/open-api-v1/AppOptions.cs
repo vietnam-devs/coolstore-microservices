@@ -8,6 +8,7 @@ namespace VND.CoolStore.Services.OpenApiV1
         public HostOptions Hosts { get; set; }
         public IdpOptions Idp { get; set; }
         public GrpcEndPointOptions GrpcEndPoints { get; set; }
+        public int GrpcTimeOut { get; set; } = 3; // 3 seconds
     }
 
     public class HostOptions
