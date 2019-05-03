@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Coolstore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using VND.CoolStore.Services.OpenApiV1.v1.Grpc;
 using static Coolstore.CatalogService;
 using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
@@ -13,11 +14,13 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
     [ApiController]
     public class CatalogController : ControllerBase
     {
+        private readonly ILogger<CatalogController> _logger;
         private readonly CatalogServiceClient _catalogServiceClient;
         private readonly InventoryServiceClient _inventoryServiceClient;
 
-        public CatalogController(CatalogServiceClient catalogServiceClient, InventoryServiceClient inventoryServiceClient)
+        public CatalogController(ILoggerFactory loggerFactory, CatalogServiceClient catalogServiceClient, InventoryServiceClient inventoryServiceClient)
         {
+            _logger = loggerFactory.CreateLogger<CatalogController>();
             _catalogServiceClient = catalogServiceClient;
             _inventoryServiceClient = inventoryServiceClient;
         }
@@ -41,6 +44,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "catalog-service",
                 async headers =>
                 {
+                    _logger.LogInformation("headers:", headers);
+
                     var request = new GetProductsRequest
                     {
                         CurrentPage = currentPage,
@@ -58,19 +63,22 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "catalog-service",
                 async headers =>
                 {
+                    _logger.LogInformation("headers:", headers);
+
                     var request = new GetProductByIdRequest
                     {
                         ProductId = productId.ToString()
                     };
-                    var response = await _catalogServiceClient.GetProductByIdAsync(request, headers);
 
+                    var response = await _catalogServiceClient.GetProductByIdAsync(request, headers);
                     if (response?.Product == null)
                         throw new Exception($"Couldn't find product with id#{productId}.");
 
-                    var inventory = await _inventoryServiceClient.GetInventoryAsync(new Inventory.v1.Grpc.GetInventoryRequest {
-                        Id = response.Product.InventoryId
-                    });
-
+                    var inventory = await _inventoryServiceClient.GetInventoryAsync(
+                        new Inventory.v1.Grpc.GetInventoryRequest
+                        {
+                            Id = response.Product.InventoryId
+                        }, headers);
                     if (inventory == null)
                         throw new Exception($"Couldn't find inventory of product with id#{productId}.");
 
@@ -94,6 +102,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "catalog-service",
                 async headers =>
                 {
+                    _logger.LogInformation("headers:", headers);
+
                     var response = await _catalogServiceClient.CreateProductAsync(request, headers);
                     return Ok(response);
                 });

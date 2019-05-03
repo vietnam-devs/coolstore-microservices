@@ -11,7 +11,7 @@ export default {
     error: null,
     page: 1,
     product: {},
-    highprice: null
+    highprice: 0
   },
 
   getters: {
