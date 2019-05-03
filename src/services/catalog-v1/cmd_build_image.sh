@@ -4,8 +4,8 @@ set -ex
 readonly ROOT_DIR=`pwd`
 readonly TAG=${TAG:=$(git rev-parse --short HEAD)}
 readonly NAMESPACE=${NAMESPACE:="vndg"}
-readonly SERVICE_PATH=${ROOT_DIR}/src/services/catalog
-readonly SERVICE_NAME=cs-catalog-service
+readonly SERVICE_PATH=${ROOT_DIR}/src/services/catalog-v1
+readonly SERVICE_NAME=cs-catalog-v1-service
 
 echo "Namespace is ${NAMESPACE} and tag is ${TAG}"
 echo "Start to build ${SERVICE_NAME}..."

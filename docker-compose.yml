@@ -90,7 +90,7 @@ services:
     restart: always
     environment:
       - NODE_ENV=development
-      - MONGO_DB_URI=mongodb://mongodb/catalog
+      - MONGO_DB_URI=mongodb://mymongodb/catalog
       - PORT=${CATALOG_SVC_PORT}
     ports:
       - "${CATALOG_SVC_PORT}:${CATALOG_SVC_PORT}"
@@ -106,7 +106,7 @@ services:
     restart: always
     environment:
       - NODE_ENV=development
-      - MONGO_DB_URI=mongodb://mongodb/rating
+      - MONGO_DB_URI=mongodb://mymongodb/rating
       - PORT=${RATING_SVC_PORT}
     ports:
       - "${RATING_SVC_PORT}:${RATING_SVC_PORT}"
@@ -116,14 +116,17 @@ services:
       context: .
       dockerfile: ./src/services/rating/Dockerfile
 
-  mongodb:
-    container_name: mongodb
-    image: "bitnami/mongodb"
+  mymongodb:
+    container_name: mymongodb
+    image: "vndg/cs-mymongodb"
     restart: always
     expose:
       - "${MONGODB_PORT}"
     ports:
       - "${MONGODB_PORT}:${MONGODB_PORT}"
+    build:
+      context: .
+      dockerfile: ./deploys/dockers/mymongodb/Dockerfile
 
   mysqldb:
     container_name: mysqldb

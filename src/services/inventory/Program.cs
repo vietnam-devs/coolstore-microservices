@@ -22,6 +22,7 @@ namespace VND.CoolStore.Services.Inventory
                     args,
                     services =>
                     {
+                        services.AddEfCoreMySqlDb();
                         services.AddDbContext<InventoryDbContext>((sp, o) =>
                         {
                             var config = sp.GetService<IConfiguration>();
@@ -33,7 +34,6 @@ namespace VND.CoolStore.Services.Inventory
 
                         services.AddScoped<DbContext>(resolver => resolver.GetService<InventoryDbContext>());
                         services.AddGenericRepository();
-                        services.AddEfCoreMySqlDb();
                     },
                     services =>
                     {
