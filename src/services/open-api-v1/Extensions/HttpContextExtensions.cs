@@ -41,13 +41,14 @@ namespace VND.CoolStore.Services.OpenApiV1.v1.Grpc
 
                 return await catchAction(metadata);
             }
-            catch (RpcException ex)
+            catch (RpcException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception($"{scope}: {ex.Message}");
+                //throw new Exception($"{scope}: {ex.Message}");
+                throw;
             }
         }
     }
