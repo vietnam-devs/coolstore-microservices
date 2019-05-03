@@ -16,7 +16,6 @@
               {{ item.name }}
               <span>
                 <i v-if="item.isHot  === true" class="fas fa-heart feature"></i>
-                <i v-else class="fas fa-heart"></i>
               </span>
             </p>
             <p class="item-price">{{ item.price | usdollar }}</p>
@@ -65,11 +64,11 @@ export default {
     item: {
       type: Object,
       required: true
-    },
-    ratings: {
+    }
+    /*ratings: {
       type: Object,
       required: true
-    }
+    }*/
   },
   computed: {
     cartId() {
