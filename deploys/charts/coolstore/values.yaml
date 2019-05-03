@@ -33,9 +33,9 @@ catalogSettings:
   NodeEnv: "production"
   Host: "0.0.0.0"
   Port: 5002
-  MongoDbHost: "mymongodb"
-  MongoDbPort: "27017"
-  MongoDbName: "catalog"
+  MongoDbHost: mymongodb
+  MongoDbPort: 27017
+  MongoDbName: catalog
 
 cartSettings:
   Host: "0.0.0.0"
@@ -54,9 +54,9 @@ ratingSettings:
   NodeEnv: "production"
   Host: "0.0.0.0"
   Port: 5007
-  MongoDbHost: "mymongodb"
-  MongoDbPort: "27017"
-  MongoDbName: "rating"
+  MongoDbHost: mymongodb
+  MongoDbPort: 27017
+  MongoDbName: rating
 
 graphqlSettings:
   HostsBasePath: /gql/
