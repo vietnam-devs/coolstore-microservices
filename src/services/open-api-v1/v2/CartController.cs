@@ -36,7 +36,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                     {
                         CartId = cartId.ToString()
                     };
-                    var response = await _cartServiceClient.GetCartAsync(request, headers);
+                    var response = await _cartServiceClient.GetCartAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.Result);
                 });
         }
@@ -48,7 +48,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                 "cart-service",
                 async headers =>
                 {
-                    var response = await _cartServiceClient.InsertItemToNewCartAsync(request, headers);
+                    var response = await _cartServiceClient.InsertItemToNewCartAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.Result);
                 });
         }
@@ -60,7 +60,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                 "cart-service",
                 async headers =>
                 {
-                    var response = await _cartServiceClient.UpdateItemInCartAsync(request, headers);
+                    var response = await _cartServiceClient.UpdateItemInCartAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.Result);
                 });
         }
@@ -77,7 +77,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         CartId = cartId.ToString(),
                         ProductId = productId.ToString()
                     };
-                    var response = await _cartServiceClient.DeleteItemAsync(request, headers);
+                    var response = await _cartServiceClient.DeleteItemAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.ProductId);
                 });
         }
@@ -92,7 +92,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                     var request = new CheckoutRequest {
                         CartId = cartId.ToString()
                     };
-                    var response = await _cartServiceClient.CheckoutAsync(request, headers);
+                    var response = await _cartServiceClient.CheckoutAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.IsSucceed);
                 });
         }

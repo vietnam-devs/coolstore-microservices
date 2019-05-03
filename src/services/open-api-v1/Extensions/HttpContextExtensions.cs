@@ -43,6 +43,10 @@ namespace VND.CoolStore.Services.OpenApiV1.v1.Grpc
             }
             catch (RpcException ex)
             {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
                 throw new Exception($"{scope}: {ex.Message}");
             }
         }

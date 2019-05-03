@@ -32,7 +32,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "rating-service",
                 async headers =>
                 {
-                    var response = await _ratingServiceClient.GetRatingsAsync(new Google.Protobuf.WellKnownTypes.Empty(), headers);
+                    var response = await _ratingServiceClient.GetRatingsAsync(new Google.Protobuf.WellKnownTypes.Empty(), headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.Ratings);
                 });
         }
@@ -48,7 +48,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                     {
                         ProductId = productId.ToString()
                     };
-                    var response = await _ratingServiceClient.GetRatingByProductIdAsync(request, headers);
+                    var response = await _ratingServiceClient.GetRatingByProductIdAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.Rating);
                 });
         }
@@ -60,7 +60,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "rating-service",
                 async headers =>
                 {
-                    var response = await _ratingServiceClient.CreateRatingAsync(request, headers);
+                    var response = await _ratingServiceClient.CreateRatingAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.Rating);
                 });
         }
@@ -72,7 +72,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "rating-service",
                 async headers =>
                 {
-                    var response = await _ratingServiceClient.UpdateRatingAsync(request, headers);
+                    var response = await _ratingServiceClient.UpdateRatingAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.Rating);
                 });
         }

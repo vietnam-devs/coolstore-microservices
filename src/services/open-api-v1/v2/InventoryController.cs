@@ -32,7 +32,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                 "inventory-service",
                 async headers =>
                 {
-                    var response = await _inventoryServiceClient.GetInventoriesAsync(new Google.Protobuf.WellKnownTypes.Empty(), headers);
+                    var response = await _inventoryServiceClient.GetInventoriesAsync(new Google.Protobuf.WellKnownTypes.Empty(), headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response);
                 });
         }
@@ -47,7 +47,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                     var request = new GetInventoryRequest {
                         Id = id.ToString()
                     };
-                    var response = await _inventoryServiceClient.GetInventoryAsync(request, headers);
+                    var response = await _inventoryServiceClient.GetInventoryAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response);
                 });
         }

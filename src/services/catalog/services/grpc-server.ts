@@ -25,6 +25,10 @@ const ProductProtoServices = {
   adminPing: async (call: any, callback: any) => {
     callback(null, {})
   },
+  expectError: async (call: any, callback: any) => {
+    throw new Error('Ohhhh noooo!!!')
+    callback(null, {})
+  },
   getProducts: async (call: any, callback: any) => {
     logger.info(call.request)
     if (call.request.high_price <= 0) {

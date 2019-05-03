@@ -26,15 +26,39 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
         }
 
         [HttpGet("ping")]
-        public IActionResult Ping()
+        public async ValueTask<IActionResult> Ping()
         {
-            return Ok();
+            return await HttpContext.EnrichGrpcWithHttpContext(
+                "catalog-service",
+                async headers =>
+                {
+                    await _catalogServiceClient.PingAsync(new Google.Protobuf.WellKnownTypes.Empty(), headers, DateTime.UtcNow.AddSeconds(3));
+                    return Ok();
+                });
         }
 
         [HttpGet("admin-ping")]
-        public IActionResult AdminPing()
+        public async ValueTask<IActionResult> AdminPing()
         {
-            return Ok();
+            return await HttpContext.EnrichGrpcWithHttpContext(
+                "catalog-service",
+                async headers =>
+                {
+                    await _catalogServiceClient.AdminPingAsync(new Google.Protobuf.WellKnownTypes.Empty(), headers, DateTime.UtcNow.AddSeconds(3));
+                    return Ok();
+                });
+        }
+
+        [HttpGet("expect-error")]
+        public async ValueTask<IActionResult> ExpectError()
+        {
+            return await HttpContext.EnrichGrpcWithHttpContext(
+                "catalog-service",
+                async headers =>
+                {
+                    await _catalogServiceClient.ExpectErrorAsync(new Google.Protobuf.WellKnownTypes.Empty(), headers, DateTime.UtcNow.AddSeconds(3));
+                    return Ok();
+                });
         }
 
         [HttpGet("{currentPage:int}/{highPrice:int}")]
@@ -51,7 +75,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                         CurrentPage = currentPage,
                         HighPrice = highPrice
                     };
-                    var response = await _catalogServiceClient.GetProductsAsync(request, headers);
+                    var response = await _catalogServiceClient.GetProductsAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response.Products);
                 });
         }
@@ -70,7 +94,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                         ProductId = productId.ToString()
                     };
 
-                    var response = await _catalogServiceClient.GetProductByIdAsync(request, headers);
+                    var response = await _catalogServiceClient.GetProductByIdAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     if (response?.Product == null)
                         throw new Exception($"Couldn't find product with id#{productId}.");
 
@@ -104,7 +128,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 {
                     _logger.LogInformation("headers:", headers);
 
-                    var response = await _catalogServiceClient.CreateProductAsync(request, headers);
+                    var response = await _catalogServiceClient.CreateProductAsync(request, headers, DateTime.UtcNow.AddSeconds(3));
                     return Ok(response);
                 });
         }
