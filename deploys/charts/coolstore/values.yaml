@@ -41,7 +41,6 @@ cartSettings:
   Host: "0.0.0.0"
   Port: 5003
   MySqlDbFQDN: "mysqldb:3306"
-  MySqlDbUserName: "root"
   CatalogUri: "catalog:5002"
 
 inventorySettings:

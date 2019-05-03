@@ -7,10 +7,10 @@ metadata:
     app: inventory
 spec:
   ports:
-  - port: {{ .Values.inventorySettings.Port }}
+  - name: grpc
+    port: {{ .Values.inventorySettings.Port }}
     targetPort: {{ .Values.inventorySettings.Port }}
     protocol: TCP
-    name: http
   selector:
     app: inventory
 ---
