@@ -44,6 +44,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         new Google.Protobuf.WellKnownTypes.Empty(),
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok();
                 });
         }
@@ -59,6 +60,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         new Google.Protobuf.WellKnownTypes.Empty(),
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok();
                 });
         }
@@ -74,6 +76,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         new Google.Protobuf.WellKnownTypes.Empty(),
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok();
                 });
         }
@@ -92,10 +95,12 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         CurrentPage = currentPage,
                         HighPrice = highPrice
                     };
+
                     var response = await _catalogServiceClient.GetProductsAsync(
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     var extraResponse = response.Products
                     .Select(x =>
                         new
@@ -172,6 +177,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response);
                 });
         }

@@ -39,10 +39,12 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                     {
                         CartId = cartId.ToString()
                     };
+
                     var response = await _cartServiceClient.GetCartAsync(
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response.Result);
                 });
         }
@@ -58,6 +60,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response.Result);
                 });
         }
@@ -73,6 +76,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response.Result);
                 });
         }
@@ -89,10 +93,12 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                         CartId = cartId.ToString(),
                         ProductId = productId.ToString()
                     };
+
                     var response = await _cartServiceClient.DeleteItemAsync(
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response.ProductId);
                 });
         }
@@ -107,10 +113,12 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                     var request = new CheckoutRequest {
                         CartId = cartId.ToString()
                     };
+
                     var response = await _cartServiceClient.CheckoutAsync(
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response.IsSucceed);
                 });
         }

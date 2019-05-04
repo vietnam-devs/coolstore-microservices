@@ -39,6 +39,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                         new Google.Protobuf.WellKnownTypes.Empty(),
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response.Ratings);
                 });
         }
@@ -54,10 +55,12 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                     {
                         ProductId = productId.ToString()
                     };
+
                     var response = await _ratingServiceClient.GetRatingByProductIdAsync(
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response.Rating);
                 });
         }
@@ -73,6 +76,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response.Rating);
                 });
         }
@@ -88,6 +92,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                         request,
                         headers,
                         DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response.Rating);
                 });
         }
