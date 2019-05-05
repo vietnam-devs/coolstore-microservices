@@ -120,8 +120,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
 
                     var response = await _catalogServiceClient.GetProductByIdAsync(
                         request,
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers);
 
                     if (response?.Product == null)
                         throw new Exception($"Couldn't find product with id#{productId}.");
@@ -131,8 +130,7 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                         {
                             Id = response.Product.InventoryId
                         },
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers);
 
                     if (inventory == null)
                         throw new Exception($"Couldn't find inventory of product with id#{productId}.");

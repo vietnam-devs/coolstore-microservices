@@ -18,13 +18,13 @@
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.4.0",
-    "dotenv": "^6.2.0",
+    "chalk": "^2.4.2",
+    "dotenv": "^8.0.0",
     "google-proto-files": "^0.18.0",
     "grpc": "^1.18.0",
     "mongoose": "^5.4.2",
     "pino": "^5.11.1",
-    "uuid": "^3.3.2",
-    "chalk": "^2.4.2"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@types/mongoose": "^5.3.12",
