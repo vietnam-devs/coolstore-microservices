@@ -33,7 +33,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v1.Grpc
                         h.Key.ToLowerInvariant() == "x-b3-sampled" ||
                         h.Key.ToLowerInvariant() == "x-b3-flags" ||
                         h.Key.ToLowerInvariant() == "x-ot-span-context" ||
-                        h.Key.ToLowerInvariant() == "x-role")
+                        h.Key.ToLowerInvariant() == "x-role" ||
+                        h.Key.ToLowerInvariant() == "version")
                     {
                         metadata.Add(h.Key, h.Value);
                     }

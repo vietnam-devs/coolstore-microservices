@@ -42,13 +42,7 @@ CREATE TABLE `Products` (
 CREATE INDEX `IX_CartItems_CartId` ON `CartItems` (`CartId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20190407074456_InitCartDb', '2.2.3-servicing-35854');
-
-CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
-    `MigrationId` varchar(95) NOT NULL,
-    `ProductVersion` varchar(32) NOT NULL,
-    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
-);
+VALUES ('20190506031623_InitCartDb', '2.2.3-servicing-35854');
 
 CREATE TABLE `Inventories` (
     `Id` char(36) NOT NULL,

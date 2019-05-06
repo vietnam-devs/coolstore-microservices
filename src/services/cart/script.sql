@@ -39,6 +39,6 @@ CREATE TABLE `Products` (
 CREATE INDEX `IX_CartItems_CartId` ON `CartItems` (`CartId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20190407074456_InitCartDb', '2.2.3-servicing-35854');
+VALUES ('20190506031623_InitCartDb', '2.2.3-servicing-35854');
 
 
