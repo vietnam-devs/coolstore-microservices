@@ -29,32 +29,28 @@ namespace VND.CoolStore.Services.Cart
         {
             GrpcEnvironment.SetLogger(new ConsoleLogger());
 
-            using (var scope = _resolver.CreateScope())
+            var env = _resolver.GetRequiredService<IHostingEnvironment>();
+            var host = Config["Hosts:Local:Host"];
+            var port = Config["Hosts:Local:Port"].ConvertTo<int>();
+            var serviceName = Config["Hosts:ServiceName"];
+
+            if (!env.IsDevelopment())
             {
-                var resolver = scope.ServiceProvider;
-                var env = resolver.GetRequiredService<IHostingEnvironment>();
-                var host = Config["Hosts:Local:Host"];
-                var port = Config["Hosts:Local:Port"].ConvertTo<int>();
-                var serviceName = Config["Hosts:ServiceName"];
+                port = Environment.GetEnvironmentVariable($"{serviceName.ToUpperInvariant()}_HOST").ConvertTo<int>();
+            }
 
-                if (!env.IsDevelopment())
+            var server = new Server
+            {
+                Services =
                 {
-                    port = Environment.GetEnvironmentVariable($"{serviceName.ToUpperInvariant()}_HOST").ConvertTo<int>();
-                }
-
-                var server = new Server
-                {
-                    Services =
-                {
-                    CartService.BindService(new CartServiceImpl(resolver)),
+                    CartService.BindService(new CartServiceImpl(_resolver)),
                     Grpc.Health.V1.Health.BindService(new HealthImpl())
                 },
-                    Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
-                };
+                Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
+            };
 
-                Logger.LogInformation($"{nameof(CartService)} is listening on {host}:{port}.");
-                return server;
-            }
+            Logger.LogInformation($"{nameof(CartService)} is listening on {host}:{port}.");
+            return server;
         }
 
         protected override void SuppressFinalize()
