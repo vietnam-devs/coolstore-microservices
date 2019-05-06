@@ -42,8 +42,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
 
                     var response = await _cartServiceClient.GetCartAsync(
                         request,
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     return Ok(response.Result);
                 });
@@ -58,8 +58,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 {
                     var response = await _cartServiceClient.InsertItemToNewCartAsync(
                         request,
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     return Ok(response.Result);
                 });
@@ -74,8 +74,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 {
                     var response = await _cartServiceClient.UpdateItemInCartAsync(
                         request,
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     return Ok(response.Result);
                 });
@@ -96,8 +96,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
 
                     var response = await _cartServiceClient.DeleteItemAsync(
                         request,
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     return Ok(response.ProductId);
                 });
@@ -116,8 +116,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
 
                     var response = await _cartServiceClient.CheckoutAsync(
                         request,
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     return Ok(response.IsSucceed);
                 });

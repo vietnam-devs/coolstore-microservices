@@ -42,8 +42,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                 {
                     await _catalogServiceClient.PingAsync(
                         new Google.Protobuf.WellKnownTypes.Empty(),
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     return Ok();
                 });
@@ -58,8 +58,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                 {
                     await _catalogServiceClient.AdminPingAsync(
                         new Google.Protobuf.WellKnownTypes.Empty(),
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     return Ok();
                 });
@@ -74,8 +74,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                 {
                     await _catalogServiceClient.ExpectErrorAsync(
                         new Google.Protobuf.WellKnownTypes.Empty(),
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     return Ok();
                 });
@@ -98,8 +98,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
 
                     var response = await _catalogServiceClient.GetProductsAsync(
                         request,
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     var extraResponse = response.Products
                     .Select(x =>
@@ -138,6 +138,9 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                     if (response?.Product == null)
                         throw new Exception($"Couldn't find product with id#{productId}.");
 
+                    _logger.LogError("xxxxxxxxxxx:", $"{response != null}");
+                    _logger.LogError("yyyyyyyyyyy:", $"{response.Product != null}");
+
                     var inventory = await _inventoryServiceClient.GetInventoryAsync(
                         new Inventory.v1.Grpc.GetInventoryRequest
                         {
@@ -173,8 +176,8 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
 
                     var response = await _catalogServiceClient.CreateProductAsync(
                         request,
-                        headers,
-                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
 
                     return Ok(response);
                 });
