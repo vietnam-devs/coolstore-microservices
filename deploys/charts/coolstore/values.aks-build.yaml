@@ -1,0 +1,24 @@
+image:
+  pullPolicy: Always
+
+hosts:
+  web: coolstore-msbuild.ml 
+  api: api.coolstore-msbuild.ml
+  idp: id.coolstore-msbuild.ml
+
+idpSettings:
+  BashPath: /
+  ExternalCurrentUri: http://id.coolstore-msbuild.ml/
+  SwaggerRedirectUri: http://api.coolstore-msbuild.ml/swagger/oauth2-redirect.html
+  SwaggerPostLogoutRedirectUri: http://api.coolstore-msbuild.ml
+  SwaggerAllowedCorsOrigin: http://api.coolstore-msbuild.ml
+  SpaAllowedCorsOrigin: http://coolstore-msbuild.ml
+
+cartSettings:
+  CatalogUri: "http://api.coolstore-msbuild.ml/catalog"
+
+spaSettings:
+  NodeEnv: development
+  WebUri: http://coolstore-msbuild.ml/
+  IdpUri: http://id.coolstore-msbuild.ml/
+  OpenApiUri: http://api.coolstore-msbuild.ml/

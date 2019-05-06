@@ -1,48 +1,48 @@
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: open-api-v2
-  namespace: {{ .Release.Namespace }}
-  labels:
-    app: open-api
-    version: v2
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: open-api
-      version: v2
-  template:
-    metadata:
-      labels:
-        app: open-api
-        version: v2
-    spec:
-      containers:
-      - name: open-api
-        image: {{.Values.image.imageRegistry}}/cs-open-api-v1:{{.Values.image.dockerTag}}
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        env:
-        - name: ApiVersion
-          value: "2.0"
-        - name: Hosts__BasePath
-          value: "/open-api"
-        - name: GrpcEndPoints__CatalogEndPoint
-          value: {{ .Values.openAPISettings.CatalogEndPoint }}
-        - name: GrpcEndPoints__CartEndPoint
-          value: {{ .Values.openAPISettings.CartEndPoint }}
-        - name: GrpcEndPoints__InventoryEndPoint
-          value: {{ .Values.openAPISettings.InventoryEndPoint }}
-        - name: GrpcEndPoints__RatingEndPoint
-          value: {{ .Values.openAPISettings.RatingEndPoint }}
-        ports:
-        - containerPort: 5012
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 250m
-            memory: 256Mi
----
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: open-api-v2
+#   namespace: {{ .Release.Namespace }}
+#   labels:
+#     app: open-api
+#     version: v2
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: open-api
+#       version: v2
+#   template:
+#     metadata:
+#       labels:
+#         app: open-api
+#         version: v2
+#     spec:
+#       containers:
+#       - name: open-api
+#         image: {{.Values.image.imageRegistry}}/cs-open-api-v1:{{.Values.image.dockerTag}}
+#         imagePullPolicy: {{ .Values.image.pullPolicy }}
+#         env:
+#         - name: ApiVersion
+#           value: "2.0"
+#         - name: Hosts__BasePath
+#           value: "/open-api"
+#         - name: GrpcEndPoints__CatalogEndPoint
+#           value: {{ .Values.openAPISettings.CatalogEndPoint }}
+#         - name: GrpcEndPoints__CartEndPoint
+#           value: {{ .Values.openAPISettings.CartEndPoint }}
+#         - name: GrpcEndPoints__InventoryEndPoint
+#           value: {{ .Values.openAPISettings.InventoryEndPoint }}
+#         - name: GrpcEndPoints__RatingEndPoint
+#           value: {{ .Values.openAPISettings.RatingEndPoint }}
+#         ports:
+#         - containerPort: 5012
+#         resources:
+#           requests:
+#             cpu: 100m
+#             memory: 128Mi
+#           limits:
+#             cpu: 250m
+#             memory: 256Mi
+# ---

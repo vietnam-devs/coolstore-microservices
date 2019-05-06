@@ -8,28 +8,6 @@ spec:
   gateways:
   - cs-gateway
   http:
-  # uncomment for fault injection
-  # - fault:
-  #     # delay: 
-  #     #   fixedDelay: 5s
-  #     #   percent: 100
-  #     abort:
-  #       httpStatus: 500
-  #       percent: 100
-  #   match:
-  #   - headers:
-  #       x-username:
-  #         exact: thang
-  #     uri:
-  #       prefix: /catalog
-  #   route:
-  #   - destination:
-  #       host: open-api
-  #       subset: v1
-  #       port:
-  #         number: 80
-  #     weight: 100
-
   - match:
     - uri:
         prefix: /catalog/
@@ -45,19 +23,19 @@ spec:
         port:
           number: 80
       weight: 100
-    # uncomment when apply shadow - mirroring
+    # uncomment when apply shadow - mirroring  #3
     # mirror:
     #   host: open-api
     #   subset: v2
     #   port:
     #       number: 80
-    # uncomment when apply canary
+    # uncomment when apply canary - #5
     # - destination:
     #     host: open-api
     #     subset: v2
     #     port:
     #       number: 80
-    #   weight: 30
+    #   weight: 20
 
   - match:
     - uri:
@@ -141,6 +119,7 @@ spec:
         host: spa
         port:
           number: 80
+
 ---
 
 # uncomment when apply shodow - mirroring
@@ -149,7 +128,38 @@ kind: DestinationRule
 metadata:
   name: open-api-destination-rule
 spec:
-  host: open-api
+  host: open-api.dev-env.svc.cluster.local
+  # trafficPolicy:
+    # connectionPool:
+    #   tcp:
+    #     maxConnections: 100
+    #   http:
+    #     http1MaxPendingRequests: 1
+    #     maxRequestsPerConnection: 1
+    # outlierDetection:
+    #   consecutiveErrors: 1
+    #   interval: 1s
+    #   baseEjectionTime: 10m
+    #   maxEjectionPercent: 100
+  # trafficPolicy:
+  #   tls:
+  #     mode: DISABLE
+  #   outlierDetection:
+  #     consecutiveErrors: 1
+  #     interval: 1s
+  #     baseEjectionTime: 15m
+  #     maxEjectionPercent: 100
+  #    loadBalancer:
+  #      consistentHash:
+  #        httpCookie:
+  #          name: user
+  #          ttl: 0s
+  # apply sticky session for A/B testing
+  # trafficPolicy:
+  #     loadBalancer:
+  #       consistentHash:
+  #         httpHeaderName: version
+  #         minimumRingSize: 1024 # missing this property, LB will be crashed
   subsets:
   - name: v1
     labels:

@@ -9,7 +9,7 @@ spec:
   - jwt:
       issuer: "http://id.cool-store.ml"
       jwksUri: "http://id.cool-store.ml/.well-known/openid-configuration/jwks"
-      # trigger_rules:
-      # - excluded_paths:
-      #   - exact: /open-api/catalog/api/products/ping
+      trigger_rules:
+      - excluded_paths:
+        - exact: /catalog/api/products/ping
   principalBinding: USE_ORIGIN
