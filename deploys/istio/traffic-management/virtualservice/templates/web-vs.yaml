@@ -35,7 +35,7 @@ spec:
     #     subset: v2
     #     port:
     #       number: 80
-    #   weight: 20
+    #   weight: 70
 
   - match:
     - uri:
@@ -122,38 +122,12 @@ spec:
 
 ---
 
-# uncomment when apply shodow - mirroring
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: open-api-destination-rule
 spec:
   host: open-api.dev-env.svc.cluster.local
-  # trafficPolicy:
-    # connectionPool:
-    #   tcp:
-    #     maxConnections: 100
-    #   http:
-    #     http1MaxPendingRequests: 1
-    #     maxRequestsPerConnection: 1
-    # outlierDetection:
-    #   consecutiveErrors: 1
-    #   interval: 1s
-    #   baseEjectionTime: 10m
-    #   maxEjectionPercent: 100
-  # trafficPolicy:
-  #   tls:
-  #     mode: DISABLE
-  #   outlierDetection:
-  #     consecutiveErrors: 1
-  #     interval: 1s
-  #     baseEjectionTime: 15m
-  #     maxEjectionPercent: 100
-  #    loadBalancer:
-  #      consistentHash:
-  #        httpCookie:
-  #          name: user
-  #          ttl: 0s
   # apply sticky session for A/B testing
   # trafficPolicy:
   #     loadBalancer:

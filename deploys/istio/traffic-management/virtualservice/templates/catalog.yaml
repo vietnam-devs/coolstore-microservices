@@ -10,16 +10,18 @@
 #   # chaos engineering
 #   #4
 #   - fault:
-#     #   delay: 
-#     #     fixedDelay: 10s
-#     #     percent: 100
+# #       delay: 
+# #         fixedDelay: 10s
+# #         percent: 100
 #       abort:  # chaos engineering
 #         httpStatus: 555
 #         percent: 100
 #     match:
-#     - headers:
+#     - headers: 
 #         x-role:
 #           exact: tester
+#         version:
+#           exact: v2
 #     route:
 #     - destination:
 #         host: catalog

@@ -32,20 +32,20 @@ idpSettings:
 catalogSettings:
   NodeEnv: "production"
   Host: "0.0.0.0"
-  Port: 5002
+  Port: "5002"
   MongoDbHost: mymongodb
   MongoDbPort: 27017
   MongoDbName: catalog
 
 cartSettings:
   Host: "0.0.0.0"
-  Port: 5003
+  Port: "5003"
   MySqlDbFQDN: "mysqldb:3306"
   CatalogUri: "catalog:5002"
 
 inventorySettings:
   Host: "0.0.0.0"
-  Port: 5004
+  Port: "5004"
   MySqlDbFQDN: "mysqldb:3306"
 
 ratingSettings:

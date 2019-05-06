@@ -27,7 +27,7 @@ spec:
         - name: Hosts__Local__Host
           value: {{ .Values.cartSettings.Host }}
         - name: Hosts__Local__Port
-          value: {{ .Values.cartSettings.Port }}
+          value: {{ .Values.cartSettings.Port | quote}}
         - name: Features__EfCore__MySqlDb__FQDN
           value: {{ .Values.cartSettings.MySqlDbFQDN }}
         - name: Features__EfCore__MySqlDb__Password
@@ -48,11 +48,11 @@ spec:
           periodSeconds: 10
           exec:
             command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.cartSettings.Port }}"]
-        # resources:
-        #   requests:
-        #     cpu: 70m
-        #     memory: 128Mi
-        #   limits:
-        #     cpu: 250m
-        #     memory: 256Mi
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 512Mi
 ---

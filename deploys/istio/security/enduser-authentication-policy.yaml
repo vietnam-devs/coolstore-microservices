@@ -7,8 +7,8 @@ spec:
   - name: open-api  
   origins:
   - jwt:
-      issuer: "http://id.cool-store.ml"
-      jwksUri: "http://id.cool-store.ml/.well-known/openid-configuration/jwks"
+      issuer: "http://id.coolstore-msbuild.ml"
+      jwksUri: "http://id.coolstore-msbuild.ml/.well-known/openid-configuration/jwks"
       trigger_rules:
       - excluded_paths:
         - exact: /catalog/api/products/ping
