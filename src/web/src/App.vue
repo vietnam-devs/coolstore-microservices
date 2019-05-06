@@ -1,19 +1,17 @@
 <template>
-  <no-ssr>
-    <section id="app" class="hero">
-      <div class="hero-head">
-        <cs-header></cs-header>
-      </div>
-      <div class="hero-body">
-        <transition name="fade" mode="out-in">
-          <router-view class="view"></router-view>
-        </transition>
-      </div>
-      <div class="hero-footer">
-        <cs-footer></cs-footer>
-      </div>
-    </section>
-  </no-ssr>
+  <section id="app" class="hero">
+    <div class="hero-head">
+      <cs-header></cs-header>
+    </div>
+    <div class="hero-body">
+      <transition name="fade" mode="out-in">
+        <router-view class="view"></router-view>
+      </transition>
+    </div>
+    <div class="hero-footer">
+      <cs-footer></cs-footer>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -24,7 +22,8 @@ import NoSSR from "vue-no-ssr";
 export default {
   name: "app",
   components: {
-    "no-ssr": NoSSR
+    "cs-footer": Footer,
+    "cs-header": Header
   },
   data() {
     return {
@@ -36,10 +35,6 @@ export default {
       let userInfo = this.$store.getters["account/userInfo"] || {};
       if (userInfo.sub) return "Logged!";
     }
-  },
-  components: {
-    "cs-footer": Footer,
-    "cs-header": Header
   }
 };
 </script>

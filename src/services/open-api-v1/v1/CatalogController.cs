@@ -2,8 +2,11 @@ using System;
 using System.Threading.Tasks;
 using Coolstore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using VND.CoolStore.Services.OpenApiV1.v1.Grpc;
 using static Coolstore.CatalogService;
+using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
 
 namespace VND.CoolStore.Services.OpenApiV1.v1
 {
@@ -12,23 +15,69 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
     [ApiController]
     public class CatalogController : ControllerBase
     {
+        private readonly ILogger<CatalogController> _logger;
+        private readonly AppOptions _appOptions;
         private readonly CatalogServiceClient _catalogServiceClient;
+        private readonly InventoryServiceClient _inventoryServiceClient;
 
-        public CatalogController(CatalogServiceClient catalogServiceClient)
+        public CatalogController(
+            ILoggerFactory loggerFactory,
+            IOptions<AppOptions> options,
+            CatalogServiceClient catalogServiceClient,
+            InventoryServiceClient inventoryServiceClient)
         {
+            _logger = loggerFactory.CreateLogger<CatalogController>();
+            _appOptions = options.Value;
             _catalogServiceClient = catalogServiceClient;
+            _inventoryServiceClient = inventoryServiceClient;
         }
 
         [HttpGet("ping")]
-        public IActionResult Ping()
+        public async ValueTask<IActionResult> Ping()
         {
-            return Ok();
+            return await HttpContext.EnrichGrpcWithHttpContext(
+                "catalog-service",
+                async headers =>
+                {
+                    await _catalogServiceClient.PingAsync(
+                        new Google.Protobuf.WellKnownTypes.Empty(),
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
+
+                    return Ok();
+                });
         }
 
         [HttpGet("admin-ping")]
-        public IActionResult AdminPing()
+        public async ValueTask<IActionResult> AdminPing()
         {
-            return Ok();
+            return await HttpContext.EnrichGrpcWithHttpContext(
+                "catalog-service",
+                async headers =>
+                {
+                    await _catalogServiceClient.AdminPingAsync(
+                        new Google.Protobuf.WellKnownTypes.Empty(),
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
+
+                    return Ok();
+                });
+        }
+
+        [HttpGet("expect-error")]
+        public async ValueTask<IActionResult> ExpectError()
+        {
+            return await HttpContext.EnrichGrpcWithHttpContext(
+                "catalog-service",
+                async headers =>
+                {
+                    await _catalogServiceClient.ExpectErrorAsync(
+                        new Google.Protobuf.WellKnownTypes.Empty(),
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
+
+                    return Ok();
+                });
         }
 
         [HttpGet("{currentPage:int}/{highPrice:int}")]
@@ -38,12 +87,19 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "catalog-service",
                 async headers =>
                 {
+                    _logger.LogInformation("headers:", headers);
+
                     var request = new GetProductsRequest
                     {
                         CurrentPage = currentPage,
                         HighPrice = highPrice
                     };
-                    var response = await _catalogServiceClient.GetProductsAsync(request, headers);
+
+                    var response = await _catalogServiceClient.GetProductsAsync(
+                        request,
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
+
                     return Ok(response.Products);
                 });
         }
@@ -55,12 +111,43 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "catalog-service",
                 async headers =>
                 {
+                    _logger.LogInformation("headers:", headers);
+
                     var request = new GetProductByIdRequest
                     {
                         ProductId = productId.ToString()
                     };
-                    var response = await _catalogServiceClient.GetProductByIdAsync(request, headers);
-                    return Ok(response.Product);
+
+                    var response = await _catalogServiceClient.GetProductByIdAsync(
+                        request,
+                        headers);
+
+                    if (response?.Product == null)
+                        throw new Exception($"Couldn't find product with id#{productId}.");
+
+                    _logger.LogError("xxxxxxxxxxx:", $"{response != null}");
+                    _logger.LogError("yyyyyyyyyyy:", $"{response.Product != null}");
+
+                    var inventory = await _inventoryServiceClient.GetInventoryAsync(
+                        new Inventory.v1.Grpc.GetInventoryRequest
+                        {
+                            Id = response.Product.InventoryId
+                        },
+                        headers);
+
+                    if (inventory == null)
+                        throw new Exception($"Couldn't find inventory of product with id#{productId}.");
+
+                    return Ok(new {
+                        response.Product.Id,
+                        response.Product.Name,
+                        response.Product.Desc,
+                        response.Product.Price,
+                        response.Product.ImageUrl,
+                        InventoryId = inventory.Result.Id,
+                        InventoryLink = inventory.Result.Link,
+                        InventoryLocation = inventory.Result.Location,
+                    });
                 });
         }
 
@@ -71,7 +158,13 @@ namespace VND.CoolStore.Services.OpenApiV1.v1
                 "catalog-service",
                 async headers =>
                 {
-                    var response = await _catalogServiceClient.CreateProductAsync(request, headers);
+                    _logger.LogInformation("headers:", headers);
+
+                    var response = await _catalogServiceClient.CreateProductAsync(
+                        request,
+                        headers/*,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut)*/);
+
                     return Ok(response);
                 });
         }

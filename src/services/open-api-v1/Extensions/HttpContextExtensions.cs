@@ -26,13 +26,14 @@ namespace VND.CoolStore.Services.OpenApiV1.v1.Grpc
                 // add supporting for OpenTracing standard
                 httpContext.Request?.Headers.ToList().ForEach(h =>
                 {
-                    if (h.Key == "x-request-id" ||
-                                h.Key == "x-b3-traceid" ||
-                                h.Key == "x-b3-spanid" ||
-                                h.Key == "x-b3-parentspanid" ||
-                                h.Key == "x-b3-sampled" ||
-                                h.Key == "x-b3-flags" ||
-                                h.Key == "x-ot-span-context")
+                    if (h.Key.ToLowerInvariant() == "x-request-id" ||
+                        h.Key.ToLowerInvariant() == "x-b3-traceid" ||
+                        h.Key.ToLowerInvariant() == "x-b3-spanid" ||
+                        h.Key.ToLowerInvariant() == "x-b3-parentspanid" ||
+                        h.Key.ToLowerInvariant() == "x-b3-sampled" ||
+                        h.Key.ToLowerInvariant() == "x-b3-flags" ||
+                        h.Key.ToLowerInvariant() == "x-ot-span-context" ||
+                        h.Key.ToLowerInvariant() == "x-role")
                     {
                         metadata.Add(h.Key, h.Value);
                     }
@@ -40,9 +41,14 @@ namespace VND.CoolStore.Services.OpenApiV1.v1.Grpc
 
                 return await catchAction(metadata);
             }
-            catch (RpcException ex)
+            catch (RpcException)
             {
-                throw new Exception($"{scope}: {ex.Message}");
+                throw;
+            }
+            catch (Exception)
+            {
+                //throw new Exception($"{scope}: {ex.Message}");
+                throw;
             }
         }
     }

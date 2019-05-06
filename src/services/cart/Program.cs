@@ -26,6 +26,7 @@ namespace VND.CoolStore.Services.Cart
                     args,
                     services =>
                     {
+                        services.AddEfCoreMySqlDb();
                         services.AddDbContext<CartDbContext>((sp, o) =>
                         {
                             var config = sp.GetService<IConfiguration>();
@@ -37,7 +38,6 @@ namespace VND.CoolStore.Services.Cart
 
                         services.AddScoped<DbContext>(resolver => resolver.GetService<CartDbContext>());
                         services.AddGenericRepository();
-                        services.AddEfCoreMySqlDb();
                     },
                     services =>
                     {

@@ -1,15 +1,7 @@
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NetCoreKit.Infrastructure;
-using NetCoreKit.Infrastructure.EfCore;
-using NetCoreKit.Infrastructure.EfCore.Db;
-using NetCoreKit.Infrastructure.EfCore.MySql;
 using NetCoreKit.Infrastructure.GrpcHost;
-using VND.CoolStore.Services.Inventory.v1.Db;
 
 namespace VND.CoolStore.Services.Inventory
 {
@@ -22,6 +14,7 @@ namespace VND.CoolStore.Services.Inventory
                     args,
                     services =>
                     {
+                        /*services.AddEfCoreMySqlDb();
                         services.AddDbContext<InventoryDbContext>((sp, o) =>
                         {
                             var config = sp.GetService<IConfiguration>();
@@ -32,8 +25,7 @@ namespace VND.CoolStore.Services.Inventory
                         });
 
                         services.AddScoped<DbContext>(resolver => resolver.GetService<InventoryDbContext>());
-                        services.AddGenericRepository();
-                        services.AddEfCoreMySqlDb();
+                        services.AddGenericRepository();*/
                     },
                     services =>
                     {

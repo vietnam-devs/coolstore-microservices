@@ -1,7 +1,6 @@
 CREATE DATABASE maindb;
 USE maindb;
 
-/* cart-service */
 CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
     `MigrationId` varchar(95) NOT NULL,
     `ProductVersion` varchar(32) NOT NULL,
@@ -45,7 +44,6 @@ CREATE INDEX `IX_CartItems_CartId` ON `CartItems` (`CartId`);
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('20190407074456_InitCartDb', '2.2.3-servicing-35854');
 
-/* inventory-service */
 CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
     `MigrationId` varchar(95) NOT NULL,
     `ProductVersion` varchar(32) NOT NULL,

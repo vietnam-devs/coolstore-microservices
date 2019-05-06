@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: mymongodb
-        image: bitnami/mongodb:latest
+        image: {{.Values.image.imageRegistry}}/cs-mymongodb:{{.Values.image.dockerTag}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 27017

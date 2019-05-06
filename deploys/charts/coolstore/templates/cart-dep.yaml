@@ -27,17 +27,15 @@ spec:
         - name: Hosts__Local__Host
           value: {{ .Values.cartSettings.Host }}
         - name: Hosts__Local__Port
-          value: {{ .Values.cartSettings.Port | quote }}
+          value: {{ .Values.cartSettings.Port }}
         - name: Features__EfCore__MySqlDb__FQDN
           value: {{ .Values.cartSettings.MySqlDbFQDN }}
-        - name: Features__EfCore__MySqlDb__UserName
-          value: {{ .Values.cartSettings.MySqlDbUserName }}
         - name: Features__EfCore__MySqlDb__Password
           valueFrom:
             secretKeyRef:
               name: cart-secrets
               key: MySqlDbPassword
-        - name: Hosts__Externals__Catalog__Uri
+        - name: GrpcEndPoints__CatalogEndPoint
           value: {{ .Values.cartSettings.CatalogUri }}
         ports:
         - containerPort: {{ .Values.cartSettings.Port }}

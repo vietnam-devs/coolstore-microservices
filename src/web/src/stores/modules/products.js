@@ -11,7 +11,7 @@ export default {
     error: null,
     page: 1,
     product: {},
-    highprice: null
+    highprice: 0
   },
 
   getters: {
@@ -35,15 +35,12 @@ export default {
       })
     },
     highprice: state => {
-      state.highprice =
-        state.highprice ||
-        Math.max.apply(
-          Math,
-          state.products.map(function(product) {
-            return product.price
-          })
-        )
-      return state.highprice
+      return Math.max.apply(
+        Math,
+        state.products.map(function(product) {
+          return product.price
+        })
+      )
     }
   },
 

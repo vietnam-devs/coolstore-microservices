@@ -34,6 +34,13 @@ namespace Coolstore {
         __Marshaller_google_protobuf_Empty,
         __Marshaller_google_protobuf_Empty);
 
+    static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty> __Method_ExpectError = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.Empty>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "ExpectError",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_google_protobuf_Empty);
+
     static readonly grpc::Method<global::Coolstore.GetProductsRequest, global::Coolstore.GetProductsResponse> __Method_GetProducts = new grpc::Method<global::Coolstore.GetProductsRequest, global::Coolstore.GetProductsResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
@@ -70,6 +77,11 @@ namespace Coolstore {
       }
 
       public virtual global::System.Threading.Tasks.Task<global::Google.Protobuf.WellKnownTypes.Empty> AdminPing(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::Google.Protobuf.WellKnownTypes.Empty> ExpectError(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -146,6 +158,22 @@ namespace Coolstore {
       {
         return CallInvoker.AsyncUnaryCall(__Method_AdminPing, null, options, request);
       }
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty ExpectError(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ExpectError(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty ExpectError(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ExpectError, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> ExpectErrorAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ExpectErrorAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> ExpectErrorAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ExpectError, null, options, request);
+      }
       public virtual global::Coolstore.GetProductsResponse GetProducts(global::Coolstore.GetProductsRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetProducts(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -208,6 +236,7 @@ namespace Coolstore {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Ping, serviceImpl.Ping)
           .AddMethod(__Method_AdminPing, serviceImpl.AdminPing)
+          .AddMethod(__Method_ExpectError, serviceImpl.ExpectError)
           .AddMethod(__Method_GetProducts, serviceImpl.GetProducts)
           .AddMethod(__Method_GetProductById, serviceImpl.GetProductById)
           .AddMethod(__Method_CreateProduct, serviceImpl.CreateProduct).Build();
@@ -221,6 +250,7 @@ namespace Coolstore {
     {
       serviceBinder.AddMethod(__Method_Ping, serviceImpl.Ping);
       serviceBinder.AddMethod(__Method_AdminPing, serviceImpl.AdminPing);
+      serviceBinder.AddMethod(__Method_ExpectError, serviceImpl.ExpectError);
       serviceBinder.AddMethod(__Method_GetProducts, serviceImpl.GetProducts);
       serviceBinder.AddMethod(__Method_GetProductById, serviceImpl.GetProductById);
       serviceBinder.AddMethod(__Method_CreateProduct, serviceImpl.CreateProduct);

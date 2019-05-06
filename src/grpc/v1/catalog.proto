@@ -15,6 +15,11 @@ service CatalogService {
       get: "/catalog/api/products/admin-ping"
     };
   }
+  rpc ExpectError(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/catalog/api/products/expect-error"
+    };
+  }
   rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {
     option (google.api.http) = {
       get: "/catalog/api/products/{current_page}/{high_price}"
@@ -39,6 +44,7 @@ message CatalogProductDto {
   string desc = 3;
   double price = 4;
   string image_url = 5;
+  string inventory_id = 6;
 }
 
 message GetProductsRequest {

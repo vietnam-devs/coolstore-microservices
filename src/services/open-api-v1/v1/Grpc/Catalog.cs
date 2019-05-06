@@ -25,36 +25,39 @@ namespace Coolstore {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cg1jYXRhbG9nLnByb3RvEgljb29sc3RvcmUaHGdvb2dsZS9hcGkvYW5ub3Rh",
-            "dGlvbnMucHJvdG8aG2dvb2dsZS9wcm90b2J1Zi9lbXB0eS5wcm90byJdChFD",
+            "dGlvbnMucHJvdG8aG2dvb2dsZS9wcm90b2J1Zi9lbXB0eS5wcm90byJzChFD",
             "YXRhbG9nUHJvZHVjdER0bxIKCgJpZBgBIAEoCRIMCgRuYW1lGAIgASgJEgwK",
             "BGRlc2MYAyABKAkSDQoFcHJpY2UYBCABKAESEQoJaW1hZ2VfdXJsGAUgASgJ",
-            "Ij4KEkdldFByb2R1Y3RzUmVxdWVzdBIUCgxjdXJyZW50X3BhZ2UYASABKAUS",
-            "EgoKaGlnaF9wcmljZRgCIAEoASJFChNHZXRQcm9kdWN0c1Jlc3BvbnNlEi4K",
-            "CHByb2R1Y3RzGAEgAygLMhwuY29vbHN0b3JlLkNhdGFsb2dQcm9kdWN0RHRv",
-            "IisKFUdldFByb2R1Y3RCeUlkUmVxdWVzdBISCgpwcm9kdWN0X2lkGAEgASgJ",
-            "IkcKFkdldFByb2R1Y3RCeUlkUmVzcG9uc2USLQoHcHJvZHVjdBgBIAEoCzIc",
-            "LmNvb2xzdG9yZS5DYXRhbG9nUHJvZHVjdER0byJUChRDcmVhdGVQcm9kdWN0",
-            "UmVxdWVzdBIMCgRuYW1lGAEgASgJEgwKBGRlc2MYAiABKAkSDQoFcHJpY2UY",
-            "AyABKAESEQoJaW1hZ2VfdXJsGAQgASgJIkYKFUNyZWF0ZVByb2R1Y3RSZXNw",
-            "b25zZRItCgdwcm9kdWN0GAEgASgLMhwuY29vbHN0b3JlLkNhdGFsb2dQcm9k",
-            "dWN0RHRvMtYECg5DYXRhbG9nU2VydmljZRJaCgRQaW5nEhYuZ29vZ2xlLnBy",
-            "b3RvYnVmLkVtcHR5GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IiKC0+STAhwS",
-            "Gi9jYXRhbG9nL2FwaS9wcm9kdWN0cy9waW5nEmQKCUFkbWluUGluZxIWLmdv",
-            "b2dsZS5wcm90b2J1Zi5FbXB0eRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIn",
-            "gtPkkwIhEh8vY2F0YWxvZy9hcGkvcHJvZHVjdHMvYWRtaW5waW5nEocBCgtH",
-            "ZXRQcm9kdWN0cxIdLmNvb2xzdG9yZS5HZXRQcm9kdWN0c1JlcXVlc3QaHi5j",
-            "b29sc3RvcmUuR2V0UHJvZHVjdHNSZXNwb25zZSI5gtPkkwIzEjEvY2F0YWxv",
-            "Zy9hcGkvcHJvZHVjdHMve2N1cnJlbnRfcGFnZX0ve2hpZ2hfcHJpY2V9EoEB",
-            "Cg5HZXRQcm9kdWN0QnlJZBIgLmNvb2xzdG9yZS5HZXRQcm9kdWN0QnlJZFJl",
-            "cXVlc3QaIS5jb29sc3RvcmUuR2V0UHJvZHVjdEJ5SWRSZXNwb25zZSIqgtPk",
-            "kwIkEiIvY2F0YWxvZy9hcGkvcHJvZHVjdHMve3Byb2R1Y3RfaWR9EnQKDUNy",
-            "ZWF0ZVByb2R1Y3QSHy5jb29sc3RvcmUuQ3JlYXRlUHJvZHVjdFJlcXVlc3Qa",
-            "IC5jb29sc3RvcmUuQ3JlYXRlUHJvZHVjdFJlc3BvbnNlIiCC0+STAhoiFS9j",
-            "YXRhbG9nL2FwaS9wcm9kdWN0czoBKmIGcHJvdG8z"));
+            "EhQKDGludmVudG9yeV9pZBgGIAEoCSI+ChJHZXRQcm9kdWN0c1JlcXVlc3QS",
+            "FAoMY3VycmVudF9wYWdlGAEgASgFEhIKCmhpZ2hfcHJpY2UYAiABKAEiRQoT",
+            "R2V0UHJvZHVjdHNSZXNwb25zZRIuCghwcm9kdWN0cxgBIAMoCzIcLmNvb2xz",
+            "dG9yZS5DYXRhbG9nUHJvZHVjdER0byIrChVHZXRQcm9kdWN0QnlJZFJlcXVl",
+            "c3QSEgoKcHJvZHVjdF9pZBgBIAEoCSJHChZHZXRQcm9kdWN0QnlJZFJlc3Bv",
+            "bnNlEi0KB3Byb2R1Y3QYASABKAsyHC5jb29sc3RvcmUuQ2F0YWxvZ1Byb2R1",
+            "Y3REdG8iVAoUQ3JlYXRlUHJvZHVjdFJlcXVlc3QSDAoEbmFtZRgBIAEoCRIM",
+            "CgRkZXNjGAIgASgJEg0KBXByaWNlGAMgASgBEhEKCWltYWdlX3VybBgEIAEo",
+            "CSJGChVDcmVhdGVQcm9kdWN0UmVzcG9uc2USLQoHcHJvZHVjdBgBIAEoCzIc",
+            "LmNvb2xzdG9yZS5DYXRhbG9nUHJvZHVjdER0bzLCBQoOQ2F0YWxvZ1NlcnZp",
+            "Y2USWgoEUGluZxIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoWLmdvb2dsZS5w",
+            "cm90b2J1Zi5FbXB0eSIigtPkkwIcEhovY2F0YWxvZy9hcGkvcHJvZHVjdHMv",
+            "cGluZxJlCglBZG1pblBpbmcSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaFi5n",
+            "b29nbGUucHJvdG9idWYuRW1wdHkiKILT5JMCIhIgL2NhdGFsb2cvYXBpL3By",
+            "b2R1Y3RzL2FkbWluLXBpbmcSaQoLRXhwZWN0RXJyb3ISFi5nb29nbGUucHJv",
+            "dG9idWYuRW1wdHkaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiKoLT5JMCJBIi",
+            "L2NhdGFsb2cvYXBpL3Byb2R1Y3RzL2V4cGVjdC1lcnJvchKHAQoLR2V0UHJv",
+            "ZHVjdHMSHS5jb29sc3RvcmUuR2V0UHJvZHVjdHNSZXF1ZXN0Gh4uY29vbHN0",
+            "b3JlLkdldFByb2R1Y3RzUmVzcG9uc2UiOYLT5JMCMxIxL2NhdGFsb2cvYXBp",
+            "L3Byb2R1Y3RzL3tjdXJyZW50X3BhZ2V9L3toaWdoX3ByaWNlfRKBAQoOR2V0",
+            "UHJvZHVjdEJ5SWQSIC5jb29sc3RvcmUuR2V0UHJvZHVjdEJ5SWRSZXF1ZXN0",
+            "GiEuY29vbHN0b3JlLkdldFByb2R1Y3RCeUlkUmVzcG9uc2UiKoLT5JMCJBIi",
+            "L2NhdGFsb2cvYXBpL3Byb2R1Y3RzL3twcm9kdWN0X2lkfRJ0Cg1DcmVhdGVQ",
+            "cm9kdWN0Eh8uY29vbHN0b3JlLkNyZWF0ZVByb2R1Y3RSZXF1ZXN0GiAuY29v",
+            "bHN0b3JlLkNyZWF0ZVByb2R1Y3RSZXNwb25zZSIggtPkkwIaIhUvY2F0YWxv",
+            "Zy9hcGkvcHJvZHVjdHM6ASpiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Api.AnnotationsReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Coolstore.CatalogProductDto), global::Coolstore.CatalogProductDto.Parser, new[]{ "Id", "Name", "Desc", "Price", "ImageUrl" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Coolstore.CatalogProductDto), global::Coolstore.CatalogProductDto.Parser, new[]{ "Id", "Name", "Desc", "Price", "ImageUrl", "InventoryId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Coolstore.GetProductsRequest), global::Coolstore.GetProductsRequest.Parser, new[]{ "CurrentPage", "HighPrice" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Coolstore.GetProductsResponse), global::Coolstore.GetProductsResponse.Parser, new[]{ "Products" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Coolstore.GetProductByIdRequest), global::Coolstore.GetProductByIdRequest.Parser, new[]{ "ProductId" }, null, null, null),
@@ -97,6 +100,7 @@ namespace Coolstore {
       desc_ = other.desc_;
       price_ = other.price_;
       imageUrl_ = other.imageUrl_;
+      inventoryId_ = other.inventoryId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -160,6 +164,17 @@ namespace Coolstore {
       }
     }
 
+    /// <summary>Field number for the "inventory_id" field.</summary>
+    public const int InventoryIdFieldNumber = 6;
+    private string inventoryId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string InventoryId {
+      get { return inventoryId_; }
+      set {
+        inventoryId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as CatalogProductDto);
@@ -178,6 +193,7 @@ namespace Coolstore {
       if (Desc != other.Desc) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Price, other.Price)) return false;
       if (ImageUrl != other.ImageUrl) return false;
+      if (InventoryId != other.InventoryId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -189,6 +205,7 @@ namespace Coolstore {
       if (Desc.Length != 0) hash ^= Desc.GetHashCode();
       if (Price != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Price);
       if (ImageUrl.Length != 0) hash ^= ImageUrl.GetHashCode();
+      if (InventoryId.Length != 0) hash ^= InventoryId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -222,6 +239,10 @@ namespace Coolstore {
         output.WriteRawTag(42);
         output.WriteString(ImageUrl);
       }
+      if (InventoryId.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(InventoryId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -244,6 +265,9 @@ namespace Coolstore {
       }
       if (ImageUrl.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ImageUrl);
+      }
+      if (InventoryId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(InventoryId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -270,6 +294,9 @@ namespace Coolstore {
       }
       if (other.ImageUrl.Length != 0) {
         ImageUrl = other.ImageUrl;
+      }
+      if (other.InventoryId.Length != 0) {
+        InventoryId = other.InventoryId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -300,6 +327,10 @@ namespace Coolstore {
           }
           case 42: {
             ImageUrl = input.ReadString();
+            break;
+          }
+          case 50: {
+            InventoryId = input.ReadString();
             break;
           }
         }

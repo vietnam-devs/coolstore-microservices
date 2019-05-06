@@ -10,13 +10,8 @@
     </div>
     <div class="section capsule is-clearfix">
       <app-sidebar :pricerange.sync="highprice"></app-sidebar>
-      <transition-group v-if="ratings" class="content is-pulled-right" name="items" tag="div">
-        <app-product-list-item
-          :ratings="ratings"
-          v-for="product in products"
-          :key="product['id']"
-          :item="product"
-        ></app-product-list-item>
+      <transition-group class="content is-pulled-right" name="items" tag="div">
+        <app-product-list-item v-for="product in products" :key="product['id']" :item="product"></app-product-list-item>
       </transition-group>
     </div>
   </div>
@@ -37,8 +32,8 @@ export default {
     },
     highprice() {
       return this.$store.getters["products/highprice"];
-    },
-    ratings() {
+    }
+    /*ratings() {
       let ratingSet = this.$store.getters["ratings/ratingSet"];
       let productSet = this.$store.getters["products/products"];
       return productSet.reduce((obj, item) => {
@@ -46,35 +41,35 @@ export default {
         obj[item.id] = ratingSet[item.id];
         return obj;
       }, {});
-    }
+    }*/
   },
   beforeMount() {
     this.loadItems(this.page);
   },
   asyncData({ store }) {
     return [
-      store.dispatch("products/GET_LIST_PRODUCT", { page: 0 }),
-      store.dispatch("ratings/GET_LIST_RATING")
+      // store.dispatch("products/GET_LIST_PRODUCT", { page: 0 })
+      // store.dispatch("ratings/GET_LIST_RATING")
     ];
   },
   methods: {
     loadItems(page) {
       Promise.all([
-        this.$store.dispatch("products/GET_LIST_PRODUCT", { page: 0 }),
-        this.$store.dispatch("ratings/GET_LIST_RATING")
+        this.$store.dispatch("products/GET_LIST_PRODUCT", { page: 0 })
+        //this.$store.dispatch("ratings/GET_LIST_RATING")
       ]);
     },
     formatPrice(value) {
       let val = (value / 1).toFixed(2).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
-    setRating(productId, rating) {
+    /*setRating(productId, rating) {
       this.$store.dispatch("ratings/SET_RATING_FOR_PRODUCT", {
         productId,
         userId: this.userInfo.sub,
         cost: rating
       });
-    },
+    },*/
     showReviews(product) {
       this.productReview = product;
       this.$router.push("/review/" + product.id);

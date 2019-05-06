@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using VND.CoolStore.Services.Inventory.v1.Grpc;
 using VND.CoolStore.Services.OpenApiV1.v1.Grpc;
 using static VND.CoolStore.Services.Inventory.v1.Grpc.InventoryService;
@@ -12,10 +13,12 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
     [ApiController]
     public class InventoryController : ControllerBase
     {
+        private readonly AppOptions _appOptions;
         private readonly InventoryServiceClient _inventoryServiceClient;
 
-        public InventoryController(InventoryServiceClient inventoryServiceClient)
+        public InventoryController(IOptions<AppOptions> options, InventoryServiceClient inventoryServiceClient)
         {
+            _appOptions = options.Value;
             _inventoryServiceClient = inventoryServiceClient;
         }
 
@@ -32,7 +35,11 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                 "inventory-service",
                 async headers =>
                 {
-                    var response = await _inventoryServiceClient.GetInventoriesAsync(new Google.Protobuf.WellKnownTypes.Empty(), headers);
+                    var response = await _inventoryServiceClient.GetInventoriesAsync(
+                        new Google.Protobuf.WellKnownTypes.Empty(),
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response);
                 });
         }
@@ -44,10 +51,16 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                 "inventory-service",
                 async headers =>
                 {
-                    var request = new GetInventoryRequest {
+                    var request = new GetInventoryRequest
+                    {
                         Id = id.ToString()
                     };
-                    var response = await _inventoryServiceClient.GetInventoryAsync(request, headers);
+
+                    var response = await _inventoryServiceClient.GetInventoryAsync(
+                        request,
+                        headers,
+                        DateTime.UtcNow.AddSeconds(_appOptions.GrpcTimeOut));
+
                     return Ok(response);
                 });
         }

@@ -1,7 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 import { SimpleLogger as xLogger } from './services/logger'
-import { seedData } from './services/database'
+//import { seedData } from './services/database'
 import initServer from './services/grpc-server'
 
 // @ts-ignore: ignore to check global variables
@@ -20,8 +20,8 @@ const run = async () => {
   })
   xLogger.info(`Connected to ${mongoUri}.`)
 
-  await seedData()
-  xLogger.info(`Seed data for the database.`)
+  //await seedData()
+  //xLogger.info(`Seed data for the database.`)
 
   await initServer()
 }

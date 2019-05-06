@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
-import mongoosedb from "../services/database";
-
+import mongoosedb from '../services/database'
 
 export interface ProductModel {
   id: string
@@ -9,6 +8,7 @@ export interface ProductModel {
   desc: string
   price: number
   imageUrl: string
+  inventoryId: string
 }
 
 let productSchema = new Schema({
@@ -30,6 +30,10 @@ let productSchema = new Schema({
   imageUrl: {
     type: String,
     required: `Image can't be blank.`
+  },
+  inventoryId: {
+    type: String,
+    required: `Enter an guid id for inventory id.`
   }
 })
 

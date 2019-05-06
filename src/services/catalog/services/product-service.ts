@@ -26,10 +26,10 @@ export class ProductService {
   static async initDb() {
     var products = await productSchema.find().exec()
     Logger.info('Init db with products count in db: ' + products.length)
-    if (products.length <= 0) {
+    /*if (products.length <= 0) {
       await ProductData.map(async (model: ProductModel) => {
         await ProductService.createProduct(model)
       })
-    }
+    }*/
   }
 }

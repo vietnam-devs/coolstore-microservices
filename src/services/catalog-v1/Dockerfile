@@ -13,7 +13,7 @@ ENV SERVICE_VERSION ${service_version:-v1}
 WORKDIR /app
 COPY ./src/grpc/v1/catalog.proto ./proto/
 COPY ./src/grpc/health/v1/health.proto ./proto/
-COPY ./src/services/catalog .
+COPY ./src/services/catalog-v1 .
 RUN yarn install
 
 EXPOSE 5002
