@@ -23,6 +23,20 @@ spec:
         port:
           number: 80
       weight: 100
+    # uncomment when apply shadow - mirroring  #3
+    # mirror:
+    #   host: open-api
+    #   subset: v2
+    #   port:
+    #       number: 80
+    # uncomment when apply canary - #5
+    # - destination:
+    #     host: open-api
+    #     subset: v2
+    #     port:
+    #       number: 80
+    #   weight: 70
+
   - match:
     - uri:
         prefix: /cart/
@@ -53,21 +67,21 @@ spec:
         port:
           number: 80
       weight: 100
-  - match:
-    - uri:
-        prefix: /rating/
-    - uri:
-        prefix: /rating
-    rewrite:
-      uri: /rating/
-      authority: {{ .Values.hosts.api }}
-    route:
-    - destination:
-        host: open-api
-        subset: v1
-        port:
-          number: 80
-      weight: 100
+  # - match:
+  #   - uri:
+  #       prefix: /rating/
+  #   - uri:
+  #       prefix: /rating
+  #   rewrite:
+  #     uri: /rating/
+  #     authority: {{ .Values.hosts.api }}
+  #   route:
+  #   - destination:
+  #       host: open-api
+  #       subset: v1
+  #       port:
+  #         number: 80
+  #     weight: 100
   - match:
     - uri:
         prefix: /open-api/
@@ -79,22 +93,10 @@ spec:
     route:
     - destination:
         host: open-api
-        # uncomment when apply shadow - mirroring
         subset: v1
         port:
           number: 80
       weight: 100
-    # uncomment when apply shadow - mirroring
-    # mirror:
-    #   host: open-api
-    #   subset: v2
-    # uncomment when apply canary
-    # - destination:
-    #     host: open-api
-    #     subset: v2
-    #     port:
-    #       number: 80
-    #   weight: 50
 
   - match:
     - uri:
@@ -117,15 +119,21 @@ spec:
         host: spa
         port:
           number: 80
+
 ---
 
-# uncomment when apply shodow - mirroring
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: open-api-destination-rule
 spec:
-  host: open-api
+  host: open-api.dev-env.svc.cluster.local
+  # apply sticky session for A/B testing
+  # trafficPolicy:
+  #     loadBalancer:
+  #       consistentHash:
+  #         httpHeaderName: version
+  #         minimumRingSize: 1024 # missing this property, LB will be crashed
   subsets:
   - name: v1
     labels:

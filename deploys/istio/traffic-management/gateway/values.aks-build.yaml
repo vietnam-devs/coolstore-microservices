@@ -1,0 +1,5 @@
+hosts:
+  web: coolstore-msbuild.ml
+  api: api.coolstore-msbuild.ml
+  idp: id.coolstore-msbuild.ml
+  backoffice: backoffice.id.coolstore-msbuild.ml

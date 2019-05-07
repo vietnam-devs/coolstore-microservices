@@ -1,0 +1,55 @@
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: web-vs-1
+# spec:
+#   hosts:
+#   - catalog
+#   http:
+#   # uncomment for fault injection
+#   # chaos engineering
+#   #4
+#   - fault:
+# #       delay: 
+# #         fixedDelay: 10s
+# #         percent: 100
+#       abort:  # chaos engineering
+#         httpStatus: 555
+#         percent: 100
+#     match:
+#     - headers: 
+#         x-role:
+#           exact: tester
+#         version:
+#           exact: v2
+#     route:
+#     - destination:
+#         host: catalog
+#         port:
+#           number: 5002
+#   - route:
+#     - destination:
+#         host: catalog
+#         port:
+#           number: 5002
+
+# Circuit Breaker
+# apiVersion: networking.istio.io/v1alpha3
+# kind: DestinationRule
+# metadata:
+#   name: catalog-circuit
+# spec:
+#   host: catalog
+#   trafficPolicy:
+#     connectionPool:
+#       tcp:
+#         maxConnections: 1
+#       http:
+#         http1MaxPendingRequests: 1
+#         maxRequestsPerConnection: 1
+#     outlierDetection:
+#       consecutiveErrors: 1
+#       interval: 1s
+#       baseEjectionTime: 15m
+#       maxEjectionPercent: 100
+#       minHealthPercent: 10
