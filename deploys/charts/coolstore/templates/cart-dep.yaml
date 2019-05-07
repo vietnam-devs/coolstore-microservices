@@ -27,7 +27,7 @@ spec:
         - name: Hosts__Local__Host
           value: {{ .Values.cartSettings.Host }}
         - name: Hosts__Local__Port
-          value: {{ .Values.cartSettings.Port }}
+          value: {{ .Values.cartSettings.Port | quote }}
         - name: Features__EfCore__MySqlDb__FQDN
           value: {{ .Values.cartSettings.MySqlDbFQDN }}
         - name: Features__EfCore__MySqlDb__Password

@@ -20,7 +20,7 @@ export default {
     login() {
       login(function(user) {
         user.then(response => {
-          console.log("Authorired success!");
+          console.log("Authorized success!");
         });
       });
     }
