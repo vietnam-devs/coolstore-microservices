@@ -138,9 +138,6 @@ namespace VND.CoolStore.Services.OpenApiV1.v2
                     if (response?.Product == null)
                         throw new Exception($"Couldn't find product with id#{productId}.");
 
-                    _logger.LogError("xxxxxxxxxxx:", $"{response != null}");
-                    _logger.LogError("yyyyyyyyyyy:", $"{response.Product != null}");
-
                     var inventory = await _inventoryServiceClient.GetInventoryAsync(
                         new Inventory.v1.Grpc.GetInventoryRequest
                         {
