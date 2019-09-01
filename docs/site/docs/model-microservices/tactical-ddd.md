@@ -1,3 +1,0 @@
-# Tactical DDD
-
-> TODO
