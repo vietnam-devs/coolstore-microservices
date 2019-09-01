@@ -9,7 +9,7 @@ module.exports = {
     editLinks: false,
     editLinkText: 'Help us improve this page!',
     nav: [{ text: 'Home', link: '/' }],
-    sidebar: ['/', '/model-microservices/', '/design-microservices/', '/development/']
+    sidebar: ['/', '/modelmicroservices/', '/designmicroservices/', '/development/']
   },
   head: [['link', { rel: 'icon', href: '/favicon.png' }]]
 }
