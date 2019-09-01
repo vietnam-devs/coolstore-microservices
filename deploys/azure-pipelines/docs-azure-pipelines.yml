@@ -15,8 +15,8 @@ trigger:
   branches:
     include:
       - master
-  exclude:
-    - docs
+    exclude:
+      - docs
   paths:
     include:
       - docs/*
