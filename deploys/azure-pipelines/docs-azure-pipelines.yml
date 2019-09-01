@@ -30,7 +30,7 @@ steps:
       yarn docs:build
       mkdir $HOME/site
       sudo apt-get update && sudo apt-get install rsync
-      rsync -avzh docs/.vuepress/dist/ $HOME/site
+      rsync -avzh .vuepress/dist/ $HOME/site
     displayName: "Build"
   - script: |
       if [[ $GITHUB_TOKEN ]]; then
@@ -38,7 +38,7 @@ steps:
         git config user.email thangchung@users.noreply.github.com
         git config user.name thangchung
         git remote set-url origin ${REPOSITORY}
-        rm -rf docs/.vuepress/dist
+        rm -rf .vuepress/dist
         git checkout gh-pages
         rm -rf assets
         rsync -avzh $HOME/site/ .
