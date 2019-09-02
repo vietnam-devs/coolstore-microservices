@@ -6,11 +6,6 @@
 pool:
   vmImage: "Ubuntu 16.04"
 
-variables:
-  DOCKER_TAG: "latest"
-  DOCKER_GROUP: "vndg"
-  DOCKER_ENV: "production"
-
 trigger:
   branches:
     include:
@@ -32,11 +27,8 @@ steps:
       rsync -avzh docs/.vuepress/dist/ $HOME/site
     displayName: "Build"
   - script: |
-      echo $(GITHUB_TOKEN)
-      echo $(HOME)
       if [[ $(GITHUB_TOKEN) ]]; then
         REPOSITORY="https://thangchung:$(GITHUB_TOKEN)@github.com/vietnam-devs/coolstore-microservices.git"
-        echo $(REPOSITORY)
         git config user.email thangchung@users.noreply.github.com
         git config user.name thangchung
         git remote set-url origin ${REPOSITORY}
