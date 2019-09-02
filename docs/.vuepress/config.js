@@ -1,6 +1,6 @@
 module.exports = {
   base: '/coolstore-microservices/',
-  title: 'coolstore-microservices',
+  title: 'Coolstore Microservices',
   description: 'Coolstore Microservices',
   themeConfig: {
     displayAllHeaders: true,
@@ -9,7 +9,7 @@ module.exports = {
     editLinks: false,
     editLinkText: 'Help us improve this page!',
     nav: [{ text: 'Home', link: '/' }],
-    sidebar: ['/', '/modelmicroservices/', '/designmicroservices/', '/development/']
+    sidebar: ['/', '/model-microservices/', '/design-microservices/', '/development/']
   },
   head: [['link', { rel: 'icon', href: '/favicon.png' }]]
 }
