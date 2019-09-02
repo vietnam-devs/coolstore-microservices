@@ -33,10 +33,10 @@ steps:
     displayName: "Build"
   - script: |
       echo $(GITHUB_TOKEN)
-      echo $(REPOSITORY)
       echo $(HOME)
       if [[ $(GITHUB_TOKEN) ]]; then
         REPOSITORY="https://thangchung:$(GITHUB_TOKEN)@github.com/vietnam-devs/coolstore-microservices.git"
+        echo $(REPOSITORY)
         git config user.email thangchung@users.noreply.github.com
         git config user.name thangchung
         git remote set-url origin ${REPOSITORY}
