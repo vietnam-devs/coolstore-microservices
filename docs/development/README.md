@@ -59,7 +59,7 @@ _Notes_: we can also check out a branch or a tag at https://stackoverflow.com/qu
 
 #### Postman
 
-![](/postman-graphql.png)
+![](/coolstore-microservices/postman-graphql.png)
 
 > TODO
 
@@ -398,11 +398,11 @@ $ helm delete istio --purge
 
 #### Step 2: Create coolstore AKS, enabled RBAC. Minimum should have 3 nodes (istio pilot needs it)
 
-![](/create-cluster-aks-1.png)
+![](/coolstore-microservices/create-cluster-aks-1.png)
 
 And make sure checking to `enable RBAC` as following
 
-![](/create-cluster-aks-2.png)
+![](/coolstore-microservices/create-cluster-aks-2.png)
 
 Follow up with next steps to finish creating the cluster. It normally takes around `20 to 30 minutes`.
 
@@ -491,7 +491,7 @@ From now on, we can access website at `http://coolstore.aks`, backoffice website
 
 Let say we access to `http://api.coolstore.aks/oai/swagger/index.html`, then we should see
 
-![](/open-api.png)
+![](/coolstore-microservices/open-api.png)
 
 More information at https://hackernoon.com/5-steps-to-bring-coolstores-service-mesh-to-azure-kubernetes-service-aks-9cd1a5aa008a
 
