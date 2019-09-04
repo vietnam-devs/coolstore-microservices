@@ -1,190 +1,155 @@
-# Business Context
-CoolStore Website has the basic features: Product Catalog, Shopping Cart, Inventory, Rating, Access Control, and System Control.
+# Business Context and Analysis
 
-## Business Requirements
-### Product Catalog
-- Buyer can see the list of products on the home page (name, photo, short description, rating, and hot product flag which is a product with a lot of people see or buy). 
-- Buyer can navigate into the detail of one specific product, and the detail of product should have some of the basic attributes such as name, description, available product in the inventory, the inventory store information like stock address and location, a hot product flag (if has) and rating.
-- Buyer can do a filter the product catalog by price and name to narrow down the items, and she can filter by combination both of 2 criterions.
-- Buyer can do a sort on the product catalog by price and name - descending and ascending criterions need to be supported.
-- SysAdmin can manage product (CRUD actions) and assign one existing inventory into the product.
+CoolStore Website has the basic features: Product Catalog, Shopping Cart, Payment Process, Inventory, Rating, and Access Control.
 
-### Shopping Cart
-- Buyer can click into the buy button in any product on product catalog page to add this product into the shopping cart (1 product will be added by default).
-- Buyer can navigate into the product detail and click the buy button to add this product into the shopping cart (1 product will be added by default).
-- Buyer can see the shopping cart with products added.
-- Buyer can change the number of product in the shopping cart page to adjust the number of any product.
-- Buyer can delete any product in the shopping cart which they don't want to buy anymore.
-- The cart will be re-calculated after any action like add, update and delete products happened.
-- The cart should have summary information for the current session such as cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount.
-- Buyer can click check out button to trigger a checkout process. 
-- SysAdmin can see shopping cart of all buyers with information about cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount.
-- SysAdmin can actually enable/disable this current shopping cart of any buyer.
-
-### Inventory
-- SysAdmin can manage inventory (CRUD actions).
-
-### Rating
-- Buyer can do a rating for each product that she thinks that it is really good (1->5 stars).
-
-### Access Control
-- Each Buyer/SysAdmin is a User. 
-- User needs to pass the User Registration process to be a Buyer.
-- SysAdmin is created one when the system up and running, and then she can create another SysAdmin. 
-- Each user has a permission set which defines the particular permission when she invokes particular action in the system. 
-- Buyer/SysAdmin can log in into the system.
-- Buyer, after login into the system, will be brought to the product catalog page, and cannot access into the administration page.
-- SysAdmin, after login into the system, will be brought to the administration page, and whenever she access into the product catalog page, then she cannot do any actions such as buy product, process shopping cart, and checkout process over there.
-- Each Buyer/SysAdmin can log out of the system.
-- SysAdmin can seed a bob and alice User with Buyer role in the system.
-
-### System Control
-- SysAdmin can seed the sample data for the product.
-- SysAdmin can seed the sample data for inventory.
-- SysAdmin can seed the sample data for the rating of a few products (randomness).
-- SysAdmin can see the board of seeded services (product, inventory and rating).
-- SysAdmin can see the board of healthy services.
-
-## Fine tuning 1: Finding important nouns and relationship with another context
-
-CoolStore Website has the basic features: [Product Catalog], [Shopping Cart], [Inventory], [Rating], [Access Control], and [System Control]
+## Business Context
 
 ### Product Catalog
-- [Buyer] can see the list of [products] on the home page (name, photo, short description, rating, and [hot product flag] which is a product with a lot of people see or buy). 
-- Buyer can navigate into the [detail of one specific product], and the detail of product should have some of the basic attributes such as name, description, available product in the inventory, the [inventory store information] like stock address and location, a hot product flag (if has) and rating.
-- Buyer can do a filter the product catalog by price and name to narrow down the items, and she can filter by combination both of 2 criterions.
-- Buyer can do a sort on the product catalog by price and name - descending and ascending criterions need to be supported.
-- [SysAdmin] can manage product (CRUD actions) and assign one existing [inventory] into the product.
+
+- As a Buyer, I want to see the list of products with filtering, sorting on the home page (name, photo, short description, rating, and hot product flag which is a product with a lot of people see or buy).
+  - Whenever filtering with any price and name of the product, then the list of products need to narrow down with appropriate products.
+  - Whenever sorting with descending or ascending on the price or name of the product, then the list of products need to follow with this sorting.
+  - Whenever both filtering and sorting in action, then the list of products shall be effective by both of description above.
+- As a Buyer, I want to navigate into the detail of one product with the basic attributes such as name, description, available product in the inventory, the inventory store information like stock address and location, a hot product flag (if has) and rating.
+- As a SysAdmin, I want to manage a product (CRUD actions) and assign one existing inventory into the product.
 
 ### Shopping Cart
-- [Buyer] can click into the buy button in any [product] on product catalog page to add this product into the [shopping cart] (1 product will be added by default).
-- Buyer can navigate into the product detail and click the buy button to add this product into the shopping cart (1 product will be added by default).
-- Buyer can see the shopping cart with products added.
-- Buyer can change the number of product in the shopping cart page to adjust the number of any product.
-- Buyer can delete any product in the shopping cart which they don't want to buy anymore.
-- The cart will be re-calculated after any action like add, update and delete products happened.
-- The cart should have summary information for the current session such as cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount.
-- Buyer can click check out button to trigger a checkout process. 
-- [SysAdmin] can see shopping cart of all buyers with information about cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount.
-- SysAdmin can actually enable/disable this current shopping cart of any buyer.
+
+- As a Buyer, I want to buy any product on the product catalog page (add this product into the shopping cart - one product will be added by default).
+- As a Buyer, I want to see the product detail and buy this product if I like (add this product into the shopping cart - one product will be added by default).
+- As a Buyer, I want to see the list of products I just added into the shopping cart, and I would like to see the summary information panel for the current shopping cart such as cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount on this page.
+- As a Buyer, I want to update the amount of product in the shopping cart.
+  - Whenever updating amount of product happens, then the summary information panel needs to be updated accordingly to changes.
+- As a Buyer, I want to delete any product in the shopping cart which they don't want to buy anymore.
+  - Whenever the deleting amount of product happens, then the summary information panel needs to be updated accordingly to changes.
+- As a Buyer, I want to do check out my shopping cart.
+  - Whenever the number of products in the shopping cart is zero then this checks out process does not happen.
+- While a shopping cart was checked out, the payment process starts.
+- As a SysAdmin, I want to see shopping cart of all buyers with information about cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount.
+- As a SysAdmin, I want to enable/disable any shopping cart of any buyer.
+
+### Payment Process
+
+- Any Buyer can do the payment.
+- In the moment of the payment process happening, we start to validation the item information, process for payment and subsequently send an email to the Buyer (because this is just the demo so we don't actually integrate with the payment gateway)
+  - Whenever any product information is invalid, then the payment process will be canceled and one email will be sent to Buyer for notification.
+  - Whenever ending this payment process, we mark the payment of this cart is processed status and send an email to let Buyer knows.
 
 ### Inventory
-- [SysAdmin] can manage [inventory] (CRUD actions).
+
+- As a SysAdmin, I want to manage inventory (CRUD actions).
 
 ### Rating
-- [Buyer] can do a [rating] for each [product] that she thinks that it is really good (1->5 stars).
+
+- As a Buyer, I want to rate for each product that I think is good (1 -> 5 stars).
 
 ### Access Control
-- Each [Buyer]/[SysAdmin] is a [User]. 
-- User needs to pass the [User Registration] process to be a Buyer.
-- SysAdmin is created one when the system up and running, and then she can create another SysAdmin. 
-- Each user has a [permission set] which defines the particular permission when she invokes particular action in the system. 
-- Buyer/SysAdmin can log in into the system.
-- Buyer, after login into the system, will be brought to the product catalog page, and cannot access into the administration page.
-- SysAdmin, after login into the system, will be brought to the administration page, and whenever she access into the product catalog page, then she cannot do any actions such as buy product, process shopping cart, and checkout process over there.
-- Each Buyer/SysAdmin can log out of the system.
-- SysAdmin can seed a bob and alice User with Buyer role in the system.
 
-### System Control
-- [SysAdmin] can seed the sample data for the [product].
-- SysAdmin can seed the sample data for [inventory].
-- SysAdmin can seed the sample data for the [rating] of a few products (randomness).
-- SysAdmin can see the board of seeded services (product, inventory and rating).
-- SysAdmin can see the board of healthy services.
+- Each Buyer/SysAdmin is a User.
+- As a Buyer/SysAdmin, I want to log-in to the system.
+  - Whenever a user with a Buyer role does a login, then I will be brought to the product catalog page.
+  - Whenever a user with a SysAdmin role does a login, then I will be brought to the administration page.
+- As a Buyer/SysAdmin, I want to log-out of the system.
+
+### One-off tasks
+
+- Seeding the sample data for the product.
+- Seeding the sample data for inventory.
+- Seeding the sample data for the rating of a few products (randomness).
+- Seeding a Bob user with SysAdmin role.
+- Seeding a Mary and Alice users with Buyer role.
 
 ## Conceptual Model
 
-TODO
+![](/coolstore-microservices/conceptual-model.png)
 
-## Fine Tuning 2: Finding verbs
+## Fine Tuning 1: Finding important statements starts with verbs
 
 ### Product Catalog
-- Buyer can [see the list of products] on the home page (name, photo, short description, rating, and hot product flag which is a product with a lot of people see or buy). 
-- Buyer can [navigate into the detail of one specific product], and the detail of product should have some of the basic attributes such as name, description, available product in the inventory, the inventory store information like stock address and location, a hot product flag (if has) and rating.
-- Buyer can [do a filter the product catalog by price and name] to narrow down the items, and she can filter by combination both of 2 criterions.
-- Buyer can [do a sort on the product catalog by price and name] - descending and ascending criterions need to be supported.
-- SysAdmin can [manage product] (CRUD actions) and [assign one existing inventory into the product].
+
+- As a **Buyer**, I want to **see the list of products with filtering, sorting on the home page** (name, photo, short description, rating, and hot product flag which is a product with a lot of people see or buy).
+  - Whenever filtering with any price and name of the product, then the list of products need to narrow down with appropriate products.
+  - Whenever sorting with descending or ascending on the price or name of the product, then the list of products need to follow with this sorting.
+  - Whenever both filtering and sorting in action, then the list of products shall be effective by both of description above.
+- As a **Buyer**, I want to **navigate into the detail of one product** with the basic attributes such as name, description, available product in the inventory, the inventory store information like stock address and location, a hot product flag (if has) and rating.
+- As a **SysAdmin**, I want to **manage a product** (CRUD actions) and **assign one existing inventory into the product**.
 
 ### Shopping Cart
-- Buyer can click into the buy button in any product on product catalog page to [add this product into the shopping cart] (1 product will be added by default).
-- Buyer can navigate into the product detail and click the buy button to [add this product into the shopping cart] (1 product will be added by default).
-- Buyer can [see the shopping cart with products added].
-- Buyer can [change the number of product in the shopping cart] page to adjust the number of any product.
-- Buyer can [delete any product in the shopping cart] which they don't want to buy anymore.
-- The cart will be [re-calculated after any action like add, update and delete products happened].
-- The cart should [have summary information for the current session] such as cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount.
-- Buyer can click [check out button to trigger a checkout process]. 
-- SysAdmin can [see shopping cart of all buyers] with information about cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount.
-- SysAdmin can actually [enable/disable this current shopping cart of any buyer].
+
+- As a **Buyer**, I want to **buy any product on the product catalog page** (add this product into the shopping cart - one product will be added by default).
+- As a **Buyer**, I want to **see the product detail and buy this product** if I like (add this product into the shopping cart - one product will be added by default).
+- As a **Buyer**, I want to **see the list of products** I just added into the shopping cart, and I would like to **see the summary information panel** for the current shopping cart such as cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount on this page.
+- As a **Buyer**, I want to **update the amount of product in the shopping cart**.
+  - Whenever updating amount of product happens, then the summary information panel needs to be updated accordingly to changes.
+- As a **Buyer**, I want to **delete any product in the shopping cart** which they don't want to buy anymore.
+  - Whenever the deleting amount of product happens, then the summary information panel needs to be updated accordingly to changes.
+- As a **Buyer**, I want to do **check out my shopping cart**.
+  - Whenever the number of products in the shopping cart is zero then this checks out process does not happen.
+- While a shopping cart was checked out, the payment process starts.
+- As a **SysAdmin**, I want to **see shopping cart of all buyers with information** about cart total cost, promotion item saving cost, subtotal cost, shipping cost, promotion shipping savings cost, total order amount.
+- As a **SysAdmin**, I want to **enable/disable any shopping cart of any buyer**.
+
+### Payment Process
+
+- Any Buyer can do the payment.
+- In the moment of the **payment process** happening, we start to **validation the item information**, **process for payment** and subsequently **send an email to the Buyer** (because this is just the demo so we don't actually integrate with the payment gateway)
+  - Whenever any product information is invalid, then the payment process will be canceled and one email will be sent to Buyer for notification.
+  - Whenever ending this payment process, we mark the payment of this cart is processed status and send an email to let Buyer knows.
 
 ### Inventory
-- SysAdmin can [manage inventory] (CRUD actions).
+
+- As a **SysAdmin**, I want to **manage inventory** (CRUD actions).
 
 ### Rating
-- Buyer can [do a rating for each product] that she thinks that it is really good (1->5 stars).
+
+- As a **Buyer**, I want to **rate for each product** that I think is good (1 -> 5 stars).
 
 ### Access Control
-- Each Buyer/SysAdmin is a User. 
-- User needs to [pass the User Registration process to be a Buyer].
-- SysAdmin is [created one when the system up and running], and then she can [create another SysAdmin]. 
-- Each user [has a permission set] which defines the particular permission when she invokes particular action in the system. 
-- Buyer/SysAdmin can [log in into the system].
-- Buyer, after login into the system, will be [brought to the product catalog page], and cannot access into the administration page.
-- SysAdmin, after login into the system, will be [brought to the administration page], and whenever she access into the product catalog page, then she cannot do any actions such as buy product, process shopping cart, and checkout process over there.
-- Each Buyer/SysAdmin can [log out of the system].
-- SysAdmin can [seed a bob and alice User with Buyer role in the system] (in memory mode).
 
-### System Control
-- SysAdmin can [seed the sample data for product].
-- SysAdmin can [seed the sample data for inventory].
-- SysAdmin can [seed the sample data for rating of a few products] (randomness).
-- SysAdmin can [see the board of seeded services] (product, inventory and rating).
-- SysAdmin can [see the board of healthy services].
+- Each Buyer/SysAdmin is a User.
+- As a **Buyer/SysAdmin**, I want to **log-in to the system**.
+  - Whenever a user with a Buyer role does a login, then I will be brought to the product catalog page.
+  - Whenever a user with a SysAdmin role does a login, then I will be brought to the administration page.
+- As a **Buyer/SysAdmin**, I want to **log-out of the system**.
 
-## Fine tuning 3: Get rid of un-important parts
+## Fine tuning 2: Get rid of un-important statements
 
 ### Product Catalog
-- [Buyer] see the list of products -> get products
-- [Buyer] navigate into the detail of one specific product -> get the detail of specific product
-- [Buyer] do a filter the product catalog by price and name -> get products by filtering (price + name)
-- [Buyer] do a sort on the product catalog by price and name -> get products by sorting (price + name)
+
+- [Buyer] see the list of products with filtering and sorting on price and name -> get products by filtering and sorting on price and name
+- [Buyer] navigate into the detail of one product -> get the detail of specific product
 - [SysAdmin] manage product -> create, update and delete a product
 - [SysAdmin] assign one existing inventory into the product -> update product with inventory
 
 ### Shopping Cart
-- [Buyer] add this product into the shopping cart -> create the shopping cart with product
-- [Buyer] see the shopping cart with products added -> get shopping cart with products
-- [Buyer] change the number of product in the shopping cart -> update the number of product in the shopping cart
-- [Buyer] delete any product in the shopping cart
-- [Buyer] re-calculated after any action like add, update and delete products happened (at the client side only)
-- [Buyer] have summary information for the current session (at the client side only) 
-- [Buyer] check out button to trigger a checkout process -> update shopping cart with check out progress 
-- [SysAdmin] see shopping cart of all buyers -> get shopping cart for buyers
-- [SysAdmin] enable/disable this current shopping cart of any buyer -> update enabled/disabled shopping cart for buyer
+
+- [Buyer] buy any product on the product catalog page -> create the shopping cart with product
+- [Buyer] see the list of products -> get shopping cart with products
+- [Buyer] see the summary information panel (at the client side only)
+- [Buyer] update the amount of product in the shopping cart
+- [Buyer] delete any product in the shopping cart -> delete product in the shopping cart
+- [Buyer] check out my shopping cart -> check out the shopping cart
+- [SysAdmin] see shopping cart of all buyers with information -> get shopping cart of buyers
+- [SysAdmin] enable/disable any shopping cart of any buyer -> update enabled/disabled shopping cart of buyer
+
+### Payment Process
+
+- [System] validation the item information
+- [System] process for payment
+- [System] send an email to the Buyer
 
 ### Inventory
+
 - [SysAdmin] manage inventory -> view, create, update and delete an inventory
 
 ### Rating
-- [Buyer] do a rating for each product -> create rating for product
+
+- [Buyer] rate for each product -> create rating for product
 
 ### Access Control
-- [User] pass the User Registration process to be a Buyer
-- [User] created SysAdmin when the system up and running
-- [SysAdmin] create another SysAdmin
-- [User] has a permission set
-- [User] log in into the system
-- [Buyer] brought to the product catalog page
-- [SysAdmin] brought to the administration page
-- [User] log out of the system
-- [System] seed a bob and alice User with Buyer role in the system
 
-### System Control
-- [CronJob] seed the sample data for product
-- [CronJob] seed the sample data for inventory
-- [CronJob] seed the sample data for rating of a few products
-- [SysAdmin] see the board of seeded services
-- [SysAdmin] see the board of healthy services
+- [User] log in into the system
+- [User] log out of the system
 
 ## Usecase View
 
@@ -193,6 +158,7 @@ TODO
 ## Event Storming 1: Event
 
 ### Product Catalog
+
 - ProductListDisplayed (filter + sorting)
 - ProductDisplayed
 - ProductCreated
@@ -201,6 +167,7 @@ TODO
 - InventoryAssigned
 
 ### Shopping Cart
+
 - ProductInShoppingCartAdded
 - ShoppingCartWithProductsDisplayed
 - NumberOfProductInShoppingCartChanged
@@ -211,19 +178,23 @@ TODO
 - ShoppingCartDisabled
 
 ### Inventory
+
 - InventoryListDisplayed
 - InventoryCreated
 - InventoryUpdated
 - InventoryDeleted
 
 ### Rating
+
 - ProductRated
 
 ### Access Control
+
 - BuyerCreated
 - SysAdminCreated
 
 ### System Control
+
 - ProductSeeded
 - InventorySeeded
 - RatingSeeded
