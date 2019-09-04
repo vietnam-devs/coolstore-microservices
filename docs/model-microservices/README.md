@@ -153,53 +153,90 @@ CoolStore Website has the basic features: Product Catalog, Shopping Cart, Paymen
 
 ## Usecase View
 
-TODO
+### Product Catalog
+
+![](/coolstore-microservices/usecases-product-catalog.png)
+
+### Shopping Cart
+
+![](/coolstore-microservices/usecases-shopping-cart.png)
+
+### Payment Process
+
+![](/coolstore-microservices/usecases-payment-process.png)
+
+### Inventory
+
+![](/coolstore-microservices/usecases-inventory.png)
+
+### Rating
+
+![](/coolstore-microservices/usecases-rating.png)
+
+### Access Control
+
+![](/coolstore-microservices/usecases-access-control.png)
 
 ## Event Storming 1: Event
 
 ### Product Catalog
 
-- ProductListDisplayed (filter + sorting)
-- ProductDisplayed
-- ProductCreated
-- ProductUpdated
-- ProductDeleted
-- InventoryAssigned
+- [Buyer] get products by filtering and sorting on price and name
+  - ProductListDisplayed (filter + sorting)
+- [Buyer] get the detail of specific product
+  - ProductDisplayed
+- [SysAdmin] product management
+  - ProductListDisplayed
+  - ProductCreated
+  - ProductUpdated
+  - ProductDeleted
+- [SysAdmin] update product with inventory
+  - InventoryAssigned
 
 ### Shopping Cart
 
-- ProductInShoppingCartAdded
-- ShoppingCartWithProductsDisplayed
-- NumberOfProductInShoppingCartChanged
-- ProductInShoppingCartDeleted
-- ShoppingCartCheckedOut
-- BuyersShoppingCartDisplayed
-- ShoppingCartEnabled
-- ShoppingCartDisabled
+- [Buyer] create the shopping cart with product
+  - ShoppingCartWithProductCreated
+- [Buyer] get shopping cart with products
+  - ShoppingCartWithProductsDisplayed
+- [Buyer] update the amount of product in the shopping cart
+  - AmountOfProductInShoppingCartUpdated
+- [Buyer] delete product in the shopping cart
+  - ProductInShoppingCartDeleted
+- [Buyer] check out the shopping cart
+  - ShoppingCartCheckedOut
+- [SysAdmin] get shopping cart of buyers
+  - BuyersShoppingCartDisplayed
+- [SysAdmin] update enabled/disabled shopping cart of buyer
+  - ShoppingCartEnabled
+  - ShoppingCartDisabled
+
+### Payment Process
+
+- [System]
+  - ProductsValidated
+  - PaymentProcessed
+  - EmailSent
 
 ### Inventory
 
-- InventoryListDisplayed
-- InventoryCreated
-- InventoryUpdated
-- InventoryDeleted
+- [SysAdmin] inventory management
+  - InventoryListDisplayed
+  - InventoryCreated
+  - InventoryUpdated
+  - InventoryDeleted
 
 ### Rating
 
-- ProductRated
+- [Buyer] create rating for product
+  - ProductRated
 
 ### Access Control
 
-- BuyerCreated
-- SysAdminCreated
-
-### System Control
-
-- ProductSeeded
-- InventorySeeded
-- RatingSeeded
-- ServiceSeededDisplayed
-- ServiceHealthyDisplayed
+- [User] log in into the system
+  - UserLoggedOn
+- [User] log out of the system
+  - UserLoggedOut
 
 ## Event Storming 2: Command
 
