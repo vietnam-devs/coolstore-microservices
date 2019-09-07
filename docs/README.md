@@ -1,6 +1,8 @@
 # Introduction
 
-CoolStore Microservices is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices and build up a larger application using microservice architectural principals.
+## CoolStore Website
+
+CoolStore Website is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices and build up a larger application using microservice architectural principals.
 
 It's mainly building for .NET ecosystem with a lot of popular libraries and toolkits which have used by .NET community for a long time. Additionaly, it uses and experiements new components and libraries to build the modern application with cloud-native apps approach.
 
