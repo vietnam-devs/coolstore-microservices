@@ -1,8 +1,8 @@
-# Business Context and Analysis
+# Business Scenario and Analysis
 
-CoolStore Website has the basic features: Product Catalog, Shopping Cart, Payment Process, Inventory, Rating, and Access Control.
+CoolStore Website has the basic business scenario for Product Catalog, Shopping Cart, Payment Process, Inventory, Rating, and Access Control.
 
-## Business Context
+## Business Scenario
 
 ### Product Catalog
 
@@ -177,7 +177,7 @@ CoolStore Website has the basic features: Product Catalog, Shopping Cart, Paymen
 
 ![](/coolstore-microservices/usecases-access-control.png)
 
-## Event Storming 1: Event
+## Big Picture Event Storming
 
 ### Product Catalog
 
@@ -238,18 +238,16 @@ CoolStore Website has the basic features: Product Catalog, Shopping Cart, Paymen
 - [User] log out of the system
   - UserLoggedOut
 
-## Event Storming 2: Command
+![](/coolstore-microservices/eventstorming-big-picture.png)
+
+## Roles, Commands and Events mapping
 
 TODO
 
-## Event Storming 3: Invariants
+## Bounded Context forming up
 
 TODO
 
-## Event Storming 4: Bounded Context (Query/View -> Modular)
-
-TODO
-
-## Event Storming 5: Communication between BCs
+## Context Maps
 
 TODO
