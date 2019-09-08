@@ -1,23 +1,23 @@
 # Cool Store - Kubernetes-based polyglot microservices application with Istio service mesh
 
 ![Travis (.org)](https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?branch=master)
-[![Build Status](https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/vietnam-devs.coolstore-microservices)](https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=1)
 [![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
 [![OpenTracing Badge](https://img.shields.io/badge/OpenTracing-enabled-blue.svg)](http://opentracing.io)
 
-CoolStore is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read https://vietnam-devs.github.io for more information about how can we design and implement it.
+CoolStore Website is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
 
-The business domain for internal µservice is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral). The readme file is inspired from [GoogleCloudPlatform Demo](https://github.com/GoogleCloudPlatform/microservices-demo).
-
-## Public presentation
-
-- [From Microservices to Service Mesh - DevCafe event in July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
-- [Service Mesh for Microservices- Vietnam Mobile Day event in June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
-- [Avoid SPOF in Cloud-native Apps - Vietnam Web Summit event in December 2018](https://www.slideshare.net/ThangChung/avoid-single-point-of-failure-in-cloud-native-application)
+The business domain for internal µservice is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral). The README file is inspired from [GoogleCloudPlatform Demo](https://github.com/GoogleCloudPlatform/microservices-demo).
 
 Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.chat/net-core) or say hi on [Twitter](https://twitter.com/thangchung)!
 
-[Become a sponsor on Patreon](https://www.patreon.com/thangchung)
+> Usage with careful: The project is in development mode so that a lot of things shall change due to .NET Core 3.x upgrading.
+
+## Public presentation
+
+- [Service Mesh on AKS, the future is now - Microsoft Build event in May 2019](https://mybuild.techcommunity.microsoft.com/sessions/77172?source=TechCommunity)
+- [From Microservices to Service Mesh - DevCafe event in July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
+- [Service Mesh for Microservices- Vietnam Mobile Day event in June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
+- [Avoid SPOF in Cloud-native Apps - Vietnam Web Summit event in December 2018](https://www.slideshare.net/ThangChung/avoid-single-point-of-failure-in-cloud-native-application)
 
 ## Screenshots
 
@@ -37,6 +37,7 @@ Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.
 
 # Table of contents
 
+- [Business Context](https://github.com/vietnam-devs/coolstore-microservices#business-context)
 - [OS, SDK, library, tooling and prerequisites](https://github.com/vietnam-devs/coolstore-microservices#os-sdk-library-tooling-and-prerequisites)
 - [High level software architecture](https://github.com/vietnam-devs/coolstore-microservices#high-level-software-architecture)
 - [Installation](https://github.com/vietnam-devs/coolstore-microservices#installation)
@@ -47,6 +48,20 @@ Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.
 - [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
 - [Contributors](https://github.com/vietnam-devs/coolstore-microservices#contributors)
 - [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
+
+## Business Context
+
+### Conceptual Model
+
+![conceptual-model](docs/.vuepress/public/conceptual-model.png?raw=true)
+
+### Event Storming
+
+![es-bc](docs/.vuepress/public/es-bounded-context.png?raw=true)
+
+### Context Map
+
+![es-context-map](docs/.vuepress/public/es-context-map-2.png?raw=true)
 
 ## OS, SDK, library, tooling and prerequisites
 
