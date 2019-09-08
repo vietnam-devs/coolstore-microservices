@@ -125,7 +125,7 @@ Finding Events via Usecases
 
 ## Event Storming: Context Maps
 
-![](/coolstore-microservices/es-context-map.png)
+![](/coolstore-microservices/es-context-map-1.png)
 
 ::: tip
 Finding Integration Events via Events
@@ -173,6 +173,8 @@ Finding Integration Events via Events
 
 - UserLoggedOn
 - UserLoggedOut
+
+![](/coolstore-microservices/es-context-map-2.png)
 
 ## Development: User Story
 
