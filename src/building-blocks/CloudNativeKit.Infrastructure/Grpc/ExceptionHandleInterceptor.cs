@@ -1,0 +1,32 @@
+using System;
+using System.Threading.Tasks;
+using Grpc.Core;
+using Grpc.Core.Interceptors;
+using Serilog;
+
+
+namespace CloudNativeKit.Infrastructure.Grpc
+{
+    public class ExceptionHandleInterceptor : Interceptor
+    {
+        private const string MessageTemplate = "{RequestMethod} responded {StatusCode} with error message {ErrorMessage}";
+
+        public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
+        {
+            try
+            {
+                var response = await base.UnaryServerHandler(request, context, continuation);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(MessageTemplate,
+                    context.Method,
+                    context.Status.StatusCode,
+                    ex.Message);
+
+                throw new RpcException(new Status(StatusCode.Internal, ex.Message));
+            }
+        }
+    }
+}

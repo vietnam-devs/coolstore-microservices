@@ -147,7 +147,7 @@ Finding Integration Events via Events
 - ShoppingCartWithProductsDisplayed
 - AmountOfProductInShoppingCartUpdated
 - ProductInShoppingCartDeleted
-- ShoppingCartCheckedOut
+- ShoppingCartCheckedOut (**IntegrationEvent**)
 - BuyersShoppingCartDisplayed
 - ShoppingCartEnabled
 - ShoppingCartDisabled

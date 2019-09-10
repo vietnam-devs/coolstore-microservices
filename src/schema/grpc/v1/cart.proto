@@ -1,0 +1,61 @@
+syntax = "proto3";
+package coolstore;
+option csharp_namespace = "VND.CoolStore.ShoppingCart.DataContracts.V1";
+
+message ProductDto {
+  string id = 1;
+  string name = 2;
+  string desc = 3;
+  double price = 4;
+}
+
+message CartDto {
+  string id = 1;
+  double cart_item_total = 2;
+  double cart_item_promo_savings = 3;
+  double shipping_total = 4;
+  double shipping_promo_savings = 5;
+  double cart_total = 6;
+  bool is_check_out = 7;
+  repeated CartItemDto items = 8;
+}
+
+message CartItemDto {
+  int32 quantity = 1;
+  double price = 2;
+  double promo_savings = 3;
+  string product_id = 4;
+  string product_name = 5;
+}
+
+message ShoppingCartWithProductCreated {
+
+}
+
+message ShoppingCartWithProductsDisplayed {
+
+}
+
+message AmountOfProductInShoppingCartUpdated {
+
+}
+
+message ProductInShoppingCartDeleted {
+
+}
+
+message ShoppingCartCheckedOut {
+
+}
+
+message BuyersShoppingCartDisplayed {
+
+}
+
+message ShoppingCartEnabled {
+
+}
+
+message ShoppingCartDisabled {
+
+}

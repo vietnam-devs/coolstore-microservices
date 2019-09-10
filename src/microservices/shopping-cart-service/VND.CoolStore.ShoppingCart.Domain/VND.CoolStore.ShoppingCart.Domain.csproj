@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Domain\CloudNativeKit.Domain.csproj" />
+    <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Utils\CloudNativeKit.Utils.csproj" />
+    <ProjectReference Include="..\VND.CoolStore.ShoppingCart.DataContracts\VND.CoolStore.ShoppingCart.DataContracts.csproj" />
+  </ItemGroup>
+
+</Project>
