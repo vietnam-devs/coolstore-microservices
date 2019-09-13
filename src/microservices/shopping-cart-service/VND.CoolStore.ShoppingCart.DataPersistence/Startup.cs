@@ -1,4 +1,4 @@
-using CloudNativeKit.Infrastructure.DataPersistence.EfCore;
+using CloudNativeKit.Infrastructure.DataPersistence;
 using CloudNativeKit.Infrastructure.DataPersistence.EfCore.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +23,7 @@ namespace VND.CoolStore.ShoppingCart.DataPersistence
             });
 
             services.AddScoped<DbContext>(resolver => resolver.GetService<ShoppingCartDataContext>());
-            services.AddGenericRepository();
+            services.AddEfGenericRepository();
 
             return services;
         }

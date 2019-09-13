@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore
+namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore.Command
 {
     public class UnitOfWork : IUnitOfWorkAsync
     {

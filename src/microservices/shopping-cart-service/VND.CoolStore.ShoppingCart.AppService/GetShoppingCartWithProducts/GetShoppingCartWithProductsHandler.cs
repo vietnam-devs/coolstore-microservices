@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using CloudNativeKit.Domain;
-using CloudNativeKit.Infrastructure.DataPersistence.EfCore.Extensions;
+using CloudNativeKit.Infrastructure.DataPersistence.EfCore.Query;
 using CloudNativeKit.Utils.Extensions;
 using MediatR;
 using VND.CoolStore.ShoppingCart.DataContracts.V1;

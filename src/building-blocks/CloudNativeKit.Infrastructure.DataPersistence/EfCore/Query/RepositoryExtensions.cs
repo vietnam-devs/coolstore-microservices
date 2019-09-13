@@ -7,7 +7,7 @@ using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore.Extensions
+namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore.Query
 {
     public static class RepositoryExtensions
     {

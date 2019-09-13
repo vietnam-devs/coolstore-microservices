@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using MediatR;
 using CloudNativeKit.Domain;
 
-namespace CloudNativeKit.Infrastructure.Bus
+namespace CloudNativeKit.Infrastructure.Bus.Internal
 {
     public class DomainEventDispatcher : IDomainEventDispatcher
     {

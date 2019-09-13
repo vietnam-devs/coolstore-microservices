@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CloudNativeKit.Domain;
 
-namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore.Extensions
+namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore.Command
 {
     public static class EfUnitOfWorkExtensions
     {

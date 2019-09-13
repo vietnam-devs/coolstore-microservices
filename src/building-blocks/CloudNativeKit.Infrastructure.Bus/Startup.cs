@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using CloudNativeKit.Domain;
+using CloudNativeKit.Infrastructure.Bus.Internal;
 
 namespace CloudNativeKit.Infrastructure.Bus
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore
+namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore.Query
 {
     public class QueryRepositoryFactory : IQueryRepositoryFactory
     {
