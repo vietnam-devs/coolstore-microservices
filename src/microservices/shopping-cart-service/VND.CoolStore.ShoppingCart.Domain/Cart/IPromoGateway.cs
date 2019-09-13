@@ -1,4 +1,4 @@
-namespace VND.CoolStore.ShoppingCart.Domain
+namespace VND.CoolStore.ShoppingCart.Domain.Cart
 {
     public interface IPromoGateway
     {

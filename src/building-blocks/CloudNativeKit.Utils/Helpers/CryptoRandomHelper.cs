@@ -4,7 +4,7 @@ using CloudNativeKit.Utils.Extensions;
 
 namespace CloudNativeKit.Utils.Helpers
 {
-    public class CryptoRandomHelper
+    public static class CryptoRandomHelper
     {
         private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
 
@@ -29,7 +29,7 @@ namespace CloudNativeKit.Utils.Helpers
             return CreateRandomBytes(length).ToHexString();
         }
 
-        public static string CreateSeriesNumber(string prefix = "MSK")
+        public static string CreateSeriesNumber(string prefix = "cnk")
         {
             return $"{prefix}{DateTime.Now.ToString("yyyyMMddHHmmss")}{CreateUniqueKey()}";
         }

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CloudNativeKit.Utils.Helpers
 {
-    public class EnumHelper
+    public static class EnumHelper
     {
         public static IEnumerable<KeyValueObject<TKey>> GetEnumKeyValue<TEnum, TKey>()
             where TKey : class

@@ -56,19 +56,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ShoppingCart.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShoppingCartService", "ShoppingCartService", "{8216B21C-A2EB-4F5B-B20A-1C6A4E72210D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.ShoppingCart.AppService", "src\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart.AppService\VND.CoolStore.ShoppingCart.AppService.csproj", "{27633BD0-F2D2-4473-8D70-965D176BEEA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ShoppingCart.AppService", "src\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart.AppService\VND.CoolStore.ShoppingCart.AppService.csproj", "{27633BD0-F2D2-4473-8D70-965D176BEEA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.ShoppingCart.DataPersistence", "src\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart.DataPersistence\VND.CoolStore.ShoppingCart.DataPersistence.csproj", "{847149E1-1806-4ACF-97CF-4D457EA4A4C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ShoppingCart.DataPersistence", "src\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart.DataPersistence\VND.CoolStore.ShoppingCart.DataPersistence.csproj", "{847149E1-1806-4ACF-97CF-4D457EA4A4C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ShoppingCart", "src\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart\VND.CoolStore.ShoppingCart.csproj", "{C3F5F2FA-44C6-4CB6-A4F2-2E16A1F2B509}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudNativeKit.Infrastructure", "src\building-blocks\CloudNativeKit.Infrastructure\CloudNativeKit.Infrastructure.csproj", "{45BED4D7-EDFC-4FBF-808B-5BC695E366F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNativeKit.Infrastructure", "src\building-blocks\CloudNativeKit.Infrastructure\CloudNativeKit.Infrastructure.csproj", "{45BED4D7-EDFC-4FBF-808B-5BC695E366F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudNativeKit.Infrastructure.EfCore", "src\building-blocks\CloudNativeKit.Infrastructure.EfCore\CloudNativeKit.Infrastructure.EfCore.csproj", "{AAEAFADA-0D7F-4F03-96C0-4AF2896BC159}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNativeKit.Infrastructure.Bus", "src\building-blocks\CloudNativeKit.Infrastructure.Bus\CloudNativeKit.Infrastructure.Bus.csproj", "{6882828C-AFD5-4C4A-8BD2-76D9170074E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudNativeKit.Infrastructure.Dapper", "src\building-blocks\CloudNativeKit.Infrastructure.Dapper\CloudNativeKit.Infrastructure.Dapper.csproj", "{369AAA3E-24CC-4298-A1EB-0893AD07B5F2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudNativeKit.Infrastructure.Bus", "src\building-blocks\CloudNativeKit.Infrastructure.Bus\CloudNativeKit.Infrastructure.Bus.csproj", "{6882828C-AFD5-4C4A-8BD2-76D9170074E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNativeKit.Infrastructure.DataPersistence", "src\building-blocks\CloudNativeKit.Infrastructure.DataPersistence\CloudNativeKit.Infrastructure.DataPersistence.csproj", "{58A05F8B-9003-4142-92B1-835ED36968D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -120,18 +118,14 @@ Global
 		{45BED4D7-EDFC-4FBF-808B-5BC695E366F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45BED4D7-EDFC-4FBF-808B-5BC695E366F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45BED4D7-EDFC-4FBF-808B-5BC695E366F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAEAFADA-0D7F-4F03-96C0-4AF2896BC159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAEAFADA-0D7F-4F03-96C0-4AF2896BC159}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAEAFADA-0D7F-4F03-96C0-4AF2896BC159}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAEAFADA-0D7F-4F03-96C0-4AF2896BC159}.Release|Any CPU.Build.0 = Release|Any CPU
-		{369AAA3E-24CC-4298-A1EB-0893AD07B5F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{369AAA3E-24CC-4298-A1EB-0893AD07B5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{369AAA3E-24CC-4298-A1EB-0893AD07B5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{369AAA3E-24CC-4298-A1EB-0893AD07B5F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6882828C-AFD5-4C4A-8BD2-76D9170074E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6882828C-AFD5-4C4A-8BD2-76D9170074E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6882828C-AFD5-4C4A-8BD2-76D9170074E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6882828C-AFD5-4C4A-8BD2-76D9170074E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58A05F8B-9003-4142-92B1-835ED36968D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A05F8B-9003-4142-92B1-835ED36968D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A05F8B-9003-4142-92B1-835ED36968D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A05F8B-9003-4142-92B1-835ED36968D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,9 +146,8 @@ Global
 		{847149E1-1806-4ACF-97CF-4D457EA4A4C8} = {8216B21C-A2EB-4F5B-B20A-1C6A4E72210D}
 		{C3F5F2FA-44C6-4CB6-A4F2-2E16A1F2B509} = {8216B21C-A2EB-4F5B-B20A-1C6A4E72210D}
 		{45BED4D7-EDFC-4FBF-808B-5BC695E366F8} = {26934151-CB68-49E8-8507-0331B86424AC}
-		{AAEAFADA-0D7F-4F03-96C0-4AF2896BC159} = {26934151-CB68-49E8-8507-0331B86424AC}
-		{369AAA3E-24CC-4298-A1EB-0893AD07B5F2} = {26934151-CB68-49E8-8507-0331B86424AC}
 		{6882828C-AFD5-4C4A-8BD2-76D9170074E2} = {26934151-CB68-49E8-8507-0331B86424AC}
+		{58A05F8B-9003-4142-92B1-835ED36968D9} = {26934151-CB68-49E8-8507-0331B86424AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277B7E0A-BA8E-4DF8-ABD5-890801FC76F8}

@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using CloudNativeKit.Domain;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 
-namespace VND.CoolStore.ShoppingCart.Domain
+namespace VND.CoolStore.ShoppingCart.Domain.Cart
 {
-    public sealed class CartItem : EntityBase
+    public sealed class CartItem : EntityBase<Guid>
     {
         private CartItem() : base(GenerateId())
         {
@@ -18,16 +18,16 @@ namespace VND.CoolStore.ShoppingCart.Domain
             PromoSavings = promoSavings;
         }
 
-        [Required] public int Quantity { get; private set; }
+        public int Quantity { get; private set; }
 
-        [Required] public double Price { get; private set; }
+        public double Price { get; private set; }
 
-        [Required] public double PromoSavings { get; private set; }
+        public double PromoSavings { get; private set; }
 
         public Cart Cart { get; private set; }
         public Guid CartId { get; private set; }
 
-        public Product Product { get; private set; }
+        public ProductCatalogId Product { get; private set; }
 
         public static CartItem Load(Guid productId, int quantity, double price = 0.0D, double promoSavings = 0.0D)
         {
@@ -36,7 +36,7 @@ namespace VND.CoolStore.ShoppingCart.Domain
 
         public static CartItem Load(Guid id, Guid productId, int quantity, double price, double promoSavings)
         {
-            return new CartItem(id, quantity, price, promoSavings).LinkProduct(productId);
+            return new CartItem(id, quantity, price, promoSavings);//.LinkProduct(productId);
         }
 
         public CartItem LinkCart(Cart cart)
@@ -46,9 +46,9 @@ namespace VND.CoolStore.ShoppingCart.Domain
             return this;
         }
 
-        public CartItem LinkProduct(Guid productId)
+        /*public CartItem LinkProduct(Guid productId)
         {
-            var product = Product.Load(productId);
+            var product = ProductCatalog.Load(productId);
             product.LinkCartItem(this);
             Product = product;
             return this;
@@ -56,9 +56,9 @@ namespace VND.CoolStore.ShoppingCart.Domain
 
         public CartItem FillUpProductInfo(string name, double price, string desc)
         {
-            Product = Product.Load(Product.ProductId, name, price, desc);
+            Product = ProductCatalog.Load(Product.ProductId, name, price, desc);
             return this;
-        }
+        }*/
 
         public CartItem ChangePrice(double price)
         {

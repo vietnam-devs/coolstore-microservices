@@ -1,35 +1,19 @@
 using System;
-using static CloudNativeKit.Utils.Helpers.IdHelper;
 
 namespace CloudNativeKit.Domain
 {
     /// <summary>
-    /// Supertype for all Identity types
-    /// </summary>
-    public interface IIdentity
-    {
-        Guid Id { get; }
-    }
-
-    /// <summary>
     /// Supertype for all Identity types with generic Id
     /// </summary>
-    public interface IIdentityWithId<TId>
+    public interface IIdentity<TId>
     {
         TId Id { get; }
-    }
-
-    public abstract class IdentityBase : IdentityBase<Guid>, IEquatable<IdentityBase<Guid>>, IIdentityWithId<Guid>
-    {
-        public IdentityBase() : base(GenerateId())
-        {
-        }
     }
 
     /// <summary>
     /// Source: https://github.com/VaughnVernon/IDDD_Samples_NET
     /// </summary>
-    public abstract class IdentityBase<TId> : IEquatable<IdentityBase<TId>>, IIdentityWithId<TId>
+    public abstract class IdentityBase<TId> : IEquatable<IdentityBase<TId>>, IIdentity<TId>
     {
         protected IdentityBase(TId id)
         {
@@ -44,7 +28,7 @@ namespace CloudNativeKit.Domain
         }
 
         // currently for Entity Framework, set must be protected, not private.
-        // will be fixed in EF 6.
+        // will be fixed in EF.
         public TId Id { get; protected set; }
 
         public override bool Equals(object anotherObject)

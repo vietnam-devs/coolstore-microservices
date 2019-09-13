@@ -19,4 +19,8 @@
     <PackageReference Include="MediatR" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Domain\CloudNativeKit.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

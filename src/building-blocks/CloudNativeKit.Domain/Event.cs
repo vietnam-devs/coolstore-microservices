@@ -6,7 +6,7 @@ using static CloudNativeKit.Utils.Helpers.DateTimeHelper;
 namespace CloudNativeKit.Domain
 {
     /// <summary>
-    ///     Supertype for all Event types
+    ///  Supertype for all Event types
     /// </summary>
     public interface IEvent
     {
