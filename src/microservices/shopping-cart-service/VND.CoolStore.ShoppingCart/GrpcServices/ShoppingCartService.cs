@@ -4,7 +4,7 @@ using MediatR;
 using VND.CoolStore.ShoppingCart.DataContracts.V1;
 using static VND.CoolStore.ShoppingCart.DataContracts.V1.ShoppingCart;
 
-namespace VND.CoolStore.ShoppingCart.Services
+namespace VND.CoolStore.ShoppingCart.GrpcServices
 {
     public class ShoppingCartService : ShoppingCartBase
     {

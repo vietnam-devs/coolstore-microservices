@@ -1,9 +1,8 @@
 using System;
 using System.Data;
-using CloudNativeKit.Infrastructure.DataPersistence.EfCore.Db;
 using Microsoft.Data.SqlClient;
 
-namespace CloudNativeKit.Infrastructure.DataPersistence.Dapper.Internal
+namespace CloudNativeKit.Infrastructure.DataPersistence.Dapper.Db
 {
     internal class SqlConnectionFactory : ISqlConnectionFactory, IDisposable
     {

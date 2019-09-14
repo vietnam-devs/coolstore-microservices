@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using Microsoft.Data.SqlClient;
 
-namespace CloudNativeKit.Infrastructure.DataPersistence.Dapper.Internal
+namespace CloudNativeKit.Infrastructure.DataPersistence.Dapper.Db
 {
     public class DynamicSqlConnectionFactory : IDynamicSqlConnectionFactory, IDisposable
     {

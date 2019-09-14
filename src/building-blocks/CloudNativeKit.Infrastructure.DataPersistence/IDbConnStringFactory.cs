@@ -1,4 +1,4 @@
-namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore.Db
+namespace CloudNativeKit.Infrastructure.DataPersistence
 {
     public interface IDbConnStringFactory
     {

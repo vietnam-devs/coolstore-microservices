@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using Grpc.Health.V1;
 
-namespace VND.CoolStore.ShoppingCart.Services
+namespace VND.CoolStore.ShoppingCart.GrpcServices
 {
     public class HealthService : Health.HealthBase
     {

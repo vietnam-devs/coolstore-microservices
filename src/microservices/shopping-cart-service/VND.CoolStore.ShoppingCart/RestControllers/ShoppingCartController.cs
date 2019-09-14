@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VND.CoolStore.ShoppingCart.DataContracts.V1;
 
-namespace VND.CoolStore.ShoppingCart.Controllers
+namespace VND.CoolStore.ShoppingCart.RestControllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -39,8 +39,8 @@ namespace VND.CoolStore.ShoppingCart
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<Services.ShoppingCartService>();
-                endpoints.MapGrpcService<Services.HealthService>();
+                endpoints.MapGrpcService<GrpcServices.ShoppingCartService>();
+                endpoints.MapGrpcService<GrpcServices.HealthService>();
                 endpoints.MapControllers();
             });
         }

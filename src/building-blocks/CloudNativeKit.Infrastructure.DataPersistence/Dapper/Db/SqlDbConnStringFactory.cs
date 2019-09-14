@@ -1,8 +1,7 @@
 using System.Linq;
-using CloudNativeKit.Infrastructure.DataPersistence.EfCore.Db;
 using Microsoft.Extensions.Options;
 
-namespace CloudNativeKit.Infrastructure.DataPersistence.Dapper.Internal
+namespace CloudNativeKit.Infrastructure.DataPersistence.Dapper.Db
 {
     internal class SqlDbConnStringFactory : IDbConnStringFactory
     {
