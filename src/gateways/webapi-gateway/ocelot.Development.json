@@ -59,6 +59,30 @@
           "Port": 15003
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{currentPage}/{highPrice}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/GetProducts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 15002
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{productId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/GetProductById",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 15002
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {

@@ -1,0 +1,54 @@
+{
+	"variables": [],
+	"info": {
+		"name": "CoolStore-Microservices",
+		"_postman_id": "e3305781-922e-a916-a645-ac9f3c119270",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetCartById",
+			"request": {
+				"url": "http://localhost:5000/api/carts/14460159-9AF4-4316-B687-8854E1F970EB",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/grpc",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetProducts (page & price)",
+			"request": {
+				"url": "http://localhost:5000/api/products/1/100",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/grpc",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer ancbdsadadsa",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Jack 123\",\n  \"page\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

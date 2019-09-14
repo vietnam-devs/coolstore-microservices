@@ -1,0 +1,39 @@
+syntax = "proto3";
+package coolstore;
+option csharp_namespace = "VND.CoolStore.ProductCatalog.DataContracts.V1";
+
+import "catalog.proto";
+
+service Catalog {
+  rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {};
+  rpc GetProductById(GetProductByIdRequest) returns (GetProductByIdResponse) {};
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {};
+}
+
+message GetProductsRequest {
+  int32 current_page = 1;
+  double high_price = 2;
+}
+
+message GetProductsResponse {
+  repeated CatalogProductDto products = 1;
+}
+
+message GetProductByIdRequest {
+  string product_id = 1;
+}
+
+message GetProductByIdResponse {
+  CatalogProductDto product = 1;
+}
+
+message CreateProductRequest {
+  string name = 1;
+  string desc = 2;
+  double price = 3;
+  string image_url = 4;
+}
+
+message CreateProductResponse {
+  CatalogProductDto product = 1;
+}

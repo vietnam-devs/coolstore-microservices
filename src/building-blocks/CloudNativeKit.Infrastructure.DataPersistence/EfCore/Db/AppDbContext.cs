@@ -4,14 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using ReflectionMagic;
 
 namespace CloudNativeKit.Infrastructure.DataPersistence.EfCore.Db
 {
     public abstract class AppDbContext : DbContext
     {
-        private readonly IConfiguration _config;
         private readonly IEnumerable<IDomainEventDispatcher> _eventBuses = null;
 
         protected AppDbContext(DbContextOptions options, IEnumerable<IDomainEventDispatcher> eventBuses = null)

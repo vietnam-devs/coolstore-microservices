@@ -25,6 +25,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schema", "Schema", "{4B0985A8-C492-464B-9472-FC715FC34154}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gql", "gql", "{7C8B3C68-2C4B-462E-9D7B-326ED84829F7}"
+	ProjectSection(SolutionItems) = preProject
+		src\schema\gql\coolstore.graphql = src\schema\gql\coolstore.graphql
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grpc", "grpc", "{67D8F1E3-5EB3-4C96-8641-E05AEEC0361A}"
 EndProject
@@ -33,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v1", "v1", "{BBACAD23-F563-
 		src\schema\grpc\v1\cart.proto = src\schema\grpc\v1\cart.proto
 		src\schema\grpc\v1\cart_api.proto = src\schema\grpc\v1\cart_api.proto
 		src\schema\grpc\v1\catalog.proto = src\schema\grpc\v1\catalog.proto
+		src\schema\grpc\v1\catalog_api.proto = src\schema\grpc\v1\catalog_api.proto
 		src\schema\grpc\v1\common.proto = src\schema\grpc\v1\common.proto
 		src\schema\grpc\v1\inventory.proto = src\schema\grpc\v1\inventory.proto
 		src\schema\grpc\v1\rating.proto = src\schema\grpc\v1\rating.proto
@@ -67,6 +71,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNativeKit.Infrastructure.Bus", "src\building-blocks\CloudNativeKit.Infrastructure.Bus\CloudNativeKit.Infrastructure.Bus.csproj", "{6882828C-AFD5-4C4A-8BD2-76D9170074E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNativeKit.Infrastructure.DataPersistence", "src\building-blocks\CloudNativeKit.Infrastructure.DataPersistence\CloudNativeKit.Infrastructure.DataPersistence.csproj", "{58A05F8B-9003-4142-92B1-835ED36968D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.ProductCatalog", "src\microservices\product-catalog-service\VND.CoolStore.ProductCatalog\VND.CoolStore.ProductCatalog.csproj", "{FA6D1A01-2536-4C50-9144-E36117799226}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductCatalog", "ProductCatalog", "{E9EFAB71-E36C-4B75-A5E8-3BD63D7C4342}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.ProductCatalog.DataContracts", "src\microservices\product-catalog-service\VND.CoolStore.ProductCatalog.DataContracts\VND.CoolStore.ProductCatalog.DataContracts.csproj", "{26E93D20-4016-4B8B-9450-3F08E65DEC06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,6 +136,14 @@ Global
 		{58A05F8B-9003-4142-92B1-835ED36968D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58A05F8B-9003-4142-92B1-835ED36968D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58A05F8B-9003-4142-92B1-835ED36968D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA6D1A01-2536-4C50-9144-E36117799226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA6D1A01-2536-4C50-9144-E36117799226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA6D1A01-2536-4C50-9144-E36117799226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA6D1A01-2536-4C50-9144-E36117799226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E93D20-4016-4B8B-9450-3F08E65DEC06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E93D20-4016-4B8B-9450-3F08E65DEC06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E93D20-4016-4B8B-9450-3F08E65DEC06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E93D20-4016-4B8B-9450-3F08E65DEC06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +166,9 @@ Global
 		{45BED4D7-EDFC-4FBF-808B-5BC695E366F8} = {26934151-CB68-49E8-8507-0331B86424AC}
 		{6882828C-AFD5-4C4A-8BD2-76D9170074E2} = {26934151-CB68-49E8-8507-0331B86424AC}
 		{58A05F8B-9003-4142-92B1-835ED36968D9} = {26934151-CB68-49E8-8507-0331B86424AC}
+		{FA6D1A01-2536-4C50-9144-E36117799226} = {E9EFAB71-E36C-4B75-A5E8-3BD63D7C4342}
+		{E9EFAB71-E36C-4B75-A5E8-3BD63D7C4342} = {09BCCF6A-4F53-4861-ADE3-C2070E12C3AA}
+		{26E93D20-4016-4B8B-9450-3F08E65DEC06} = {E9EFAB71-E36C-4B75-A5E8-3BD63D7C4342}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277B7E0A-BA8E-4DF8-ABD5-890801FC76F8}
