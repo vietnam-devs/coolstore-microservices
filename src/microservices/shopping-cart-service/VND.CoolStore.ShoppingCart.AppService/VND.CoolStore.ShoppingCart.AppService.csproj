@@ -13,11 +13,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Domain\CloudNativeKit.Domain.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure.Bus\CloudNativeKit.Infrastructure.Bus.csproj" />
-    <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure.DataPersistence\CloudNativeKit.Infrastructure.DataPersistence.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure\CloudNativeKit.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Utils\CloudNativeKit.Utils.csproj" />
     <ProjectReference Include="..\VND.CoolStore.ShoppingCart.DataContracts\VND.CoolStore.ShoppingCart.DataContracts.csproj" />
-    <ProjectReference Include="..\VND.CoolStore.ShoppingCart.DataPersistence\VND.CoolStore.ShoppingCart.DataPersistence.csproj" />
+    <ProjectReference Include="..\VND.CoolStore.ShoppingCart.Data\VND.CoolStore.ShoppingCart.Data.csproj" />
     <ProjectReference Include="..\VND.CoolStore.ShoppingCart.Domain\VND.CoolStore.ShoppingCart.Domain.csproj" />
   </ItemGroup>
 

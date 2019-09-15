@@ -1,7 +1,7 @@
 using CloudNativeKit.Infrastructure.Bus;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using VND.CoolStore.ShoppingCart.DataPersistence;
+using VND.CoolStore.ShoppingCart.Data;
 
 namespace VND.CoolStore.ShoppingCart.AppService
 {

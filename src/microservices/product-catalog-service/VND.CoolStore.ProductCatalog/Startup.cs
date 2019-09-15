@@ -1,6 +1,6 @@
 using System.Reflection;
 using CloudNativeKit.Infrastructure.Bus;
-using CloudNativeKit.Infrastructure.DataPersistence;
+using CloudNativeKit.Infrastructure.Data;
 using CloudNativeKit.Infrastructure.Grpc;
 using CloudNativeKit.Infrastructure.ValidationModel;
 using FluentValidation;
@@ -35,9 +35,8 @@ namespace VND.CoolStore.ProductCatalog
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
 
-            services.AddDapper();
-            services.AddDapperGenericRepository();
-            services.AddScoped<DataPersistence.IProductRepository, DataPersistence.Impl.ProductRepository>();
+            services.AddDapperComponents();
+            services.AddScoped<Data.IProductRepository, Data.Impl.ProductRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,10 +1,12 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using CloudNativeKit.Domain;
 using VND.CoolStore.ProductCatalog.DataContracts.V1;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.ProductCatalog.Domain
 {
+    [Table("Products", Schema ="catalog")]
     public class Product : AggregateRootBase<Guid>
     {
         private Product() : base(GenerateId())

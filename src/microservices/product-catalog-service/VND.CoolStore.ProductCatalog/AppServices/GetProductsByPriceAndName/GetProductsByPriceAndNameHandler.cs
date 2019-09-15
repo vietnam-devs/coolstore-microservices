@@ -3,31 +3,31 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CloudNativeKit.Domain;
-using CloudNativeKit.Infrastructure.DataPersistence.Dapper.Query;
+using CloudNativeKit.Infrastructure.Data.Dapper.Query;
 using MediatR;
 using VND.CoolStore.ProductCatalog.DataContracts.V1;
-using VND.CoolStore.ProductCatalog.DataPersistence;
 using VND.CoolStore.ProductCatalog.Domain;
 
 namespace VND.CoolStore.ProductCatalog.AppServices.GetProductsByPriceAndName
 {
     public class GetProductsByPriceAndNameHandler : IRequestHandler<GetProductsRequest, GetProductsResponse>
     {
-        private readonly IProductRepository _productRepository;
         private readonly IQueryRepositoryFactory _queryRepositoryFactory;
 
-        public GetProductsByPriceAndNameHandler(IProductRepository productRepository, IQueryRepositoryFactory queryRepositoryFactory)
+        public GetProductsByPriceAndNameHandler(IQueryRepositoryFactory queryRepositoryFactory)
         {
-            _productRepository = productRepository;
             _queryRepositoryFactory = queryRepositoryFactory;
         }
 
         public async Task<GetProductsResponse> Handle(GetProductsRequest request, CancellationToken cancellationToken)
         {
             var productRepository = _queryRepositoryFactory.QueryRepository<Product, Guid>() as IGenericQueryRepository<Product, Guid>;
-            var products = await productRepository.GetByConditionAsync(new {});
+            var queryable = await productRepository.QueryableAsync();
+            var products = queryable
+                .Skip(request.CurrentPage - 1)
+                .Take(10)
+                .Where(x => x.Price <= request.HighPrice);
 
-            //var products = await _productRepository.GetProductsAsync(request.CurrentPage, request.HighPrice);
             var response = new GetProductsResponse();
             response.Products
                 .AddRange(products.Select(p => new CatalogProductDto

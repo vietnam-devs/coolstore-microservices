@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using CloudNativeKit.Utils.Extensions;
 using MediatR;
 using VND.CoolStore.ProductCatalog.DataContracts.V1;
-using VND.CoolStore.ProductCatalog.DataPersistence;
+using VND.CoolStore.ProductCatalog.Data;
 
 namespace VND.CoolStore.ProductCatalog.AppServices.GetDetailOfSpecificProduct
 {

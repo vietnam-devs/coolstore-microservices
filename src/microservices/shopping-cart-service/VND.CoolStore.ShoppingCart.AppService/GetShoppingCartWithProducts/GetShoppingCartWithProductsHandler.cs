@@ -2,11 +2,11 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using CloudNativeKit.Domain;
-using CloudNativeKit.Infrastructure.DataPersistence.EfCore.Query;
+using CloudNativeKit.Infrastructure.Data.EfCore.Core.Query;
 using CloudNativeKit.Utils.Extensions;
 using MediatR;
 using VND.CoolStore.ShoppingCart.DataContracts.V1;
-using VND.CoolStore.ShoppingCart.DataPersistence;
+using VND.CoolStore.ShoppingCart.Data;
 using VND.CoolStore.ShoppingCart.Domain.Cart;
 
 namespace VND.CoolStore.ShoppingCart.AppService.GetShoppingCartWithProducts

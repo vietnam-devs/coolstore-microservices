@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using CloudNativeKit.Infrastructure.ValidationModel;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Serilog;
@@ -17,6 +18,15 @@ namespace CloudNativeKit.Infrastructure.Grpc
             {
                 var response = await base.UnaryServerHandler(request, context, continuation);
                 return response;
+            }
+            catch (ValidationException ex)
+            {
+                Log.Logger.Error(MessageTemplate,
+                    context.Method,
+                    context.Status.StatusCode,
+                    ex.ValidationResultModel.ToString());
+
+                throw new RpcException(new Status(StatusCode.Internal, ex.ValidationResultModel.ToString()));
             }
             catch (Exception ex)
             {
