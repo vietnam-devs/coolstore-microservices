@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace VND.CoolStore.ProductCatalog.AppServices.GetDetailOfSpecificProduct
+namespace VND.CoolStore.ProductCatalog.AppServices.UpdateProduct
 {
     using CloudNativeKit.Domain;
     using CloudNativeKit.Infrastructure.Data.Dapper.Repository;
@@ -11,16 +11,16 @@ namespace VND.CoolStore.ProductCatalog.AppServices.GetDetailOfSpecificProduct
     using VND.CoolStore.ProductCatalog.DataContracts.V1;
     using VND.CoolStore.ProductCatalog.Domain;
 
-    public class GetDetailOfSpecificProductHandler : IRequestHandler<GetProductByIdRequest, GetProductByIdResponse>
+    public class UpdateProductHandler : IRequestHandler<UpdateProductRequest, UpdateProductResponse>
     {
         private readonly IQueryRepositoryFactory _queryRepositoryFactory;
 
-        public GetDetailOfSpecificProductHandler(IQueryRepositoryFactory queryRepositoryFactory)
+        public UpdateProductHandler(IQueryRepositoryFactory queryRepositoryFactory)
         {
             _queryRepositoryFactory = queryRepositoryFactory;
         }
 
-        public async Task<GetProductByIdResponse> Handle(GetProductByIdRequest request, CancellationToken cancellationToken)
+        public async Task<UpdateProductResponse> Handle(UpdateProductRequest request, CancellationToken cancellationToken)
         {
             var productRepository = _queryRepositoryFactory.QueryRepository<Product, Guid>() as IGenericRepository<Product, Guid>;
             var existedProduct = await productRepository.GetByIdAsync(request.ProductId.ConvertTo<Guid>());
@@ -29,15 +29,18 @@ namespace VND.CoolStore.ProductCatalog.AppServices.GetDetailOfSpecificProduct
                 throw new Exception("Could not get the record from the database.");
             }
 
-            return new GetProductByIdResponse
+            var updated = existedProduct.UpdateProduct(request);
+            var product = await productRepository.UpdateAsync(updated);
+
+            return new UpdateProductResponse
             {
                 Product = new CatalogProductDto
                 {
-                    Id = existedProduct.Id.ToString(),
-                    Name = existedProduct.Name,
-                    Desc = existedProduct.Description,
-                    Price = existedProduct.Price,
-                    ImageUrl = existedProduct.ImageUrl
+                    Id = product.Id.ToString(),
+                    Name = product.Name,
+                    Desc = product.Description,
+                    ImageUrl = product.ImageUrl,
+                    Price = product.Price
                 }
             };
         }

@@ -1,7 +1,6 @@
 using System;
 using DbUp;
 using DbUp.Engine;
-using DbUp.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
@@ -31,27 +30,27 @@ namespace VND.CoolStore.DbMigration
                 .AddEnvironmentVariables()
                 .Build();
 
-            var lastArg = 0;
-            for (; lastArg < args.Length; lastArg++)
+            //var lastArg = 0;
+            for (var argIndex = 0; argIndex < args.Length; argIndex++)
             {
-                if (IsArg(args[lastArg], "shoppingcart"))
+                if (IsArg(args[argIndex], "shoppingcart"))
                 {
                     Log.Information("Run migration for Shopping Cart Service");
                     Run(ServiceName.ShoppingCart);
                 }
-                if (IsArg(args[lastArg], "productcatalog"))
+                else if (IsArg(args[argIndex], "productcatalog"))
                 {
                     Log.Information("Run migration for Product Catalog Service");
                     Run(ServiceName.ProductCatalog);
                 }
-                if (IsArg(args[lastArg], "inventory"))
+                else if (IsArg(args[argIndex], "inventory"))
                 {
                     Log.Information("Run migration for Inventory Service");
                     Run(ServiceName.Inventory);
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException($"{args[lastArg]} not found.");
+                    throw new ArgumentOutOfRangeException($"{args[argIndex]} not found.");
                 }
             }
         }

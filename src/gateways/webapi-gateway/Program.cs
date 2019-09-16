@@ -59,6 +59,7 @@ namespace VND.CoolStore.WebApiGateway
                             typeof(CatalogClient).Assembly));
 
                     services.AddOcelot();
+                    services.AddHttpContextAccessor();
                 })
                 .ConfigureLogging((hostingContext, logging) => {
                     logging.AddSerilog(dispose: true);

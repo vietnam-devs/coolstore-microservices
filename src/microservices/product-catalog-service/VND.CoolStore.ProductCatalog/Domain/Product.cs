@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using CloudNativeKit.Domain;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
-using static CloudNativeKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.ProductCatalog.Domain
 {
+    using CloudNativeKit.Domain;
+    using VND.CoolStore.ProductCatalog.DataContracts.V1;
+    using static CloudNativeKit.Utils.Helpers.DateTimeHelper;
+    using static CloudNativeKit.Utils.Helpers.IdHelper;
+
     [Table("Products", Schema ="catalog")]
     public class Product : AggregateRootBase<Guid>
     {
@@ -27,12 +29,25 @@ namespace VND.CoolStore.ProductCatalog.Domain
 
         public static Product Of(CreateProductRequest request)
         {
-            return new Product {
+            return new Product
+            {
                 Name = request.Name,
                 Description = request.Desc,
                 Price = request.Price,
-                ImageUrl = request.ImageUrl
+                ImageUrl = request.ImageUrl,
+                Updated = GenerateDateTime()
             };
+        }
+
+        public Product UpdateProduct(UpdateProductRequest request)
+        {
+            Name = request.Name;
+            Description = request.Desc;
+            Price = request.Price;
+            ImageUrl = request.ImageUrl;
+            Updated = GenerateDateTime();
+
+            return this;
         }
     }
 }

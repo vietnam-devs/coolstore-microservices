@@ -8,6 +8,8 @@ service Catalog {
   rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {};
   rpc GetProductById(GetProductByIdRequest) returns (GetProductByIdResponse) {};
   rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {};
+  rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse) {};
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse) {};
 }
 
 message GetProductsRequest {
@@ -35,5 +37,25 @@ message CreateProductRequest {
 }
 
 message CreateProductResponse {
+  CatalogProductDto product = 1;
+}
+
+message UpdateProductRequest {
+  string product_id = 1;
+  string name = 2;
+  string desc = 3;
+  double price = 4;
+  string image_url = 5;
+}
+
+message UpdateProductResponse {
+  CatalogProductDto product = 1;
+}
+
+message DeleteProductRequest {
+  string product_id = 1;
+}
+
+message DeleteProductResponse {
   CatalogProductDto product = 1;
 }

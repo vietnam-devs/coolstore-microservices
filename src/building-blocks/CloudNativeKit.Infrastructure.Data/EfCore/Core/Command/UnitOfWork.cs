@@ -70,10 +70,11 @@ namespace CloudNativeKit.Infrastructure.Data.EfCore.Core.Command
             return entity;
         }
 
-        public async Task<TEntity> DeleteAsync(TEntity entity)
+        public async Task<int> DeleteAsync(TEntity entity)
         {
             var entry = _dbSet.Remove(entity);
-            return await Task.FromResult(entry.Entity);
+            //return await Task.FromResult(entry.Entity);
+            return await Task.FromResult(1);
         }
 
         public async Task<TEntity> UpdateAsync(TEntity entity)

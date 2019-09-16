@@ -19,6 +19,6 @@ namespace CloudNativeKit.Domain
     {
         Task<TEntity> AddAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);
-        Task<TEntity> DeleteAsync(TEntity entity);
+        Task<int> DeleteAsync(TEntity entity);
     }
 }

@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace VND.CoolStore.ProductCatalog.AppServices.GetDetailOfSpecificProduct
+namespace VND.CoolStore.ProductCatalog.AppServices.DeleteProduct
 {
     using CloudNativeKit.Domain;
     using CloudNativeKit.Infrastructure.Data.Dapper.Repository;
@@ -11,16 +11,16 @@ namespace VND.CoolStore.ProductCatalog.AppServices.GetDetailOfSpecificProduct
     using VND.CoolStore.ProductCatalog.DataContracts.V1;
     using VND.CoolStore.ProductCatalog.Domain;
 
-    public class GetDetailOfSpecificProductHandler : IRequestHandler<GetProductByIdRequest, GetProductByIdResponse>
+    public class DeleteProductHandler : IRequestHandler<DeleteProductRequest, DeleteProductResponse>
     {
         private readonly IQueryRepositoryFactory _queryRepositoryFactory;
 
-        public GetDetailOfSpecificProductHandler(IQueryRepositoryFactory queryRepositoryFactory)
+        public DeleteProductHandler(IQueryRepositoryFactory queryRepositoryFactory)
         {
             _queryRepositoryFactory = queryRepositoryFactory;
         }
 
-        public async Task<GetProductByIdResponse> Handle(GetProductByIdRequest request, CancellationToken cancellationToken)
+        public async Task<DeleteProductResponse> Handle(DeleteProductRequest request, CancellationToken cancellationToken)
         {
             var productRepository = _queryRepositoryFactory.QueryRepository<Product, Guid>() as IGenericRepository<Product, Guid>;
             var existedProduct = await productRepository.GetByIdAsync(request.ProductId.ConvertTo<Guid>());
@@ -29,15 +29,17 @@ namespace VND.CoolStore.ProductCatalog.AppServices.GetDetailOfSpecificProduct
                 throw new Exception("Could not get the record from the database.");
             }
 
-            return new GetProductByIdResponse
+            await productRepository.DeleteAsync(existedProduct);
+
+            return new DeleteProductResponse
             {
                 Product = new CatalogProductDto
                 {
                     Id = existedProduct.Id.ToString(),
                     Name = existedProduct.Name,
                     Desc = existedProduct.Description,
-                    Price = existedProduct.Price,
-                    ImageUrl = existedProduct.ImageUrl
+                    ImageUrl = existedProduct.ImageUrl,
+                    Price = existedProduct.Price
                 }
             };
         }

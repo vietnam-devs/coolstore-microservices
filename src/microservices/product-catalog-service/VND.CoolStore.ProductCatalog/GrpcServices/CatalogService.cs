@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
 using Grpc.Core;
 using MediatR;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
-using static VND.CoolStore.ProductCatalog.DataContracts.V1.Catalog;
 
 namespace VND.CoolStore.ProductCatalog.GrpcServices
 {
+    using VND.CoolStore.ProductCatalog.DataContracts.V1;
+    using static VND.CoolStore.ProductCatalog.DataContracts.V1.Catalog;
+
     public class CatalogService : CatalogBase
     {
         private readonly IMediator _mediator;
@@ -26,6 +27,16 @@ namespace VND.CoolStore.ProductCatalog.GrpcServices
         }
 
         public override async Task<CreateProductResponse> CreateProduct(CreateProductRequest request, ServerCallContext context)
+        {
+            return await _mediator.Send(request);
+        }
+
+        public override async Task<UpdateProductResponse> UpdateProduct(UpdateProductRequest request, ServerCallContext context)
+        {
+            return await _mediator.Send(request);
+        }
+
+        public override async Task<DeleteProductResponse> DeleteProduct(DeleteProductRequest request, ServerCallContext context)
         {
             return await _mediator.Send(request);
         }

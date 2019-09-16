@@ -1,10 +1,12 @@
-using CloudNativeKit.Infrastructure.Bus;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using VND.CoolStore.ShoppingCart.Data;
 
 namespace VND.CoolStore.ShoppingCart.AppService
 {
+    using CloudNativeKit.Infrastructure;
+    using CloudNativeKit.Infrastructure.Bus;
+    using VND.CoolStore.ShoppingCart.Data;
+
     public class AppServiceStartupRoot { }
     public static class Startup
     {
@@ -12,12 +14,7 @@ namespace VND.CoolStore.ShoppingCart.AppService
         {
             services.AddDataPersistence();
             services.AddDomainEventBus();
-
-            return services.Scan(s =>
-                s.FromAssemblyOf<AppServiceStartupRoot>()
-                    .AddClasses(c => c.AssignableTo(typeof(IValidator<>)))
-                    .AsImplementedInterfaces()
-                    .WithTransientLifetime());
+            return services.AddServiceByIntefaceInAssembly<AppServiceStartupRoot>(typeof(IValidator<>));
         }
     }
 }

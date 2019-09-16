@@ -1,8 +1,4 @@
 using System.Reflection;
-using CloudNativeKit.Infrastructure.Bus;
-using CloudNativeKit.Infrastructure.Data;
-using CloudNativeKit.Infrastructure.Grpc;
-using CloudNativeKit.Infrastructure.ValidationModel;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +8,12 @@ using Microsoft.Extensions.Hosting;
 
 namespace VND.CoolStore.ProductCatalog
 {
+    using CloudNativeKit.Infrastructure;
+    using CloudNativeKit.Infrastructure.Bus;
+    using CloudNativeKit.Infrastructure.Data;
+    using CloudNativeKit.Infrastructure.Grpc;
+    using CloudNativeKit.Infrastructure.ValidationModel;
+
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
@@ -26,17 +28,11 @@ namespace VND.CoolStore.ProductCatalog
 
             services.AddMediatR(Assembly.GetEntryAssembly(), typeof(Startup).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-
-            services.AddDomainEventBus();
-
-            services.Scan(s =>
-                s.FromAssemblyOf<Startup>()
-                    .AddClasses(c => c.AssignableTo(typeof(IValidator<>)))
-                    .AsImplementedInterfaces()
-                    .WithTransientLifetime());
+            services.AddServiceByIntefaceInAssembly<Startup>(typeof(IValidator<>));
 
             services.AddDapperComponents();
-            services.AddScoped<Data.IProductRepository, Data.Impl.ProductRepository>();
+
+            services.AddDomainEventBus();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

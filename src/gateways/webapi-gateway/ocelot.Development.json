@@ -83,6 +83,42 @@
           "Port": 15002
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/CreateProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 15002
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{productId}",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/UpdateProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 15002
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{productId}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/DeleteProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 15002
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {

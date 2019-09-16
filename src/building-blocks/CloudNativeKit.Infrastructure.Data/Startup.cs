@@ -74,15 +74,14 @@ namespace CloudNativeKit.Infrastructure.Data
 
             if (!dynamicSqlConnectionFactory)
             {
-                services.Add(ServiceDescriptor.Transient<Dapper.ISqlConnectionFactory, Dapper.Db.SqlConnectionFactory>());
+                services.Add(ServiceDescriptor.Scoped<Dapper.ISqlConnectionFactory, Dapper.Db.SqlConnectionFactory>());
             }
             else
             {
-                services.Add(ServiceDescriptor.Transient<Dapper.IDynamicSqlConnectionFactory, Dapper.Db.DynamicSqlConnectionFactory>());
+                services.Add(ServiceDescriptor.Scoped<Dapper.IDynamicSqlConnectionFactory, Dapper.Db.DynamicSqlConnectionFactory>());
             }
 
-            //services.Add(ServiceDescriptor.Scoped<IUnitOfWorkAsync, EfCore.Command.UnitOfWork>());
-            services.Add(ServiceDescriptor.Scoped<IQueryRepositoryFactory, Dapper.Query.QueryRepositoryFactory>());
+            services.Add(ServiceDescriptor.Scoped<IQueryRepositoryFactory, Dapper.Repository.Impl.GenericRepositoryFactory>());
 
             return services;
         }

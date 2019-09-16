@@ -2,14 +2,15 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CloudNativeKit.Domain;
-using CloudNativeKit.Infrastructure.Data.Dapper.Query;
 using MediatR;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
-using VND.CoolStore.ProductCatalog.Domain;
 
 namespace VND.CoolStore.ProductCatalog.AppServices.GetProductsByPriceAndName
 {
+    using CloudNativeKit.Domain;
+    using CloudNativeKit.Infrastructure.Data.Dapper.Repository;
+    using VND.CoolStore.ProductCatalog.DataContracts.V1;
+    using VND.CoolStore.ProductCatalog.Domain;
+
     public class GetProductsByPriceAndNameHandler : IRequestHandler<GetProductsRequest, GetProductsResponse>
     {
         private readonly IQueryRepositoryFactory _queryRepositoryFactory;
@@ -21,7 +22,7 @@ namespace VND.CoolStore.ProductCatalog.AppServices.GetProductsByPriceAndName
 
         public async Task<GetProductsResponse> Handle(GetProductsRequest request, CancellationToken cancellationToken)
         {
-            var productRepository = _queryRepositoryFactory.QueryRepository<Product, Guid>() as IGenericQueryRepository<Product, Guid>;
+            var productRepository = _queryRepositoryFactory.QueryRepository<Product, Guid>() as IGenericRepository<Product, Guid>;
             var queryable = await productRepository.QueryableAsync();
             var products = queryable
                 .Skip(request.CurrentPage - 1)
