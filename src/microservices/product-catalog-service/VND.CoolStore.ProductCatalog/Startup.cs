@@ -18,7 +18,7 @@ namespace VND.CoolStore.ProductCatalog
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //services.AddControllers();
 
             services.AddGrpc(options => {
                 options.Interceptors.Add<RequestLoggerInterceptor>();
@@ -48,7 +48,7 @@ namespace VND.CoolStore.ProductCatalog
             {
                 endpoints.MapGrpcService<GrpcServices.CatalogService>();
                 endpoints.MapGrpcService<GrpcServices.HealthService>();
-                endpoints.MapControllers();
+                //endpoints.MapControllers();
             });
         }
     }

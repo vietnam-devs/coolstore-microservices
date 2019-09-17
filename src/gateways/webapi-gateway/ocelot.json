@@ -1,6 +1,125 @@
 {
   "ReRoutes": [
-    
+    {
+      "UpstreamPathTemplate": "/api/carts/{cartId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/coolstore.ShoppingCart/GetCart",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shopping-cart-api",
+          "Port": 15003
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/carts",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/coolstore.ShoppingCart/InsertItemToNewCart",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shopping-cart-api",
+          "Port": 15003
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/carts",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/coolstore.ShoppingCart/UpdateItemInCart",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shopping-cart-api",
+          "Port": 15003
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/carts/{cartId}/checkout",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/coolstore.ShoppingCart/Checkout",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shopping-cart-api",
+          "Port": 15003
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/carts/{cartId}/items/{productId}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamPathTemplate": "/coolstore.ShoppingCart/DeleteItem",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shopping-cart-api",
+          "Port": 15003
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{currentPage}/{highPrice}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/GetProducts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "product-catalog-api",
+          "Port": 15002
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{productId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/GetProductById",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "product-catalog-api",
+          "Port": 15002
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/CreateProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "product-catalog-api",
+          "Port": 15002
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{productId}",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/UpdateProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "product-catalog-api",
+          "Port": 15002
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{productId}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamPathTemplate": "/coolstore.Catalog/DeleteProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "product-catalog-api",
+          "Port": 15002
+        }
+      ]
+    }
   ],
   "GlobalConfiguration": {
     "RateLimitOptions": {

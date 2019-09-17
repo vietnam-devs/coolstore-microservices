@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +12,7 @@ namespace VND.CoolStore.ProductCatalog
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
                 .WriteTo.Console()
                 .CreateLogger();
 
@@ -33,20 +35,24 @@ namespace VND.CoolStore.ProductCatalog
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureKestrel(options =>
+                    webBuilder.ConfigureKestrel((context, options) =>
                     {
+                        var ipAddr = context.HostingEnvironment.IsDevelopment() ? IPAddress.Loopback : IPAddress.Parse("0.0.0.0");
                         options.Limits.MinRequestBodyDataRate = null;
-                        options.ListenLocalhost(15002, listenOptions =>
+                        options.Listen(ipAddr, 15002, listenOptions =>
                         {
                             listenOptions.Protocols = HttpProtocols.Http2;
                         });
-                        options.ListenLocalhost(5002, listenOptions =>
+                        options.Listen(ipAddr, 5002, listenOptions =>
                         {
                             listenOptions.Protocols = HttpProtocols.Http1;
                         });
                     });
                     webBuilder.UseStartup<Startup>();
                 })
-                .UseSerilog();
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddSerilog();
+                });
     }
 }

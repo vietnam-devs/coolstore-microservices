@@ -1,20 +1,21 @@
 using System.Reflection;
-using CloudNativeKit.Infrastructure.Grpc;
-using CloudNativeKit.Infrastructure.ValidationModel;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using VND.CoolStore.ShoppingCart.AppService;
 
 namespace VND.CoolStore.ShoppingCart
 {
+    using CloudNativeKit.Infrastructure.Grpc;
+    using CloudNativeKit.Infrastructure.ValidationModel;
+    using VND.CoolStore.ShoppingCart.AppService;
+
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //services.AddControllers();
 
             services.AddGrpc(options => {
                 options.Interceptors.Add<RequestLoggerInterceptor>();
@@ -41,7 +42,7 @@ namespace VND.CoolStore.ShoppingCart
             {
                 endpoints.MapGrpcService<GrpcServices.ShoppingCartService>();
                 endpoints.MapGrpcService<GrpcServices.HealthService>();
-                endpoints.MapControllers();
+                //endpoints.MapControllers();
             });
         }
     }

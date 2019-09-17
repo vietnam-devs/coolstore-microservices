@@ -30,7 +30,6 @@ namespace VND.CoolStore.DbMigration
                 .AddEnvironmentVariables()
                 .Build();
 
-            //var lastArg = 0;
             for (var argIndex = 0; argIndex < args.Length; argIndex++)
             {
                 if (IsArg(args[argIndex], "shoppingcart"))

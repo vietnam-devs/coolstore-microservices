@@ -8,6 +8,7 @@ using ReflectionMagic;
 namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
 {
     using CloudNativeKit.Domain;
+    using Microsoft.Extensions.Logging;
 
     public class GenericRepository<TEntity, TId> : IRepositoryAsync<TEntity, TId>, IQueryRepository<TEntity, TId>
         where TEntity : class, IAggregateRoot<TId>

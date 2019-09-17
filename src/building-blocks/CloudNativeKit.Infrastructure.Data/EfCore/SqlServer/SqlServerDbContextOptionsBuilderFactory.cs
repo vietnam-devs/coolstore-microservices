@@ -1,9 +1,10 @@
 using System;
-using CloudNativeKit.Infrastructure.Data.EfCore.Core.Db;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudNativeKit.Infrastructure.Data.EfCore.SqlServer
 {
+    using CloudNativeKit.Infrastructure.Data.EfCore.Core.Db;
+
     public sealed class SqlServerDbContextOptionsBuilderFactory : IExtendDbContextOptionsBuilder
     {
         public DbContextOptionsBuilder Extend(DbContextOptionsBuilder optionsBuilder, IDbConnStringFactory connStringFactory, string assemblyName)

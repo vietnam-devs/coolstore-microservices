@@ -76,7 +76,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ProductCatalo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrations", "Migrations", "{59E8A90F-BAF6-455C-AFE8-6F931A4EF2D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.DbMigration", "src\migrations\VND.CoolStore.DbMigration\VND.CoolStore.DbMigration.csproj", "{A929F949-CB66-43D3-9C71-320A2272F854}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.DbMigration", "src\migrations\VND.CoolStore.DbMigration\VND.CoolStore.DbMigration.csproj", "{A929F949-CB66-43D3-9C71-320A2272F854}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNativeKit.Infrastructure.Data", "src\building-blocks\CloudNativeKit.Infrastructure.Data\CloudNativeKit.Infrastructure.Data.csproj", "{6490B011-FE14-41ED-BC97-0EA663EB120C}"
 EndProject

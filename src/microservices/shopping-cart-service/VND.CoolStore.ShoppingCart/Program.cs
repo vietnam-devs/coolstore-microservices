@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
@@ -33,14 +34,15 @@ namespace VND.CoolStore.ShoppingCart
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureKestrel(options =>
+                    webBuilder.ConfigureKestrel((context, options) =>
                     {
+                        var ipAddr = context.HostingEnvironment.IsDevelopment() ? IPAddress.Loopback : IPAddress.Parse("0.0.0.0");
                         options.Limits.MinRequestBodyDataRate = null;
-                        options.ListenLocalhost(15003, listenOptions =>
+                        options.Listen(ipAddr, 15003, listenOptions =>
                         {
                             listenOptions.Protocols = HttpProtocols.Http2;
                         });
-                        options.ListenLocalhost(5003, listenOptions =>
+                        options.Listen(ipAddr, 5003, listenOptions =>
                         {
                             listenOptions.Protocols = HttpProtocols.Http1;
                         });
