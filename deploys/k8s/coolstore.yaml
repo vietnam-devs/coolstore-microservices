@@ -1,0 +1,216 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: coolstore
+---
+# shopping-cart-api service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopping-cart-api-v1
+  namespace: coolstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shopping-cart-api
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: shopping-cart-api
+        version: v1
+    spec:
+      containers:
+      - name: shopping-cart-api
+        image: vndg/shopping-cart-api:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ConnectionStrings__MainDb
+          value: Data Source=sqlserver,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+        ports:
+        - containerPort: 5003
+          name: http
+        - containerPort: 15003
+          name: grpc
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopping-cart-api
+  namespace: coolstore
+  labels:
+    app: shopping-cart-api
+spec:
+  type: ClusterIP
+  selector:
+    app: shopping-cart-api
+  ports:
+  - port: 5003
+    targetPort: http
+    protocol: TCP
+    name: http
+  - port: 15003
+    targetPort: grpc
+    protocol: TCP
+    name: grpc
+---
+# product-catalog service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-catalog-api-v1
+  namespace: coolstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-catalog-api
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: product-catalog-api
+        version: v1
+    spec:
+      containers:
+      - name: product-catalog-api
+        image: vndg/product-catalog-api:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ConnectionStrings__MainDb
+          value: Data Source=sqlserver,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+        ports:
+        - containerPort: 5002
+          name: http
+        - containerPort: 15002
+          name: grpc
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-catalog-api
+  namespace: coolstore
+  labels:
+    app: product-catalog-api
+spec:
+  type: ClusterIP
+  selector:
+    app: product-catalog-api
+  ports:
+  - port: 5002
+    targetPort: http
+    protocol: TCP
+    name: http
+  - port: 15002
+    targetPort: grpc
+    protocol: TCP
+    name: grpc
+---
+# webapi gateway
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapi-gateway-v1
+  namespace: coolstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapi-gateway
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: webapi-gateway
+        version: v1
+    spec:
+      containers:
+      - name: webapi-gateway
+        image: vndg/webapi-gateway:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapi-gateway
+  namespace: coolstore
+  labels:
+    app: webapi-gateway
+spec:
+  type: ClusterIP
+  selector:
+    app: webapi-gateway
+  ports:
+  - port: 5000
+    targetPort: http
+    protocol: TCP
+    name: http
+---
+# sqlserver service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlserver-v1
+  namespace: coolstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqlserver
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+        version: v1
+    spec:
+      containers:
+      - name: sqlserver
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: SA_PASSWORD
+          value: "P@ssw0rd"
+        - name: ACCEPT_EULA
+          value: "Y"
+        ports:
+        - containerPort: 1433
+          name: tcp
+        resources:
+          requests:
+            cpu: 500m
+            memory: 250Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqlserver
+  namespace: coolstore
+  labels:
+    app: sqlserver
+spec:
+  type: ClusterIP
+  selector:
+    app: sqlserver
+  ports:
+  - port: 1433
+    targetPort: tcp
+    protocol: TCP
+    name: tcp

@@ -58,7 +58,6 @@ services:
     build:
       context: .
       dockerfile: ./src/migrations/VND.CoolStore.DbMigration/Dockerfile
-      target: final
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ConnectionStrings__shoppingcart=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
@@ -67,11 +66,6 @@ services:
       - coolstore
     depends_on:
       - sqlserver_data
-    entrypoint:
-      - dotnet
-      - VND.CoolStore.DbMigration.dll
-      - shoppingcart
-      - productcatalog
 
   sqlserver_data:
     image: mcr.microsoft.com/mssql/server:2017-latest

@@ -20,5 +20,5 @@ RUN dotnet publish "VND.CoolStore.WebApiGateway.csproj" -c Release -o /app/publi
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-RUN ls -la && cat ocelot.json
+#RUN ls -la && cat ocelot.json
 ENTRYPOINT ["dotnet", "VND.CoolStore.WebApiGateway.dll"]

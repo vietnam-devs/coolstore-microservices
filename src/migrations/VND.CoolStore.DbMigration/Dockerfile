@@ -17,3 +17,4 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 COPY --from=build /src/src/migrations/VND.CoolStore.DbMigration/Scripts/ ./Scripts/
 #RUN ls -la && pwd
+ENTRYPOINT ["dotnet", "VND.CoolStore.DbMigration.dll", "shoppingcart", "productcatalog"]
