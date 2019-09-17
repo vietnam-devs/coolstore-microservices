@@ -5,23 +5,22 @@ using MediatR;
 
 namespace VND.CoolStore.ProductCatalog.AppServices.CreateProduct
 {
-    using CloudNativeKit.Domain;
-    using CloudNativeKit.Infrastructure.Data.Dapper.Repository;
+    using CloudNativeKit.Infrastructure.Data.Dapper.Core;
     using VND.CoolStore.ProductCatalog.DataContracts.V1;
     using VND.CoolStore.ProductCatalog.Domain;
 
     public class CreateProductHandler : IRequestHandler<CreateProductRequest, CreateProductResponse>
     {
-        private readonly IQueryRepositoryFactory _queryRepositoryFactory;
+        private readonly IDapperUnitOfWork _unitOfWork;
 
-        public CreateProductHandler(IQueryRepositoryFactory queryRepositoryFactory)
+        public CreateProductHandler(IDapperUnitOfWork unitOfWork)
         {
-            _queryRepositoryFactory = queryRepositoryFactory;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<CreateProductResponse> Handle(CreateProductRequest request, CancellationToken cancellationToken)
         {
-            var productRepository = _queryRepositoryFactory.QueryRepository<Product, Guid>() as IGenericRepository<Product, Guid>;
+            var productRepository = _unitOfWork.RepositoryAsync<Product, Guid>();
 
             var product = Product.Of(request);
             var created = await productRepository.AddAsync(product);

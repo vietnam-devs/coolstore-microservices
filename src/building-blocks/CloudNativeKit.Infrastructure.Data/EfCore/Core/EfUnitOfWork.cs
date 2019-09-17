@@ -1,30 +1,49 @@
-using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace CloudNativeKit.Infrastructure.Data.EfCore.Core.Command
+namespace CloudNativeKit.Infrastructure.Data.EfCore.Core
 {
-    public class UnitOfWork : IUnitOfWorkAsync
+    using CloudNativeKit.Domain;
+
+    public interface IEfUnitOfWork : IUnitOfWork { }
+
+    public class EfUnitOfWork : IEfUnitOfWork
     {
         private readonly DbContext _context;
-        private ConcurrentDictionary<Type, object> _repositories;
+        private ConcurrentDictionary<string, object> _repositories;
 
-        public UnitOfWork(DbContext context)
+        public EfUnitOfWork(DbContext context)
         {
             _context = context;
         }
 
+        public IQueryRepository<TEntity, TId> QueryRepository<TEntity, TId>() where TEntity : class, IAggregateRoot<TId>
+        {
+            if (_repositories == null)
+                _repositories = new ConcurrentDictionary<string, object>();
+
+            var key = $"{typeof(TEntity)}-query";
+            if (!_repositories.ContainsKey(key))
+            {
+                var cachedRepo = new QueryRepository<TEntity, TId>(_context);
+                _repositories[key] = cachedRepo;
+            }
+
+            return (IQueryRepository<TEntity, TId>)_repositories[key];
+        }
+
         public virtual IRepositoryAsync<TEntity, TId> RepositoryAsync<TEntity, TId>() where TEntity : class, IAggregateRoot<TId>
         {
-            if (_repositories == null) _repositories = new ConcurrentDictionary<Type, object>();
+            if (_repositories == null) _repositories = new ConcurrentDictionary<string, object>();
 
-            if (!_repositories.ContainsKey(typeof(TEntity)))
-                _repositories[typeof(TEntity)] = new RepositoryAsync<DbContext, TEntity, TId>(_context);
+            var key = $"{typeof(TEntity)}-command";
+            if (!_repositories.ContainsKey(key))
+                _repositories[key] = new RepositoryAsync<DbContext, TEntity, TId>(_context);
 
-            return (IRepositoryAsync<TEntity, TId>)_repositories[typeof(TEntity)];
+            return (IRepositoryAsync<TEntity, TId>)_repositories[key];
         }
 
         public virtual int SaveChanges()
@@ -40,6 +59,31 @@ namespace CloudNativeKit.Infrastructure.Data.EfCore.Core.Command
         public void Dispose()
         {
             _context?.Dispose();
+        }
+    }
+
+    public class QueryRepository<TEntity, TId> : QueryRepository<DbContext, TEntity, TId>
+        where TEntity : class, IAggregateRoot<TId>
+    {
+        public QueryRepository(DbContext dbContext) : base(dbContext)
+        {
+        }
+    }
+
+    public class QueryRepository<TDbContext, TEntity, TId> : IQueryRepository<TEntity, TId>
+        where TDbContext : DbContext
+        where TEntity : class, IAggregateRoot<TId>
+    {
+        private readonly TDbContext _dbContext;
+
+        public QueryRepository(TDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public IQueryable<TEntity> Queryable()
+        {
+            return _dbContext.Set<TEntity>();
         }
     }
 
@@ -73,7 +117,6 @@ namespace CloudNativeKit.Infrastructure.Data.EfCore.Core.Command
         public async Task<int> DeleteAsync(TEntity entity)
         {
             var entry = _dbSet.Remove(entity);
-            //return await Task.FromResult(entry.Entity);
             return await Task.FromResult(1);
         }
 

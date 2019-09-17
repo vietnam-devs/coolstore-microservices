@@ -5,25 +5,26 @@ using MediatR;
 
 namespace VND.CoolStore.ProductCatalog.AppServices.DeleteProduct
 {
-    using CloudNativeKit.Domain;
-    using CloudNativeKit.Infrastructure.Data.Dapper.Repository;
+    using CloudNativeKit.Infrastructure.Data.Dapper.Core;
     using CloudNativeKit.Utils.Extensions;
     using VND.CoolStore.ProductCatalog.DataContracts.V1;
     using VND.CoolStore.ProductCatalog.Domain;
 
     public class DeleteProductHandler : IRequestHandler<DeleteProductRequest, DeleteProductResponse>
     {
-        private readonly IQueryRepositoryFactory _queryRepositoryFactory;
+        private readonly IDapperUnitOfWork _unitOfWork;
 
-        public DeleteProductHandler(IQueryRepositoryFactory queryRepositoryFactory)
+        public DeleteProductHandler(IDapperUnitOfWork unitOfWork)
         {
-            _queryRepositoryFactory = queryRepositoryFactory;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<DeleteProductResponse> Handle(DeleteProductRequest request, CancellationToken cancellationToken)
         {
-            var productRepository = _queryRepositoryFactory.QueryRepository<Product, Guid>() as IGenericRepository<Product, Guid>;
-            var existedProduct = await productRepository.GetByIdAsync(request.ProductId.ConvertTo<Guid>());
+            var productQueryRepository = _unitOfWork.QueryRepository<Product, Guid>();
+            var productRepository = _unitOfWork.RepositoryAsync<Product, Guid>();
+
+            var existedProduct = await productQueryRepository.GetByIdAsync(request.ProductId.ConvertTo<Guid>());
             if (existedProduct == null)
             {
                 throw new Exception("Could not get the record from the database.");

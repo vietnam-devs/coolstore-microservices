@@ -9,8 +9,8 @@ namespace CloudNativeKit.Infrastructure.UnitOfWork
     public class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
-        private readonly IUnitOfWorkAsync _unitOfWork;
-        public UnitOfWorkBehavior(IUnitOfWorkAsync unitOfWork)
+        private readonly IUnitOfWork _unitOfWork;
+        public UnitOfWorkBehavior(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

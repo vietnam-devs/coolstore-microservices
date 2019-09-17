@@ -1,4 +1,3 @@
-using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,13 +6,6 @@ namespace CloudNativeKit.Infrastructure.Data
 {
     public static class Startup
     {
-        private static IServiceCollection AddEfGenericRepository(this IServiceCollection services)
-        {
-            services.Add(ServiceDescriptor.Scoped<IUnitOfWorkAsync, EfCore.Core.Command.UnitOfWork>());
-            services.Add(ServiceDescriptor.Scoped<IQueryRepositoryFactory, EfCore.Core.Query.QueryRepositoryFactory>());
-            return services;
-        }
-
         public static IServiceCollection AddEfInMemoryDb<TDbContext>(this IServiceCollection services, string dbContextAssemblyName) where TDbContext : DbContext
         {
             services.Add(ServiceDescriptor.Scoped<IDbConnStringFactory, InMemory.NoOpDbConnStringFactory>());
@@ -31,7 +23,7 @@ namespace CloudNativeKit.Infrastructure.Data
             });
 
             services.AddScoped<DbContext>(resolver => resolver.GetService<TDbContext>());
-            services.AddEfGenericRepository();
+            services.Add(ServiceDescriptor.Scoped<EfCore.Core.IEfUnitOfWork, EfCore.Core.EfUnitOfWork>());
 
             return services;
         }
@@ -58,7 +50,7 @@ namespace CloudNativeKit.Infrastructure.Data
             });
 
             services.AddScoped<DbContext>(resolver => resolver.GetService<TDbContext>());
-            services.AddEfGenericRepository();
+            services.Add(ServiceDescriptor.Scoped<EfCore.Core.IEfUnitOfWork, EfCore.Core.EfUnitOfWork>());
 
             return services;
         }
@@ -70,18 +62,18 @@ namespace CloudNativeKit.Infrastructure.Data
             var config = svcProvider.GetRequiredService<IConfiguration>();
 
             services.Configure<Dapper.DapperDbOptions>(config.GetSection("ConnectionStrings"));
-            services.Add(ServiceDescriptor.Scoped<IDbConnStringFactory, Dapper.Db.SqlDbConnStringFactory>());
+            services.Add(ServiceDescriptor.Scoped<IDbConnStringFactory, Dapper.Core.SqlDbConnStringFactory>());
 
             if (!dynamicSqlConnectionFactory)
             {
-                services.Add(ServiceDescriptor.Scoped<Dapper.ISqlConnectionFactory, Dapper.Db.SqlConnectionFactory>());
+                services.Add(ServiceDescriptor.Scoped<Dapper.ISqlConnectionFactory, Dapper.Core.SqlConnectionFactory>());
             }
             else
             {
-                services.Add(ServiceDescriptor.Scoped<Dapper.IDynamicSqlConnectionFactory, Dapper.Db.DynamicSqlConnectionFactory>());
+                services.Add(ServiceDescriptor.Scoped<Dapper.IDynamicSqlConnectionFactory, Dapper.Core.DynamicSqlConnectionFactory>());
             }
 
-            services.Add(ServiceDescriptor.Scoped<IQueryRepositoryFactory, Dapper.Repository.Impl.GenericRepositoryFactory>());
+            services.Add(ServiceDescriptor.Scoped<Dapper.Core.IDapperUnitOfWork, Dapper.Core.DapperUnitOfWork>());
 
             return services;
         }

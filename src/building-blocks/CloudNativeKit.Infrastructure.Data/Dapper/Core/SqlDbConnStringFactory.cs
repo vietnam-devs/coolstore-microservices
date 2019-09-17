@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
 
-namespace CloudNativeKit.Infrastructure.Data.Dapper.Db
+namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
 {
     internal class SqlDbConnStringFactory : IDbConnStringFactory
     {

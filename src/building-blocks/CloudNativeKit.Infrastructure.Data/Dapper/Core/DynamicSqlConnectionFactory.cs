@@ -2,23 +2,17 @@ using System;
 using System.Data;
 using Microsoft.Data.SqlClient;
 
-namespace CloudNativeKit.Infrastructure.Data.Dapper.Db
+namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
 {
-    internal class SqlConnectionFactory : ISqlConnectionFactory, IDisposable
+    public class DynamicSqlConnectionFactory : IDynamicSqlConnectionFactory, IDisposable
     {
-        private readonly IDbConnStringFactory _connStringFactory;
         private IDbConnection _connection;
 
-        public SqlConnectionFactory(IDbConnStringFactory connStringFactory)
-        {
-            _connStringFactory = connStringFactory;
-        }
-
-        public IDbConnection GetOpenConnection()
+        public IDbConnection GetOpenConnection(string dbConnString)
         {
             if (_connection == null || _connection.State != ConnectionState.Open)
             {
-                _connection = new SqlConnection(_connStringFactory.Create());
+                _connection = new SqlConnection(dbConnString);
                 _connection.Open();
             }
 

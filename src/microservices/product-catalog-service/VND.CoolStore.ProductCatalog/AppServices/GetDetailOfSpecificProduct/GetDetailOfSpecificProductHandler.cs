@@ -5,24 +5,23 @@ using MediatR;
 
 namespace VND.CoolStore.ProductCatalog.AppServices.GetDetailOfSpecificProduct
 {
-    using CloudNativeKit.Domain;
-    using CloudNativeKit.Infrastructure.Data.Dapper.Repository;
+    using CloudNativeKit.Infrastructure.Data.Dapper.Core;
     using CloudNativeKit.Utils.Extensions;
     using VND.CoolStore.ProductCatalog.DataContracts.V1;
     using VND.CoolStore.ProductCatalog.Domain;
 
     public class GetDetailOfSpecificProductHandler : IRequestHandler<GetProductByIdRequest, GetProductByIdResponse>
     {
-        private readonly IQueryRepositoryFactory _queryRepositoryFactory;
+        private readonly IDapperUnitOfWork _unitOfWork;
 
-        public GetDetailOfSpecificProductHandler(IQueryRepositoryFactory queryRepositoryFactory)
+        public GetDetailOfSpecificProductHandler(IDapperUnitOfWork unitOfWork)
         {
-            _queryRepositoryFactory = queryRepositoryFactory;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<GetProductByIdResponse> Handle(GetProductByIdRequest request, CancellationToken cancellationToken)
         {
-            var productRepository = _queryRepositoryFactory.QueryRepository<Product, Guid>() as IGenericRepository<Product, Guid>;
+            var productRepository = _unitOfWork.QueryRepository<Product, Guid>();
             var existedProduct = await productRepository.GetByIdAsync(request.ProductId.ConvertTo<Guid>());
             if (existedProduct == null)
             {

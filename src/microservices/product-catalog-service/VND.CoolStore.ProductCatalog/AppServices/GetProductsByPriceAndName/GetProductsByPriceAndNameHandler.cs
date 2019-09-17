@@ -6,24 +6,23 @@ using MediatR;
 
 namespace VND.CoolStore.ProductCatalog.AppServices.GetProductsByPriceAndName
 {
-    using CloudNativeKit.Domain;
-    using CloudNativeKit.Infrastructure.Data.Dapper.Repository;
+    using CloudNativeKit.Infrastructure.Data.Dapper.Core;
     using VND.CoolStore.ProductCatalog.DataContracts.V1;
     using VND.CoolStore.ProductCatalog.Domain;
 
     public class GetProductsByPriceAndNameHandler : IRequestHandler<GetProductsRequest, GetProductsResponse>
     {
-        private readonly IQueryRepositoryFactory _queryRepositoryFactory;
+        private readonly IDapperUnitOfWork _unitOfWork;
 
-        public GetProductsByPriceAndNameHandler(IQueryRepositoryFactory queryRepositoryFactory)
+        public GetProductsByPriceAndNameHandler(IDapperUnitOfWork unitOfWork)
         {
-            _queryRepositoryFactory = queryRepositoryFactory;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<GetProductsResponse> Handle(GetProductsRequest request, CancellationToken cancellationToken)
         {
-            var productRepository = _queryRepositoryFactory.QueryRepository<Product, Guid>() as IGenericRepository<Product, Guid>;
-            var queryable = await productRepository.QueryableAsync();
+            var productRepository = _unitOfWork.QueryRepository<Product, Guid>();
+            var queryable = productRepository.Queryable();
             var products = queryable
                 .Skip(request.CurrentPage - 1)
                 .Take(10)
@@ -41,7 +40,7 @@ namespace VND.CoolStore.ProductCatalog.AppServices.GetProductsByPriceAndName
                 })
                 .ToList());
 
-            return response;
+            return await Task.FromResult(response);
         }
     }
 }
