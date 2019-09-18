@@ -7,16 +7,19 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
 {
     using CloudNativeKit.Domain;
 
-    public interface IDapperUnitOfWork : IUnitOfWork { }
+    public interface IDapperUnitOfWork : IUnitOfWork
+    {
+        ISqlConnectionFactory SqlConnectionFactory { get; }
+    }
 
     public class DapperUnitOfWork : IDapperUnitOfWork
     {
         private ConcurrentDictionary<string, object> _repositories = null;
-        private readonly ISqlConnectionFactory _sqlConnectionFactory = null;
+        public ISqlConnectionFactory SqlConnectionFactory { get; }
 
         public DapperUnitOfWork(ISqlConnectionFactory sqlConnectionFactory)
         {
-            _sqlConnectionFactory = sqlConnectionFactory;
+            SqlConnectionFactory = sqlConnectionFactory;
         }
 
         public IQueryRepository<TEntity, TId> QueryRepository<TEntity, TId>() where TEntity : class, IAggregateRoot<TId>
@@ -27,7 +30,7 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
             var key = $"{typeof(TEntity)}-query";
             if (!_repositories.ContainsKey(key))
             {
-                var cachedRepo = new GenericRepository<TEntity, TId>(_sqlConnectionFactory);
+                var cachedRepo = new GenericRepository<TEntity, TId>(SqlConnectionFactory);
                 _repositories[key] = cachedRepo;
             }
 
@@ -42,7 +45,7 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
             var key = $"{typeof(TEntity)}-command";
             if (!_repositories.ContainsKey(key))
             {
-                var cachedRepo = new GenericRepository<TEntity, TId>(_sqlConnectionFactory);
+                var cachedRepo = new GenericRepository<TEntity, TId>(SqlConnectionFactory);
                 _repositories[key] = cachedRepo;
             }
 
@@ -63,9 +66,9 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
 
         public void Dispose()
         {
-            if(_sqlConnectionFactory != null)
+            if(SqlConnectionFactory != null)
             {
-                GC.SuppressFinalize(_sqlConnectionFactory);
+                GC.SuppressFinalize(SqlConnectionFactory);
             }
         }
     }

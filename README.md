@@ -1,14 +1,14 @@
-# Cool Store - Kubernetes-based polyglot microservices application with Istio service mesh
+# :ferris_wheel: :sailboat: CoolStore Website - Kubernetes-based Microservices Application with Service Mesh
 
 ![Travis (.org)](https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?branch=master)
 [![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
 [![OpenTracing Badge](https://img.shields.io/badge/OpenTracing-enabled-blue.svg)](http://opentracing.io)
 
-CoolStore Website is a containerised polyglot microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
+CoolStore Website is a containerised microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
 
 The business domain for internal µservice is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral). The README file is inspired from [GoogleCloudPlatform Demo](https://github.com/GoogleCloudPlatform/microservices-demo).
 
-Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.chat/net-core) or say hi on [Twitter](https://twitter.com/thangchung)!
+Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
 
 > Usage with careful: The project is in development mode so that a lot of things shall change due to .NET Core 3.x upgrading.
 
@@ -274,6 +274,8 @@ Guidance for developing µService can be found at [Clean Domain-Driven Design in
 ## Open API
 
 ![OpenAPI Screenshot](assets/images/open-api.png?raw=true 'OpenAPI')
+
+https://documenter.getpostman.com/view/4847807/SVmvUeZv?version=latest#9f5ed7e4-e855-46e5-a42d-64edb31bc1cb
 
 ## CI/CD
 

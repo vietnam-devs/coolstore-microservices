@@ -53,6 +53,19 @@ services:
       - migration_data
       - sqlserver_data
 
+  access_control_service:
+    image: vndg/access-control-service:latest
+    restart: always
+    build:
+      context: .
+      dockerfile: src/microservices/access-control-service/VND.CoolStore.AccessControl/Dockerfile
+    ports:
+      - 8083:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+    networks:
+      - coolstore
+
   migration_data:
     image: vndg/migration-data:latest
     build:

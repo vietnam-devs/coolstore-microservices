@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-rc1-bionic AS base
 WORKDIR /app
 EXPOSE 5002
 EXPOSE 15002
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-rc1-bionic AS build
 WORKDIR /src
 COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/VND.CoolStore.ProductCatalog.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/"]
 COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/VND.CoolStore.ProductCatalog.DataContracts.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/"]
@@ -12,13 +12,13 @@ COPY ["src/building-blocks/CloudNativeKit.Utils/CloudNativeKit.Utils.csproj", "s
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure/CloudNativeKit.Infrastructure.csproj", "src/building-blocks/CloudNativeKit.Infrastructure/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Data/CloudNativeKit.Infrastructure.Data.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Data/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Bus/CloudNativeKit.Infrastructure.Bus.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Bus/"]
-RUN dotnet restore "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/VND.CoolStore.ProductCatalog.csproj"
+RUN dotnet restore --disable-parallel "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/VND.CoolStore.ProductCatalog.csproj" -nowarn:msb3202,nu1503
 COPY . .
 WORKDIR "/src/src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog"
 RUN dotnet build "VND.CoolStore.ProductCatalog.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "VND.CoolStore.ProductCatalog.csproj" -c Release -o /app/publish
+RUN dotnet publish "VND.CoolStore.ProductCatalog.csproj" -c Release -o /app/publish --no-restore
 
 FROM base AS final
 WORKDIR /app

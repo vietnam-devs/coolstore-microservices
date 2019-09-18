@@ -82,7 +82,26 @@ namespace VND.CoolStore.AccessControlService
                     AllowedCorsOrigins = { "http://localhost:5002" },
 
                     AllowedScopes = { "openid", "profile", "api1" }
-                }
+                },
+
+                // postman client
+                new Client
+                {
+                    ClientId = "postman",
+                    ClientName = "Postman Client",
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AccessTokenLifetime = 3600,
+
+                    RedirectUris = { "https://www.getpostman.com/oauth2/callback" },
+                    FrontChannelLogoutUri = "https://www.getpostman.com/oauth2/callback/",
+                    PostLogoutRedirectUris = { "https://www.getpostman.com/oauth2/callback/" },
+                    AllowedCorsOrigins = { "https://www.getpostman.com" },
+
+                    AllowOfflineAccess = true,
+                    AllowedScopes = { "openid", "profile", "api1" }
+                },
             };
         }
     }

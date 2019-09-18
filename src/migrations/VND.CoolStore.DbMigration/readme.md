@@ -1,28 +1,7 @@
 ```bash
-$ dotnet run shoppingcart
-$ dotnet run productcatalog
+$ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=P@ssw0rd" --name sqlserver -p 1401:1433 -d mcr.microsoft.com/mssql/server:2017-latest
 ```
 
-- Development
-
-```json
-{
-  "ConnectionStrings": {
-    "shoppingcart": "Data Source=localhost,1401;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;",
-    "productcatalog": "Data Source=localhost,1401;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True",
-    "inventory": "Data Source=localhost;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True"
-  }
-}
-```
-
-- Production
-
-```json
-{
-  "ConnectionStrings": {
-    "shoppingcart": "Data Source=sqlserver.data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;",
-    "productcatalog": "Data Source=sqlserver.data,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True",
-    "inventory": "Data Source=sqlserver.data,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True"
-  }
-}
+```bash
+$ dotnet run shoppingcart productcatalog
 ```
