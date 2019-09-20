@@ -1,7 +1,9 @@
 using System;
-using System.Net;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
@@ -37,15 +39,27 @@ namespace VND.CoolStore.ProductCatalog
                 {
                     webBuilder.ConfigureKestrel((context, options) =>
                     {
-                        var ipAddr = context.HostingEnvironment.IsDevelopment() ? IPAddress.Loopback : IPAddress.Parse("0.0.0.0");
+                        var cert = new X509Certificate2(Path.Combine("Certs\\server.pfx"), "1111");
+                        //var ipAddr = context.HostingEnvironment.IsDevelopment() ? IPAddress.Loopback : IPAddress.Parse("0.0.0.0");
+
                         options.Limits.MinRequestBodyDataRate = null;
-                        options.Listen(ipAddr, 15002, listenOptions =>
-                        {
-                            listenOptions.Protocols = HttpProtocols.Http2;
-                        });
-                        options.Listen(ipAddr, 5002, listenOptions =>
+
+                        //TODO: move http request into another host
+                        options.ListenAnyIP(5002, listenOptions =>
                         {
                             listenOptions.Protocols = HttpProtocols.Http1;
+                        });
+
+                        options.ListenAnyIP(15002, listenOptions =>
+                        {
+                            listenOptions.UseHttps(cert);
+                            listenOptions.Protocols = HttpProtocols.Http2;
+                        });
+
+                        options.ConfigureHttpsDefaults(httpsOptions =>
+                        {
+                            httpsOptions.ServerCertificate = cert;
+                            httpsOptions.ClientCertificateMode = ClientCertificateMode.RequireCertificate;
                         });
                     });
                     webBuilder.UseStartup<Startup>();

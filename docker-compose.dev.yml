@@ -1,0 +1,62 @@
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+version: "3.7"
+
+services:
+  webapi_gateway:
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+    volumes:
+      - "localnuget:/root/.nuget/packages"
+
+  product_catalog_api:
+    ports:
+      - 5002
+      - 15002
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+    volumes:
+      - "localnuget:/root/.nuget/packages"
+
+  shopping_cart_api:
+    ports:
+      - 5003
+      - 15003
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+    volumes:
+      - "localnuget:/root/.nuget/packages"
+
+  access_control_service:
+    ports:
+      - 8083:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+    volumes:
+      - "localnuget:/root/.nuget/packages"
+
+  migration_data:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ConnectionStrings__shoppingcart=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+      - ConnectionStrings__productcatalog=Data Source=sqlserver_data,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+
+  sqlserver_data:
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
+
+# only if you want to mount nuget packages path to save restore packages time on Windows
+volumes:
+  localnuget:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: "/c/Users/Thang Chung/.nuget/packages"

@@ -1,13 +1,14 @@
 {
   "ReRoutes": [
+    // shopping cart service - grpc
     {
       "UpstreamPathTemplate": "/api/carts/{cartId}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/GetCart",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
+          "Host": "localhost",
           "Port": 15003
         }
       ]
@@ -16,10 +17,10 @@
       "UpstreamPathTemplate": "/api/carts",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/InsertItemToNewCart",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
+          "Host": "localhost",
           "Port": 15003
         }
       ]
@@ -28,10 +29,10 @@
       "UpstreamPathTemplate": "/api/carts",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/UpdateItemInCart",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
+          "Host": "localhost",
           "Port": 15003
         }
       ]
@@ -40,10 +41,10 @@
       "UpstreamPathTemplate": "/api/carts/{cartId}/checkout",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/Checkout",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
+          "Host": "localhost",
           "Port": 15003
         }
       ]
@@ -52,34 +53,36 @@
       "UpstreamPathTemplate": "/api/carts/{cartId}/items/{productId}",
       "UpstreamHttpMethod": [ "Delete" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/DeleteItem",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
+          "Host": "localhost",
           "Port": 15003
         }
       ]
     },
+    // product catalog service - grpc
     {
       "UpstreamPathTemplate": "/api/products/{currentPage}/{highPrice}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/GetProducts",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
+          "Host": "localhost",
           "Port": 15002
         }
       ]
     },
+
     {
       "UpstreamPathTemplate": "/api/products/{productId}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/GetProductById",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
+          "Host": "localhost",
           "Port": 15002
         }
       ]
@@ -88,10 +91,10 @@
       "UpstreamPathTemplate": "/api/products",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/CreateProduct",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
+          "Host": "localhost",
           "Port": 15002
         }
       ]
@@ -100,10 +103,10 @@
       "UpstreamPathTemplate": "/api/products/{productId}",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/UpdateProduct",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
+          "Host": "localhost",
           "Port": 15002
         }
       ]
@@ -112,11 +115,24 @@
       "UpstreamPathTemplate": "/api/products/{productId}",
       "UpstreamHttpMethod": [ "Delete" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/DeleteProduct",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 15002
+        }
+      ]
+    },
+    // product catalog service - http
+    {
+      "UpstreamPathTemplate": "/api/products/version",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/version",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "127.0.0.1",
-          "Port": 15002
+          "Host": "localhost",
+          "Port": 5002
         }
       ]
     }

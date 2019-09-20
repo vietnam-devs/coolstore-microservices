@@ -12,7 +12,7 @@ COPY ["src/building-blocks/CloudNativeKit.Utils/CloudNativeKit.Utils.csproj", "s
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure/CloudNativeKit.Infrastructure.csproj", "src/building-blocks/CloudNativeKit.Infrastructure/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Data/CloudNativeKit.Infrastructure.Data.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Data/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Bus/CloudNativeKit.Infrastructure.Bus.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Bus/"]
-RUN dotnet restore --disable-parallel "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/VND.CoolStore.ProductCatalog.csproj" -nowarn:msb3202,nu1503
+RUN dotnet restore "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/VND.CoolStore.ProductCatalog.csproj" -nowarn:msb3202,nu1503
 COPY . .
 WORKDIR "/src/src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog"
 RUN dotnet build "VND.CoolStore.ProductCatalog.csproj" -c Release -o /app/build

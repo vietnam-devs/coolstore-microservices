@@ -19,7 +19,7 @@ namespace VND.CoolStore.ProductCatalog.GrpcServices
         [Authorize]
         public override async Task<GetProductsResponse> GetProducts(GetProductsRequest request, ServerCallContext context)
         {
-            var user = context.GetHttpContext().User;
+            //var user = context.GetHttpContext().User;
             return await _mediator.Send(request);
         }
 

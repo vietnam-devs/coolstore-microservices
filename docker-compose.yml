@@ -1,52 +1,38 @@
 version: "3.7"
 
 services:
-  webapi-gateway:
+  webapi_gateway:
     image: vndg/webapi-gateway:latest
     restart: always
     build:
       context: .
       dockerfile: src/gateways/webapi-gateway/Dockerfile
-    ports:
-      - "5000:80"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     networks:
       - coolstore
     depends_on:
-      - product-catalog-api
-      - shopping-cart-api
+      - product_catalog_api
+      - shopping_cart_api
 
-  product-catalog-api:
+  product_catalog_api:
     image: vndg/product-catalog-api:latest
     restart: always
     build:
       context: .
       dockerfile: src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/Dockerfile
-    ports:
-      - 5002
-      - 15002
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+    volumes:
+      - "localnuget:/root/.nuget/packages"
     networks:
       - coolstore
     depends_on:
       - migration_data
       - sqlserver_data
 
-  shopping-cart-api:
+  shopping_cart_api:
     image: vndg/shopping-cart-api:latest
     restart: always
     build:
       context: .
       dockerfile: src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart/Dockerfile
-    ports:
-      - 5003
-      - 15003
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
     networks:
       - coolstore
     depends_on:
@@ -59,10 +45,6 @@ services:
     build:
       context: .
       dockerfile: src/microservices/access-control-service/VND.CoolStore.AccessControl/Dockerfile
-    ports:
-      - 8083:80
-    environment:
-      - ASPNETCORE_ENVIRONMENT=development
     networks:
       - coolstore
 
@@ -71,23 +53,12 @@ services:
     build:
       context: .
       dockerfile: ./src/migrations/VND.CoolStore.DbMigration/Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__shoppingcart=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - ConnectionStrings__productcatalog=Data Source=sqlserver_data,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-    networks:
-      - coolstore
     depends_on:
       - sqlserver_data
 
   sqlserver_data:
     image: mcr.microsoft.com/mssql/server:2017-latest
     restart: always
-    environment:
-      SA_PASSWORD: "P@ssw0rd"
-      ACCEPT_EULA: "Y"
-    ports:
-      - 1433:1433
     networks:
       - coolstore
 

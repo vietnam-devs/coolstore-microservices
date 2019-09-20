@@ -4,10 +4,10 @@
       "UpstreamPathTemplate": "/api/carts/{cartId}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/GetCart",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping-cart-api",
+          "Host": "shopping_cart_api",
           "Port": 15003
         }
       ]
@@ -16,10 +16,10 @@
       "UpstreamPathTemplate": "/api/carts",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/InsertItemToNewCart",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping-cart-api",
+          "Host": "shopping_cart_api",
           "Port": 15003
         }
       ]
@@ -28,10 +28,10 @@
       "UpstreamPathTemplate": "/api/carts",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/UpdateItemInCart",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping-cart-api",
+          "Host": "shopping_cart_api",
           "Port": 15003
         }
       ]
@@ -40,10 +40,10 @@
       "UpstreamPathTemplate": "/api/carts/{cartId}/checkout",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/Checkout",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping-cart-api",
+          "Host": "shopping_cart_api",
           "Port": 15003
         }
       ]
@@ -52,10 +52,10 @@
       "UpstreamPathTemplate": "/api/carts/{cartId}/items/{productId}",
       "UpstreamHttpMethod": [ "Delete" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/DeleteItem",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping-cart-api",
+          "Host": "shopping_cart_api",
           "Port": 15003
         }
       ]
@@ -64,10 +64,10 @@
       "UpstreamPathTemplate": "/api/products/{currentPage}/{highPrice}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/GetProducts",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product-catalog-api",
+          "Host": "product_catalog_api",
           "Port": 15002
         }
       ]
@@ -76,10 +76,10 @@
       "UpstreamPathTemplate": "/api/products/{productId}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/GetProductById",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product-catalog-api",
+          "Host": "product_catalog_api",
           "Port": 15002
         }
       ]
@@ -88,10 +88,10 @@
       "UpstreamPathTemplate": "/api/products",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/CreateProduct",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product-catalog-api",
+          "Host": "product_catalog_api",
           "Port": 15002
         }
       ]
@@ -100,10 +100,10 @@
       "UpstreamPathTemplate": "/api/products/{productId}",
       "UpstreamHttpMethod": [ "Put" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/UpdateProduct",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product-catalog-api",
+          "Host": "product_catalog_api",
           "Port": 15002
         }
       ]
@@ -112,10 +112,10 @@
       "UpstreamPathTemplate": "/api/products/{productId}",
       "UpstreamHttpMethod": [ "Delete" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/DeleteProduct",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product-catalog-api",
+          "Host": "product_catalog_api",
           "Port": 15002
         }
       ]
