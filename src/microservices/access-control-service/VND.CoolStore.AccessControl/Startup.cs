@@ -41,6 +41,7 @@ namespace VND.CoolStore.AccessControlService
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
+                options.IssuerUri = "http://access_control_service"; //only for demo
             })
             .AddTestUsers(TestUsers.Users);
 
@@ -54,14 +55,16 @@ namespace VND.CoolStore.AccessControlService
             //builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
             //builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
-            if (Environment.IsDevelopment())
+            //only for demo
+            builder.AddDeveloperSigningCredential();
+            /*if (Environment.IsDevelopment())
             {
                 builder.AddDeveloperSigningCredential();
             }
             else
             {
                 throw new Exception("need to configure key material");
-            }
+            }*/
 
             services.AddAuthentication()
                 .AddGoogle(options =>

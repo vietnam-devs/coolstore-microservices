@@ -1,7 +1,5 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
-using Grpc.Core;
 using GrpcJsonTranscoder;
 using GrpcJsonTranscoder.Grpc;
 using Microsoft.AspNetCore;
@@ -20,6 +18,10 @@ namespace VND.CoolStore.WebApiGateway
     {
         public static async Task Main(string[] args)
         {
+            //Log.Debug($"Root Cert content: {CertificateFactory.GetSslCredential().RootCertificates.ToString()}");
+            //Log.Debug($"Cert Chain content: {CertificateFactory.GetSslCredential().KeyCertificatePair.CertificateChain.ToString()}");
+            //Log.Debug($"Private Key content: {CertificateFactory.GetSslCredential().KeyCertificatePair.PrivateKey.ToString()}");
+
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 .CreateLogger();
@@ -71,12 +73,7 @@ namespace VND.CoolStore.WebApiGateway
                     {
                         PreQueryStringBuilderMiddleware = async (ctx, next) =>
                         {
-                            var cert = new SslCredentials(
-                                File.ReadAllText(Path.Combine("Certs\\ca.crt")), new KeyCertificatePair(
-                                    File.ReadAllText(Path.Combine("Certs\\client.crt")),
-                                    File.ReadAllText(Path.Combine("Certs\\client.key"))));
-
-                            await ctx.HandleGrpcRequestAsync(next, cert);
+                            await ctx.HandleGrpcRequestAsync(next/*, CertificateFactory.GetSslCredential()*/);
                         }
                     };
 

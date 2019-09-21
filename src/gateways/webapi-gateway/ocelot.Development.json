@@ -1,11 +1,10 @@
 {
   "ReRoutes": [
-    // shopping cart service - grpc
     {
       "UpstreamPathTemplate": "/api/carts/{cartId}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/GetCart",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -15,9 +14,9 @@
     },
     {
       "UpstreamPathTemplate": "/api/carts",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": ["Post"],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/InsertItemToNewCart",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -27,9 +26,9 @@
     },
     {
       "UpstreamPathTemplate": "/api/carts",
-      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamHttpMethod": ["Put"],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/UpdateItemInCart",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -39,9 +38,9 @@
     },
     {
       "UpstreamPathTemplate": "/api/carts/{cartId}/checkout",
-      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamHttpMethod": ["Put"],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/Checkout",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -51,9 +50,9 @@
     },
     {
       "UpstreamPathTemplate": "/api/carts/{cartId}/items/{productId}",
-      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamHttpMethod": ["Delete"],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/DeleteItem",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -61,12 +60,11 @@
         }
       ]
     },
-    // product catalog service - grpc
     {
       "UpstreamPathTemplate": "/api/products/{currentPage}/{highPrice}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
       "DownstreamPathTemplate": "/coolstore.Catalog/GetProducts",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -77,9 +75,9 @@
 
     {
       "UpstreamPathTemplate": "/api/products/{productId}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
       "DownstreamPathTemplate": "/coolstore.Catalog/GetProductById",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -89,54 +87,40 @@
     },
     {
       "UpstreamPathTemplate": "/api/products",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": ["Post"],
       "DownstreamPathTemplate": "/coolstore.Catalog/CreateProduct",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 15002
-        }
-      ]
-    },
-    {
-      "UpstreamPathTemplate": "/api/products/{productId}",
-      "UpstreamHttpMethod": [ "Put" ],
-      "DownstreamPathTemplate": "/coolstore.Catalog/UpdateProduct",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 15002
-        }
-      ]
-    },
-    {
-      "UpstreamPathTemplate": "/api/products/{productId}",
-      "UpstreamHttpMethod": [ "Delete" ],
-      "DownstreamPathTemplate": "/coolstore.Catalog/DeleteProduct",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 15002
-        }
-      ]
-    },
-    // product catalog service - http
-    {
-      "UpstreamPathTemplate": "/api/products/version",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamPathTemplate": "/version",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 15002
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{productId}",
+      "UpstreamHttpMethod": ["Put"],
+      "DownstreamPathTemplate": "/coolstore.Catalog/UpdateProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 15002
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{productId}",
+      "UpstreamHttpMethod": ["Delete"],
+      "DownstreamPathTemplate": "/coolstore.Catalog/DeleteProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 15002
         }
       ]
     }
   ],
-  "GlobalConfiguration": {
-  }
+  "GlobalConfiguration": {}
 }

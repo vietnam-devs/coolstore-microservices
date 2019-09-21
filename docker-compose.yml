@@ -7,37 +7,35 @@ services:
     build:
       context: .
       dockerfile: src/gateways/webapi-gateway/Dockerfile
-    networks:
-      - coolstore
     depends_on:
       - product_catalog_api
-      - shopping_cart_api
+      # - shopping_cart_api
+    networks:
+      - coolstore
 
   product_catalog_api:
     image: vndg/product-catalog-api:latest
     restart: always
     build:
       context: .
-      dockerfile: src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/Dockerfile
-    volumes:
-      - "localnuget:/root/.nuget/packages"
-    networks:
-      - coolstore
+      dockerfile: src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Grpc/Dockerfile
     depends_on:
       - migration_data
       - sqlserver_data
+    networks:
+      - coolstore
 
-  shopping_cart_api:
-    image: vndg/shopping-cart-api:latest
-    restart: always
-    build:
-      context: .
-      dockerfile: src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart/Dockerfile
-    networks:
-      - coolstore
-    depends_on:
-      - migration_data
-      - sqlserver_data
+  # shopping_cart_api:
+  #   image: vndg/shopping-cart-api:latest
+  #   restart: always
+  #   build:
+  #     context: .
+  #     dockerfile: src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart/Dockerfile
+  #   depends_on:
+  #     - migration_data
+  #     - sqlserver_data
+  #   networks:
+  #     - coolstore
 
   access_control_service:
     image: vndg/access-control-service:latest
@@ -55,6 +53,8 @@ services:
       dockerfile: ./src/migrations/VND.CoolStore.DbMigration/Dockerfile
     depends_on:
       - sqlserver_data
+    networks:
+      - coolstore
 
   sqlserver_data:
     image: mcr.microsoft.com/mssql/server:2017-latest

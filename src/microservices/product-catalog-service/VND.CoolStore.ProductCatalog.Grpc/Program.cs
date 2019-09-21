@@ -3,15 +3,17 @@ using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Serilog;
 
-namespace VND.CoolStore.ShoppingCart
+namespace VND.CoolStore.ProductCatalog.Grpc
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
                 .WriteTo.Console()
                 .CreateLogger();
 
@@ -36,14 +38,22 @@ namespace VND.CoolStore.ShoppingCart
                 {
                     webBuilder.ConfigureKestrel((context, options) =>
                     {
-                        //IdentityModelEventSource.ShowPII = true; // only for demo
+                        IdentityModelEventSource.ShowPII = true; // only for demo
 
+                        //var cert = CertificateFactory.GetServerPfx();
+                        //Log.Debug($"Cert content: {cert.ToString()}");
                         options.Limits.MinRequestBodyDataRate = null;
 
-                        options.Listen(IPAddress.Any, 15003, listenOptions =>
-                        {
+                        options.Listen(IPAddress.Any, 15002, listenOptions => {
+                            //listenOptions.UseHttps(cert);
                             listenOptions.Protocols = HttpProtocols.Http2;
                         });
+
+                        /*options.ConfigureHttpsDefaults(httpsOptions =>
+                        {
+                            httpsOptions.ServerCertificate = cert;
+                            httpsOptions.ClientCertificateMode = ClientCertificateMode.AllowCertificate;
+                        });*/
                     });
                     webBuilder.UseStartup<Startup>();
                 })

@@ -1,6 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-rc1-bionic AS base
 WORKDIR /app
-EXPOSE 5003
 EXPOSE 15003
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-rc1-bionic AS build
