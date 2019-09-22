@@ -13,6 +13,7 @@ services:
 
   product_catalog_api:
     ports:
+      - 5002
       - 15002
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
@@ -21,14 +22,16 @@ services:
     volumes:
       - "localnuget:/root/.nuget/packages"
 
-  # shopping_cart_api:
-  #   ports:
-  #     - 15003
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-  #     - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-  #   volumes:
-  #     - "localnuget:/root/.nuget/packages"
+  shopping_cart_api:
+    ports:
+      - 5003
+      - 15003
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+      - JwtAuthn__Authority=http://access_control_service
+    volumes:
+      - "localnuget:/root/.nuget/packages"
 
   access_control_service:
     ports:

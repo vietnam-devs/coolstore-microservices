@@ -18,10 +18,6 @@ namespace VND.CoolStore.WebApiGateway
     {
         public static async Task Main(string[] args)
         {
-            //Log.Debug($"Root Cert content: {CertificateFactory.GetSslCredential().RootCertificates.ToString()}");
-            //Log.Debug($"Cert Chain content: {CertificateFactory.GetSslCredential().KeyCertificatePair.CertificateChain.ToString()}");
-            //Log.Debug($"Private Key content: {CertificateFactory.GetSslCredential().KeyCertificatePair.PrivateKey.ToString()}");
-
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 .CreateLogger();
@@ -71,10 +67,7 @@ namespace VND.CoolStore.WebApiGateway
                 {
                     var configuration = new OcelotPipelineConfiguration
                     {
-                        PreQueryStringBuilderMiddleware = async (ctx, next) =>
-                        {
-                            await ctx.HandleGrpcRequestAsync(next/*, CertificateFactory.GetSslCredential()*/);
-                        }
+                        PreQueryStringBuilderMiddleware = async (ctx, next) => await ctx.HandleGrpcRequestAsync(next)
                     };
 
                     app.UseOcelot(configuration).Wait();

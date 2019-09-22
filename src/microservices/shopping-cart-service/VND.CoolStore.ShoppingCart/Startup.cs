@@ -1,45 +1,26 @@
 using System.Reflection;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using CloudNativeKit.Infrastructure.Grpc;
 using CloudNativeKit.Infrastructure.ValidationModel;
-using VND.CoolStore.ShoppingCart.AppService;
+using CloudNativeKit.Infrastructure;
+using CloudNativeKit.Infrastructure.Data;
+using CloudNativeKit.Infrastructure.Bus;
+using VND.CoolStore.ShoppingCart.Data;
+using FluentValidation;
+using VND.CoolStore.ShoppingCart.Domain.Cart;
 
 namespace VND.CoolStore.ShoppingCart
 {
-    public class Startup
+    public static class Startup
     {
-        public void ConfigureServices(IServiceCollection services)
+        public static IServiceCollection AddServiceComponents(this IServiceCollection services)
         {
-            services.AddGrpc(options => {
-                options.Interceptors.Add<RequestLoggerInterceptor>();
-                options.Interceptors.Add<ExceptionHandleInterceptor>();
-                options.EnableDetailedErrors = true;
-            });
-
-            services.AddMediatR(Assembly.GetEntryAssembly(), typeof(AppServiceStartupRoot).Assembly);
+            services.AddMediatR(Assembly.GetEntryAssembly(), typeof(Startup).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-
-            services.AddAppServices();
-        }
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGrpcService<GrpcServices.ShoppingCartService>();
-                endpoints.MapGrpcService<GrpcServices.HealthService>();
-            });
+            services.AddServiceByIntefaceInAssembly<Cart>(typeof(IValidator<>));
+            services.AddEfSqlServerDb<ShoppingCartDataContext>(typeof(Startup).Assembly.GetName().Name);
+            services.AddDomainEventBus();
+            return services;
         }
     }
 }

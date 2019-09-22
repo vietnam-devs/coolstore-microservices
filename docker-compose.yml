@@ -9,7 +9,7 @@ services:
       dockerfile: src/gateways/webapi-gateway/Dockerfile
     depends_on:
       - product_catalog_api
-      # - shopping_cart_api
+      - shopping_cart_api
     networks:
       - coolstore
 
@@ -18,24 +18,24 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Grpc/Dockerfile
+      dockerfile: src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api/Dockerfile
     depends_on:
       - migration_data
       - sqlserver_data
     networks:
       - coolstore
 
-  # shopping_cart_api:
-  #   image: vndg/shopping-cart-api:latest
-  #   restart: always
-  #   build:
-  #     context: .
-  #     dockerfile: src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart/Dockerfile
-  #   depends_on:
-  #     - migration_data
-  #     - sqlserver_data
-  #   networks:
-  #     - coolstore
+  shopping_cart_api:
+    image: vndg/shopping-cart-api:latest
+    restart: always
+    build:
+      context: .
+      dockerfile: src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.Api/Dockerfile
+    depends_on:
+      - migration_data
+      - sqlserver_data
+    networks:
+      - coolstore
 
   access_control_service:
     image: vndg/access-control-service:latest

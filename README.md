@@ -1,4 +1,4 @@
-# :ferris_wheel: :sailboat: CoolStore Website - Kubernetes-based Microservices Application with Service Mesh
+# CoolStore Web Application - :ferris_wheel: Kubernetes-based Microservices Application on Service Mesh :sailboat:
 
 ![Travis (.org)](https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?branch=master)
 [![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)

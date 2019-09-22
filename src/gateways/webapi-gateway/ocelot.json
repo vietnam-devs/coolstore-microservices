@@ -61,6 +61,18 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/api/products/info",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/info",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "product_catalog_api",
+          "Port": 5002
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/api/products/{currentPage}/{highPrice}",
       "UpstreamHttpMethod": ["Get"],
       "DownstreamPathTemplate": "/coolstore.Catalog/GetProducts",
