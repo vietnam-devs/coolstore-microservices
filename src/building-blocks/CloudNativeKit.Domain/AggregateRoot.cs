@@ -26,7 +26,7 @@ namespace CloudNativeKit.Domain
 
         protected AggregateRootBase(TId id) : base(id)
         {
-            Created = GenerateDateTime();
+            Created = NewDateTime();
         }
 
         public int Version { get; protected set; }

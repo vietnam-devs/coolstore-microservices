@@ -1,11 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
+using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudNativeKit.Infrastructure.Data.EfCore.Core.Command
 {
-    using CloudNativeKit.Domain;
-
     public static class EfUnitOfWorkExtensions
     {
         public static int? GetCommandTimeout(this IEfUnitOfWork uow, DbContext context)

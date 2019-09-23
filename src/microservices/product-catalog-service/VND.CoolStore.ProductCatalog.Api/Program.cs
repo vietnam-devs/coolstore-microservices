@@ -39,11 +39,11 @@ namespace VND.CoolStore.ProductCatalog.Api
                     webBuilder.ConfigureKestrel((context, options) =>
                     {
                         IdentityModelEventSource.ShowPII = true; // only for demo
-
                         options.Limits.MinRequestBodyDataRate = null;
 
                         options.Listen(IPAddress.Any, 5002);
-                        options.Listen(IPAddress.Any, 15002, listenOptions => {
+                        options.Listen(IPAddress.Any, 15002, listenOptions =>
+                        {
                             listenOptions.Protocols = HttpProtocols.Http2;
                         });
                     });

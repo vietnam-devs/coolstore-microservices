@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyModel;
 
-namespace CloudNativeKit.Utils.Extensions
+namespace CloudNativeKit.Infrastructure
 {
     /// <summary>
     ///     https://stackoverflow.com/questions/37895278/how-to-load-assemblies-located-in-a-folder-in-net-core-console-app

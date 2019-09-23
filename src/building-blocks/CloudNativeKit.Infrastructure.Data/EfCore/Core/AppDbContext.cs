@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
 using ReflectionMagic;
 
 namespace CloudNativeKit.Infrastructure.Data.EfCore.Core
 {
-    using CloudNativeKit.Domain;
-
     public abstract class AppDbContext : DbContext
     {
         private readonly IEnumerable<IDomainEventDispatcher> _eventBuses = null;

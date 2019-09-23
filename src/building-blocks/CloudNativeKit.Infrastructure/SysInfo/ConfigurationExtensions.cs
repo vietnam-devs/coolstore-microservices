@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
 
-namespace CloudNativeKit.Infrastructure.SystemInformation
+namespace CloudNativeKit.Infrastructure.SysInfo
 {
-    public static partial class ConfigurationExtensions
+    public static class ConfigurationExtensions
     {
         /// <summary>
         /// Ref http://michaco.net/blog/EnvironmentVariablesAndConfigurationInASPNETCoreApps
@@ -14,7 +14,7 @@ namespace CloudNativeKit.Infrastructure.SystemInformation
         /// <param name="dynamicObject"></param>
         /// <param name="config"></param>
         /// <returns></returns>
-        public static SystemInformationModel GetSystemInformation(this IConfiguration config)
+        public static SysInfoModel GetSystemInformation(this IConfiguration config)
         {
             var basePath = PlatformServices.Default.Application.ApplicationBasePath;
 
@@ -35,7 +35,7 @@ namespace CloudNativeKit.Infrastructure.SystemInformation
             foreach (var env in config.GetChildren())
                 envs.Add(env.Key, env.Key);
 
-            var model = new SystemInformationModel
+            var model = new SysInfoModel
             {
                 OSArchitecture = !RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
                 ? ((RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))

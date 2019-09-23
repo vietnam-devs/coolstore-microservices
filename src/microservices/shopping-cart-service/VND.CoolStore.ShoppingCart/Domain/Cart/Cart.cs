@@ -10,7 +10,7 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
 {
     public sealed class Cart : AggregateRootBase<Guid>
     {
-        private Cart() : base(GenerateId())
+        private Cart() : base(NewId())
         {
         }
 

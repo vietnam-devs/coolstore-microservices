@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudNativeKit.Domain;
 using Dapper;
 
 namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
 {
-    using CloudNativeKit.Domain;
-
     public static class GenericRepositoryExtensions
     {
         public static async Task<TEntity> GetByIdAsync<TEntity, TId>(this IQueryRepository<TEntity, TId> repo, TId id)

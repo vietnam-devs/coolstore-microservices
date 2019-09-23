@@ -25,10 +25,10 @@ namespace CloudNativeKit.Utils.Helpers
             var keyArray = (TKey[])Enum.GetValues(typeof(TEnum));
             var nameArray = Enum.GetNames(typeof(TEnum));
 
-            IList<TKey> keys = new List<TKey>();
+            var keys = new List<TKey>();
             foreach (var item in keyArray) keys.Add(item);
 
-            IList<string> names = new List<string>();
+            var names = new List<string>();
             foreach (var item in nameArray) names.Add(item);
 
             return (keys, names);

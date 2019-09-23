@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using CloudNativeKit.Domain;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 
@@ -7,7 +6,7 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
 {
     public sealed class CartItem : EntityBase<Guid>
     {
-        private CartItem() : base(GenerateId())
+        private CartItem() : base(NewId())
         {
         }
 
@@ -31,7 +30,7 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
 
         public static CartItem Load(Guid productId, int quantity, double price = 0.0D, double promoSavings = 0.0D)
         {
-            return Load(GenerateId(), productId, quantity, price, promoSavings);
+            return Load(NewId(), productId, quantity, price, promoSavings);
         }
 
         public static CartItem Load(Guid id, Guid productId, int quantity, double price, double promoSavings)

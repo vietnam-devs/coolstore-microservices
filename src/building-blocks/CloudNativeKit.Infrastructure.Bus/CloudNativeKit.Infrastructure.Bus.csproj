@@ -9,11 +9,13 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0-rc1.19456.10" />
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="Google.Protobuf" Version="3.9.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CloudNativeKit.Domain\CloudNativeKit.Domain.csproj" />
+    <ProjectReference Include="..\CloudNativeKit.Infrastructure.Data\CloudNativeKit.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\CloudNativeKit.Infrastructure\CloudNativeKit.Infrastructure.csproj" />
     <ProjectReference Include="..\CloudNativeKit.Utils\CloudNativeKit.Utils.csproj" />
   </ItemGroup>

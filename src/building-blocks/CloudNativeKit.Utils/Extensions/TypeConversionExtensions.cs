@@ -14,7 +14,7 @@ namespace CloudNativeKit.Utils.Extensions
             }
             catch (NotSupportedException)
             {
-                return default(T);
+                return default;
             }
         }
     }

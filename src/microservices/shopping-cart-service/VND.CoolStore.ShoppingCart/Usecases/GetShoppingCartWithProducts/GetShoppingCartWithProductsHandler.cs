@@ -12,9 +12,9 @@ namespace VND.CoolStore.ShoppingCart.Usecases.GetShoppingCartWithProducts
 {
     public class GetShoppingCartWithProductsHandler : IRequestHandler<GetCartRequest, GetCartResponse>
     {
-        private readonly IEfUnitOfWork _unitOfWork;
+        private readonly IEfUnitOfWork<ShoppingCartDataContext> _unitOfWork;
 
-        public GetShoppingCartWithProductsHandler(IEfUnitOfWork unitOfWork)
+        public GetShoppingCartWithProductsHandler(IEfUnitOfWork<ShoppingCartDataContext> unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

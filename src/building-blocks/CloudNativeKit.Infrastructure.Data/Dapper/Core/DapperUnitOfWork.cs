@@ -2,11 +2,10 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudNativeKit.Domain;
 
 namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
 {
-    using CloudNativeKit.Domain;
-
     public interface IDapperUnitOfWork : IUnitOfWork
     {
         ISqlConnectionFactory SqlConnectionFactory { get; }

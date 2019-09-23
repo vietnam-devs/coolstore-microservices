@@ -1,4 +1,3 @@
-using Google.Protobuf;
 using MediatR;
 using CloudNativeKit.Domain;
 
@@ -24,14 +23,14 @@ namespace CloudNativeKit.Infrastructure.Bus
     /// for inter-communication bus via event broker like Redis/Kafka
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MessageEnvelope<T> : INotification
-        where T : IMessage<T>
+    public class MessageEnvelope<TEvent> : INotification
+        where TEvent : IEvent
     {
-        public MessageEnvelope(IMessage<T> message)
+        public MessageEnvelope(TEvent message)
         {
             Message = message;
         }
 
-        public IMessage<T> Message { get; }
+        public TEvent Message { get; }
     }
 }

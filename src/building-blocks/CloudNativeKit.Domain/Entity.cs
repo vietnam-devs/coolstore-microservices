@@ -17,7 +17,7 @@ namespace CloudNativeKit.Domain
         protected EntityBase(TId id)
         {
             Id = id;
-            Created = GenerateDateTime();
+            Created = NewDateTime();
         }
 
         public DateTime Created { get; protected set; }

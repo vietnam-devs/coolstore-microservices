@@ -10,7 +10,7 @@ using VND.CoolStore.ShoppingCart.Data;
 namespace VND.CoolStore.ShoppingCart.Data.Migrations
 {
     [DbContext(typeof(ShoppingCartDataContext))]
-    [Migration("20190922052728_InitialDb")]
+    [Migration("20190923123410_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

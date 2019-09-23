@@ -1,7 +1,7 @@
-using CloudNativeKit.Infrastructure.SystemInformation;
+using CloudNativeKit.Infrastructure.SysInfo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using static CloudNativeKit.Infrastructure.SystemInformation.ConfigurationExtensions;
+using static CloudNativeKit.Infrastructure.SysInfo.ConfigurationExtensions;
 
 namespace VND.CoolStore.ProductCatalog.Api.RestControllers
 {
@@ -17,7 +17,7 @@ namespace VND.CoolStore.ProductCatalog.Api.RestControllers
         }
 
         [HttpGet("/info")]
-        public ActionResult<SystemInformationModel> Info()
+        public ActionResult<SysInfoModel> Info()
         {
 
             return new JsonResult(_config.GetSystemInformation());

@@ -2,7 +2,7 @@ using System;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
-namespace CloudNativeKit.Infrastructure.Bus.Redis
+namespace CloudNativeKit.Infrastructure.Bus.InterProc.Redis
 {
     public class RedisStore
     {

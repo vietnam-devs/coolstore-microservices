@@ -44,7 +44,7 @@ namespace VND.CoolStore.ProductCatalog.Api
                 options.EnableDetailedErrors = true;
             });
 
-            services.AddServiceComponents();
+            services.AddServiceComponents(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -61,7 +61,7 @@ CREATE INDEX [IX_CartItems_ProductId] ON [cart].[CartItems] ([ProductId]);
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20190915051829_InitialDb', N'3.0.0-preview9.19423.6');
+VALUES (N'20190923123410_InitialDb', N'3.0.0-rc1.19456.14');
 
 GO
 

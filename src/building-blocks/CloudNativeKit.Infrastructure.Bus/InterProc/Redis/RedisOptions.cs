@@ -1,4 +1,4 @@
-﻿namespace CloudNativeKit.Infrastructure.Bus.Redis
+namespace CloudNativeKit.Infrastructure.Bus.InterProc.Redis
 {
     public class RedisOptions
     {

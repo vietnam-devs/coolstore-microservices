@@ -13,6 +13,7 @@ namespace VND.CoolStore.ShoppingCart.Api
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
                 .WriteTo.Console()
                 .CreateLogger();
 
@@ -38,7 +39,6 @@ namespace VND.CoolStore.ShoppingCart.Api
                     webBuilder.ConfigureKestrel((context, options) =>
                     {
                         IdentityModelEventSource.ShowPII = true; // only for demo
-
                         options.Limits.MinRequestBodyDataRate = null;
 
                         options.Listen(IPAddress.Any, 5003);

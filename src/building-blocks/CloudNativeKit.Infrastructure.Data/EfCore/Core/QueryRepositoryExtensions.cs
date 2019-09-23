@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
 namespace CloudNativeKit.Infrastructure.Data.EfCore.Core
 {
-    using CloudNativeKit.Domain;
-
     public static class QueryRepositoryExtensions
     {
         public static async Task<TEntity> GetByIdAsync<TDbContext, TEntity, TEntityId>(

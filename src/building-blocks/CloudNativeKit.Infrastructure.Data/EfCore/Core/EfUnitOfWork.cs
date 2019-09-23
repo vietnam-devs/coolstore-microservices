@@ -2,20 +2,20 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudNativeKit.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudNativeKit.Infrastructure.Data.EfCore.Core
 {
-    using CloudNativeKit.Domain;
-
     public interface IEfUnitOfWork : IUnitOfWork { }
+    public interface IEfUnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext { }
 
-    public class EfUnitOfWork : IEfUnitOfWork
+    public class EfUnitOfWork<TDbContext> : IEfUnitOfWork<TDbContext> where TDbContext : DbContext
     {
-        private readonly DbContext _context;
+        private readonly TDbContext _context;
         private ConcurrentDictionary<string, object> _repositories;
 
-        public EfUnitOfWork(DbContext context)
+        public EfUnitOfWork(TDbContext context)
         {
             _context = context;
         }
