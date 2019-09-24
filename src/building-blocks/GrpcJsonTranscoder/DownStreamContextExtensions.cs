@@ -39,41 +39,32 @@ namespace GrpcJsonTranscoder
                 else
                 {
                     var logger = context.HttpContext.RequestServices.GetService<IOcelotLoggerFactory>().CreateLogger<GrpcAssemblyResolver>();
-
-                    string requestData;
                     var upstreamHeaders = new Dictionary<string, string>
                             {
                                 { "x-grpc-route-data", JsonConvert.SerializeObject(context.TemplatePlaceholderNameAndValues.Select(x => new {x.Name, x.Value})) },
                                 { "x-grpc-body-data", await context.DownstreamRequest.Content.ReadAsStringAsync() }
                             };
 
-                    logger.LogInformation($"Upstream header data for x-grpc-route-data: {upstreamHeaders["x-grpc-route-data"]}");
-                    logger.LogInformation($"Upstream header data for x-grpc-body-data: {upstreamHeaders["x-grpc-body-data"]}");
-
-                    if (context.HttpContext.Request.Method.ToLowerInvariant() == "get")
-                    {
-                        requestData = context.HttpContext.ParseGetJsonRequest(upstreamHeaders);
-                        logger.LogInformation($"GET Request object data: {requestData}");
-                    }
-                    else
-                    {
-                        requestData = context.HttpContext.ParseOtherJsonRequest(upstreamHeaders);
-                        logger.LogInformation($"POST/PUT/DELETE Request object data: {requestData}");
-                    }
+                    logger.LogInformation($"Upstream request method is {context.HttpContext.Request.Method}");
+                    logger.LogInformation($"Upstream header data for x-grpc-route-data is {upstreamHeaders["x-grpc-route-data"]}");
+                    logger.LogInformation($"Upstream header data for x-grpc-body-data is {upstreamHeaders["x-grpc-body-data"]}");
+                    var requestObject = context.HttpContext.ParseRequestData(upstreamHeaders);
+                    var requestJsonData = JsonConvert.SerializeObject(requestObject);
+                    logger.LogInformation($"Request object data is {requestJsonData}");
 
                     var loadBalancerFactory = context.HttpContext.RequestServices.GetService<ILoadBalancerFactory>();
                     var loadBalancerResponse = await loadBalancerFactory.Get(context.DownstreamReRoute, context.Configuration.ServiceProviderConfiguration);
                     var serviceHostPort = await loadBalancerResponse.Data.Lease(context);
 
                     var downstreamHost = $"{serviceHostPort.Data.DownstreamHost}:{serviceHostPort.Data.DownstreamPort}";
-                    logger.LogInformation($"Downstream IP Address: {downstreamHost}");
+                    logger.LogInformation($"Downstream IP Address is {downstreamHost}");
 
                     var channel = new Channel(downstreamHost, secureCredentials ?? ChannelCredentials.Insecure);
                     var client = new MethodDescriptorCaller(channel);
 
-                    var requestObject = JsonConvert.DeserializeObject(requestData, methodDescriptor.InputType.ClrType);
-                    var result = await client.InvokeAsync(methodDescriptor, context.HttpContext.GetRequestHeaders(), requestObject);
-                    logger.LogInformation($"Request object data after gRPC called: {JsonConvert.SerializeObject(result)}");
+                    var concreteObject = JsonConvert.DeserializeObject(requestJsonData, methodDescriptor.InputType.ClrType);
+                    var result = await client.InvokeAsync(methodDescriptor, context.HttpContext.GetRequestHeaders(), concreteObject);
+                    logger.LogDebug($"gRPC response called with {JsonConvert.SerializeObject(result)}");
 
                     var response = new OkResponse<GrpcHttpContent>(new GrpcHttpContent(JsonConvert.SerializeObject(result)));
                     var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)

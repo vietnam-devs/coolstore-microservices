@@ -61,4 +61,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: "/c/Users/Thang Chung/.nuget/packages"
+      device: ${LOCAL_NUGET_PATH}

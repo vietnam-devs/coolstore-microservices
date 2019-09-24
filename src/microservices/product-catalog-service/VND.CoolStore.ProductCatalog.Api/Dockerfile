@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-rc1-bionic AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-bionic AS base
 WORKDIR /app
 EXPOSE 5002
 EXPOSE 15002
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-rc1-bionic AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-bionic AS build
 WORKDIR /src
 COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api/VND.CoolStore.ProductCatalog.Api.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api/"]
 COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/VND.CoolStore.ProductCatalog.DataContracts.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/"]

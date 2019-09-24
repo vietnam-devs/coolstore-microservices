@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-rc1-bionic AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-bionic AS base
 WORKDIR /app
 EXPOSE 5003
 EXPOSE 15003
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-rc1-bionic AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-bionic AS build
 WORKDIR /src
 COPY ["src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.Api/VND.CoolStore.ShoppingCart.Api.csproj", "src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.Api/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure/CloudNativeKit.Infrastructure.csproj", "src/building-blocks/CloudNativeKit.Infrastructure/"]

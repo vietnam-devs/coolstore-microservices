@@ -1,28 +1,36 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace GrpcJsonTranscoder.Internal.Http
 {
     internal static class HttpContextExtensions
     {
-        public static string ParseGetJsonRequest(this HttpContext context, IDictionary<string, string> upstreamHeaders = null)
+        public static JObject ParseRequestData(this HttpContext context, IDictionary<string, string> upstreamHeaders = null)
         {
             var o = new JObject();
 
             if (upstreamHeaders != null && upstreamHeaders.ContainsKey("x-grpc-route-data"))
             {
-                // route data
                 var nameValues = JsonConvert.DeserializeObject<List<NameAndValue>>(upstreamHeaders["x-grpc-route-data"]); // work with ocelot
                 foreach (var nameValue in nameValues)
                 {
                     o.Add(nameValue.Name.Replace("{", "").Replace("}", ""), nameValue.Value);
+                }
+            }
+
+            if (upstreamHeaders != null && upstreamHeaders.ContainsKey("x-grpc-body-data"))
+            {
+                var json = upstreamHeaders["x-grpc-body-data"];
+                if (json != string.Empty)
+                {
+                    o = MergeJsonObjects(o, JsonConvert.DeserializeObject<JObject>(json));
                 }
             }
 
@@ -32,19 +40,7 @@ namespace GrpcJsonTranscoder.Internal.Http
                 o.Add(q.Key, q.Value.ToString());
             }
 
-            return JsonConvert.SerializeObject(o);
-        }
-
-        public static string ParseOtherJsonRequest(this HttpContext context, IDictionary<string, string> upstreamHeaders)
-        {
-            var json = string.Empty;
-            if (upstreamHeaders != null && upstreamHeaders.ContainsKey("x-grpc-body-data"))
-            {
-                // route data
-                json = upstreamHeaders["x-grpc-body-data"]; // work with ocelot
-            }
-
-            return json == string.Empty ? "{}" : json;
+            return o;
         }
 
         public static string ParseGetJsonRequestOnAggregateService(this HttpContext context)
@@ -101,6 +97,27 @@ namespace GrpcJsonTranscoder.Internal.Http
             }
 
             return headers;
+        }
+
+        private static JObject MergeJsonObjects(params JObject[] objects)
+        {
+            var json = new JObject();
+
+            foreach (var jsonObject in objects)
+            {
+                foreach (var prop in jsonObject)
+                {
+                    var key = prop.Key;
+                    var value = prop.Value;
+
+                    if (!json.ContainsKey(key))
+                    {
+                        json.Add(prop.Key, prop.Value);
+                    }
+                }
+            }
+
+            return json;
         }
     }
 }
