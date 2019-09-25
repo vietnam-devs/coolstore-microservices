@@ -29,7 +29,7 @@ message CartItemDto {
 }
 
 message ShoppingCartWithProductCreated {
-
+  string sample = 1;
 }
 
 message ShoppingCartWithProductsDisplayed {

@@ -1,7 +1,9 @@
 using System.Reflection;
 using CloudNativeKit.Domain;
 using CloudNativeKit.Infrastructure;
+using CloudNativeKit.Infrastructure.Bus;
 using CloudNativeKit.Infrastructure.Bus.InProc;
+using CloudNativeKit.Infrastructure.Bus.InterProc.Redis;
 using CloudNativeKit.Infrastructure.Bus.Messaging;
 using CloudNativeKit.Infrastructure.Data.Dapper;
 using CloudNativeKit.Infrastructure.Data.EfCore.Core;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VND.CoolStore.ShoppingCart.Data;
 using VND.CoolStore.ShoppingCart.Domain.Cart;
+using VND.CoolStore.ShoppingCart.ProcessingServices;
 
 namespace VND.CoolStore.ShoppingCart
 {
@@ -20,10 +23,6 @@ namespace VND.CoolStore.ShoppingCart
     {
         public static IServiceCollection AddServiceComponents(this IServiceCollection services, IConfiguration config)
         {
-            services.AddMediatR(Assembly.GetEntryAssembly(), typeof(Startup).Assembly);
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            services.AddServiceByIntefaceInAssembly<Cart>(typeof(IValidator<>));
-
             var dbOptions = new EfDbOptions();
             config.Bind("ConnectionStrings", dbOptions);
 
@@ -34,6 +33,16 @@ namespace VND.CoolStore.ShoppingCart
             services.AddScoped<IEfUnitOfWork<MessagingDataContext>, EfUnitOfWork<MessagingDataContext>>();
 
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher<MessagingDataContext>>();
+
+            services.AddMediatR(Assembly.GetEntryAssembly(), typeof(Startup).Assembly, typeof(Outbox).Assembly);
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            services.AddServiceByIntefaceInAssembly<Cart>(typeof(IValidator<>));
+
+            services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
+
+            services.Configure<RedisOptions>(config.GetSection("Redis"));
+            services.AddScoped<RedisStore>();
+            services.AddScoped<IMessageBus, RedisMessageBus>();
 
             return services;
         }

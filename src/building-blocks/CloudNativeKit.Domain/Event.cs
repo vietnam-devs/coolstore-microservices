@@ -38,7 +38,7 @@ namespace CloudNativeKit.Domain
         public DateTime OccurredOn { get; protected set; } = NewDateTime();
     }
 
-    public abstract class IntegrationEventBase : EventBase
+    public abstract class IntegrationEventBase : EventBase, IIntegrationEvent
     {
     }
 

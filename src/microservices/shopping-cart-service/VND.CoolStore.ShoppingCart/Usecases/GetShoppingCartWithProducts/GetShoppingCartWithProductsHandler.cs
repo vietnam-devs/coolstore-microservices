@@ -30,7 +30,7 @@ namespace VND.CoolStore.ShoppingCart.Usecases.GetShoppingCartWithProducts
 
             var cartRepository = _unitOfWork.RepositoryAsync<Cart, Guid>();
             var newCart = await cartRepository.AddAsync(Cart.Load(request.CartId.ConvertTo<Guid>()));
-            newCart.AddEvent(new ShoppingCartWithProductCreated());
+            newCart.AddEvent(new ShoppingCartWithProductCreated { Sample = "this is sample" });
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return new GetCartResponse { Result = new CartDto { Id = newCart.Id.ToString() } };

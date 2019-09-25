@@ -14,7 +14,7 @@ namespace CloudNativeKit.Infrastructure.Bus.InterProc.Redis
             {
                 EndPoints =
                 {
-                    redisOptions.Value.Fqdn
+                    redisOptions.Value.Host
                 },
                 Password = redisOptions.Value.Password
             };

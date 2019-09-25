@@ -11,7 +11,7 @@ namespace CloudNativeKit.Infrastructure
                 s.FromAssemblyOf<TRegisteredAssemblyType>()
                     .AddClasses(c => c.AssignableTo(interfaceType))
                     .AsImplementedInterfaces()
-                    .WithTransientLifetime());
+                    .WithScopedLifetime());
 
             return services;
         }

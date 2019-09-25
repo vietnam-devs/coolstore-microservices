@@ -1,6 +1,7 @@
 using System;
 using CloudNativeKit.Domain;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
+using static CloudNativeKit.Utils.Helpers.DateTimeHelper;
 
 namespace CloudNativeKit.Infrastructure.Bus.Messaging
 {
@@ -20,6 +21,12 @@ namespace CloudNativeKit.Infrastructure.Bus.Messaging
             OccurredOn = occurredOn;
             Type = type;
             Data = data;
+        }
+
+        public Outbox UpdateProcessedDate()
+        {
+            ProcessedDate = NewDateTime();
+            return this;
         }
     }
 }
