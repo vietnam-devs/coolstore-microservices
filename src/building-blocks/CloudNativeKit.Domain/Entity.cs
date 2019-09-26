@@ -22,7 +22,7 @@ namespace CloudNativeKit.Domain
 
         public DateTime Created { get; protected set; }
 
-        public DateTime Updated { get; protected set; }
+        public DateTime? Updated { get; protected set; }
 
         [Key] public TId Id { get; protected set; }
     }

@@ -6,7 +6,7 @@
 
 CoolStore Website is a containerised microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
 
-The business domain for internal µservice is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral). The README file is inspired from [GoogleCloudPlatform Demo](https://github.com/GoogleCloudPlatform/microservices-demo).
+The business domain is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral).
 
 Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
 
@@ -72,7 +72,7 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 - **[`istio`](https://istio.io)** - application works on Istio service mesh
 - **[`helm`](https://helm.sh)** - the best package manager to find, share, and use software built for Kubernetes
 - **[`envoy-proxy`](https://www.envoyproxy.io/)** - open source edge and service proxy, designed for cloud-native applications
-- **[`.NET Core SDK 2.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
+- **[`.NET Core SDK 3.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
 - **[`nodejs 10.x`](https://nodejs.org/en/download)** - JavaScript runtime built on Chrome's V8 JavaScript engine
 - **[`typescript`](https://www.typescriptlang.org)** - a typed superset of JavaScript that compiles to plain JavaScript
 - **[`identityserver`](https://identityserver.io)** - the Identity and Access Control solution for .NET Core
@@ -80,8 +80,6 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 - **[`create-react-app`](https://facebook.github.io/create-react-app)** - a modern web app by running one command
 - **[`vue-cli`](https://cli.vuejs.org/)** - standard tooling for Vue.js development
 - **[`apollo-client`](https://www.apollographql.com/docs/react/)** - the best way to use GraphQL to build client applications
-- **[`tanka-graphql`](https://pekkah.github.io/tanka-graphql)** - GraphQL execution library with SignalR based server and ApolloLink implementation
-- **[`netcorekit`](https://github.com/cloudnative-netcore/netcore-kit)** - a crafted microservices toolkit for building cloud-native apps on the .NET platform
 
 ## High level software architecture
 
@@ -248,22 +246,20 @@ There are several individual µservices and infrastructure components that make 
 
 ### Development environment
 
-#### Up and running manually with `Docker for desktop`
-
-See https://vietnam-devs.github.io/docs/development/up-running-d4d-aks/#docker-for-desktop
-
-#### Up and running with `docker compose`
+#### Up and running with `Docker` and `docker compose`
 
 ```bash
-$ docker-compose build
-$ docker-compose up
+$ docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
+$ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 ```
+
+See https://vietnam-devs.github.io/coolstore-microservices/development/#up-and-running-with-docker-and-docker-compose
 
 ### Staging and Production environments
 
 #### Up and Running on `Azure Kubernetes Service` (`AKS`)
 
-See https://vietnam-devs.github.io/docs/development/up-running-d4d-aks/#azure-kubernetes-service-aks
+See https://vietnam-devs.github.io/coolstore-microservices/development/#up-and-running-manually-on-docker-for-desktop-and-aks
 
 ## µService development
 

@@ -11,15 +11,6 @@ namespace VND.CoolStore.ShoppingCart.Data.TypeConfig
             builder.ToTable("Carts", "cart");
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id);
-
-            builder.Property<bool>("IsCheckout").HasColumnName("IsCheckout");
-
-            builder
-                .HasMany(ci => ci.CartItems)
-                .WithOne(c => c.Cart)
-                .HasForeignKey(k => k.CartId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

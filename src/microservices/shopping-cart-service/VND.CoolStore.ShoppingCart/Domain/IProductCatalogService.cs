@@ -5,8 +5,9 @@ using VND.CoolStore.ShoppingCart.DataContracts.V1;
 
 namespace VND.CoolStore.ShoppingCart.Domain
 {
-    public interface IProductCatalogGateway
+    public interface IProductCatalogService
     {
+        ProductDto GetProductById(Guid id);
         Task<ProductDto> GetProductByIdAsync(Guid id);
         Task<IEnumerable<ProductDto>> GetProductsAsync();
     }

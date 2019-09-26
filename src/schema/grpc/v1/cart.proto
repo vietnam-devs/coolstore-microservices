@@ -28,6 +28,22 @@ message CartItemDto {
   string product_name = 5;
 }
 
+message CartWithProductsRow {
+  double cart_item_total = 1;
+  double cart_item_promo_savings = 2;
+  double shipping_total = 3;
+  double shipping_promo_savings = 4;
+  double cart_total = 5;
+  bool is_check_out = 6;
+  int32 quantity = 7;
+  string product_name = 8;
+  double product_price = 9;
+  string product_desc = 10;
+  string product_image_path = 11;
+  string cart_id = 12;
+  string product_id = 13;
+}
+
 message ShoppingCartWithProductCreated {
   string sample = 1;
 }
@@ -45,7 +61,7 @@ message ProductInShoppingCartDeleted {
 }
 
 message ShoppingCartCheckedOut {
-
+  string cart_id = 1;
 }
 
 message BuyersShoppingCartDisplayed {

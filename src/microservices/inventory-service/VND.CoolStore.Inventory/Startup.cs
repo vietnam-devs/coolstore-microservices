@@ -36,7 +36,7 @@ namespace VND.CoolStore.Inventory
 
             services.Configure<RedisOptions>(Configuration.GetSection("Redis"));
             services.AddScoped<RedisStore>();
-            services.AddScoped<IMessageBus, RedisMessageBus>();
+            services.AddScoped<IMessageSubscriber, RedisMessageBus>();
 
             services.AddHostedService<Worker>();
             services.AddScoped<IScopedProcessingService, ScopedProcessingService>();

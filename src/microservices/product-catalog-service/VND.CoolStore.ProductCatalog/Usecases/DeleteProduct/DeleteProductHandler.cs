@@ -30,6 +30,7 @@ namespace VND.CoolStore.ProductCatalog.Usecases.DeleteProduct
             }
 
             await productRepository.DeleteAsync(existedProduct);
+            existedProduct.AddEvent(new ProductDeleted { Id = existedProduct.Id.ToString() });
 
             return new DeleteProductResponse
             {

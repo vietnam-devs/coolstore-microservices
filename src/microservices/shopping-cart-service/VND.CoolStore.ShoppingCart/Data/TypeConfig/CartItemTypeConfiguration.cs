@@ -11,12 +11,11 @@ namespace VND.CoolStore.ShoppingCart.Data.TypeConfig
             builder.ToTable("CartItems", "cart");
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id);
 
-            //builder.Property(x => x.Product.Id);
-            builder.Property(x => x.Quantity);
-            builder.Property(x => x.Price);
-            //builder.Property(x => x.CartId);
+            builder.HasOne(ci => ci.Cart)
+                .WithMany(c => c.CartItems)
+                .HasForeignKey(ci => ci.CurrentCartId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

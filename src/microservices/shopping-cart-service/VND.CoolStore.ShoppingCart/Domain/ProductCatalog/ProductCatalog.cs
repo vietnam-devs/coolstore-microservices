@@ -1,56 +1,49 @@
-/*using System;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
 using CloudNativeKit.Domain;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.ShoppingCart.Domain.ProductCatalog
 {
-
     public sealed class ProductCatalog : AggregateRootBase<Guid>
     {
         private ProductCatalog(Guid productId)
-            : this(GenerateId(), productId, string.Empty, 0.0D, string.Empty)
+            : this(NewId(), productId, string.Empty, 0.0D, string.Empty, "https://picsum.photos/1200/900?image=1")
         {
         }
 
-        private ProductCatalog(Guid productId, string name, double price, string desc)
-            : this(GenerateId(), productId, name, price, desc)
+        private ProductCatalog(Guid productId, string name, double price, string desc, string imagePath)
+            : this(NewId(), productId, name, price, desc, imagePath)
         {
         }
 
-        private ProductCatalog(Guid id, Guid productId, string name, double price, string desc)
+        private ProductCatalog(Guid id, Guid productId, string name, double price, string desc, string imagePath)
         {
             Id = id;
             ProductId = productId;
             Name = name;
             Price = price;
             Desc = desc;
+            ImagePath = imagePath;
         }
 
-        public Guid ProductId { get; }
+        public Guid ProductId { get; private set; }
 
-        [NotMapped] public string Name { get; }
+        public string Name { get; private set; }
 
-        [NotMapped] public double Price { get; }
+        public double Price { get; private set; }
 
-        [NotMapped] public string Desc { get; }
+        public string Desc { get; private set; }
 
-        public CartItem CartItem { get; private set; }
+        public string ImagePath { get; private set; }
 
         public static ProductCatalog Load(Guid productId)
         {
             return new ProductCatalog(productId);
         }
 
-        public static ProductCatalog Load(Guid productId, string name, double price, string desc)
+        public static ProductCatalog Load(Guid productId, string name, double price, string desc, string imagePath = "https://picsum.photos/1200/900?image=1")
         {
-            return new ProductCatalog(productId, name, price, desc);
-        }
-
-        public ProductCatalog LinkCartItem(CartItem cartItem)
-        {
-            CartItem = cartItem;
-            return this;
+            return new ProductCatalog(productId, name, price, desc, imagePath);
         }
     }
-}*/
+}

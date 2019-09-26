@@ -9,7 +9,7 @@ $ dotnet build
 ```
 
 ```bash
-$ dotnet ef migrations add InitialDb -c ShoppingCartDataContext -o Data/Migrations
+$ dotnet ef migrations add InitialShoppingCartDb -c ShoppingCartDataContext -o Data/Migrations
 $ dotnet ef migrations add InitialMessageDb -c MessagingDataContext -o Data/Migrations
 ```
 

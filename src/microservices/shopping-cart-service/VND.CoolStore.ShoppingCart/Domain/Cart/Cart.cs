@@ -18,6 +18,11 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
         {
         }
 
+        public static Cart Load()
+        {
+            return new Cart();
+        }
+
         public double CartItemTotal { get; private set; }
 
         public double CartItemPromoSavings { get; private set; }
@@ -32,26 +37,16 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
 
         public bool IsCheckout { get; private set; }
 
-        public static Cart Load()
-        {
-            return new Cart();
-        }
-
-        public static Cart Load(Guid id)
-        {
-            return new Cart(id);
-        }
-
         public CartItem FindCartItem(Guid productId)
         {
-            var cartItem = CartItems.FirstOrDefault(x => x.Product.Id == productId);
+            var cartItem = CartItems.FirstOrDefault(x => x.Product.ProductId == productId);
             return cartItem;
         }
 
         public Cart InsertItemToCart(Guid productId, int quantity, double promoSavings = 0.0D)
         {
-            CartItems.Add(CartItem.Load(productId, quantity, 0.0D, promoSavings));
-            AddEvent(new ShoppingCartWithProductCreated());
+            CartItems.Add(CartItem.Load(EmptyId(), productId, quantity, promoSavings));
+            AddEvent(new ShoppingCartWithProductCreated()); // todo: will remove soon
             return this;
         }
 
@@ -65,36 +60,32 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
         {
             var cartItem = CartItems.FirstOrDefault(x => x.Id == cartItemId);
 
-            if (cartItem == null) throw new DomainException($"Couldn't find cart item #{cartItemId}");
+            if (cartItem == null)
+                throw new DomainException($"Couldn't find cart item #{cartItemId}");
 
             cartItem.AccumulateQuantity(quantity);
             return this;
         }
 
-        public async Task<Cart> CalculateCartAsync(
-            TaxType taxType, IProductCatalogGateway catalogGateway,
-            IPromoGateway promoGateway, IShippingGateway shippingGateway)
+        public async Task<Cart> CalculateCartAsync(TaxType taxType, IProductCatalogService productCatalogService, IPromoGateway promoGateway, IShippingGateway shippingGateway)
         {
             if (CartItems != null && CartItems?.Count() > 0)
             {
                 CartItemTotal = 0.0D;
                 foreach (var cartItem in CartItems)
                 {
-                    var product = await catalogGateway.GetProductByIdAsync(cartItem.Product.Id);
-                    if (product == null) throw new Exception("Could not find product.");
+                    var product = await productCatalogService.GetProductByIdAsync(cartItem.Product.ProductId);
+                    if (cartItem.Product == null)
+                        throw new Exception("Could not find product.");
 
-                    cartItem
-                        //.FillUpProductInfo(product.Name, product.Price, product.Desc)
-                        .ChangePrice(product.Price);
-
-                    CartItemPromoSavings = CartItemPromoSavings + cartItem.PromoSavings * cartItem.Quantity;
-                    //CartItemTotal = CartItemTotal + cartItem.Product.Price * cartItem.Quantity;
+                    CartItemPromoSavings += cartItem.PromoSavings * cartItem.Quantity;
+                    CartItemTotal += product.Price * cartItem.Quantity;
                 }
 
-                //shippingGateway.CalculateShipping(this);
+                shippingGateway.CalculateShipping(this);
             }
 
-            //promoGateway.ApplyShippingPromotions(this);
+            promoGateway.ApplyShippingPromotions(this);
 
             switch (taxType)
             {
@@ -115,7 +106,37 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
         public Cart Checkout()
         {
             IsCheckout = true;
+            AddEvent(new ShoppingCartCheckedOut { CartId = Id.ToString() });
             return this;
+        }
+
+        public CartDto ToDto(IProductCatalogService productCatalogService)
+        {
+            var cartDto = new CartDto
+            {
+                Id = Id.ToString(),
+                CartTotal = CartTotal,
+                CartItemTotal = CartItemTotal,
+                CartItemPromoSavings = CartItemPromoSavings,
+                ShippingPromoSavings = ShippingPromoSavings,
+                ShippingTotal = ShippingTotal,
+                IsCheckOut = IsCheckout
+            };
+
+            cartDto.Items.AddRange(CartItems.Select(cc =>
+            {
+                var prod = productCatalogService.GetProductById(cc.Product.ProductId);
+                return new CartItemDto
+                {
+                    ProductId = cc.Product.ProductId.ToString(),
+                    ProductName = prod.Name,
+                    Price = prod.Price,
+                    Quantity = cc.Quantity,
+                    PromoSavings = cc.PromoSavings
+                };
+            }).ToList());
+
+            return cartDto;
         }
     }
 }

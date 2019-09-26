@@ -2,7 +2,7 @@
   "ReRoutes": [
     {
       "UpstreamPathTemplate": "/api/carts/{cartId}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/GetCart",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -14,7 +14,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/carts",
-      "UpstreamHttpMethod": ["Post"],
+      "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCart/InsertItemToNewCart",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -25,9 +25,9 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/api/carts",
-      "UpstreamHttpMethod": ["Put"],
-      "DownstreamPathTemplate": "/coolstore.ShoppingCart/UpdateItemInCart",
+      "UpstreamPathTemplate": "/api/carts/{cartId}/checkout",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/coolstore.ShoppingCart/Checkout",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -37,9 +37,9 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/api/carts/{cartId}/checkout",
-      "UpstreamHttpMethod": ["Put"],
-      "DownstreamPathTemplate": "/coolstore.ShoppingCart/Checkout",
+      "UpstreamPathTemplate": "/api/carts/{cartId}",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/coolstore.ShoppingCart/UpdateItemInCart",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -74,7 +74,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/products/{currentPage}/{highPrice}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/GetProducts",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -87,7 +87,7 @@
 
     {
       "UpstreamPathTemplate": "/api/products/{productId}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/GetProductById",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -99,7 +99,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/products",
-      "UpstreamHttpMethod": ["Post"],
+      "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/CreateProduct",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -111,7 +111,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/products/{productId}",
-      "UpstreamHttpMethod": ["Put"],
+      "UpstreamHttpMethod": [ "Put" ],
       "DownstreamPathTemplate": "/coolstore.Catalog/UpdateProduct",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

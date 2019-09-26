@@ -11,8 +11,7 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
         public static async Task<TEntity> GetByIdAsync<TEntity, TId>(this IQueryRepository<TEntity, TId> repo, TId id)
             where TEntity : class, IAggregateRoot<TId>
         {
-            var genericRepo = repo as GenericRepository<TEntity, TId>;
-            if(genericRepo == null)
+            if (!(repo is GenericRepository<TEntity, TId> genericRepo))
             {
                 throw new System.Exception("Make sure your IQueryRepository<TEntity, TId> is a GenericRepository<TEntity, TId> instance.");
             }
@@ -25,8 +24,7 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
         public static async Task<IReadOnlyCollection<TEntity>> GetByConditionAsync<TEntity, TId>(this IQueryRepository<TEntity, TId> repo, object whereConditions)
             where TEntity : class, IAggregateRoot<TId>
         {
-            var genericRepo = repo as GenericRepository<TEntity, TId>;
-            if (genericRepo == null)
+            if (!(repo is GenericRepository<TEntity, TId> genericRepo))
             {
                 throw new System.Exception("Make sure your IQueryRepository<TEntity, TId> is a GenericRepository<TEntity, TId> instance.");
             }

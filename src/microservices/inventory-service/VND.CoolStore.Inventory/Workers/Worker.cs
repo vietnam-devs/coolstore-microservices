@@ -50,14 +50,14 @@ namespace VND.CoolStore.Inventory.Workers
 
     public class ScopedProcessingService : IScopedProcessingService
     {
-        private readonly IMessageBus _messageBus;
+        private readonly IMessageSubscriber _messageSubscriber;
         private readonly ILogger<ScopedProcessingService> _logger;
 
         public ScopedProcessingService(
-            IMessageBus messageBus,
+            IMessageSubscriber messageSubscriber,
             ILogger<ScopedProcessingService> logger)
         {
-            _messageBus = messageBus;
+            _messageSubscriber = messageSubscriber;
             _logger = logger;
         }
 
@@ -66,7 +66,7 @@ namespace VND.CoolStore.Inventory.Workers
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await _messageBus.SubscribeAsync<ShoppingCartWithProductCreated>("shopping_cart_service");
+                await _messageSubscriber.SubscribeAsync<ShoppingCartWithProductCreated>("shopping_cart_service");
                 await Task.Delay(5000, stoppingToken);
             }
         }

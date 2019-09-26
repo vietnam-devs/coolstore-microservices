@@ -45,6 +45,16 @@ namespace VND.CoolStore.ProductCatalog.Domain
             Price = request.Price;
             ImageUrl = request.ImageUrl;
             Updated = NewDateTime();
+
+            AddEvent(new ProductUpdated
+            {
+                Id = Id.ToString(),
+                Name = Name,
+                Price = Price,
+                ImageUrl = ImageUrl,
+                Desc = Description
+            });
+
             return this;
         }
     }

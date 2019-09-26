@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,19 +19,20 @@ namespace VND.CoolStore.ShoppingCart.ProcessingServices
     public class ScopedProcessingService : IScopedProcessingService
     {
         private readonly IEfUnitOfWork<MessagingDataContext> _unitOfWork;
-        private readonly IMessageBus _messageBus;
+        private readonly IMessagePublisher _messagePublisher;
         private readonly ILogger<ScopedProcessingService> _logger;
 
         public ScopedProcessingService(
             IEfUnitOfWork<MessagingDataContext> unitOfWork,
-            IMessageBus messageBus,
+            IMessagePublisher messagePublisher,
             ILogger<ScopedProcessingService> logger)
         {
             _unitOfWork = unitOfWork;
-            _messageBus = messageBus;
+            _messagePublisher = messagePublisher;
             _logger = logger;
         }
 
+        [DebuggerStepThrough]
         public async Task DoWork(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -58,7 +60,7 @@ namespace VND.CoolStore.ShoppingCart.ProcessingServices
 
                         try
                         {
-                            await _messageBus.PublishAsync(integrationEvent, "shopping_cart_service");
+                            await _messagePublisher.PublishAsync(integrationEvent, "shopping_cart_service");
                         }
                         catch (Exception e)
                         {

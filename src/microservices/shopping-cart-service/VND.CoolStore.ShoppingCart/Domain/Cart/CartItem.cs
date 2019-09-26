@@ -10,60 +10,27 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
         {
         }
 
-        private CartItem(Guid id, int quantity, double price = 0.0D, double promoSavings = 0.0D) : base(id)
+        private CartItem(Guid id, Guid productId, int quantity, double promoSavings = 0.0D) : base(id)
         {
+            Product = ProductCatalogId.Load(EmptyId(), productId);
             Quantity = quantity;
-            Price = price;
             PromoSavings = promoSavings;
+        }
+
+        public static CartItem Load(Guid id, Guid productId, int quantity, double promoSavings)
+        {
+            return new CartItem(id, productId, quantity, promoSavings);
         }
 
         public int Quantity { get; private set; }
 
-        public double Price { get; private set; }
-
         public double PromoSavings { get; private set; }
 
         public Cart Cart { get; private set; }
-        public Guid CartId { get; private set; }
+
+        public Guid CurrentCartId { get; private set; }
 
         public ProductCatalogId Product { get; private set; }
-
-        public static CartItem Load(Guid productId, int quantity, double price = 0.0D, double promoSavings = 0.0D)
-        {
-            return Load(NewId(), productId, quantity, price, promoSavings);
-        }
-
-        public static CartItem Load(Guid id, Guid productId, int quantity, double price, double promoSavings)
-        {
-            return new CartItem(id, quantity, price, promoSavings);//.LinkProduct(productId);
-        }
-
-        public CartItem LinkCart(Cart cart)
-        {
-            Cart = cart;
-            CartId = cart.Id;
-            return this;
-        }
-
-        /*public CartItem LinkProduct(Guid productId)
-        {
-            var product = ProductCatalog.Load(productId);
-            product.LinkCartItem(this);
-            Product = product;
-            return this;
-        }
-
-        public CartItem FillUpProductInfo(string name, double price, string desc)
-        {
-            Product = ProductCatalog.Load(Product.ProductId, name, price, desc);
-            return this;
-        }*/
-
-        public CartItem ChangePrice(double price)
-        {
-            Price = price;
-            return this;
-        }
 
         public CartItem ChangePromoSavings(double promoSavings)
         {

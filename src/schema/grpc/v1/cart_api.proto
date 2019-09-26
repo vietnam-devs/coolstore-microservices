@@ -17,7 +17,7 @@ message GetCartRequest {
 }
 
 message GetCartResponse {
-  CartDto result = 1;
+  repeated CartWithProductsRow rows = 1;
 }
 
 message InsertItemToNewCartRequest {
