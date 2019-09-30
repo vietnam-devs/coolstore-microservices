@@ -7,6 +7,7 @@ message ProductDto {
   string name = 2;
   string desc = 3;
   double price = 4;
+  string image_path = 5;
 }
 
 message CartDto {

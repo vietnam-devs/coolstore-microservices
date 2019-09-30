@@ -47,10 +47,10 @@ namespace VND.CoolStore.ProductCatalog.ProcessingServices
                 if (@events.Count() > 0)
                 {
                     var commandRepo = _unitOfWork.RepositoryAsync<Outbox, Guid>();
-
                     foreach (var @event in @events)
                     {
-                        var messageAssembly = AppDomain.CurrentDomain.GetAssemblies()
+                        var messageAssembly = AppDomain.CurrentDomain
+                            .GetAssemblies()
                             .SingleOrDefault(assembly =>
                                 assembly.GetName().Name.Contains("VND.CoolStore.ProductCatalog.DataContracts") &&
                                 @event.Type.Contains(assembly.GetName().Name));

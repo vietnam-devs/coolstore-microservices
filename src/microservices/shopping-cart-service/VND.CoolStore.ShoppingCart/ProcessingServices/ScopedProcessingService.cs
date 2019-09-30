@@ -51,14 +51,14 @@ namespace VND.CoolStore.ShoppingCart.ProcessingServices
                 if (@events.Count() > 0)
                 {
                     var commandRepo = _unitOfWork.RepositoryAsync<Outbox, Guid>();
-
                     foreach (var @event in @events)
                     {
-                        var messageAssembly = AppDomain.CurrentDomain.GetAssemblies()
-                            .SingleOrDefault(assembly =>
-                                (assembly.GetName().Name.Contains("VND.CoolStore.ShoppingCart.DataContracts")
-                                    || assembly.GetName().Name.Contains("VND.CoolStore.ProductCatalog.DataContracts"))
-                                && @event.Type.Contains(assembly.GetName().Name));
+                        var messageAssembly = AppDomain.CurrentDomain
+                            .GetAssemblies()
+                            .SingleOrDefault(assembly => (
+                                assembly.GetName().Name.Contains("VND.CoolStore.ShoppingCart.DataContracts") ||
+                                assembly.GetName().Name.Contains("VND.CoolStore.ProductCatalog.DataContracts")
+                                ) && @event.Type.Contains(assembly.GetName().Name));
 
                         var type = messageAssembly.GetType(@event.Type);
                         var integrationEvent = (dynamic)JsonConvert.DeserializeObject(@event.Data, type);

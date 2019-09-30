@@ -1,5 +1,6 @@
 using System;
 using CloudNativeKit.Domain;
+using VND.CoolStore.ProductCatalog.DataContracts.Event.V1;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.ShoppingCart.Domain.ProductCatalog
@@ -44,6 +45,15 @@ namespace VND.CoolStore.ShoppingCart.Domain.ProductCatalog
         public static ProductCatalog Load(Guid productId, string name, double price, string desc, string imagePath = "https://picsum.photos/1200/900?image=1")
         {
             return new ProductCatalog(productId, name, price, desc, imagePath);
+        }
+
+        public ProductCatalog SyncData(ProductUpdated @event)
+        {
+            Name = @event.Name;
+            Price = @event.Price;
+            Desc = @event.Desc;
+            ImagePath = @event.ImageUrl;
+            return this;
         }
     }
 }
