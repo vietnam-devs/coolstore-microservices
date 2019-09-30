@@ -1,12 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\..\schema\grpc\v1\cart.proto" GrpcServices="Both" Link="cart.proto" />
     <Protobuf Include="..\..\..\schema\grpc\v1\cart_api.proto" GrpcServices="Both" Link="cart_api.proto" />
+    <Protobuf Include="..\..\..\schema\grpc\v1\cart_dto.proto" GrpcServices="None" Link="cart_dto.proto" />
+    <Protobuf Include="..\..\..\schema\grpc\v1\cart_evt.proto" GrpcServices="None" Link="cart_evt.proto" />
   </ItemGroup>
 
   <ItemGroup>

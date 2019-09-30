@@ -1,5 +1,5 @@
 using FluentValidation;
-using VND.CoolStore.ShoppingCart.DataContracts.V1;
+using VND.CoolStore.ShoppingCart.DataContracts.Api.V1;
 
 namespace VND.CoolStore.ShoppingCart.Usecases.DeleteProductInShoppingCart
 {

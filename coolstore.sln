@@ -33,10 +33,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grpc", "grpc", "{67D8F1E3-5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v1", "v1", "{BBACAD23-F563-4F74-9925-F9C9F72A3CB0}"
 	ProjectSection(SolutionItems) = preProject
-		src\schema\grpc\v1\cart.proto = src\schema\grpc\v1\cart.proto
 		src\schema\grpc\v1\cart_api.proto = src\schema\grpc\v1\cart_api.proto
-		src\schema\grpc\v1\catalog.proto = src\schema\grpc\v1\catalog.proto
+		src\schema\grpc\v1\cart_dto.proto = src\schema\grpc\v1\cart_dto.proto
+		src\schema\grpc\v1\cart_evt.proto = src\schema\grpc\v1\cart_evt.proto
 		src\schema\grpc\v1\catalog_api.proto = src\schema\grpc\v1\catalog_api.proto
+		src\schema\grpc\v1\catalog_dto.proto = src\schema\grpc\v1\catalog_dto.proto
+		src\schema\grpc\v1\catalog_evt.proto = src\schema\grpc\v1\catalog_evt.proto
 		src\schema\grpc\v1\common.proto = src\schema\grpc\v1\common.proto
 		src\schema\grpc\v1\inventory.proto = src\schema\grpc\v1\inventory.proto
 		src\schema\grpc\v1\rating.proto = src\schema\grpc\v1\rating.proto
@@ -82,7 +84,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcJsonTranscoder", "src\b
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ProductCatalog.Api", "src\microservices\product-catalog-service\VND.CoolStore.ProductCatalog.Api\VND.CoolStore.ProductCatalog.Api.csproj", "{1F806E9C-0B47-4231-BA3B-AE4B89FDF434}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.ShoppingCart.Api", "src\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart.Api\VND.CoolStore.ShoppingCart.Api.csproj", "{2113419B-47F7-4EA4-A370-F39B99E90E7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ShoppingCart.Api", "src\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart.Api\VND.CoolStore.ShoppingCart.Api.csproj", "{2113419B-47F7-4EA4-A370-F39B99E90E7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

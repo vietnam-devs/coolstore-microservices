@@ -33,9 +33,9 @@ namespace VND.CoolStore.ShoppingCart
             config.Bind("ConnectionStrings", dbOptions);
 
             services.AddDbContext<ShoppingCartDataContext>(options =>
-            options.UseSqlServer(dbOptions.MainDb)
-                .EnableSensitiveDataLogging() // for demo only
-                .EnableDetailedErrors()); // for demo only
+                options.UseSqlServer(dbOptions.MainDb)
+                    .EnableSensitiveDataLogging() // for demo only
+                    .EnableDetailedErrors()); // for demo only
             services.AddScoped<IEfUnitOfWork<ShoppingCartDataContext>, EfUnitOfWork<ShoppingCartDataContext>>();
 
             services.AddDbContext<MessagingDataContext>(options => options.UseSqlServer(dbOptions.MainDb));
@@ -46,16 +46,15 @@ namespace VND.CoolStore.ShoppingCart
             services.AddScoped<IDapperUnitOfWork, DapperUnitOfWork>();
 
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher<MessagingDataContext>>();
-
             services.AddMediatR(Assembly.GetEntryAssembly(), typeof(Startup).Assembly, typeof(Outbox).Assembly);
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddServiceByIntefaceInAssembly<Cart>(typeof(IValidator<>));
 
             services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
-
             services.Configure<RedisOptions>(config.GetSection("Redis"));
             services.AddScoped<RedisStore>();
             services.AddScoped<IMessagePublisher, RedisMessageBus>();
+            services.AddScoped<IMessageSubscriber, RedisMessageBus>();
 
             services.AddScoped<IProductCatalogService, ProductCatalogService>();
             services.AddScoped<IPromoGateway, PromoGateway>();

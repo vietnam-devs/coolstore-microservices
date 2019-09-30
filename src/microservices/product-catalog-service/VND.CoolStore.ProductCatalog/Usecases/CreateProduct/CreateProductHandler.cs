@@ -3,8 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using CloudNativeKit.Infrastructure.Data.Dapper.Core;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
 using VND.CoolStore.ProductCatalog.Domain;
+using VND.CoolStore.ProductCatalog.DataContracts.Api.V1;
+using VND.CoolStore.ProductCatalog.DataContracts.Dto.V1;
 
 namespace VND.CoolStore.ProductCatalog.Usecases.CreateProduct
 {

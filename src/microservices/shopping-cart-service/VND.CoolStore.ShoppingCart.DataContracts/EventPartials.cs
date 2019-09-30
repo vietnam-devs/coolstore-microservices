@@ -1,7 +1,6 @@
-using System;
 using CloudNativeKit.Domain;
 
-namespace VND.CoolStore.ShoppingCart.DataContracts.V1
+namespace VND.CoolStore.ShoppingCart.DataContracts.Event.V1
 {
     public partial class ShoppingCartWithProductCreated : IntegrationEventBase
     {   

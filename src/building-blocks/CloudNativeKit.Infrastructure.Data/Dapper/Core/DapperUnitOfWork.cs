@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using CloudNativeKit.Domain;
@@ -15,10 +16,12 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
     {
         private ConcurrentDictionary<string, object> _repositories = null;
         public ISqlConnectionFactory SqlConnectionFactory { get; }
+        public IEnumerable<IDomainEventDispatcher> EventBuses { get; }
 
-        public DapperUnitOfWork(ISqlConnectionFactory sqlConnectionFactory)
+        public DapperUnitOfWork(ISqlConnectionFactory sqlConnectionFactory, IEnumerable<IDomainEventDispatcher> eventBuses)
         {
             SqlConnectionFactory = sqlConnectionFactory;
+            EventBuses = eventBuses;
         }
 
         public IQueryRepository<TEntity, TId> QueryRepository<TEntity, TId>() where TEntity : class, IAggregateRoot<TId>
@@ -29,7 +32,7 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
             var key = $"{typeof(TEntity)}-query";
             if (!_repositories.ContainsKey(key))
             {
-                var cachedRepo = new GenericRepository<TEntity, TId>(SqlConnectionFactory);
+                var cachedRepo = new GenericRepository<TEntity, TId>(SqlConnectionFactory, EventBuses);
                 _repositories[key] = cachedRepo;
             }
 
@@ -44,7 +47,7 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
             var key = $"{typeof(TEntity)}-command";
             if (!_repositories.ContainsKey(key))
             {
-                var cachedRepo = new GenericRepository<TEntity, TId>(SqlConnectionFactory);
+                var cachedRepo = new GenericRepository<TEntity, TId>(SqlConnectionFactory, EventBuses);
                 _repositories[key] = cachedRepo;
             }
 

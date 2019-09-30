@@ -1,6 +1,5 @@
-using System;
 using FluentValidation;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
+using VND.CoolStore.ProductCatalog.DataContracts.Api.V1;
 
 namespace VND.CoolStore.ProductCatalog.Usecases.GetDetailOfSpecificProduct
 {

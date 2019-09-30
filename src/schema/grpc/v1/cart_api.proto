@@ -1,10 +1,10 @@
 syntax = "proto3";
 package coolstore;
-option csharp_namespace = "VND.CoolStore.ShoppingCart.DataContracts.V1";
+option csharp_namespace = "VND.CoolStore.ShoppingCart.DataContracts.Api.V1";
 
-import "cart.proto";
+import "cart_dto.proto";
 
-service ShoppingCart {
+service ShoppingCartApi {
   rpc GetCart(GetCartRequest) returns (GetCartResponse) {};
   rpc InsertItemToNewCart(InsertItemToNewCartRequest) returns (InsertItemToNewCartResponse) {};
   rpc UpdateItemInCart(UpdateItemInCartRequest) returns (UpdateItemInCartResponse) {};

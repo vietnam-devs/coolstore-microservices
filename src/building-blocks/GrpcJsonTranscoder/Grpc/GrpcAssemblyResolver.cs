@@ -1,6 +1,7 @@
-﻿using Google.Protobuf.Reflection;
+using Google.Protobuf.Reflection;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
@@ -44,18 +45,24 @@ namespace GrpcJsonTranscoder.Grpc
 
             foreach (var type in fileTypes)
             {
-                var flags = BindingFlags.Static | BindingFlags.Public;
-                var property = type.GetProperties(flags).Where(t => t.Name == "Descriptor").FirstOrDefault();
-
-                if (property is null) continue;
-                if (!(property.GetValue(null) is FileDescriptor fileDescriptor)) continue;
-
-                foreach (var svr in fileDescriptor.Services)
+                var defaultAttr = type.GetCustomAttribute<DefaultValueAttribute>();
+                if (defaultAttr != null)
                 {
-                    var srvName = svr.FullName.ToUpper();
-                    foreach (var method in svr.Methods)
+                    var flags = BindingFlags.Static | BindingFlags.Public;
+                    var property = type.GetProperties(flags).Where(t => t.Name == "Descriptor").FirstOrDefault();
+
+                    if (property is null)
+                        continue;
+                    if (!(property.GetValue(null) is FileDescriptor fileDescriptor))
+                        continue;
+
+                    foreach (var svr in fileDescriptor.Services)
                     {
-                        methodDescriptorDic.TryAdd(method.Name.ToUpper(), method);
+                        var srvName = svr.FullName.ToUpper();
+                        foreach (var method in svr.Methods)
+                        {
+                            methodDescriptorDic.TryAdd(method.Name.ToUpper(), method);
+                        }
                     }
                 }
             }

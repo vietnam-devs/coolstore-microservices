@@ -1,7 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using CloudNativeKit.Domain;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
+using VND.CoolStore.ProductCatalog.DataContracts.Api.V1;
+using VND.CoolStore.ProductCatalog.DataContracts.Event.V1;
 using static CloudNativeKit.Utils.Helpers.DateTimeHelper;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 

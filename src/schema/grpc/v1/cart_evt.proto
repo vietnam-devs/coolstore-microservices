@@ -1,0 +1,35 @@
+syntax = "proto3";
+package coolstore;
+option csharp_namespace = "VND.CoolStore.ShoppingCart.DataContracts.Event.V1";
+
+message ShoppingCartWithProductCreated {
+  string sample = 1;
+}
+
+message ShoppingCartWithProductsDisplayed {
+
+}
+
+message AmountOfProductInShoppingCartUpdated {
+
+}
+
+message ProductInShoppingCartDeleted {
+
+}
+
+message ShoppingCartCheckedOut {
+  string cart_id = 1;
+}
+
+message BuyersShoppingCartDisplayed {
+
+}
+
+message ShoppingCartEnabled {
+
+}
+
+message ShoppingCartDisabled {
+
+}

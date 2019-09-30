@@ -2,9 +2,10 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using CloudNativeKit.Infrastructure.Data.Dapper.Core;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
+using MediatR;
+using VND.CoolStore.ProductCatalog.DataContracts.Api.V1;
+using VND.CoolStore.ProductCatalog.DataContracts.Dto.V1;
 using VND.CoolStore.ProductCatalog.Domain;
 
 namespace VND.CoolStore.ProductCatalog.Usecases.GetProductsByPriceAndName

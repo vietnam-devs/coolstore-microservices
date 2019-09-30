@@ -1,7 +1,13 @@
+using System.ComponentModel;
 using MediatR;
 
-namespace VND.CoolStore.ProductCatalog.DataContracts.V1
+namespace VND.CoolStore.ProductCatalog.DataContracts.Api.V1
 {
+    [DefaultValue("DefaultReflection")]
+    public static partial class CatalogApiReflection
+    {
+    }
+
     public partial class GetProductsRequest : IRequest<GetProductsResponse>
     {
     }

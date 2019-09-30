@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CloudNativeKit.Infrastructure.Data.EfCore.Core;
 using Microsoft.EntityFrameworkCore;
-using VND.CoolStore.ShoppingCart.DataContracts.V1;
+using VND.CoolStore.ShoppingCart.DataContracts.Dto.V1;
 using VND.CoolStore.ShoppingCart.Domain;
-using VND.CoolStore.ShoppingCart.Domain.ProductCatalog;
 
 namespace VND.CoolStore.ShoppingCart.Data.Services
 {
@@ -21,7 +20,7 @@ namespace VND.CoolStore.ShoppingCart.Data.Services
 
         public ProductDto GetProductById(Guid id)
         {
-            var queryRepository = _unitOfWork.QueryRepository<ProductCatalog, Guid>();
+            var queryRepository = _unitOfWork.QueryRepository<Domain.ProductCatalog.ProductCatalog, Guid>();
 
             return queryRepository.Queryable()
                 .Where(p => p.ProductId == id)
@@ -37,7 +36,7 @@ namespace VND.CoolStore.ShoppingCart.Data.Services
 
         public Task<ProductDto> GetProductByIdAsync(Guid id)
         {
-            var queryRepository = _unitOfWork.QueryRepository<ProductCatalog, Guid>();
+            var queryRepository = _unitOfWork.QueryRepository<Domain.ProductCatalog.ProductCatalog, Guid>();
 
             var product = queryRepository.Queryable()
                 .Where(p => p.ProductId == id)
@@ -55,7 +54,7 @@ namespace VND.CoolStore.ShoppingCart.Data.Services
 
         public async Task<IEnumerable<ProductDto>> GetProductsAsync()
         {
-            var queryRepository = _unitOfWork.QueryRepository<ProductCatalog, Guid>();
+            var queryRepository = _unitOfWork.QueryRepository<Domain.ProductCatalog.ProductCatalog, Guid>();
 
             return await queryRepository.Queryable()
                 .Select(p => new ProductDto

@@ -1,6 +1,6 @@
 using System;
 
-namespace VND.CoolStore.ShoppingCart.DataContracts.V1
+namespace VND.CoolStore.ShoppingCart.DataContracts.Dto.V1
 {
     /// <summary>
     /// Ref https://stackoverflow.com/questions/5898988/map-string-to-guid-with-dapper

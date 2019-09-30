@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using Grpc.Core;
 using MediatR;
-using VND.CoolStore.ShoppingCart.DataContracts.V1;
-using static VND.CoolStore.ShoppingCart.DataContracts.V1.ShoppingCart;
+using VND.CoolStore.ShoppingCart.DataContracts.Api.V1;
 
 namespace VND.CoolStore.ShoppingCart.Api.GrpcServices
 {
-    public class ShoppingCartService : ShoppingCartBase
+    public class ShoppingCartService : ShoppingCartApi.ShoppingCartApiBase
     {
         private readonly IMediator _mediator;
 

@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using VND.CoolStore.ShoppingCart.DataContracts.V1;
+using VND.CoolStore.ShoppingCart.DataContracts.Event.V1;
 
 namespace VND.CoolStore.Inventory.Workers
 {

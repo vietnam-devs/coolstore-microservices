@@ -1,10 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using CloudNativeKit.Infrastructure.Data.Dapper.Core;
 using CloudNativeKit.Utils.Extensions;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
+using MediatR;
+using VND.CoolStore.ProductCatalog.DataContracts.Api.V1;
+using VND.CoolStore.ProductCatalog.DataContracts.Dto.V1;
 using VND.CoolStore.ProductCatalog.Domain;
 
 namespace VND.CoolStore.ProductCatalog.Usecases.GetDetailOfSpecificProduct

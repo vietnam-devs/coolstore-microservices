@@ -1,10 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.0;netstandard2.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="FluentValidation" Version="8.4.0" />
@@ -20,6 +25,20 @@
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure\CloudNativeKit.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Utils\CloudNativeKit.Utils.csproj" />
     <ProjectReference Include="..\VND.CoolStore.ProductCatalog.DataContracts\VND.CoolStore.ProductCatalog.DataContracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\VND.CoolStore.ProductCatalog.Api\appsettings.Development.json" Link="appsettings.Development.json" />
+    <Content Include="..\VND.CoolStore.ProductCatalog.Api\appsettings.json" Link="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\VND.CoolStore.ProductCatalog.Api\appsettings.Development.json" Link="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\VND.CoolStore.ProductCatalog.Api\appsettings.json" Link="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   
 </Project>

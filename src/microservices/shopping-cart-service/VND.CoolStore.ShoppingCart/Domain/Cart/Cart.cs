@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CloudNativeKit.Domain;
-using VND.CoolStore.ShoppingCart.DataContracts.V1;
+using VND.CoolStore.ShoppingCart.DataContracts.Dto.V1;
+using VND.CoolStore.ShoppingCart.DataContracts.Event.V1;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.ShoppingCart.Domain.Cart

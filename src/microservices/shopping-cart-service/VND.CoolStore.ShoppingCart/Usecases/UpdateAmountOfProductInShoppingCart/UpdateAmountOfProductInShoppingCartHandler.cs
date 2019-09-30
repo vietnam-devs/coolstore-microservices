@@ -6,7 +6,7 @@ using CloudNativeKit.Utils.Extensions;
 using MediatR;
 using VND.CoolStore.ShoppingCart.Data;
 using VND.CoolStore.ShoppingCart.Data.Repositories;
-using VND.CoolStore.ShoppingCart.DataContracts.V1;
+using VND.CoolStore.ShoppingCart.DataContracts.Api.V1;
 using VND.CoolStore.ShoppingCart.Domain;
 using VND.CoolStore.ShoppingCart.Domain.Cart;
 

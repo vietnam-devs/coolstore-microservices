@@ -30,7 +30,7 @@ namespace CloudNativeKit.Infrastructure.Bus.InterProc.Redis
 
             foreach (var channel in channels)
             {
-                _logger.LogInformation($"{channel}: Publishing the message with content {msg}");
+                _logger.LogInformation($"{channel}: Publishing the message with content is {JsonConvert.SerializeObject(msg)}.");
                 await pub.PublishAsync(channel, msg.ToByteString().ToByteArray());
             }
         }
@@ -44,7 +44,7 @@ namespace CloudNativeKit.Infrastructure.Bus.InterProc.Redis
             foreach (var channel in channels)
                 await sub.SubscribeAsync(channel, async (_, message) =>
                 {
-                    _logger.LogInformation($"{channel}: Subscribe to ${nameof(message)} message and the content is {JsonConvert.SerializeObject(message)}.");
+                    _logger.LogInformation($"{channel}: Subscribe the message with the content is {JsonConvert.SerializeObject(message)}.");
                     var msg = Utils.ObjectFactory<TMessage>.CreateInstance();
                     msg.MergeFrom(message);
                     using var scope = _serviceProvider.CreateScope();

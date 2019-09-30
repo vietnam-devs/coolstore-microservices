@@ -1,10 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using CloudNativeKit.Infrastructure.Data.Dapper.Core;
 using CloudNativeKit.Utils.Extensions;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
+using MediatR;
+using VND.CoolStore.ProductCatalog.DataContracts.Api.V1;
+using VND.CoolStore.ProductCatalog.DataContracts.Dto.V1;
 using VND.CoolStore.ProductCatalog.Domain;
 
 namespace VND.CoolStore.ProductCatalog.Usecases.DeleteProduct
@@ -30,7 +31,6 @@ namespace VND.CoolStore.ProductCatalog.Usecases.DeleteProduct
             }
 
             await productRepository.DeleteAsync(existedProduct);
-            existedProduct.AddEvent(new ProductDeleted { Id = existedProduct.Id.ToString() });
 
             return new DeleteProductResponse
             {

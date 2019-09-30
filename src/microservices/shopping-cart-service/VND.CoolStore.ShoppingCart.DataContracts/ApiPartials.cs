@@ -1,7 +1,13 @@
+using System.ComponentModel;
 using MediatR;
 
-namespace VND.CoolStore.ShoppingCart.DataContracts.V1
+namespace VND.CoolStore.ShoppingCart.DataContracts.Api.V1
 {
+    [DefaultValue("DefaultReflection")]
+    public static partial class CartApiReflection
+    {
+    }
+
     public partial class GetCartRequest : IRequest<GetCartResponse>
     {
     }

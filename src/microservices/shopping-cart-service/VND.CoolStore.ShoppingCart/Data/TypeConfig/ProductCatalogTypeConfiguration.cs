@@ -1,12 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VND.CoolStore.ShoppingCart.Domain.ProductCatalog;
 
 namespace VND.CoolStore.ShoppingCart.Data.TypeConfig
 {
-    public class ProductCatalogConfiguration : IEntityTypeConfiguration<ProductCatalog>
+    public class ProductCatalogConfiguration : IEntityTypeConfiguration<Domain.ProductCatalog.ProductCatalog>
     {
-        public void Configure(EntityTypeBuilder<ProductCatalog> builder)
+        public void Configure(EntityTypeBuilder<Domain.ProductCatalog.ProductCatalog> builder)
         {
             builder.ToTable("ProductCatalogs", "catalog");
 

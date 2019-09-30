@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using VND.CoolStore.ProductCatalog.Api.Workers;
 
 namespace VND.CoolStore.ProductCatalog.Api
 {
@@ -45,6 +46,7 @@ namespace VND.CoolStore.ProductCatalog.Api
             });
 
             services.AddServiceComponents(Configuration);
+            services.AddHostedService<OutboxWorker>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

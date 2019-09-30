@@ -12,10 +12,12 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
         where TEntity : class, IAggregateRoot<TId>
     {
         public ISqlConnectionFactory SqlConnectionFactory { get; }
+        public IEnumerable<IDomainEventDispatcher> EventBuses { get; }
 
-        public GenericRepository(ISqlConnectionFactory sqlConnectionFactory)
+        public GenericRepository(ISqlConnectionFactory sqlConnectionFactory, IEnumerable<IDomainEventDispatcher> eventBuses)
         {
             SqlConnectionFactory = sqlConnectionFactory;
+            EventBuses = eventBuses;
         }
 
         public IQueryable<TEntity> Queryable()
@@ -48,6 +50,14 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
                 returnValue.AsDynamic().Id = newId;
                 return (TEntity)returnValue;
             }
+
+            foreach (var @event in value.GetUncommittedEvents())
+            {
+                EventBuses.Select(b => b.Dispatch(@event)).ToList();
+            }
+
+            value.ClearUncommittedEvents();
+
             return value;
         }
 
@@ -60,6 +70,13 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
                 throw new Exception("Could not update record to the database.");
             }
 
+            foreach (var @event in value.GetUncommittedEvents())
+            {
+                EventBuses.Select(b => b.Dispatch(@event)).ToList();
+            }
+
+            value.ClearUncommittedEvents();
+
             return await GetByIdAsync(value.Id);
         }
 
@@ -67,6 +84,14 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
         {
             using var conn = SqlConnectionFactory.GetOpenConnection();
             var numberRecordAffected = await conn.DeleteAsync(entity);
+
+            foreach (var @event in entity.GetUncommittedEvents())
+            {
+                EventBuses.Select(b => b.Dispatch(@event)).ToList();
+            }
+
+            entity.ClearUncommittedEvents();
+
             return numberRecordAffected;
         }
     }

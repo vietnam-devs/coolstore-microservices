@@ -2,12 +2,11 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using VND.CoolStore.ProductCatalog.DataContracts.V1;
-using static VND.CoolStore.ProductCatalog.DataContracts.V1.Catalog;
+using VND.CoolStore.ProductCatalog.DataContracts.Api.V1;
 
 namespace VND.CoolStore.ProductCatalog.Api.GrpcServices
 {
-    public class CatalogService : CatalogBase
+    public class CatalogService : CatalogApi.CatalogApiBase
     {
         private readonly IMediator _mediator;
 

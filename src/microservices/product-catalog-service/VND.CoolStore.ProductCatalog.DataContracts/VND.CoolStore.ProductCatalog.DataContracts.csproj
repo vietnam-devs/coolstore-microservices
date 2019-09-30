@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\..\schema\grpc\v1\catalog.proto" GrpcServices="Both" Link="catalog.proto" />
     <Protobuf Include="..\..\..\schema\grpc\v1\catalog_api.proto" GrpcServices="Both" Link="catalog_api.proto" />
+    <Protobuf Include="..\..\..\schema\grpc\v1\catalog_dto.proto" GrpcServices="None" Link="catalog_dto.proto" />
+    <Protobuf Include="..\..\..\schema\grpc\v1\catalog_evt.proto" GrpcServices="None" Link="catalog_evt.proto" />
   </ItemGroup>
 
   <ItemGroup>

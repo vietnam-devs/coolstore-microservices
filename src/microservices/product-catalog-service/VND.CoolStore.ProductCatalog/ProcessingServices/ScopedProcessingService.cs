@@ -8,9 +8,8 @@ using CloudNativeKit.Infrastructure.Bus.Messaging;
 using CloudNativeKit.Infrastructure.Data.EfCore.Core;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using VND.CoolStore.ProductCatalog.DataContracts.Event.V1;
 
-namespace VND.CoolStore.ShoppingCart.ProcessingServices
+namespace VND.CoolStore.ProductCatalog.ProcessingServices
 {
     public interface IScopedProcessingService
     {
@@ -21,22 +20,19 @@ namespace VND.CoolStore.ShoppingCart.ProcessingServices
     {
         private readonly IEfUnitOfWork<MessagingDataContext> _unitOfWork;
         private readonly IMessagePublisher _messagePublisher;
-        private readonly IMessageSubscriber _messageSubscriber;
         private readonly ILogger<ScopedProcessingService> _logger;
 
         public ScopedProcessingService(
             IEfUnitOfWork<MessagingDataContext> unitOfWork,
             IMessagePublisher messagePublisher,
-            IMessageSubscriber messageSubscriber,
             ILogger<ScopedProcessingService> logger)
         {
             _unitOfWork = unitOfWork;
             _messagePublisher = messagePublisher;
-            _messageSubscriber = messageSubscriber;
             _logger = logger;
         }
 
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         public async Task DoWork(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -56,16 +52,15 @@ namespace VND.CoolStore.ShoppingCart.ProcessingServices
                     {
                         var messageAssembly = AppDomain.CurrentDomain.GetAssemblies()
                             .SingleOrDefault(assembly =>
-                                (assembly.GetName().Name.Contains("VND.CoolStore.ShoppingCart.DataContracts")
-                                    || assembly.GetName().Name.Contains("VND.CoolStore.ProductCatalog.DataContracts"))
-                                && @event.Type.Contains(assembly.GetName().Name));
+                                assembly.GetName().Name.Contains("VND.CoolStore.ProductCatalog.DataContracts") &&
+                                @event.Type.Contains(assembly.GetName().Name));
 
                         var type = messageAssembly.GetType(@event.Type);
                         var integrationEvent = (dynamic)JsonConvert.DeserializeObject(@event.Data, type);
 
                         try
                         {
-                            await _messagePublisher.PublishAsync(integrationEvent, "shopping_cart_service");
+                            await _messagePublisher.PublishAsync(integrationEvent, "product_catalog_service");
                         }
                         catch (Exception e)
                         {
@@ -79,7 +74,6 @@ namespace VND.CoolStore.ShoppingCart.ProcessingServices
                     }
                 }
 
-                await _messageSubscriber.SubscribeAsync<ProductUpdated>("product_catalog_service");
                 await Task.Delay(5000, stoppingToken);
             }
         }

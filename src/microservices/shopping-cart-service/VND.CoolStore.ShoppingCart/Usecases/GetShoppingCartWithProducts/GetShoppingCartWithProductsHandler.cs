@@ -6,7 +6,8 @@ using CloudNativeKit.Infrastructure.Data.Dapper.Core;
 using CloudNativeKit.Utils.Extensions;
 using Dapper;
 using MediatR;
-using VND.CoolStore.ShoppingCart.DataContracts.V1;
+using VND.CoolStore.ShoppingCart.DataContracts.Api.V1;
+using VND.CoolStore.ShoppingCart.DataContracts.Dto.V1;
 
 namespace VND.CoolStore.ShoppingCart.Usecases.GetShoppingCartWithProducts
 {
