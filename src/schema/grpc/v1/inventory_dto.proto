@@ -1,0 +1,10 @@
+syntax = "proto3";
+package coolstore;
+option csharp_namespace = "VND.CoolStore.Inventory.DataContracts.Dto.V1";
+
+message InventoryDto {
+  string id = 1;
+  string location = 2;
+  string description = 3;
+  string website = 4;
+}

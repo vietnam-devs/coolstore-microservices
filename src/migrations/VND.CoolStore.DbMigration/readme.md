@@ -3,5 +3,5 @@ $ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=P@ssw0rd" --name sqlserver -p 14
 ```
 
 ```bash
-$ dotnet run shoppingcart productcatalog
+$ dotnet run shoppingcart productcatalog inventory
 ```

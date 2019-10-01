@@ -39,8 +39,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v1", "v1", "{BBACAD23-F563-
 		src\schema\grpc\v1\catalog_api.proto = src\schema\grpc\v1\catalog_api.proto
 		src\schema\grpc\v1\catalog_dto.proto = src\schema\grpc\v1\catalog_dto.proto
 		src\schema\grpc\v1\catalog_evt.proto = src\schema\grpc\v1\catalog_evt.proto
-		src\schema\grpc\v1\common.proto = src\schema\grpc\v1\common.proto
-		src\schema\grpc\v1\inventory.proto = src\schema\grpc\v1\inventory.proto
+		src\schema\grpc\v1\inventory_api.proto = src\schema\grpc\v1\inventory_api.proto
+		src\schema\grpc\v1\inventory_dto.proto = src\schema\grpc\v1\inventory_dto.proto
+		src\schema\grpc\v1\inventory_evt.proto = src\schema\grpc\v1\inventory_evt.proto
 		src\schema\grpc\v1\rating.proto = src\schema\grpc\v1\rating.proto
 	EndProjectSection
 EndProject
@@ -68,7 +69,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNativeKit.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ProductCatalog", "src\microservices\product-catalog-service\VND.CoolStore.ProductCatalog\VND.CoolStore.ProductCatalog.csproj", "{FA6D1A01-2536-4C50-9144-E36117799226}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductCatalog", "ProductCatalog", "{E9EFAB71-E36C-4B75-A5E8-3BD63D7C4342}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductCatalogService", "ProductCatalogService", "{E9EFAB71-E36C-4B75-A5E8-3BD63D7C4342}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ProductCatalog.DataContracts", "src\microservices\product-catalog-service\VND.CoolStore.ProductCatalog.DataContracts\VND.CoolStore.ProductCatalog.DataContracts.csproj", "{26E93D20-4016-4B8B-9450-3F08E65DEC06}"
 EndProject
@@ -85,6 +86,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ProductCatalog.Api", "src\microservices\product-catalog-service\VND.CoolStore.ProductCatalog.Api\VND.CoolStore.ProductCatalog.Api.csproj", "{1F806E9C-0B47-4231-BA3B-AE4B89FDF434}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ShoppingCart.Api", "src\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart.Api\VND.CoolStore.ShoppingCart.Api.csproj", "{2113419B-47F7-4EA4-A370-F39B99E90E7D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InventoryService", "InventoryService", "{83C697D1-302B-45FE-99D0-50D4A30C7731}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AccessControlService", "AccessControlService", "{6868D90D-7C59-489F-B81A-12498B6C348A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Inventory.DataContracts", "src\microservices\inventory-service\VND.CoolStore.Inventory.DataContracts\VND.CoolStore.Inventory.DataContracts.csproj", "{E2ABF907-116D-4D9F-8902-CAD3D43D0172}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Inventory.Api", "src\microservices\inventory-service\VND.CoolStore.Inventory.Api\VND.CoolStore.Inventory.Api.csproj", "{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -160,6 +169,14 @@ Global
 		{2113419B-47F7-4EA4-A370-F39B99E90E7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2113419B-47F7-4EA4-A370-F39B99E90E7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2113419B-47F7-4EA4-A370-F39B99E90E7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2ABF907-116D-4D9F-8902-CAD3D43D0172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2ABF907-116D-4D9F-8902-CAD3D43D0172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2ABF907-116D-4D9F-8902-CAD3D43D0172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2ABF907-116D-4D9F-8902-CAD3D43D0172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,8 +188,8 @@ Global
 		{C87C9059-60D6-4F09-9AE4-476CAF334E55} = {B3221A04-27F2-4D15-A3D5-4D72A04F2139}
 		{DA14D048-4F11-4DFD-8F1B-0B636549DFE5} = {26934151-CB68-49E8-8507-0331B86424AC}
 		{7DD50A5B-A7DB-4302-A095-6CE311E5DA2F} = {26934151-CB68-49E8-8507-0331B86424AC}
-		{99672404-E6E2-41CF-9F97-1C6CC6208424} = {09BCCF6A-4F53-4861-ADE3-C2070E12C3AA}
-		{BD94A6CB-2541-4167-AB62-9FB4395EC741} = {09BCCF6A-4F53-4861-ADE3-C2070E12C3AA}
+		{99672404-E6E2-41CF-9F97-1C6CC6208424} = {6868D90D-7C59-489F-B81A-12498B6C348A}
+		{BD94A6CB-2541-4167-AB62-9FB4395EC741} = {83C697D1-302B-45FE-99D0-50D4A30C7731}
 		{66D75FEF-6DA2-45BA-84E9-36396F3745AA} = {8216B21C-A2EB-4F5B-B20A-1C6A4E72210D}
 		{8216B21C-A2EB-4F5B-B20A-1C6A4E72210D} = {09BCCF6A-4F53-4861-ADE3-C2070E12C3AA}
 		{C3F5F2FA-44C6-4CB6-A4F2-2E16A1F2B509} = {8216B21C-A2EB-4F5B-B20A-1C6A4E72210D}
@@ -187,6 +204,10 @@ Global
 		{F6842E99-9828-46ED-AB3E-10E8277894C7} = {26934151-CB68-49E8-8507-0331B86424AC}
 		{1F806E9C-0B47-4231-BA3B-AE4B89FDF434} = {E9EFAB71-E36C-4B75-A5E8-3BD63D7C4342}
 		{2113419B-47F7-4EA4-A370-F39B99E90E7D} = {8216B21C-A2EB-4F5B-B20A-1C6A4E72210D}
+		{83C697D1-302B-45FE-99D0-50D4A30C7731} = {09BCCF6A-4F53-4861-ADE3-C2070E12C3AA}
+		{6868D90D-7C59-489F-B81A-12498B6C348A} = {09BCCF6A-4F53-4861-ADE3-C2070E12C3AA}
+		{E2ABF907-116D-4D9F-8902-CAD3D43D0172} = {83C697D1-302B-45FE-99D0-50D4A30C7731}
+		{B92DA838-5F21-4A55-AE36-ABB8ED578DDD} = {83C697D1-302B-45FE-99D0-50D4A30C7731}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277B7E0A-BA8E-4DF8-ABD5-890801FC76F8}

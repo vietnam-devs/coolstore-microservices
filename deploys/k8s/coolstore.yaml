@@ -23,21 +23,27 @@ spec:
         version: v1
     spec:
       containers:
-      - name: shopping-cart-api
-        image: vndg/shopping-cart-api:latest
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: ConnectionStrings__MainDb
-          value: Data Source=sqlserver,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-        ports:
-        - containerPort: 5003
-          name: http
-        - containerPort: 15003
-          name: grpc
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
+        - name: shopping-cart-api
+          image: vndg/shopping-cart-api:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ConnectionStrings__MainDb
+              value: Data Source=sqlserver,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+          ports:
+            - containerPort: 5003
+              name: http
+            - containerPort: 15003
+              name: grpc
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 5003
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
 ---
 apiVersion: v1
 kind: Service
@@ -51,14 +57,14 @@ spec:
   selector:
     app: shopping-cart-api
   ports:
-  - port: 5003
-    targetPort: http
-    protocol: TCP
-    name: http
-  - port: 15003
-    targetPort: grpc
-    protocol: TCP
-    name: grpc
+    - port: 5003
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 15003
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
 ---
 # product-catalog service
 apiVersion: apps/v1
@@ -79,21 +85,27 @@ spec:
         version: v1
     spec:
       containers:
-      - name: product-catalog-api
-        image: vndg/product-catalog-api:latest
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: ConnectionStrings__MainDb
-          value: Data Source=sqlserver,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-        ports:
-        - containerPort: 5002
-          name: http
-        - containerPort: 15002
-          name: grpc
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
+        - name: product-catalog-api
+          image: vndg/product-catalog-api:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ConnectionStrings__MainDb
+              value: Data Source=sqlserver,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+          ports:
+            - containerPort: 5002
+              name: http
+            - containerPort: 15002
+              name: grpc
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 5002
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
 ---
 apiVersion: v1
 kind: Service
@@ -107,14 +119,14 @@ spec:
   selector:
     app: product-catalog-api
   ports:
-  - port: 5002
-    targetPort: http
-    protocol: TCP
-    name: http
-  - port: 15002
-    targetPort: grpc
-    protocol: TCP
-    name: grpc
+    - port: 5002
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 15002
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
 ---
 # webapi gateway
 apiVersion: apps/v1
@@ -135,16 +147,16 @@ spec:
         version: v1
     spec:
       containers:
-      - name: webapi-gateway
-        image: vndg/webapi-gateway:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
-          name: http
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
+        - name: webapi-gateway
+          image: vndg/webapi-gateway:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
 ---
 apiVersion: v1
 kind: Service
@@ -158,10 +170,10 @@ spec:
   selector:
     app: webapi-gateway
   ports:
-  - port: 5000
-    targetPort: http
-    protocol: TCP
-    name: http
+    - port: 5000
+      targetPort: http
+      protocol: TCP
+      name: http
 ---
 # sqlserver service
 apiVersion: apps/v1
@@ -182,21 +194,21 @@ spec:
         version: v1
     spec:
       containers:
-      - name: sqlserver
-        image: mcr.microsoft.com/mssql/server:2017-latest
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: SA_PASSWORD
-          value: "P@ssw0rd"
-        - name: ACCEPT_EULA
-          value: "Y"
-        ports:
-        - containerPort: 1433
-          name: tcp
-        resources:
-          requests:
-            cpu: 500m
-            memory: 250Mi
+        - name: sqlserver
+          image: mcr.microsoft.com/mssql/server:2017-latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SA_PASSWORD
+              value: "P@ssw0rd"
+            - name: ACCEPT_EULA
+              value: "Y"
+          ports:
+            - containerPort: 1433
+              name: tcp
+          resources:
+            requests:
+              cpu: 500m
+              memory: 250Mi
 ---
 apiVersion: v1
 kind: Service
@@ -210,7 +222,7 @@ spec:
   selector:
     app: sqlserver
   ports:
-  - port: 1433
-    targetPort: tcp
-    protocol: TCP
-    name: tcp
+    - port: 1433
+      targetPort: tcp
+      protocol: TCP
+      name: tcp

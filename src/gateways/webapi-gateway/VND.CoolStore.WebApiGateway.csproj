@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building-blocks\GrpcJsonTranscoder\GrpcJsonTranscoder.csproj" />
+    <ProjectReference Include="..\..\microservices\inventory-service\VND.CoolStore.Inventory.DataContracts\VND.CoolStore.Inventory.DataContracts.csproj" />
     <ProjectReference Include="..\..\microservices\product-catalog-service\VND.CoolStore.ProductCatalog.DataContracts\VND.CoolStore.ProductCatalog.DataContracts.csproj" />
     <ProjectReference Include="..\..\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart.DataContracts\VND.CoolStore.ShoppingCart.DataContracts.csproj" />
   </ItemGroup>

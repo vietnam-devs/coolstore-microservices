@@ -1,0 +1,4 @@
+syntax = "proto3";
+package coolstore;
+option csharp_namespace = "VND.CoolStore.Inventory.DataContracts.Event.V1";
+

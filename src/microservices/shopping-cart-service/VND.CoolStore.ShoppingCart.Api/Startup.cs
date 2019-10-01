@@ -23,6 +23,10 @@ namespace VND.CoolStore.ShoppingCart.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks()
+                .AddSqlServer(connectionString: Configuration["ConnectionStrings:MainDb"])
+                .AddRedis($"{Configuration["Redis:Host"]},password={Configuration["Redis:Password"]}");
+
             services.AddControllers()
                 .AddNewtonsoftJson();
 
@@ -64,8 +68,8 @@ namespace VND.CoolStore.ShoppingCart.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/healthz");
                 endpoints.MapGrpcService<GrpcServices.ShoppingCartService>();
-                endpoints.MapGrpcService<GrpcServices.HealthService>();
                 endpoints.MapControllers();
             });
         }

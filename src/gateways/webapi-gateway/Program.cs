@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Serilog;
+using static VND.CoolStore.Inventory.DataContracts.Api.V1.InventoryApi;
 using static VND.CoolStore.ProductCatalog.DataContracts.Api.V1.CatalogApi;
 using static VND.CoolStore.ShoppingCart.DataContracts.Api.V1.ShoppingCartApi;
 
@@ -55,6 +56,7 @@ namespace VND.CoolStore.WebApiGateway
                     services.AddGrpcJsonTranscoder(() =>
                         new GrpcAssemblyResolver().ConfigGrpcAssembly(
                             typeof(ShoppingCartApiClient).Assembly,
+                            typeof(InventoryApiClient).Assembly,
                             typeof(CatalogApiClient).Assembly));
 
                     services.AddOcelot();

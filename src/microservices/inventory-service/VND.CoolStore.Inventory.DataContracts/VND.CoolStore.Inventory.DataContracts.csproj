@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\..\..\schema\grpc\v1\inventory_api.proto" GrpcServices="Both" Link="inventory_api.proto" />
+    <Protobuf Include="..\..\..\schema\grpc\v1\inventory_dto.proto" GrpcServices="None" Link="inventory_dto.proto" />
+    <Protobuf Include="..\..\..\schema\grpc\v1\inventory_evt.proto" GrpcServices="None" Link="inventory_evt.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.9.1" />
+    <PackageReference Include="Grpc" Version="2.23.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.23.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MediatR" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Domain\CloudNativeKit.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

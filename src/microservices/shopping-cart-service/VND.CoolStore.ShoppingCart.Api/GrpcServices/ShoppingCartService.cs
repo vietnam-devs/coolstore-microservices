@@ -1,10 +1,12 @@
 using System.Threading.Tasks;
 using Grpc.Core;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using VND.CoolStore.ShoppingCart.DataContracts.Api.V1;
 
 namespace VND.CoolStore.ShoppingCart.Api.GrpcServices
 {
+    [Authorize]
     public class ShoppingCartService : ShoppingCartApi.ShoppingCartApiBase
     {
         private readonly IMediator _mediator;

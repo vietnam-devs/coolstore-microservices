@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using VND.CoolStore.ProductCatalog.Api.Workers;
+using VND.CoolStore.Inventory.Api.Workers;
 
-namespace VND.CoolStore.ProductCatalog.Api
+namespace VND.CoolStore.Inventory.Api
 {
     public class Startup
     {
@@ -50,7 +50,7 @@ namespace VND.CoolStore.ProductCatalog.Api
             });
 
             services.AddServiceComponents(Configuration);
-            services.AddHostedService<OutboxWorker>();
+            //services.AddHostedService<OutboxWorker>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -59,7 +59,7 @@ namespace VND.CoolStore.ProductCatalog.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -68,7 +68,7 @@ namespace VND.CoolStore.ProductCatalog.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks("/healthz");
-                endpoints.MapGrpcService<GrpcServices.CatalogService>();
+                endpoints.MapGrpcService<GrpcServices.InventoryService>();
                 endpoints.MapControllers();
             });
         }

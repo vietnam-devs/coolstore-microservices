@@ -360,3 +360,4 @@ src/web/shrinkwrap.yaml
 # git submodules
 src/netcorekit/
 .gitmodules
+**/*/healthchecksdb
