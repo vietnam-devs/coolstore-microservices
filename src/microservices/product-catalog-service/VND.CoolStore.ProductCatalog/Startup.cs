@@ -32,17 +32,18 @@ namespace VND.CoolStore.ProductCatalog
             services.Configure<DapperDbOptions>(config.GetSection("ConnectionStrings"));
             services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>();
             services.AddScoped<IDapperUnitOfWork, DapperUnitOfWork>();
-
-            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher<MessagingDataContext>>();
+            
             services.AddMediatR(Assembly.GetEntryAssembly(), typeof(Startup).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddServiceByIntefaceInAssembly<Product>(typeof(IValidator<>));
+            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher<MessagingDataContext>>();
 
-            services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
             services.Configure<RedisOptions>(config.GetSection("Redis"));
             services.AddScoped<RedisStore>();
-            services.AddScoped<IMessagePublisher, RedisMessageBus>();
-            
+            services.AddScoped<IMessageBus, RedisMessageBus>();
+
+            services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
+
             return services;
         }
     }

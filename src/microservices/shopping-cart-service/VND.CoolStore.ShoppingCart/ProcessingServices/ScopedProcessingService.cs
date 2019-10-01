@@ -1,39 +1,21 @@
 using System;
 using System.Diagnostics;
-using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using CloudNativeKit.Infrastructure.Bus;
 using CloudNativeKit.Infrastructure.Bus.Messaging;
 using CloudNativeKit.Infrastructure.Data.EfCore.Core;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using VND.CoolStore.ProductCatalog.DataContracts.Event.V1;
 
 namespace VND.CoolStore.ShoppingCart.ProcessingServices
 {
-    public interface IScopedProcessingService
+    public class ScopedProcessingService : ScopedProcessingServiceBase, IScopedProcessingService
     {
-        Task DoWork(CancellationToken stoppingToken);
-    }
-
-    public class ScopedProcessingService : IScopedProcessingService
-    {
-        private readonly IEfUnitOfWork<MessagingDataContext> _unitOfWork;
-        private readonly IMessagePublisher _messagePublisher;
-        private readonly IMessageSubscriber _messageSubscriber;
-        private readonly ILogger<ScopedProcessingService> _logger;
-
-        public ScopedProcessingService(
-            IEfUnitOfWork<MessagingDataContext> unitOfWork,
-            IMessagePublisher messagePublisher,
-            IMessageSubscriber messageSubscriber,
-            ILogger<ScopedProcessingService> logger)
+        public ScopedProcessingService(IEfUnitOfWork<MessagingDataContext> unitOfWork, IMessageBus messageBus, ILogger<ScopedProcessingService> logger)
+            : base(unitOfWork, messageBus, logger)
         {
-            _unitOfWork = unitOfWork;
-            _messagePublisher = messagePublisher;
-            _messageSubscriber = messageSubscriber;
-            _logger = logger;
         }
 
         [DebuggerStepThrough]
@@ -41,47 +23,17 @@ namespace VND.CoolStore.ShoppingCart.ProcessingServices
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-
-                var @events = _unitOfWork.QueryRepository<Outbox, Guid>()
-                    .Queryable()
-                    .Where(evt => evt.ProcessedDate == null)
-                    .ToList();
-
-                if (@events.Count() > 0)
-                {
-                    var commandRepo = _unitOfWork.RepositoryAsync<Outbox, Guid>();
-                    foreach (var @event in @events)
-                    {
-                        var messageAssembly = AppDomain.CurrentDomain
-                            .GetAssemblies()
-                            .SingleOrDefault(assembly => (
-                                assembly.GetName().Name.Contains("VND.CoolStore.ShoppingCart.DataContracts") ||
-                                assembly.GetName().Name.Contains("VND.CoolStore.ProductCatalog.DataContracts")
-                                ) && @event.Type.Contains(assembly.GetName().Name));
-
-                        var type = messageAssembly.GetType(@event.Type);
-                        var integrationEvent = (dynamic)JsonConvert.DeserializeObject(@event.Data, type);
-
-                        try
-                        {
-                            await _messagePublisher.PublishAsync(integrationEvent, "shopping_cart_service");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-
-                        @event.UpdateProcessedDate();
-                        await commandRepo.UpdateAsync(@event);
-                        await _unitOfWork.SaveChangesAsync(default);
-                    }
-                }
-
-                await _messageSubscriber.SubscribeAsync<ProductUpdated>("product_catalog_service");
+                Logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                await PublishEventsUnProcessInOutboxToChannels("shopping_cart_service");
+                await MessageBus.SubscribeAsync<ProductUpdated>("product_catalog_service");
                 await Task.Delay(5000, stoppingToken);
             }
+        }
+
+        public override bool ScanAssemblyWithConditions(Assembly assembly)
+        {
+            return assembly.GetName().Name.Contains("VND.CoolStore.ShoppingCart.DataContracts")
+                || assembly.GetName().Name.Contains("VND.CoolStore.ProductCatalog.DataContracts");
         }
     }
 }

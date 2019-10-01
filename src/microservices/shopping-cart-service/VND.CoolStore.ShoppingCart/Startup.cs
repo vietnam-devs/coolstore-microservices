@@ -44,17 +44,16 @@ namespace VND.CoolStore.ShoppingCart
             services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>();
             services.AddScoped<IDapperUnitOfWork, DapperUnitOfWork>();
 
-            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher<MessagingDataContext>>();
             services.AddMediatR(Assembly.GetEntryAssembly(), typeof(Startup).Assembly, typeof(Outbox).Assembly);
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddServiceByIntefaceInAssembly<Cart>(typeof(IValidator<>));
-
-            services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
+            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher<MessagingDataContext>>();
+            
             services.Configure<RedisOptions>(config.GetSection("Redis"));
             services.AddScoped<RedisStore>();
-            services.AddScoped<IMessagePublisher, RedisMessageBus>();
-            services.AddScoped<IMessageSubscriber, RedisMessageBus>();
+            services.AddScoped<IMessageBus, RedisMessageBus>();
 
+            services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
             services.AddScoped<IProductCatalogService, ProductCatalogService>();
             services.AddScoped<IPromoGateway, PromoGateway>();
             services.AddScoped<IShippingGateway, ShippingGateway>();

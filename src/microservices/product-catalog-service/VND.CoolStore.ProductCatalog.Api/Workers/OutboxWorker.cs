@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudNativeKit.Infrastructure.Bus.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using VND.CoolStore.ProductCatalog.ProcessingServices;
 
 namespace VND.CoolStore.ProductCatalog.Api.Workers
 {
