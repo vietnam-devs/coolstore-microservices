@@ -1,30 +1,46 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using CloudNativeKit.Infrastructure.Bus;
+using CloudNativeKit.Utils.Extensions;
 using MediatR;
 using VND.CoolStore.ProductCatalog.DataContracts.Event.V1;
-using VND.CoolStore.ShoppingCart.Usecases.SyncProductCatalogInfo;
+using VND.CoolStore.ShoppingCart.Usecases.MarkProductCatalogAsDeleted;
+using VND.CoolStore.ShoppingCart.Usecases.ReplicateProductCatalogInfo;
 
 namespace VND.CoolStore.ShoppingCart.Api.Listeners
 {
-    public class MessageEnvelopeListener : INotificationHandler<MessageEnvelope<ProductUpdated>>
+    public class MessageEnvelopeListener :
+        INotificationHandler<MessageEnvelope<ProductUpdated>>,
+        INotificationHandler<MessageEnvelope<ProductDeleted>>
     {
-        private readonly ISyncProductCatalogInfoService _syncProductCatalogInfoService;
+        private readonly IMediator _mediator;
 
-        public MessageEnvelopeListener(ISyncProductCatalogInfoService syncProductCatalogInfoService)
+        public MessageEnvelopeListener(IMediator mediator)
         {
-            _syncProductCatalogInfoService = syncProductCatalogInfoService;
+            _mediator = mediator;
         }
 
         public async Task Handle(MessageEnvelope<ProductUpdated> notification, CancellationToken cancellationToken)
         {
-            if(notification.Message is ProductUpdated)
+            if (notification.Message is ProductUpdated productUpdated)
             {
-                await _syncProductCatalogInfoService.SyncData(notification.Message, cancellationToken);
+                await _mediator.Send(new ReplicateProductCatalogInfo
+                {
+                    Id = productUpdated.Id.ConvertTo<Guid>(),
+                    Name = productUpdated.Name,
+                    Price = productUpdated.Price,
+                    ImagePath = productUpdated.ImageUrl,
+                    Description = productUpdated.Desc
+                }, cancellationToken);
             }
-            else if (notification.Message is ProductDeleted)
+        }
+
+        public async Task Handle(MessageEnvelope<ProductDeleted> notification, CancellationToken cancellationToken)
+        {
+            if (notification.Message is ProductDeleted productDeleted)
             {
-                //TODO: mark it as deleted state 
+                await _mediator.Send(new MarkProductCatalogAsDeleted { ProductId = productDeleted.Id.ConvertTo<Guid>() }, cancellationToken);
             }
         }
     }

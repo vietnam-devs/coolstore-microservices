@@ -43,4 +43,8 @@ message CartWithProductsRow {
   string product_image_path = 11;
   string cart_id = 12;
   string product_id = 13;
+  string inventory_id = 14;
+  string inventory_location = 15;
+  string inventory_description = 16;
+  string inventory_website = 17;
 }

@@ -6,20 +6,26 @@ import "inventory_dto.proto";
 
 service InventoryApi {
   rpc GetInventories(GetInventoriesRequest) returns (GetInventoriesResponse) {};
+  rpc GetInventoryAsyncStream(GetInventoryStreamRequest) returns (stream GetInventoryStreamResponse) {};
   rpc GetInventory(GetInventoryRequest) returns (GetInventoryResponse) {};
 }
 
-message GetInventoriesRequest {
-}
-
+message GetInventoriesRequest {}
 message GetInventoriesResponse {
   repeated InventoryDto inventories = 1;
+}
+
+message GetInventoryStreamRequest {}
+message GetInventoryStreamResponse {
+  string id = 1;
+  string location = 2;
+  string description = 3;
+  string website = 4;
 }
 
 message GetInventoryRequest {
   string id = 1;
 }
-
 message GetInventoryResponse {
   InventoryDto result = 1;
 }

@@ -18,9 +18,9 @@ using VND.CoolStore.ShoppingCart.Data;
 using VND.CoolStore.ShoppingCart.Data.Services;
 using VND.CoolStore.ShoppingCart.Domain;
 using VND.CoolStore.ShoppingCart.Domain.Cart;
+using VND.CoolStore.ShoppingCart.Domain.ProductCatalog;
 using VND.CoolStore.ShoppingCart.Gateways;
 using VND.CoolStore.ShoppingCart.ProcessingServices;
-using VND.CoolStore.ShoppingCart.Usecases.SyncProductCatalogInfo;
 
 namespace VND.CoolStore.ShoppingCart
 {
@@ -57,7 +57,7 @@ namespace VND.CoolStore.ShoppingCart
             services.AddScoped<IProductCatalogService, ProductCatalogService>();
             services.AddScoped<IPromoGateway, PromoGateway>();
             services.AddScoped<IShippingGateway, ShippingGateway>();
-            services.AddScoped<ISyncProductCatalogInfoService, SyncProductCatalogInfoService>();
+            services.AddScoped<IInventoryGateway, InventoryGateway>();
 
             return services;
         }

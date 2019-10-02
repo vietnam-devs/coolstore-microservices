@@ -16,10 +16,23 @@ namespace VND.CoolStore.Inventory.Domain
         {
         }
 
+        private Inventory(Guid id, string location, string description, string website)
+        {
+            Id = id;
+            Location = location;
+            Description = description;
+            Website = website;
+        }
+
         public string Location { get; private set; }
 
         public string Description { get; private set; }
 
         public string Website { get; private set; }
+
+        public static Inventory Of(Guid id, string location, string description, string website)
+        {
+            return new Inventory(id, location, description, website);
+        }
     }
 }

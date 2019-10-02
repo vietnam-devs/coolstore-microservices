@@ -1,30 +1,32 @@
 using System;
 using CloudNativeKit.Domain;
-using VND.CoolStore.ProductCatalog.DataContracts.Event.V1;
+using VND.CoolStore.ShoppingCart.Usecases.ReplicateProductCatalogInfo;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.ShoppingCart.Domain.ProductCatalog
 {
     public sealed class ProductCatalog : AggregateRootBase<Guid>
     {
-        private ProductCatalog(Guid productId)
-            : this(NewId(), productId, string.Empty, 0.0D, string.Empty, "https://picsum.photos/1200/900?image=1")
+        private ProductCatalog(Guid productId, Guid inventoryId)
+            : this(NewId(), productId, inventoryId, string.Empty, 0.0D, string.Empty, "https://picsum.photos/1200/900?image=1")
         {
         }
 
-        private ProductCatalog(Guid productId, string name, double price, string desc, string imagePath)
-            : this(NewId(), productId, name, price, desc, imagePath)
+        private ProductCatalog(Guid productId, Guid inventoryId, string name, double price, string desc, string imagePath)
+            : this(NewId(), productId, inventoryId, name, price, desc, imagePath)
         {
         }
 
-        private ProductCatalog(Guid id, Guid productId, string name, double price, string desc, string imagePath)
+        private ProductCatalog(Guid id, Guid productId, Guid inventoryId, string name, double price, string desc, string imagePath)
         {
             Id = id;
             ProductId = productId;
+            InventoryId = inventoryId;
             Name = name;
             Price = price;
             Desc = desc;
             ImagePath = imagePath;
+            IsDeleted = false;
         }
 
         public Guid ProductId { get; private set; }
@@ -37,22 +39,32 @@ namespace VND.CoolStore.ShoppingCart.Domain.ProductCatalog
 
         public string ImagePath { get; private set; }
 
-        public static ProductCatalog Load(Guid productId)
+        public bool IsDeleted { get; private set; }
+
+        public Guid InventoryId { get; private set; }
+
+        public static ProductCatalog Load(Guid productId, Guid inventoryId)
         {
-            return new ProductCatalog(productId);
+            return new ProductCatalog(productId, inventoryId);
         }
 
-        public static ProductCatalog Load(Guid productId, string name, double price, string desc, string imagePath = "https://picsum.photos/1200/900?image=1")
+        public static ProductCatalog Load(Guid productId, Guid inventoryId, string name, double price, string desc, string imagePath = "https://picsum.photos/1200/900?image=1")
         {
-            return new ProductCatalog(productId, name, price, desc, imagePath);
+            return new ProductCatalog(productId, inventoryId, name, price, desc, imagePath);
         }
 
-        public ProductCatalog SyncData(ProductUpdated @event)
+        public ProductCatalog ReplicateProductCatalog(ReplicateProductCatalogInfo info)
         {
-            Name = @event.Name;
-            Price = @event.Price;
-            Desc = @event.Desc;
-            ImagePath = @event.ImageUrl;
+            Name = info.Name;
+            Price = info.Price;
+            Desc = info.Description;
+            ImagePath = info.ImagePath;
+            return this;
+        }
+
+        public ProductCatalog MarkAsDeleted()
+        {
+            IsDeleted = true;
             return this;
         }
     }

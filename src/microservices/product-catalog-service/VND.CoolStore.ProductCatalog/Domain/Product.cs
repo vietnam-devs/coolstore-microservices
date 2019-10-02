@@ -27,6 +27,8 @@ namespace VND.CoolStore.ProductCatalog.Domain
 
         public string ImageUrl { get; private set; }
 
+        public bool IsDeleted { get; private set; }
+
         public static Product Of(CreateProductRequest request)
         {
             return new Product
@@ -35,7 +37,8 @@ namespace VND.CoolStore.ProductCatalog.Domain
                 Description = request.Desc,
                 Price = request.Price,
                 ImageUrl = request.ImageUrl,
-                Updated = NewDateTime()
+                Updated = NewDateTime(),
+                IsDeleted = false
             };
         }
 
@@ -54,6 +57,18 @@ namespace VND.CoolStore.ProductCatalog.Domain
                 Price = Price,
                 ImageUrl = ImageUrl,
                 Desc = Description
+            });
+
+            return this;
+        }
+
+        public Product MarkAsDeleted()
+        {
+            IsDeleted = true;
+
+            AddEvent(new ProductDeleted
+            {
+                Id = Id.ToString()
             });
 
             return this;

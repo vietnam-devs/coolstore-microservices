@@ -24,8 +24,12 @@ namespace VND.CoolStore.ShoppingCart.ProcessingServices
             while (!stoppingToken.IsCancellationRequested)
             {
                 Logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+
                 await PublishEventsUnProcessInOutboxToChannels("shopping_cart_service");
+
                 await MessageBus.SubscribeAsync<ProductUpdated>("product_catalog_service");
+                await MessageBus.SubscribeAsync<ProductDeleted>("product_catalog_service");
+
                 await Task.Delay(5000, stoppingToken);
             }
         }

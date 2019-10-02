@@ -26,7 +26,7 @@ namespace VND.CoolStore.ProductCatalog.Usecases.GetProductsByPriceAndName
             var products = queryable
                 .Skip(request.CurrentPage - 1)
                 .Take(10)
-                .Where(x => x.Price <= request.HighPrice);
+                .Where(x => !x.IsDeleted && x.Price <= request.HighPrice);
 
             var response = new GetProductsResponse();
             response.Products

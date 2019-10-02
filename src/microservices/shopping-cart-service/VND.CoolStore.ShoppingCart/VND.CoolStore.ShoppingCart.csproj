@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.23.2" />
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="FluentValidation" Version="8.4.0" />
@@ -25,6 +26,7 @@
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure.Data\CloudNativeKit.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure\CloudNativeKit.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Utils\CloudNativeKit.Utils.csproj" />
+    <ProjectReference Include="..\..\inventory-service\VND.CoolStore.Inventory.DataContracts\VND.CoolStore.Inventory.DataContracts.csproj" />
     <ProjectReference Include="..\..\product-catalog-service\VND.CoolStore.ProductCatalog.DataContracts\VND.CoolStore.ProductCatalog.DataContracts.csproj" />
     <ProjectReference Include="..\VND.CoolStore.ShoppingCart.DataContracts\VND.CoolStore.ShoppingCart.DataContracts.csproj" />
   </ItemGroup>

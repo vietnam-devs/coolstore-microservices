@@ -13,5 +13,8 @@ namespace VND.CoolStore.ShoppingCart.DataContracts.Dto.V1
 
         [NonSerialized]
         public Guid ProductIdGuid;
+
+        [NonSerialized]
+        public Guid InventoryIdGuid;
     }
 }
