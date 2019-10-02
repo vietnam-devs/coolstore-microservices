@@ -27,7 +27,7 @@ namespace VND.CoolStore.ShoppingCart.Api.Listeners
             {
                 await _mediator.Send(new ReplicateProductCatalogInfo
                 {
-                    Id = productUpdated.Id.ConvertTo<Guid>(),
+                    Id = productUpdated.ProductId.ConvertTo<Guid>(),
                     Name = productUpdated.Name,
                     Price = productUpdated.Price,
                     ImagePath = productUpdated.ImageUrl,
@@ -40,7 +40,7 @@ namespace VND.CoolStore.ShoppingCart.Api.Listeners
         {
             if (notification.Message is ProductDeleted productDeleted)
             {
-                await _mediator.Send(new MarkProductCatalogAsDeleted { ProductId = productDeleted.Id.ConvertTo<Guid>() }, cancellationToken);
+                await _mediator.Send(new MarkProductCatalogAsDeleted { ProductId = productDeleted.ProductId.ConvertTo<Guid>() }, cancellationToken);
             }
         }
     }

@@ -13,13 +13,13 @@ COPY ["src/building-blocks/CloudNativeKit.Infrastructure/CloudNativeKit.Infrastr
 COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/VND.CoolStore.ProductCatalog.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Data/CloudNativeKit.Infrastructure.Data.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Data/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Bus/CloudNativeKit.Infrastructure.Bus.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Bus/"]
-RUN dotnet restore "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api/VND.CoolStore.ProductCatalog.Api.csproj" -nowarn:msb3202,nu1503
+RUN dotnet restore "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api/VND.CoolStore.ProductCatalog.Api.csproj"
 COPY . .
 WORKDIR "/src/src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api"
 RUN dotnet build "VND.CoolStore.ProductCatalog.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "VND.CoolStore.ProductCatalog.Api.csproj" -c Release -o /app/publish --no-restore
+RUN dotnet publish "VND.CoolStore.ProductCatalog.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

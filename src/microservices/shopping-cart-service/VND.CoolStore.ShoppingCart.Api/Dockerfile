@@ -11,15 +11,17 @@ COPY ["src/building-blocks/CloudNativeKit.Domain/CloudNativeKit.Domain.csproj", 
 COPY ["src/building-blocks/CloudNativeKit.Utils/CloudNativeKit.Utils.csproj", "src/building-blocks/CloudNativeKit.Utils/"]
 COPY ["src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart/VND.CoolStore.ShoppingCart.csproj", "src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart/"]
 COPY ["src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.DataContracts/VND.CoolStore.ShoppingCart.DataContracts.csproj", "src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.DataContracts/"]
+COPY ["src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/VND.CoolStore.Inventory.DataContracts.csproj", "src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Data/CloudNativeKit.Infrastructure.Data.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Data/"]
+COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/VND.CoolStore.ProductCatalog.DataContracts.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Bus/CloudNativeKit.Infrastructure.Bus.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Bus/"]
-RUN dotnet restore "src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.Api/VND.CoolStore.ShoppingCart.Api.csproj" -nowarn:msb3202,nu1503
+RUN dotnet restore "src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.Api/VND.CoolStore.ShoppingCart.Api.csproj"
 COPY . .
 WORKDIR "/src/src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.Api"
 RUN dotnet build "VND.CoolStore.ShoppingCart.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "VND.CoolStore.ShoppingCart.Api.csproj" -c Release -o /app/publish --no-restore
+RUN dotnet publish "VND.CoolStore.ShoppingCart.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using VND.CoolStore.Inventory.Api.Workers;
 
 namespace VND.CoolStore.Inventory.Api
 {
@@ -24,8 +23,7 @@ namespace VND.CoolStore.Inventory.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHealthChecks()
-                .AddSqlServer(connectionString: Configuration["ConnectionStrings:MainDb"])
-                .AddRedis($"{Configuration["Redis:Host"]},password={Configuration["Redis:Password"]}");
+                .AddSqlServer(connectionString: Configuration["ConnectionStrings:MainDb"]);
 
             services.AddControllers()
                 .AddNewtonsoftJson();
@@ -50,7 +48,6 @@ namespace VND.CoolStore.Inventory.Api
             });
 
             services.AddServiceComponents(Configuration);
-            //services.AddHostedService<OutboxWorker>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

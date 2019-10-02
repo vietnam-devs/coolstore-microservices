@@ -3,7 +3,7 @@ package coolstore;
 option csharp_namespace = "VND.CoolStore.ProductCatalog.DataContracts.Event.V1";
 
 message ProductUpdated {
-  string id = 1;
+  string product_id = 1;
   string name = 2;
   string desc = 3;
   double price = 4;
@@ -11,5 +11,5 @@ message ProductUpdated {
 }
 
 message ProductDeleted  {
-  string id = 1;
+  string product_id = 1;
 }

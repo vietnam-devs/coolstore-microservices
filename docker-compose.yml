@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   webapi_gateway:
-    image: vndg/webapi-gateway:latest
+    image: vndg/webapi-gateway-v3:latest
     restart: always
     build:
       context: .
@@ -10,11 +10,12 @@ services:
     depends_on:
       - product_catalog_api
       - shopping_cart_api
+      - inventory_api
     networks:
       - coolstore
 
   product_catalog_api:
-    image: vndg/product-catalog-api:latest
+    image: vndg/product-catalog-api-v3:latest
     restart: always
     build:
       context: .
@@ -22,11 +23,12 @@ services:
     depends_on:
       - migration_data
       - sqlserver_data
+      - redis
     networks:
       - coolstore
 
   shopping_cart_api:
-    image: vndg/shopping-cart-api:latest
+    image: vndg/shopping-cart-api-v3:latest
     restart: always
     build:
       context: .
@@ -34,11 +36,24 @@ services:
     depends_on:
       - migration_data
       - sqlserver_data
+      - redis
     networks:
       - coolstore
 
-  access_control_service:
-    image: vndg/access-control-service:latest
+  inventory_api:
+    image: vndg/inventory-api-v3:latest
+    restart: always
+    build:
+      context: .
+      dockerfile: src/microservices/inventory-service/VND.CoolStore.Inventory.Api/Dockerfile
+    depends_on:
+      - migration_data
+      - sqlserver_data
+    networks:
+      - coolstore
+
+  access_control_api:
+    image: vndg/access-control-api-v3:latest
     restart: always
     build:
       context: .
@@ -47,12 +62,18 @@ services:
       - coolstore
 
   migration_data:
-    image: vndg/migration-data:latest
+    image: vndg/migration-data-v3:latest
     build:
       context: .
       dockerfile: ./src/migrations/VND.CoolStore.DbMigration/Dockerfile
     depends_on:
       - sqlserver_data
+    networks:
+      - coolstore
+
+  redis:
+    image: bitnami/redis:5.0.5-debian-9-r124
+    restart: always
     networks:
       - coolstore
 

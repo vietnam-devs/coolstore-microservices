@@ -18,7 +18,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - JwtAuthn__Authority=http://access_control_service
+      - JwtAuthn__Authority=http://access_control_api
+      - Redis__Host=redis:6379
+      - Redis__Password=letmein
     volumes:
       - "localnuget:/root/.nuget/packages"
 
@@ -29,11 +31,25 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - JwtAuthn__Authority=http://access_control_service
+      - JwtAuthn__Authority=http://access_control_api
+      - Redis__Host=redis:6379
+      - Redis__Password=letmein
+      - Grpc__InventoryHost=inventory_api:15004
     volumes:
       - "localnuget:/root/.nuget/packages"
 
-  access_control_service:
+  inventory_api:
+    ports:
+      - 5004
+      - 15004
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+      - JwtAuthn__Authority=http://access_control_api
+    volumes:
+      - "localnuget:/root/.nuget/packages"
+
+  access_control_api:
     ports:
       - 5001:80
     environment:
@@ -47,6 +63,12 @@ services:
       - ConnectionStrings__shoppingcart=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
       - ConnectionStrings__productcatalog=Data Source=sqlserver_data,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
       - ConnectionStrings__inventory=Data Source=sqlserver_data,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+
+  redis:
+    environment:
+      REDIS_PASSWORD: "letmein"
+    ports:
+      - 6379:6379
 
   sqlserver_data:
     environment:

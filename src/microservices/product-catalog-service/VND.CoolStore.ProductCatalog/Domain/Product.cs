@@ -52,7 +52,7 @@ namespace VND.CoolStore.ProductCatalog.Domain
 
             AddEvent(new ProductUpdated
             {
-                Id = Id.ToString(),
+                ProductId = Id.ToString(),
                 Name = Name,
                 Price = Price,
                 ImageUrl = ImageUrl,
@@ -68,7 +68,7 @@ namespace VND.CoolStore.ProductCatalog.Domain
 
             AddEvent(new ProductDeleted
             {
-                Id = Id.ToString()
+                ProductId = Id.ToString()
             });
 
             return this;

@@ -41,7 +41,7 @@ namespace VND.CoolStore.AccessControlService
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
-                options.IssuerUri = "http://access_control_service"; //only for demo
+                options.IssuerUri = "http://access_control_api"; //only for demo
             })
             .AddTestUsers(TestUsers.Users);
 
