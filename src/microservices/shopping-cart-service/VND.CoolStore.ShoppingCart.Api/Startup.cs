@@ -2,6 +2,7 @@ using System.Security.Claims;
 using CloudNativeKit.Infrastructure.Grpc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -68,7 +69,14 @@ namespace VND.CoolStore.ShoppingCart.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHealthChecks("/healthz");
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions
+                {
+                    Predicate = _ => true
+                });
+                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+                {
+                    Predicate = r => r.Name.Contains("self")
+                });
                 endpoints.MapGrpcService<GrpcServices.ShoppingCartService>();
                 endpoints.MapControllers();
             });

@@ -15,11 +15,13 @@ namespace VND.CoolStore.ProductCatalog.Usecases.GetDetailOfSpecificProduct
     public class GetDetailOfSpecificProductHandler : IRequestHandler<GetProductByIdRequest, GetProductByIdResponse>
     {
         private readonly IDapperUnitOfWork _unitOfWork;
+        private readonly IInventoryGateway _inventoryGateway;
         private readonly ILogger<GetDetailOfSpecificProductHandler> _logger;
 
-        public GetDetailOfSpecificProductHandler(IDapperUnitOfWork unitOfWork, ILogger<GetDetailOfSpecificProductHandler> logger)
+        public GetDetailOfSpecificProductHandler(IDapperUnitOfWork unitOfWork, IInventoryGateway inventoryGateway, ILogger<GetDetailOfSpecificProductHandler> logger)
         {
             _unitOfWork = unitOfWork;
+            _inventoryGateway = inventoryGateway;
             _logger = logger;
         }
 
@@ -34,6 +36,9 @@ namespace VND.CoolStore.ProductCatalog.Usecases.GetDetailOfSpecificProduct
                 _logger.LogInformation($"Could not find record with id #{request.ProductId} in the database.");
             }
 
+            // demo for traffic splitting (SMI specs). v1 without inventory information, v2 with inventory information in place
+            var inventoryDto = await _inventoryGateway.GetInventoryAsync(existedProduct.InventoryId);
+
             return new GetProductByIdResponse
             {
                 Product = new CatalogProductDto
@@ -42,7 +47,11 @@ namespace VND.CoolStore.ProductCatalog.Usecases.GetDetailOfSpecificProduct
                     Name = existedProduct.Name,
                     Desc = existedProduct.Description,
                     Price = existedProduct.Price,
-                    ImageUrl = existedProduct.ImageUrl
+                    ImageUrl = existedProduct.ImageUrl,
+                    InventoryId = inventoryDto?.Id,
+                    InventoryLocation = inventoryDto?.Location,
+                    InventoryWebsite = inventoryDto?.Website,
+                    InventoryDescription = inventoryDto?.Description
                 }
             };
         }

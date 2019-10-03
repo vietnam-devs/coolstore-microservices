@@ -1,0 +1,107 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: coolstore
+---
+# redis
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-v1
+  namespace: coolstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: redis
+        version: v1
+    spec:
+      containers:
+        - name: redis
+          image: bitnami/redis:5.0.5-debian-9-r124
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: REDIS_PASSWORD
+              value: "letmein"
+          ports:
+            - containerPort: 6379
+              name: tcp
+          resources:
+            requests:
+              cpu: 200m
+              memory: 250Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: coolstore
+  labels:
+    app: redis
+spec:
+  type: ClusterIP
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      targetPort: tcp
+      protocol: TCP
+      name: tcp
+---
+# sqlserver
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlserver-v1
+  namespace: coolstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqlserver
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+        version: v1
+    spec:
+      containers:
+        - name: sqlserver
+          image: mcr.microsoft.com/mssql/server:2017-latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SA_PASSWORD
+              value: "P@ssw0rd"
+            - name: ACCEPT_EULA
+              value: "Y"
+          ports:
+            - containerPort: 1433
+              name: tcp
+          resources:
+            requests:
+              cpu: 500m
+              memory: 250Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqlserver
+  namespace: coolstore
+  labels:
+    app: sqlserver
+spec:
+  type: ClusterIP
+  selector:
+    app: sqlserver
+  ports:
+    - port: 1433
+      targetPort: tcp
+      protocol: TCP
+      name: tcp

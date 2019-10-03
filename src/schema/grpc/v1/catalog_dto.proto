@@ -8,4 +8,8 @@ message CatalogProductDto {
   string desc = 3;
   double price = 4;
   string image_url = 5;
+  string inventory_id = 6;
+  string inventory_location = 7;
+  string inventory_website = 8;
+  string inventory_description = 9;
 }

@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VND.CoolStore.ProductCatalog.Domain;
+using VND.CoolStore.ProductCatalog.Gateways;
 using VND.CoolStore.ProductCatalog.ProcessingServices;
 
 namespace VND.CoolStore.ProductCatalog
@@ -43,6 +44,7 @@ namespace VND.CoolStore.ProductCatalog
             services.AddScoped<IMessageBus, RedisMessageBus>();
 
             services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
+            services.AddScoped<IInventoryGateway, InventoryGateway>();
 
             return services;
         }

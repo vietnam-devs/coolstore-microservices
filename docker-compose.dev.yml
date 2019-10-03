@@ -3,7 +3,7 @@
 version: "3.7"
 
 services:
-  webapi_gateway:
+  webapi-gateway:
     ports:
       - 5000:80
     environment:
@@ -11,45 +11,34 @@ services:
     volumes:
       - "localnuget:/root/.nuget/packages"
 
-  product_catalog_api:
+  product-catalog-api:
     ports:
       - 5002
       - 15002
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - JwtAuthn__Authority=http://access_control_api
-      - Redis__Host=redis:6379
-      - Redis__Password=letmein
     volumes:
       - "localnuget:/root/.nuget/packages"
 
-  shopping_cart_api:
+  shopping-cart-api:
     ports:
       - 5003
       - 15003
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - JwtAuthn__Authority=http://access_control_api
-      - Redis__Host=redis:6379
-      - Redis__Password=letmein
-      - Grpc__InventoryHost=inventory_api:15004
     volumes:
       - "localnuget:/root/.nuget/packages"
 
-  inventory_api:
+  inventory-api:
     ports:
       - 5004
       - 15004
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__MainDb=Data Source=sqlserver_data,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - JwtAuthn__Authority=http://access_control_api
     volumes:
       - "localnuget:/root/.nuget/packages"
 
-  access_control_api:
+  access-control-api:
     ports:
       - 5001:80
     environment:
@@ -57,12 +46,12 @@ services:
     volumes:
       - "localnuget:/root/.nuget/packages"
 
-  migration_data:
+  migration-data:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__shoppingcart=Data Source=sqlserver_data,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - ConnectionStrings__productcatalog=Data Source=sqlserver_data,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - ConnectionStrings__inventory=Data Source=sqlserver_data,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+      - ConnectionStrings__shoppingcart=Data Source=sqlserver,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+      - ConnectionStrings__productcatalog=Data Source=sqlserver,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+      - ConnectionStrings__inventory=Data Source=sqlserver,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
 
   redis:
     environment:
@@ -70,7 +59,7 @@ services:
     ports:
       - 6379:6379
 
-  sqlserver_data:
+  sqlserver:
     environment:
       SA_PASSWORD: "P@ssw0rd"
       ACCEPT_EULA: "Y"

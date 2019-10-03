@@ -13,6 +13,7 @@ COPY ["src/building-blocks/CloudNativeKit.Infrastructure/CloudNativeKit.Infrastr
 COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/VND.CoolStore.ProductCatalog.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Data/CloudNativeKit.Infrastructure.Data.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Data/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Bus/CloudNativeKit.Infrastructure.Bus.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Bus/"]
+COPY ["src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/VND.CoolStore.Inventory.DataContracts.csproj", "src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/"]
 RUN dotnet restore "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api/VND.CoolStore.ProductCatalog.Api.csproj"
 COPY . .
 WORKDIR "/src/src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api"

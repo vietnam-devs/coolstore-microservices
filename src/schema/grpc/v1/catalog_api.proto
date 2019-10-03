@@ -34,6 +34,7 @@ message CreateProductRequest {
   string desc = 2;
   double price = 3;
   string image_url = 4;
+  string inventory_id = 5;
 }
 
 message CreateProductResponse {
@@ -46,6 +47,7 @@ message UpdateProductRequest {
   string desc = 3;
   double price = 4;
   string image_url = 5;
+  string inventory_id = 6;
 }
 
 message UpdateProductResponse {

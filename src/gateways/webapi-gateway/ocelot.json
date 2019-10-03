@@ -7,7 +7,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping_cart_api",
+          "Host": "shopping-cart-api",
           "Port": 15003
         }
       ]
@@ -19,7 +19,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping_cart_api",
+          "Host": "shopping-cart-api",
           "Port": 15003
         }
       ]
@@ -31,7 +31,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping_cart_api",
+          "Host": "shopping-cart-api",
           "Port": 15003
         }
       ]
@@ -43,7 +43,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping_cart_api",
+          "Host": "shopping-cart-api",
           "Port": 15003
         }
       ]
@@ -55,7 +55,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "shopping_cart_api",
+          "Host": "shopping-cart-api",
           "Port": 15003
         }
       ]
@@ -67,7 +67,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product_catalog_api",
+          "Host": "product-catalog-api",
           "Port": 5002
         }
       ]
@@ -79,7 +79,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product_catalog_api",
+          "Host": "product-catalog-api",
           "Port": 15002
         }
       ]
@@ -92,7 +92,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product_catalog_api",
+          "Host": "product-catalog-api",
           "Port": 15002
         }
       ]
@@ -104,7 +104,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product_catalog_api",
+          "Host": "product-catalog-api",
           "Port": 15002
         }
       ]
@@ -116,7 +116,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product_catalog_api",
+          "Host": "product-catalog-api",
           "Port": 15002
         }
       ]
@@ -128,7 +128,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "product_catalog_api",
+          "Host": "product-catalog-api",
           "Port": 15002
         }
       ]
@@ -140,7 +140,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "inventory_api",
+          "Host": "inventory-api",
           "Port": 5004
         }
       ]
@@ -152,7 +152,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "inventory_api",
+          "Host": "inventory-api",
           "Port": 15004
         }
       ]
@@ -164,7 +164,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "inventory_api",
+          "Host": "inventory-api",
           "Port": 15004
         }
       ]

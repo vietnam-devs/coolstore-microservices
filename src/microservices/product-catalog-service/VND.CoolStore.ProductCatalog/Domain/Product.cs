@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using CloudNativeKit.Domain;
+using CloudNativeKit.Utils.Extensions;
 using VND.CoolStore.ProductCatalog.DataContracts.Api.V1;
 using VND.CoolStore.ProductCatalog.DataContracts.Event.V1;
 using static CloudNativeKit.Utils.Helpers.DateTimeHelper;
@@ -27,6 +28,8 @@ namespace VND.CoolStore.ProductCatalog.Domain
 
         public string ImageUrl { get; private set; }
 
+        public Guid InventoryId { get; private set; }
+
         public bool IsDeleted { get; private set; }
 
         public static Product Of(CreateProductRequest request)
@@ -37,6 +40,8 @@ namespace VND.CoolStore.ProductCatalog.Domain
                 Description = request.Desc,
                 Price = request.Price,
                 ImageUrl = request.ImageUrl,
+                InventoryId = string.IsNullOrEmpty(request.InventoryId)
+                    ? Guid.Empty : request.InventoryId.ConvertTo<Guid>(),
                 Updated = NewDateTime(),
                 IsDeleted = false
             };
@@ -48,6 +53,12 @@ namespace VND.CoolStore.ProductCatalog.Domain
             Description = request.Desc;
             Price = request.Price;
             ImageUrl = request.ImageUrl;
+
+            if (!string.IsNullOrEmpty(request.InventoryId))
+            {
+                InventoryId = request.InventoryId.ConvertTo<Guid>();
+            }
+
             Updated = NewDateTime();
 
             AddEvent(new ProductUpdated

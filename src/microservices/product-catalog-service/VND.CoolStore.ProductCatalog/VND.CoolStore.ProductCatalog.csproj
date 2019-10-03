@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.23.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -24,6 +25,7 @@
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure.Data\CloudNativeKit.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure\CloudNativeKit.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Utils\CloudNativeKit.Utils.csproj" />
+    <ProjectReference Include="..\..\inventory-service\VND.CoolStore.Inventory.DataContracts\VND.CoolStore.Inventory.DataContracts.csproj" />
     <ProjectReference Include="..\VND.CoolStore.ProductCatalog.DataContracts\VND.CoolStore.ProductCatalog.DataContracts.csproj" />
   </ItemGroup>
 

@@ -1,58 +1,58 @@
 version: "3.7"
 
 services:
-  webapi_gateway:
+  webapi-gateway:
     image: vndg/webapi-gateway-v3:latest
     restart: always
     build:
       context: .
       dockerfile: src/gateways/webapi-gateway/Dockerfile
     depends_on:
-      - product_catalog_api
-      - shopping_cart_api
-      - inventory_api
+      - product-catalog-api
+      - shopping-cart-api
+      - inventory-api
     networks:
       - coolstore
 
-  product_catalog_api:
+  product-catalog-api:
     image: vndg/product-catalog-api-v3:latest
     restart: always
     build:
       context: .
       dockerfile: src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api/Dockerfile
     depends_on:
-      - migration_data
-      - sqlserver_data
+      - migration-data
+      - sqlserver
       - redis
     networks:
       - coolstore
 
-  shopping_cart_api:
+  shopping-cart-api:
     image: vndg/shopping-cart-api-v3:latest
     restart: always
     build:
       context: .
       dockerfile: src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.Api/Dockerfile
     depends_on:
-      - migration_data
-      - sqlserver_data
+      - migration-data
+      - sqlserver
       - redis
     networks:
       - coolstore
 
-  inventory_api:
+  inventory-api:
     image: vndg/inventory-api-v3:latest
     restart: always
     build:
       context: .
       dockerfile: src/microservices/inventory-service/VND.CoolStore.Inventory.Api/Dockerfile
     depends_on:
-      - migration_data
-      - sqlserver_data
+      - migration-data
+      - sqlserver
     networks:
       - coolstore
 
-  access_control_api:
+  access-control-api:
     image: vndg/access-control-api-v3:latest
     restart: always
     build:
@@ -61,13 +61,13 @@ services:
     networks:
       - coolstore
 
-  migration_data:
+  migration-data:
     image: vndg/migration-data-v3:latest
     build:
       context: .
       dockerfile: ./src/migrations/VND.CoolStore.DbMigration/Dockerfile
     depends_on:
-      - sqlserver_data
+      - sqlserver
     networks:
       - coolstore
 
@@ -77,7 +77,7 @@ services:
     networks:
       - coolstore
 
-  sqlserver_data:
+  sqlserver:
     image: mcr.microsoft.com/mssql/server:2017-latest
     restart: always
     networks:

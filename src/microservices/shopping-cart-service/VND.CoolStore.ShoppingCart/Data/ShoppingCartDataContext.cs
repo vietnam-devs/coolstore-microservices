@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using CloudNativeKit.Domain;
 using CloudNativeKit.Infrastructure.Data.EfCore.Core;
 using Microsoft.EntityFrameworkCore;
-using VND.CoolStore.ShoppingCart.Data.TypeConfig;
 using VND.CoolStore.ShoppingCart.Domain.Cart;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 
@@ -25,13 +24,7 @@ namespace VND.CoolStore.ShoppingCart.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // cart schema
-            modelBuilder.ApplyConfiguration(new CartTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new CartItemTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductCatalogIdTypeConfiguration());
-
-            // catalog schema
-            modelBuilder.ApplyConfiguration(new ProductCatalogConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShoppingCartDataContext).Assembly);
 
             base.OnModelCreating(modelBuilder);
 

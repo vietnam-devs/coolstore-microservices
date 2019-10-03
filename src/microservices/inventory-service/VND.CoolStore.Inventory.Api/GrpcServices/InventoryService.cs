@@ -28,7 +28,6 @@ namespace VND.CoolStore.Inventory.Api.GrpcServices
             return await _mediator.Send(request);
         }
 
-        [Authorize]
         public override async Task<GetInventoryResponse> GetInventory(GetInventoryRequest request, ServerCallContext context)
         {
             return await _mediator.Send(request);

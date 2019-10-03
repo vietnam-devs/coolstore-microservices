@@ -1,13 +1,17 @@
 ### Up and running coolstore
 
 ```bash
-$ kubectl apply -f coolstore.yaml
+$ kubectl apply -f coolstore-infrastructure.yaml
 ```
 
 Waiting a minute until all pods running with UP status
 
 ```bash
 $ kubectl apply -f coolstore-migration.yaml
+```
+
+```bash
+$ kubectl apply -f coolstore.yaml
 ```
 
 ### Linkerd injection
