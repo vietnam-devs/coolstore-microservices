@@ -20,3 +20,11 @@ $ kubectl apply -f coolstore.yaml
 $ kubectl get -n coolstore deploy -o yaml | linkerd inject - | kubectl apply -f -
 $ linkerd dashboard --port 9999
 ```
+
+### Clean up
+
+```bash
+$ kubectl delete -f coolstore.yaml
+$ kubectl delete -f coolstore-migration.yaml
+$ kubectl delete -f coolstore-infrastructure.yaml
+```

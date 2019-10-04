@@ -21,6 +21,9 @@ spec:
         - name: product-catalog-api
           image: vndg/product-catalog-api-v3:latest
           imagePullPolicy: IfNotPresent
+          env:
+          - name: JwtAuthn__Authority
+            value: http://access-control-api:31888
           ports:
             - containerPort: 5002
               name: http
@@ -80,6 +83,9 @@ spec:
         - name: shopping-cart-api
           image: vndg/shopping-cart-api-v3:latest
           imagePullPolicy: IfNotPresent
+          env:
+          - name: JwtAuthn__Authority
+            value: http://access-control-api:31888
           ports:
             - containerPort: 5003
               name: http
@@ -124,7 +130,7 @@ metadata:
   name: inventory-api-v1
   namespace: coolstore
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: inventory-api
@@ -139,17 +145,20 @@ spec:
         - name: inventory-api
           image: vndg/inventory-api-v3:latest
           imagePullPolicy: IfNotPresent
+          env:
+          - name: JwtAuthn__Authority
+            value: http://access-control-api:31888
           ports:
             - containerPort: 5004
               name: http
             - containerPort: 15004
               name: grpc
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 5004
-            initialDelaySeconds: 3
-            periodSeconds: 3
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: 5004
+          #   initialDelaySeconds: 3
+          #   periodSeconds: 3
           resources:
             requests:
               cpu: 100m
@@ -214,11 +223,12 @@ metadata:
   labels:
     app: webapi-gateway
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: webapi-gateway
   ports:
-    - port: 5000
+    - port: 31666
+      nodePort: 31666
       targetPort: http
       protocol: TCP
       name: http
@@ -261,11 +271,12 @@ metadata:
   labels:
     app: access-control-api
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: access-control-api
   ports:
-    - port: 5001
+    - port: 31888
+      nodePort: 31888
       targetPort: http
       protocol: TCP
       name: http
