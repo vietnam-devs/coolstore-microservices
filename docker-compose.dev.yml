@@ -5,7 +5,7 @@ version: "3.7"
 services:
   webapi-gateway:
     ports:
-      - 5000:80
+      - 31666:80
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     volumes:
@@ -40,7 +40,7 @@ services:
 
   access-control-api:
     ports:
-      - 5001:80
+      - 31888:80
     environment:
       - ASPNETCORE_ENVIRONMENT=development
     volumes:
