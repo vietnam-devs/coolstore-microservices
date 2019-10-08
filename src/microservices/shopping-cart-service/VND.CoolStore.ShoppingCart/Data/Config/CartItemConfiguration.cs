@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VND.CoolStore.ShoppingCart.Domain.Cart;
 
-namespace VND.CoolStore.ShoppingCart.Data.TypeConfig
+namespace VND.CoolStore.ShoppingCart.Data.Config
 {
-    public class CartItemTypeConfiguration : IEntityTypeConfiguration<CartItem>
+    public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
     {
         public void Configure(EntityTypeBuilder<CartItem> builder)
         {

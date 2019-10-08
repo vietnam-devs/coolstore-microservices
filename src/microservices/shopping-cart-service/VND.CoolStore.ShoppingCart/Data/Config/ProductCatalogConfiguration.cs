@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace VND.CoolStore.ShoppingCart.Data.TypeConfig
+namespace VND.CoolStore.ShoppingCart.Data.Config
 {
     public class ProductCatalogConfiguration : IEntityTypeConfiguration<Domain.ProductCatalog.ProductCatalog>
     {

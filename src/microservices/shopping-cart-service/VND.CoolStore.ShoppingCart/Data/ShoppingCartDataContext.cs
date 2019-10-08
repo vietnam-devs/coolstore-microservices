@@ -24,9 +24,9 @@ namespace VND.CoolStore.ShoppingCart.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShoppingCartDataContext).Assembly);
-
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShoppingCartDataContext).Assembly);
 
             //seed data
             modelBuilder.Entity<Domain.ProductCatalog.ProductCatalog>().HasData(

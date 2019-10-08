@@ -73,6 +73,11 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
             using var conn = SqlConnectionFactory.GetOpenConnection();
             var numberRecordAffected = await conn.DeleteAsync(entity);
 
+            if (numberRecordAffected <= 0)
+            {
+                throw new Exception("Could not delete record in the database.");
+            }
+
             await DispatchEvents(entity);
             return numberRecordAffected;
         }

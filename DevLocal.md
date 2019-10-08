@@ -35,7 +35,7 @@ $ kubectl apply -f coolstore-migration.yaml
 ```
 
 ```bash
-$ kubectl apply -f coolstore.yaml
+$ kubectl apply -f coolstore.yaml -f gateway.yaml
 ```
 
 ## Octant
@@ -51,8 +51,20 @@ $ kubectl get -n coolstore deploy -o yaml | linkerd inject - | kubectl apply -f 
 $ linkerd dashboard --port 9999
 ```
 
+## Run with gateway
+
+Open `hosts` file at `C:\Windows\System32\drivers\etc`, and add some lines as below
+
+```
+127.0.0.1	id.coolstore.local
+127.0.0.1	api.coolstore.local
+127.0.0.1	coolstore.local
+```
+
+Now, you can access the `identity` and `api` at [`http://id.coolstore.local`](http://id.coolstore.local) and [`http://api.coolstore.local`](http://api.coolstore.local)
+
 ## Clean up
 
 ```bash
-$ kubectl delete -f coolstore.yaml -f coolstore-migration.yaml -f coolstore-infrastructure.yaml
+$ kubectl delete -f gateway.yaml -f coolstore.yaml -f coolstore-migration.yaml -f coolstore-infrastructure.yaml
 ```

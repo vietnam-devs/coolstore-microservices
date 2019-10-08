@@ -18,17 +18,27 @@ namespace CloudNativeKit.Infrastructure.Data.EfCore.Core
             _eventBuses = eventBuses;
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            var result = base.SaveChangesAsync(cancellationToken);
-            SaveChangesWithEvents();
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            if (result > 0)
+            {
+                SaveChangesWithEvents();
+            }
+
             return result;
         }
 
         public override int SaveChanges()
         {
             var result = base.SaveChanges();
-            SaveChangesWithEvents();
+
+            if (result > 0)
+            {
+                SaveChangesWithEvents();
+            }
+
             return result;
         }
 
@@ -37,9 +47,7 @@ namespace CloudNativeKit.Infrastructure.Data.EfCore.Core
         /// </summary>
         private void SaveChangesWithEvents()
         {
-            var entities = ChangeTracker.Entries().Select(e => e.Entity);
-
-            var entitiesWithEvents = ChangeTracker
+            var entities = ChangeTracker
                 .Entries()
                 .Select(e => e.Entity)
                 .Where(e => e.GetType().BaseType.IsGenericType
@@ -47,11 +55,11 @@ namespace CloudNativeKit.Infrastructure.Data.EfCore.Core
                 .Where(e => e.AsDynamic().GetUncommittedEvents().Count > 0)
                 .ToArray();
 
-            foreach (var entity in entitiesWithEvents)
+            foreach (var entity in entities)
             {
                 var rootAggregator = entity.AsDynamic();
-                var events = rootAggregator.GetUncommittedEvents();
-                foreach (var @event in events)
+                var @events = rootAggregator.GetUncommittedEvents();
+                foreach (var @event in @events)
                     _eventBuses.Select(b => b.Dispatch(@event)).ToList();
                 rootAggregator.ClearUncommittedEvents();
             }

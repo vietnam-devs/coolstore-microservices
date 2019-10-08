@@ -1,0 +1,27 @@
+---
+# Ref at https://linkerd.io/2/tasks/using-ingress/
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: coolstore-ingress
+  namespace: coolstore
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+      proxy_hide_header l5d-remote-ip;
+      proxy_hide_header l5d-server-id;
+spec:
+  rules:
+    - host: api.coolstore.local
+      http:
+        paths:
+          - backend:
+              serviceName: webapi-gateway
+              servicePort: 31666
+    - host: id.coolstore.local
+      http:
+        paths:
+          - backend:
+              serviceName: access-control-api
+              servicePort: 31888
