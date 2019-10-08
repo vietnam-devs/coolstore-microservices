@@ -1,5 +1,8 @@
 using System;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Grpc.Core;
 using GrpcJsonTranscoder;
 using GrpcJsonTranscoder.Grpc;
 using Microsoft.AspNetCore;
@@ -47,7 +50,7 @@ namespace VND.CoolStore.WebApiGateway
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                         .AddJsonFile("appsettings.json", true, true)
                         .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                         .AddJsonFile("ocelot.json")
+                        .AddJsonFile("ocelot.json")
                         .AddJsonFile($"ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
                         .AddEnvironmentVariables();
                 })
@@ -62,18 +65,67 @@ namespace VND.CoolStore.WebApiGateway
                     services.AddOcelot();
                     services.AddHttpContextAccessor();
                 })
-                .ConfigureLogging((hostingContext, logging) => {
+                .ConfigureLogging((hostingContext, logging) =>
+                {
                     logging.AddSerilog(dispose: true);
                 })
                 .Configure(app =>
                 {
                     var configuration = new OcelotPipelineConfiguration
                     {
-                        PreQueryStringBuilderMiddleware = async (ctx, next) => await ctx.HandleGrpcRequestAsync(next)
+                        PreQueryStringBuilderMiddleware = async (ctx, next) =>
+                        {
+                            try
+                            {
+                                await ctx.HandleGrpcRequestAsync(next);
+                            }
+                            catch (Exception ex)
+                            {
+                                if (!(ex.InnerException is AggregateException innerEx))
+                                    return;
+
+                                innerEx.InnerExceptions
+                                    .Select(async aggException =>
+                                    {
+                                        if (aggException is RpcException rpcException)
+                                        {
+                                            if (rpcException.StatusCode == StatusCode.Internal)
+                                            {
+                                                ctx.HttpContext.Response.StatusCode = 500;
+                                                await ctx.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes($"{rpcException.Message}"));
+                                            }
+                                            else
+                                            {
+                                                var status = GetTrailerKeyOnRpcException(rpcException, ":status");
+                                                var authMessage = GetTrailerKeyOnRpcException(rpcException, "www-authenticate");
+                                                if (status == "401")
+                                                {
+                                                    ctx.HttpContext.Response.StatusCode = 401;
+                                                    await ctx.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes($"{authMessage}"));
+                                                }
+                                            }
+                                        }
+                                    })
+                                    .ToList();
+
+                                throw ex;
+                            }
+                        }
                     };
 
                     app.UseOcelot(configuration).Wait();
                 })
                 .Build();
+
+        private static string GetTrailerKeyOnRpcException(RpcException rpcException, string key)
+        {
+            return rpcException.Trailers?.Select(x =>
+            {
+                if (x.Key == key)
+                    return x.Value;
+                return string.Empty;
+            })
+            .FirstOrDefault(x => !string.IsNullOrEmpty(x));
+        }
     }
 }

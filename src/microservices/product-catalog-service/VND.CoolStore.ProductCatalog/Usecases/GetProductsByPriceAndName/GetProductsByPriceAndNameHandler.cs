@@ -33,7 +33,6 @@ namespace VND.CoolStore.ProductCatalog.Usecases.GetProductsByPriceAndName
                 .ToList();
 
             var inventories = await _inventoryGateway.GetAvailabilityInventories();
-
             var response = new GetProductsResponse();
             response.Products
                 .AddRange(products.Select(p =>

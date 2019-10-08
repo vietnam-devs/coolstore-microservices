@@ -10,6 +10,7 @@ namespace VND.CoolStore.ShoppingCart.Api.Workers
 {
     public class OutboxWorker : BackgroundService
     {
+        private static object _locker = new object();
         private readonly ILogger<OutboxWorker> _logger;
 
         public OutboxWorker(IServiceProvider services, ILogger<OutboxWorker> logger)
@@ -35,9 +36,29 @@ namespace VND.CoolStore.ShoppingCart.Api.Workers
         private async Task DoWork(CancellationToken stoppingToken)
         {
             _logger.LogInformation("Consume Scoped Service Hosted Service is working.");
-            using var scope = Services.CreateScope();
-            var scopedProcessingService = scope.ServiceProvider.GetRequiredService<IScopedProcessingService>();
-            await scopedProcessingService.DoWork(stoppingToken);
+
+            var hasLock = false;
+
+            try
+            {
+                Monitor.TryEnter(_locker, ref hasLock);
+
+                if (!hasLock)
+                {
+                    return;
+                }
+
+                using var scope = Services.CreateScope();
+                var scopedProcessingService = scope.ServiceProvider.GetRequiredService<IScopedProcessingService>();
+                await scopedProcessingService.DoWork(stoppingToken);
+            }
+            finally
+            {
+                if (hasLock)
+                {
+                    Monitor.Exit(_locker);
+                }
+            }
         }
     }
 }

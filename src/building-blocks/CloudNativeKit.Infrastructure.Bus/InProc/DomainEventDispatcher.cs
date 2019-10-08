@@ -27,8 +27,7 @@ namespace CloudNativeKit.Infrastructure.Bus.InProc
             var oubox = new Outbox(
                 @event.Id,
                 @event.OccurredOn,
-                @event.GetType().FullName,
-                JsonConvert.SerializeObject(@event));
+                @event);
 
             await repo.AddAsync(oubox);
             await _unitOfWork.SaveChangesAsync(default);

@@ -41,43 +41,31 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
             return entities.ToList();
         }
 
-        public async Task<TEntity> AddAsync(TEntity value)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
             using var conn = SqlConnectionFactory.GetOpenConnection();
-            var newId = await conn.InsertAsync<TId, TEntity>(value);
-            if (value is IAggregateRoot<TId> returnValue)
+            var newId = await conn.InsertAsync<TId, TEntity>(entity);
+            if (entity is IAggregateRoot<TId> returnValue)
             {
                 returnValue.AsDynamic().Id = newId;
                 return (TEntity)returnValue;
             }
 
-            foreach (var @event in value.GetUncommittedEvents())
-            {
-                EventBuses.Select(b => b.Dispatch(@event)).ToList();
-            }
-
-            value.ClearUncommittedEvents();
-
-            return value;
+            await DispatchEvents(entity);
+            return entity;
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity value)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             using var conn = SqlConnectionFactory.GetOpenConnection();
-            var numberRecordAffected = await conn.UpdateAsync(value);
+            var numberRecordAffected = await conn.UpdateAsync(entity);
             if (numberRecordAffected <= 0)
             {
                 throw new Exception("Could not update record to the database.");
             }
 
-            foreach (var @event in value.GetUncommittedEvents())
-            {
-                EventBuses.Select(b => b.Dispatch(@event)).ToList();
-            }
-
-            value.ClearUncommittedEvents();
-
-            return await GetByIdAsync(value.Id);
+            await DispatchEvents(entity);
+            return await GetByIdAsync(entity.Id);
         }
 
         public async Task<int> DeleteAsync(TEntity entity)
@@ -85,14 +73,21 @@ namespace CloudNativeKit.Infrastructure.Data.Dapper.Core
             using var conn = SqlConnectionFactory.GetOpenConnection();
             var numberRecordAffected = await conn.DeleteAsync(entity);
 
+            await DispatchEvents(entity);
+            return numberRecordAffected;
+        }
+
+        private async Task DispatchEvents(TEntity entity)
+        {
             foreach (var @event in entity.GetUncommittedEvents())
             {
-                EventBuses.Select(b => b.Dispatch(@event)).ToList();
+                foreach (var eventBus in EventBuses)
+                {
+                    await eventBus.Dispatch(@event);
+                }
             }
 
             entity.ClearUncommittedEvents();
-
-            return numberRecordAffected;
         }
     }
 }

@@ -1,7 +1,8 @@
 using System;
 using CloudNativeKit.Domain;
-using static CloudNativeKit.Utils.Helpers.IdHelper;
+using Newtonsoft.Json;
 using static CloudNativeKit.Utils.Helpers.DateTimeHelper;
+using static CloudNativeKit.Utils.Helpers.IdHelper;
 
 namespace CloudNativeKit.Infrastructure.Bus.Messaging
 {
@@ -15,13 +16,17 @@ namespace CloudNativeKit.Infrastructure.Bus.Messaging
 
         public DateTime? ProcessedDate { get; private set; }
 
-        public Outbox(Guid id, DateTime occurredOn, string type, string data)
+        private Outbox() { }
+
+        public Outbox(Guid id, DateTime occurredOn, IEvent @event)
         {
             Id = id.Equals(Guid.Empty) ? NewId() : id;
             OccurredOn = occurredOn;
-            Type = type;
-            Data = data;
+            Type = @event.GetType().FullName;
+            Data = JsonConvert.SerializeObject(@event);
         }
+
+        public virtual IEvent RecreateMessage() => (IEvent)JsonConvert.DeserializeObject(Data, System.Type.GetType(Type));
 
         public Outbox UpdateProcessedDate()
         {
