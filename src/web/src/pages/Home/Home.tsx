@@ -3,6 +3,8 @@ import React from 'react'
 import logo from './logo.svg'
 import './Home.css'
 
+import { AuthService } from 'services'
+
 const Home: React.FC = () => {
   return (
     <div className="App">
@@ -14,6 +16,13 @@ const Home: React.FC = () => {
         <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
+        <button
+          onClick={() => {
+            AuthService.signOut()
+          }}
+        >
+          Logout
+        </button>
       </header>
     </div>
   )

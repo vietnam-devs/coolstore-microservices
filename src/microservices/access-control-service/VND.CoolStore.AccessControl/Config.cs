@@ -102,6 +102,30 @@ namespace VND.CoolStore.AccessControlService
                     AllowOfflineAccess = true,
                     AllowedScopes = { "openid", "profile", "api1" }
                 },
+
+                // web
+                new Client
+                {
+                    ClientId = "web",
+                    ClientName = "React Web",
+                    ClientUri = "http://localhost:31999",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris =
+                    {
+                        "http://localhost:31999/auth/callback",
+                        "http://localhost:31999/auth/silent-renew"
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        "http://localhost:31999"
+                    },
+                    AllowedCorsOrigins =
+                    {
+                        "http://localhost:31999"
+                    },
+                    AllowedScopes = { "api1", "openid", "profile" }
+                }
             };
         }
     }

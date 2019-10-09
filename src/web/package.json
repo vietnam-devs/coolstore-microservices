@@ -10,6 +10,7 @@
     "@types/react-router-dom": "^5.1.0",
     "@types/styled-components": "^4.1.19",
     "lodash": "^4.17.15",
+    "oidc-client": "^1.9.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",

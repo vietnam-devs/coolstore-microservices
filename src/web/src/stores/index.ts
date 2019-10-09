@@ -1,1 +1,1 @@
-export * from './store'
+export { AppProvider, useStore } from './store'
