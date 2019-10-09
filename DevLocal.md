@@ -61,7 +61,7 @@ Open `hosts` file at `C:\Windows\System32\drivers\etc`, and add some lines as be
 127.0.0.1	coolstore.local
 ```
 
-Now, you can access the `identity` and `api` at [`http://id.coolstore.local`](http://id.coolstore.local) and [`http://api.coolstore.local`](http://api.coolstore.local)
+Now, you can access the `identity` and `api` at [`http://id.coolstore.local:31888`](http://id.coolstore.local:31888) and [`http://api.coolstore.local:31666`](http://api.coolstore.local:31666)
 
 ## Clean up
 

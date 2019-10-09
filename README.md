@@ -10,6 +10,8 @@ The business domain is inspired from [CoolStore project](https://github.com/jbos
 
 Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/vietnam-devs/coolstore-microservices)
+
 > Usage with careful: The project is in development mode so that a lot of things shall change due to .NET Core 3.x upgrading.
 
 ## Public presentation
