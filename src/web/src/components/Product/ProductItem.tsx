@@ -1,57 +1,157 @@
 import React from 'react'
-import { Button, ButtonGroup } from 'reactstrap'
+import { Button } from 'reactstrap'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
 
 const StyledImg = styled.img`
   width: 100%;
 `
 
 const StyledProductThumbnail = styled.div`
+  border: 1px solid #e6e6f2;
+  background-color: #fff;
   margin: 0.3rem 0;
+`
+
+const StyledProductImgHead = styled.div`
+  position: relative;
+`
+
+const StyledProductImg = styled.div`
+  text-align: center;
+  padding: 35px 0px;
+`
+
+const StyledRibbons = styled.div`
+  -webkit-clip-path: polygon(
+    10% 25%,
+    10% 0,
+    35% 0%,
+    65% 0%,
+    90% 0,
+    90% 25%,
+    90% 50%,
+    91% 100%,
+    50% 73%,
+    10% 100%,
+    10% 50%
+  );
+  clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 100%, 50% 73%, 10% 100%, 10% 50%);
+
+  position: absolute;
+  top: 0px;
+  background-color: #59b3ff;
+  padding: 31px 15px;
+  text-align: center;
+  left: 10px;
+  font-family: 'Circular Std Medium';
+  color: #fff;
+`
+
+const StyledRibbonsText = styled.div`
+  transform: rotate(90deg);
+  position: absolute;
+  top: 11px;
+  left: 10px;
+  color: #fff;
+`
+
+const StyledProductWishListBtn = styled.a`
+  height: 40px;
+  width: 40px;
+  border: 2px solid #dfdfec;
+  border-radius: 100px;
+  font-size: 18px;
+  line-height: 2.3;
+  color: #dfdfec;
+  text-align: center;
+  display: block;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+
+  &:hover {
+    border-color: #ff3367;
+    color: #ff3367;
+    transition: 0.3s ease;
+  }
+
+  &.active {
+    background-color: #ff3367;
+    color: #ffffff;
+    transition: 0.3s ease;
+  }
+`
+
+const StyledProductContent = styled.div`
+  border-top: 1px solid #e6e6f2;
+  padding: 23px;
+`
+
+const StyledProductContentHead = styled.div`
+  position: relative;
+  margin-bottom: 25px;
+`
+
+const StyledProductTitle = styled.h3`
+  font-size: 16px;
+  margin-bottom: 5px;
+`
+
+const StyledProductRating = styled.div`
+  font-size: 12px;
+  color: #ffa811 !important;
+`
+
+const StyledProductPrice = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 16px;
+  color: #3d405c;
+  font-family: 'Circular Std Medium';
+  line-height: 1;
+`
+
+const StyledProductDel = styled.del`
+  font-size: 14px;
+  color: #71748d;
 `
 
 const ProductItem: React.FC = () => {
   return (
     <>
-      <StyledProductThumbnail className="product-thumbnail">
-        <div className="product-img-head">
-          <div className="product-img">
-            <StyledImg src="/eco-product-img.png" alt="" className="img-fluid" />
-          </div>
-          <div className="ribbons bg-brand"></div>
-          <div className="ribbons-text">Offer</div>
-          <div className="">
-            <a href="#" className="product-wishlist-btn active">
-              <i className="fas fa-heart"></i>
+      <StyledProductThumbnail>
+        <StyledProductImgHead>
+          <StyledProductImg>
+            <a href={`/product/${1}`}>
+              <StyledImg src="https://picsum.photos/1200/900?image=20" alt="" className="img-fluid" />
             </a>
-          </div>
-        </div>
-        <div className="product-content">
-          <div className="product-content-head">
-            <h3 className="product-title">T-Shirt Product Title</h3>
-            <div className="product-rating d-inline-block">
-              <FontAwesomeIcon icon={faStar} color="#ffa811" />
-              <FontAwesomeIcon icon={faStar} color="#ffa811" />
-              <FontAwesomeIcon icon={faStar} color="#ffa811" />
-              <FontAwesomeIcon icon={faStar} color="#ffa811" />
-              <FontAwesomeIcon icon={faStar} color="#ffa811" />
-            </div>
-            <div className="product-price">
-              $49.00
-              <del className="product-del">$69.00</del>
-            </div>
-          </div>
-          <div className="product-btn">
-            <ButtonGroup>
-              <Button color="primary">Add to Cart</Button>
-              <a href={`/product/${1}`} className="btn btn-secondary">
-                Details
-              </a>
-            </ButtonGroup>
-          </div>
-        </div>
+          </StyledProductImg>
+          <StyledRibbons className="bg-brand"></StyledRibbons>
+          <StyledRibbonsText>Offer</StyledRibbonsText>
+          <StyledProductWishListBtn href="#">
+            <FontAwesomeIcon icon={faHeart} />
+          </StyledProductWishListBtn>
+        </StyledProductImgHead>
+        <StyledProductContent>
+          <StyledProductContentHead>
+            <StyledProductTitle className="product-title">T-Shirt Product Title</StyledProductTitle>
+            <StyledProductRating className="d-inline-block">
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+            </StyledProductRating>
+            <StyledProductPrice>
+              $49.00 &nbsp;
+              <StyledProductDel>$69.00</StyledProductDel>
+            </StyledProductPrice>
+          </StyledProductContentHead>
+          <Button color="primary">Add to Cart</Button>
+        </StyledProductContent>
       </StyledProductThumbnail>
     </>
   )

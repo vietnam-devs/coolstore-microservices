@@ -11,6 +11,51 @@ const StyledImg = styled.img`
   height: 370px;
 `
 
+const StyledProductDetails = styled.div`
+  background-color: #fff;
+  padding: 30px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  position: relative;
+`
+
+const StyledProductRating = styled.div`
+  font-size: 12px;
+  color: #ffa811 !important;
+`
+
+const StyledProductQuantity = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0px;
+  &input[type='number']::-webkit-inner-spin-button,
+  &input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &input[type='number'] {
+    -moz-appearance: textfield;
+  }
+`
+
+const StyledQuantity = styled.div`
+  position: relative;
+  &input {
+    width: 65px;
+    height: 41px;
+    line-height: 1.65;
+    float: left;
+    display: block;
+    padding: 0;
+    margin: 0;
+    padding-left: 20px;
+    border: 1px solid #eee;
+    &:focus {
+      outline: 0;
+    }
+  }
+`
+
 const ProductItemDetail: React.FC = () => {
   return (
     <>
@@ -21,28 +66,28 @@ const ProductItemDetail: React.FC = () => {
               <div className="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div className="row">
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
-                    <StyledImg src="/eco-product-img.png" alt="" className="img-fluid" />
+                    <StyledImg src="https://picsum.photos/1200/900?image=20" alt="" className="img-fluid" />
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 m-b-30">
-                    <div className="product-details">
+                    <StyledProductDetails>
                       <div className="border-bottom pb-3 mb-3">
                         <h2 className="mb-3">T-Shirt Product Title</h2>
-                        <div className="product-rating d-inline-block float-right">
-                          <FontAwesomeIcon icon={faStar} color="#ffa811" />
-                          <FontAwesomeIcon icon={faStar} color="#ffa811" />
-                          <FontAwesomeIcon icon={faStar} color="#ffa811" />
-                          <FontAwesomeIcon icon={faStar} color="#ffa811" />
-                          <FontAwesomeIcon icon={faStar} color="#ffa811" />
-                        </div>
+                        <StyledProductRating className="d-inline-block float-right">
+                          <FontAwesomeIcon icon={faStar} />
+                          <FontAwesomeIcon icon={faStar} />
+                          <FontAwesomeIcon icon={faStar} />
+                          <FontAwesomeIcon icon={faStar} />
+                          <FontAwesomeIcon icon={faStar} />
+                        </StyledProductRating>
                         <h3 className="mb-0 text-primary">$49.00</h3>
                       </div>
                       <div className="product-size border-bottom">
-                        <div className="product-qty">
+                        <StyledProductQuantity>
                           <h4>Quantity</h4>
-                          <div className="quantity">
+                          <StyledQuantity>
                             <input type="number" min="1" max="9" step="1" value="1" />
-                          </div>
-                        </div>
+                          </StyledQuantity>
+                        </StyledProductQuantity>
                       </div>
                       <div className="product-description">
                         <h4 className="mb-1">Descriptions</h4>
@@ -55,7 +100,7 @@ const ProductItemDetail: React.FC = () => {
                           Add to Cart
                         </a>
                       </div>
-                    </div>
+                    </StyledProductDetails>
                   </div>
                 </div>
                 <div className="row">

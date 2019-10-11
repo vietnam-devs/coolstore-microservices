@@ -1,8 +1,18 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Switch, Route } from 'react-router-dom'
-import { Jumbotron, Container, Button } from 'reactstrap'
-import { Navbar, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import { Jumbotron, Container } from 'reactstrap'
+import {
+  Navbar,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Collapse
+} from 'reactstrap'
 import styled from 'styled-components'
 
 import requireAuth from 'components/HOC/requireAuth'
@@ -22,6 +32,10 @@ const StyledHeader = styled.a`
 
 const StyledNavBar = styled(Navbar)`
   margin-top: -3rem;
+`
+
+const StyledDropdown = styled(UncontrolledDropdown)`
+  display: inherit;
 `
 
 const AppLayout = ({ location }: any) => {
@@ -45,29 +59,34 @@ const AppLayout = ({ location }: any) => {
       </Jumbotron>
 
       <div>
-        <StyledNavBar color="light" light>
+        <StyledNavBar color="light" light expand="md">
           <span className="lead">
             Search Product&nbsp;<input type="textbox"></input>
           </span>
-          <Nav className="ml-auto">
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Bob
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  <a
-                    href="#"
-                    onClick={() => {
-                      AuthService.signOut()
-                    }}
-                  >
-                    Logout
-                  </a>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Nav>
+          <Collapse navbar>
+            <Nav className="ml-auto">
+              <StyledDropdown nav inNavbar>
+                <NavItem>
+                  <NavLink href="/cart">Cart</NavLink>
+                </NavItem>
+                <DropdownToggle nav caret>
+                  Bob
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    <a
+                      href="#"
+                      onClick={() => {
+                        AuthService.signOut()
+                      }}
+                    >
+                      Logout
+                    </a>
+                  </DropdownItem>
+                </DropdownMenu>
+              </StyledDropdown>
+            </Nav>
+          </Collapse>
         </StyledNavBar>
       </div>
 
