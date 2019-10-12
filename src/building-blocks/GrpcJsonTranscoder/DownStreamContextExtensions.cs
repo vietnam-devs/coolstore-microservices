@@ -4,6 +4,7 @@ using GrpcJsonTranscoder.Internal.Grpc;
 using GrpcJsonTranscoder.Internal.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Ocelot.LoadBalancer.LoadBalancers;
 using Ocelot.Logging;
 using Ocelot.Middleware;
@@ -66,7 +67,9 @@ namespace GrpcJsonTranscoder
                     var result = await client.InvokeAsync(methodDescriptor, context.HttpContext.GetRequestHeaders(), concreteObject);
                     logger.LogDebug($"gRPC response called with {JsonConvert.SerializeObject(result)}");
 
-                    var response = new OkResponse<GrpcHttpContent>(new GrpcHttpContent(JsonConvert.SerializeObject(result)));
+                    var jsonSerializer = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+                    var response = new OkResponse<GrpcHttpContent>(new GrpcHttpContent(JsonConvert.SerializeObject(result, jsonSerializer)));
+
                     var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
                     {
                         Content = response.Data

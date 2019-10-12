@@ -6,6 +6,7 @@ using Grpc.Core;
 using GrpcJsonTranscoder;
 using GrpcJsonTranscoder.Grpc;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -62,6 +63,16 @@ namespace VND.CoolStore.WebApiGateway
                             typeof(InventoryApiClient).Assembly,
                             typeof(CatalogApiClient).Assembly));
 
+                    // only for demo
+                    services.AddCors(options =>
+                    {
+                        options.AddPolicy("CorsPolicy",
+                            builder => builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .AllowCredentials());
+                    });
+
                     services.AddOcelot();
                     services.AddHttpContextAccessor();
                 })
@@ -113,6 +124,7 @@ namespace VND.CoolStore.WebApiGateway
                         }
                     };
 
+                    app.UseCors("CorsPolicy");
                     app.UseOcelot(configuration).Wait();
                 })
                 .Build();

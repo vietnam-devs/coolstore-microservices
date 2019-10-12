@@ -12,7 +12,7 @@ export default (props: React.Component & RouteChildrenProps) => {
         props.history.push(user.state.url)
       } catch (error) {
         LoggerService.error(`There was an error while handling the token callback: ${error}.`)
-        props.history.push('/authentication/401')
+        props.history.push('/401')
       }
     }
 

@@ -1,9 +1,10 @@
-import { UserManager, UserManagerSettings } from 'oidc-client'
+import { UserManager, UserManagerSettings, User } from 'oidc-client'
 import { RouteChildrenProps } from 'react-router'
 
 import LoggerService from './LoggerService'
 
 const webUrl = window.location.origin
+LoggerService.info(`Web URL is at ${webUrl}.`)
 
 const OidcConfig: UserManagerSettings = {
   client_id: 'web',
@@ -11,13 +12,13 @@ const OidcConfig: UserManagerSettings = {
   authority: `${process.env.REACT_APP_AUTHORITY}`,
   response_type: 'id_token token',
   post_logout_redirect_uri: `${webUrl}/`,
-  scope: 'openid',
+  scope: 'openid profile api1',
   silent_redirect_uri: `${webUrl}/auth/silent-renew`,
   automaticSilentRenew: false,
   loadUserInfo: true
 }
 
-class AuthenticationService {
+class AuthService {
   private userManager: UserManager
 
   constructor() {
@@ -28,16 +29,18 @@ class AuthenticationService {
     return this.userManager
   }
 
+  async getUser() {
+    return await this.userManager.getUser()
+  }
+
   async authenticateUser(location: RouteChildrenProps) {
     if (!this.userManager || !this.userManager.getUser) {
       return
     }
 
     let oidcUser = await this.userManager.getUser()
-
     if (!oidcUser || oidcUser.expired) {
       LoggerService.debug('user is being authenticated...')
-
       let url = location.location.pathname + (location.location.search || '')
       await this.userManager.signinRedirect({ data: { url } })
     }
@@ -56,4 +59,4 @@ class AuthenticationService {
   }
 }
 
-export default new AuthenticationService()
+export default new AuthService()

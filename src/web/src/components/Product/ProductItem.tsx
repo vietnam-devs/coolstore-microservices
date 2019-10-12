@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
 
+import { IProduct } from 'stores/store'
+
 const StyledImg = styled.img`
   width: 100%;
 `
@@ -119,14 +121,18 @@ const StyledProductDel = styled.del`
   color: #71748d;
 `
 
-const ProductItem: React.FC = () => {
+interface IProps {
+  data: IProduct
+}
+
+const ProductItem: React.FC<IProps> = ({ data }) => {
   return (
     <>
       <StyledProductThumbnail>
         <StyledProductImgHead>
           <StyledProductImg>
-            <a href={`/product/${1}`}>
-              <StyledImg src="https://picsum.photos/1200/900?image=20" alt="" className="img-fluid" />
+            <a href={`/product/${data.id}`}>
+              <StyledImg src={data.imageUrl} alt="" className="img-fluid" />
             </a>
           </StyledProductImg>
           <StyledRibbons className="bg-brand"></StyledRibbons>
@@ -137,7 +143,7 @@ const ProductItem: React.FC = () => {
         </StyledProductImgHead>
         <StyledProductContent>
           <StyledProductContentHead>
-            <StyledProductTitle className="product-title">T-Shirt Product Title</StyledProductTitle>
+            <StyledProductTitle className="product-title">{data.name}</StyledProductTitle>
             <StyledProductRating className="d-inline-block">
               <FontAwesomeIcon icon={faStar} />
               <FontAwesomeIcon icon={faStar} />
@@ -147,7 +153,7 @@ const ProductItem: React.FC = () => {
             </StyledProductRating>
             <StyledProductPrice>
               $49.00 &nbsp;
-              <StyledProductDel>$69.00</StyledProductDel>
+              <StyledProductDel>${data.price}</StyledProductDel>
             </StyledProductPrice>
           </StyledProductContentHead>
           <Button color="primary">Add to Cart</Button>

@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "coolstore-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "@types/react-router-dom": "^5.1.0",
     "@types/reactstrap": "^8.0.5",
     "@types/styled-components": "^4.1.19",
+    "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "lodash": "^4.17.15",
     "oidc-client": "^1.9.1",

@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom'
 import { ThemeProvider } from 'styled-components'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-//import './index.css'
-import App from './components/App'
+import { App } from './components/App'
 import { AppProvider } from 'stores'
 import * as serviceWorker from './serviceWorker'
 
