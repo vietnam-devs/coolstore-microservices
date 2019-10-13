@@ -1,6 +1,20 @@
 version: "3.7"
 
 services:
+  web:
+    image: vndg/web-v3:latest
+    restart: always
+    build:
+      context: .
+      dockerfile: src/web/Dockerfile
+    depends_on:
+      - webapi-gateway
+      - product-catalog-api
+      - shopping-cart-api
+      - inventory-api
+    networks:
+      - coolstore
+
   webapi-gateway:
     image: vndg/webapi-gateway-v3:latest
     restart: always

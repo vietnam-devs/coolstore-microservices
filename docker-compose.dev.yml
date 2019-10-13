@@ -3,6 +3,10 @@
 version: "3.7"
 
 services:
+  web:
+    ports:
+      - 31999:31999
+
   webapi-gateway:
     ports:
       - 31666:80
