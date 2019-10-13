@@ -5,6 +5,7 @@ import { IAction, createAction, createActionPayload, ActionsUnion } from './acti
 export const LOAD_USER_LOGIN = 'LOAD_USER_LOGIN'
 export const UNLOAD_USER_LOGIN = 'UNLOAD_USER_LOGIN'
 export const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
+export const LOAD_PRODUCT = 'LOAD_PRODUCT'
 
 export interface IAppUser {
   userName: string
@@ -17,6 +18,7 @@ export interface IProduct {
   name: string
   price: number
   imageUrl: string
+  desc: string
 }
 
 interface IAppState {
@@ -24,6 +26,7 @@ interface IAppState {
   authenticated: boolean
   accessToken: string | null
   products: IProduct[]
+  productDetail: IProduct
 }
 
 interface IAppContextProps {
@@ -35,13 +38,15 @@ const initialState: IAppState = {
   user: null,
   authenticated: false,
   accessToken: null,
-  products: []
+  products: [],
+  productDetail: null
 }
 
 export const AppActions = {
   loadUserLogin: createActionPayload<typeof LOAD_USER_LOGIN, IAppUser>(LOAD_USER_LOGIN),
   unloadUserLogin: createAction<typeof UNLOAD_USER_LOGIN>(UNLOAD_USER_LOGIN),
-  loadProducts: createActionPayload<typeof LOAD_PRODUCTS, IProduct[]>(LOAD_PRODUCTS)
+  loadProducts: createActionPayload<typeof LOAD_PRODUCTS, IProduct[]>(LOAD_PRODUCTS),
+  loadProduct: createActionPayload<typeof LOAD_PRODUCT, IProduct>(LOAD_PRODUCT)
 }
 
 const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => {
@@ -53,12 +58,18 @@ const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => 
         authenticated: true,
         accessToken: action.payload.accessToken
       }
+
     case UNLOAD_USER_LOGIN:
       return {
         ...state,
         user: null,
         authenticated: false
       }
+
+    case LOAD_PRODUCT:
+      console.table(action.payload)
+      return { ...state, productDetail: action.payload }
+
     case LOAD_PRODUCTS:
       return {
         ...state,

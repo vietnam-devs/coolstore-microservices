@@ -151,10 +151,7 @@ const ProductItem: React.FC<IProps> = ({ data }) => {
               <FontAwesomeIcon icon={faStar} />
               <FontAwesomeIcon icon={faStar} />
             </StyledProductRating>
-            <StyledProductPrice>
-              $49.00 &nbsp;
-              <StyledProductDel>${data.price}</StyledProductDel>
-            </StyledProductPrice>
+            <StyledProductPrice>${data.price}</StyledProductPrice>
           </StyledProductContentHead>
           <Button color="primary">Add to Cart</Button>
         </StyledProductContent>

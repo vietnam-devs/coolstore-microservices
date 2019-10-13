@@ -84,7 +84,6 @@
         }
       ]
     },
-
     {
       "UpstreamPathTemplate": "/api/products/{productId}",
       "UpstreamHttpMethod": [ "Get" ],

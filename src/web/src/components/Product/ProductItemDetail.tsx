@@ -1,9 +1,10 @@
 import React from 'react'
+import { Input, Label } from 'reactstrap'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
-import { ProductItem } from 'components/Product'
+import { IProduct } from 'stores/store'
 
 const StyledImg = styled.img`
   width: 100%;
@@ -56,72 +57,64 @@ const StyledQuantity = styled.div`
   }
 `
 
-const ProductItemDetail: React.FC = () => {
+interface IProps {
+  data: IProduct
+}
+
+const ProductItemDetail: React.FC<IProps> = ({ data }) => {
   return (
     <>
-      <div className="dashboard-wrapper">
-        <div className="dashboard-ecommerce">
-          <div className="container-fluid dashboard-content">
-            <div className="row">
-              <div className="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div className="row">
-                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
-                    <StyledImg src="https://picsum.photos/1200/900?image=20" alt="" className="img-fluid" />
-                  </div>
-                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 m-b-30">
-                    <StyledProductDetails>
-                      <div className="border-bottom pb-3 mb-3">
-                        <h2 className="mb-3">T-Shirt Product Title</h2>
-                        <StyledProductRating className="d-inline-block float-right">
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                        </StyledProductRating>
-                        <h3 className="mb-0 text-primary">$49.00</h3>
-                      </div>
-                      <div className="product-size border-bottom">
-                        <StyledProductQuantity>
-                          <h4>Quantity</h4>
-                          <StyledQuantity>
-                            <input type="number" min="1" max="9" step="1" value="1" />
-                          </StyledQuantity>
-                        </StyledProductQuantity>
-                      </div>
-                      <div className="product-description">
-                        <h4 className="mb-1">Descriptions</h4>
-                        <p>
-                          Praesent et cursus quam. Etiam vulputate est et metus pellentesque iaculis. Suspendisse nec
-                          urna augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-                          Curae;
-                        </p>
-                        <a href="#" className="btn btn-primary btn-block btn-lg">
-                          Add to Cart
-                        </a>
-                      </div>
-                    </StyledProductDetails>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
-                    <h3> Related Products</h3>
-                  </div>
-                  <div className="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                    {/* <ProductItem></ProductItem> */}
-                  </div>
-                  <div className="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                    {/* <ProductItem></ProductItem> */}
-                  </div>
-                  <div className="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                    {/* <ProductItem></ProductItem> */}
+      {data && (
+        <div className="dashboard-wrapper">
+          <div className="dashboard-ecommerce">
+            <div className="container-fluid dashboard-content">
+              <div className="row">
+                <div className="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div className="row">
+                    <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
+                      <StyledImg src={data.imageUrl} alt="" className="img-fluid" />
+                    </div>
+                    <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 m-b-30">
+                      <StyledProductDetails>
+                        <div className="border-bottom pb-3 mb-3">
+                          <h2 className="mb-3">{data.name}</h2>
+                          <StyledProductRating className="d-inline-block float-right">
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} />
+                          </StyledProductRating>
+                          <h3 className="mb-0 text-primary">${data.price}</h3>
+                        </div>
+                        <div className="product-size border-bottom">
+                          <Label for="quantity">
+                            <h4 className="mb-1">Quantity</h4>
+                          </Label>
+                          <Input
+                            type="number"
+                            name="number"
+                            id="quantity"
+                            defaultValue="1"
+                            placeholder="choose product quantity"
+                          />
+                        </div>
+                        <div className="product-description">
+                          <h4 className="mb-1">Descriptions</h4>
+                          <p>{data.desc}</p>
+                          <a href="#" className="btn btn-primary btn-block btn-lg">
+                            Add to Cart
+                          </a>
+                        </div>
+                      </StyledProductDetails>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   )
 }

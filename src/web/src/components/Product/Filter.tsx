@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Input, Label } from 'reactstrap'
+import React, { useState } from 'react'
+import { Button, Input, Label, CustomInput } from 'reactstrap'
 import styled from 'styled-components'
 
 const StyledProductSideBar = styled.div`
@@ -21,7 +21,12 @@ const StyledProductSideBarWidgetTitle = styled.h4`
   margin-bottom: 10px;
 `
 
-const Filter: React.FC = () => {
+interface IProps {
+  onPriceFilterChange: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
+}
+
+const Filter: React.FC<IProps> = ({ onPriceFilterChange }) => {
+  const [price, setPrice] = useState(500)
   return (
     <>
       <StyledProductSideBar>
@@ -31,21 +36,19 @@ const Filter: React.FC = () => {
 
         <StyledProductSideBarWidget>
           <StyledProductSideBarWidgetTitle>Price</StyledProductSideBarWidgetTitle>
-          <div className="custom-control custom-checkbox">
-            <Label check>
-              <Input type="radio" name="price" /> {`less than 100$`}
-            </Label>
-          </div>
-          <div className="custom-control custom-checkbox">
-            <Label check>
-              <Input type="radio" name="price" /> {`from 100$ to 1000$`}
-            </Label>
-          </div>
-          <div className="custom-control custom-checkbox">
-            <Label check>
-              <Input type="radio" name="price" /> {`greater than 1000$`}
-            </Label>
-          </div>
+          <Label for="exampleCustomRange">{price}$</Label>
+          <CustomInput
+            type="range"
+            id="exampleCustomRange"
+            name="customRange"
+            min={0}
+            defaultValue={500}
+            max={10000}
+            onMouseUp={e => {
+              onPriceFilterChange(e)
+              setPrice(+e.currentTarget.value)
+            }}
+          />
         </StyledProductSideBarWidget>
 
         <StyledProductSideBarWidget>

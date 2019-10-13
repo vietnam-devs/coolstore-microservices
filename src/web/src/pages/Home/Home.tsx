@@ -10,23 +10,32 @@ const Home: React.FC = () => {
   const { state, dispatch } = useStore()
   const [products, setProducts] = useState<IProduct[]>([])
 
+  const loadProducts = async (page: number, price: number) => {
+    const result = await axios.get(`/api/products/${page}/${price}`, {
+      baseURL: `${process.env.REACT_APP_API}`,
+      data: {},
+      headers: {
+        ['Content-Type']: 'application/grpc',
+        Authorization: `Bearer ${state.accessToken}`
+      }
+    })
+    setProducts(result.data.products)
+    dispatch(AppActions.loadProducts(result.data.products))
+  }
+
+  const onPriceFilterChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    if (state.accessToken != null) {
+      loadProducts(1, +e.currentTarget.value)
+    }
+  }
+
   useEffect(() => {
     if (state.accessToken != null && state.products.length <= 0) {
-      axios
-        .get('/api/products/1/1000', {
-          baseURL: `${process.env.REACT_APP_API}`,
-          data: {},
-          headers: {
-            ['Content-Type']: 'application/grpc',
-            Authorization: `Bearer ${state.accessToken}`
-          }
-        })
-        .then((result: any) => {
-          setProducts(result.data.products)
-          dispatch(AppActions.loadProducts(result.data.products))
-        })
+      loadProducts(1, 500)
+    } else {
+      setProducts(state.products)
     }
-  }, [products, state])
+  }, [state])
 
   return (
     <>
@@ -43,7 +52,7 @@ const Home: React.FC = () => {
               <div className="container-fluid dashboard-content">
                 <div className="row">
                   <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
-                    <Filter></Filter>
+                    <Filter onPriceFilterChange={onPriceFilterChange}></Filter>
                   </div>
 
                   <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
