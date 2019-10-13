@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { RouteComponentProps } from 'react-router-dom'
 import { Alert } from 'reactstrap'
 import axios from 'axios'
 
@@ -6,7 +7,9 @@ import { Header, Footer } from 'components/App'
 import { ProductItem, Pagination, Filter } from 'components/Product'
 import { AppActions, useStore, IProduct } from 'stores/store'
 
-const Home: React.FC = () => {
+interface IProps extends RouteComponentProps {}
+
+const Home: React.FC<IProps> = props => {
   const { state, dispatch } = useStore()
   const [products, setProducts] = useState<IProduct[]>([])
 
@@ -51,15 +54,15 @@ const Home: React.FC = () => {
             <div className="dashboard-ecommerce">
               <div className="container-fluid dashboard-content">
                 <div className="row">
-                  <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+                  <div className="col-xl-2 col-lg-4 col-md-4 col-sm-12 col-12">
                     <Filter onPriceFilterChange={onPriceFilterChange}></Filter>
                   </div>
 
-                  <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
+                  <div className="col-xl-10 col-lg-8 col-md-8 col-sm-12 col-12">
                     <div className="row">
                       {products.map(item => (
                         <div className="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                          <ProductItem data={item}></ProductItem>
+                          <ProductItem {...props} data={item}></ProductItem>
                         </div>
                       ))}
 

@@ -3,6 +3,7 @@ import { Button } from 'reactstrap'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { RouteComponentProps } from 'react-router-dom'
 
 import { IProduct } from 'stores/store'
 
@@ -121,11 +122,15 @@ const StyledProductDel = styled.del`
   color: #71748d;
 `
 
-interface IProps {
+const StyledDetailButton = styled(Button)`
+  margin: 0 0 0 5px;
+`
+
+interface IProps extends RouteComponentProps {
   data: IProduct
 }
 
-const ProductItem: React.FC<IProps> = ({ data }) => {
+const ProductItem: React.FC<IProps> = ({ data, history }) => {
   return (
     <>
       <StyledProductThumbnail>
@@ -154,6 +159,14 @@ const ProductItem: React.FC<IProps> = ({ data }) => {
             <StyledProductPrice>${data.price}</StyledProductPrice>
           </StyledProductContentHead>
           <Button color="primary">Add to Cart</Button>
+          <StyledDetailButton
+            color="secondary"
+            onClick={() => {
+              history.push(`/product/${data.id}`)
+            }}
+          >
+            Detail
+          </StyledDetailButton>
         </StyledProductContent>
       </StyledProductThumbnail>
     </>

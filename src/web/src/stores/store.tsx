@@ -67,7 +67,6 @@ const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => 
       }
 
     case LOAD_PRODUCT:
-      console.table(action.payload)
       return { ...state, productDetail: action.payload }
 
     case LOAD_PRODUCTS:
