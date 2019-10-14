@@ -4,11 +4,21 @@
 [![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
 [![OpenTracing Badge](https://img.shields.io/badge/OpenTracing-enabled-blue.svg)](http://opentracing.io)
 
+```
+ ______     ______     ______     __         ______     ______   ______     ______     ______    
+/\  ___\   /\  __ \   /\  __ \   /\ \       /\  ___\   /\__  _\ /\  __ \   /\  == \   /\  ___\   
+\ \ \____  \ \ \/\ \  \ \ \/\ \  \ \ \____  \ \___  \  \/_/\ \/ \ \ \/\ \  \ \  __<   \ \  __\   
+ \ \_____\  \ \_____\  \ \_____\  \ \_____\  \/\_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_____\ 
+  \/_____/   \/_____/   \/_____/   \/_____/   \/_____/     \/_/   \/_____/   \/_/ /_/   \/_____/ 
+```
+
 CoolStore Website is a containerised microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
 
 The business domain is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral).
 
 Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
+
+## Try it online
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/vietnam-devs/coolstore-microservices)
 

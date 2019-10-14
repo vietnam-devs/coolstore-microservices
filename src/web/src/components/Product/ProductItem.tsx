@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { RouteComponentProps } from 'react-router-dom'
 
-import { IProduct } from 'stores/store'
+import { IProduct } from 'stores/types'
 
 const StyledImg = styled.img`
   width: 100%;

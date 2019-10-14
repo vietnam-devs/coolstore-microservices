@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Jumbotron, Container } from 'reactstrap'
+import { User } from 'oidc-client'
 import {
+  Jumbotron,
+  Container,
   Navbar,
   Nav,
   NavItem,
@@ -14,8 +16,9 @@ import {
 import styled from 'styled-components'
 
 import { AuthService } from 'services'
-import { User } from 'oidc-client'
-import { IAppUser, AppActions, useStore } from 'stores/store'
+
+import { AppActions, useStore } from 'stores/store'
+import { IAppUser } from 'stores/types'
 
 const StyledHeader = styled.a`
   text-decoration: none;

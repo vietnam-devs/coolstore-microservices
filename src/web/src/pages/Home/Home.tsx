@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { Alert } from 'reactstrap'
-import axios from 'axios'
 
 import { Header, Footer } from 'components/App'
 import { ProductItem, Pagination, Filter } from 'components/Product'
-import { AppActions, useStore, IProduct } from 'stores/store'
+
+import { AppActions, useStore } from 'stores/store'
+import { IProduct } from 'stores/types'
+import { getProducts } from 'services/ProductService'
 
 interface IProps extends RouteComponentProps {}
 
@@ -13,32 +15,19 @@ const Home: React.FC<IProps> = props => {
   const { state, dispatch } = useStore()
   const [products, setProducts] = useState<IProduct[]>([])
 
-  const loadProducts = async (page: number, price: number) => {
-    const result = await axios.get(`/api/products/${page}/${price}`, {
-      baseURL: `${process.env.REACT_APP_API}`,
-      data: {},
-      headers: {
-        ['Content-Type']: 'application/grpc',
-        Authorization: `Bearer ${state.accessToken}`
-      }
-    })
-    setProducts(result.data.products)
-    dispatch(AppActions.loadProducts(result.data.products))
+  async function fetchData(page: number, price: number) {
+    const products = await getProducts(page, price)
+    setProducts(products)
+    dispatch(AppActions.loadProducts(products))
   }
 
   const onPriceFilterChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    if (state.accessToken != null) {
-      loadProducts(1, +e.currentTarget.value)
-    }
+    fetchData(1, +e.currentTarget.value)
   }
 
   useEffect(() => {
-    if (state.accessToken != null && state.products.length <= 0) {
-      loadProducts(1, 500)
-    } else {
-      setProducts(state.products)
-    }
-  }, [state])
+    fetchData(1, 500)
+  }, [state.isProductsLoaded])
 
   return (
     <>

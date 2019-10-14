@@ -1,45 +1,21 @@
 // ref https://stackblitz.com/edit/react-ts-tg3gfu
 import React, { createContext, useContext, useReducer } from 'react'
-import { IAction, createAction, createActionPayload, ActionsUnion } from './actions'
+import { createAction, createActionPayload, ActionsUnion } from './actions'
+import { IAppState, IAppContextProps, IAppUser, IProduct } from './types'
 
 export const LOAD_USER_LOGIN = 'LOAD_USER_LOGIN'
 export const UNLOAD_USER_LOGIN = 'UNLOAD_USER_LOGIN'
 export const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 export const LOAD_PRODUCT = 'LOAD_PRODUCT'
 
-export interface IAppUser {
-  userName: string
-  email: string
-  accessToken: string
-}
-
-export interface IProduct {
-  id: string
-  name: string
-  price: number
-  imageUrl: string
-  desc: string
-}
-
-interface IAppState {
-  user: IAppUser | null
-  authenticated: boolean
-  accessToken: string | null
-  products: IProduct[]
-  productDetail: IProduct
-}
-
-interface IAppContextProps {
-  state: IAppState
-  dispatch: ({ type }: IAction) => void
-}
-
 const initialState: IAppState = {
   user: null,
   authenticated: false,
   accessToken: null,
   products: [],
-  productDetail: null
+  isProductsLoaded: false,
+  productDetail: null,
+  isProductLoaded: false
 }
 
 export const AppActions = {
@@ -67,12 +43,17 @@ const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => 
       }
 
     case LOAD_PRODUCT:
-      return { ...state, productDetail: action.payload }
+      return {
+        ...state,
+        productDetail: action.payload,
+        isProductLoaded: true
+      }
 
     case LOAD_PRODUCTS:
       return {
         ...state,
-        products: action.payload
+        products: action.payload,
+        isProductsLoaded: true
       }
 
     default:

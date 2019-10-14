@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
-import { IProduct } from 'stores/store'
+import { IProduct } from 'stores/types'
 
 const StyledImg = styled.img`
   width: 100%;
