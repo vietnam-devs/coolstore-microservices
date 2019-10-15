@@ -22,11 +22,13 @@ const StyledProductSideBarWidgetTitle = styled.h4`
 `
 
 interface IProps {
+  initPrice: number
+  maxPrice: number
   onPriceFilterChange: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
 }
 
-const Filter: React.FC<IProps> = ({ onPriceFilterChange }) => {
-  const [price, setPrice] = useState(500)
+const Filter: React.FC<IProps> = ({ onPriceFilterChange, initPrice, maxPrice }) => {
+  const [price, setPrice] = useState(initPrice)
   return (
     <>
       <StyledProductSideBar>
@@ -36,14 +38,14 @@ const Filter: React.FC<IProps> = ({ onPriceFilterChange }) => {
 
         <StyledProductSideBarWidget>
           <StyledProductSideBarWidgetTitle>Price</StyledProductSideBarWidgetTitle>
-          <Label for="exampleCustomRange">{price}$</Label>
+          <Label for="exampleCustomRange">${price.toFixed(2)}</Label>
           <CustomInput
             type="range"
             id="exampleCustomRange"
             name="customRange"
             min={0}
-            defaultValue={500}
-            max={10000}
+            defaultValue={initPrice}
+            max={maxPrice}
             onMouseUp={e => {
               onPriceFilterChange(e)
               setPrice(+e.currentTarget.value)
@@ -86,7 +88,7 @@ const Filter: React.FC<IProps> = ({ onPriceFilterChange }) => {
         </StyledProductSideBarWidget>
 
         <StyledProductSideBarWidget>
-          <Button color="secondary">Reset Filter</Button>
+          <Button color="warning">Reset Filter</Button>
         </StyledProductSideBarWidget>
       </StyledProductSideBar>
     </>

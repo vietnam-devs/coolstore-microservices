@@ -2,7 +2,7 @@ import React from 'react'
 import { Input, Label, Button } from 'reactstrap'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
 import { IProduct } from 'stores/types'
 
@@ -63,7 +63,8 @@ const ProductItemDetail: React.FC<IProps> = ({ data }) => {
                             type="number"
                             name="number"
                             id="quantity"
-                            defaultValue="1"
+                            defaultValue={1}
+                            min={1}
                             placeholder="choose product quantity"
                           />
                         </div>
@@ -71,7 +72,7 @@ const ProductItemDetail: React.FC<IProps> = ({ data }) => {
                           <h4 className="mb-1">Descriptions</h4>
                           <p>{data.desc}</p>
                           <Button color="primary" block>
-                            Add to Cart
+                            <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon> Add to Cart
                           </Button>
                         </div>
                       </StyledProductDetails>

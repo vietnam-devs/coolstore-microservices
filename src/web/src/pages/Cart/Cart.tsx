@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import styled from 'styled-components'
 
@@ -15,7 +15,7 @@ const StyledContainer = styled.div`
 const Cart: React.FC = () => {
   const { state, dispatch } = useStore()
 
-  const fetchData = React.useCallback(async () => {
+  const fetchData = useCallback(async () => {
     const cart = await getCartForCurrentUser()
     dispatch(AppActions.loadCart(cart))
   }, [dispatch])

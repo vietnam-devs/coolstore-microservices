@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 
 import { Header, Footer } from 'components/App'
@@ -16,7 +16,7 @@ interface IProps extends RouteComponentProps<TParams> {}
 const ProductDetail: React.FC<IProps> = ({ match }: RouteComponentProps<TParams>) => {
   const { state, dispatch } = useStore()
 
-  const fetchData = React.useCallback(
+  const fetchData = useCallback(
     async (id: string) => {
       const product = await getProduct(id)
       dispatch(AppActions.loadProduct(product))

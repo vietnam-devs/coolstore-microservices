@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'reactstrap'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faHeart, faShoppingCart, faShareSquare } from '@fortawesome/free-solid-svg-icons'
 import { RouteComponentProps } from 'react-router-dom'
 
 import { IProduct } from 'stores/types'
@@ -143,7 +143,9 @@ const ProductItem: React.FC<IProps> = ({ data, history }) => {
         </StyledProductImgHead>
         <StyledProductContent>
           <StyledProductContentHead>
-            <StyledProductTitle className="product-title">{data.name}</StyledProductTitle>
+            <StyledProductTitle className="product-title">
+              {data.name.replace(/^(.{25}[^\s]*).*/, '$1')}
+            </StyledProductTitle>
             <StyledProductRating className="d-inline-block">
               <FontAwesomeIcon icon={faStar} />
               <FontAwesomeIcon icon={faStar} />
@@ -153,14 +155,16 @@ const ProductItem: React.FC<IProps> = ({ data, history }) => {
             </StyledProductRating>
             <StyledProductPrice>${data.price}</StyledProductPrice>
           </StyledProductContentHead>
-          <Button color="primary">Add to Cart</Button>
+          <Button color="primary">
+            <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon> Add to Cart
+          </Button>
           <StyledDetailButton
             color="secondary"
             onClick={() => {
               history.push(`/product/${data.id}`)
             }}
           >
-            Detail
+            <FontAwesomeIcon icon={faShareSquare}></FontAwesomeIcon> Detail
           </StyledDetailButton>
         </StyledProductContent>
       </StyledProductThumbnail>

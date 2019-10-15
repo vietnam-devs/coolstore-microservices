@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { Alert } from 'reactstrap'
 
@@ -13,7 +13,7 @@ interface IProps extends RouteComponentProps {}
 const Home: React.FC<IProps> = props => {
   const { state, dispatch } = useStore()
 
-  const fetchData = React.useCallback(
+  const fetchData = useCallback(
     async (page: number, price: number) => {
       const products = await getProducts(page, price)
       dispatch(AppActions.loadProducts(products))
@@ -26,7 +26,7 @@ const Home: React.FC<IProps> = props => {
   }
 
   useEffect(() => {
-    fetchData(1, 500)
+    fetchData(1, 888)
   }, [state.isProductsLoaded, fetchData])
 
   return (
@@ -44,7 +44,7 @@ const Home: React.FC<IProps> = props => {
               <div className="container-fluid dashboard-content">
                 <div className="row">
                   <div className="col-xl-2 col-lg-4 col-md-4 col-sm-12 col-12">
-                    <Filter onPriceFilterChange={onPriceFilterChange}></Filter>
+                    <Filter onPriceFilterChange={onPriceFilterChange} initPrice={888} maxPrice={10000}></Filter>
                   </div>
 
                   <div className="col-xl-10 col-lg-8 col-md-8 col-sm-12 col-12">

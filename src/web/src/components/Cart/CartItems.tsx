@@ -36,8 +36,8 @@ const CartItems: React.FC<IProps> = ({ cart }) => {
                   <StyledProductImg src={item.productImagePath} width="64" height="64"></StyledProductImg>
                 </Media>
                 <Media body>
-                  <Media heading>{item.productName}</Media>
-                  <p>{item.productDesc}</p>
+                  <Media heading>{item.productName.replace(/^(.{25}[^\s]*).*/, '$1')}</Media>
+                  <p>{item.productDesc.replace(/^(.{50}[^\s]*).*/, '$1')}</p>
                 </Media>
               </Media>
             </td>
@@ -50,6 +50,7 @@ const CartItems: React.FC<IProps> = ({ cart }) => {
                 name="number"
                 id="quantity"
                 defaultValue={item.quantity}
+                min={1}
                 placeholder="choose product quantity"
               />
             </td>
