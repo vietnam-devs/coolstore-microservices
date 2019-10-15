@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Label } from 'reactstrap'
+import { Input, Label, Button } from 'reactstrap'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
@@ -70,9 +70,9 @@ const ProductItemDetail: React.FC<IProps> = ({ data }) => {
                         <div className="product-description">
                           <h4 className="mb-1">Descriptions</h4>
                           <p>{data.desc}</p>
-                          <a href="#" className="btn btn-primary btn-block btn-lg">
+                          <Button color="primary" block>
                             Add to Cart
-                          </a>
+                          </Button>
                         </div>
                       </StyledProductDetails>
                     </div>

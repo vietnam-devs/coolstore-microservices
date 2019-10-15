@@ -15,14 +15,14 @@ const StyledContainer = styled.div`
 const Cart: React.FC = () => {
   const { state, dispatch } = useStore()
 
-  async function fetchData() {
+  const fetchData = React.useCallback(async () => {
     const cart = await getCartForCurrentUser()
     dispatch(AppActions.loadCart(cart))
-  }
+  }, [dispatch])
 
   useEffect(() => {
     fetchData()
-  }, [state.isCartLoaded])
+  }, [state.isCartLoaded, fetchData])
 
   return (
     <>

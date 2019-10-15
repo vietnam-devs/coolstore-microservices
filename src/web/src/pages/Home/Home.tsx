@@ -13,10 +13,13 @@ interface IProps extends RouteComponentProps {}
 const Home: React.FC<IProps> = props => {
   const { state, dispatch } = useStore()
 
-  async function fetchData(page: number, price: number) {
-    const products = await getProducts(page, price)
-    dispatch(AppActions.loadProducts(products))
-  }
+  const fetchData = React.useCallback(
+    async (page: number, price: number) => {
+      const products = await getProducts(page, price)
+      dispatch(AppActions.loadProducts(products))
+    },
+    [dispatch]
+  )
 
   const onPriceFilterChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     fetchData(1, +e.currentTarget.value)
@@ -24,7 +27,7 @@ const Home: React.FC<IProps> = props => {
 
   useEffect(() => {
     fetchData(1, 500)
-  }, [state.isProductsLoaded])
+  }, [state.isProductsLoaded, fetchData])
 
   return (
     <>

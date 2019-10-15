@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { User } from 'oidc-client'
 import {
   Jumbotron,
@@ -11,13 +11,13 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Collapse
+  Collapse,
+  Button
 } from 'reactstrap'
 import styled from 'styled-components'
 
 import { AuthService } from 'services'
 
-import { AppActions, useStore } from 'stores/store'
 import { IAppUser } from 'stores/types'
 
 const StyledHeader = styled.a`
@@ -37,16 +37,12 @@ const StyledDropdown = styled(UncontrolledDropdown)`
 
 const Header = () => {
   const [user, setUser] = useState<IAppUser>(null)
-  const { dispatch } = useStore()
 
   useEffect(() => {
-    if (user == null) {
-      AuthService.getUser().then((user: User) => {
-        let currentUser = { userName: user.profile.name, email: user.profile.email, accessToken: user.access_token }
-        setUser(currentUser)
-        dispatch(AppActions.loadUserLogin(currentUser))
-      })
-    }
+    AuthService.getUser().then((user: User) => {
+      let currentUser = { userName: user.profile.name, email: user.profile.email, accessToken: user.access_token }
+      setUser(currentUser)
+    })
   }, [user])
 
   return (
@@ -82,14 +78,15 @@ const Header = () => {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <a
-                      href="#"
+                    <Button
+                      color="link"
+                      size="sm"
                       onClick={() => {
                         AuthService.signOut()
                       }}
                     >
                       Logout
-                    </a>
+                    </Button>
                   </DropdownItem>
                 </DropdownMenu>
               </StyledDropdown>

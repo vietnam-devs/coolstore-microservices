@@ -16,14 +16,17 @@ interface IProps extends RouteComponentProps<TParams> {}
 const ProductDetail: React.FC<IProps> = ({ match }: RouteComponentProps<TParams>) => {
   const { state, dispatch } = useStore()
 
-  async function fetchData() {
-    const product = await getProduct(match.params.id)
-    dispatch(AppActions.loadProduct(product))
-  }
+  const fetchData = React.useCallback(
+    async (id: string) => {
+      const product = await getProduct(id)
+      dispatch(AppActions.loadProduct(product))
+    },
+    [dispatch]
+  )
 
   useEffect(() => {
-    fetchData()
-  }, [state.isProductLoaded])
+    fetchData(match.params.id)
+  }, [state.isProductLoaded, fetchData, match.params.id])
 
   return (
     <>
