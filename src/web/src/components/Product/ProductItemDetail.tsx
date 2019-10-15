@@ -32,58 +32,44 @@ interface IProps {
 const ProductItemDetail: React.FC<IProps> = ({ data }) => {
   return (
     <>
-      {data && (
-        <div className="dashboard-wrapper">
-          <div className="dashboard-ecommerce">
-            <div className="container-fluid dashboard-content">
-              <div className="row">
-                <div className="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
-                  <div className="row">
-                    <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
-                      <StyledImg src={data.imageUrl} alt="" className="img-fluid" />
-                    </div>
-                    <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 m-b-30">
-                      <StyledProductDetails>
-                        <div className="border-bottom pb-3 mb-3">
-                          <h2 className="mb-3">{data.name}</h2>
-                          <StyledProductRating className="d-inline-block float-right">
-                            <FontAwesomeIcon icon={faStar} />
-                            <FontAwesomeIcon icon={faStar} />
-                            <FontAwesomeIcon icon={faStar} />
-                            <FontAwesomeIcon icon={faStar} />
-                            <FontAwesomeIcon icon={faStar} />
-                          </StyledProductRating>
-                          <h3 className="mb-0 text-primary">${data.price}</h3>
-                        </div>
-                        <div className="product-size border-bottom">
-                          <Label for="quantity">
-                            <h4 className="mb-1">Quantity</h4>
-                          </Label>
-                          <Input
-                            type="number"
-                            name="number"
-                            id="quantity"
-                            defaultValue={1}
-                            min={1}
-                            placeholder="choose product quantity"
-                          />
-                        </div>
-                        <div className="product-description">
-                          <h4 className="mb-1">Descriptions</h4>
-                          <p>{data.desc}</p>
-                          <Button color="primary" block>
-                            <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon> Add to Cart
-                          </Button>
-                        </div>
-                      </StyledProductDetails>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
+        <StyledImg src={data.imageUrl} alt="" className="img-fluid" />
+      </div>
+      <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 m-b-30">
+        <StyledProductDetails>
+          <div className="border-bottom pb-3 mb-3">
+            <h2 className="mb-3">{data.name}</h2>
+            <StyledProductRating className="d-inline-block float-right">
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+            </StyledProductRating>
+            <h3 className="mb-0 text-primary">${data.price}</h3>
           </div>
-        </div>
-      )}
+          <div className="product-size border-bottom">
+            <Label for="quantity">
+              <h4 className="mb-1">Quantity</h4>
+            </Label>
+            <Input
+              type="number"
+              name="number"
+              id="quantity"
+              defaultValue={1}
+              min={1}
+              placeholder="choose product quantity"
+            />
+          </div>
+          <div className="product-description">
+            <h4 className="mb-1">Descriptions</h4>
+            <p>{data.desc}</p>
+            <Button color="primary" block>
+              <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon> Add to Cart
+            </Button>
+          </div>
+        </StyledProductDetails>
+      </div>
     </>
   )
 }

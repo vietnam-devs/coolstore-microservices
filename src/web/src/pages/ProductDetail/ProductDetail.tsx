@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 
-import { Header, Footer } from 'components/App'
 import { ProductItemDetail } from 'components/Product'
+import { withLayout } from 'components/HOC'
 
 import { useStore, AppActions } from 'stores/store'
 import { getProduct } from 'services/ProductService'
@@ -29,12 +29,14 @@ const ProductDetail: React.FC<IProps> = ({ match }: RouteComponentProps<TParams>
   }, [state.isProductLoaded, fetchData, match.params.id])
 
   return (
-    <>
-      <Header></Header>
-      <ProductItemDetail data={state.productDetail}></ProductItemDetail>
-      <Footer></Footer>
-    </>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div className="row">{state.isProductLoaded && <ProductItemDetail data={state.productDetail} />}</div>
+        </div>
+      </div>
+    </div>
   )
 }
 
-export default ProductDetail
+export default withLayout(ProductDetail)

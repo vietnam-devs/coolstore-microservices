@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import { AppActions, useStore } from 'stores/store'
 import { getCartForCurrentUser } from 'services/CartService'
 
-import { Header, Footer } from 'components/App'
 import { CartItems, CartSummary } from 'components/Cart'
+import { withLayout } from 'components/HOC'
 
 const StyledContainer = styled.div`
   margin: 15px 0;
@@ -26,8 +26,6 @@ const Cart: React.FC = () => {
 
   return (
     <>
-      <Header></Header>
-
       {state.isCartLoaded && state.cart.items.length > 0 && (
         <StyledContainer>
           <Container fluid>
@@ -42,9 +40,8 @@ const Cart: React.FC = () => {
           </Container>
         </StyledContainer>
       )}
-      <Footer></Footer>
     </>
   )
 }
 
-export default Cart
+export default withLayout(Cart)
