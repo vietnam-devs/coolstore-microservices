@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { Alert } from 'reactstrap'
 
@@ -6,18 +6,15 @@ import { Header, Footer } from 'components/App'
 import { ProductItem, Pagination, Filter } from 'components/Product'
 
 import { AppActions, useStore } from 'stores/store'
-import { IProduct } from 'stores/types'
 import { getProducts } from 'services/ProductService'
 
 interface IProps extends RouteComponentProps {}
 
 const Home: React.FC<IProps> = props => {
   const { state, dispatch } = useStore()
-  const [products, setProducts] = useState<IProduct[]>([])
 
   async function fetchData(page: number, price: number) {
     const products = await getProducts(page, price)
-    setProducts(products)
     dispatch(AppActions.loadProducts(products))
   }
 
@@ -38,7 +35,7 @@ const Home: React.FC<IProps> = props => {
           <strong>Work in progress!</strong> More changes are coming soon.
         </Alert>
 
-        {products.length > 0 && (
+        {state.products.length > 0 && (
           <div className="dashboard-wrapper">
             <div className="dashboard-ecommerce">
               <div className="container-fluid dashboard-content">
@@ -49,8 +46,8 @@ const Home: React.FC<IProps> = props => {
 
                   <div className="col-xl-10 col-lg-8 col-md-8 col-sm-12 col-12">
                     <div className="row">
-                      {products.map(item => (
-                        <div className="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                      {state.products.map(item => (
+                        <div className="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12" key={item.id}>
                           <ProductItem {...props} data={item}></ProductItem>
                         </div>
                       ))}

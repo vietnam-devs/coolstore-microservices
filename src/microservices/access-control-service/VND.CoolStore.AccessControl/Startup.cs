@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
+using VND.CoolStore.AccessControl.Customized;
 
 namespace VND.CoolStore.AccessControlService
 {
@@ -43,7 +44,8 @@ namespace VND.CoolStore.AccessControlService
                 options.Events.RaiseSuccessEvents = true;
                 options.IssuerUri = "http://access-control-api"; //only for demo
             })
-            .AddTestUsers(TestUsers.Users);
+            .AddTestUsers(TestUsers.Users)
+            .AddProfileService<CustomizedProfileService>();
 
             // in-memory, code config
             builder.AddInMemoryIdentityResources(Config.GetIdentityResources());

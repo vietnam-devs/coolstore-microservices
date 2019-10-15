@@ -1,12 +1,13 @@
 // ref https://stackblitz.com/edit/react-ts-tg3gfu
 import React, { createContext, useContext, useReducer } from 'react'
 import { createAction, createActionPayload, ActionsUnion } from './actions'
-import { IAppState, IAppContextProps, IAppUser, IProduct } from './types'
+import { IAppState, IAppContextProps, IAppUser, IProduct, ICart } from './types'
 
 export const LOAD_USER_LOGIN = 'LOAD_USER_LOGIN'
 export const UNLOAD_USER_LOGIN = 'UNLOAD_USER_LOGIN'
 export const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 export const LOAD_PRODUCT = 'LOAD_PRODUCT'
+export const LOAD_CART = 'LOAD_CART'
 
 const initialState: IAppState = {
   user: null,
@@ -15,14 +16,17 @@ const initialState: IAppState = {
   products: [],
   isProductsLoaded: false,
   productDetail: null,
-  isProductLoaded: false
+  isProductLoaded: false,
+  cart: null,
+  isCartLoaded: false
 }
 
 export const AppActions = {
   loadUserLogin: createActionPayload<typeof LOAD_USER_LOGIN, IAppUser>(LOAD_USER_LOGIN),
   unloadUserLogin: createAction<typeof UNLOAD_USER_LOGIN>(UNLOAD_USER_LOGIN),
   loadProducts: createActionPayload<typeof LOAD_PRODUCTS, IProduct[]>(LOAD_PRODUCTS),
-  loadProduct: createActionPayload<typeof LOAD_PRODUCT, IProduct>(LOAD_PRODUCT)
+  loadProduct: createActionPayload<typeof LOAD_PRODUCT, IProduct>(LOAD_PRODUCT),
+  loadCart: createActionPayload<typeof LOAD_CART, ICart>(LOAD_CART)
 }
 
 const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => {
@@ -54,6 +58,13 @@ const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => 
         ...state,
         products: action.payload,
         isProductsLoaded: true
+      }
+
+    case LOAD_CART:
+      return {
+        ...state,
+        cart: action.payload,
+        isCartLoaded: true
       }
 
     default:

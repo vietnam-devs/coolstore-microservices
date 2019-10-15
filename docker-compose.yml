@@ -15,6 +15,15 @@ services:
     networks:
       - coolstore
 
+  access-control-api:
+    image: vndg/access-control-api-v3:latest
+    restart: always
+    build:
+      context: .
+      dockerfile: src/microservices/access-control-service/VND.CoolStore.AccessControl/Dockerfile
+    networks:
+      - coolstore
+
   webapi-gateway:
     image: vndg/webapi-gateway-v3:latest
     restart: always
@@ -63,15 +72,6 @@ services:
     depends_on:
       - migration-data
       - sqlserver
-    networks:
-      - coolstore
-
-  access-control-api:
-    image: vndg/access-control-api-v3:latest
-    restart: always
-    build:
-      context: .
-      dockerfile: src/microservices/access-control-service/VND.CoolStore.AccessControl/Dockerfile
     networks:
       - coolstore
 

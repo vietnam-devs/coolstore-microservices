@@ -12,6 +12,10 @@ namespace VND.CoolStore.ShoppingCart.DataContracts.Api.V1
     {
     }
 
+    public partial class GetCartByUserIdRequest : IRequest<GetCartByUserIdResponse>
+    {
+    }
+
     public partial class InsertItemToNewCartRequest : IRequest<InsertItemToNewCartResponse>
     {
     }

@@ -6,6 +6,7 @@ import "cart_dto.proto";
 
 service ShoppingCartApi {
   rpc GetCart(GetCartRequest) returns (GetCartResponse) {};
+  rpc GetCartByUserId(GetCartByUserIdRequest) returns (GetCartByUserIdResponse) {};
   rpc InsertItemToNewCart(InsertItemToNewCartRequest) returns (InsertItemToNewCartResponse) {};
   rpc UpdateItemInCart(UpdateItemInCartRequest) returns (UpdateItemInCartResponse) {};
   rpc Checkout(CheckoutRequest) returns (CheckoutResponse) {};
@@ -20,9 +21,18 @@ message GetCartResponse {
   repeated CartWithProductsRow rows = 1;
 }
 
+message GetCartByUserIdRequest {
+  string user_id = 1;
+}
+
+message GetCartByUserIdResponse {
+  CartDto cart = 1;
+}
+
 message InsertItemToNewCartRequest {
-  string product_id = 1;
-  int32 quantity = 2;
+  string user_id = 1; 
+  string product_id = 2;
+  int32 quantity = 3;
 }
 
 message InsertItemToNewCartResponse {

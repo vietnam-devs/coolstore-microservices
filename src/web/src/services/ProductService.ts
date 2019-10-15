@@ -11,7 +11,7 @@ const getRequestOptions = (token: string): AxiosRequestConfig => {
     baseURL: apiUrl,
     data: {},
     headers: {
-      ['Content-Type']: 'application/grpc',
+      'Content-Type': 'application/grpc',
       Authorization: `Bearer ${token}`
     }
   }

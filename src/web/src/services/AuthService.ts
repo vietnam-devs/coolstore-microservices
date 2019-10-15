@@ -1,4 +1,4 @@
-import { UserManager, UserManagerSettings, User } from 'oidc-client'
+import { UserManager, UserManagerSettings } from 'oidc-client'
 import { RouteChildrenProps } from 'react-router'
 
 import LoggerService from './LoggerService'

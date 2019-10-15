@@ -25,38 +25,6 @@ const StyledProductRating = styled.div`
   color: #ffa811 !important;
 `
 
-const StyledProductQuantity = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0px;
-  &input[type='number']::-webkit-inner-spin-button,
-  &input[type='number']::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  &input[type='number'] {
-    -moz-appearance: textfield;
-  }
-`
-
-const StyledQuantity = styled.div`
-  position: relative;
-  &input {
-    width: 65px;
-    height: 41px;
-    line-height: 1.65;
-    float: left;
-    display: block;
-    padding: 0;
-    margin: 0;
-    padding-left: 20px;
-    border: 1px solid #eee;
-    &:focus {
-      outline: 0;
-    }
-  }
-`
-
 interface IProps {
   data: IProduct
 }

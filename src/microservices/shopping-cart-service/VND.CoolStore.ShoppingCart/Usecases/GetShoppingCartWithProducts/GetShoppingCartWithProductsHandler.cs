@@ -29,7 +29,7 @@ namespace VND.CoolStore.ShoppingCart.Usecases.GetShoppingCartWithProducts
 
             // query from database
             var views = await conn.QueryAsync<CartWithProductsRow>(
-                @"SELECT c.Id CartIdGuid, c.CartItemTotal, c.CartTotal, c.CartItemPromoSavings, c.ShippingTotal,
+                @"SELECT c.Id CartIdGuid, c.UserId UserIdGuid, c.CartItemTotal, c.CartTotal, c.CartItemPromoSavings, c.ShippingTotal,
                     c.ShippingPromoSavings, c.IsCheckout, ci.Quantity, pc.ProductId ProductIdGuid, pc.Name ProductName,
                     pc.Price ProductPrice, pc.[Desc] ProductDesc, pc.ImagePath ProductImagePath, pc.InventoryId InventoryIdGuid
                 FROM [cart].Carts c 
@@ -44,6 +44,7 @@ namespace VND.CoolStore.ShoppingCart.Usecases.GetShoppingCartWithProducts
             views = views.Select(row =>
             {
                 row.CartId = row.CartIdGuid.ToString();
+                row.UserId = row.UserIdGuid.ToString();
                 row.ProductId = row.ProductIdGuid.ToString();
                 row.InventoryId = row.InventoryIdGuid.ToString();
                 var inv = inventories.FirstOrDefault(x => x.Id == row.InventoryId);

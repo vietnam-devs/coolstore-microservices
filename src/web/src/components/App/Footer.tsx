@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Container } from 'reactstrap'
 import styled from 'styled-components'
 
@@ -18,4 +18,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default memo(Footer)

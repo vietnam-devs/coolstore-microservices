@@ -21,6 +21,11 @@ namespace VND.CoolStore.ShoppingCart.Api.GrpcServices
             return await _mediator.Send(request);
         }
 
+        public override async Task<GetCartByUserIdResponse> GetCartByUserId(GetCartByUserIdRequest request, ServerCallContext context)
+        {
+            return await _mediator.Send(request);
+        }
+
         public override async Task<InsertItemToNewCartResponse> InsertItemToNewCart(InsertItemToNewCartRequest request, ServerCallContext context)
         {
             return await _mediator.Send(request);

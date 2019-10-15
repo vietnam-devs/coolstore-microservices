@@ -1,6 +1,18 @@
 {
   "ReRoutes": [
     {
+      "UpstreamPathTemplate": "/api/carts/{userId}/cart",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/coolstore.ShoppingCartApi/GetCartByUserId",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shopping-cart-api",
+          "Port": 15003
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/api/carts/{cartId}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/coolstore.ShoppingCartApi/GetCart",

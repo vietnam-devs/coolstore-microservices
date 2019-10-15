@@ -14,6 +14,32 @@ export interface IProduct {
   desc: string
 }
 
+export interface ICart {
+  id: string
+  userId: string
+  cartItemTotal: number
+  cartItemPromoSavings: number
+  shippingTotal: number
+  shippingPromoSavings: number
+  cartTotal: number
+  isCheckout: boolean
+  items: ICartItem[]
+}
+
+export interface ICartItem {
+  quantity: number
+  price: number
+  productId: string
+  productName: string
+  productPrice: number
+  productDesc: string
+  productImagePath: string
+  inventoryId: string
+  inventoryLocation: string
+  inventoryDesc: string
+  inventoryWebsite: string
+}
+
 export interface IAppState {
   user: IAppUser | null
   authenticated: boolean
@@ -22,6 +48,8 @@ export interface IAppState {
   isProductsLoaded: boolean
   productDetail: IProduct
   isProductLoaded: boolean
+  cart: ICart
+  isCartLoaded: boolean
 }
 
 export interface IAppContextProps {

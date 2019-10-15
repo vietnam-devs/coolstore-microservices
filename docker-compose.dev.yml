@@ -7,6 +7,14 @@ services:
     ports:
       - 31999:31999
 
+  access-control-api:
+    ports:
+      - 31888:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+    volumes:
+      - "localnuget:/root/.nuget/packages"
+
   webapi-gateway:
     ports:
       - 31666:80
@@ -39,14 +47,6 @@ services:
       - 15004
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-    volumes:
-      - "localnuget:/root/.nuget/packages"
-
-  access-control-api:
-    ports:
-      - 31888:80
-    environment:
-      - ASPNETCORE_ENVIRONMENT=development
     volumes:
       - "localnuget:/root/.nuget/packages"
 

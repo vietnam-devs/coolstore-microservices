@@ -19,10 +19,12 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
         {
         }
 
-        public static Cart Load()
+        public static Cart Load(Guid userId)
         {
-            return new Cart();
+            return new Cart { UserId= userId };
         }
+
+        public Guid UserId { get; private set; }
 
         public double CartItemTotal { get; private set; }
 
@@ -116,6 +118,7 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
             var cartDto = new CartDto
             {
                 Id = Id.ToString(),
+                UserId = UserId.ToString(),
                 CartTotal = CartTotal,
                 CartItemTotal = CartItemTotal,
                 CartItemPromoSavings = CartItemPromoSavings,

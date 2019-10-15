@@ -49,6 +49,9 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Version")
                         .HasColumnType("int");
 
@@ -148,8 +151,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5054021b-d151-473d-ab12-f8f81f194e22"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 648, DateTimeKind.Utc).AddTicks(2773),
+                            Id = new Guid("1c0fc113-0c71-4595-90a1-902acb26433b"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(4707),
                             Desc = "quis nostrud exercitation ull",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("90c9479e-a11c-4d6d-aaaa-0405b6c0efcd"),
@@ -161,8 +164,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("56170822-c912-4a17-bbc0-4e6389a0c4db"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 649, DateTimeKind.Utc).AddTicks(1057),
+                            Id = new Guid("224f3f08-e581-4b7e-8a68-784183ecf0ef"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(8127),
                             Desc = "sin",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("90c9479e-a11c-4d6d-aaaa-0405b6c0efcd"),
@@ -174,8 +177,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d2549324-5299-413f-922b-f707f108e739"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 649, DateTimeKind.Utc).AddTicks(1592),
+                            Id = new Guid("d4d05445-033f-4561-aacb-17646e04c04d"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(8190),
                             Desc = "dolor sit amet, consectetur adipiscing e",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("90c9479e-a11c-4d6d-aaaa-0405b6c0efcd"),
@@ -187,8 +190,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("32945efe-294c-4c53-80b7-224cb08c8069"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 649, DateTimeKind.Utc).AddTicks(1614),
+                            Id = new Guid("8e175f62-eee0-4e5c-a647-5c87b566f22e"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(8240),
                             Desc = "est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("90c9479e-a11c-4d6d-aaaa-0405b6c0efcd"),
@@ -200,8 +203,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3e5cc141-68bb-42b1-b176-70cc58bccedd"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 649, DateTimeKind.Utc).AddTicks(1635),
+                            Id = new Guid("84829642-9c9b-4c84-a209-da742d9175ca"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(8251),
                             Desc = "ipsum dolor sit amet, consectetur adipis",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("90c9479e-a11c-4d6d-aaaa-0405b6c0efcd"),
@@ -213,8 +216,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1016202d-ebc5-41f4-9728-8fd7289457fd"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 649, DateTimeKind.Utc).AddTicks(1666),
+                            Id = new Guid("52d2459b-bb2d-4736-82eb-02f138faace1"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(8260),
                             Desc = "officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipi",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("b8b62196-6369-409d-b709-11c112dd023f"),
@@ -226,8 +229,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c443fcf4-5aed-44fe-a45f-6a4c6a7b944e"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 649, DateTimeKind.Utc).AddTicks(1683),
+                            Id = new Guid("ee4fae6f-a103-4bc9-943e-6e85fd7e3f29"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(8271),
                             Desc = "mollit anim id est laborum.Lo",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("b8b62196-6369-409d-b709-11c112dd023f"),
@@ -239,8 +242,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("176b607d-9228-438a-bd7b-cc6c1d2e03fd"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 649, DateTimeKind.Utc).AddTicks(1762),
+                            Id = new Guid("7221e8d6-ae2c-4283-b685-096bb53a13fc"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(8280),
                             Desc = "elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("b8b62196-6369-409d-b709-11c112dd023f"),
@@ -252,8 +255,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ed08787c-088d-41ac-a8f2-87a1b4c34f96"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 649, DateTimeKind.Utc).AddTicks(1780),
+                            Id = new Guid("bbcee1b4-a9cf-450d-b954-96cc0dab89f0"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(8289),
                             Desc = "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui ",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("b8b62196-6369-409d-b709-11c112dd023f"),
@@ -265,8 +268,8 @@ namespace VND.CoolStore.ShoppingCart.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("da5aa144-ae6c-4a29-897d-4f4bd770ff55"),
-                            Created = new DateTime(2019, 10, 2, 8, 10, 6, 649, DateTimeKind.Utc).AddTicks(1797),
+                            Id = new Guid("12341364-fe69-4239-8020-c008488b17ce"),
+                            Created = new DateTime(2019, 10, 15, 6, 49, 14, 598, DateTimeKind.Utc).AddTicks(8298),
                             Desc = "voluptate velit esse cillum dolore eu fugiat nulla pariat",
                             ImagePath = "https://picsum.photos/1200/900?image=1",
                             InventoryId = new Guid("b8b62196-6369-409d-b709-11c112dd023f"),

@@ -117,11 +117,6 @@ const StyledProductPrice = styled.div`
   line-height: 1;
 `
 
-const StyledProductDel = styled.del`
-  font-size: 14px;
-  color: #71748d;
-`
-
 const StyledDetailButton = styled(Button)`
   margin: 0 0 0 5px;
 `

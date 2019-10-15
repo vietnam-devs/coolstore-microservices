@@ -36,7 +36,7 @@ namespace VND.CoolStore.ShoppingCart.Usecases.CreateShoppingCartWithProduct
         {
             var cartRepository = _unitOfWork.RepositoryAsync<Cart, Guid>();
 
-            var cart = await Cart.Load()
+            var cart = await Cart.Load(request.UserId.ConvertTo<Guid>())
                     .InsertItemToCart(request.ProductId.ConvertTo<Guid>(), request.Quantity)
                     .CalculateCartAsync(
                         TaxType.NoTax,
@@ -55,6 +55,7 @@ namespace VND.CoolStore.ShoppingCart.Usecases.CreateShoppingCartWithProduct
         }
     }
 
+    // only for demo ability to subscribe inside the local service
     public class NotificationEnvelopeHandler : INotificationHandler<NotificationEnvelope>
     {
         public Task Handle(NotificationEnvelope notification, CancellationToken cancellationToken)
