@@ -1,20 +1,18 @@
-import React, { useEffect, useState, memo } from 'react'
-import { User } from 'oidc-client'
+import React, { useEffect, useState, useCallback, memo } from 'react'
 import {
   Jumbotron,
   Container,
   Navbar,
   Nav,
-  NavItem,
   NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
   Collapse,
   Button
 } from 'reactstrap'
 import styled from 'styled-components'
+import { RouteComponentProps } from 'react-router-dom'
 
 import { AuthService } from 'services'
 
@@ -24,6 +22,7 @@ const StyledHeader = styled.a`
   text-decoration: none;
   &:hover {
     text-decoration: none;
+    cursor: pointer;
   }
 `
 
@@ -35,15 +34,26 @@ const StyledDropdown = styled(UncontrolledDropdown)`
   display: inherit;
 `
 
-const Header = () => {
+const StyledNavLink = styled(NavLink)`
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+interface IProps extends RouteComponentProps {}
+
+const Header: React.FC<IProps> = ({ history }) => {
   const [user, setUser] = useState<IAppUser>(null)
 
+  const fetchData = useCallback(async () => {
+    var user = await AuthService.getUser()
+    let currentUser = { userName: user.profile.name, email: user.profile.email, accessToken: user.access_token }
+    setUser(currentUser)
+  }, [])
+
   useEffect(() => {
-    AuthService.getUser().then((user: User) => {
-      let currentUser = { userName: user.profile.name, email: user.profile.email, accessToken: user.access_token }
-      setUser(currentUser)
-    })
-  }, [user])
+    fetchData()
+  }, [fetchData])
 
   return (
     <>
@@ -51,7 +61,7 @@ const Header = () => {
         <Container fluid>
           <div>
             <h1 className="display-4">
-              <StyledHeader href="/">CoolStore Microservices</StyledHeader>
+              <StyledHeader onClick={() => history.push(`/`)}>CoolStore Microservices</StyledHeader>
             </h1>
             <p className="lead">
               A containerised microservices application consisting of services based on .NET Core, NodeJS and more
@@ -65,29 +75,25 @@ const Header = () => {
       <div>
         <StyledNavBar color="light" light expand="md">
           <span className="lead">
-            Search Product&nbsp;<input type="textbox"></input>
+            Search&nbsp;<input type="textbox"></input>
           </span>
           <Collapse navbar>
             <Nav className="ml-auto">
               <StyledDropdown nav inNavbar>
-                <NavItem>
-                  <NavLink href="/cart">Cart</NavLink>
-                </NavItem>
+                <StyledNavLink onClick={() => history.push(`/cart`)}>Cart</StyledNavLink>
                 <DropdownToggle nav caret>
                   {user != null ? user.userName : ''}
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
-                    <Button
-                      color="link"
-                      size="sm"
-                      onClick={() => {
-                        AuthService.signOut()
-                      }}
-                    >
-                      Logout
-                    </Button>
-                  </DropdownItem>
+                  <Button
+                    color="link"
+                    size="sm"
+                    onClick={() => {
+                      AuthService.signOut()
+                    }}
+                  >
+                    Logout
+                  </Button>
                 </DropdownMenu>
               </StyledDropdown>
             </Nav>

@@ -23,7 +23,7 @@ export const getProducts = async (page: number, price: number) => {
     `${productResourceUrl}/${page}/${price}`,
     getRequestOptions(user.access_token)
   )
-  return response.data.products
+  return response.data.products as IProduct[]
 }
 
 export const getProduct = async (id: string) => {
@@ -32,5 +32,5 @@ export const getProduct = async (id: string) => {
     `${productResourceUrl}/${id}`,
     getRequestOptions(user.access_token)
   )
-  return response.data.product
+  return response.data.product as IProduct
 }

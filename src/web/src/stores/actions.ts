@@ -1,6 +1,21 @@
+export interface IAction {
+  type: string
+}
+
 export interface ActionsWithoutPayload<TypeAction> {
   type: TypeAction
 }
+
+export interface ActionsWithPayload<TypeAction, TypePayload> {
+  type: TypeAction
+  payload: TypePayload
+}
+
+export interface ActionCreatorsMapObject {
+  [key: string]: (...args: any[]) => ActionsWithPayload<any, any> | ActionsWithoutPayload<any>
+}
+
+export type ActionsUnion<A extends ActionCreatorsMapObject> = ReturnType<A[keyof A]>
 
 export function createAction<TypeAction>(actionType: TypeAction): () => ActionsWithoutPayload<TypeAction> {
   return (): ActionsWithoutPayload<TypeAction> => {
@@ -19,19 +34,4 @@ export function createActionPayload<TypeAction, TypePayload>(
       type: actionType
     }
   }
-}
-
-export interface ActionsWithPayload<TypeAction, TypePayload> {
-  type: TypeAction
-  payload: TypePayload
-}
-
-interface ActionCreatorsMapObject {
-  [key: string]: (...args: any[]) => ActionsWithPayload<any, any> | ActionsWithoutPayload<any>
-}
-
-export type ActionsUnion<A extends ActionCreatorsMapObject> = ReturnType<A[keyof A]>
-
-export interface IAction {
-  type: string
 }

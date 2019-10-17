@@ -1,13 +1,17 @@
 // ref https://stackblitz.com/edit/react-ts-tg3gfu
 import React, { createContext, useContext, useReducer } from 'react'
 import { createAction, createActionPayload, ActionsUnion } from './actions'
-import { IAppState, IAppContextProps, IAppUser, IProduct, ICart } from './types'
+import { IAppState, IAppContextProps, IAppUser, IProduct, ICart, IUpdateProductInCart } from './types'
 
 export const LOAD_USER_LOGIN = 'LOAD_USER_LOGIN'
 export const UNLOAD_USER_LOGIN = 'UNLOAD_USER_LOGIN'
 export const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 export const LOAD_PRODUCT = 'LOAD_PRODUCT'
 export const LOAD_CART = 'LOAD_CART'
+export const UPDATE_PRODUCT_IN_CART = 'UPDATE_PRODUCT_IN_CART'
+export const DELETE_PRODUCT_IN_CART = 'DELETE_PRODUCT_IN_CART'
+export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION'
+export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION'
 
 const initialState: IAppState = {
   user: null,
@@ -18,7 +22,9 @@ const initialState: IAppState = {
   productDetail: null,
   isProductLoaded: false,
   cart: null,
-  isCartLoaded: false
+  isCartLoaded: false,
+  isShowNotification: false,
+  notificationMessage: null
 }
 
 export const AppActions = {
@@ -26,7 +32,11 @@ export const AppActions = {
   unloadUserLogin: createAction<typeof UNLOAD_USER_LOGIN>(UNLOAD_USER_LOGIN),
   loadProducts: createActionPayload<typeof LOAD_PRODUCTS, IProduct[]>(LOAD_PRODUCTS),
   loadProduct: createActionPayload<typeof LOAD_PRODUCT, IProduct>(LOAD_PRODUCT),
-  loadCart: createActionPayload<typeof LOAD_CART, ICart>(LOAD_CART)
+  loadCart: createActionPayload<typeof LOAD_CART, ICart>(LOAD_CART),
+  updateProductInCart: createActionPayload<typeof UPDATE_PRODUCT_IN_CART, IUpdateProductInCart>(UPDATE_PRODUCT_IN_CART),
+  deleteProductInCart: createActionPayload<typeof DELETE_PRODUCT_IN_CART, string>(DELETE_PRODUCT_IN_CART),
+  showNotification: createActionPayload<typeof SHOW_NOTIFICATION, string>(SHOW_NOTIFICATION),
+  hideNotification: createAction<typeof HIDE_NOTIFICATION>(HIDE_NOTIFICATION)
 }
 
 const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => {
@@ -67,6 +77,48 @@ const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => 
         isCartLoaded: true
       }
 
+    case UPDATE_PRODUCT_IN_CART:
+      if (state.cart) {
+        const product = state.cart.items.filter(x => x.productId !== action.payload.productId)[0]
+        if (product) {
+          product['quantity'] = product.quantity + action.payload.quantity
+        }
+      }
+
+      return {
+        ...state
+      }
+
+    case DELETE_PRODUCT_IN_CART:
+      if (state.cart) {
+        const items = state.cart.items.filter(x => x.productId !== action.payload)
+        const cart = {
+          ...state.cart,
+          items: items
+        }
+
+        return {
+          ...state,
+          cart
+        }
+      }
+
+      return { ...state }
+
+    case SHOW_NOTIFICATION:
+      return {
+        ...state,
+        notificationMessage: action.payload,
+        isShowNotification: true
+      }
+
+    case HIDE_NOTIFICATION:
+      return {
+        ...state,
+        notificationMessage: null,
+        isShowNotification: false
+      }
+
     default:
       const exhaustiveCheck: never = action
       if (typeof exhaustiveCheck != 'undefined') break
@@ -75,7 +127,7 @@ const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => 
 
 export const AppContext = createContext({} as IAppContextProps)
 
-export const AppProvider = (props: any) => {
+export const AppProvider = (props: React.Props<IAppContextProps>) => {
   const [state, dispatch] = useReducer(reducers, initialState)
   const value = { state, dispatch } as IAppContextProps
   return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>

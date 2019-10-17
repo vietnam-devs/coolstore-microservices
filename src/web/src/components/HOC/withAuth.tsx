@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { RouteChildrenProps } from 'react-router'
-
 import { AuthService } from 'services'
 
 const withAuth = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
-  return class extends React.Component<P & RouteChildrenProps> {
-    async componentDidMount() {
-      let location = { ...(this.props as RouteChildrenProps) }
-      AuthService.authenticateUser(location)
-    }
+  return function({ ...props }: P & RouteChildrenProps) {
+    const location = { ...(props as RouteChildrenProps) }
+    const authUser = useCallback(async () => {
+      await AuthService.authenticateUser(location)
+    }, [location])
 
-    render() {
-      return <WrappedComponent {...this.props} />
-    }
+    useEffect(() => {
+      authUser()
+    }, [authUser])
+
+    return <>{<WrappedComponent {...props} />}</>
   }
 }
 

@@ -40,14 +40,42 @@ export interface ICartItem {
   inventoryWebsite: string
 }
 
+export interface IUpdateProductInCart {
+  productId: string
+  quantity: number
+}
+
 export interface IAppState {
   user: IAppUser | null
   authenticated: boolean
   accessToken: string | null
+
   products: IProduct[]
   isProductsLoaded: boolean
   productDetail: IProduct
   isProductLoaded: boolean
+
+  cart: ICart
+  isCartLoaded: boolean
+
+  isShowNotification: boolean
+  notificationMessage: string
+}
+
+export interface IUserStore {
+  user: IAppUser | null
+  authenticated: boolean
+  accessToken: string | null
+}
+
+export interface IProductStore {
+  products: IProduct[]
+  isProductsLoaded: boolean
+  productDetail: IProduct
+  isProductLoaded: boolean
+}
+
+export interface ICartStore {
   cart: ICart
   isCartLoaded: boolean
 }

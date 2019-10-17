@@ -123,17 +123,18 @@ const StyledDetailButton = styled(Button)`
 
 interface IProps extends RouteComponentProps {
   data: IProduct
+  onAddProductToCart: (productId: string) => void
 }
 
-const ProductItem: React.FC<IProps> = ({ data, history }) => {
+const ProductItem: React.FC<IProps> = ({ data, onAddProductToCart, history }) => {
   return (
     <>
       <StyledProductThumbnail>
         <StyledProductImgHead>
           <StyledProductImg>
-            <a href={`/product/${data.id}`}>
+            <Button color="link" onClick={() => history.push(`/product/${data.id}`)}>
               <StyledImg src={data.imageUrl} alt="" className="img-fluid" />
-            </a>
+            </Button>
           </StyledProductImg>
           <StyledRibbons className="bg-brand"></StyledRibbons>
           <StyledRibbonsText>Offer</StyledRibbonsText>
@@ -155,7 +156,12 @@ const ProductItem: React.FC<IProps> = ({ data, history }) => {
             </StyledProductRating>
             <StyledProductPrice>${data.price}</StyledProductPrice>
           </StyledProductContentHead>
-          <Button color="primary">
+          <Button
+            color="primary"
+            onClick={() => {
+              onAddProductToCart(data.id)
+            }}
+          >
             <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon> Add to Cart
           </Button>
           <StyledDetailButton

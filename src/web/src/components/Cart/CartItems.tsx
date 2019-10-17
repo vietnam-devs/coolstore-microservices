@@ -12,9 +12,10 @@ const StyledProductImg = styled.img`
 
 interface IProps {
   cart: ICart
+  onProductDeleted: (cartId: string, productId: string) => void
 }
 
-const CartItems: React.FC<IProps> = ({ cart }) => {
+const CartItems: React.FC<IProps> = ({ cart, onProductDeleted }) => {
   return (
     <Table size="sm">
       <thead>
@@ -55,7 +56,7 @@ const CartItems: React.FC<IProps> = ({ cart }) => {
               />
             </td>
             <td>
-              <Button color="danger" size="sm">
+              <Button color="danger" size="sm" onClick={() => onProductDeleted(cart.id, item.productId)}>
                 <FontAwesomeIcon icon={faTrashAlt} />
               </Button>
             </td>
