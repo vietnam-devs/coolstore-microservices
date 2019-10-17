@@ -352,12 +352,5 @@ src/web/shrinkwrap.yaml
 
 **/*/*.env
 
-# ignore package of grpc-swagger-gen
-./src/github.com/
-./src/google.golang.org/
-./src/gopkg.in/
-
 # git submodules
-src/netcorekit/
-.gitmodules
 **/*/healthchecksdb
