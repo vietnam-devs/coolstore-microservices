@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Input, Label, CustomInput } from 'reactstrap'
 import styled from 'styled-components'
+import _ from 'lodash'
 
 const StyledProductSideBar = styled.div`
   background-color: #fff;
@@ -24,7 +25,7 @@ const StyledProductSideBarWidgetTitle = styled.h4`
 interface IProps {
   initPrice: number
   maxPrice: number
-  onPriceFilterChange: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
+  onPriceFilterChange: (price: number) => void
 }
 
 const Filter: React.FC<IProps> = ({ onPriceFilterChange, initPrice, maxPrice }) => {
@@ -46,9 +47,11 @@ const Filter: React.FC<IProps> = ({ onPriceFilterChange, initPrice, maxPrice }) 
             min={0}
             defaultValue={initPrice}
             max={maxPrice}
-            onMouseUp={e => {
-              onPriceFilterChange(e)
-              setPrice(+e.currentTarget.value)
+            onChange={e => {
+              _.debounce(price => {
+                onPriceFilterChange(price)
+                setPrice(price)
+              }, 100)(+e.currentTarget.value)
             }}
           />
         </StyledProductSideBarWidget>

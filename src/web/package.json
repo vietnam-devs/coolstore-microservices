@@ -7,6 +7,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.6",
     "@types/jest": "24.0.18",
+    "@types/lodash": "^4.14.144",
     "@types/node": "12.7.11",
     "@types/react": "16.9.5",
     "@types/react-dom": "16.9.1",

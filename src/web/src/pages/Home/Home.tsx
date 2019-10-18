@@ -21,8 +21,8 @@ const Home: React.FC<IProps> = props => {
     [dispatch]
   )
 
-  const onPriceFilterChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    fetchData(1, +e.currentTarget.value)
+  const onPriceFilterChange = (price: number) => {
+    fetchData(1, price)
   }
 
   const onAddProductToCart = async (productId: string) => {

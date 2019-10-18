@@ -11,6 +11,8 @@ import {
   Collapse,
   Button
 } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart, faUser, faSearch } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
 
@@ -75,14 +77,16 @@ const Header: React.FC<IProps> = ({ history }) => {
       <div>
         <StyledNavBar color="light" light expand="md">
           <span className="lead">
-            Search&nbsp;<input type="textbox"></input>
+            <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon> Search&nbsp;<input type="textbox"></input>
           </span>
           <Collapse navbar>
             <Nav className="ml-auto">
               <StyledDropdown nav inNavbar>
-                <StyledNavLink onClick={() => history.push(`/cart`)}>Cart</StyledNavLink>
+                <StyledNavLink onClick={() => history.push(`/cart`)}>
+                  <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon> Cart
+                </StyledNavLink>
                 <DropdownToggle nav caret>
-                  {user != null ? user.userName : ''}
+                  <FontAwesomeIcon icon={faUser}></FontAwesomeIcon> {user != null ? user.userName : ''}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <Button
