@@ -281,3 +281,58 @@ spec:
       protocol: TCP
       name: http
 ---
+# web
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-v1
+  namespace: coolstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: web
+        version: v1
+    spec:
+      containers:
+        - name: web
+          image: vndg/web-v3:latest
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: PORT
+            value: "31999"
+          - name: REACT_APP_AUTHORITY
+            value: http://access-control-api:31888
+          - name: REACT_APP_API
+            value: http://webapi-gateway:31666
+          ports:
+            - containerPort: 31999
+              name: http
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: coolstore
+  labels:
+    app: web
+spec:
+  type: LoadBalancer
+  selector:
+    app: web
+  ports:
+    - port: 31999
+      nodePort: 31999
+      targetPort: http
+      protocol: TCP
+      name: http
+---

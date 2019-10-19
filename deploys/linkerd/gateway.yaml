@@ -6,6 +6,7 @@ metadata:
   name: coolstore-ingress
   namespace: coolstore
   annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
@@ -16,12 +17,21 @@ spec:
     - host: api.coolstore.local
       http:
         paths:
-          - backend:
-              serviceName: webapi-gateway
-              servicePort: 31666
+        - path: /
+          backend:
+            serviceName: webapi-gateway
+            servicePort: 31666
     - host: id.coolstore.local
       http:
         paths:
-          - backend:
-              serviceName: access-control-api
-              servicePort: 31888
+        - path: /
+          backend:
+            serviceName: access-control-api
+            servicePort: 31888
+    - host: coolstore.local
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: web
+            servicePort: 31999
