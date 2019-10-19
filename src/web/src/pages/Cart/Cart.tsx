@@ -1,10 +1,10 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import styled from 'styled-components'
 
 import { AppActions, useStore } from 'stores/store'
-import { getCartForCurrentUser, deleteCartForCurrentUser } from 'services/CartService'
-
+import { getCartForCurrentUser, updateCartForCurrentUser, deleteCartForCurrentUser } from 'services/CartService'
+import { ICart } from 'stores/types'
 import { CartItems, CartSummary } from 'components/Cart'
 import { withLayout } from 'components/HOC'
 
@@ -14,9 +14,11 @@ const StyledContainer = styled.div`
 
 const Cart: React.FC = () => {
   const { state, dispatch } = useStore()
+  const [cart, setCart] = useState<ICart>(null)
 
   const fetchData = useCallback(async () => {
-    const cart = await getCartForCurrentUser()
+    let cart = await getCartForCurrentUser()
+    setCart(cart)
     dispatch(AppActions.loadCart(cart))
   }, [dispatch])
 
@@ -25,22 +27,34 @@ const Cart: React.FC = () => {
     dispatch(AppActions.deleteProductInCart(deletedProductId))
   }
 
+  const onProductUpdated = async (productId: string, quantity: number) => {
+    if (cart) {
+      let updatedCart = await updateCartForCurrentUser(cart.id, productId, quantity)
+      setCart(updatedCart)
+      dispatch(AppActions.updateProductInCart({ productId: productId, quantity: quantity }))
+    }
+  }
+
   useEffect(() => {
     fetchData()
   }, [state.isCartLoaded, fetchData])
 
   return (
     <>
-      {state.isCartLoaded && state.cart && state.cart.items.length > 0 && (
+      {state.isCartLoaded && cart && cart.items.length > 0 && (
         <StyledContainer>
           <Container fluid>
             <Row>
               <Col sm="8">
-                <CartItems cart={state.cart} onProductDeleted={onProductDeleted}></CartItems>
+                {cart && (
+                  <CartItems
+                    cart={cart}
+                    onProductUpdated={onProductUpdated}
+                    onProductDeleted={onProductDeleted}
+                  ></CartItems>
+                )}
               </Col>
-              <Col sm="4">
-                <CartSummary cart={state.cart}></CartSummary>
-              </Col>
+              <Col sm="4">{cart && <CartSummary cart={cart}></CartSummary>}</Col>
             </Row>
           </Container>
         </StyledContainer>

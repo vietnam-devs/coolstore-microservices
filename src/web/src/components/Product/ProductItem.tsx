@@ -1,9 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from 'reactstrap'
-import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faHeart, faShoppingCart, faShareSquare } from '@fortawesome/free-solid-svg-icons'
-import { RouteComponentProps } from 'react-router-dom'
+import styled from 'styled-components'
 
 import { IProduct } from 'stores/types'
 
@@ -117,36 +117,41 @@ const StyledProductPrice = styled.div`
   line-height: 1;
 `
 
-const StyledDetailButton = styled(Button)`
+const StyledDetailButton = styled(Link)`
   margin: 0 0 0 5px;
 `
 
-interface IProps extends RouteComponentProps {
+interface IProps {
   data: IProduct
   onAddProductToCart: (productId: string) => void
 }
 
-const ProductItem: React.FC<IProps> = ({ data, onAddProductToCart, history }) => {
+const ProductItem: React.FC<IProps> = ({ data, onAddProductToCart }) => {
   return (
     <>
       <StyledProductThumbnail>
         <StyledProductImgHead>
           <StyledProductImg>
-            <Button color="link" onClick={() => history.push(`/product/${data.id}`)}>
+            <Link to={`/product/${data.id}`}>
               <StyledImg src={data.imageUrl} alt="" className="img-fluid" />
-            </Button>
+            </Link>
           </StyledProductImg>
+
           <StyledRibbons className="bg-brand"></StyledRibbons>
+
           <StyledRibbonsText>Offer</StyledRibbonsText>
+
           <StyledProductWishListBtn href="#">
             <FontAwesomeIcon icon={faHeart} />
           </StyledProductWishListBtn>
         </StyledProductImgHead>
+
         <StyledProductContent>
           <StyledProductContentHead>
             <StyledProductTitle className="product-title">
               {data.name.replace(/^(.{25}[^\s]*).*/, '$1')}
             </StyledProductTitle>
+
             <StyledProductRating className="d-inline-block">
               <FontAwesomeIcon icon={faStar} />
               <FontAwesomeIcon icon={faStar} />
@@ -154,8 +159,10 @@ const ProductItem: React.FC<IProps> = ({ data, onAddProductToCart, history }) =>
               <FontAwesomeIcon icon={faStar} />
               <FontAwesomeIcon icon={faStar} />
             </StyledProductRating>
+
             <StyledProductPrice>${data.price}</StyledProductPrice>
           </StyledProductContentHead>
+
           <Button
             color="primary"
             onClick={() => {
@@ -164,12 +171,8 @@ const ProductItem: React.FC<IProps> = ({ data, onAddProductToCart, history }) =>
           >
             <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon> Add to Cart
           </Button>
-          <StyledDetailButton
-            color="secondary"
-            onClick={() => {
-              history.push(`/product/${data.id}`)
-            }}
-          >
+
+          <StyledDetailButton className="btn btn-secondary" to={`/product/${data.id}`}>
             <FontAwesomeIcon icon={faShareSquare}></FontAwesomeIcon> Detail
           </StyledDetailButton>
         </StyledProductContent>

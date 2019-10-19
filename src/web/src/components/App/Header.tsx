@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, memo } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Jumbotron,
   Container,
@@ -17,10 +18,9 @@ import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
 
 import { AuthService } from 'services'
-
 import { IAppUser } from 'stores/types'
 
-const StyledHeader = styled.a`
+const StyledHeader = styled(Link)`
   text-decoration: none;
   &:hover {
     text-decoration: none;
@@ -63,7 +63,7 @@ const Header: React.FC<IProps> = ({ history }) => {
         <Container fluid>
           <div>
             <h1 className="display-4">
-              <StyledHeader onClick={() => history.push(`/`)}>CoolStore Microservices</StyledHeader>
+              <StyledHeader to={`/`}>CoolStore Microservices</StyledHeader>
             </h1>
             <p className="lead">
               A containerised microservices application consisting of services based on .NET Core, NodeJS and more

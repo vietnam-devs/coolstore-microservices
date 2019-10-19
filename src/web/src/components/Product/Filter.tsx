@@ -47,7 +47,7 @@ const Filter: React.FC<IProps> = ({ onPriceFilterChange, initPrice, maxPrice }) 
             min={0}
             defaultValue={initPrice}
             max={maxPrice}
-            onChange={e => {
+            onMouseUp={e => {
               _.debounce(price => {
                 onPriceFilterChange(price)
                 setPrice(price)

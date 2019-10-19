@@ -1,5 +1,7 @@
 // ref https://stackblitz.com/edit/react-ts-tg3gfu
 import React, { createContext, useContext, useReducer } from 'react'
+import _ from 'lodash'
+
 import { createAction, createActionPayload, ActionsUnion } from './actions'
 import { IAppState, IAppContextProps, IAppUser, IProduct, ICart, IUpdateProductInCart } from './types'
 
@@ -78,28 +80,27 @@ const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => 
       }
 
     case UPDATE_PRODUCT_IN_CART:
-      if (state.cart) {
-        const product = state.cart.items.filter(x => x.productId !== action.payload.productId)[0]
+      const tempCart = state.cart
+      if (tempCart) {
+        const product = _.find(tempCart.items, ['productId', action.payload.productId])
         if (product) {
           product['quantity'] = product.quantity + action.payload.quantity
         }
       }
 
       return {
+        cart: tempCart,
         ...state
       }
 
     case DELETE_PRODUCT_IN_CART:
-      if (state.cart) {
-        const items = state.cart.items.filter(x => x.productId !== action.payload)
-        const cart = {
-          ...state.cart,
-          items: items
-        }
-
+      let cartUpdated = state.cart
+      if (cartUpdated) {
+        const items = _.filter(cartUpdated.items, x => x.productId !== action.payload)
+        cartUpdated.items = items
         return {
           ...state,
-          cart
+          cart: cartUpdated
         }
       }
 

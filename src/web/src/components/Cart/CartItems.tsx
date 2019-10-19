@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Media, Table, Input, Button } from 'reactstrap'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,9 +14,10 @@ const StyledProductImg = styled.img`
 interface IProps {
   cart: ICart
   onProductDeleted: (cartId: string, productId: string) => void
+  onProductUpdated: (productId: string, quantity: number) => void
 }
 
-const CartItems: React.FC<IProps> = ({ cart, onProductDeleted }) => {
+const CartItems: React.FC<IProps> = ({ cart, onProductUpdated, onProductDeleted }) => {
   return (
     <Table size="sm">
       <thead>
@@ -33,11 +35,13 @@ const CartItems: React.FC<IProps> = ({ cart, onProductDeleted }) => {
             <th scope="row">{index + 1}</th>
             <td>
               <Media>
-                <Media left href="#">
+                <Media left>
                   <StyledProductImg src={item.productImagePath} width="64" height="64"></StyledProductImg>
                 </Media>
                 <Media body>
-                  <Media heading>{item.productName.replace(/^(.{25}[^\s]*).*/, '$1')}</Media>
+                  <Media heading>
+                    <Link to={`/product/${item.productId}`}>{item.productName.replace(/^(.{25}[^\s]*).*/, '$1')}</Link>
+                  </Media>
                   <p>{item.productDesc.replace(/^(.{50}[^\s]*).*/, '$1')}</p>
                 </Media>
               </Media>
@@ -53,6 +57,7 @@ const CartItems: React.FC<IProps> = ({ cart, onProductDeleted }) => {
                 defaultValue={item.quantity}
                 min={1}
                 placeholder="choose product quantity"
+                onClick={() => onProductUpdated(item.productId, 1)}
               />
             </td>
             <td>
