@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CloudNativeKit.Domain;
 using VND.CoolStore.ShoppingCart.DataContracts.Dto.V1;
 using VND.CoolStore.ShoppingCart.DataContracts.Event.V1;
+using VND.CoolStore.ShoppingCart.Domain.ProductCatalog;
 using static CloudNativeKit.Utils.Helpers.IdHelper;
 
 namespace VND.CoolStore.ShoppingCart.Domain.Cart
@@ -113,7 +114,7 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
             return this;
         }
 
-        public CartDto ToDto(IProductCatalogService productCatalogService)
+        public async Task<CartDto> ToDto(IProductCatalogService productCatalogService, IInventoryGateway inventoryGateway)
         {
             var cartDto = new CartDto
             {
@@ -127,17 +128,34 @@ namespace VND.CoolStore.ShoppingCart.Domain.Cart
                 IsCheckOut = IsCheckout
             };
 
+            var inventories = await inventoryGateway.GetAvailabilityInventories();
+
             cartDto.Items.AddRange(CartItems.Select(cc =>
             {
                 var prod = productCatalogService.GetProductById(cc.Product.ProductId);
-                return new CartItemDto
+                var inventory = inventories.FirstOrDefault(x => x.Id == prod.InventoryId);
+
+                var cartItem = new CartItemDto
                 {
                     ProductId = cc.Product.ProductId.ToString(),
                     ProductName = prod.Name,
+                    ProductPrice = prod.Price,
+                    ProductImagePath = prod.ImagePath,
+                    ProductDesc = prod.Desc,
                     Price = prod.Price,
                     Quantity = cc.Quantity,
                     PromoSavings = cc.PromoSavings
                 };
+
+                if(inventory != null)
+                {
+                    cartItem.InventoryId = inventory.Id;
+                    cartItem.InventoryLocation = inventory.Location;
+                    cartItem.InventoryWebsite = inventory.Website;
+                    cartItem.InventoryDescription = inventory.Description;
+                }
+
+                return cartItem;
             }).ToList());
 
             return cartDto;

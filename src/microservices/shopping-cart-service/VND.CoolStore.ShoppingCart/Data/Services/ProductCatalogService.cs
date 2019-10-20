@@ -29,7 +29,10 @@ namespace VND.CoolStore.ShoppingCart.Data.Services
                     Id = p.Id.ToString(),
                     Name = p.Name,
                     Price = p.Price,
-                    Desc = p.Desc
+                    Desc = p.Desc,
+                    ImagePath = p.ImagePath,
+                    InventoryId = p.InventoryId.ToString(),
+                    IsDeleted = p.IsDeleted
                 })
                 .SingleOrDefault();
         }
@@ -45,7 +48,10 @@ namespace VND.CoolStore.ShoppingCart.Data.Services
                     Id = p.Id.ToString(),
                     Name = p.Name,
                     Price = p.Price,
-                    Desc = p.Desc
+                    Desc = p.Desc,
+                    ImagePath = p.ImagePath,
+                    InventoryId = p.InventoryId.ToString(),
+                    IsDeleted = p.IsDeleted
                 })
                 .SingleOrDefault();
 
@@ -62,7 +68,10 @@ namespace VND.CoolStore.ShoppingCart.Data.Services
                     Id = p.Id.ToString(),
                     Name = p.Name,
                     Price = p.Price,
-                    Desc = p.Desc
+                    Desc = p.Desc,
+                    ImagePath = p.ImagePath,
+                    InventoryId = p.InventoryId.ToString(),
+                    IsDeleted = p.IsDeleted
                 })
                 .ToListAsync();
         }

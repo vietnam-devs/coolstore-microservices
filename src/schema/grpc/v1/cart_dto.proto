@@ -8,6 +8,8 @@ message ProductDto {
   string desc = 3;
   double price = 4;
   string image_path = 5;
+  string inventory_id = 6;
+  bool is_deleted = 7;
 }
 
 message CartDto {

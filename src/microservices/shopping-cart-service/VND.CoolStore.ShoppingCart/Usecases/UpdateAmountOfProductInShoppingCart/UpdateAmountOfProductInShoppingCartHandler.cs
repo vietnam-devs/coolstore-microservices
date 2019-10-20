@@ -9,6 +9,7 @@ using VND.CoolStore.ShoppingCart.Data.Repositories;
 using VND.CoolStore.ShoppingCart.DataContracts.Api.V1;
 using VND.CoolStore.ShoppingCart.Domain;
 using VND.CoolStore.ShoppingCart.Domain.Cart;
+using VND.CoolStore.ShoppingCart.Domain.ProductCatalog;
 
 namespace VND.CoolStore.ShoppingCart.Usecases.UpdateAmountOfProductInShoppingCart
 {
@@ -18,17 +19,20 @@ namespace VND.CoolStore.ShoppingCart.Usecases.UpdateAmountOfProductInShoppingCar
         private readonly IProductCatalogService _productCatalogService;
         private readonly IPromoGateway _promoGateway;
         private readonly IShippingGateway _shippingGateway;
+        private readonly IInventoryGateway _inventoryGateway;
 
         public UpdateAmountOfProductInShoppingCartHandler(
             IEfUnitOfWork<ShoppingCartDataContext> unitOfWork,
             IProductCatalogService productCatalogService,
             IPromoGateway promoGateway,
-            IShippingGateway shippingGateway)
+            IShippingGateway shippingGateway,
+            IInventoryGateway inventoryGateway)
         {
             _unitOfWork = unitOfWork;
             _productCatalogService = productCatalogService;
             _promoGateway = promoGateway;
             _shippingGateway = shippingGateway;
+            _inventoryGateway = inventoryGateway;
         }
 
         public async Task<UpdateItemInCartResponse> Handle(UpdateItemInCartRequest request, CancellationToken cancellationToken)
@@ -59,7 +63,7 @@ namespace VND.CoolStore.ShoppingCart.Usecases.UpdateAmountOfProductInShoppingCar
                 throw new Exception("Could not update data.");
             }
 
-            return new UpdateItemInCartResponse { Result = cart.ToDto(_productCatalogService) };
+            return new UpdateItemInCartResponse { Result = await cart.ToDto(_productCatalogService, _inventoryGateway) };
         }
     }
 }

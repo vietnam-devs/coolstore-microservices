@@ -22,6 +22,10 @@ $ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 
 # Up and running on Kubernetes and Service Mesh
 
+```bash
+$ cd deploys\linkerd
+```
+
 ## Kubernetes
 
 ```bash

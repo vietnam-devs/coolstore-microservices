@@ -1,20 +1,13 @@
 # migration
-apiVersion: apps/v1
-kind: Deployment
+---
+apiVersion: batch/v1
+kind: Job
 metadata:
   name: migration-v1
   namespace: coolstore
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: migration
-      version: v1
+  activeDeadlineSeconds: 120
   template:
-    metadata:
-      labels:
-        app: migration
-        version: v1
     spec:
       containers:
       - name: migration
@@ -27,27 +20,4 @@ spec:
           value: Data Source=sqlserver,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
         - name: ConnectionStrings__inventory
           value: Data Source=sqlserver,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-        ports:
-        - containerPort: 80
-          name: http
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: migration
-  namespace: coolstore
-  labels:
-    app: migration
-spec:
-  type: ClusterIP
-  selector:
-    app: migration
-  ports:
-  - port: 80
-    targetPort: http
-    protocol: TCP
-    name: http
+      restartPolicy: Never
