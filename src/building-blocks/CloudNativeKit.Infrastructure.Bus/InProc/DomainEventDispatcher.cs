@@ -5,7 +5,6 @@ using CloudNativeKit.Infrastructure.Bus.Messaging;
 using CloudNativeKit.Infrastructure.Data.EfCore.Core;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace CloudNativeKit.Infrastructure.Bus.InProc
 {

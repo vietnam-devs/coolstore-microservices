@@ -11,7 +11,7 @@ using VND.CoolStore.ProductCatalog.DataContracts.Event.V1;
 
 namespace VND.CoolStore.ShoppingCart.ProcessingServices
 {
-    public class ScopedProcessingService : ScopedProcessingServiceBase, IScopedProcessingService
+    public class ScopedProcessingService : OutboxScopedProcessingServiceBase, IScopedProcessingService
     {
         public ScopedProcessingService(IEfUnitOfWork<MessagingDataContext> unitOfWork, IMessageBus messageBus, ILogger<ScopedProcessingService> logger)
             : base(unitOfWork, messageBus, logger)

@@ -6,7 +6,7 @@ namespace CloudNativeKit.Utils.Extensions
 {
     public static class DynamicExtensions
     {
-        public static dynamic ToDynamic(this object value)
+        public static dynamic? ToDynamic(this object value)
         {
             IDictionary<string, object> expando = new ExpandoObject();
 

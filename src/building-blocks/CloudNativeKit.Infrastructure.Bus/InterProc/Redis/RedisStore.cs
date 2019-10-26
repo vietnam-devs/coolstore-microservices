@@ -6,7 +6,7 @@ namespace CloudNativeKit.Infrastructure.Bus.InterProc.Redis
 {
     public class RedisStore
     {
-        private static Lazy<ConnectionMultiplexer> _lazyConnection;
+        private static Lazy<ConnectionMultiplexer>? _lazyConnection = null;
 
         public RedisStore(IOptions<RedisOptions> redisOptions)
         {
@@ -23,7 +23,7 @@ namespace CloudNativeKit.Infrastructure.Bus.InterProc.Redis
                 new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(configurationOptions));
         }
 
-        public ConnectionMultiplexer Connection => _lazyConnection.Value;
+        public ConnectionMultiplexer Connection => _lazyConnection?.Value ?? throw new Exception("Couldn't connect to Redis server.");
 
         public IDatabase RedisCache => Connection.GetDatabase();
     }

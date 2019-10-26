@@ -93,7 +93,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AccessControlService", "Acc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Inventory.DataContracts", "src\microservices\inventory-service\VND.CoolStore.Inventory.DataContracts\VND.CoolStore.Inventory.DataContracts.csproj", "{E2ABF907-116D-4D9F-8902-CAD3D43D0172}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Inventory.Api", "src\microservices\inventory-service\VND.CoolStore.Inventory.Api\VND.CoolStore.Inventory.Api.csproj", "{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Inventory.Api", "src\microservices\inventory-service\VND.CoolStore.Inventory.Api\VND.CoolStore.Inventory.Api.csproj", "{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchService", "SearchService", "{EDE6354B-8FB8-4AA4-A98C-1A2C3005C470}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Search", "src\microservices\search-service\VND.CoolStore.Search\VND.CoolStore.Search.csproj", "{EE51FF12-ECA3-4592-810F-0E0AFC16966C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Search.Api", "src\microservices\search-service\VND.CoolStore.Search.Api\VND.CoolStore.Search.Api.csproj", "{C0E3FA9B-A2E3-46B5-9F43-7EF51D0D0D4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Search.DataContracts", "src\microservices\search-service\VND.CoolStore.Search.DataContracts\VND.CoolStore.Search.DataContracts.csproj", "{3E899680-A445-4335-9126-73C9DD7761EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +185,18 @@ Global
 		{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B92DA838-5F21-4A55-AE36-ABB8ED578DDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE51FF12-ECA3-4592-810F-0E0AFC16966C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE51FF12-ECA3-4592-810F-0E0AFC16966C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE51FF12-ECA3-4592-810F-0E0AFC16966C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE51FF12-ECA3-4592-810F-0E0AFC16966C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0E3FA9B-A2E3-46B5-9F43-7EF51D0D0D4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0E3FA9B-A2E3-46B5-9F43-7EF51D0D0D4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0E3FA9B-A2E3-46B5-9F43-7EF51D0D0D4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0E3FA9B-A2E3-46B5-9F43-7EF51D0D0D4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E899680-A445-4335-9126-73C9DD7761EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E899680-A445-4335-9126-73C9DD7761EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E899680-A445-4335-9126-73C9DD7761EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E899680-A445-4335-9126-73C9DD7761EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,6 +228,10 @@ Global
 		{6868D90D-7C59-489F-B81A-12498B6C348A} = {09BCCF6A-4F53-4861-ADE3-C2070E12C3AA}
 		{E2ABF907-116D-4D9F-8902-CAD3D43D0172} = {83C697D1-302B-45FE-99D0-50D4A30C7731}
 		{B92DA838-5F21-4A55-AE36-ABB8ED578DDD} = {83C697D1-302B-45FE-99D0-50D4A30C7731}
+		{EDE6354B-8FB8-4AA4-A98C-1A2C3005C470} = {09BCCF6A-4F53-4861-ADE3-C2070E12C3AA}
+		{EE51FF12-ECA3-4592-810F-0E0AFC16966C} = {EDE6354B-8FB8-4AA4-A98C-1A2C3005C470}
+		{C0E3FA9B-A2E3-46B5-9F43-7EF51D0D0D4B} = {EDE6354B-8FB8-4AA4-A98C-1A2C3005C470}
+		{3E899680-A445-4335-9126-73C9DD7761EE} = {EDE6354B-8FB8-4AA4-A98C-1A2C3005C470}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277B7E0A-BA8E-4DF8-ABD5-890801FC76F8}

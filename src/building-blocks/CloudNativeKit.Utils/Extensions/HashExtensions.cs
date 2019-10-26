@@ -59,7 +59,7 @@ namespace CloudNativeKit.Utils.Extensions
             return Hash(input, SHA1.Create());
         }
 
-        public static byte[] Sha256(this byte[] input)
+        public static byte[]? Sha256(this byte[] input)
         {
             if (input == null) return null;
 

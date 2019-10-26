@@ -85,18 +85,6 @@ services:
     networks:
       - coolstore
 
-  redis:
-    image: bitnami/redis:5.0.5-debian-9-r124
-    restart: always
-    networks:
-      - coolstore
-
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2017-latest
-    restart: always
-    networks:
-      - coolstore
-
 networks:
   coolstore:
     name: coolstore-network

@@ -1,4 +1,4 @@
-# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+# docker-compose -f docker-compose.base.yml -f docker-compose.base.override.yml -f docker-compose.yml -f docker-compose.override.yml up -d
 
 version: "3.7"
 
@@ -56,19 +56,6 @@ services:
       - ConnectionStrings__shoppingcart=Data Source=sqlserver,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
       - ConnectionStrings__productcatalog=Data Source=sqlserver,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
       - ConnectionStrings__inventory=Data Source=sqlserver,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-
-  redis:
-    environment:
-      REDIS_PASSWORD: "letmein"
-    ports:
-      - 6379:6379
-
-  sqlserver:
-    environment:
-      SA_PASSWORD: "P@ssw0rd"
-      ACCEPT_EULA: "Y"
-    ports:
-      - 1433:1433
 
 # only if you want to mount nuget packages path to save restore packages time on Windows
 volumes:

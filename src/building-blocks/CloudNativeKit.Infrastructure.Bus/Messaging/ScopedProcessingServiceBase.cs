@@ -11,22 +11,38 @@ namespace CloudNativeKit.Infrastructure.Bus.Messaging
 {
     public abstract class ScopedProcessingServiceBase
     {
-        protected ScopedProcessingServiceBase(IEfUnitOfWork<MessagingDataContext> unitOfWork, IMessageBus messageBus, ILogger<ScopedProcessingServiceBase> logger)
+        protected ScopedProcessingServiceBase(IMessageBus messageBus, ILogger<ScopedProcessingServiceBase> logger)
         {
-            UnitOfWork = unitOfWork;
             MessageBus = messageBus;
             Logger = logger;
         }
 
-        protected IEfUnitOfWork<MessagingDataContext> UnitOfWork { get; }
         protected IMessageBus MessageBus { get; }
         protected ILogger<ScopedProcessingServiceBase> Logger { get; }
+    }
+
+    public abstract class OutboxScopedProcessingServiceBase : ScopedProcessingServiceBase
+    {
+
+        protected OutboxScopedProcessingServiceBase(IEfUnitOfWork<MessagingDataContext>? unitOfWork, IMessageBus messageBus, ILogger<OutboxScopedProcessingServiceBase> logger)
+            : base(messageBus, logger)
+        {
+            UnitOfWork = unitOfWork;
+        }
+
+        protected IEfUnitOfWork<MessagingDataContext>? UnitOfWork { get; }
+
 
         public abstract bool ScanAssemblyWithConditions(Assembly assembly);
 
         [DebuggerStepThrough]
         protected async Task PublishEventsUnProcessInOutboxToChannels(params string[] channels)
         {
+            if (UnitOfWork is null)
+            {
+                throw new Exception("UnitOfWork for MessageContext cannot be null.");
+            }
+
             var @events = UnitOfWork.QueryRepository<Outbox, Guid>()
                     .Queryable()
                     .Where(evt => evt.ProcessedDate == null)

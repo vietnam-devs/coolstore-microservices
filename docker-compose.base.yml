@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+
+  redis:
+    image: bitnami/redis:5.0.5-debian-9-r124
+    restart: always
+    networks:
+      - coolstore
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    restart: always
+    networks:
+      - coolstore
+
+  elasticsearch:
+    image: elasticsearch:7.4.1
+    restart: always
+    container_name: elasticsearch
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - coolstore
+
+  seq:
+    image: datalust/seq
+    restart: always
+    container_name: seq
+    networks:
+      - coolstore
+
+networks:
+  coolstore:
+    name: coolstore-network

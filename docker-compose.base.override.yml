@@ -1,0 +1,39 @@
+# docker-compose -f docker-compose.base.yml -f docker-compose.base.override.yml up -d
+
+version: "3.7"
+
+services:
+
+  redis:
+    environment:
+      REDIS_PASSWORD: "letmein"
+    ports:
+      - 6379:6379
+
+  sqlserver:
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
+
+  elasticsearch:
+    environment:
+    - cluster.name=docker-cluster
+    - bootstrap.memory_lock=true
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - discovery.type=single-node
+    ports:
+    - 9200:9200
+
+  seq:
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 5340:80
+
+networks:
+  coolstore:
+    name: coolstore-network

@@ -30,17 +30,15 @@ namespace CloudNativeKit.Utils.Extensions
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static byte[] ToByteArray(this object obj)
+        public static byte[]? ToByteArray(this object obj)
         {
             if (obj == null)
                 return null;
 
             var bf = new BinaryFormatter();
-            using (var ms = new MemoryStream())
-            {
-                bf.Serialize(ms, obj);
-                return ms.ToArray();
-            }
+            using var ms = new MemoryStream();
+            bf.Serialize(ms, obj);
+            return ms.ToArray();
         }
     }
 }

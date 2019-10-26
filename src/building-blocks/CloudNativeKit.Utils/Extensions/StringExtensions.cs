@@ -5,7 +5,7 @@ namespace CloudNativeKit.Utils.Extensions
 {
     public static class StringExtensions
     {
-        public static string TrimStart(this string source, string trim,
+        public static string? TrimStart(this string source, string trim,
             StringComparison stringComparison = StringComparison.Ordinal)
         {
             if (source == null) return null;
