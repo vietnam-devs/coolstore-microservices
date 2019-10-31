@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="NEST" Version="7.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +22,7 @@
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure\CloudNativeKit.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Utils\CloudNativeKit.Utils.csproj" />
     <ProjectReference Include="..\..\product-catalog-service\VND.CoolStore.ProductCatalog.DataContracts\VND.CoolStore.ProductCatalog.DataContracts.csproj" />
-    <ProjectReference Include="..\..\search-service\VND.CoolStore.Search.DataContracts\VND.CoolStore.Search.DataContracts.csproj" />
+    <ProjectReference Include="..\VND.CoolStore.Search.DataContracts\VND.CoolStore.Search.DataContracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>

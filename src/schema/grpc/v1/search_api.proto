@@ -4,6 +4,21 @@ option csharp_namespace = "VND.CoolStore.Search.DataContracts.Api.V1";
 
 import "search_dto.proto";
 
-service SearchApi {
+service ProductSearchApi {
+  rpc SearchProduct(SearchProductRequest) returns (SearchProductResponse) {};
 }
 
+message SearchProductRequest {
+  string query = 1;
+  double price = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message SearchProductResponse {
+  int32 total = 1;
+  int32 page = 2;
+  repeated SearchProductModel results = 3;
+  repeated SearchAggsByTags category_tags = 4;
+  int32 elapsed_milliseconds = 5;
+}

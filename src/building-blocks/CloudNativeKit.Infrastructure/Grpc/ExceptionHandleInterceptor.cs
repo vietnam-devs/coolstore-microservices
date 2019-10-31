@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CloudNativeKit.Infrastructure.ValidationModel;
 using Grpc.Core;
@@ -12,6 +13,7 @@ namespace CloudNativeKit.Infrastructure.Grpc
     {
         private const string MessageTemplate = "{RequestMethod} responded {StatusCode} with error message {ErrorMessage}";
 
+        [DebuggerStepThrough]
         public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context, UnaryServerMethod<TRequest, TResponse> continuation)
         {
             try

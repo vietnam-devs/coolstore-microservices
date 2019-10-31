@@ -50,6 +50,7 @@ namespace VND.CoolStore.Search.Api
                     var seqUrl = hostingContext.Configuration.GetValue<string>("Seq:Connection");
                     Log.Logger = new LoggerConfiguration()
                         .MinimumLevel.Debug()
+                        .Enrich.WithProperty("Microservices", "SearchService")
                         .Enrich.FromLogContext()
                         .WriteTo.Console()
                         .WriteTo.Seq(seqUrl)

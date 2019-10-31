@@ -1,3 +1,22 @@
 syntax = "proto3";
 package coolstore;
 option csharp_namespace = "VND.CoolStore.Search.DataContracts.Dto.V1";
+
+message SearchProductModel {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  string image_url = 5;
+  SearchCategoryModel category = 6;
+}
+
+message SearchCategoryModel {
+  string id = 1;
+  string name = 2;
+}
+
+message SearchAggsByTags {
+  string key = 1;
+  int32 count = 2;
+}

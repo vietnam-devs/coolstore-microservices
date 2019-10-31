@@ -50,7 +50,7 @@ namespace VND.CoolStore.Search.Api
             });
 
             services.AddServiceComponents(Configuration);
-            services.AddHostedService<OutboxWorker>();
+            //services.AddHostedService<OutboxWorker>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -73,7 +73,7 @@ namespace VND.CoolStore.Search.Api
                 endpoints.MapHealthChecks("/liveness", new HealthCheckOptions {
                     Predicate = r => r.Name.Contains("self")
                 });
-                //endpoints.MapGrpcService<GrpcServices.SearchService>();
+                endpoints.MapGrpcService<GrpcServices.ProductSearchService>();
                 endpoints.MapControllers();
             });
         }
