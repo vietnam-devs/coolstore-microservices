@@ -9,11 +9,19 @@ message SearchProductModel {
   double price = 4;
   string image_url = 5;
   SearchCategoryModel category = 6;
+  SearchInventoryModel inventory = 7;
 }
 
 message SearchCategoryModel {
   string id = 1;
   string name = 2;
+}
+
+message SearchInventoryModel {
+  string id = 1;
+  string location = 2;
+  string website = 3;
+  string description = 4;
 }
 
 message SearchAggsByTags {

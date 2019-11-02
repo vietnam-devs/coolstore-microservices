@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,37 +12,31 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
 {
     public class SearchProductHandler : IRequestHandler<SearchProductRequest, SearchProductResponse>
     {
-        private readonly IConfiguration _config;
+        private readonly IElasticClient _client;
 
         public SearchProductHandler(IConfiguration config)
         {
-            _config = config;
+            var connString = config.GetValue<string>("ElasticSearch:Connection");
+            var settings = new ConnectionSettings(new Uri(connString))
+                .DefaultMappingFor<SearchProductModel>(i => i
+                    .IndexName("product")
+                )
+                .PrettyJson();
+            _client = new ElasticClient(settings);
         }
 
         public async Task<SearchProductResponse> Handle(SearchProductRequest request, CancellationToken cancellationToken)
         {
-            var connString = _config.GetValue<string>("ElasticSearch:Connection");
-
-            var settings = new ConnectionSettings(new Uri(connString))
-                .DefaultMappingFor<SearchProductModel>(i=>i
-                    .IndexName("product")
-                )
-                .PrettyJson();
-
-            var client = new ElasticClient(settings);
-            
-
-            // index
-            //await IndexData(client);
-
-            // search
-            var result = await client.SearchAsync<SearchProductModel>(s => s
-                .Query(q => q
-                    .MultiMatch(mm => mm
+            Func<QueryContainerDescriptor<SearchProductModel>, QueryContainer> queryAll = q => q.MatchAll();
+            Func<QueryContainerDescriptor<SearchProductModel>, QueryContainer> queryWithNameAndDesc = q => q
+                .MultiMatch(mm => mm
                         .Query(request.Query)
                             .Fields(f => f
-                                .Fields(f1 => f1.Name, f2 => f2.Description))
-                    )
+                                .Fields(f1 => f1.Name, f2 => f2.Description)));
+
+            var result = await _client.SearchAsync<SearchProductModel>(s => s
+                .Query(q =>
+                    request.Query == "" ? queryAll(q) : queryWithNameAndDesc(q)
                     && q
                     .Range(ra => ra
                         .Field(f => f.Price)
@@ -77,8 +70,15 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
                     ImageUrl = x.Source.ImageUrl,
                     Category = new SearchCategoryModel
                     {
-                        Id = x.Source.Category.Id.ToString(),
-                        Name = x.Source.Category.Name
+                        Id = x.Source.Category != null ? x.Source.Category.Id.ToString() : string.Empty,
+                        Name = x.Source.Category != null ? x.Source.Category.Name : string.Empty
+                    },
+                    Inventory = new SearchInventoryModel
+                    {
+                        Id = x.Source.Inventory != null ? x.Source.Inventory.Id.ToString() : string.Empty,
+                        Description = x.Source.Inventory != null ? x.Source.Inventory.Description : string.Empty,
+                        Location = x.Source.Inventory != null ? x.Source.Inventory.Location : string.Empty,
+                        Website = x.Source.Inventory != null ? x.Source.Inventory.Website : string.Empty
                     }
                 })
                 .ToList();
@@ -94,53 +94,6 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
             response.CategoryTags.AddRange(tags.ToArray());
 
             return response;
-        }
-
-        // TODO: move to migration project
-        private async Task IndexData(ElasticClient client)
-        {
-            var products = new List<SearchProductModel>
-            {
-                new SearchProductModel{
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "product a",
-                    Description = "this is a product a",
-                    Price = 100,
-                    ImageUrl = "http://a.com/1.jpg",
-                    Category = new SearchCategoryModel{
-                        Id = Guid.NewGuid().ToString(),
-                        Name = "cat1"
-                    }
-                },
-                new SearchProductModel{
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "product b",
-                    Description = "this is a product b",
-                    Price = 120,
-                    ImageUrl = "http://a.com/2.jpg",
-                    Category = new SearchCategoryModel{
-                        Id = Guid.NewGuid().ToString(),
-                        Name = "cat2"
-                    }
-                },
-                new SearchProductModel{
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "product c",
-                    Description = "this is a product c",
-                    Price = 200,
-                    ImageUrl = "http://a.com/3.jpg",
-                    Category = new SearchCategoryModel{
-                        Id = Guid.NewGuid().ToString(),
-                        Name = "cat1"
-                    }
-                }
-            };
-
-            var a = await client.IndexDocumentAsync(products[0]);
-            var b = await client.IndexDocumentAsync(products[1]);
-            var c = await client.IndexDocumentAsync(products[2]);
-
-            await Task.CompletedTask;
         }
     }
 }

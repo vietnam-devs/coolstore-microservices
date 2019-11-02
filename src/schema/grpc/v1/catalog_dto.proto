@@ -12,4 +12,6 @@ message CatalogProductDto {
   string inventory_location = 7;
   string inventory_website = 8;
   string inventory_description = 9;
+  string category_id = 10;
+  string category_name = 11;
 }

@@ -56,6 +56,7 @@ services:
       - ConnectionStrings__shoppingcart=Data Source=sqlserver,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
       - ConnectionStrings__productcatalog=Data Source=sqlserver,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
       - ConnectionStrings__inventory=Data Source=sqlserver,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
+      - ConnectionStrings__search=http://elasticsearch:9200
 
 # only if you want to mount nuget packages path to save restore packages time on Windows
 volumes:

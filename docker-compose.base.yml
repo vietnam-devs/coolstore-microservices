@@ -16,6 +16,7 @@ services:
 
   elasticsearch:
     image: elasticsearch:7.4.1
+    hostname: elasticsearch
     restart: always
     container_name: elasticsearch
     ulimits:

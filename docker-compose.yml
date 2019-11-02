@@ -82,6 +82,9 @@ services:
       dockerfile: ./src/migrations/VND.CoolStore.DbMigration/Dockerfile
     depends_on:
       - sqlserver
+      - elasticsearch
+      - redis
+      - seq
     networks:
       - coolstore
 
