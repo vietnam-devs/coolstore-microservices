@@ -6,7 +6,7 @@ namespace CloudNativeKit.Infrastructure.Bus.InterProc.Redis
 {
     public class RedisStore
     {
-        private static Lazy<ConnectionMultiplexer>? _lazyConnection = null;
+        private static Lazy<ConnectionMultiplexer> _lazyConnection = null;
 
         public RedisStore(IOptions<RedisOptions> redisOptions)
         {

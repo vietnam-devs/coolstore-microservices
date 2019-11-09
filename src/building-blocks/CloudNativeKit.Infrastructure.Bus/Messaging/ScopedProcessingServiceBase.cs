@@ -23,14 +23,13 @@ namespace CloudNativeKit.Infrastructure.Bus.Messaging
 
     public abstract class OutboxScopedProcessingServiceBase : ScopedProcessingServiceBase
     {
-
-        protected OutboxScopedProcessingServiceBase(IEfUnitOfWork<MessagingDataContext>? unitOfWork, IMessageBus messageBus, ILogger<OutboxScopedProcessingServiceBase> logger)
+        protected OutboxScopedProcessingServiceBase(IEfUnitOfWork<MessagingDataContext> unitOfWork, IMessageBus messageBus, ILogger<OutboxScopedProcessingServiceBase> logger)
             : base(messageBus, logger)
         {
             UnitOfWork = unitOfWork;
         }
 
-        protected IEfUnitOfWork<MessagingDataContext>? UnitOfWork { get; }
+        protected IEfUnitOfWork<MessagingDataContext> UnitOfWork { get; }
 
 
         public abstract bool ScanAssemblyWithConditions(Assembly assembly);

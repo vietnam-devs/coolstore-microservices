@@ -79,8 +79,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.DbMigration",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNativeKit.Infrastructure.Data", "src\building-blocks\CloudNativeKit.Infrastructure.Data\CloudNativeKit.Infrastructure.Data.csproj", "{6490B011-FE14-41ED-BC97-0EA663EB120C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Certs", "src\building-blocks\VND.CoolStore.Certs\VND.CoolStore.Certs.csproj", "{3B7B7915-926F-49E1-9D30-BB448D39FB5E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcJsonTranscoder", "src\building-blocks\GrpcJsonTranscoder\GrpcJsonTranscoder.csproj", "{F6842E99-9828-46ED-AB3E-10E8277894C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.ProductCatalog.Api", "src\microservices\product-catalog-service\VND.CoolStore.ProductCatalog.Api\VND.CoolStore.ProductCatalog.Api.csproj", "{1F806E9C-0B47-4231-BA3B-AE4B89FDF434}"
@@ -97,11 +95,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Inventory.Api
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchService", "SearchService", "{EDE6354B-8FB8-4AA4-A98C-1A2C3005C470}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Search", "src\microservices\search-service\VND.CoolStore.Search\VND.CoolStore.Search.csproj", "{EE51FF12-ECA3-4592-810F-0E0AFC16966C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Search", "src\microservices\search-service\VND.CoolStore.Search\VND.CoolStore.Search.csproj", "{EE51FF12-ECA3-4592-810F-0E0AFC16966C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Search.Api", "src\microservices\search-service\VND.CoolStore.Search.Api\VND.CoolStore.Search.Api.csproj", "{C0E3FA9B-A2E3-46B5-9F43-7EF51D0D0D4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Search.Api", "src\microservices\search-service\VND.CoolStore.Search.Api\VND.CoolStore.Search.Api.csproj", "{C0E3FA9B-A2E3-46B5-9F43-7EF51D0D0D4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VND.CoolStore.Search.DataContracts", "src\microservices\search-service\VND.CoolStore.Search.DataContracts\VND.CoolStore.Search.DataContracts.csproj", "{3E899680-A445-4335-9126-73C9DD7761EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VND.CoolStore.Search.DataContracts", "src\microservices\search-service\VND.CoolStore.Search.DataContracts\VND.CoolStore.Search.DataContracts.csproj", "{3E899680-A445-4335-9126-73C9DD7761EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -161,10 +159,6 @@ Global
 		{6490B011-FE14-41ED-BC97-0EA663EB120C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6490B011-FE14-41ED-BC97-0EA663EB120C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6490B011-FE14-41ED-BC97-0EA663EB120C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B7B7915-926F-49E1-9D30-BB448D39FB5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B7B7915-926F-49E1-9D30-BB448D39FB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B7B7915-926F-49E1-9D30-BB448D39FB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B7B7915-926F-49E1-9D30-BB448D39FB5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6842E99-9828-46ED-AB3E-10E8277894C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6842E99-9828-46ED-AB3E-10E8277894C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6842E99-9828-46ED-AB3E-10E8277894C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -220,7 +214,6 @@ Global
 		{26E93D20-4016-4B8B-9450-3F08E65DEC06} = {E9EFAB71-E36C-4B75-A5E8-3BD63D7C4342}
 		{A929F949-CB66-43D3-9C71-320A2272F854} = {59E8A90F-BAF6-455C-AFE8-6F931A4EF2D1}
 		{6490B011-FE14-41ED-BC97-0EA663EB120C} = {26934151-CB68-49E8-8507-0331B86424AC}
-		{3B7B7915-926F-49E1-9D30-BB448D39FB5E} = {26934151-CB68-49E8-8507-0331B86424AC}
 		{F6842E99-9828-46ED-AB3E-10E8277894C7} = {26934151-CB68-49E8-8507-0331B86424AC}
 		{1F806E9C-0B47-4231-BA3B-AE4B89FDF434} = {E9EFAB71-E36C-4B75-A5E8-3BD63D7C4342}
 		{2113419B-47F7-4EA4-A370-F39B99E90E7D} = {8216B21C-A2EB-4F5B-B20A-1C6A4E72210D}
