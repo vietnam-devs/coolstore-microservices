@@ -1,22 +1,24 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 
 import { ProductItem, Pagination, Filter } from 'components/Product'
 import { withLayout } from 'components/HOC'
 
 import { AppActions, useStore } from 'stores/store'
-import { getProducts } from 'services/ProductService'
+import { getProducts, searchProducts } from 'services/ProductService'
 import { getCartForCurrentUser, createCartForCurrentUser, updateCartForCurrentUser } from 'services/CartService'
 
 interface IProps extends RouteComponentProps {}
 
 const Home: React.FC<IProps> = props => {
   const { state, dispatch } = useStore()
+  const [categoryTags, setCategoryTags] = useState([])
 
   const fetchData = useCallback(
     async (page: number, price: number) => {
-      const products = await getProducts(page, price)
-      dispatch(AppActions.loadProducts(products))
+      const result = await searchProducts('*', price, page)
+      setCategoryTags(result.categoryTags)
+      dispatch(AppActions.loadProducts(result.products))
     },
     [dispatch]
   )
@@ -44,19 +46,24 @@ const Home: React.FC<IProps> = props => {
   }
 
   useEffect(() => {
-    fetchData(1, 888)
+    fetchData(1, 1130)
   }, [state.isProductsLoaded, fetchData])
 
   return (
     <>
-      {state.products.length > 0 && (
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-xl-2 col-lg-4 col-md-4 col-sm-12 col-12">
-              <Filter onPriceFilterChange={onPriceFilterChange} initPrice={888} maxPrice={10000}></Filter>
-            </div>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+            <Filter
+              onPriceFilterChange={onPriceFilterChange}
+              initPrice={1130}
+              maxPrice={10000}
+              categoryTags={categoryTags}
+            ></Filter>
+          </div>
 
-            <div className="col-xl-10 col-lg-8 col-md-8 col-sm-12 col-12">
+          <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
+            {state.products.length > 0 && (
               <div className="row">
                 {state.products.map(item => (
                   <div className="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12" key={item.id}>
@@ -68,10 +75,11 @@ const Home: React.FC<IProps> = props => {
                   <Pagination></Pagination>
                 </div>
               </div>
-            </div>
+            )}
+            {state.products.length <= 0 && <div>No products with this filter</div>}
           </div>
         </div>
-      )}
+      </div>
     </>
   )
 }

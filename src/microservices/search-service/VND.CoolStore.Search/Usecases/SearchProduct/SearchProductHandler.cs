@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -27,7 +28,6 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
 
         public async Task<SearchProductResponse> Handle(SearchProductRequest request, CancellationToken cancellationToken)
         {
-            Func<QueryContainerDescriptor<SearchProductModel>, QueryContainer> queryAll = q => q.MatchAll();
             Func<QueryContainerDescriptor<SearchProductModel>, QueryContainer> queryWithNameAndDesc = q => q
                 .MultiMatch(mm => mm
                         .Query(request.Query)
@@ -36,12 +36,14 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
 
             var result = await _client.SearchAsync<SearchProductModel>(s => s
                 .Query(q =>
-                    request.Query == "" ? queryAll(q) : queryWithNameAndDesc(q)
-                    && q
-                    .Range(ra => ra
+                    request.Query != "*" ?
+                        queryWithNameAndDesc(q) && q.Range(ra => ra
+                            .Field(f => f.Price)
+                            .LessThanOrEquals(request.Price)
+                        ) :
+                        q.Range(ra => ra
                         .Field(f => f.Price)
-                        .LessThanOrEquals(request.Price)
-                    )
+                        .LessThanOrEquals(request.Price))
                 )
                 .Aggregations(a => a
                     .Terms("tags", t => t
@@ -51,6 +53,11 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
                 .From(request.Page - 1)
                 .Size(request.PageSize)
             );
+
+            if (result.ApiCall.HttpStatusCode != (int)HttpStatusCode.OK)
+            {
+                throw new Exception("Could not query data");
+            }
 
             var tags = result
                 .Aggregations

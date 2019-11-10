@@ -180,6 +180,18 @@
           "Port": 15004
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/product-search/{query}/{price}/{page}/{pageSize}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/coolstore.ProductSearchApi/SearchProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 15010
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {}

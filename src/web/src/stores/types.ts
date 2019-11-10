@@ -40,6 +40,18 @@ export interface ICartItem {
   inventoryWebsite: string
 }
 
+export interface ICategoryTagModel {
+  key: string
+  count: number
+}
+
+export interface IProductSearchResult {
+  products: IProduct[]
+  categoryTags: ICategoryTagModel[]
+  totalItem: number
+  page: number
+}
+
 export interface IUpdateProductInCart {
   productId: string
   quantity: number

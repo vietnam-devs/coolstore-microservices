@@ -15,6 +15,7 @@ using Ocelot.Middleware;
 using Serilog;
 using static VND.CoolStore.Inventory.DataContracts.Api.V1.InventoryApi;
 using static VND.CoolStore.ProductCatalog.DataContracts.Api.V1.CatalogApi;
+using static VND.CoolStore.Search.DataContracts.Api.V1.ProductSearchApi;
 using static VND.CoolStore.ShoppingCart.DataContracts.Api.V1.ShoppingCartApi;
 
 namespace VND.CoolStore.WebApiGateway
@@ -61,7 +62,8 @@ namespace VND.CoolStore.WebApiGateway
                         new GrpcAssemblyResolver().ConfigGrpcAssembly(
                             typeof(ShoppingCartApiClient).Assembly,
                             typeof(InventoryApiClient).Assembly,
-                            typeof(CatalogApiClient).Assembly));
+                            typeof(CatalogApiClient).Assembly,
+                            typeof(ProductSearchApiClient).Assembly));
 
                     // only for demo
                     services.AddCors(options =>

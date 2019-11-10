@@ -8,7 +8,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
     <PackageReference Include="Ocelot" Version="13.5.2" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="3.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
@@ -18,6 +17,7 @@
     <ProjectReference Include="..\..\building-blocks\GrpcJsonTranscoder\GrpcJsonTranscoder.csproj" />
     <ProjectReference Include="..\..\microservices\inventory-service\VND.CoolStore.Inventory.DataContracts\VND.CoolStore.Inventory.DataContracts.csproj" />
     <ProjectReference Include="..\..\microservices\product-catalog-service\VND.CoolStore.ProductCatalog.DataContracts\VND.CoolStore.ProductCatalog.DataContracts.csproj" />
+    <ProjectReference Include="..\..\microservices\search-service\VND.CoolStore.Search.DataContracts\VND.CoolStore.Search.DataContracts.csproj" />
     <ProjectReference Include="..\..\microservices\shopping-cart-service\VND.CoolStore.ShoppingCart.DataContracts\VND.CoolStore.ShoppingCart.DataContracts.csproj" />
   </ItemGroup>
 

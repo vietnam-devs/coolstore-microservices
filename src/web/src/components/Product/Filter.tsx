@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { Button, Input, Label, CustomInput } from 'reactstrap'
+import { Button, Input, Label, CustomInput, Badge } from 'reactstrap'
 import styled from 'styled-components'
 import _ from 'lodash'
+
+import { ICategoryTagModel } from 'stores/types'
 
 const StyledProductSideBar = styled.div`
   background-color: #fff;
@@ -26,9 +28,10 @@ interface IProps {
   initPrice: number
   maxPrice: number
   onPriceFilterChange: (price: number) => void
+  categoryTags: ICategoryTagModel[]
 }
 
-const Filter: React.FC<IProps> = ({ onPriceFilterChange, initPrice, maxPrice }) => {
+const Filter: React.FC<IProps> = ({ onPriceFilterChange, initPrice, maxPrice, categoryTags }) => {
   const [price, setPrice] = useState(initPrice)
   return (
     <>
@@ -58,36 +61,14 @@ const Filter: React.FC<IProps> = ({ onPriceFilterChange, initPrice, maxPrice }) 
 
         <StyledProductSideBarWidget>
           <StyledProductSideBarWidgetTitle>Category</StyledProductSideBarWidgetTitle>
-          <div className="custom-control custom-checkbox">
-            <Input type="checkbox" className="custom-control-input" id="cat-1" />
-            <Label className="custom-control-label" for="cat-1">
-              Categories #1
-            </Label>
-          </div>
-          <div className="custom-control custom-checkbox">
-            <Input type="checkbox" className="custom-control-input" id="cat-2" />
-            <Label className="custom-control-label" for="cat-2">
-              Categories #2
-            </Label>
-          </div>
-          <div className="custom-control custom-checkbox">
-            <Input type="checkbox" className="custom-control-input" id="cat-3" />
-            <Label className="custom-control-label" for="cat-3">
-              Categories #3
-            </Label>
-          </div>
-          <div className="custom-control custom-checkbox">
-            <Input type="checkbox" className="custom-control-input" id="cat-4" />
-            <Label className="custom-control-label" for="cat-4">
-              Categories #4
-            </Label>
-          </div>
-          <div className="custom-control custom-checkbox">
-            <Input type="checkbox" className="custom-control-input" id="cat-5" />
-            <Label className="custom-control-label" for="cat-5">
-              Categories #5
-            </Label>
-          </div>
+          {categoryTags.map(category => (
+            <div className="custom-control custom-checkbox">
+              <Input type="checkbox" className="custom-control-input" id={category.key} checked />
+              <Label className="custom-control-label" for={category.key}>
+                {category.key} <Badge color="success">{category.count}</Badge>
+              </Label>
+            </div>
+          ))}
         </StyledProductSideBarWidget>
 
         <StyledProductSideBarWidget>

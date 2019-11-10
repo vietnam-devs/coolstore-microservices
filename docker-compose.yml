@@ -12,6 +12,7 @@ services:
       - product-catalog-api
       - shopping-cart-api
       - inventory-api
+      - search-api
     networks:
       - coolstore
 
@@ -72,6 +73,18 @@ services:
     depends_on:
       - migration-data
       - sqlserver
+    networks:
+      - coolstore
+
+  search-api:
+    image: vndg/search-api-v3:latest
+    restart: always
+    build:
+      context: .
+      dockerfile: src/microservices/search-service/VND.CoolStore.Search.Api/Dockerfile
+    depends_on:
+      - migration-data
+      - elasticsearch
     networks:
       - coolstore
 

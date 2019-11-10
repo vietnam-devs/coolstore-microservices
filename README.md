@@ -31,24 +31,9 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 - [Service Mesh for Microservices- Vietnam Mobile Day event in June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
 - [Avoid SPOF in Cloud-native Apps - Vietnam Web Summit event in December 2018](https://www.slideshare.net/ThangChung/avoid-single-point-of-failure-in-cloud-native-application)
 
-## Screenshots
-
-<details>
-  <summary>Home page</summary>
-
-![home-page](assets/images/ui-screen-1.PNG?raw=true)
-
-</details>
-
-<details>
-  <summary>Cart page</summary>
-
-![cart-page](assets/images/ui-screen-2.PNG?raw=true)
-
-</details>
-
 # Table of contents
 
+- [Screenshots](https://github.com/vietnam-devs/coolstore-microservices#screenshots)
 - [Business Context](https://github.com/vietnam-devs/coolstore-microservices#business-context)
 - [OS, SDK, library, tooling and prerequisites](https://github.com/vietnam-devs/coolstore-microservices#os-sdk-library-tooling-and-prerequisites)
 - [High level software architecture](https://github.com/vietnam-devs/coolstore-microservices#high-level-software-architecture)
@@ -60,6 +45,16 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 - [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
 - [Contributors](https://github.com/vietnam-devs/coolstore-microservices#contributors)
 - [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
+
+## Screenshots
+
+### Home page
+
+![home-page](assets/images/ui-screen-1.PNG?raw=true)
+
+### Shopping Cart page
+
+![cart-page](assets/images/ui-screen-2.PNG?raw=true)
 
 ## Business Context
 
@@ -77,21 +72,29 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 
 ## OS, SDK, library, tooling and prerequisites
 
-- **`Windows 10`** - the OS for developing and building this demo application .
-- **[`Windows subsystem Linux - Ubuntu OS`](https://docs.microsoft.com/en-us/windows/wsl/install-win10)** - the subsystem that helps to run easily the bash shell on Windows OS
-- **[`Docker for desktop (Kubernetes enabled)`](https://www.docker.com/products/docker-desktop)** - the easiest tool to run Docker, Docker Swarm and Kubernetes on Mac and Windows
-- **[`Kubernetes`](https://kubernetes.io) / [`AKS`](https://docs.microsoft.com/en-us/azure/aks)** - the app is designed to run on Kubernetes (both locally on "Docker for Desktop", as well as on the cloud with AKS)
-- **[`istio`](https://istio.io)** - application works on Istio service mesh
-- **[`helm`](https://helm.sh)** - the best package manager to find, share, and use software built for Kubernetes
-- **[`envoy-proxy`](https://www.envoyproxy.io/)** - open source edge and service proxy, designed for cloud-native applications
-- **[`.NET Core SDK 3.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
-- **[`nodejs 10.x`](https://nodejs.org/en/download)** - JavaScript runtime built on Chrome's V8 JavaScript engine
-- **[`typescript`](https://www.typescriptlang.org)** - a typed superset of JavaScript that compiles to plain JavaScript
-- **[`identityserver`](https://identityserver.io)** - the Identity and Access Control solution for .NET Core
-- **[`gRPC`](https://grpc.io)** - a high-performance, open-source universal RPC framework
-- **[`create-react-app`](https://facebook.github.io/create-react-app)** - a modern web app by running one command
-- **[`vue-cli`](https://cli.vuejs.org/)** - standard tooling for Vue.js development
-- **[`apollo-client`](https://www.apollographql.com/docs/react/)** - the best way to use GraphQL to build client applications
+### Infrastructure
+
+- **`Windows 10`** - the OS for developing and building this demo application.
+- **[`Windows subsystem Linux - Ubuntu OS`](https://docs.microsoft.com/en-us/windows/wsl/install-win10)** - the subsystem that helps to run easily the bash shell on Windows OS.
+- **[`Docker for desktop (Kubernetes enabled)`](https://www.docker.com/products/docker-desktop)** - the easiest tool to run Docker, Docker Swarm and Kubernetes on Mac and Windows.
+- **[`Kubernetes`](https://kubernetes.io) / [`AKS`](https://docs.microsoft.com/en-us/azure/aks)** - the app is designed to run on Kubernetes (both locally on "Docker for Desktop", as well as on the cloud with AKS).
+- **[`helm`](https://helm.sh)** - the best package manager to find, share, and use software built for Kubernetes.
+- **[`istio`](https://istio.io)** - application works on Istio service mesh.
+- **[`linkerd2`](https://github.com/linkerd/linkerd2)** - a service mesh for Kubernetes and beyond.
+  
+### Back-end
+
+- **[`.NET Core 3.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core.
+- **[`IdentityServer4`](https://identityserver.io)** - the Identity and Access Control solution for .NET Core.
+- **[`gRPC`](https://grpc.io)** - a high-performance, open-source universal RPC framework.
+- **[`Redis`](https://github.com/StackExchange/StackExchange.Redis)** - General purpose redis client.
+- **[`NEST`](https://github.com/elastic/elasticsearch-net)** - Elasticsearch.Net & NEST.
+
+### Front-end
+
+- **[`nodejs 10.x`](https://nodejs.org/en/download)** - JavaScript runtime built on Chrome's V8 JavaScript engine.
+- **[`typescript`](https://www.typescriptlang.org)** - a typed superset of JavaScript that compiles to plain JavaScript.
+- **[`create-react-app`](https://facebook.github.io/create-react-app)** - a modern web app by running one command.
 
 ## High level software architecture
 
