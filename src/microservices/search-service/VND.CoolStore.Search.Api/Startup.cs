@@ -1,5 +1,7 @@
 using System.Security.Claims;
 using CloudNativeKit.Infrastructure.Grpc;
+using CloudNativeKit.Infrastructure.Tracing.Jaeger;
+using CorrelationId;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -29,6 +31,9 @@ namespace VND.CoolStore.Search.Api
 
             services.AddControllers()
                 .AddNewtonsoftJson();
+
+            services.AddCorrelationId();
+            services.AddJaeger();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => Configuration.Bind("JwtAuthn", options));
@@ -64,6 +69,12 @@ namespace VND.CoolStore.Search.Api
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCorrelationId(new CorrelationIdOptions
+            {
+                Header = "X-Correlation-Id",
+                UpdateTraceIdentifier = true
+            });
 
             app.UseEndpoints(endpoints =>
             {

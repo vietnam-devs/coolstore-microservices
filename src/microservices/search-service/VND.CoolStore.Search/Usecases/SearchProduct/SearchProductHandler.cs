@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using CorrelationId;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Nest;
@@ -14,8 +15,9 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
     public class SearchProductHandler : IRequestHandler<SearchProductRequest, SearchProductResponse>
     {
         private readonly IElasticClient _client;
+        private readonly ICorrelationContextAccessor _correlationContext;
 
-        public SearchProductHandler(IConfiguration config)
+        public SearchProductHandler(IConfiguration config, ICorrelationContextAccessor correlationContext)
         {
             var connString = config.GetValue<string>("ElasticSearch:Connection");
             var settings = new ConnectionSettings(new Uri(connString))
@@ -24,6 +26,7 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
                 )
                 .PrettyJson();
             _client = new ElasticClient(settings);
+            _correlationContext = correlationContext;
         }
 
         public async Task<SearchProductResponse> Handle(SearchProductRequest request, CancellationToken cancellationToken)
@@ -99,6 +102,7 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
 
             response.Results.AddRange(items.ToArray());
             response.CategoryTags.AddRange(tags.ToArray());
+            response.CorrelationId = _correlationContext.CorrelationContext.CorrelationId;
 
             return response;
         }

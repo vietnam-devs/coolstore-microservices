@@ -21,4 +21,5 @@ message SearchProductResponse {
   repeated SearchProductModel results = 3;
   repeated SearchAggsByTags category_tags = 4;
   int32 elapsed_milliseconds = 5;
+  string correlation_id = 6;
 }

@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Domain\CloudNativeKit.Domain.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure.Bus\CloudNativeKit.Infrastructure.Bus.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure.Data\CloudNativeKit.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure.Tracing\CloudNativeKit.Infrastructure.Tracing.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Infrastructure\CloudNativeKit.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\CloudNativeKit.Utils\CloudNativeKit.Utils.csproj" />
     <ProjectReference Include="..\..\product-catalog-service\VND.CoolStore.ProductCatalog.DataContracts\VND.CoolStore.ProductCatalog.DataContracts.csproj" />

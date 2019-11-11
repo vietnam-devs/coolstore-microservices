@@ -6,7 +6,6 @@ using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Serilog;
 
-
 namespace CloudNativeKit.Infrastructure.Grpc
 {
     public class ExceptionHandleInterceptor : Interceptor

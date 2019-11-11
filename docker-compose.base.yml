@@ -28,8 +28,15 @@ services:
 
   seq:
     image: datalust/seq
-    restart: always
     container_name: seq
+    restart: always
+    networks:
+      - coolstore
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    container_name: jaeger
+    restart: always
     networks:
       - coolstore
 

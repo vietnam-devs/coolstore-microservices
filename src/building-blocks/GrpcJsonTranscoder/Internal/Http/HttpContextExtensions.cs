@@ -96,6 +96,11 @@ namespace GrpcJsonTranscoder.Internal.Http
                 }
             }
 
+            if (!string.IsNullOrEmpty(context.TraceIdentifier))
+            {
+                headers.Add("X-Correlation-Id", context.TraceIdentifier);
+            }
+
             return headers;
         }
 
@@ -109,7 +114,6 @@ namespace GrpcJsonTranscoder.Internal.Http
                 {
                     var key = prop.Key;
                     var value = prop.Value;
-
                     if (!json.ContainsKey(key))
                     {
                         json.Add(prop.Key, prop.Value);

@@ -1,4 +1,4 @@
-﻿using Google.Protobuf;
+using Google.Protobuf;
 using Google.Protobuf.Reflection;
 using Grpc.Core;
 using System;
@@ -18,12 +18,12 @@ namespace GrpcJsonTranscoder.Internal.Grpc
             if (_methods.TryGetValue(methodDescriptor, out Method<TRequest, KResult> method))
                 return method;
 
-            int mtype = 0;
+            var callingMethodType = 0;
             if (methodDescriptor.IsClientStreaming)
-                mtype = 1;
+                callingMethodType = 1;
             if (methodDescriptor.IsServerStreaming)
-                mtype += 2;
-            var methodType = (MethodType)Enum.ToObject(typeof(MethodType), mtype);
+                callingMethodType += 2;
+            var methodType = (MethodType)Enum.ToObject(typeof(MethodType), callingMethodType);
 
             var _method = new Method<TRequest, KResult>(
                 methodType,

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using CloudNativeKit.Infrastructure.Serilog;
 
 namespace VND.CoolStore.Search.Api
 {
@@ -50,9 +51,11 @@ namespace VND.CoolStore.Search.Api
                     var seqUrl = hostingContext.Configuration.GetValue<string>("Seq:Connection");
                     Log.Logger = new LoggerConfiguration()
                         .MinimumLevel.Debug()
+                        .Enrich.WithProperty("Environment", hostingContext.HostingEnvironment.EnvironmentName)
                         .Enrich.WithProperty("Microservices", "SearchService")
                         .Enrich.FromLogContext()
-                        .WriteTo.Console()
+                        .Enrich.With<OpenTracingContextEnricher>()
+                        .WriteTo.Console(Serilog.Events.LogEventLevel.Information, "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] [{CorrelationID}] {Message}{NewLine}{Exception}")
                         .WriteTo.Seq(seqUrl)
                         .CreateLogger();
 
