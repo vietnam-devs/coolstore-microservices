@@ -1,4 +1,4 @@
-﻿using GrpcJsonTranscoder.Internal.Middleware;
+using GrpcJsonTranscoder.Internal.Middleware;
 using Microsoft.AspNetCore.Builder;
 
 namespace GrpcJsonTranscoder
@@ -8,6 +8,7 @@ namespace GrpcJsonTranscoder
         public static IApplicationBuilder UseGrpcJsonTranscoder(this IApplicationBuilder app)
         {
             app.UseMiddleware<GrpcJsonTranscoderMiddleware>();
+
             return app;
         }
     }

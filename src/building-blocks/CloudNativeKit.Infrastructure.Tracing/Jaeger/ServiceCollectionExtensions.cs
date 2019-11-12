@@ -66,13 +66,9 @@ namespace CloudNativeKit.Infrastructure.Tracing.Jaeger
 
         public static IApplicationBuilder UseJaeger(this IApplicationBuilder app)
         {
-            JaegerOptions options;
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                options = scope.ServiceProvider
-                    .GetService<IConfiguration>()
-                    .GetOptions<JaegerOptions>("Jaeger");
-            }
+            // use for web-application only
+            using var scope = app.ApplicationServices.CreateScope();
+            var options = scope.ServiceProvider.GetService<IConfiguration>()?.GetOptions<JaegerOptions>("Jaeger");
             return options.Enabled ? app.UseMiddleware<JaegerHttpMiddleware>() : app;
         }
 
@@ -90,7 +86,9 @@ namespace CloudNativeKit.Infrastructure.Tracing.Jaeger
         private static JaegerOptions GetJaegerOptions(IServiceCollection services)
         {
             using var seriveProvider = services.BuildServiceProvider();
+
             var configuration = seriveProvider.GetService<IConfiguration>();
+
             return configuration.GetOptions<JaegerOptions>("Jaeger");
         }
     }

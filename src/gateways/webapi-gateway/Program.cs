@@ -2,16 +2,21 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudNativeKit.Infrastructure.Serilog;
+using CloudNativeKit.Infrastructure.Tracing.Jaeger;
+using CorrelationId;
 using Grpc.Core;
 using GrpcJsonTranscoder;
 using GrpcJsonTranscoder.Grpc;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using OpenTracing.Contrib.Grpc.Interceptors;
+using OpenTracing.Util;
 using Serilog;
 using static VND.CoolStore.Inventory.DataContracts.Api.V1.InventoryApi;
 using static VND.CoolStore.ProductCatalog.DataContracts.Api.V1.CatalogApi;
@@ -24,14 +29,10 @@ namespace VND.CoolStore.WebApiGateway
     {
         public static async Task Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()
-                .CreateLogger();
-
             try
             {
                 Log.Information("Starting host");
-                await BuildWebHost(args).RunAsync();
+                await BuildWebHost(args).Build().RunAsync();
             }
             catch (Exception ex)
             {
@@ -43,93 +44,121 @@ namespace VND.CoolStore.WebApiGateway
             }
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseKestrel()
-                .ConfigureAppConfiguration((hostingContext, config) =>
+        public static IHostBuilder BuildWebHost(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    config
-                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                        .AddJsonFile("appsettings.json", true, true)
-                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                        .AddJsonFile("ocelot.json")
-                        .AddJsonFile($"ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                        .AddEnvironmentVariables();
-                })
-                .ConfigureServices(services =>
-                {
-                    services.AddGrpcJsonTranscoder(() =>
-                        new GrpcAssemblyResolver().ConfigGrpcAssembly(
-                            typeof(ShoppingCartApiClient).Assembly,
-                            typeof(InventoryApiClient).Assembly,
-                            typeof(CatalogApiClient).Assembly,
-                            typeof(ProductSearchApiClient).Assembly));
-
-                    // only for demo
-                    services.AddCors(options =>
+                    webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
                     {
-                        options.AddPolicy("CorsPolicy",
-                            builder => builder.AllowAnyOrigin()
-                                .AllowAnyMethod()
-                                .AllowAnyHeader()
-                                .AllowCredentials());
-                    });
-
-                    services.AddOcelot();
-                    services.AddHttpContextAccessor();
-                })
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.AddSerilog(dispose: true);
-                })
-                .Configure(app =>
-                {
-                    var configuration = new OcelotPipelineConfiguration
+                        config
+                            .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                            .AddJsonFile("appsettings.json", true, true)
+                            .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                            .AddJsonFile("ocelot.json")
+                            .AddJsonFile($"ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                            .AddEnvironmentVariables();
+                    })
+                    .ConfigureServices(services =>
                     {
-                        PreQueryStringBuilderMiddleware = async (ctx, next) =>
+                        services.AddCorrelationId();
+                        services.AddJaeger();
+
+                        services.AddGrpcJsonTranscoder(() =>
+                            new GrpcAssemblyResolver().ConfigGrpcAssembly(
+                                typeof(ShoppingCartApiClient).Assembly,
+                                typeof(InventoryApiClient).Assembly,
+                                typeof(CatalogApiClient).Assembly,
+                                typeof(ProductSearchApiClient).Assembly));
+
+                        // only for demo
+                        services.AddCors(options =>
                         {
-                            try
-                            {
-                                await ctx.HandleGrpcRequestAsync(next);
-                            }
-                            catch (Exception ex)
-                            {
-                                if (!(ex.InnerException is AggregateException innerEx))
-                                    return;
+                            options.AddPolicy("CorsPolicy",
+                                builder => builder.AllowAnyOrigin()
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader());
+                        });
 
-                                innerEx.InnerExceptions
-                                    .Select(async aggException =>
+                        services.AddOcelot();
+                        services.AddHttpContextAccessor();
+                    })
+                    .ConfigureLogging((hostingContext, logging) =>
+                    {
+                        var seqUrl = hostingContext.Configuration.GetValue<string>("Seq:Connection");
+                        Log.Logger = new LoggerConfiguration()
+                            .MinimumLevel.Debug()
+                            .Enrich.WithProperty("Environment", hostingContext.HostingEnvironment.EnvironmentName)
+                            .Enrich.WithProperty("Microservices", "ApiGateway")
+                            .Enrich.FromLogContext()
+                            .Enrich.With<OpenTracingContextEnricher>()
+                            .WriteTo.Console(Serilog.Events.LogEventLevel.Information, "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] [{CorrelationID}] {Message}{NewLine}{Exception}")
+                            .WriteTo.Seq(seqUrl)
+                            .CreateLogger();
+
+                        logging.AddSerilog(dispose: true);
+                    })
+                    .Configure(app =>
+                    {
+                        var configuration = new OcelotPipelineConfiguration
+                        {
+                            PreQueryStringBuilderMiddleware = async (ctx, next) =>
+                            {
+                                try
+                                {
+                                    var tracer = GlobalTracer.Instance;
+
+                                    if (tracer?.ActiveSpan == null)
                                     {
-                                        if (aggException is RpcException rpcException)
+                                        return;
+                                    }
+
+                                    await ctx.HandleGrpcRequestAsync(next, new[] { new ClientTracingInterceptor(tracer) });
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (!(ex.InnerException is AggregateException innerEx))
+                                        return;
+
+                                    innerEx.InnerExceptions
+                                        .Select(async aggException =>
                                         {
-                                            if (rpcException.StatusCode == StatusCode.Internal)
+                                            if (aggException is RpcException rpcException)
                                             {
-                                                ctx.HttpContext.Response.StatusCode = 500;
-                                                await ctx.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes($"{rpcException.Message}"));
-                                            }
-                                            else
-                                            {
-                                                var status = GetTrailerKeyOnRpcException(rpcException, ":status");
-                                                var authMessage = GetTrailerKeyOnRpcException(rpcException, "www-authenticate");
-                                                if (status == "401")
+                                                if (rpcException.StatusCode == StatusCode.Internal)
                                                 {
-                                                    ctx.HttpContext.Response.StatusCode = 401;
-                                                    await ctx.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes($"{authMessage}"));
+                                                    ctx.HttpContext.Response.StatusCode = 500;
+
+                                                    await ctx.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes($"{rpcException.Message}"));
+                                                }
+                                                else
+                                                {
+                                                    var status = GetTrailerKeyOnRpcException(rpcException, ":status");
+
+                                                    var authMessage = GetTrailerKeyOnRpcException(rpcException, "www-authenticate");
+
+                                                    if (status == "401")
+                                                    {
+                                                        ctx.HttpContext.Response.StatusCode = 401;
+
+                                                        await ctx.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes($"{authMessage}"));
+                                                    }
                                                 }
                                             }
-                                        }
-                                    })
-                                    .ToList();
+                                        })
+                                        .ToList();
 
-                                throw ex;
+                                    throw ex;
+                                }
                             }
-                        }
-                    };
+                        };
 
-                    app.UseCors("CorsPolicy");
-                    app.UseOcelot(configuration).Wait();
-                })
-                .Build();
+                        app.UseCors("CorsPolicy");
+
+                        app.UseCorrelationId();
+
+                        app.UseOcelot(configuration).Wait();
+                    });
+                });
 
         private static string GetTrailerKeyOnRpcException(RpcException rpcException, string key)
         {
@@ -137,6 +166,7 @@ namespace VND.CoolStore.WebApiGateway
             {
                 if (x.Key == key)
                     return x.Value;
+
                 return string.Empty;
             })
             .FirstOrDefault(x => !string.IsNullOrEmpty(x));

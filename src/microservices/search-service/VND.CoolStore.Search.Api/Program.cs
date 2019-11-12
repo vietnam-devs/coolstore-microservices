@@ -44,11 +44,13 @@ namespace VND.CoolStore.Search.Api
                             listenOptions.Protocols = HttpProtocols.Http2;
                         });
                     });
+
                     webBuilder.UseStartup<Startup>();
                 })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     var seqUrl = hostingContext.Configuration.GetValue<string>("Seq:Connection");
+
                     Log.Logger = new LoggerConfiguration()
                         .MinimumLevel.Debug()
                         .Enrich.WithProperty("Environment", hostingContext.HostingEnvironment.EnvironmentName)
@@ -59,7 +61,7 @@ namespace VND.CoolStore.Search.Api
                         .WriteTo.Seq(seqUrl)
                         .CreateLogger();
 
-                    logging.AddSerilog();
+                    logging.AddSerilog(dispose: true);
                 });
     }
 }

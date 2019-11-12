@@ -1,4 +1,4 @@
-﻿using Grpc.Core;
+using Grpc.Core;
 using GrpcJsonTranscoder.Grpc;
 using GrpcJsonTranscoder.Internal.Grpc;
 using GrpcJsonTranscoder.Internal.Http;
@@ -25,11 +25,14 @@ namespace GrpcJsonTranscoder.Internal.Middleware
             else
             {
                 var path = context.Request.Path.Value;
+
                 var methodDescriptor = grpcAssemblyResolver.FindMethodDescriptor(path.Split('/').Last().ToUpperInvariant());
+
                 if (methodDescriptor == null) await _next(context);
                 else
                 {
                     string requestData;
+
                     if (context.Request.Method.ToLowerInvariant() == "get")
                     {
                         requestData = context.ParseGetJsonRequestOnAggregateService();

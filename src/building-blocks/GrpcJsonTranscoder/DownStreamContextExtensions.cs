@@ -1,4 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Grpc.Core;
+using Grpc.Core.Interceptors;
 using GrpcJsonTranscoder.Grpc;
 using GrpcJsonTranscoder.Internal.Grpc;
 using GrpcJsonTranscoder.Internal.Http;
@@ -9,18 +16,12 @@ using Ocelot.LoadBalancer.LoadBalancers;
 using Ocelot.Logging;
 using Ocelot.Middleware;
 using Ocelot.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace GrpcJsonTranscoder
 {
     public static class DownStreamContextExtensions
     {
-        public static async Task HandleGrpcRequestAsync(this DownstreamContext context, Func<Task> next, SslCredentials secureCredentials = null)
+        public static async Task HandleGrpcRequestAsync(this DownstreamContext context, Func<Task> next, IEnumerable<Interceptor> interceptors = null, SslCredentials secureCredentials = null)
         {
             // ignore if the request is not a gRPC content type
             if (!context.HttpContext.Request.Headers.Any(h => h.Key.ToLowerInvariant() == "content-type" && h.Value == "application/grpc"))
@@ -61,8 +62,25 @@ namespace GrpcJsonTranscoder
                     logger.LogInformation($"Downstream IP Address is {downstreamHost}");
 
                     var channel = new Channel(downstreamHost, secureCredentials ?? ChannelCredentials.Insecure);
-                    var client = new MethodDescriptorCaller(channel);
 
+                    MethodDescriptorCaller client = null;
+
+                    if (interceptors != null && interceptors.Count() > 0)
+                    {
+                        CallInvoker callInvoker = null;
+
+                        foreach (var inteceptor in interceptors)
+                        {
+                            callInvoker = channel.Intercept(inteceptor);
+                        }
+
+                        client = new MethodDescriptorCaller(callInvoker);
+                    }
+                    else
+                    {
+                        client = new MethodDescriptorCaller(channel);
+                    }
+                    
                     var concreteObject = JsonConvert.DeserializeObject(requestJsonData, methodDescriptor.InputType.ClrType);
                     var result = await client.InvokeAsync(methodDescriptor, context.HttpContext.GetRequestHeaders(), concreteObject);
                     logger.LogDebug($"gRPC response called with {JsonConvert.SerializeObject(result)}");

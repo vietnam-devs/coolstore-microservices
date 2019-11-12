@@ -70,14 +70,18 @@ namespace GrpcJsonTranscoder.Internal.Http
         {
             // ref at https://stackoverflow.com/questions/43403941/how-to-read-asp-net-core-response-body
             var encoding = context.Request.GetTypedHeaders().ContentType?.Encoding ?? Encoding.UTF8;
+
             var stream = new StreamReader(context.Request.Body, encoding);
+
             var json = await stream.ReadToEndAsync();
+
             return json == string.Empty ? "{}" : json;
         }
 
         public static IDictionary<string, string> GetRequestHeaders(this HttpContext context)
         {
             var headers = new Dictionary<string, string>();
+
             foreach (string key in context.Request.Headers.Keys)
             {
                 if (key.StartsWith(":"))
@@ -98,7 +102,7 @@ namespace GrpcJsonTranscoder.Internal.Http
 
             if (!string.IsNullOrEmpty(context.TraceIdentifier))
             {
-                headers.Add("X-Correlation-Id", context.TraceIdentifier);
+                headers.Add("X-Correlation-ID", context.TraceIdentifier);
             }
 
             return headers;
@@ -113,7 +117,9 @@ namespace GrpcJsonTranscoder.Internal.Http
                 foreach (var prop in jsonObject)
                 {
                     var key = prop.Key;
+
                     var value = prop.Value;
+
                     if (!json.ContainsKey(key))
                     {
                         json.Add(prop.Key, prop.Value);

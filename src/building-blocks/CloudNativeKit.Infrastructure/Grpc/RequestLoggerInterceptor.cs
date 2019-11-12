@@ -20,9 +20,9 @@ namespace CloudNativeKit.Infrastructure.Grpc
         {
             var correlationId = context
                 .RequestHeaders
-                .FirstOrDefault(h => h.Key.Equals("X-Correlation-Id", StringComparison.OrdinalIgnoreCase))?.Value;
+                .FirstOrDefault(h => h.Key.Equals("X-Correlation-ID", StringComparison.OrdinalIgnoreCase))?.Value;
 
-            using (LogContext.PushProperty("X-Correlation-Id", correlationId))
+            using (LogContext.PushProperty("X-Correlation-ID", correlationId))
             {
                 var sw = Stopwatch.StartNew();
 

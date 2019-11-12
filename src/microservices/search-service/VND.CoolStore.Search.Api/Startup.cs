@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenTracing.Contrib.Grpc.Interceptors;
 using VND.CoolStore.Search.Api.Workers;
 
 namespace VND.CoolStore.Search.Api
@@ -26,14 +27,14 @@ namespace VND.CoolStore.Search.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCorrelationId();
+            services.AddJaeger();
+
             services.AddHealthChecks()
                 .AddRedis($"{Configuration["Redis:Host"]},password={Configuration["Redis:Password"]}");
 
             services.AddControllers()
                 .AddNewtonsoftJson();
-
-            services.AddCorrelationId();
-            services.AddJaeger();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => Configuration.Bind("JwtAuthn", options));
@@ -51,6 +52,7 @@ namespace VND.CoolStore.Search.Api
             {
                 options.Interceptors.Add<RequestLoggerInterceptor>();
                 options.Interceptors.Add<ExceptionHandleInterceptor>();
+                options.Interceptors.Add<ServerTracingInterceptor>();
                 options.EnableDetailedErrors = true;
             });
 
@@ -64,17 +66,16 @@ namespace VND.CoolStore.Search.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.UseCorrelationId(new CorrelationIdOptions
+            {
+                UpdateTraceIdentifier = true
+            });
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseCorrelationId(new CorrelationIdOptions
-            {
-                Header = "X-Correlation-Id",
-                UpdateTraceIdentifier = true
-            });
 
             app.UseEndpoints(endpoints =>
             {
