@@ -49,8 +49,11 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
                         .LessThanOrEquals(request.Price))
                 )
                 .Aggregations(a => a
-                    .Terms("tags", t => t
+                    .Terms("category_tags", t => t
                         .Field(f => f.Category.Name.Suffix("keyword"))
+                    ) && a
+                    .Terms("inventory_tags", t => t
+                        .Field(f => f.Inventory.Location.Suffix("keyword"))
                     )
                 )
                 .From(request.Page - 1)
@@ -62,9 +65,16 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
                 throw new Exception("Could not query data");
             }
 
-            var tags = result
+            var categoryTags = result
                 .Aggregations
-                .Terms("tags")
+                .Terms("category_tags")
+                .Buckets
+                .Select(b => new SearchAggsByTags { Key = b.Key, Count = (int)b.DocCount })
+                .ToList();
+
+            var inventoryTags = result
+                .Aggregations
+                .Terms("inventory_tags")
                 .Buckets
                 .Select(b => new SearchAggsByTags { Key = b.Key, Count = (int)b.DocCount })
                 .ToList();
@@ -101,7 +111,8 @@ namespace VND.CoolStore.Search.Usecases.SearchProduct
             };
 
             response.Results.AddRange(items.ToArray());
-            response.CategoryTags.AddRange(tags.ToArray());
+            response.CategoryTags.AddRange(categoryTags.ToArray());
+            response.InventoryTags.AddRange(inventoryTags.ToArray());
             response.CorrelationId = _correlationContext.CorrelationContext.CorrelationId;
 
             return response;

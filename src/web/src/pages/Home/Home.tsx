@@ -13,11 +13,13 @@ interface IProps extends RouteComponentProps {}
 const Home: React.FC<IProps> = props => {
   const { state, dispatch } = useStore()
   const [categoryTags, setCategoryTags] = useState([])
+  const [inventoryTags, setInventoryTags] = useState([])
 
   const fetchData = useCallback(
     async (page: number, price: number) => {
       const result = await searchProducts('*', price, page)
       setCategoryTags(result.categoryTags)
+      setInventoryTags(result.inventoryTags)
       dispatch(AppActions.loadProducts(result.products))
     },
     [dispatch]
@@ -59,6 +61,7 @@ const Home: React.FC<IProps> = props => {
               initPrice={1130}
               maxPrice={10000}
               categoryTags={categoryTags}
+              inventoryTags={inventoryTags}
             ></Filter>
           </div>
 

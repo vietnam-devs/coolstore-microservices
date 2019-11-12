@@ -45,9 +45,15 @@ export interface ICategoryTagModel {
   count: number
 }
 
+export interface IInventoryTagModel {
+  key: string
+  count: number
+}
+
 export interface IProductSearchResult {
   products: IProduct[]
   categoryTags: ICategoryTagModel[]
+  inventoryTags: IInventoryTagModel[]
   totalItem: number
   page: number
 }

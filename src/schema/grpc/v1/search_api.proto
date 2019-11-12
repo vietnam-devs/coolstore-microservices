@@ -20,6 +20,7 @@ message SearchProductResponse {
   int32 page = 2;
   repeated SearchProductModel results = 3;
   repeated SearchAggsByTags category_tags = 4;
-  int32 elapsed_milliseconds = 5;
-  string correlation_id = 6;
+  repeated SearchAggsByTags inventory_tags = 5;
+  int32 elapsed_milliseconds = 6;
+  string correlation_id = 7;
 }

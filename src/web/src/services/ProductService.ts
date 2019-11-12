@@ -37,6 +37,7 @@ export const searchProducts = async (query: string, price: number, page: number,
   const result = {
     products: response.data.results,
     categoryTags: response.data.categoryTags,
+    inventoryTags: response.data.inventoryTags,
     page: response.data.page,
     totalItem: response.data.total
   } as IProductSearchResult
