@@ -16,6 +16,8 @@ CoolStore Website is a containerised microservices application consisting of ser
 
 The business domain is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral).
 
+> Currently, we're working on [practical-dapr project](https://github.com/thangchung/practical-dapr) which uses and leverages [Dapr](https://github.com/dapr/dapr) and [Tye](https://github.com/dotnet/tye) from Microsoft to run  CoolStore website without need Docker, Docker-compose, and Helm chart for running on localhost and deploying to Kubernetes platform. If you are interested in, please come over that link!
+
 Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
 
 ## Try it online
