@@ -9,7 +9,7 @@ LoggerService.info(`Web URL is at ${webUrl}.`)
 const OidcConfig: UserManagerSettings = {
   client_id: 'web',
   redirect_uri: `${webUrl}/auth/callback`,
-  authority: `${process.env.REACT_APP_AUTHORITY}`,
+  authority: `${(<any>window).env.REACT_APP_AUTHORITY}`,
   response_type: 'id_token token',
   post_logout_redirect_uri: `${webUrl}/`,
   scope: 'openid profile api1',

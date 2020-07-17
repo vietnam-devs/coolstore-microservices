@@ -266,8 +266,8 @@ There are several individual µservices and infrastructure components that make 
 #### Up and running with `Docker` and `docker compose`
 
 ```bash
-$ docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
-$ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+$ docker-compose -f docker-compose.base.yml -f docker-compose.base.override.yml -f docker-compose.yml -f docker-compose.override.yml build
+$ docker-compose -f docker-compose.base.yml -f docker-compose.base.override.yml -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
 
 See https://vietnam-devs.github.io/coolstore-microservices/development/#up-and-running-with-docker-and-docker-compose

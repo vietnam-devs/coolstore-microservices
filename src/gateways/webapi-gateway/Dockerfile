@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/runtime:3.0.0-bionic AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-bionic AS base
 WORKDIR /app
 EXPOSE 80
 

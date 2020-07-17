@@ -6,12 +6,16 @@ services:
   web:
     ports:
       - 31999:31999
+    environment:
+      - REACT_APP_AUTHORITY=/authority
+      - IDENTITY_WEB_PORT=31888
+      - API_WEB_PORT=31666
 
   access-control-api:
     ports:
       - 31888:80
     environment:
-      - ASPNETCORE_ENVIRONMENT=development
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     volumes:
       - "localnuget:/root/.nuget/packages"
 
@@ -70,8 +74,3 @@ services:
 # only if you want to mount nuget packages path to save restore packages time on Windows
 volumes:
   localnuget:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ${LOCAL_NUGET_PATH}

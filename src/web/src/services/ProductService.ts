@@ -3,7 +3,7 @@ import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import AuthService from './AuthService'
 import { IProduct, IProductSearchResult } from 'stores/types'
 
-const apiUrl = `${process.env.REACT_APP_API}`
+const apiUrl = `${(<any>window).env.REACT_APP_API}`
 const productResourceUrl = '/api/products'
 const searchProductResourceUrl = '/api/product-search'
 
