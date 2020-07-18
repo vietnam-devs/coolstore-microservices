@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
 COPY ["src/microservices/access-control-service/VND.CoolStore.AccessControl/VND.CoolStore.AccessControl.csproj", "src/microservices/access-control-service/VND.CoolStore.AccessControl/"]
 RUN dotnet restore "src/microservices/access-control-service/VND.CoolStore.AccessControl/VND.CoolStore.AccessControl.csproj"
-COPY . .
+COPY src/microservices/access-control-service/VND.CoolStore.AccessControl src/microservices/access-control-service/VND.CoolStore.AccessControl
 WORKDIR "/src/src/microservices/access-control-service/VND.CoolStore.AccessControl"
 RUN dotnet build "VND.CoolStore.AccessControl.csproj" -c Release -o /app/build
 

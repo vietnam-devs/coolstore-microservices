@@ -5,16 +5,19 @@ EXPOSE 15004
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-bionic AS build
 WORKDIR /src
-COPY ["src/microservices/inventory-service/VND.CoolStore.Inventory.Api/VND.CoolStore.Inventory.Api.csproj", "src/microservices/inventory-service/VND.CoolStore.Inventory.Api/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure/CloudNativeKit.Infrastructure.csproj", "src/building-blocks/CloudNativeKit.Infrastructure/"]
 COPY ["src/building-blocks/CloudNativeKit.Domain/CloudNativeKit.Domain.csproj", "src/building-blocks/CloudNativeKit.Domain/"]
 COPY ["src/building-blocks/CloudNativeKit.Utils/CloudNativeKit.Utils.csproj", "src/building-blocks/CloudNativeKit.Utils/"]
-COPY ["src/microservices/inventory-service/VND.CoolStore.Inventory/VND.CoolStore.Inventory.csproj", "src/microservices/inventory-service/VND.CoolStore.Inventory/"]
-COPY ["src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/VND.CoolStore.Inventory.DataContracts.csproj", "src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Data/CloudNativeKit.Infrastructure.Data.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Data/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Bus/CloudNativeKit.Infrastructure.Bus.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Bus/"]
+COPY ["src/microservices/inventory-service/VND.CoolStore.Inventory/VND.CoolStore.Inventory.csproj", "src/microservices/inventory-service/VND.CoolStore.Inventory/"]
+COPY ["src/microservices/inventory-service/VND.CoolStore.Inventory.Api/VND.CoolStore.Inventory.Api.csproj", "src/microservices/inventory-service/VND.CoolStore.Inventory.Api/"]
+COPY ["src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/VND.CoolStore.Inventory.DataContracts.csproj", "src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/"]
 RUN dotnet restore "src/microservices/inventory-service/VND.CoolStore.Inventory.Api/VND.CoolStore.Inventory.Api.csproj"
-COPY . .
+
+COPY src/building-blocks src/building-blocks
+COPY src/schema/grpc/v1 src/schema/grpc/v1
+COPY src/microservices/inventory-service src/microservices/inventory-service
 WORKDIR "/src/src/microservices/inventory-service/VND.CoolStore.Inventory.Api"
 RUN dotnet build "VND.CoolStore.Inventory.Api.csproj" -c Release -o /app/build
 

@@ -17,11 +17,14 @@ COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Tracing/CloudNativeKit.
 
 COPY ["src/microservices/search-service/VND.CoolStore.Search.Api/VND.CoolStore.Search.Api.csproj", "src/microservices/search-service/VND.CoolStore.Search.Api/"]
 COPY ["src/microservices/search-service/VND.CoolStore.Search.DataContracts/VND.CoolStore.Search.DataContracts.csproj", "src/microservices/search-service/VND.CoolStore.Search.DataContracts/"]
-COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/VND.CoolStore.ProductCatalog.DataContracts.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/"]
 COPY ["src/microservices/search-service/VND.CoolStore.Search/VND.CoolStore.Search.csproj", "src/microservices/search-service/VND.CoolStore.Search/"]
+COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/VND.CoolStore.ProductCatalog.DataContracts.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/"]
 
 RUN dotnet restore "src/microservices/search-service/VND.CoolStore.Search.Api/VND.CoolStore.Search.Api.csproj"
-COPY . .
+COPY src/building-blocks src/building-blocks
+COPY src/schema/grpc/v1 src/schema/grpc/v1
+COPY src/microservices/search-service src/microservices/search-service
+COPY src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts
 WORKDIR "/src/src/microservices/search-service/VND.CoolStore.Search.Api"
 RUN dotnet build "VND.CoolStore.Search.Api.csproj" -c Release -o /app/build
 

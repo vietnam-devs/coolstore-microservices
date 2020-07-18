@@ -5,18 +5,25 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-bionic AS build
 WORKDIR /src
 
-COPY ["src/gateways/webapi-gateway/VND.CoolStore.WebApiGateway.csproj", "src/gateways/webapi-gateway/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure/CloudNativeKit.Infrastructure.csproj", "src/building-blocks/CloudNativeKit.Infrastructure/"]
 COPY ["src/building-blocks/CloudNativeKit.Infrastructure.Tracing/CloudNativeKit.Infrastructure.Tracing.csproj", "src/building-blocks/CloudNativeKit.Infrastructure.Tracing/"]
 COPY ["src/building-blocks/GrpcJsonTranscoder/GrpcJsonTranscoder.csproj", "src/building-blocks/GrpcJsonTranscoder/"]
-
 COPY ["src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.DataContracts/VND.CoolStore.ShoppingCart.DataContracts.csproj", "src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.DataContracts/"]
 COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/VND.CoolStore.ProductCatalog.DataContracts.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/"]
 COPY ["src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/VND.CoolStore.Inventory.DataContracts.csproj", "src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts/"]
 COPY ["src/microservices/search-service/VND.CoolStore.Search.DataContracts/VND.CoolStore.Search.DataContracts.csproj", "src/microservices/search-service/VND.CoolStore.Search.DataContracts/"]
+COPY ["src/gateways/webapi-gateway/VND.CoolStore.WebApiGateway.csproj", "src/gateways/webapi-gateway/"]
 
 RUN dotnet restore "src/gateways/webapi-gateway/VND.CoolStore.WebApiGateway.csproj"
-COPY . .
+
+COPY src/building-blocks src/building-blocks
+COPY src/schema/grpc/v1 src/schema/grpc/v1
+COPY src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.DataContracts src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.DataContracts
+COPY src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts
+COPY src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts src/microservices/inventory-service/VND.CoolStore.Inventory.DataContracts
+COPY src/microservices/search-service/VND.CoolStore.Search.DataContracts src/microservices/search-service/VND.CoolStore.Search.DataContracts
+COPY src/gateways/webapi-gateway src/gateways/webapi-gateway
+
 WORKDIR "/src/src/gateways/webapi-gateway"
 RUN dotnet build "VND.CoolStore.WebApiGateway.csproj" -c Release -o /app/build
 

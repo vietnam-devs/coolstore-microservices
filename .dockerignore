@@ -28,3 +28,4 @@ deploys/iac/
 !**/web/build/
 !**/netcorekit/build/
 Dockerfile
+_ReSharper.Caches

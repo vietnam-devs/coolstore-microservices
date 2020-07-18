@@ -3,13 +3,18 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-bionic AS build
 WORKDIR /src
-COPY ["src/migrations/VND.CoolStore.DbMigration/VND.CoolStore.DbMigration.csproj", "src/migrations/VND.CoolStore.DbMigration/"]
-COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/VND.CoolStore.ProductCatalog.DataContracts.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/"]
 COPY ["src/building-blocks/CloudNativeKit.Domain/CloudNativeKit.Domain.csproj", "src/building-blocks/CloudNativeKit.Domain/"]
 COPY ["src/building-blocks/CloudNativeKit.Utils/CloudNativeKit.Utils.csproj", "src/building-blocks/CloudNativeKit.Utils/"]
+COPY ["src/migrations/VND.CoolStore.DbMigration/VND.CoolStore.DbMigration.csproj", "src/migrations/VND.CoolStore.DbMigration/"]
+COPY ["src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/VND.CoolStore.ProductCatalog.DataContracts.csproj", "src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts/"]
 COPY ["src/microservices/search-service/VND.CoolStore.Search.DataContracts/VND.CoolStore.Search.DataContracts.csproj", "src/microservices/search-service/VND.CoolStore.Search.DataContracts/"]
 RUN dotnet restore "src/migrations/VND.CoolStore.DbMigration/VND.CoolStore.DbMigration.csproj"
-COPY . .
+
+COPY src/schema src/schema
+COPY src/building-blocks src/building-blocks
+COPY src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.DataContracts
+COPY src/microservices/search-service/VND.CoolStore.Search.DataContracts src/microservices/search-service/VND.CoolStore.Search.DataContracts
+COPY src/migrations/VND.CoolStore.DbMigration src/migrations/VND.CoolStore.DbMigration
 WORKDIR "/src/src/migrations/VND.CoolStore.DbMigration"
 RUN dotnet build "VND.CoolStore.DbMigration.csproj" -c Release -o /app/build
 
