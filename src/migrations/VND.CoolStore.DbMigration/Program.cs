@@ -28,7 +28,7 @@ namespace VND.CoolStore.DbMigration
         static async Task Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
+                .MinimumLevel.Debug()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .CreateLogger();
@@ -99,6 +99,11 @@ namespace VND.CoolStore.DbMigration
                 .PrettyJson();
 
             var client = new ElasticClient(settings);
+            var ping = await client.PingAsync();
+            if (!ping.IsValid)
+            {
+                throw new Exception("Can not connect to Eslastic Search");
+            }
             //var clusterState = await client.Cluster.StateAsync();
             //Log.Information($"Cluster info is {JsonConvert.SerializeObject(clusterState)}");
 
@@ -144,7 +149,7 @@ namespace VND.CoolStore.DbMigration
                 for (var index = 0; index < products.Count; index++)
                 {
                     var forDebug = await client.IndexDocumentAsync(products[index]);
-                    Log.Debug($"Index response info: {JsonConvert.SerializeObject(forDebug)}");
+                    Log.Debug($"Index response info: {JsonConvert.SerializeObject(forDebug)} with debug information {forDebug.DebugInformation}");
                 }
 
                 Log.Information($"Finish to index data into ElasticSearch");
