@@ -90,6 +90,7 @@ services:
 
   migration-data:
     image: vndg/migration-data-v3:latest
+    restart: on-failure
     build:
       context: .
       dockerfile: ./src/migrations/VND.CoolStore.DbMigration/Dockerfile
