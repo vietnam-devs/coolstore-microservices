@@ -39,11 +39,11 @@ namespace InventoryService.Api
 
                 options.Authority = isRunOnTye
                     ? Config.GetServiceUri("identityservice")?.AbsoluteUri
-                    : "https://localhost:5001";
+                    : "http://localhost:5001";
 
                 options.Audience = isRunOnTye
                     ? $"{Config.GetServiceUri("identityservice")?.AbsoluteUri.TrimEnd('/')}/resources"
-                    : "https://localhost:5001/resources";
+                    : "http://localhost:5001/resources";
             });
         }
 

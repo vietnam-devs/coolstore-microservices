@@ -7,7 +7,7 @@ const webUrl = window.location.origin
 LoggerService.info(`Web URL is at ${webUrl}.`)
 
 const OidcConfig: UserManagerSettings = {
-  client_id: 'web',
+  client_id: 'coolstore.web',
   redirect_uri: `${webUrl}/auth/callback`,
   authority: `${process.env.REACT_APP_AUTHORITY}`,
   response_type: 'id_token token',

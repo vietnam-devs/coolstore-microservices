@@ -41,10 +41,19 @@ namespace IdentityService
                     AllowedScopes = {"openid", "profile", "scope2"}
                 },
 
+                // password flow
+                new Client
+                {
+                    ClientId = "coolstore.password",
+                    ClientSecrets = {new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256())},
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
+                    AllowedScopes = {"openid", "profile", "scope1", "scope2"}
+                },
+
                 // web
                 new Client
                 {
-                    ClientId = "web",
+                    ClientId = "coolstore.web",
                     ClientName = "React Web",
                     ClientUri = "http://localhost:3000",
                     AllowedGrantTypes = GrantTypes.Implicit,

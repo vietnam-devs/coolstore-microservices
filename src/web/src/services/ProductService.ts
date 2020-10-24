@@ -4,15 +4,15 @@ import AuthService from './AuthService'
 import { IProduct, IProductSearchResult } from 'stores/types'
 
 const apiUrl = `${process.env.REACT_APP_API}`
-const productResourceUrl = '/api/products'
-const searchProductResourceUrl = '/api/product-search'
+const productResourceUrl = '/prod/api/products'
+const searchProductResourceUrl = '/prod/api/product-search'
 
 const getRequestOptions = (token: string): AxiosRequestConfig => {
   return {
     baseURL: apiUrl,
     data: {},
     headers: {
-      'Content-Type': 'application/grpc',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
     }
   }

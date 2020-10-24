@@ -5,6 +5,9 @@ extensions:
   log-level: debug
   config: appconfig
   components-path: "./components/"
+# - name: zipkin
+# - name: elastic
+#   logPath: ./.logs
 
 services:
 
@@ -35,7 +38,7 @@ services:
   bindings:
   - port: 5000
 
-- name: indentityservice
+- name: identityservice
   project: src/Services/Identity/IdentityService/IdentityService.csproj
   bindings:
   - port: 5001
