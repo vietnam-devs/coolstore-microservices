@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="OpenTelemetry" Version="0.4.0-beta.2" />
+    <PackageReference Include="OpenTelemetry.Exporter.Zipkin" Version="0.4.0-beta.2" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="0.4.0-beta.2" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="0.4.0-beta.2" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="0.4.0-beta.2" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="0.4.0-beta.2" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Grpc" Version="0.4.0-beta.2" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="0.4.0-beta.2" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\N8T.Domain\N8T.Domain.csproj" />
+    <ProjectReference Include="..\N8T.Infrastructure\N8T.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,62 @@
+name: coolstore-on-dapr
+
+extensions:
+- name: dapr
+  log-level: debug
+  config: appconfig
+  components-path: "./components/"
+
+services:
+
+- name: sqlserver
+  image: mcr.microsoft.com/mssql/server:2017-latest
+  env:
+    - name: SA_PASSWORD
+      value: "P@ssw0rd"
+    - name: ACCEPT_EULA
+      value: "Y"
+  bindings:
+    - port: 1433
+      connectionString: Data Source=${host},${port};Initial Catalog=coolstoredb;User Id=sa;Password=${env:SA_PASSWORD};MultipleActiveResultSets=True;
+
+- name: redis
+  image: redis
+  bindings:
+    - port: 6379
+
+- name: placement
+  image: daprio/dapr
+  args: ./placement
+  bindings:
+    - port: 50005
+
+- name: webapigateway
+  project: src/BFFs/WebApiGateway/WebApiGateway.csproj
+  bindings:
+  - port: 5000
+
+- name: indentityservice
+  project: src/Services/Identity/IdentityService/IdentityService.csproj
+  bindings:
+  - port: 5001
+
+- name: inventoryservice
+  project: src/Services/Inventory/InventoryService.Api/InventoryService.Api.csproj
+  bindings:
+  - port: 5002
+
+- name: productcatalogservice
+  project: src/Services/ProductCatalog/ProductCatalogService.Api/ProductCatalogService.Api.csproj
+  bindings:
+  - port: 5003
+
+- name: shoppingcartservice
+  project: src/Services/ShoppingCart/ShoppingCartService.Api/ShoppingCartService.Api.csproj
+  bindings:
+  - port: 5004
+
+- name: web
+  dockerFile: src/web/Dockerfile
+  bindings:
+  - protocol: http
+    port: 3000

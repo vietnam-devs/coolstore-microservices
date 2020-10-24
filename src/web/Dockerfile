@@ -1,25 +1,21 @@
-ARG NODE_IMAGE=node:10.16
+# Docker Image which is used as foundation to create
+# a custom Docker Image with this Dockerfile
+FROM node:10.16
+# A directory within the virtualized Docker environment
+# Becomes more relevant when using Docker Compose later
+WORKDIR /usr/src/app
 
-FROM ${NODE_IMAGE} as node-build
-WORKDIR /app
+# Copies package.json and package-lock.json to Docker environment
+COPY package*.json ./
 
-COPY src/web/package-lock.json .
-COPY src/web/package.json .
+# Installs all node packages
 RUN npm install
 
-COPY src/web .
-RUN npm run build
+# Copies everything over to Docker environment
+COPY . .
 
-FROM node-build as publish
+# Uses port which is used by the actual application
+EXPOSE 3000
 
-FROM nginx:perl as final
-WORKDIR /app
-
-RUN nginx -v
-EXPOSE 31999
-
-COPY --from=publish /app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=publish /app/nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=publish /app/build /app
-
-CMD ["nginx", "-g", "daemon off;"]
+# Finally runs the application
+CMD [ "npm", "start" ]

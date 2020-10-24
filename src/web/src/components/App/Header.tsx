@@ -63,12 +63,10 @@ const Header: React.FC<IProps> = ({ history }) => {
         <Container fluid>
           <div>
             <h1 className="display-4">
-              <StyledHeader to={`/`}>CoolStore Microservices</StyledHeader>
+              <StyledHeader to={`/`}>CoolStore on Dapr</StyledHeader>
             </h1>
             <p className="lead">
-              A containerised microservices application consisting of services based on .NET Core, NodeJS and more
-              running on Service Mesh. It demonstrates how to wire up small microservices into a larger application
-              using microservice architectural principals
+              A store uses modern technologies such as .NET Core, Docker, Kubernetes, Dapr, OSM, Tye etc.
             </p>
           </div>
         </Container>

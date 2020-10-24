@@ -12,7 +12,7 @@ const OidcConfig: UserManagerSettings = {
   authority: `${process.env.REACT_APP_AUTHORITY}`,
   response_type: 'id_token token',
   post_logout_redirect_uri: `${webUrl}/`,
-  scope: 'openid profile api1',
+  scope: 'openid profile scope2',
   silent_redirect_uri: `${webUrl}/auth/silent-renew`,
   automaticSilentRenew: false,
   loadUserInfo: true

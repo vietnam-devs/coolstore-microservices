@@ -331,8 +331,8 @@ ASALocalRun/
 .mfractor/
 
 # lock files
-yarn.lock
-package-lock.json
+#yarn.lock
+#package-lock.json
 #build
 
 # log files
@@ -354,3 +354,5 @@ src/web/shrinkwrap.yaml
 
 # git submodules
 **/*/healthchecksdb
+
+.tye
