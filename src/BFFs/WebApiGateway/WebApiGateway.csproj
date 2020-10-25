@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" Version="5.0.0-rc.2.20475.17" />
     <PackageReference Include="Microsoft.ReverseProxy" Version="1.0.0-preview.6.20513.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BasicBuildingBlocks\N8T.Infrastructure.OTel\N8T.Infrastructure.OTel.csproj" />
     <ProjectReference Include="..\..\BasicBuildingBlocks\N8T.Infrastructure\N8T.Infrastructure.csproj" />
   </ItemGroup>
 

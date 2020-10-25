@@ -48,10 +48,7 @@ namespace N8T.Infrastructure.OTel.MediatR
             }
             finally
             {
-                if (activity != null)
-                {
-                    activityListener.StopActivity(activity, request);
-                }
+                activityListener.StopActivity(activity, request);
             }
         }
     }

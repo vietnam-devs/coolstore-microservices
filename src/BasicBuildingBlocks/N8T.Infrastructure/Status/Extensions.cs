@@ -25,13 +25,13 @@ namespace N8T.Infrastructure.Status
 
             foreach (var env in config.GetChildren()) model.Envs.Add(env.Key, env.Value);
 
-            model.OSArchitecture = !RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            model.OsArchitecture = !RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
                 ? RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
                     ? "Linux or OSX"
                     : "Others"
                 : "Windows";
 
-            model.OSDescription = RuntimeInformation.OSDescription;
+            model.OsDescription = RuntimeInformation.OSDescription;
 
             model.ProcessArchitecture = RuntimeInformation.ProcessArchitecture == Architecture.Arm
                 ? "Arm"
@@ -47,7 +47,7 @@ namespace N8T.Infrastructure.Status
             model.FrameworkDescription = RuntimeInformation.FrameworkDescription;
 
             model.HostName = Dns.GetHostName();
-            model.IPAddress = Dns.GetHostAddresses(Dns.GetHostName())
+            model.IpAddress = Dns.GetHostAddresses(Dns.GetHostName())
                 .Where(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 .Aggregate(" ", (a, b) => $"{a} {b}");
 

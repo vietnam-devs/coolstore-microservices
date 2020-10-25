@@ -5,7 +5,7 @@ extensions:
   log-level: debug
   config: appconfig
   components-path: "./components/"
-# - name: zipkin
+- name: zipkin
 # - name: elastic
 #   logPath: ./.logs
 

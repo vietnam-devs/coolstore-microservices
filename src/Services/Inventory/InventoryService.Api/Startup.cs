@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using N8T.Infrastructure;
 using N8T.Infrastructure.Auth;
 using N8T.Infrastructure.Cache;
 using N8T.Infrastructure.Dapr;
+using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
 
@@ -45,6 +47,16 @@ namespace InventoryService.Api
                     ? $"{Config.GetServiceUri("identityservice")?.AbsoluteUri.TrimEnd('/')}/resources"
                     : "http://localhost:5001/resources";
             });
+
+            services.AddCustomOtelWithZipkin(Config,
+                o =>
+                {
+                    var isRunOnTye = Config.IsRunOnTye("zipkin");
+            
+                    o.Endpoint = isRunOnTye
+                        ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
+                        : new Uri("http://localhost:9411");
+                });
         }
 
         public void Configure(IApplicationBuilder app)

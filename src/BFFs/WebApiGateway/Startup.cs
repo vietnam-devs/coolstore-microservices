@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.ReverseProxy.Abstractions;
 using Microsoft.ReverseProxy.Service;
+using N8T.Infrastructure.OTel;
 
 namespace WebApiGateway
 {
@@ -21,6 +23,14 @@ namespace WebApiGateway
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("api", policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             // inventory
             var invRoute = new ProxyRoute
             {
@@ -123,8 +133,20 @@ namespace WebApiGateway
                 cartCluster
             };
 
+            services.AddHeaderPropagation(options =>
+            {
+                options.Headers.Add("RequestId");
+                options.Headers.Add("SpanId");
+                options.Headers.Add("TraceId");
+                options.Headers.Add("ParentId");
+            });
+
             services.AddReverseProxy()
                 .LoadFromMemory(routes, clusters);
+
+            services.AddCustomOtelWithZipkin(Config,
+                o => o.Endpoint =
+                    new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -134,6 +156,9 @@ namespace WebApiGateway
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("api");
+
+            app.UseHeaderPropagation();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

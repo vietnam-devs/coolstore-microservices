@@ -75,7 +75,7 @@ authorization: bearer {{auth.response.body.access_token}}
 
 ###
 @id = a7791191-ff4a-4938-a4ed-b9074e59a18b
-GET {{host}}/api/carts/{{id}}  HTTP/1.1
+GET {{host}}/cart/api/carts/{{id}}  HTTP/1.1
 content-type: {{contentType}}
 authorization: bearer {{auth.response.body.access_token}}
 
@@ -114,6 +114,6 @@ authorization: bearer {{auth.response.body.access_token}}
 
 ###
 @id = EE8359B9-FDD4-43ED-B385-7003E22F4222
-DELETE {{host}}/api/carts/{{id}}  HTTP/1.1
+DELETE {{host}}/cart/api/carts/{{id}}  HTTP/1.1
 content-type: {{contentType}}
 authorization: bearer {{auth.response.body.access_token}}
