@@ -11,17 +11,17 @@ grant_type=password
 
 ###
 @page = 1
-@price = 3000
+@price = 10000
 GET {{host}}/prod/api/products/{{page}}/{{price}} HTTP/1.1
 content-type: {{contentType}}
 authorization: bearer {{auth.response.body.access_token}}
 
 ###
-@query = abc
-@price = 1000
-@page = 1
-@pageSize = 20
-GET {{host}}/prod/api/product-search/{{query}}/{{price}}/{{page}}/{{pageSize}} HTTP/1.1
+@search_query = *
+@search_price = 3000
+@search_page = 1
+@search_pageSize = 20
+GET {{host}}/prod/api/product-search/{{search_query}}/{{search_price}}/{{search_page}}/{{search_pageSize}} HTTP/1.1
 content-type: {{contentType}}
 authorization: bearer {{auth.response.body.access_token}}
 

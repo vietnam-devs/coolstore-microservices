@@ -14,8 +14,7 @@ namespace ProductCatalogService.Api.Http.Controllers
         [Authorize]
         [HttpGet("{page}/{price}")]
         public async Task<IEnumerable<GetProductsByPriceAndNameItem>> Get([FromServices] IMediator mediator,
-            int page = 1, double price = 1000) =>
-            await mediator.Send(
-                new GetProductsByPriceAndNameQuery {Page = page, Price = price});
+            int page, double price) =>
+            await mediator.Send(new GetProductsByPriceAndNameQuery {Page = page, Price = price});
     }
 }

@@ -1,77 +1,101 @@
-# docker-compose -f docker-compose.base.yml -f docker-compose.base.override.yml -f docker-compose.yml -f docker-compose.override.yml up -d
+# docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
-version: "3.7"
+version: "3"
 
 services:
+
   web:
-    ports:
-      - 31999:31999
-
-  access-control-api:
-    ports:
-      - 31888:80
+    restart: unless-stopped
     environment:
-      - ASPNETCORE_ENVIRONMENT=development
-    volumes:
-      - "localnuget:/root/.nuget/packages"
-
-  webapi-gateway:
+      - PORT=3000
+      - REACT_APP_AUTHORITY=http://localhost:5001
+      - REACT_APP_API=http://localhost:5000
     ports:
-      - 31666:80
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-    volumes:
-      - "localnuget:/root/.nuget/packages"
+      - 3000:3000
 
-  product-catalog-api:
+  webapigateway:
+    restart: unless-stopped
+    environment:
+      - Services__inventoryservice=http://inventoryservice:5002
+      - Services__productcatalogservice=http://productcatalogservice:5003
+      - Services__shoppingcartservice=http://shoppingcartservice:5004
+      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
     ports:
-      - 5002
-      - 15002
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-    volumes:
-      - "localnuget:/root/.nuget/packages"
+      - 5000:5000
 
-  shopping-cart-api:
+  identityservice:
+    restart: unless-stopped
     ports:
-      - 5003
-      - 15003
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-    volumes:
-      - "localnuget:/root/.nuget/packages"
+      - 5001:5001
 
-  inventory-api:
+  inventoryservice:
+    restart: unless-stopped
+    environment:
+      - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
+      - Redis__Url=redis:6379
+      - Authn__Authority=http://identityservice:5001
+      - Authn__Audience=http://localhost:5001/resources
+      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
     ports:
-      - 5004
-      - 15004
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-    volumes:
-      - "localnuget:/root/.nuget/packages"
+      - 5002:5002
 
-  search-api:
+  productcatalogservice:
+    restart: unless-stopped
+    environment:
+      - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
+      - Redis__Url=redis:6379
+      - Authn__Authority=http://identityservice:5001
+      - Authn__Audience=http://localhost:5001/resources
+      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
     ports:
-      - 5010
-      - 15010
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-    volumes:
-      - "localnuget:/root/.nuget/packages"
+      - 5003:5003
 
-  migration-data:
+  shoppingcartservice:
+    restart: unless-stopped
     environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__shoppingcart=Data Source=sqlserver,1433;Initial Catalog=ShoppingCartDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - ConnectionStrings__productcatalog=Data Source=sqlserver,1433;Initial Catalog=ProductCatalogDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - ConnectionStrings__inventory=Data Source=sqlserver,1433;Initial Catalog=InventoryDb;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=True;
-      - ConnectionStrings__search=http://elasticsearch:9200
+      - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
+      - Redis__Url=redis:6379
+      - Authn__Authority=http://identityservice:5001
+      - Authn__Audience=http://localhost:5001/resources
+      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
+    ports:
+      - 5004:5004
 
-# only if you want to mount nuget packages path to save restore packages time on Windows
-volumes:
-  localnuget:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ${LOCAL_NUGET_PATH}
+  postgresql:
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=P@ssw0rd
+    ports:
+      - 5432:5432
+
+  elasticsearch:
+    restart: unless-stopped
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  redis:
+    restart: unless-stopped
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
+    ports:
+      - 6379:6379
+      - 16379:16379
+
+  zipkin:
+    restart: unless-stopped
+    ports:
+      - 9411:9411

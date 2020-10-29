@@ -1,103 +1,182 @@
-version: "3.7"
+version: "3"
 
 services:
+
   web:
-    image: vndg/web-v3:latest
-    restart: always
+    image: vndg/web-dapr:latest
     build:
       context: .
       dockerfile: src/web/Dockerfile
     depends_on:
-      - webapi-gateway
-      - product-catalog-api
-      - shopping-cart-api
-      - inventory-api
-      - search-api
+      - webapigateway
     networks:
       - coolstore
 
-  access-control-api:
-    image: vndg/access-control-api-v3:latest
-    restart: always
+  webapigateway:
+    image: vndg/webapigateway-dapr:latest
+    restart: unless-stopped
     build:
       context: .
-      dockerfile: src/microservices/access-control-service/VND.CoolStore.AccessControl/Dockerfile
-    networks:
-      - coolstore
-
-  webapi-gateway:
-    image: vndg/webapi-gateway-v3:latest
-    restart: always
-    build:
-      context: .
-      dockerfile: src/gateways/webapi-gateway/Dockerfile
+      dockerfile: src/BFFs/WebApiGateway/Dockerfile
     depends_on:
-      - product-catalog-api
-      - shopping-cart-api
-      - inventory-api
-    networks:
-      - coolstore
-
-  product-catalog-api:
-    image: vndg/product-catalog-api-v3:latest
-    restart: always
-    build:
-      context: .
-      dockerfile: src/microservices/product-catalog-service/VND.CoolStore.ProductCatalog.Api/Dockerfile
-    depends_on:
-      - migration-data
-      - sqlserver
       - redis
+      - placement
+      - identityservice
+      - inventoryservice
+      - productcatalogservice
+      - shoppingcartservice
     networks:
       - coolstore
 
-  shopping-cart-api:
-    image: vndg/shopping-cart-api-v3:latest
-    restart: always
+  webapigateway-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "--app-id", "webapigateway",
+     "--app-port", "5000",
+     "--placement-host-address", "placement:50006",
+     "--components-path", "/components"]
+    volumes:
+        - "./components/:/components"
+    depends_on:
+      - webapigateway
+    network_mode: "service:webapigateway"
+
+  identityservice:
+    image: vndg/identityservice-dapr:latest
+    restart: unless-stopped
     build:
       context: .
-      dockerfile: src/microservices/shopping-cart-service/VND.CoolStore.ShoppingCart.Api/Dockerfile
+      dockerfile: src/Services/Identity/IdentityService/Dockerfile
     depends_on:
-      - migration-data
-      - sqlserver
       - redis
+      - placement
+      - postgresql
     networks:
       - coolstore
 
-  inventory-api:
-    image: vndg/inventory-api-v3:latest
-    restart: always
-    build:
-      context: .
-      dockerfile: src/microservices/inventory-service/VND.CoolStore.Inventory.Api/Dockerfile
+  identityservice-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "--app-id", "identityservice",
+     "--app-port", "5001",
+     "--placement-host-address", "placement:50006",
+     "--components-path", "/components"]
+    volumes:
+        - "./components/:/components"
     depends_on:
-      - migration-data
-      - sqlserver
-    networks:
-      - coolstore
+      - identityservice
+    network_mode: "service:identityservice"
 
-  search-api:
-    image: vndg/search-api-v3:latest
-    restart: always
+  inventoryservice:
+    image: vndg/inventoryservice-dapr:latest
+    restart: unless-stopped
     build:
       context: .
-      dockerfile: src/microservices/search-service/VND.CoolStore.Search.Api/Dockerfile
+      dockerfile: src/Services/Inventory/InventoryService.Api/Dockerfile
     depends_on:
-      - migration-data
-      - elasticsearch
-    networks:
-      - coolstore
-
-  migration-data:
-    image: vndg/migration-data-v3:latest
-    build:
-      context: .
-      dockerfile: ./src/migrations/VND.CoolStore.DbMigration/Dockerfile
-    depends_on:
-      - sqlserver
-      - elasticsearch
       - redis
-      - seq
+      - placement
+      - postgresql
+      - identityservice
+    networks:
+      - coolstore
+
+  inventoryservice-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "--app-id", "inventoryservice",
+     "--app-port", "5002",
+     "--placement-host-address", "placement:50006",
+     "--components-path", "/components"]
+    volumes:
+        - "./components/:/components"
+    depends_on:
+      - inventoryservice
+    network_mode: "service:inventoryservice"
+
+  productcatalogservice:
+    image: vndg/productcatalogservice-dapr:latest
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: src/Services/ProductCatalog/ProductCatalogService.Api/Dockerfile
+    depends_on:
+      - redis
+      - placement
+      - postgresql
+      - identityservice
+    networks:
+      - coolstore
+
+  productcatalogservice-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "--app-id", "productcatalogservice",
+     "--app-port", "5003",
+     "--placement-host-address", "placement:50006",
+     "--components-path", "/components"]
+    volumes:
+        - "./components/:/components"
+    depends_on:
+      - productcatalogservice
+    network_mode: "service:productcatalogservice"
+
+  shoppingcartservice:
+    image: vndg/shoppingcartservice-dapr:latest
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: src/Services/ShoppingCart/ShoppingCartService.Api/Dockerfile
+    depends_on:
+      - redis
+      - placement
+      - postgresql
+      - identityservice
+    networks:
+      - coolstore
+
+  shoppingcartservice-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "--app-id", "shoppingcartservice",
+     "--app-port", "5004",
+     "--placement-host-address", "placement:50006",
+     "--components-path", "/components"]
+    volumes:
+        - "./components/:/components"
+    depends_on:
+      - shoppingcartservice
+    network_mode: "service:shoppingcartservice"
+
+  postgresql:
+    image: postgres:11-alpine
+    container_name: postgresql
+    networks:
+      - coolstore
+
+  elasticsearch:
+    image: elasticsearch:7.6.2
+    networks:
+      - coolstore
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    networks:
+      - coolstore
+
+  placement:
+    image: "daprio/dapr"
+    command: ["./placement", "-port", "50006"]
+    ports:
+      - "50006:50006"
+    networks:
+      - coolstore
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6380:6379"
     networks:
       - coolstore
 

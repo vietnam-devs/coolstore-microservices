@@ -43,11 +43,11 @@ namespace ProductCatalogService.Api
 
                 options.Authority = isRunOnTye
                     ? Config.GetServiceUri("identityservice")?.AbsoluteUri
-                    : "http://localhost:5001";
+                    : options.Authority;
 
                 options.Audience = isRunOnTye
                     ? $"{Config.GetServiceUri("identityservice")?.AbsoluteUri.TrimEnd('/')}/resources"
-                    : "http://localhost:5001/resources";
+                    : options.Audience;
             });
 
             services.AddCustomOtelWithZipkin(Config,
@@ -57,7 +57,7 @@ namespace ProductCatalogService.Api
             
                     o.Endpoint = isRunOnTye
                         ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
-                        : new Uri("http://localhost:9411/api/v2/spans");
+                        : o.Endpoint;
                 });
         }
 

@@ -8,8 +8,8 @@ namespace ProductCatalogService.Application.GetProductsByPriceAndName
 {
     public class GetProductsByPriceAndNameQuery : IRequest<IEnumerable<GetProductsByPriceAndNameItem>>, IAuthRequest
     {
-        public int Page { get; set; } = 1;
-        public double Price { get; set; } = 1000;
+        public int Page { get; set; }
+        public double Price { get; set; }
     }
 
     public class GetProductsByPriceAndNameItem

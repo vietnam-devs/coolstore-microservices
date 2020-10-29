@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.ReverseProxy.Abstractions;
 using Microsoft.ReverseProxy.Service;
 using N8T.Infrastructure.OTel;
+using N8T.Infrastructure.Tye;
 
 namespace WebApiGateway
 {
@@ -30,6 +31,8 @@ namespace WebApiGateway
                     policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
+
+            var isRunOnTye = Config.IsRunOnTye("inventoryservice");
 
             // inventory
             var invRoute = new ProxyRoute
@@ -54,7 +57,9 @@ namespace WebApiGateway
                     {
                         "inv-svc-cluster/destination1", new Destination
                         {
-                            Address = $"{Config.GetServiceUri("inventoryservice")?.AbsoluteUri}"
+                            Address = isRunOnTye
+                                ? $"{Config.GetServiceUri("inventoryservice")?.AbsoluteUri}"
+                                : Config.GetValue<string>("Services:inventoryservice")
                         }
                     }
                 }
@@ -83,7 +88,9 @@ namespace WebApiGateway
                     {
                         "prod-svc-cluster/destination1", new Destination
                         {
-                            Address = $"{Config.GetServiceUri("productcatalogservice")?.AbsoluteUri}"
+                            Address = isRunOnTye
+                                ? $"{Config.GetServiceUri("productcatalogservice")?.AbsoluteUri}"
+                                : Config.GetValue<string>("Services:productcatalogservice")
                         }
                     }
                 }
@@ -112,7 +119,9 @@ namespace WebApiGateway
                     {
                         "cart-svc-cluster/destination1", new Destination
                         {
-                            Address = $"{Config.GetServiceUri("shoppingcartservice")?.AbsoluteUri}"
+                            Address = isRunOnTye
+                                ? $"{Config.GetServiceUri("shoppingcartservice")?.AbsoluteUri}"
+                                : Config.GetValue<string>("Services:shoppingcartservice")
                         }
                     }
                 }
@@ -145,8 +154,12 @@ namespace WebApiGateway
                 .LoadFromMemory(routes, clusters);
 
             services.AddCustomOtelWithZipkin(Config,
-                o => o.Endpoint =
-                    new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans"));
+                o =>
+                {
+                    o.Endpoint = isRunOnTye
+                        ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
+                        : o.Endpoint;
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
