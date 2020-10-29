@@ -11,7 +11,7 @@ grant_type=password
 
 ###
 @page = 1
-@price = 1000
+@price = 3000
 GET {{host}}/prod/api/products/{{page}}/{{price}} HTTP/1.1
 content-type: {{contentType}}
 authorization: bearer {{auth.response.body.access_token}}

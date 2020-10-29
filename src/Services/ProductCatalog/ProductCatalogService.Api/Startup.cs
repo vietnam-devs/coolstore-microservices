@@ -8,9 +8,11 @@ using N8T.Infrastructure;
 using N8T.Infrastructure.Auth;
 using N8T.Infrastructure.Cache;
 using N8T.Infrastructure.Dapr;
+using N8T.Infrastructure.EfCore;
 using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
+using ProductCatalogService.Infrastructure.Persistence;
 
 namespace ProductCatalogService.Api
 {
@@ -30,7 +32,7 @@ namespace ProductCatalogService.Api
             services.AddHttpContextAccessor()
                 .AddCustomMediatR<Anchor>()
                 .AddCustomValidators<Anchor>()
-                //.AddCustomDbContext<MainDbContext, Startup>(Config.GetConnectionString("sqlserver"))
+                .AddCustomDbContext<MainDbContext, Anchor>(Config.GetConnectionString("postgres"))
                 .AddCustomRedisCache(Config)
                 .AddCustomDaprClient()
                 .AddControllers();

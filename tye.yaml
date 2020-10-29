@@ -5,33 +5,31 @@ extensions:
   log-level: debug
   config: appconfig
   components-path: "./components/"
-- name: zipkin
+# - name: zipkin
 # - name: elastic
 #   logPath: ./.logs
 
 services:
 
-- name: sqlserver
-  image: mcr.microsoft.com/mssql/server:2017-latest
+- name: postgres
+  image:  postgres
   env:
-    - name: SA_PASSWORD
-      value: "P@ssw0rd"
-    - name: ACCEPT_EULA
-      value: "Y"
+  - name: POSTGRES_PASSWORD
+    value: "P@ssw0rd"
   bindings:
-    - port: 1433
-      connectionString: Data Source=${host},${port};Initial Catalog=coolstoredb;User Id=sa;Password=${env:SA_PASSWORD};MultipleActiveResultSets=True;
+  - port: 5432
+    connectionString: Server=${host};Port=${port};User Id=postgres;Password=${env:POSTGRES_PASSWORD};
 
 - name: redis
   image: redis
   bindings:
-    - port: 6379
+  - port: 6379
 
 - name: placement
   image: daprio/dapr
   args: ./placement
   bindings:
-    - port: 50005
+  - port: 50005
 
 - name: webapigateway
   project: src/BFFs/WebApiGateway/WebApiGateway.csproj

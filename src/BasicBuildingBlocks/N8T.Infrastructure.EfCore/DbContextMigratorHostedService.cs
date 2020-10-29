@@ -29,6 +29,7 @@ namespace N8T.Infrastructure.EfCore
             await policy.ExecuteAsync(async () =>
             {
                 using var scope = _serviceProvider.CreateScope();
+
                 var dbFacadeResolver = scope.ServiceProvider.GetRequiredService<IDbFacadeResolver>();
                 await dbFacadeResolver.Database.MigrateAsync(cancellationToken);
                 _logger.LogInformation("Done migration database schema.");
@@ -40,9 +41,9 @@ namespace N8T.Infrastructure.EfCore
         private static AsyncRetryPolicy CreatePolicy(int retries, ILogger logger, string prefix)
         {
             return Policy.Handle<SqlException>().WaitAndRetryAsync(
-                retryCount: retries,
-                sleepDurationProvider: retry => TimeSpan.FromSeconds(5),
-                onRetry: (exception, timeSpan, retry, ctx) =>
+                retries,
+                retry => TimeSpan.FromSeconds(5),
+                (exception, timeSpan, retry, ctx) =>
                 {
                     logger.LogWarning(exception,
                         "[{prefix}] Exception {ExceptionType} with message {Message} detected on attempt {retry} of {retries}",

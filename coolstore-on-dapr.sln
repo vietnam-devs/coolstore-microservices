@@ -35,9 +35,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inventory", "Inventory", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShoppingCart", "ShoppingCart", "{61BFCA24-D94C-4B5C-835D-AF05823AE92E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService", "src\Services\Inventory\InventoryService\InventoryService.csproj", "{90D8C36C-2736-42D5-899E-D1B4382ECEA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService", "src\Services\Inventory\InventoryService\InventoryService.csproj", "{90D8C36C-2736-42D5-899E-D1B4382ECEA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService.Api", "src\Services\Inventory\InventoryService.Api\InventoryService.Api.csproj", "{1144D698-9F1F-457F-9902-10668ADA9A23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService.Api", "src\Services\Inventory\InventoryService.Api\InventoryService.Api.csproj", "{1144D698-9F1F-457F-9902-10668ADA9A23}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductCatalogService", "src\Services\ProductCatalog\ProductCatalogService\ProductCatalogService.csproj", "{E36E79CD-C856-4B43-81F1-643A9598C990}"
 EndProject
@@ -46,6 +46,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCartService.Api", "src\Services\ShoppingCart\ShoppingCartService.Api\ShoppingCartService.Api.csproj", "{A45B2CE7-3F9F-4191-9665-0A07EAE0FC1C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCartService", "src\Services\ShoppingCart\ShoppingCartService\ShoppingCartService.csproj", "{238BE170-2E63-4043-BBC0-F626CF51F3CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N8T.Infrastructure.App", "src\BasicBuildingBlocks\N8T.Infrastructure.App\N8T.Infrastructure.App.csproj", "{065E5D9F-46A7-49D9-A4E6-64F720617930}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,6 +115,10 @@ Global
 		{238BE170-2E63-4043-BBC0-F626CF51F3CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{238BE170-2E63-4043-BBC0-F626CF51F3CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{238BE170-2E63-4043-BBC0-F626CF51F3CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{065E5D9F-46A7-49D9-A4E6-64F720617930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{065E5D9F-46A7-49D9-A4E6-64F720617930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{065E5D9F-46A7-49D9-A4E6-64F720617930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{065E5D9F-46A7-49D9-A4E6-64F720617930}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,6 +143,7 @@ Global
 		{90538AC8-AA9B-4123-9995-F21D6A96DA0C} = {4EE417A4-72C3-4D49-9293-66D917A5583A}
 		{A45B2CE7-3F9F-4191-9665-0A07EAE0FC1C} = {61BFCA24-D94C-4B5C-835D-AF05823AE92E}
 		{238BE170-2E63-4043-BBC0-F626CF51F3CE} = {61BFCA24-D94C-4B5C-835D-AF05823AE92E}
+		{065E5D9F-46A7-49D9-A4E6-64F720617930} = {910CE8A9-D0E5-47D6-803C-B0229945843D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80904FD3-1C9A-43F5-AB8A-11027B81FFC6}
