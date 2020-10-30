@@ -86,16 +86,15 @@ services:
       - "9200:9200"
       - "9300:9300"
 
+  zipkin:
+    restart: unless-stopped
+    ports:
+      - 9411:9411
+
   redis:
     restart: unless-stopped
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
     ports:
-      - 6379:6379
-      - 16379:16379
-
-  zipkin:
-    restart: unless-stopped
-    ports:
-      - 9411:9411
+      - "6380:6379"

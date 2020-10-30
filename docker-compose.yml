@@ -31,10 +31,10 @@ services:
   webapigateway-dapr:
     image: "daprio/daprd:edge"
     command: ["./daprd",
-     "--app-id", "webapigateway",
-     "--app-port", "5000",
-     "--placement-host-address", "placement:50006",
-     "--components-path", "/components"]
+     "-app-id", "webapigateway",
+     "-app-port", "5000",
+     "-placement-host-address", "placement:50006",
+     "-components-path", "/components"]
     volumes:
         - "./components/:/components"
     depends_on:
@@ -57,10 +57,10 @@ services:
   identityservice-dapr:
     image: "daprio/daprd:edge"
     command: ["./daprd",
-     "--app-id", "identityservice",
-     "--app-port", "5001",
-     "--placement-host-address", "placement:50006",
-     "--components-path", "/components"]
+     "-app-id", "identityservice",
+     "-app-port", "5001",
+     "-placement-host-address", "placement:50006",
+     "-components-path", "/components"]
     volumes:
         - "./components/:/components"
     depends_on:
@@ -84,10 +84,10 @@ services:
   inventoryservice-dapr:
     image: "daprio/daprd:edge"
     command: ["./daprd",
-     "--app-id", "inventoryservice",
-     "--app-port", "5002",
-     "--placement-host-address", "placement:50006",
-     "--components-path", "/components"]
+     "-app-id", "inventoryservice",
+     "-app-port", "5002",
+     "-placement-host-address", "placement:50006",
+     "-components-path", "/components"]
     volumes:
         - "./components/:/components"
     depends_on:
@@ -111,10 +111,10 @@ services:
   productcatalogservice-dapr:
     image: "daprio/daprd:edge"
     command: ["./daprd",
-     "--app-id", "productcatalogservice",
-     "--app-port", "5003",
-     "--placement-host-address", "placement:50006",
-     "--components-path", "/components"]
+     "-app-id", "productcatalogservice",
+     "-app-port", "5003",
+     "-placement-host-address", "placement:50006",
+     "-components-path", "/components"]
     volumes:
         - "./components/:/components"
     depends_on:
@@ -138,10 +138,10 @@ services:
   shoppingcartservice-dapr:
     image: "daprio/daprd:edge"
     command: ["./daprd",
-     "--app-id", "shoppingcartservice",
-     "--app-port", "5004",
-     "--placement-host-address", "placement:50006",
-     "--components-path", "/components"]
+     "-app-id", "shoppingcartservice",
+     "-app-port", "5004",
+     "-placement-host-address", "placement:50006",
+     "-components-path", "/components"]
     volumes:
         - "./components/:/components"
     depends_on:
@@ -164,7 +164,9 @@ services:
     container_name: zipkin
     networks:
       - coolstore
-
+  ############################
+  # Dapr placement service
+  ############################
   placement:
     image: "daprio/dapr"
     command: ["./placement", "-port", "50006"]
@@ -172,11 +174,11 @@ services:
       - "50006:50006"
     networks:
       - coolstore
-
+  ############################
+  # Redis state store
+  ############################
   redis:
     image: "redis:alpine"
-    ports:
-      - "6380:6379"
     networks:
       - coolstore
 

@@ -7,3 +7,4 @@ spec:
     enabled: true
     expandParams: true
     includeBody: true
+    samplingRate: "1"

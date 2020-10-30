@@ -144,10 +144,7 @@ namespace WebApiGateway
 
             services.AddHeaderPropagation(options =>
             {
-                options.Headers.Add("RequestId");
-                options.Headers.Add("SpanId");
-                options.Headers.Add("TraceId");
-                options.Headers.Add("ParentId");
+                options.Headers.Add("traceparent");
             });
 
             services.AddReverseProxy()

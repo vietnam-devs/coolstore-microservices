@@ -1,1 +1,0 @@
-We are temporary to move this library to this project for working and fixing bugs, and will move it into https://github.com/thangchung/GrpcJsonTranscoder soon.
