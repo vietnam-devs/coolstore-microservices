@@ -1,33 +1,40 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using N8T.Infrastructure.Auth;
+using ProductCatalogService.Application.Common;
 
 namespace ProductCatalogService.Application.GetProductsByPriceAndName
 {
-    public class GetProductsByPriceAndNameQuery : IRequest<IEnumerable<GetProductsByPriceAndNameItem>>, IAuthRequest
+    public class GetProductsByPriceAndNameQuery : IRequest<IEnumerable<ProductDto>>, IAuthRequest
     {
         public int Page { get; set; }
         public double Price { get; set; }
     }
 
-    public class GetProductsByPriceAndNameItem
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; } = default!;
-        public string Description { get; set; } = default!;
-        public double Price { get; set; }
-        public string ImageUrl { get; set; } = default!;
-        public Guid InventoryId  { get; set; }
-        public string InventoryLocation { get; set; } = default!;
-        public string InventoryWebsite { get; set; } = default!;
-        public string InventoryDescription { get; set; } = default!;
-        public Guid CategoryId  { get; set; }
-        public string CategoryName { get; set; } = default!;
-    }
+    public record GetInventoryByIdsRequest(IEnumerable<Guid> InventoryIds);
 
     public class SearchProductsQueryValidator : AbstractValidator<GetProductsByPriceAndNameQuery>
     {
+    }
+
+    public class GetCategoriesAuthzHandler : AuthorizationHandler<GetProductsByPriceAndNameQuery>
+    {
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, GetProductsByPriceAndNameQuery requirement)
+        {
+            if (context.User.HasClaim("user_role", "sys_admin") is true)
+            {
+                context.Succeed(requirement);
+            }
+            else
+            {
+                context.Fail();
+            }
+
+            return Task.CompletedTask;
+        }
     }
 }

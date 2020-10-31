@@ -55,7 +55,7 @@ namespace N8T.Infrastructure.EfCore
                 var tasks = domainEvents
                     .Select(async @event =>
                     {
-                        //IMPORTANT: because we have int identity
+                        //IMPORTANT: because we have identity
                         var id = (response as dynamic)?.Id;
                         @event.MetaData.Add("id", id);
 
@@ -73,7 +73,7 @@ namespace N8T.Infrastructure.EfCore
         {
             var assembly = Assembly.GetCallingAssembly();
             var files = assembly.GetManifestResourceNames();
-            var filePrefix = $"{assembly.GetName().Name}.Infrastructure.Persistence.Scripts."; //IMPORTANT
+            var filePrefix = $"{assembly.GetName().Name}.Infrastructure.Data.Scripts."; //IMPORTANT
 
             foreach (var file in files
                 .Where(f => f.StartsWith(filePrefix) && f.EndsWith(".sql"))

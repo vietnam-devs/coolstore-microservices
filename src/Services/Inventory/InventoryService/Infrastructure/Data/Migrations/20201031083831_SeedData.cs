@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using N8T.Infrastructure.EfCore;
 
-namespace ProductCatalogService.Infrastructure.Persistence.Migrations
+namespace InventoryService.Infrastructure.Data.Migrations
 {
     public partial class SeedData : Migration
     {

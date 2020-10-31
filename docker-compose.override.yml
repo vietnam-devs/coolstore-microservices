@@ -5,7 +5,6 @@ version: "3"
 services:
 
   web:
-    restart: unless-stopped
     environment:
       - PORT=3000
       - REACT_APP_AUTHORITY=http://localhost:5001
@@ -13,62 +12,58 @@ services:
     ports:
       - 3000:3000
 
-  webapigateway:
-    restart: unless-stopped
+  webapigatewayapp:
     environment:
-      - Services__inventoryservice=http://inventoryservice:5002
-      - Services__productcatalogservice=http://productcatalogservice:5003
-      - Services__shoppingcartservice=http://shoppingcartservice:5004
+      - Services__inventoryservice=http://inventoryapp:5002
+      - Services__productcatalogservice=http://productcatalogapp:5003
+      - Services__shoppingcartservice=http://shoppingcartapp:5004
       - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
     ports:
-      - 5000:5000
+      - "5000:5000"
 
-  identityservice:
-    restart: unless-stopped
+  identityapp:
     ports:
-      - 5001:5001
+      - "5001:5001"
 
-  inventoryservice:
-    restart: unless-stopped
+  inventoryapp:
     environment:
       - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
       - Redis__Url=redis:6379
-      - Authn__Authority=http://identityservice:5001
+      - Authn__Authority=http://identityapp:5001
       - Authn__Audience=http://localhost:5001/resources
       - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
     ports:
-      - 5002:5002
+      - "5002:5002"
 
-  productcatalogservice:
-    restart: unless-stopped
+  productcatalogapp:
+    restart: always
     environment:
       - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
       - Redis__Url=redis:6379
-      - Authn__Authority=http://identityservice:5001
+      - Authn__Authority=http://identityapp:5001
       - Authn__Audience=http://localhost:5001/resources
       - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
+      - ElasticSearch__Url=http://elasticsearch:9200
     ports:
-      - 5003:5003
+      - "5003:5003"
 
-  shoppingcartservice:
-    restart: unless-stopped
+  shoppingcartapp:
     environment:
       - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
       - Redis__Url=redis:6379
-      - Authn__Authority=http://identityservice:5001
+      - Authn__Authority=http://identityapp:5001
       - Authn__Audience=http://localhost:5001/resources
       - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
     ports:
-      - 5004:5004
+      - "5004:5004"
 
   postgresql:
-    restart: unless-stopped
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=P@ssw0rd
     ports:
-      - 5432:5432
+      - "5432:5432"
 
   elasticsearch:
     restart: unless-stopped
@@ -87,14 +82,12 @@ services:
       - "9300:9300"
 
   zipkin:
-    restart: unless-stopped
     ports:
-      - 9411:9411
+      - "9411:9411"
 
   redis:
-    restart: unless-stopped
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
     ports:
-      - "6380:6379"
+      - "6379:6379"

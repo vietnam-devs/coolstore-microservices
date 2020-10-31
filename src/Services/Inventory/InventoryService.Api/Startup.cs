@@ -1,4 +1,5 @@
 using System;
+using InventoryService.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using N8T.Infrastructure;
 using N8T.Infrastructure.Auth;
 using N8T.Infrastructure.Cache;
 using N8T.Infrastructure.Dapr;
+using N8T.Infrastructure.EfCore;
 using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
@@ -28,14 +30,15 @@ namespace InventoryService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor()
-                .AddCustomMediatR<Startup>()
-                .AddCustomValidators<Startup>()
-                //.AddCustomDbContext<MainDbContext, Startup>(Config.GetConnectionString("sqlserver"))
+                .AddCustomMediatR<Anchor>()
+                .AddCustomValidators<Anchor>()
+                .AddCustomDbContext<MainDbContext, Anchor>(Config.GetConnectionString("postgres"))
                 .AddCustomRedisCache(Config)
                 .AddCustomDaprClient()
-                .AddControllers();
+                .AddControllers()
+                .AddDapr();
 
-            services.AddCustomAuth<Startup>(Config, options =>
+            services.AddCustomAuth<Anchor>(Config, options =>
             {
                 var isRunOnTye = Config.IsRunOnTye("identityservice");
 

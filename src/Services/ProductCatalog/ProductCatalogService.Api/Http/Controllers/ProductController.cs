@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProductCatalogService.Application.Common;
+using ProductCatalogService.Application.GetDetailOfSpecificProduct;
 using ProductCatalogService.Application.GetProductsByPriceAndName;
 
 namespace ProductCatalogService.Api.Http.Controllers
@@ -13,8 +16,13 @@ namespace ProductCatalogService.Api.Http.Controllers
     {
         [Authorize]
         [HttpGet("{page}/{price}")]
-        public async Task<IEnumerable<GetProductsByPriceAndNameItem>> Get([FromServices] IMediator mediator,
+        public async Task<IEnumerable<ProductDto>> Get([FromServices] IMediator mediator,
             int page, double price) =>
             await mediator.Send(new GetProductsByPriceAndNameQuery {Page = page, Price = price});
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<ProductDto> Get([FromServices] IMediator mediator, Guid id) =>
+            await mediator.Send(new GetDetailOfSpecificProductQuery {Id = id});
     }
 }

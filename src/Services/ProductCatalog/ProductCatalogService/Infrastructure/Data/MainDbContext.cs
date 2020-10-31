@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using N8T.Infrastructure.EfCore;
 using ProductCatalogService.Domain.Model;
 
-namespace ProductCatalogService.Infrastructure.Persistence
+namespace ProductCatalogService.Infrastructure.Data
 {
     public class MainDbContextDesignFactory : DbContextDesignFactoryBase<MainDbContext>
     {

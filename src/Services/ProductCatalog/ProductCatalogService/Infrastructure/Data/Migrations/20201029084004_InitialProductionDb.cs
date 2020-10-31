@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ProductCatalogService.Infrastructure.Persistence.Migrations
+namespace ProductCatalogService.Infrastructure.Data.Migrations
 {
     public partial class InitialProductionDb : Migration
     {

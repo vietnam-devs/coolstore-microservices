@@ -12,7 +12,8 @@ using N8T.Infrastructure.EfCore;
 using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
-using ProductCatalogService.Infrastructure.Persistence;
+using ProductCatalogService.Api.HostServices;
+using ProductCatalogService.Infrastructure.Data;
 
 namespace ProductCatalogService.Api
 {
@@ -35,7 +36,8 @@ namespace ProductCatalogService.Api
                 .AddCustomDbContext<MainDbContext, Anchor>(Config.GetConnectionString("postgres"))
                 .AddCustomRedisCache(Config)
                 .AddCustomDaprClient()
-                .AddControllers();
+                .AddControllers()
+                .AddDapr();
 
             services.AddCustomAuth<Anchor>(Config, options =>
             {
@@ -59,6 +61,8 @@ namespace ProductCatalogService.Api
                         ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
                         : o.Endpoint;
                 });
+
+            services.AddHostedService<ElasticSearchIndexingHostedService>();
         }
 
         public void Configure(IApplicationBuilder app)

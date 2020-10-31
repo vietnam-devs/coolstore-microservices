@@ -7,20 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\ProductCatalogService.Api\appsettings.Development.json" Link="appsettings.Development.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\ProductCatalogService.Api\appsettings.json" Link="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Infrastructure\Persistence\Scripts\20201029092626_SeedData.sql" />
+    <None Remove="Infrastructure\Data\Scripts\20201029092626_SeedData.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Infrastructure\Persistence\Scripts\20201029092626_SeedData.sql">
+    <EmbeddedResource Include="Infrastructure\Data\Scripts\20201029092626_SeedData.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -34,6 +31,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NEST" Version="7.9.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,8 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Application\GetDetailOfSpecificProduct\" />
     <Folder Include="Domain\Event\" />
-    <Folder Include="Domain\Exception\" />
   </ItemGroup>
 
 </Project>

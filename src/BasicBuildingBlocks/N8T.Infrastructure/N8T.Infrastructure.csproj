@@ -9,10 +9,10 @@
     <PackageReference Include="Dapr.AspNetCore" Version="0.11.0-preview02" />
     <PackageReference Include="FluentValidation" Version="9.3.0-preview3" />
     <PackageReference Include="Google.Protobuf" Version="4.0.0-rc2" />
-    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.33.1-pre1" />
+    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.33.1" />
     <PackageReference Include="Grpc.Core" Version="2.33.1" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.33.1-pre1" />
-    <PackageReference Include="Grpc.AspNetCore.Server.ClientFactory" Version="2.33.1-pre1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.33.1" />
+    <PackageReference Include="Grpc.AspNetCore.Server.ClientFactory" Version="2.33.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0-rc.2.20475.17" />
@@ -36,7 +36,7 @@
     <PackageReference Include="Microsoft.Tye.Extensions.Configuration" Version="0.4.0-alpha.20371.1" />
     <PackageReference Include="Scrutor" Version="3.2.2" />
     <PackageReference Include="Serilog" Version="2.10.1-dev-01249" />
-    <PackageReference Include="Serilog.AspNetCore" Version="3.4.1-dev-00180" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.1-dev-00188" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.2-dev-10281" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00839" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0-dev-00887" />
