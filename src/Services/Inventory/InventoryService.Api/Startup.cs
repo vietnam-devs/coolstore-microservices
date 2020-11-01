@@ -54,11 +54,11 @@ namespace InventoryService.Api
             services.AddCustomOtelWithZipkin(Config,
                 o =>
                 {
-                    var isRunOnTye = Config.IsRunOnTye("zipkin");
+                    /*var isRunOnTye = Config.IsRunOnTye("zipkin");
             
                     o.Endpoint = isRunOnTye
                         ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
-                        : o.Endpoint;
+                        : o.Endpoint;*/
                 });
         }
 

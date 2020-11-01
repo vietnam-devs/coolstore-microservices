@@ -7,12 +7,16 @@ namespace N8T.Infrastructure.Dapr
     {
         public static IServiceCollection AddCustomDaprClient(this IServiceCollection services)
         {
-            services.AddDaprClient();
-
-            services.AddSingleton(new JsonSerializerOptions()
+            var options = new JsonSerializerOptions()
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase, PropertyNameCaseInsensitive = true,
+            };
+
+            services.AddSingleton(options);
+
+            services.AddDaprClient(client =>
+            {
+                client.UseJsonSerializationOptions(options);
             });
 
             return services;

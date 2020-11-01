@@ -1,3 +1,6 @@
+# https://github.com/dapr/dapr/pull/1577
+# netstat -aon | find /i "listening"
+
 version: "3"
 
 services:
@@ -40,7 +43,7 @@ services:
      "-app-port", "5000",
      "-placement-host-address", "placement:50006",
      "-components-path", "/components",
-     "-log-level", "debug"]
+     "-log-level", "error"]
     volumes:
       - "./components/:/components"
     depends_on:
@@ -69,7 +72,7 @@ services:
      "-app-port", "5001",
      "-placement-host-address", "placement:50006",
      "-components-path", "/components",
-     "-log-level", "debug"]
+     "-log-level", "error"]
     volumes:
       - "./components/:/components"
     depends_on:
@@ -98,8 +101,7 @@ services:
      "-app-id", "inventoryapp",
      "-app-port", "5002",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components",
-     "-log-level", "error"]
+     "-components-path", "/components"]
     volumes:
       - "./components/:/components"
     depends_on:

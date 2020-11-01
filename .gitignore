@@ -355,4 +355,5 @@ src/web/shrinkwrap.yaml
 # git submodules
 **/*/healthchecksdb
 
-.tye
+.tye/
+.logs/

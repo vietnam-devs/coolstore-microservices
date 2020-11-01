@@ -26,8 +26,8 @@ content-type: {{contentType}}
 authorization: bearer {{auth.response.body.access_token}}
 
 ###
-@id = 05233341-185a-468a-b074-00ebd08559aa
-GET {{host}}/prod/api/products/{{id}} HTTP/1.1
+@id = fee1fc67-7469-4490-b418-47f4732de53f
+GET {{host}}/prod/api/products/fee1fc67-7469-4490-b418-47f4732de53f HTTP/1.1
 content-type: {{contentType}}
 authorization: bearer {{auth.response.body.access_token}}
 

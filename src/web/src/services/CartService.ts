@@ -23,6 +23,7 @@ export const getCartForCurrentUser = async () => {
     `${cartResourceUrl}/${user.profile.sub}/cart`,
     getRequestOptions(user.access_token)
   )
+  console.log(response)
   return response.data.cart as ICart
 }
 
@@ -37,6 +38,7 @@ export const createCartForCurrentUser = async (productId: string) => {
     },
     getRequestOptions(user.access_token)
   )
+  console.log(response)
   return response.data.result as ICart
 }
 
@@ -50,6 +52,7 @@ export const updateCartForCurrentUser = async (cartId: string, productId: string
     },
     getRequestOptions(user.access_token)
   )
+  console.log(response)
   return response.data.result as ICart
 }
 
@@ -59,5 +62,6 @@ export const deleteCartForCurrentUser = async (cartId: string, productId: string
     `${cartResourceUrl}/${cartId}/items/${productId}`,
     getRequestOptions(user.access_token)
   )
+  console.log(response)
   return response.data.productId as string
 }

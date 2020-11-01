@@ -5,9 +5,9 @@ extensions:
   log-level: debug
   config: appconfig
   components-path: "./components/"
-# - name: zipkin
-# - name: elastic
-#   logPath: ./.logs
+- name: zipkin
+- name: elastic
+  logPath: ./.logs
 
 services:
 
@@ -31,33 +31,49 @@ services:
   bindings:
   - port: 50005
 
-- name: webapigateway
+- name: webapigatewayapp
   project: src/BFFs/WebApiGateway/WebApiGateway.csproj
   bindings:
   - port: 5000
 
-- name: identityservice
+- name: identityapp
   project: src/Services/Identity/IdentityService/IdentityService.csproj
   bindings:
   - port: 5001
 
-- name: inventoryservice
+- name: inventoryapp
   project: src/Services/Inventory/InventoryService.Api/InventoryService.Api.csproj
+  env:
+  - name: ConnectionStrings__postgres
+    value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
   bindings:
   - port: 5002
 
-- name: productcatalogservice
+- name: productcatalogapp
   project: src/Services/ProductCatalog/ProductCatalogService.Api/ProductCatalogService.Api.csproj
+  env:
+  - name: ConnectionStrings__postgres
+    value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
+  - name: ElasticSearch__Url
+    value: http://localhost:9200
   bindings:
   - port: 5003
 
-- name: shoppingcartservice
+- name: shoppingcartapp
   project: src/Services/ShoppingCart/ShoppingCartService.Api/ShoppingCartService.Api.csproj
   bindings:
   - port: 5004
 
 - name: web
-  dockerFile: src/web/Dockerfile
+  dockerFile: src/web/Dockerfile.tye
+  # image: web
+  env:
+  - name: PORT
+    value: 80
+  - name: REACT_APP_AUTHORITY
+    value: http://localhost:5001
+  - name: REACT_APP_API
+    value: http://localhost:5000
   bindings:
   - protocol: http
     port: 3000

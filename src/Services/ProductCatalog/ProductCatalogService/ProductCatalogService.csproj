@@ -40,7 +40,6 @@
 
   <ItemGroup>
     <Folder Include="Application\GetDetailOfSpecificProduct\" />
-    <Folder Include="Domain\Event\" />
   </ItemGroup>
 
 </Project>

@@ -28,14 +28,14 @@ namespace ShoppingCartService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor()
-                .AddCustomMediatR<Startup>()
-                .AddCustomValidators<Startup>()
-                //.AddCustomDbContext<MainDbContext, Startup>(Config.GetConnectionString("sqlserver"))
+                .AddCustomMediatR<Anchor>()
+                .AddCustomValidators<Anchor>()
                 .AddCustomRedisCache(Config)
                 .AddCustomDaprClient()
-                .AddControllers();
+                .AddControllers()
+                .AddDapr();
 
-            services.AddCustomAuth<Startup>(Config, options =>
+            services.AddCustomAuth<Anchor>(Config, options =>
             {
                 var isRunOnTye = Config.IsRunOnTye("identityservice");
 
@@ -51,11 +51,11 @@ namespace ShoppingCartService.Api
             services.AddCustomOtelWithZipkin(Config,
                 o =>
                 {
-                    var isRunOnTye = Config.IsRunOnTye("zipkin");
-            
-                    o.Endpoint = isRunOnTye
-                        ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
-                        : o.Endpoint;
+                    // var isRunOnTye = Config.IsRunOnTye("zipkin");
+                    //
+                    // o.Endpoint = isRunOnTye
+                    //     ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
+                    //     : o.Endpoint;
                 });
         }
 

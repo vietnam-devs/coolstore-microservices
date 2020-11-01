@@ -12,7 +12,8 @@
 
   <ItemGroup>
     <Folder Include="Application\" />
-    <Folder Include="Infrastructure\Gateway\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Infrastructure\Data\" />
   </ItemGroup>
 
 </Project>

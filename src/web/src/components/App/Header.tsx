@@ -20,6 +20,10 @@ import { RouteComponentProps } from 'react-router-dom'
 import { AuthService } from 'services'
 import { IAppUser } from 'stores/types'
 
+const MyJumbotron = styled(Jumbotron)`
+  padding: 2rem 2rem;
+`
+
 const StyledHeader = styled(Link)`
   text-decoration: none;
   &:hover {
@@ -59,21 +63,22 @@ const Header: React.FC<IProps> = ({ history }) => {
 
   return (
     <>
-      <Jumbotron fluid>
+      <MyJumbotron fluid>
         <Container fluid>
           <div>
             <h1 className="display-4">
-              <StyledHeader to={`/`}>CoolStore on Dapr</StyledHeader>
+              <StyledHeader to={`/`}>CoolStore Microservices on Dapr</StyledHeader>
             </h1>
             <p className="lead">
-              A store uses modern technologies such as .NET Core, Docker, Kubernetes, Dapr, OSM, Tye etc.
+              A modern store uses technologies such as .NET Core, Docker, Kubernetes, Dapr, OSM, Tye etc.
             </p>
           </div>
         </Container>
-      </Jumbotron>
+      </MyJumbotron>
 
       <div>
         <StyledNavBar color="light" light expand="md">
+          {/* <Link className="navbar-brand" to="/">CoolStore</Link> */}
           <span className="lead">
             <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon> Search&nbsp;<input type="textbox"></input>
           </span>

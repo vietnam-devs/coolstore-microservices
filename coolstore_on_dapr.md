@@ -21,7 +21,7 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up postgre
 ## Run Dapr apps
 
 ```
-$ dapr run --app-port 25002 --app-id identityapp --dapr-http-port 5001 dotnet run -- -p src\Services\Identity\IdentityService\IdentityService.csproj
+$ dapr run --app-port 5001 --app-id identityapp dotnet run -- -p src\Services\Identity\IdentityService\IdentityService.csproj
 ```
 
 ```
@@ -30,4 +30,8 @@ $ dapr run --app-port 5003 --app-id productcatalogapp dotnet run -- -p src\Servi
 
 ```
 $ dapr run --app-port 5002 --app-id inventoryapp dotnet run -- -p src\Services\Inventory\InventoryService.Api\InventoryService.Api.csproj
+```
+
+```
+$ dapr run --app-port 5004 --app-id shoppingcartapp dotnet run -- -p src\Services\ShoppingCart\ShoppingCartService.Api\ShoppingCartService.Api.csproj
 ```

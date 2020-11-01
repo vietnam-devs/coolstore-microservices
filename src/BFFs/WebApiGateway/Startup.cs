@@ -150,13 +150,13 @@ namespace WebApiGateway
             services.AddReverseProxy()
                 .LoadFromMemory(routes, clusters);
 
-            // services.AddCustomOtelWithZipkin(Config,
-            //     o =>
-            //     {
-            //         o.Endpoint = isRunOnTye
-            //             ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
-            //             : o.Endpoint;
-            //     });
+            services.AddCustomOtelWithZipkin(Config,
+                o =>
+                {
+                    /*o.Endpoint = isRunOnTye
+                        ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
+                        : o.Endpoint;*/
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

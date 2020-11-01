@@ -27,3 +27,4 @@ docs
 deploys/iac/
 !**/web/build/
 !**/netcorekit/build/
+.logs/

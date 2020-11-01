@@ -53,5 +53,7 @@ export const getProduct = async (id: string) => {
     `${productResourceUrl}/${id}`,
     getRequestOptions(user.access_token)
   )
-  return response.data.product as IProduct
+
+  console.log(response)
+  return response.data as IProduct
 }

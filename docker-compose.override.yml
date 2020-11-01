@@ -46,6 +46,7 @@ services:
       - ElasticSearch__Url=http://elasticsearch:9200
     ports:
       - "5003:5003"
+      - "50001:50001"
 
   shoppingcartapp:
     environment:

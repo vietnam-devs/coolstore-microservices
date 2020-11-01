@@ -47,7 +47,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCartService.Api", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCartService", "src\Services\ShoppingCart\ShoppingCartService\ShoppingCartService.csproj", "{238BE170-2E63-4043-BBC0-F626CF51F3CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N8T.Infrastructure.App", "src\BasicBuildingBlocks\N8T.Infrastructure.App\N8T.Infrastructure.App.csproj", "{065E5D9F-46A7-49D9-A4E6-64F720617930}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "N8T.Infrastructure.App", "src\BasicBuildingBlocks\N8T.Infrastructure.App\N8T.Infrastructure.App.csproj", "{065E5D9F-46A7-49D9-A4E6-64F720617930}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__", "__", "{4083ACF6-1BAC-4D80-8B65-7984A540E7E6}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		docker-compose.override.yml = docker-compose.override.yml
+		docker-compose.yml = docker-compose.yml
+		NuGet.config = NuGet.config
+		restclient.http = restclient.http
+		tye.slim.yaml = tye.slim.yaml
+		tye.yaml = tye.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
