@@ -2,7 +2,14 @@ using System;
 
 namespace ShoppingCartService.Domain.Dto
 {
-    public record ProductDto(Guid Id, string Name, double Price, string ImageUrl, string Description,
-        Guid? InventoryId, string? InventoryLocation, string? InventoryWebsite, string? InventoryDescription,
-        Guid CategoryId, string CategoryName);
+    public class ProductDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; } = default!;
+        public double Price { get; set; }
+        public string ImageUrl { get; set; } = default!;
+        public string Description { get; set; } = default!;
+        public CategoryDto Category { get; set; } = default!;
+        public InventoryDto Inventory { get; set; } = default!;
+    }
 }

@@ -5,11 +5,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using N8T.Infrastructure.Auth;
-using ProductCatalogService.Application.Common;
+using ProductCatalogService.Domain.Dto;
 
 namespace ProductCatalogService.Application.GetProductsByPriceAndName
 {
-    public class GetProductsByPriceAndNameQuery : IRequest<IEnumerable<ProductDto>>, IAuthRequest
+    public class GetProductsByPriceAndNameQuery : IRequest<IEnumerable<FlatProductDto>>, IAuthRequest
     {
         public int Page { get; set; }
         public double Price { get; set; }

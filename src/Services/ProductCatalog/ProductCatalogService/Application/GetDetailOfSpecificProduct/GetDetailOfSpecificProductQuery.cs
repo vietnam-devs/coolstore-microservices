@@ -4,11 +4,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using N8T.Infrastructure.Auth;
-using ProductCatalogService.Application.Common;
+using ProductCatalogService.Domain.Dto;
 
 namespace ProductCatalogService.Application.GetDetailOfSpecificProduct
 {
-    public class GetDetailOfSpecificProductQuery : IRequest<ProductDto>, IAuthRequest
+    public class GetDetailOfSpecificProductQuery : IRequest<FlatProductDto>, IAuthRequest
     {
         public Guid Id { get; set; }
     }

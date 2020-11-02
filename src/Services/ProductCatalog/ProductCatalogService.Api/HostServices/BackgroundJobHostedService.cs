@@ -10,12 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using N8T.Domain;
 using Nest;
 using Newtonsoft.Json;
 using Polly;
 using Polly.Retry;
-using ProductCatalogService.Application.Common;
-using ProductCatalogService.Application.SearchProducts;
+using ProductCatalogService.Domain.Dto;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using Policy = Polly.Policy;
 
@@ -46,12 +46,24 @@ namespace ProductCatalogService.Api.HostServices
             //_logger.LogInformation($"Read seed data with content is {readData}");
 
             // IMPORTANT: data should come from the database, we do this way for demo only 
-            var productModels = JsonConvert.DeserializeObject<List<ProductDto>>(readData);
+            var productModels = JsonConvert.DeserializeObject<List<FlatProductDto>>(readData);
             var products = productModels.Select(prod =>
-                new SearchProductModel(prod.Id, prod.Name, prod.Price, prod.ImageUrl, prod.Description,
-                    new SearchCategoryModel(prod.CategoryId, prod.CategoryName),
-                    new SearchInventoryModel(prod.InventoryId.Value, prod.InventoryLocation, prod.InventoryWebsite,
-                        prod.InventoryDescription))).ToList();
+                new ProductDto
+                {
+                    Id = prod.Id,
+                    Name = prod.Name,
+                    Price = prod.Price,
+                    ImageUrl = prod.ImageUrl,
+                    Description = prod.Description,
+                    Category = new CategoryDto {Id = prod.CategoryId, Name = prod.CategoryName},
+                    Inventory = new InventoryDto
+                    {
+                        Id = prod.InventoryId,
+                        Location = prod.InventoryLocation,
+                        Website = prod.InventoryWebsite,
+                        Description = prod.InventoryDescription
+                    }
+                }).ToList();
 
             _appLifetime.ApplicationStarted.Register(async () =>
             {
@@ -84,7 +96,7 @@ namespace ProductCatalogService.Api.HostServices
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
         private async ValueTask DaprStateReplicationAsync(DaprClient daprClient,
-            IEnumerable<SearchProductModel> products,
+            IEnumerable<ProductDto> products,
             CancellationToken cancellationToken)
         {
             if (daprClient is null)
@@ -93,22 +105,22 @@ namespace ProductCatalogService.Api.HostServices
             }
 
             //TODO: will remove it
-            await daprClient.SaveStateAsync("statestore", "products", new ProductsState(products),
+            await daprClient.SaveStateAsync("statestore", "products", new ProductListReplicated(products),
                 cancellationToken: cancellationToken);
 
-            await daprClient.PublishEventAsync("pubsub", "products-sync", new ProductsState(products), cancellationToken);
+            await daprClient.PublishEventAsync("pubsub", "products-sync", new ProductListReplicated(products), cancellationToken);
 
             _logger.LogInformation($"Put all products to dapr state completed.");
         }
 
-        private async ValueTask ElastichSearchIndexingAsync(IConfiguration config, IEnumerable<SearchProductModel> products,
+        private async ValueTask ElastichSearchIndexingAsync(IConfiguration config, IEnumerable<ProductDto> products,
             CancellationToken cancellationToken)
         {
             var esUrl = config.GetValue("ElasticSearch:Url", "http://localhost:9200");
             _logger.LogInformation($"ElasticSearch Url: {esUrl}");
 
             var settings = new ConnectionSettings(new Uri(esUrl))
-                .DefaultMappingFor<SearchProductModel>(i => i
+                .DefaultMappingFor<ProductDto>(i => i
                     .IndexName("product")
                 )
                 .PrettyJson();
@@ -129,7 +141,7 @@ namespace ProductCatalogService.Api.HostServices
 
                 _logger.LogInformation($"Finish to index data into ElasticSearch");
 
-                var result = await client.SearchAsync<SearchProductModel>(s => s
+                var result = await client.SearchAsync<ProductDto>(s => s
                     .Query(q => q
                         .MatchAll()), cancellationToken);
 
@@ -161,6 +173,13 @@ namespace ProductCatalogService.Api.HostServices
         }
     }
 
-    //TODO; refactor with event & integration event
-    public record ProductsState(IEnumerable<SearchProductModel> Products);
+    public class ProductListReplicated : EventBase
+    {
+        public ProductListReplicated(IEnumerable<ProductDto> products)
+        {
+            Products = products;
+        }
+
+        public IEnumerable<ProductDto> Products { get; }
+    }
 }

@@ -1,5 +1,6 @@
 # https://github.com/dapr/dapr/pull/1577
 # netstat -aon | find /i "listening"
+# docker rm $(docker ps -a -f status=exited -q)
 
 version: "3"
 

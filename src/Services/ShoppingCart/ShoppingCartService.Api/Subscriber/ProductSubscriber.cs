@@ -5,6 +5,8 @@ using Dapr;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using N8T.Domain;
+using ShoppingCartService.Domain.Dto;
 
 namespace ShoppingCartService.Api.Subscriber
 {
@@ -21,33 +23,16 @@ namespace ShoppingCartService.Api.Subscriber
 
         [Topic("pubsub", "products-sync")]
         [HttpPost("products-sync")]
-        public async Task SubscribeProductsSync(ProductsState state, [FromServices] IMediator mediator)
+        public async Task SubscribeProductsSync(ProductListReplicated @event, [FromServices] IMediator mediator)
         {
-            _logger.LogInformation($"Received data for products-sync: {state.Products.Count} products.");
+            _logger.LogInformation($"Received data for products-sync: {@event.Products.Count} products.");
 
-            var result = state;
+            var result = @event;
         }
     }
 
-    //TODO; refactor tomorrow
-    public class ProductsState
+    public class ProductListReplicated : IntegrationEventBase
     {
-        public List<ProductModel> Products { get; set; } = new List<ProductModel>();
-    }
-    
-    public class ProductModel
-    {
-        public InventoryModel Inventory { get; set; }
-        public CategoryModel Category { get; set; }
-    }
-    
-    public class InventoryModel
-    {
-    
-    }
-    
-    public class CategoryModel
-    {
-    
+        public List<ProductDto> Products { get; set; } = new List<ProductDto>();
     }
 }

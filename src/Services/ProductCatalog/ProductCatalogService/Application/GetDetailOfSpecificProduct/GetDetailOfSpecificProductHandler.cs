@@ -5,13 +5,13 @@ using Dapr.Client;
 using Dapr.Client.Http;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using ProductCatalogService.Application.Common;
+using ProductCatalogService.Domain.Dto;
 using ProductCatalogService.Domain.Exception;
 using ProductCatalogService.Infrastructure.Data;
 
 namespace ProductCatalogService.Application.GetDetailOfSpecificProduct
 {
-    public class GetDetailOfSpecificProductHandler : IRequestHandler<GetDetailOfSpecificProductQuery, ProductDto>
+    public class GetDetailOfSpecificProductHandler : IRequestHandler<GetDetailOfSpecificProductQuery, FlatProductDto>
     {
         private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
         private readonly DaprClient _daprClient;
@@ -23,7 +23,7 @@ namespace ProductCatalogService.Application.GetDetailOfSpecificProduct
             _daprClient = daprClient ?? throw new ArgumentNullException(nameof(daprClient));
         }
 
-        public async Task<ProductDto> Handle(GetDetailOfSpecificProductQuery request,
+        public async Task<FlatProductDto> Handle(GetDetailOfSpecificProductQuery request,
             CancellationToken cancellationToken)
         {
             await using var dbContext = _dbContextFactory.CreateDbContext();
@@ -48,9 +48,20 @@ namespace ProductCatalogService.Application.GetDetailOfSpecificProduct
                 throw new NotFoundInventoryException(product.InventoryId);
             }
 
-            return new ProductDto(product.Id, product.Name, product.Price, product.ImageUrl, product.Description,
-                inventory.Id, inventory.Location, inventory.Website, inventory.Description,
-                product.Category.Id, product.Category.Name);
+            return new FlatProductDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                ImageUrl = product.ImageUrl,
+                Description = product.Description,
+                InventoryId = inventory.Id,
+                InventoryLocation = inventory.Location,
+                InventoryWebsite = inventory.Website,
+                InventoryDescription = inventory.Description,
+                CategoryId = product.Category.Id,
+                CategoryName = product.Category.Name
+            };
         }
     }
 }

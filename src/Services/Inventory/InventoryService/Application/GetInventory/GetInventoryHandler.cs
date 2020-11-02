@@ -25,8 +25,7 @@ namespace InventoryService.Application.GetInventory
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            var result = new InventoryDto(inv.Id, inv.Location, inv.Description, inv.Website);
-            return result;
+            return new InventoryDto(inv.Id, inv.Location, inv.Description, inv.Website);
         }
     }
 }

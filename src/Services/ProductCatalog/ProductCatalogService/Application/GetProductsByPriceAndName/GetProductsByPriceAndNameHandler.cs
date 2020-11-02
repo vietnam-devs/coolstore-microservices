@@ -7,12 +7,12 @@ using Dapr.Client;
 using Dapr.Client.Http;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using ProductCatalogService.Application.Common;
+using ProductCatalogService.Domain.Dto;
 using ProductCatalogService.Infrastructure.Data;
 
 namespace ProductCatalogService.Application.GetProductsByPriceAndName
 {
-    public class GetProductsByPriceAndNameHandler : IRequestHandler<GetProductsByPriceAndNameQuery, IEnumerable<ProductDto>>
+    public class GetProductsByPriceAndNameHandler : IRequestHandler<GetProductsByPriceAndNameQuery, IEnumerable<FlatProductDto>>
     {
         private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
         private readonly DaprClient _daprClient;
@@ -23,7 +23,7 @@ namespace ProductCatalogService.Application.GetProductsByPriceAndName
             _daprClient = daprClient ?? throw new ArgumentNullException(nameof(daprClient));
         }
 
-        public async Task<IEnumerable<ProductDto>> Handle(GetProductsByPriceAndNameQuery request,
+        public async Task<IEnumerable<FlatProductDto>> Handle(GetProductsByPriceAndNameQuery request,
             CancellationToken cancellationToken)
         {
             await using var dbContext = _dbContextFactory.CreateDbContext();
@@ -53,9 +53,25 @@ namespace ProductCatalogService.Application.GetProductsByPriceAndName
                     inventory = inventories.First(y => y.Id == x.InventoryId);
                 }
 
-                return new ProductDto(x.Id, x.Name, x.Price, x.ImageUrl, x.Description,
-                    inventory?.Id, inventory?.Location, inventory?.Website, inventory?.Description,
-                    x.Category.Id, x.Category.Name);
+                var product = new FlatProductDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Price = x.Price,
+                    ImageUrl = x.ImageUrl,
+                    Description = x.Description,
+                    CategoryId = x.Category.Id,
+                    CategoryName = x.Category.Name
+                };
+
+                if (inventory is null) return product;
+
+                product.InventoryId = inventory.Id;
+                product.InventoryLocation = inventory.Location;
+                product.InventoryWebsite = inventory.Website;
+                product.InventoryDescription = inventory.Description;
+
+                return product;
             });
         }
     }

@@ -15,9 +15,17 @@ namespace N8T.Domain
         IEnumerable<DomainEventBase> GetDomainEvents();
     }
 
-    public abstract class DomainEventBase : IDomainEvent
+    public abstract class EventBase : IDomainEvent
     {
         public DateTime CreatedAt { get; } = DateTime.UtcNow;
         public IDictionary<string, object> MetaData { get; } = new Dictionary<string, object>();
+    }
+
+    public abstract class DomainEventBase : EventBase
+    {
+    }
+
+    public abstract class IntegrationEventBase : EventBase
+    {
     }
 }

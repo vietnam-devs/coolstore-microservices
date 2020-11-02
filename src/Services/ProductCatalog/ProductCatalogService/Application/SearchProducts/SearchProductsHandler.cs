@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Nest;
 using ProductCatalogService.Application.Common;
+using ProductCatalogService.Domain.Dto;
 
 namespace ProductCatalogService.Application.SearchProducts
 {
@@ -32,7 +33,7 @@ namespace ProductCatalogService.Application.SearchProducts
         {
             var connString = config.GetValue<string>("ElasticSearch:Url");
             var settings = new ConnectionSettings(new Uri(connString))
-                .DefaultMappingFor<SearchProductModel>(i => i
+                .DefaultMappingFor<ProductDto>(i => i
                     .IndexName("product")
                 )
                 .PrettyJson();
@@ -42,13 +43,13 @@ namespace ProductCatalogService.Application.SearchProducts
         public async Task<SearchProductsResponse> Handle(SearchProductsQuery request,
             CancellationToken cancellationToken)
         {
-            Func<QueryContainerDescriptor<SearchProductModel>, QueryContainer> queryWithNameAndDesc = q => q
+            Func<QueryContainerDescriptor<ProductDto>, QueryContainer> queryWithNameAndDesc = q => q
                 .MultiMatch(mm => mm
                     .Query(request.Query)
                     .Fields(f => f
                         .Fields(f1 => f1.Name, f2 => f2.Description)));
 
-            var result = await _client.SearchAsync<SearchProductModel>(s => s
+            var result = await _client.SearchAsync<ProductDto>(s => s
                 .Query(q =>
                     request.Query != "*"
                         ? queryWithNameAndDesc(q) && q.Range(ra => ra
@@ -91,16 +92,28 @@ namespace ProductCatalogService.Application.SearchProducts
 
             var items = result
                 .Hits
-                .Select(x => new SearchProductModel(x.Source.Id, x.Source.Name, x.Source.Price, x.Source.ImageUrl,
-                    x.Source.Description,
-                    new SearchCategoryModel(x.Source.Category != null ? x.Source.Category.Id : Guid.Empty,
-                        x.Source.Category != null ? x.Source.Category.Name : string.Empty),
-                    new SearchInventoryModel(
-                        x.Source.Inventory != null ? x.Source.Inventory.Id : Guid.Empty,
-                        x.Source.Inventory != null ? x.Source.Inventory.Location : string.Empty,
-                        x.Source.Inventory != null ? x.Source.Inventory.Website : string.Empty,
-                        x.Source.Inventory != null ? x.Source.Inventory.Description : string.Empty)))
-                .ToList();
+                .Select(x => new ProductDto
+                {
+                    Id = x.Source.Id,
+                    Name = x.Source.Name,
+                    Price = x.Source.Price,
+                    ImageUrl = x.Source.ImageUrl,
+                    Description = x.Source.Description,
+                    Category =
+                        new CategoryDto
+                        {
+                            Id = x.Source.Category != null ? x.Source.Category.Id : Guid.Empty,
+                            Name = x.Source.Category != null ? x.Source.Category.Name : string.Empty
+                        },
+                    Inventory =
+                        new InventoryDto
+                        {
+                            Id = x.Source.Inventory != null ? x.Source.Inventory.Id : Guid.Empty,
+                            Location = x.Source.Inventory != null ? x.Source.Inventory.Location : string.Empty,
+                            Website = x.Source.Inventory != null ? x.Source.Inventory.Website : string.Empty,
+                            Description = x.Source.Inventory != null ? x.Source.Inventory.Description : string.Empty
+                        }
+                }).ToList();
 
             var response = new SearchProductsResponse(
                 (int)(result.Total / request.PageSize) + 1,

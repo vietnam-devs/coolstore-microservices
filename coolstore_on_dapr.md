@@ -8,14 +8,27 @@
 
 > [tye](https://github.com/dotnet/tye) --version 0.5.0-alpha.20520.1+739de2eeb94f0246f50fa4993e953abb4b0da18a
 
-
 # Dapr CLI for locally development
 
-## Init core component with docker-compose
+## Init core component
+
+Enabled `vm.max_map_count` for ElasticSearch
+
+```
+$ sysctl -w vm.max_map_count=262144
+```
+
+- `docker-compose` option
 
 ```
 $ docker-compose -f docker-compose.yml -f docker-compose.override.yml down --remove-orphans -v
 $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up postgresql zipkin redis elasticsearch
+```
+
+- `tye` option
+
+```
+$ tye run tye.slim.yaml
 ```
 
 ## Run Dapr apps

@@ -2,7 +2,7 @@
   {
     "id": "ba16da71-c7dd-4eac-9ead-5c2c2244e69f",
     "name": "IPhone 8",
-    "desc": "IPhone 8",
+    "description": "IPhone 8",
     "price": 900,
     "imageUrl": "https://picsum.photos/1200/900?image=1",
     "inventoryId": "90C9479E-A11C-4D6D-AAAA-0405B6C0EFCD",
@@ -15,7 +15,7 @@
   {
     "id": "13d02035-2286-4055-ad2d-6855a60efbbb",
     "name": "IPhone X",
-    "desc": "IPhone X",
+    "description": "IPhone X",
     "price": 1000,
     "imageUrl": "https://picsum.photos/1200/900?image=2",
     "inventoryId": "90C9479E-A11C-4D6D-AAAA-0405B6C0EFCD",
@@ -28,7 +28,7 @@
   {
     "id": "b8f0a771-339f-4602-a862-f7a51afd5b79",
     "name": "MacBook Pro 2019",
-    "desc": "MacBook Pro 2019",
+    "description": "MacBook Pro 2019",
     "price": 4000,
     "imageUrl": "https://picsum.photos/1200/900?image=3",
     "inventoryId": "90C9479E-A11C-4D6D-AAAA-0405B6C0EFCD",
@@ -41,7 +41,7 @@
   {
     "id": "ffd60654-1802-48bd-b4c3-d49831a8ab2c",
     "name": "Asus UX370U i7 8550U (C4217TS)",
-    "desc": "Asus UX370U i7 8550U (C4217TS)",
+    "description": "Asus UX370U i7 8550U (C4217TS)",
     "price": 500,
     "imageUrl": "https://picsum.photos/1200/900?image=4",
     "inventoryId": "90C9479E-A11C-4D6D-AAAA-0405B6C0EFCD",
@@ -54,7 +54,7 @@
   {
     "id": "a4811778-5070-4d70-8a9c-e6cb70dfcca4",
     "name": "Cheese - Camembert",
-    "desc": "Mastoidectomy revision",
+    "description": "Mastoidectomy revision",
     "price": 253,
     "imageUrl": "https://picsum.photos/1200/900?image=5",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -67,7 +67,7 @@
   {
     "id": "6a0e6d20-8bcc-450f-bc5c-b8f727083dcd",
     "name": "Bread - White, Unsliced",
-    "desc": "Fiber-optic bronchoscopy",
+    "description": "Fiber-optic bronchoscopy",
     "price": 2809,
     "imageUrl": "https://picsum.photos/1200/900?image=6",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -80,7 +80,7 @@
   {
     "id": "fee1fc67-7469-4490-b418-47f4732de53f",
     "name": "Bag - Regular Kraft 20 Lb",
-    "desc": "Open periph nerve biopsy",
+    "description": "Open periph nerve biopsy",
     "price": 2147,
     "imageUrl": "https://picsum.photos/1200/900?image=7",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -93,7 +93,7 @@
   {
     "id": "2d2245e4-213a-49de-93d3-79e9439400f5",
     "name": "Wonton Wrappers",
-    "desc": "Tibia/fibula inj op NOS",
+    "description": "Tibia/fibula inj op NOS",
     "price": 2200,
     "imageUrl": "https://picsum.photos/1200/900?image=8",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -106,7 +106,7 @@
   {
     "id": "386b04c6-303a-4840-8a51-d92b1ea2d339",
     "name": "Hersey Shakes",
-    "desc": "Removal of FB NOS",
+    "description": "Removal of FB NOS",
     "price": 2441,
     "imageUrl": "https://picsum.photos/1200/900?image=9",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -119,7 +119,7 @@
   {
     "id": "297c5959-4808-4f40-8d6a-4a899505e1f7",
     "name": "Oranges - Navel, 72",
-    "desc": "Remove bladder stimulat",
+    "description": "Remove bladder stimulat",
     "price": 1731,
     "imageUrl": "https://picsum.photos/1200/900?image=10",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -132,7 +132,7 @@
   {
     "id": "3a0a0a89-9b3a-4046-bf2b-deee64a764d2",
     "name": "Cheese - Swiss",
-    "desc": "Other bone dx proc NEC",
+    "description": "Other bone dx proc NEC",
     "price": 975,
     "imageUrl": "https://picsum.photos/1200/900?image=11",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -145,7 +145,7 @@
   {
     "id": "71c46659-9560-4d6a-ac18-893477ed6662",
     "name": "Lettuce - Boston Bib",
-    "desc": "Oth thorac op thymus NOS",
+    "description": "Oth thorac op thymus NOS",
     "price": 3453,
     "imageUrl": "https://picsum.photos/1200/900?image=12",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -158,7 +158,7 @@
   {
     "id": "f92bfa6a-2522-4234-a7f1-9004596a4a85",
     "name": "Godiva White Chocolate",
-    "desc": "Toxicology-endocrine",
+    "description": "Toxicology-endocrine",
     "price": 2067,
     "imageUrl": "https://picsum.photos/1200/900?image=13",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -171,7 +171,7 @@
   {
     "id": "cbe43158-2010-4cb1-a8de-f00da16a7362",
     "name": "Ecolab - Balanced Fusion",
-    "desc": "Opn/oth part gastrectomy",
+    "description": "Opn/oth part gastrectomy",
     "price": 1769,
     "imageUrl": "https://picsum.photos/1200/900?image=14",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -184,7 +184,7 @@
   {
     "id": "85b9767c-1a09-4c33-8e77-faa25f1d69e1",
     "name": "Tarragon - Primerba, Paste",
-    "desc": "Tendon excision for grft",
+    "description": "Tendon excision for grft",
     "price": 642,
     "imageUrl": "https://picsum.photos/1200/900?image=15",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -197,7 +197,7 @@
   {
     "id": "22112bb2-c324-4860-8eb9-9c78853a52a5",
     "name": "Beef - Tenderloin Tails",
-    "desc": "Vessel operation NEC",
+    "description": "Vessel operation NEC",
     "price": 967,
     "imageUrl": "https://picsum.photos/1200/900?image=16",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -210,7 +210,7 @@
   {
     "id": "97ad5bf4-d153-41c5-a6e0-6d0bfbbb4f67",
     "name": "Oil - Olive",
-    "desc": "Skull plate removal",
+    "description": "Skull plate removal",
     "price": 1124,
     "imageUrl": "https://picsum.photos/1200/900?image=17",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -223,7 +223,7 @@
   {
     "id": "cfc5cff8-ab2a-4c70-994d-5ab8ccb7cb0d",
     "name": "Crab - Dungeness, Whole, live",
-    "desc": "Chng hnd mus/ten lng NEC",
+    "description": "Chng hnd mus/ten lng NEC",
     "price": 1665,
     "imageUrl": "https://picsum.photos/1200/900?image=18",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -236,7 +236,7 @@
   {
     "id": "fac2ccc6-2c3f-4c1e-acbd-5354ba0873fb",
     "name": "Pasta - Cappellini, Dry",
-    "desc": "Plastic rep ext ear NEC",
+    "description": "Plastic rep ext ear NEC",
     "price": 3305,
     "imageUrl": "https://picsum.photos/1200/900?image=19",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -249,7 +249,7 @@
   {
     "id": "1adbc55a-4354-4205-b96d-c95e2dc806f4",
     "name": "Milk - Skim",
-    "desc": "Interat ven retrn transp",
+    "description": "Interat ven retrn transp",
     "price": 3310,
     "imageUrl": "https://picsum.photos/1200/900?image=20",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -262,7 +262,7 @@
   {
     "id": "c3770b10-dd0f-4b1c-83aa-d424c175c087",
     "name": "Beef - Shank",
-    "desc": "Hepatic lobectomy",
+    "description": "Hepatic lobectomy",
     "price": 3196,
     "imageUrl": "https://picsum.photos/1200/900?image=20",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -275,7 +275,7 @@
   {
     "id": "6b8d0110-e3e8-4727-a51e-06f38864e464",
     "name": "Ice Cream Bar - Oreo Cone",
-    "desc": "Proximal gastrectomy",
+    "description": "Proximal gastrectomy",
     "price": 2236,
     "imageUrl": "https://picsum.photos/1200/900?image=21",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -288,7 +288,7 @@
   {
     "id": "3b69e116-9dd6-400f-96ce-9911f4f6ac8b",
     "name": "Mix - Cocktail Ice Cream",
-    "desc": "Appendiceal ops NEC",
+    "description": "Appendiceal ops NEC",
     "price": 232,
     "imageUrl": "https://picsum.photos/1200/900?image=22",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -301,7 +301,7 @@
   {
     "id": "89b46ea8-b9a6-40e5-8df3-dba1095695f7",
     "name": "Mushroom - Lg - Cello",
-    "desc": "Excision of wrist NEC",
+    "description": "Excision of wrist NEC",
     "price": 3318,
     "imageUrl": "https://picsum.photos/1200/900?image=23",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -314,7 +314,7 @@
   {
     "id": "e88e07f8-358d-48f7-b17c-8a16458f9c0a",
     "name": "Lotus Leaves",
-    "desc": "Oth chest cage rep/plast",
+    "description": "Oth chest cage rep/plast",
     "price": 1504,
     "imageUrl": "https://picsum.photos/1200/900?image=24",
     "inventoryId": "EC186DDF-F430-44EC-84E5-205C93D84F14",
@@ -327,7 +327,7 @@
   {
     "id": "b243a35d-120a-4db3-ad12-7b3fa80e6391",
     "name": "Soup - Campbells Chili",
-    "desc": "Implt/repl carddefib tot",
+    "description": "Implt/repl carddefib tot",
     "price": 3294,
     "imageUrl": "https://picsum.photos/1200/900?image=25",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -340,7 +340,7 @@
   {
     "id": "6e3ac253-517d-48e5-96ad-800451f8591c",
     "name": "Longos - Penne With Pesto",
-    "desc": "Wound catheter irrigat",
+    "description": "Wound catheter irrigat",
     "price": 3639,
     "imageUrl": "https://picsum.photos/1200/900?image=26",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
@@ -353,7 +353,7 @@
   {
     "id": "4693520a-2b14-4d90-8b64-541575511382",
     "name": "Prunes - Pitted",
-    "desc": "Abdomen wall repair NEC",
+    "description": "Abdomen wall repair NEC",
     "price": 1191,
     "imageUrl": "https://picsum.photos/1200/900?image=27",
     "inventoryId": "B8B62196-6369-409D-B709-11C112DD023F",
