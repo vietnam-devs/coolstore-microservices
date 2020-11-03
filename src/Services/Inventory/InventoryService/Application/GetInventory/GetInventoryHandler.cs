@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using InventoryService.Application.Common;
 using InventoryService.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using N8T.Infrastructure.App.Dtos;
 
 namespace InventoryService.Application.GetInventory
 {
@@ -25,7 +25,10 @@ namespace InventoryService.Application.GetInventory
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
-            return new InventoryDto(inv.Id, inv.Location, inv.Description, inv.Website);
+            return new InventoryDto
+            {
+                Id = inv.Id, Location = inv.Location, Description = inv.Description, Website = inv.Website
+            };
         }
     }
 }

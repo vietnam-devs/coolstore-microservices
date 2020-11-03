@@ -6,6 +6,7 @@ using Dapr.Client.Http;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using N8T.Infrastructure.App.Dtos;
+using N8T.Infrastructure.App.Requests.Inventory;
 using ProductCatalogService.Domain.Exception;
 using ProductCatalogService.Infrastructure.Data;
 
@@ -39,7 +40,7 @@ namespace ProductCatalogService.Application.GetDetailOfSpecificProduct
             }
 
             var httpExtension = new HTTPExtension {Verb = HTTPVerb.Post, ContentType = "application/json"};
-            var requestData = new InventoryRequest(product.InventoryId);
+            var requestData = new InventoryRequest {InventoryId = product.InventoryId};
             var inventory = await _daprClient.InvokeMethodAsync<InventoryRequest, InventoryDto>(
                 "inventoryapp", "get-inventory-by-id", requestData, httpExtension, cancellationToken);
 

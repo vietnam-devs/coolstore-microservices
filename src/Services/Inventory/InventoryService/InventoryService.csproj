@@ -31,10 +31,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\GetInventory\" />
-    <Folder Include="Domain\Event\" />
-    <Folder Include="Domain\Exception\" />
-  </ItemGroup>
-
 </Project>

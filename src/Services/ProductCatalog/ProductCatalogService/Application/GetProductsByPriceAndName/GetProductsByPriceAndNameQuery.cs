@@ -15,8 +15,6 @@ namespace ProductCatalogService.Application.GetProductsByPriceAndName
         public double Price { get; set; }
     }
 
-    public record GetInventoryByIdsRequest(IEnumerable<Guid> InventoryIds);
-
     public class SearchProductsQueryValidator : AbstractValidator<GetProductsByPriceAndNameQuery>
     {
     }

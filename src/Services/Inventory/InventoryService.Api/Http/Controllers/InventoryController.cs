@@ -3,8 +3,9 @@ using InventoryService.Application.GetAvailabilityInventories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using InventoryService.Application.Common;
 using InventoryService.Application.GetInventory;
+using N8T.Infrastructure.App.Dtos;
+using N8T.Infrastructure.App.Requests.Inventory;
 
 namespace InventoryService.Api.Http.Controllers
 {

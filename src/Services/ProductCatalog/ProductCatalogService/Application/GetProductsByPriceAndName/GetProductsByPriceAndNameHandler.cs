@@ -8,6 +8,7 @@ using Dapr.Client.Http;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using N8T.Infrastructure.App.Dtos;
+using N8T.Infrastructure.App.Requests.Inventory;
 using ProductCatalogService.Infrastructure.Data;
 
 namespace ProductCatalogService.Application.GetProductsByPriceAndName
@@ -32,7 +33,7 @@ namespace ProductCatalogService.Application.GetProductsByPriceAndName
                 .Include(x => x.Category)
                 .AsNoTracking()
                 .Skip(request.Page - 1)
-                .Take(10)
+                .Take(10) //TODO:
                 .Where(x => !x.IsDeleted && x.Price <= request.Price)
                 .OrderBy(x => x.Name)
                 .ToListAsync(cancellationToken);
@@ -40,8 +41,8 @@ namespace ProductCatalogService.Application.GetProductsByPriceAndName
             var categoryIds = products.Select(x => x.InventoryId).Distinct();
 
             var httpExtension = new HTTPExtension {Verb = HTTPVerb.Post, ContentType = "application/json"};
-            var data = new GetInventoryByIdsRequest(categoryIds.ToList());
-            var inventories = await _daprClient.InvokeMethodAsync<GetInventoryByIdsRequest, List<InventoryDto>>(
+            var data = new InventoryByIdsRequest {InventoryIds = categoryIds.ToList()};
+            var inventories = await _daprClient.InvokeMethodAsync<InventoryByIdsRequest, List<InventoryDto>>(
                 "inventoryapp", "get-inventories-by-ids",
                 data, httpExtension, cancellationToken);
 

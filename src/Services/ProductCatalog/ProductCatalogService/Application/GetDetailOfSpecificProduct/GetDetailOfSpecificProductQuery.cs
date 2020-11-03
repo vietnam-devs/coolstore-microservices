@@ -13,8 +13,6 @@ namespace ProductCatalogService.Application.GetDetailOfSpecificProduct
         public Guid Id { get; set; }
     }
 
-    public record InventoryRequest(Guid InventoryId);
-
     public class GetDetailOfSpecificProductValidator : AbstractValidator<GetDetailOfSpecificProductQuery>
     {
         public GetDetailOfSpecificProductValidator()

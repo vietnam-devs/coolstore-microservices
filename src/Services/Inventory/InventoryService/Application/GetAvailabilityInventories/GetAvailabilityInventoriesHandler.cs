@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using InventoryService.Application.Common;
 using MediatR;
 using InventoryService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using N8T.Infrastructure.App.Dtos;
 
 namespace InventoryService.Application.GetAvailabilityInventories
 {
-    public class GetAvailabilityInventoriesHandler : IRequestHandler<GetAvailabilityInventoriesQuery, IEnumerable<Common.InventoryDto>>
+    public class GetAvailabilityInventoriesHandler : IRequestHandler<GetAvailabilityInventoriesQuery, IEnumerable<InventoryDto>>
     {
         private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
 
@@ -35,7 +35,10 @@ namespace InventoryService.Application.GetAvailabilityInventories
                 .AsNoTracking()
                 .Where(x => request.Ids.Contains(x.Id))
                 .Select(x =>
-                    new InventoryDto(x.Id, x.Location, x.Description, x.Website))
+                    new InventoryDto
+                    {
+                        Id = x.Id, Location = x.Location, Description = x.Description, Website = x.Website
+                    })
                 .ToListAsync(cancellationToken);
         }
     }

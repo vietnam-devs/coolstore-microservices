@@ -172,14 +172,4 @@ namespace ProductCatalogService.Api.HostServices
             );
         }
     }
-
-    // public class ProductListReplicated : EventBase
-    // {
-    //     public ProductListReplicated(IEnumerable<ProductDto> products)
-    //     {
-    //         Products = products;
-    //     }
-    //
-    //     public IEnumerable<ProductDto> Products { get; }
-    // }
 }

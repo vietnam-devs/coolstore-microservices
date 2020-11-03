@@ -1,7 +1,7 @@
 using System;
 using FluentValidation;
-using InventoryService.Application.Common;
 using MediatR;
+using N8T.Infrastructure.App.Dtos;
 
 namespace InventoryService.Application.GetInventory
 {
@@ -9,8 +9,6 @@ namespace InventoryService.Application.GetInventory
     {
         public Guid Id { get; set; }
     }
-
-    public record InventoryRequest(Guid InventoryId);
 
     public class GetInventoryValidator : AbstractValidator<GetInventoryQuery>
     {
