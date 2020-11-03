@@ -24,12 +24,20 @@ namespace InventoryService.Application.GetAvailabilityInventories
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
+            await using var dbContext = _dbContextFactory.CreateDbContext();
+
             if (!request.Ids.Any())
             {
-                return new List<InventoryDto>();
+                // get all inventories
+                return await dbContext.Inventories
+                    .AsNoTracking()
+                    .Select(x =>
+                        new InventoryDto
+                        {
+                            Id = x.Id, Location = x.Location, Description = x.Description, Website = x.Website
+                        })
+                    .ToListAsync(cancellationToken);
             }
-
-            await using var dbContext = _dbContextFactory.CreateDbContext();
 
             return await dbContext.Inventories
                 .AsNoTracking()

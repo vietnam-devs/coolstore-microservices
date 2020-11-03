@@ -27,7 +27,7 @@ namespace ShoppingCartService.Api.Subscriber
         {
             _logger.LogInformation($"Received data for products-sync: {@event.Products.Count} products.");
 
-            await _daprClient.SaveStateAsync("statestore", "products", @event);
+            await _daprClient.SaveStateAsync("statestore", "products", @event.Products);
         }
     }
 }

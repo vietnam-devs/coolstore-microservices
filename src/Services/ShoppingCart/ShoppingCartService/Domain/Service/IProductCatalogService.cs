@@ -7,8 +7,8 @@ namespace ShoppingCartService.Domain.Service
 {
     public interface IProductCatalogService
     {
-        FlatProductDto? GetProductById(Guid id);
-        Task<FlatProductDto?> GetProductByIdAsync(Guid id);
-        Task<IEnumerable<FlatProductDto>> GetProductsAsync();
+        //ProductDto? GetProductById(Guid id);
+        Task<ProductDto?> GetProductByIdAsync(Guid id);
+        Task<IEnumerable<ProductDto>> GetProductsAsync();
     }
 }

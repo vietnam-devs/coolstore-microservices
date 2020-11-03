@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Infrastructure\Gateway\" />
+    <Folder Include="Application\Common\" />
   </ItemGroup>
 
 </Project>

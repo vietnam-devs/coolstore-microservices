@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using N8T.Domain;
+using N8T.Infrastructure.App.Dtos;
 using ShoppingCartService.Domain.Event;
 using ShoppingCartService.Domain.Exception;
 using ShoppingCartService.Domain.Gateway;
@@ -119,6 +120,52 @@ namespace ShoppingCartService.Domain.Model
             AddDomainEvent(new ShoppingCartCheckedOut { CartId = Id });
 
             return this;
+        }
+
+        public async Task<CartDto> ToDtoAsync(IProductCatalogService productCatalogService)
+        {
+            var cartDto = new CartDto
+            {
+                Id = Id,
+                UserId = BuyerId,
+                CartTotal = CartTotal,
+                CartItemTotal = CartItemTotal,
+                CartItemPromoSavings = CartItemPromoSavings,
+                ShippingPromoSavings = ShippingPromoSavings,
+                ShippingTotal = ShippingTotal,
+                IsCheckOut = IsCheckout
+            };
+
+            var products = await productCatalogService.GetProductsAsync();
+
+            cartDto.Items.AddRange(CartItems.Select(cc =>
+            {
+                var cartItem = new CartItemDto
+                {
+                    ProductId = cc.ProductId,
+                    Quantity = cc.Quantity,
+                    PromoSavings = cc.PromoSavings
+                };
+
+                var prod = products.FirstOrDefault(x => x.Id == cc.ProductId);
+                if (prod is not null)
+                {
+                    cartItem.ProductName = prod.Name;
+                    cartItem.ProductPrice = prod.Price;
+                    cartItem.ProductImagePath = prod.ImageUrl;
+                    cartItem.ProductDescription = prod.Description;
+                    cartItem.Price = prod.Price;
+
+                    cartItem.InventoryId = prod.Inventory.Id;
+                    cartItem.InventoryLocation = prod.Inventory.Location;
+                    cartItem.InventoryWebsite = prod.Inventory.Website;
+                    cartItem.InventoryDescription = prod.Inventory.Description;
+                }
+
+                return cartItem;
+            }).ToList());
+
+            return cartDto;
         }
     }
 }
