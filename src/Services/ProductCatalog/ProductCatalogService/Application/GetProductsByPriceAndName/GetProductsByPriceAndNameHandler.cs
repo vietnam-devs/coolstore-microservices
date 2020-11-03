@@ -7,7 +7,7 @@ using Dapr.Client;
 using Dapr.Client.Http;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using ProductCatalogService.Domain.Dto;
+using N8T.Infrastructure.App.Dtos;
 using ProductCatalogService.Infrastructure.Data;
 
 namespace ProductCatalogService.Application.GetProductsByPriceAndName

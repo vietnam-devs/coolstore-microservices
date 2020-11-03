@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapr;
-using MediatR;
+using Dapr.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using N8T.Domain;
-using ShoppingCartService.Domain.Dto;
+using N8T.Infrastructure.App.Events.ProductCatalog;
 
 namespace ShoppingCartService.Api.Subscriber
 {
@@ -14,25 +12,22 @@ namespace ShoppingCartService.Api.Subscriber
     [Route("")]
     public class ProductSubscriber : ControllerBase
     {
+        private readonly DaprClient _daprClient;
         private readonly ILogger<ProductSubscriber> _logger;
 
-        public ProductSubscriber(ILogger<ProductSubscriber> logger)
+        public ProductSubscriber(DaprClient daprClient, ILogger<ProductSubscriber> logger)
         {
+            _daprClient = daprClient ?? throw new ArgumentNullException(nameof(daprClient));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [Topic("pubsub", "products-sync")]
         [HttpPost("products-sync")]
-        public async Task SubscribeProductsSync(ProductListReplicated @event, [FromServices] IMediator mediator)
+        public async Task SubscribeProductsSync(ProductListReplicated @event)
         {
             _logger.LogInformation($"Received data for products-sync: {@event.Products.Count} products.");
 
-            var result = @event;
+            await _daprClient.SaveStateAsync("statestore", "products", @event);
         }
-    }
-
-    public class ProductListReplicated : IntegrationEventBase
-    {
-        public List<ProductDto> Products { get; set; } = new List<ProductDto>();
     }
 }

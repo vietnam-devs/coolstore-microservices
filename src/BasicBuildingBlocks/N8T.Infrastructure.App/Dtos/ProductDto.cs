@@ -1,6 +1,6 @@
 using System;
 
-namespace ShoppingCartService.Domain.Dto
+namespace N8T.Infrastructure.App.Dtos
 {
     public class ProductDto
     {

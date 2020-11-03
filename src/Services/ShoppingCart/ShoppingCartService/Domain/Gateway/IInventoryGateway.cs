@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ShoppingCartService.Domain.Dto;
-using ShoppingCartService.Domain.Model;
+using N8T.Infrastructure.App.Dtos;
 
 namespace ShoppingCartService.Domain.Gateway
 {

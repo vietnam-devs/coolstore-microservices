@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using N8T.Infrastructure.App.Dtos;
 using ProductCatalogService.Application.GetDetailOfSpecificProduct;
 using ProductCatalogService.Application.GetProductsByPriceAndName;
-using ProductCatalogService.Domain.Dto;
 
 namespace ProductCatalogService.Api.Http.Controllers
 {

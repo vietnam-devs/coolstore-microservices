@@ -10,12 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using N8T.Domain;
+using N8T.Infrastructure.App.Dtos;
+using N8T.Infrastructure.App.Events.ProductCatalog;
 using Nest;
 using Newtonsoft.Json;
 using Polly;
 using Polly.Retry;
-using ProductCatalogService.Domain.Dto;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using Policy = Polly.Policy;
 
@@ -104,11 +104,13 @@ namespace ProductCatalogService.Api.HostServices
                 throw new Exception("Couldn't get DaprClient from scope.");
             }
 
+            var @event = new ProductListReplicated();
+            @event.Products.AddRange(products);
             //TODO: will remove it
-            await daprClient.SaveStateAsync("statestore", "products", new ProductListReplicated(products),
+            await daprClient.SaveStateAsync("statestore", "products", @event,
                 cancellationToken: cancellationToken);
 
-            await daprClient.PublishEventAsync("pubsub", "products-sync", new ProductListReplicated(products), cancellationToken);
+            await daprClient.PublishEventAsync("pubsub", "products-sync", @event, cancellationToken);
 
             _logger.LogInformation($"Put all products to dapr state completed.");
         }
@@ -120,9 +122,7 @@ namespace ProductCatalogService.Api.HostServices
             _logger.LogInformation($"ElasticSearch Url: {esUrl}");
 
             var settings = new ConnectionSettings(new Uri(esUrl))
-                .DefaultMappingFor<ProductDto>(i => i
-                    .IndexName("product")
-                )
+                .DefaultMappingFor<ProductDto>(i => i.IndexName("product"))
                 .PrettyJson();
 
             var client = new ElasticClient(settings);
@@ -173,13 +173,13 @@ namespace ProductCatalogService.Api.HostServices
         }
     }
 
-    public class ProductListReplicated : EventBase
-    {
-        public ProductListReplicated(IEnumerable<ProductDto> products)
-        {
-            Products = products;
-        }
-
-        public IEnumerable<ProductDto> Products { get; }
-    }
+    // public class ProductListReplicated : EventBase
+    // {
+    //     public ProductListReplicated(IEnumerable<ProductDto> products)
+    //     {
+    //         Products = products;
+    //     }
+    //
+    //     public IEnumerable<ProductDto> Products { get; }
+    // }
 }

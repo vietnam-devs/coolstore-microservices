@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using FluentValidation;
 using MediatR;
+using N8T.Infrastructure.App.Dtos;
 using N8T.Infrastructure.Auth;
 using ProductCatalogService.Application.Common;
-using ProductCatalogService.Domain.Dto;
 
 namespace ProductCatalogService.Application.SearchProducts
 {

@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using N8T.Infrastructure.App.Dtos;
 using N8T.Infrastructure.Auth;
-using ProductCatalogService.Domain.Dto;
 
 namespace ProductCatalogService.Application.GetProductsByPriceAndName
 {

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using N8T.Infrastructure.App.Dtos;
 using Nest;
 using ProductCatalogService.Application.Common;
-using ProductCatalogService.Domain.Dto;
 
 namespace ProductCatalogService.Application.SearchProducts
 {

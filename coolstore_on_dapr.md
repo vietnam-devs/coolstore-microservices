@@ -10,7 +10,7 @@
 
 # Dapr CLI for locally development
 
-## Init core component
+## Init core component:
 
 Enabled `vm.max_map_count` for ElasticSearch
 
@@ -18,14 +18,14 @@ Enabled `vm.max_map_count` for ElasticSearch
 $ sysctl -w vm.max_map_count=262144
 ```
 
-- `docker-compose` option
+### 1. `docker-compose` option
 
 ```
 $ docker-compose -f docker-compose.yml -f docker-compose.override.yml down --remove-orphans -v
 $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up postgresql zipkin redis elasticsearch
 ```
 
-- `tye` option
+### 2. `tye` option
 
 ```
 $ tye run tye.slim.yaml
@@ -38,11 +38,11 @@ $ dapr run --app-port 5001 --app-id identityapp dotnet run -- -p src\Services\Id
 ```
 
 ```
-$ dapr run --app-port 5003 --app-id productcatalogapp dotnet run -- -p src\Services\ProductCatalog\ProductCatalogService.Api\ProductCatalogService.Api.csproj
+$ dapr run --app-port 5002 --app-id inventoryapp dotnet run -- -p src\Services\Inventory\InventoryService.Api\InventoryService.Api.csproj
 ```
 
 ```
-$ dapr run --app-port 5002 --app-id inventoryapp dotnet run -- -p src\Services\Inventory\InventoryService.Api\InventoryService.Api.csproj
+$ dapr run --app-port 5003 --app-id productcatalogapp dotnet run -- -p src\Services\ProductCatalog\ProductCatalogService.Api\ProductCatalogService.Api.csproj
 ```
 
 ```
