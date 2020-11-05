@@ -30,6 +30,8 @@ namespace ProductCatalogService.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var isRunOnTye = Config.IsRunOnTye("identityservice");
+
             services.AddHttpContextAccessor()
                 .AddCustomMediatR<Anchor>()
                 .AddCustomValidators<Anchor>()
@@ -41,8 +43,6 @@ namespace ProductCatalogService.Api
 
             services.AddCustomAuth<Anchor>(Config, options =>
             {
-                var isRunOnTye = Config.IsRunOnTye("identityservice");
-
                 options.Authority = isRunOnTye
                     ? Config.GetServiceUri("identityservice")?.AbsoluteUri
                     : options.Authority;
@@ -55,11 +55,9 @@ namespace ProductCatalogService.Api
             services.AddCustomOtelWithZipkin(Config,
                 o =>
                 {
-                    /*var isRunOnTye = Config.IsRunOnTye("zipkin");
-            
                     o.Endpoint = isRunOnTye
                         ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
-                        : o.Endpoint;*/
+                        : o.Endpoint;
                 });
 
             services.AddHostedService<BackgroundJobHostedService>();

@@ -25,10 +25,16 @@ namespace N8T.Infrastructure.Validator
             CancellationToken cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
-            _logger.LogInformation($"Handling {typeof(TRequest).FullName}");
+            _logger.LogInformation(
+                "[{Prefix}] Handle request={X-RequestData} and response={X-ResponseData}",
+                nameof(RequestValidationBehavior<TRequest, TResponse>), typeof(TRequest).Name, typeof(TResponse).Name);
+
             _logger.LogDebug($"Handling {typeof(TRequest).FullName} with content {JsonSerializer.Serialize(request)}");
+
             await _validator.HandleValidation(request);
+
             var response = await next();
+
             _logger.LogInformation($"Handled {typeof(TRequest).FullName}");
             return response;
         }

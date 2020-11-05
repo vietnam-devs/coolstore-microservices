@@ -8,18 +8,13 @@ namespace N8T.Infrastructure.OTel.MediatR
     {
         private readonly DiagnosticSourceSubscriber _diagnosticSourceSubscriber;
 
-        public OTelMediatRInstrumentation(ActivitySourceAdapter activitySource)
+        public OTelMediatRInstrumentation(ActivitySourceAdapter activitySourceAdapter)
         {
-            if (activitySource == null)
-            {
-                throw new ArgumentNullException(nameof(activitySource));
-            }
-
             _diagnosticSourceSubscriber = new DiagnosticSourceSubscriber(
-                name => new OTelMediatRDiagnosticListener(OTelMediatROptions.OTelMediatRName, activitySource),
+                name => new OTelMediatRDiagnosticListener(OTelMediatROptions.OTelMediatRName, activitySourceAdapter),
                 listener =>
                 {
-                    return listener.Name.Contains(OTelMediatROptions.OTelMediatRName);
+                    return listener.Name == OTelMediatROptions.OTelMediatRName;
                 },
                 null
             );

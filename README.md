@@ -1,30 +1,13 @@
-# CoolStore Web Application - :ferris_wheel: Kubernetes-based Microservices Application on Service Mesh :sailboat:
+# CoolStore Web Application - :ferris_wheel: Kubernetes-based Microservices Application on Dapr :sailboat:
 
 ![Travis (.org)](https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?branch=master)
 [![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
-[![OpenTracing Badge](https://img.shields.io/badge/OpenTracing-enabled-blue.svg)](http://opentracing.io)
 
-```
- ______     ______     ______     __         ______     ______   ______     ______     ______    
-/\  ___\   /\  __ \   /\  __ \   /\ \       /\  ___\   /\__  _\ /\  __ \   /\  == \   /\  ___\   
-\ \ \____  \ \ \/\ \  \ \ \/\ \  \ \ \____  \ \___  \  \/_/\ \/ \ \ \/\ \  \ \  __<   \ \  __\   
- \ \_____\  \ \_____\  \ \_____\  \ \_____\  \/\_____\    \ \_\  \ \_____\  \ \_\ \_\  \ \_____\ 
-  \/_____/   \/_____/   \/_____/   \/_____/   \/_____/     \/_/   \/_____/   \/_/ /_/   \/_____/ 
-```
-
-CoolStore Website is a containerised microservices application consisting of services based on .NET Core, NodeJS and more running on Service Mesh. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
+CoolStore Website is a containerised microservices application consisting of services based on .NET Core running on Kubernetes with Dapr. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
 
 The business domain is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral).
 
-> Currently, we're working on [practical-dapr project](https://github.com/thangchung/practical-dapr) which uses and leverages [Dapr](https://github.com/dapr/dapr) and [Tye](https://github.com/dotnet/tye) from Microsoft to run  CoolStore website without need Docker, Docker-compose, and Helm chart for running on localhost and deploying to Kubernetes platform. If you are interested in, please come over [that link](https://github.com/thangchung/practical-dapr)!
-
-Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
-
-## Try it online
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/vietnam-devs/coolstore-microservices)
-
-> Usage with careful: The project is in development mode so that a lot of things shall change due to .NET Core 3.x upgrading.
+Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://dev.to/thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
 
 ## Public presentation
 
@@ -35,6 +18,7 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 
 # Table of contents
 
+- [Try it!](https://github.com/vietnam-devs/coolstore-microservices#try-it)
 - [Screenshots](https://github.com/vietnam-devs/coolstore-microservices#screenshots)
 - [Business Context](https://github.com/vietnam-devs/coolstore-microservices#business-context)
 - [OS, SDK, library, tooling and prerequisites](https://github.com/vietnam-devs/coolstore-microservices#os-sdk-library-tooling-and-prerequisites)
@@ -47,6 +31,52 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 - [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
 - [Contributors](https://github.com/vietnam-devs/coolstore-microservices#contributors)
 - [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
+
+## Try it
+
+Make sure you have `dapr`, `tye`, `docker-compose` installed in your machine!
+
+### 1. Only wanna see it run
+
+```
+$ tye run
+```
+
+Go to `http://localhost:8000` => have fun :p
+
+### 2. Wanna go deep inside
+
+- Init core component:
+
+Enabled `vm.max_map_count` for ElasticSearch
+
+```
+$ sysctl -w vm.max_map_count=262144
+```
+
+```
+$ tye run tye.slim.yaml
+```
+
+- Run dapr apps locally via dapr cli
+
+```
+$ dapr run --app-port 5001 --app-id identityapp dotnet run -- -p src\Services\Identity\IdentityService\IdentityService.csproj
+```
+
+```
+$ dapr run --app-port 5002 --app-id inventoryapp dotnet run -- -p src\Services\Inventory\InventoryService.Api\InventoryService.Api.csproj
+```
+
+```
+$ dapr run --app-port 5003 --app-id productcatalogapp dotnet run -- -p src\Services\ProductCatalog\ProductCatalogService.Api\ProductCatalogService.Api.csproj
+```
+
+```
+$ dapr run --app-port 5004 --app-id shoppingcartapp dotnet run -- -p src\Services\ShoppingCart\ShoppingCartService.Api\ShoppingCartService.Api.csproj
+```
+
+Now, you can start to develop, debug or explore more about `dapr` with `tye` via Coolstore Apps.
 
 ## Screenshots
 
@@ -81,12 +111,11 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 - **[`Docker for desktop (Kubernetes enabled)`](https://www.docker.com/products/docker-desktop)** - the easiest tool to run Docker, Docker Swarm and Kubernetes on Mac and Windows.
 - **[`Kubernetes`](https://kubernetes.io) / [`AKS`](https://docs.microsoft.com/en-us/azure/aks)** - the app is designed to run on Kubernetes (both locally on "Docker for Desktop", as well as on the cloud with AKS).
 - **[`helm`](https://helm.sh)** - the best package manager to find, share, and use software built for Kubernetes.
-- **[`istio`](https://istio.io)** - application works on Istio service mesh.
-- **[`linkerd2`](https://github.com/linkerd/linkerd2)** - a service mesh for Kubernetes and beyond.
-  
+- **[`dapr`](https://dapr.io/)** - an event-driven, portable runtime for building microservices on cloud and edge.
+
 ### Back-end
 
-- **[`.NET Core 3.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core.
+- **[`.NET Core 5.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core.
 - **[`IdentityServer4`](https://identityserver.io)** - the Identity and Access Control solution for .NET Core.
 - **[`gRPC`](https://grpc.io)** - a high-performance, open-source universal RPC framework.
 - **[`Redis`](https://github.com/StackExchange/StackExchange.Redis)** - General purpose redis client.
@@ -261,22 +290,7 @@ There are several individual µservices and infrastructure components that make 
 
 ## Installation
 
-### Development environment
-
-#### Up and running with `Docker` and `docker compose`
-
-```bash
-$ docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
-$ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
-```
-
-See https://vietnam-devs.github.io/coolstore-microservices/development/#up-and-running-with-docker-and-docker-compose
-
-### Staging and Production environments
-
-#### Up and Running on `Azure Kubernetes Service` (`AKS`)
-
-See https://vietnam-devs.github.io/coolstore-microservices/development/#up-and-running-manually-on-docker-for-desktop-and-aks
+TODO
 
 ## µService development
 
@@ -294,19 +308,19 @@ https://documenter.getpostman.com/view/4847807/SVmvUeZv?version=latest#9f5ed7e4-
 
 ![Lift and Shift](assets/images/lift-and-shift.PNG?raw=true 'liftandshift')
 
-## Service mesh
+## Dapr components
 
-[`istio`](https://istio.io) provide a wealth of benefits for the organizations that use them. There’s no denying, however, that adopting the cloud can put strains on DevOps teams. Developers must use microservices to architect for portability, meanwhile operators are managing extremely large hybrid and multi-cloud deployments. Istio lets you connect, secure, control, and observe services.
+TODO
 
-### Distributed tracing
+## Debug and Tracing Apps
 
-![DAG chart](assets/images/jaeger-dag-1.PNG?raw=true 'DAG')
+- Setup Kibana with `TraceId`, `HandlerName`, `RequestPath`, `level` and filter with `HandlerName`
 
-![Trace chart](assets/images/jaeger-trace-1.PNG?raw=true 'Trace')
+![](assets/dapr/tracing_kibana_logs.png)
 
-### Metrics
+Then, you can find the exception happend in code via Kibana dashboard with settings above. Grab the `TraceId`, then paste it to `Zipkin` dashboard, then you can see the tracing of this request as the following picture
 
-![Metrics chart](assets/images/grafana-ui-1.PNG?raw=true 'Metrics')
+![](assets/dapr/tracing_zipkin.png)
 
 ## Contributing
 

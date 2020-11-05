@@ -20,11 +20,11 @@ const getRequestOptions = (token: string): AxiosRequestConfig => {
 export const getCartForCurrentUser = async () => {
   const user = await AuthService.getUser()
   const response: AxiosResponse = await axios.get<ICart>(
-    `${cartResourceUrl}/${user.profile.sub}/cart`,
+    `${cartResourceUrl}`,
     getRequestOptions(user.access_token)
   )
   console.log(response)
-  return response.data.cart as ICart
+  return response.data as ICart
 }
 
 export const createCartForCurrentUser = async (productId: string) => {
@@ -39,13 +39,13 @@ export const createCartForCurrentUser = async (productId: string) => {
     getRequestOptions(user.access_token)
   )
   console.log(response)
-  return response.data.result as ICart
+  return response.data as ICart
 }
 
 export const updateCartForCurrentUser = async (cartId: string, productId: string, quantity: number) => {
   const user = await AuthService.getUser()
   const response: AxiosResponse = await axios.put<ICart>(
-    `${cartResourceUrl}/${cartId}`,
+    `${cartResourceUrl}`,
     {
       productId: productId,
       quantity: quantity
@@ -53,7 +53,7 @@ export const updateCartForCurrentUser = async (cartId: string, productId: string
     getRequestOptions(user.access_token)
   )
   console.log(response)
-  return response.data.result as ICart
+  return response.data as ICart
 }
 
 export const deleteCartForCurrentUser = async (cartId: string, productId: string) => {
@@ -63,5 +63,5 @@ export const deleteCartForCurrentUser = async (cartId: string, productId: string
     getRequestOptions(user.access_token)
   )
   console.log(response)
-  return response.data.productId as string
+  return response.data as string
 }

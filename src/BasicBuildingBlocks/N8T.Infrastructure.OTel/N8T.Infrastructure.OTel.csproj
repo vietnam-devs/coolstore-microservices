@@ -6,14 +6,15 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="OpenTelemetry" Version="0.4.0-beta.2" />
-    <PackageReference Include="OpenTelemetry.Exporter.Zipkin" Version="0.4.0-beta.2" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="0.4.0-beta.2" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="0.4.0-beta.2" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="0.4.0-beta.2" />
-    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="0.4.0-beta.2" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.Grpc" Version="0.4.0-beta.2" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="0.4.0-beta.2" />
+    <PackageReference Include="OpenTelemetry" Version="0.7.0-beta.1" />
+    <PackageReference Include="OpenTelemetry.Exporter.Zipkin" Version="0.7.0-beta.1" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="0.7.0-beta.1" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="0.7.0-beta.1" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.GrpcNetClient" Version="0.7.0-beta.1" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="0.7.0-beta.1" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="0.7.0-beta.1" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="0.7.0-beta.1" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="0.7.0-beta.1" />
   </ItemGroup>
   
   <ItemGroup>

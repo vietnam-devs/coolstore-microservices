@@ -42,7 +42,7 @@ const CartItems: React.FC<IProps> = ({ cart, onProductUpdated, onProductDeleted 
                   <Media heading>
                     <Link to={`/product/${item.productId}`}>{item.productName.replace(/^(.{25}[^\s]*).*/, '$1')}</Link>
                   </Media>
-                  <p>{item.productDesc.replace(/^(.{50}[^\s]*).*/, '$1')}</p>
+                  <p>{item.productDescription.replace(/^(.{50}[^\s]*).*/, '$1')}</p>
                 </Media>
               </Media>
             </td>

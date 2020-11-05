@@ -63,7 +63,7 @@ const ProductItemDetail: React.FC<IProps> = ({ data }) => {
           </div>
           <div className="product-description">
             <h4 className="mb-1">Descriptions</h4>
-            <p>{data.desc}</p>
+            <p>{data.description}</p>
             <Button color="primary" block>
               <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon> Add to Cart
             </Button>

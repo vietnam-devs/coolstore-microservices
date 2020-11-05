@@ -3,22 +3,22 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using OpenTelemetry.Trace;
 
 namespace N8T.Infrastructure.OTel.MediatR
 {
-    // https://devblogs.microsoft.com/aspnet/improvements-in-net-core-3-0-for-troubleshooting-and-monitoring-distributed-apps/
-    // https://vgaltes.com/post/forwarding-correlation-ids-in-aspnetcore-version-2/
-    // https://github.com/SergeyKanzhelev/ot-demo-2019-11
-    // feature flag: https://github.com/Bishoymly/CoreX.Extensions/blob/master/src/MicroserviceTemplate/appsettings.json#L12
-    // metrics: https://github.com/Bishoymly/CoreX.Extensions/blob/master/src/CoreX.Extensions.Metrics/HomeGenerator.cs
     public class OTelMediatRTracingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<OTelMediatRTracingBehavior<TRequest, TResponse>> _logger;
 
-        public OTelMediatRTracingBehavior(ILogger<OTelMediatRTracingBehavior<TRequest, TResponse>> logger)
+        public OTelMediatRTracingBehavior(IHttpContextAccessor httpContextAccessor,
+            ILogger<OTelMediatRTracingBehavior<TRequest, TResponse>> logger)
         {
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -26,9 +26,13 @@ namespace N8T.Infrastructure.OTel.MediatR
             CancellationToken cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
+            const string prefix = nameof(OTelMediatRTracingBehavior<TRequest, TResponse>);
+            var traceId = _httpContextAccessor.GetTraceId();
+            var handlerName = typeof(TRequest).Name.Replace("Query", "Handler"); // by convention
+
             _logger.LogInformation(
-                "Handling {MediatRRequest} with request={MediatRRequestData} and response={MediatRResponseData}",
-                nameof(OTelMediatRTracingBehavior<TRequest, TResponse>), typeof(TRequest).Name, typeof(TResponse).Name);
+                "[{Prefix}:{HandlerName}] Handle request={X-RequestData} with traceid={TraceId}",
+                prefix, handlerName, typeof(TRequest).Name, traceId);
 
             using var activityListener = new DiagnosticListener(OTelMediatROptions.OTelMediatRName);
 
@@ -37,14 +41,26 @@ namespace N8T.Infrastructure.OTel.MediatR
                 return await next();
             }
 
-            var activity = new Activity($"{OTelMediatROptions.OTelMediatRName}.Execute")
-                .SetIdFormat(ActivityIdFormat.W3C);
+            var activity = new Activity($"{OTelMediatROptions.OTelMediatRName}.{handlerName}")
+                .SetIdFormat(ActivityIdFormat.W3C)
+                .AddEvent(new ActivityEvent(handlerName))
+                .AddTag("params.request.name", typeof(TRequest).Name)
+                .AddTag("params.response.name", typeof(TResponse).Name);
 
             activityListener.StartActivity(activity, request);
 
             try
             {
                 return await next();
+            }
+            catch (Exception ex)
+            {
+                activity.SetStatus(OpenTelemetry.Trace.Status.Error.WithDescription(ex.Message));
+                activity.RecordException(ex);
+
+                _logger.LogError(ex, "[{Prefix}:{HandlerName}] {ErrorMessage} with traceid={TraceId}", prefix, handlerName, ex.Message, traceId);
+
+                throw;
             }
             finally
             {

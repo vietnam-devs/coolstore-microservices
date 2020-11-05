@@ -58,6 +58,8 @@ namespace ShoppingCartService.Application.UpdateAmountOfProductInShoppingCart
 
             await cart.CalculateCartAsync(_productCatalogService, _shippingGateway, _promoGateway);
 
+            throw new Exception("throw this exception");
+
             await _daprClient.SaveStateAsync("statestore", $"shopping-cart-{currentUserId}", cart,
                 cancellationToken: cancellationToken);
 

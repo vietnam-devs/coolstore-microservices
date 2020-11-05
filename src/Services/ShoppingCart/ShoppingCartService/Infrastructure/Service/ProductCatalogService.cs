@@ -21,11 +21,6 @@ namespace ShoppingCartService.Infrastructure.Service
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        // public ProductDto? GetProductById(Guid id)
-        // {
-        //     return new ProductDto(); //TODO
-        // }
-
         public async Task<ProductDto?> GetProductByIdAsync(Guid id)
         {
             _logger.LogInformation("{Prefix}: GetProductByIdAsync by id={Id}", nameof(ProductCatalogService), id);

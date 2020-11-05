@@ -16,13 +16,11 @@ namespace N8T.Infrastructure.OTel.MediatR
 
         public override void OnStartActivity(Activity activity, object payload)
         {
+            _activitySource.Start(activity, ActivityKind.Client);
+
             // add more tags
-            activity.AddTag("request", activity.OperationName);
-            activity.AddTag("request.data", JsonSerializer.Serialize(payload));
-
-            activity.SetKind(ActivityKind.Server);
-
-            _activitySource.Start(activity);
+            activity?.AddTag("request", activity.OperationName);
+            activity?.AddTag("request.data", JsonSerializer.Serialize(payload));
         }
 
         public override void OnStopActivity(Activity activity, object payload)

@@ -4,11 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using N8T.Infrastructure.Logging;
-using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
 using Path = System.IO.Path;
 
@@ -16,22 +15,6 @@ namespace N8T.Infrastructure
 {
     public static class Extensions
     {
-        // [DebuggerStepThrough]
-        // public static (WebApplicationBuilder, IConfiguration) AddCustomConfiguration(
-        //     this WebApplicationBuilder builder)
-        // {
-        //     var env = builder.Environment;
-        //
-        //     var configBuilder = builder.Configuration
-        //         .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
-        //         .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
-        //         .AddEnvironmentVariables();
-        //
-        //     configBuilder.AddTyeBindingSecrets();
-        //
-        //     return (builder, configBuilder.Build());
-        // }
-
         [DebuggerStepThrough]
         public static IServiceCollection AddCustomMediatR<TType>(this IServiceCollection services,
             Action<IServiceCollection> doMoreActions = null)
@@ -65,6 +48,12 @@ namespace N8T.Infrastructure
         }
 
         [DebuggerStepThrough]
+        public static string GetTraceId(this IHttpContextAccessor httpContextAccessor)
+        {
+            return Activity.Current?.TraceId.ToString() ?? httpContextAccessor?.HttpContext?.TraceIdentifier;
+        }
+
+        [DebuggerStepThrough]
         public static T ConvertTo<T>(this object input)
         {
             return ConvertTo<T>(input.ToString());
@@ -82,22 +71,6 @@ namespace N8T.Infrastructure
             {
                 return default;
             }
-        }
-
-        [DebuggerStepThrough]
-        public static TData ReadData<TData>(this string fileName, string rootFolder)
-        {
-            var seedData = Path.GetFullPath(fileName, rootFolder);
-            Console.WriteLine(seedData);
-            using var sr = new StreamReader(seedData);
-            var readData = sr.ReadToEnd();
-            var models = JsonSerializer.Deserialize<TData>(
-                readData,
-                new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                });
-            return models;
         }
 
         [DebuggerStepThrough]

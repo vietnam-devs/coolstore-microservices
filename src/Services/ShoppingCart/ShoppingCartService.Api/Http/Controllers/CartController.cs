@@ -14,8 +14,8 @@ namespace ShoppingCartService.Api.Http.Controllers
     public class CartController : ControllerBase
     {
         [Authorize]
-        [HttpGet("{userId}/cart")]
-        public async Task<CartDto> Get(string userId,  [FromServices] IMediator mediator) =>
+        [HttpGet]
+        public async Task<CartDto> Get([FromServices] IMediator mediator) =>
             await mediator.Send(new GetCartByUserIdQuery());
 
         [Authorize]

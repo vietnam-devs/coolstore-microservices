@@ -153,9 +153,9 @@ namespace WebApiGateway
             services.AddCustomOtelWithZipkin(Config,
                 o =>
                 {
-                    /*o.Endpoint = isRunOnTye
-                        ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
-                        : o.Endpoint;*/
+                    // o.Endpoint = isRunOnTye
+                    //     ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
+                    //     : o.Endpoint;
                 });
         }
 

@@ -11,7 +11,7 @@ export interface IProduct {
   name: string
   price: number
   imageUrl: string
-  desc: string
+  description: string
 }
 
 export interface ICart {
@@ -32,11 +32,11 @@ export interface ICartItem {
   productId: string
   productName: string
   productPrice: number
-  productDesc: string
+  productDescription: string
   productImagePath: string
   inventoryId: string
   inventoryLocation: string
-  inventoryDesc: string
+  inventoryDescription: string
   inventoryWebsite: string
 }
 

@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Events\" />
-    <Folder Include="Events\ProductCatalog\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\N8T.Domain\N8T.Domain.csproj" />
     <ProjectReference Include="..\N8T.Infrastructure.Cache\N8T.Infrastructure.Cache.csproj" />
     <ProjectReference Include="..\N8T.Infrastructure.Dapper\N8T.Infrastructure.Dapper.csproj" />

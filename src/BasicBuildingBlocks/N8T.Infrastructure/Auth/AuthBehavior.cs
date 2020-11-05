@@ -38,7 +38,7 @@ namespace N8T.Infrastructure.Auth
                 return await next();
             }
 
-            _logger.LogInformation("{Prefix}: Starting AuthBehavior", nameof(AuthBehavior<TRequest, TResponse>));
+            _logger.LogInformation("[{Prefix}] Starting AuthBehavior", nameof(AuthBehavior<TRequest, TResponse>));
             var currentUser = _httpContextAccessor.HttpContext?.User;
             if (currentUser == null)
             {

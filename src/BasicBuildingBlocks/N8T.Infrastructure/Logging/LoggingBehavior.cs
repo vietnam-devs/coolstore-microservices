@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Text.Json;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Threading;
@@ -17,8 +16,10 @@ namespace N8T.Infrastructure.Logging
             CancellationToken cancellationToken,
             RequestHandlerDelegate<TResponse> next)
         {
-            _logger.LogInformation($"Handling {typeof(TRequest).FullName}");
-            _logger.LogDebug($"Handling {typeof(TRequest).FullName} with content {JsonSerializer.Serialize(request)}");
+            const string prefix = nameof(LoggingBehavior<TRequest, TResponse>);
+
+            _logger.LogInformation("[{Prefix}] Handle request={X-RequestData} and response={X-ResponseData}",
+                prefix, typeof(TRequest).Name, typeof(TResponse).Name);
 
             var timer = new Stopwatch();
             timer.Start();
@@ -29,10 +30,11 @@ namespace N8T.Infrastructure.Logging
             var timeTaken = timer.Elapsed;
             if (timeTaken.Seconds > 3) // if the request is greater than 3 seconds, then log the warnings
             {
-                _logger.LogWarning($"[PERF] The request {typeof(TRequest).FullName} took {timeTaken.Seconds} seconds.");
+                _logger.LogWarning("[{Perf-Possible}] The request {X-RequestData} took {TimeTaken} seconds.",
+                    prefix, typeof(TRequest).Name, timeTaken.Seconds);
             }
 
-            _logger.LogInformation($"Handled {typeof(TRequest).FullName}");
+            _logger.LogInformation("[{Prefix}] Handled {X-RequestData}", prefix, typeof(TRequest).Name);
             return response;
         }
     }

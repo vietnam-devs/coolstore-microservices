@@ -17,6 +17,7 @@ namespace IdentityService
         public static int Main(string[] args)
         {
             Activity.DefaultIdFormat = ActivityIdFormat.W3C;
+            Activity.ForceDefaultIdFormat = true;
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()

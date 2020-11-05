@@ -24,7 +24,14 @@ namespace ShoppingCartService.Application.GetCartByUserId
             var currentUserId = _securityContextAccessor.UserId;
 
             var cart = await _daprClient.GetStateAsync<CartDto>("statestore", $"shopping-cart-{currentUserId}",
-                cancellationToken: cancellationToken) ?? new CartDto();
+                cancellationToken: cancellationToken);
+
+            if (cart is null)
+            {
+                cart = new CartDto();
+                await _daprClient.SaveStateAsync("statestore", $"shopping-cart-{currentUserId}", cart,
+                    cancellationToken: cancellationToken);
+            }
 
             return cart;
         }

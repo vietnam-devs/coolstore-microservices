@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,8 @@ namespace ShoppingCartService.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var isRunOnTye = Config.IsRunOnTye("identityservice");
+
             services.AddHttpContextAccessor()
                 .AddCustomMediatR<Anchor>()
                 .AddCustomValidators<Anchor>()
@@ -40,8 +43,6 @@ namespace ShoppingCartService.Api
 
             services.AddCustomAuth<Anchor>(Config, options =>
             {
-                var isRunOnTye = Config.IsRunOnTye("identityservice");
-
                 options.Authority = isRunOnTye
                     ? Config.GetServiceUri("identityservice")?.AbsoluteUri
                     : options.Authority;
@@ -51,20 +52,18 @@ namespace ShoppingCartService.Api
                     : options.Audience;
             });
 
-            services.AddCustomOtelWithZipkin(Config,
-                o =>
-                {
-                    // var isRunOnTye = Config.IsRunOnTye("zipkin");
-                    //
-                    // o.Endpoint = isRunOnTye
-                    //     ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
-                    //     : o.Endpoint;
-                });
-
             services.AddScoped<ISecurityContextAccessor, SecurityContextAccessor>();
             services.AddScoped<IProductCatalogService, ProductCatalogService>();
             services.AddScoped<IPromoGateway, PromoGateway>();
             services.AddScoped<IShippingGateway, ShippingGateway>();
+
+            services.AddCustomOtelWithZipkin(Config,
+                o =>
+                {
+                    o.Endpoint = isRunOnTye
+                        ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
+                        : o.Endpoint;
+                });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -73,6 +72,8 @@ namespace ShoppingCartService.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // app.UseMiddleware<TraceContextMiddleware>();
 
             app.UseRouting();
 
