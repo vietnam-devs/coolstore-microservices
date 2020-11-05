@@ -23,7 +23,6 @@ Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://de
 - [Business Context](https://github.com/vietnam-devs/coolstore-microservices#business-context)
 - [OS, SDK, library, tooling and prerequisites](https://github.com/vietnam-devs/coolstore-microservices#os-sdk-library-tooling-and-prerequisites)
 - [High level software architecture](https://github.com/vietnam-devs/coolstore-microservices#high-level-software-architecture)
-- [Installation](https://github.com/vietnam-devs/coolstore-microservices#installation)
 - [µService development](https://github.com/vietnam-devs/coolstore-microservices#µmicroservice-development)
 - [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
 - [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
@@ -34,49 +33,45 @@ Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://de
 
 ## Try it
 
-Make sure you have `dapr`, `tye`, `docker-compose` installed in your machine!
+Make sure you have [`dapr`](https://docs.dapr.io/getting-started/install-dapr/) and [`tye`](https://github.com/dotnet/tye/blob/master/docs/getting_started.md) installed on your machine!
 
 ### 1. Only wanna see it run
 
-```
-$ tye run
-```
+    ```
+    $ tye run
+    ```
 
-Go to `http://localhost:8000` => have fun :p
+    Go to `http://localhost:8000` => have fun :p
 
 ### 2. Wanna go deep inside
 
-- Init core component:
+    - Start core components
 
-Enabled `vm.max_map_count` for ElasticSearch
+      > Enabled `vm.max_map_count` for ElasticSearch via run `sysctl -w vm.max_map_count=262144`
 
-```
-$ sysctl -w vm.max_map_count=262144
-```
+      ```
+      $ tye run tye.slim.yaml
+      ```
 
-```
-$ tye run tye.slim.yaml
-```
+    - Start dapr apps locally via dapr cli
 
-- Run dapr apps locally via dapr cli
+      ```
+      $ dapr run --app-port 5001 --app-id identityapp dotnet run -- -p src\Services\Identity\IdentityService\IdentityService.csproj
+      ```
 
-```
-$ dapr run --app-port 5001 --app-id identityapp dotnet run -- -p src\Services\Identity\IdentityService\IdentityService.csproj
-```
+      ```
+      $ dapr run --app-port 5002 --app-id inventoryapp dotnet run -- -p src\Services\Inventory\InventoryService.Api\InventoryService.Api.csproj
+      ```
 
-```
-$ dapr run --app-port 5002 --app-id inventoryapp dotnet run -- -p src\Services\Inventory\InventoryService.Api\InventoryService.Api.csproj
-```
+      ```
+      $ dapr run --app-port 5003 --app-id productcatalogapp dotnet run -- -p src\Services\ProductCatalog\ProductCatalogService.Api\ProductCatalogService.Api.csproj
+      ```
 
-```
-$ dapr run --app-port 5003 --app-id productcatalogapp dotnet run -- -p src\Services\ProductCatalog\ProductCatalogService.Api\ProductCatalogService.Api.csproj
-```
+      ```
+      $ dapr run --app-port 5004 --app-id shoppingcartapp dotnet run -- -p src\Services\ShoppingCart\ShoppingCartService.Api\ShoppingCartService.Api.csproj
+      ```
 
-```
-$ dapr run --app-port 5004 --app-id shoppingcartapp dotnet run -- -p src\Services\ShoppingCart\ShoppingCartService.Api\ShoppingCartService.Api.csproj
-```
-
-Now, you can start to develop, debug or explore more about `dapr` with `tye` via Coolstore Apps.
+      Now, you can start to develop, debug or explore more about `dapr` with `tye` via Coolstore Apps.
 
 ## Screenshots
 
@@ -287,10 +282,6 @@ There are several individual µservices and infrastructure components that make 
      </tr>
   </tbody>
 </table>
-
-## Installation
-
-TODO
 
 ## µService development
 
