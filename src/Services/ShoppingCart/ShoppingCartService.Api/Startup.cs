@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +10,10 @@ using N8T.Infrastructure.Dapr;
 using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
+using ShoppingCartService.Domain.Gateway;
+using ShoppingCartService.Domain.Service;
+using ShoppingCartService.Infrastructure.Gateway;
+using ShoppingCartService.Infrastructure.Service;
 
 namespace ShoppingCartService.Api
 {
@@ -57,6 +60,11 @@ namespace ShoppingCartService.Api
                     //     ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
                     //     : o.Endpoint;
                 });
+
+            services.AddScoped<ISecurityContextAccessor, SecurityContextAccessor>();
+            services.AddScoped<IProductCatalogService, ProductCatalogService>();
+            services.AddScoped<IPromoGateway, PromoGateway>();
+            services.AddScoped<IShippingGateway, ShippingGateway>();
         }
 
         public void Configure(IApplicationBuilder app)

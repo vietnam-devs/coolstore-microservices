@@ -29,7 +29,7 @@ namespace ShoppingCartService.Domain.Model
 
         public Guid ProductId { get; set; }
 
-        public ShoppingCartItem ChangePromoSavings(double promoSavings)
+        /*public ShoppingCartItem ChangePromoSavings(double promoSavings)
         {
             PromoSavings = promoSavings;
             return this;
@@ -39,6 +39,6 @@ namespace ShoppingCartService.Domain.Model
         {
             Quantity += quantity;
             return this;
-        }
+        }*/
     }
 }

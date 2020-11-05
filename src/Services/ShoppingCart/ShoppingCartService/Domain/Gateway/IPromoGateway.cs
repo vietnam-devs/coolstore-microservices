@@ -1,10 +1,10 @@
-using ShoppingCartService.Domain.Model;
+using N8T.Infrastructure.App.Dtos;
 
 namespace ShoppingCartService.Domain.Gateway
 {
     public interface IPromoGateway
     {
-        ShoppingCart ApplyCartItemPromotions(ShoppingCart cart);
-        ShoppingCart ApplyShippingPromotions(ShoppingCart cart);
+        CartDto ApplyCartItemPromotions(CartDto cart);
+        CartDto ApplyShippingPromotions(CartDto cart);
     }
 }

@@ -6,7 +6,7 @@ namespace N8T.Infrastructure.App.Dtos
     public class CartDto
     {
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; } = default!;
         public double CartItemTotal { get; set; }
         public double CartItemPromoSavings { get; set; }
         public double ShippingTotal { get; set; }

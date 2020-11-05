@@ -1,6 +1,7 @@
 # https://github.com/dapr/dapr/pull/1577
 # netstat -aon | find /i "listening"
 # docker rm $(docker ps -a -f status=exited -q)
+# sysctl -w vm.max_map_count=262144
 
 version: "3"
 

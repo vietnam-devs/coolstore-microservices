@@ -1,17 +1,19 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapr.Client;
 using MediatR;
+using N8T.Domain;
 using N8T.Infrastructure.App.Dtos;
 using N8T.Infrastructure.Auth;
 using ShoppingCartService.Domain.Gateway;
 using ShoppingCartService.Domain.Service;
 using ShoppingCartService.Infrastructure.Extensions;
 
-namespace ShoppingCartService.Application.CreateShoppingCartWithProduct
+namespace ShoppingCartService.Application.UpdateAmountOfProductInShoppingCart
 {
-    public class CreateShoppingCartWithProductHandler : IRequestHandler<CreateShoppingCartWithProductQuery, CartDto>
+    public class UpdateAmountOfProductInShoppingCartHandler : IRequestHandler<UpdateAmountOfProductInShoppingCartQuery, CartDto>
     {
         private readonly DaprClient _daprClient;
         private readonly IProductCatalogService _productCatalogService;
@@ -19,7 +21,7 @@ namespace ShoppingCartService.Application.CreateShoppingCartWithProduct
         private readonly IShippingGateway _shippingGateway;
         private readonly ISecurityContextAccessor _securityContextAccessor;
 
-        public CreateShoppingCartWithProductHandler(DaprClient daprClient,
+        public UpdateAmountOfProductInShoppingCartHandler(DaprClient daprClient,
             IProductCatalogService productCatalogService,
             IPromoGateway promoGateway,
             IShippingGateway shippingGateway,
@@ -32,13 +34,28 @@ namespace ShoppingCartService.Application.CreateShoppingCartWithProduct
             _securityContextAccessor = securityContextAccessor ?? throw new ArgumentNullException(nameof(securityContextAccessor));
         }
 
-        public async Task<CartDto> Handle(CreateShoppingCartWithProductQuery request,
-            CancellationToken cancellationToken)
+        public async Task<CartDto> Handle(UpdateAmountOfProductInShoppingCartQuery request, CancellationToken cancellationToken)
         {
             var currentUserId = _securityContextAccessor.UserId;
-            var cart = new CartDto {UserId = currentUserId};
 
-            await cart.InsertItemToCartAsync(request.Quantity, request.ProductId, _productCatalogService);
+            var cart = await _daprClient.GetStateAsync<CartDto>("statestore", $"shopping-cart-{currentUserId}",
+                cancellationToken: cancellationToken);
+            if (cart is null)
+            {
+                throw new CoreException($"Couldn't find cart for user_id={currentUserId}");
+            }
+
+            var cartItem = cart.Items.FirstOrDefault(x => x.ProductId == request.ProductId);
+            // if not exists then it should be a new item
+            if (cartItem is null)
+            {
+                await cart.InsertItemToCartAsync(request.Quantity, request.ProductId, _productCatalogService);
+            }
+            else
+            {
+                cartItem.Quantity += request.Quantity;
+            }
+
             await cart.CalculateCartAsync(_productCatalogService, _shippingGateway, _promoGateway);
 
             await _daprClient.SaveStateAsync("statestore", $"shopping-cart-{currentUserId}", cart,

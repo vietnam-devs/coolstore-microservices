@@ -1,16 +1,16 @@
+using N8T.Infrastructure.App.Dtos;
 using ShoppingCartService.Domain.Gateway;
-using ShoppingCartService.Domain.Model;
 
 namespace ShoppingCartService.Infrastructure.Gateway
 {
     public class PromoGateway : IPromoGateway
     {
-        public ShoppingCart ApplyCartItemPromotions(ShoppingCart cart)
+        public CartDto ApplyCartItemPromotions(CartDto cart)
         {
             return cart;
         }
 
-        public ShoppingCart ApplyShippingPromotions(ShoppingCart cart)
+        public CartDto ApplyShippingPromotions(CartDto cart)
         {
             return cart;
         }

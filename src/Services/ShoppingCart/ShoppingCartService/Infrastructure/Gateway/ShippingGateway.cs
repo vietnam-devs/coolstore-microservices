@@ -1,11 +1,11 @@
+using N8T.Infrastructure.App.Dtos;
 using ShoppingCartService.Domain.Gateway;
-using ShoppingCartService.Domain.Model;
 
 namespace ShoppingCartService.Infrastructure.Gateway
 {
     public class ShippingGateway : IShippingGateway
     {
-        public ShoppingCart CalculateShipping(ShoppingCart cart)
+        public CartDto CalculateShipping(CartDto cart)
         {
             return cart;
         }

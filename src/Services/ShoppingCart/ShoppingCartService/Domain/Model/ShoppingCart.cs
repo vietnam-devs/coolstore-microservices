@@ -4,23 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using N8T.Domain;
 using N8T.Infrastructure.App.Dtos;
-using ShoppingCartService.Domain.Event;
-using ShoppingCartService.Domain.Exception;
-using ShoppingCartService.Domain.Gateway;
 using ShoppingCartService.Domain.Service;
 
 namespace ShoppingCartService.Domain.Model
 {
     public class ShoppingCart : EntityBase, IAggregateRoot
     {
-        public static ShoppingCart Load(Guid buyerId)
+        /*public static ShoppingCart Load(string buyerId)
         {
             return new ShoppingCart {BuyerId = buyerId};
-        }
+        }*/
 
         public Guid Id { get; set; }
 
-        public Guid BuyerId { get; set; }
+        public string BuyerId { get; set; } = default!;
 
         public double CartItemTotal { get; set; }
 
@@ -36,7 +33,7 @@ namespace ShoppingCartService.Domain.Model
 
         public List<ShoppingCartItem> CartItems { get; set; } = new List<ShoppingCartItem>();
 
-        public ShoppingCartItem FindCartItem(Guid productId)
+        /*public ShoppingCartItem FindCartItem(Guid productId)
         {
             var cartItem = CartItems.FirstOrDefault(x => x.ProductId == productId);
             if (cartItem is null)
@@ -120,7 +117,7 @@ namespace ShoppingCartService.Domain.Model
             AddDomainEvent(new ShoppingCartCheckedOut { CartId = Id });
 
             return this;
-        }
+        }*/
 
         public async Task<CartDto> ToDtoAsync(IProductCatalogService productCatalogService)
         {

@@ -6,22 +6,27 @@ using System.Threading.Tasks;
 using Dapr.Client;
 using MediatR;
 using N8T.Infrastructure.App.Dtos;
+using N8T.Infrastructure.Auth;
 
 namespace ShoppingCartService.Application.GetShoppingCartWithProducts
 {
     public class GetShoppingCartWithProductsHandler : IRequestHandler<GetShoppingCartWithProductsQuery, IEnumerable<FlatCartDto>>
     {
         private readonly DaprClient _daprClient;
+        private readonly ISecurityContextAccessor _securityContextAccessor;
 
-        public GetShoppingCartWithProductsHandler(DaprClient daprClient)
+        public GetShoppingCartWithProductsHandler(DaprClient daprClient, ISecurityContextAccessor securityContextAccessor)
         {
             _daprClient = daprClient ?? throw new ArgumentNullException(nameof(daprClient));
+            _securityContextAccessor = securityContextAccessor ?? throw new ArgumentNullException(nameof(securityContextAccessor));
         }
 
         public async Task<IEnumerable<FlatCartDto>> Handle(GetShoppingCartWithProductsQuery request,
             CancellationToken cancellationToken)
         {
-            var cart = await _daprClient.GetStateAsync<CartDto>("statestore", $"shopping-cart-{request.UserId}",
+            var currentUserId = _securityContextAccessor.UserId;
+
+            var cart = await _daprClient.GetStateAsync<CartDto>("statestore", $"shopping-cart-{currentUserId}",
                 cancellationToken: cancellationToken);
 
             if (cart is null)

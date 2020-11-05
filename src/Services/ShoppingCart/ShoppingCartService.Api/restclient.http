@@ -1,0 +1,46 @@
+###
+# @name auth
+POST http://localhost:5001/connect/token HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+grant_type=password
+&client_id=coolstore.password
+&client_secret=49C1A7E1-0C79-4A89-A3D6-A37998FB86B0
+&username=bob
+&password=bob
+
+###
+@userId = 88421113
+GET http://localhost:5004/api/carts/{{userId}}/cart  HTTP/1.1
+content-type: {{contentType}}
+authorization: bearer {{auth.response.body.access_token}}
+
+###
+POST http://localhost:5004/api/carts HTTP/1.1
+content-type: {{contentType}}
+authorization: bearer {{auth.response.body.access_token}}
+
+{
+	"productId": "ba16da71-c7dd-4eac-9ead-5c2c2244e69f",
+	"quantity": 1
+}
+
+###
+PUT http://localhost:5004/api/carts HTTP/1.1
+content-type: {{contentType}}
+authorization: bearer {{auth.response.body.access_token}}
+
+{
+	"productId": "13d02035-2286-4055-ad2d-6855a60efbbb",
+	"quantity": 3
+}
+
+###
+DELETE http://localhost:5004/api/carts HTTP/1.1
+content-type: {{contentType}}
+authorization: bearer {{auth.response.body.access_token}}
+
+###
+PUT http://localhost:5004/api/carts/checkout HTTP/1.1
+content-type: {{contentType}}
+authorization: bearer {{auth.response.body.access_token}}
