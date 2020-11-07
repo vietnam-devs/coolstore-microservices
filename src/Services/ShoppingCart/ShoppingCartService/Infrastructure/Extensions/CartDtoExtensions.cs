@@ -3,14 +3,13 @@ using System.Threading.Tasks;
 using N8T.Infrastructure.App.Dtos;
 using ShoppingCartService.Domain.Exception;
 using ShoppingCartService.Domain.Gateway;
-using ShoppingCartService.Domain.Service;
 
 namespace ShoppingCartService.Infrastructure.Extensions
 {
     public static class CartDtoExtensions
     {
         public static async Task<CartDto> InsertItemToCartAsync(this CartDto cart,
-            int quantity, Guid productId, IProductCatalogService productCatalogService)
+            int quantity, Guid productId, IProductCatalogGateway productCatalogService)
         {
             var item = new CartItemDto {Quantity = quantity, ProductId = productId};
 
@@ -33,10 +32,13 @@ namespace ShoppingCartService.Infrastructure.Extensions
         }
 
         public static async Task<CartDto> CalculateCartAsync(this CartDto cart,
-            IProductCatalogService productCatalogService,
+            IProductCatalogGateway productCatalogService,
             IShippingGateway shippingGateway,
             IPromoGateway promoGateway)
         {
+            //DEMO: <tracing> temporary to slow-down the response
+            // await Task.Delay(TimeSpan.FromSeconds(2));
+
             if (cart.Items.Count > 0)
             {
                 cart.CartItemTotal = 0.0D;

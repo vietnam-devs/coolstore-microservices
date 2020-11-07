@@ -6,15 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using N8T.Infrastructure;
 using N8T.Infrastructure.Auth;
-using N8T.Infrastructure.Cache;
 using N8T.Infrastructure.Dapr;
 using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
 using ShoppingCartService.Domain.Gateway;
-using ShoppingCartService.Domain.Service;
 using ShoppingCartService.Infrastructure.Gateway;
-using ShoppingCartService.Infrastructure.Service;
 
 namespace ShoppingCartService.Api
 {
@@ -36,7 +33,6 @@ namespace ShoppingCartService.Api
             services.AddHttpContextAccessor()
                 .AddCustomMediatR<Anchor>()
                 .AddCustomValidators<Anchor>()
-                .AddCustomRedisCache(Config)
                 .AddCustomDaprClient()
                 .AddControllers()
                 .AddDapr();
@@ -53,7 +49,7 @@ namespace ShoppingCartService.Api
             });
 
             services.AddScoped<ISecurityContextAccessor, SecurityContextAccessor>();
-            services.AddScoped<IProductCatalogService, ProductCatalogService>();
+            services.AddScoped<IProductCatalogGateway, ProductCatalogGateway>();
             services.AddScoped<IPromoGateway, PromoGateway>();
             services.AddScoped<IShippingGateway, ShippingGateway>();
 
@@ -72,8 +68,6 @@ namespace ShoppingCartService.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            // app.UseMiddleware<TraceContextMiddleware>();
 
             app.UseRouting();
 

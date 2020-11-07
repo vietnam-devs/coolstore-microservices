@@ -6,14 +6,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using N8T.Infrastructure;
 using N8T.Infrastructure.Auth;
-using N8T.Infrastructure.Cache;
 using N8T.Infrastructure.Dapr;
 using N8T.Infrastructure.EfCore;
 using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
 using ProductCatalogService.Api.HostServices;
+using ProductCatalogService.Domain.Gateway;
 using ProductCatalogService.Infrastructure.Data;
+using ProductCatalogService.Infrastructure.Gateway;
 
 namespace ProductCatalogService.Api
 {
@@ -36,7 +37,6 @@ namespace ProductCatalogService.Api
                 .AddCustomMediatR<Anchor>()
                 .AddCustomValidators<Anchor>()
                 .AddCustomDbContext<MainDbContext, Anchor>(Config.GetConnectionString("postgres"))
-                .AddCustomRedisCache(Config)
                 .AddCustomDaprClient()
                 .AddControllers()
                 .AddDapr();
@@ -60,6 +60,7 @@ namespace ProductCatalogService.Api
                         : o.Endpoint;
                 });
 
+            services.AddScoped<IInventoryGateway, InventoryGateway>();
             services.AddHostedService<BackgroundJobHostedService>();
         }
 

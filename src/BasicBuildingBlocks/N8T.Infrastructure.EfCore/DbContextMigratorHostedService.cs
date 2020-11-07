@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,8 +28,13 @@ namespace N8T.Infrastructure.EfCore
             await policy.ExecuteAsync(async () =>
             {
                 using var scope = _serviceProvider.CreateScope();
-
                 var dbFacadeResolver = scope.ServiceProvider.GetRequiredService<IDbFacadeResolver>();
+
+                if (!await dbFacadeResolver.Database.CanConnectAsync(cancellationToken))
+                {
+                    throw new Exception("Couldn't connect database.");
+                }
+
                 await dbFacadeResolver.Database.MigrateAsync(cancellationToken);
                 _logger.LogInformation("Done migration database schema.");
             });
@@ -40,7 +44,7 @@ namespace N8T.Infrastructure.EfCore
 
         private static AsyncRetryPolicy CreatePolicy(int retries, ILogger logger, string prefix)
         {
-            return Policy.Handle<SqlException>().WaitAndRetryAsync(
+            return Policy.Handle<Exception>().WaitAndRetryAsync(
                 retries,
                 retry => TimeSpan.FromSeconds(5),
                 (exception, timeSpan, retry, ctx) =>

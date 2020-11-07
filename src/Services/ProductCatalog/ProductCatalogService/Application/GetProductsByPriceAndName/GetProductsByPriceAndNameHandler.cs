@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapr.Client;
-using Dapr.Client.Http;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using N8T.Infrastructure.App.Dtos;
-using N8T.Infrastructure.App.Requests.Inventory;
+using ProductCatalogService.Domain.Gateway;
 using ProductCatalogService.Infrastructure.Data;
 
 namespace ProductCatalogService.Application.GetProductsByPriceAndName
@@ -16,12 +14,13 @@ namespace ProductCatalogService.Application.GetProductsByPriceAndName
     public class GetProductsByPriceAndNameHandler : IRequestHandler<GetProductsByPriceAndNameQuery, IEnumerable<FlatProductDto>>
     {
         private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
-        private readonly DaprClient _daprClient;
+        private readonly IInventoryGateway _inventoryGateway;
 
-        public GetProductsByPriceAndNameHandler(IDbContextFactory<MainDbContext> dbContextFactory, DaprClient daprClient)
+        public GetProductsByPriceAndNameHandler(IDbContextFactory<MainDbContext> dbContextFactory,
+            IInventoryGateway inventoryGateway)
         {
             _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
-            _daprClient = daprClient ?? throw new ArgumentNullException(nameof(daprClient));
+            _inventoryGateway = inventoryGateway ?? throw new ArgumentNullException(nameof(inventoryGateway));
         }
 
         public async Task<IEnumerable<FlatProductDto>> Handle(GetProductsByPriceAndNameQuery request,
@@ -38,18 +37,13 @@ namespace ProductCatalogService.Application.GetProductsByPriceAndName
                 .OrderBy(x => x.Name)
                 .ToListAsync(cancellationToken);
 
-            var categoryIds = products.Select(x => x.InventoryId).Distinct();
-
-            var httpExtension = new HTTPExtension {Verb = HTTPVerb.Post, ContentType = "application/json"};
-            var data = new InventoryByIdsRequest {InventoryIds = categoryIds.ToList()};
-            var inventories = await _daprClient.InvokeMethodAsync<InventoryByIdsRequest, List<InventoryDto>>(
-                "inventoryapp", "get-inventories-by-ids",
-                data, httpExtension, cancellationToken);
+            var inventoryIds = products.Select(x => x.InventoryId).Distinct();
+            var inventories = await _inventoryGateway.GetInventoryListAsync(inventoryIds, cancellationToken);
 
             return products.Select(x =>
             {
                 InventoryDto? inventory = null;
-                if (inventories is not null && inventories.Count > 0)
+                if (inventories.Any())
                 {
                     inventory = inventories.First(y => y.Id == x.InventoryId);
                 }

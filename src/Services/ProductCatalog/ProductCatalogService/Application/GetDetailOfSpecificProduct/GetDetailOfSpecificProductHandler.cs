@@ -1,13 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapr.Client;
-using Dapr.Client.Http;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using N8T.Infrastructure.App.Dtos;
-using N8T.Infrastructure.App.Requests.Inventory;
 using ProductCatalogService.Domain.Exception;
+using ProductCatalogService.Domain.Gateway;
 using ProductCatalogService.Infrastructure.Data;
 
 namespace ProductCatalogService.Application.GetDetailOfSpecificProduct
@@ -15,13 +13,13 @@ namespace ProductCatalogService.Application.GetDetailOfSpecificProduct
     public class GetDetailOfSpecificProductHandler : IRequestHandler<GetDetailOfSpecificProductQuery, FlatProductDto>
     {
         private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
-        private readonly DaprClient _daprClient;
+        private readonly IInventoryGateway _inventoryGateway;
 
         public GetDetailOfSpecificProductHandler(IDbContextFactory<MainDbContext> dbContextFactory,
-            DaprClient daprClient)
+            IInventoryGateway inventoryGateway)
         {
             _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
-            _daprClient = daprClient ?? throw new ArgumentNullException(nameof(daprClient));
+            _inventoryGateway = inventoryGateway ?? throw new ArgumentNullException(nameof(inventoryGateway));
         }
 
         public async Task<FlatProductDto> Handle(GetDetailOfSpecificProductQuery request,
@@ -39,15 +37,7 @@ namespace ProductCatalogService.Application.GetDetailOfSpecificProduct
                 throw new NotFoundProductException(request.Id);
             }
 
-            var httpExtension = new HTTPExtension {Verb = HTTPVerb.Post, ContentType = "application/json"};
-            var requestData = new InventoryRequest {InventoryId = product.InventoryId};
-            var inventory = await _daprClient.InvokeMethodAsync<InventoryRequest, InventoryDto>(
-                "inventoryapp", "get-inventory-by-id", requestData, httpExtension, cancellationToken);
-
-            if (inventory is null)
-            {
-                throw new NotFoundInventoryException(product.InventoryId);
-            }
+            var inventory = await _inventoryGateway.GetInventoryByIdAsync(product.InventoryId, cancellationToken);
 
             return new FlatProductDto
             {

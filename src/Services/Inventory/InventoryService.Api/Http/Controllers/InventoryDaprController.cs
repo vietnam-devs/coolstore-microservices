@@ -10,7 +10,7 @@ using N8T.Infrastructure.App.Requests.Inventory;
 namespace InventoryService.Api.Http.Controllers
 {
     [ApiController]
-    public class InventoryController : ControllerBase
+    public class InventoryDaprController : ControllerBase
     {
         [HttpPost("/get-inventories-by-ids")]
         public async Task<IEnumerable<InventoryDto>> GetByIds(InventoryByIdsRequest request,

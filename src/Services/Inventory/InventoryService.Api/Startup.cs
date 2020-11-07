@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using N8T.Infrastructure;
 using N8T.Infrastructure.Auth;
-using N8T.Infrastructure.Cache;
 using N8T.Infrastructure.Dapr;
 using N8T.Infrastructure.EfCore;
 using N8T.Infrastructure.OTel;
@@ -33,7 +32,6 @@ namespace InventoryService.Api
                 .AddCustomMediatR<Anchor>()
                 .AddCustomValidators<Anchor>()
                 .AddCustomDbContext<MainDbContext, Anchor>(Config.GetConnectionString("postgres"))
-                .AddCustomRedisCache(Config)
                 .AddCustomDaprClient()
                 .AddControllers()
                 .AddDapr();

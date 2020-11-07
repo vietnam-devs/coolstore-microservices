@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\N8T.Domain\N8T.Domain.csproj" />
-    <ProjectReference Include="..\N8T.Infrastructure.Cache\N8T.Infrastructure.Cache.csproj" />
-    <ProjectReference Include="..\N8T.Infrastructure.Dapper\N8T.Infrastructure.Dapper.csproj" />
     <ProjectReference Include="..\N8T.Infrastructure.EfCore\N8T.Infrastructure.EfCore.csproj" />
-    <ProjectReference Include="..\N8T.Infrastructure.GraphQL\N8T.Infrastructure.GraphQL.csproj" />
     <ProjectReference Include="..\N8T.Infrastructure.OTel\N8T.Infrastructure.OTel.csproj" />
     <ProjectReference Include="..\N8T.Infrastructure\N8T.Infrastructure.csproj" />
   </ItemGroup>

@@ -4,7 +4,6 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using N8T.Infrastructure.App.Dtos;
 using Nest;
@@ -12,19 +11,6 @@ using ProductCatalogService.Application.Common;
 
 namespace ProductCatalogService.Application.SearchProducts
 {
-    public class GetCategoriesAuthzHandler : AuthorizationHandler<SearchProductsQuery>
-    {
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, SearchProductsQuery requirement)
-        {
-            if (context.User.HasClaim("user_role", "sys_admin") is true)
-            {
-                context.Succeed(requirement);
-            }
-
-            return Task.CompletedTask;
-        }
-    }
-
     public class SearchProductsHandler : IRequestHandler<SearchProductsQuery, SearchProductsResponse>
     {
         private readonly IElasticClient _client;
@@ -73,7 +59,7 @@ namespace ProductCatalogService.Application.SearchProducts
 
             if (result.ApiCall.HttpStatusCode != (int)HttpStatusCode.OK)
             {
-                throw new Exception("Could not query data");
+                throw new Exception("Couldn't query data.");
             }
 
             var categoryTags = result
@@ -113,7 +99,9 @@ namespace ProductCatalogService.Application.SearchProducts
                             Website = x.Source.Inventory != null ? x.Source.Inventory.Website : string.Empty,
                             Description = x.Source.Inventory != null ? x.Source.Inventory.Description : string.Empty
                         }
-                }).ToList();
+                })
+                .Where(x => x.Id != Guid.Empty)
+                .ToList();
 
             var response = new SearchProductsResponse(
                 (int)(result.Total / request.PageSize) + 1,

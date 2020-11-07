@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapr.Client;
@@ -13,7 +14,6 @@ using Microsoft.Extensions.Logging;
 using N8T.Infrastructure.App.Dtos;
 using N8T.Infrastructure.App.Events.ProductCatalog;
 using Nest;
-using Newtonsoft.Json;
 using Polly;
 using Polly.Retry;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -45,8 +45,8 @@ namespace ProductCatalogService.Api.HostServices
             var readData = await sr.ReadToEndAsync();
             //_logger.LogInformation($"Read seed data with content is {readData}");
 
-            // IMPORTANT: data should come from the database, we do this way for demo only 
-            var productModels = JsonConvert.DeserializeObject<List<FlatProductDto>>(readData);
+            // IMPORTANT: data should come from the database, we do this way for demo only
+            var productModels = JsonSerializer.Deserialize<List<FlatProductDto>>(readData);
             var products = productModels.Select(prod =>
                 new ProductDto
                 {
@@ -82,38 +82,35 @@ namespace ProductCatalogService.Api.HostServices
                 });
 
                 // replication data to Dapr State
-                await policy.ExecuteAsync(async () =>
-                {
-                    using var scope = _serviceProvider.CreateScope();
-
-                    var daprClient = scope.ServiceProvider.GetRequiredService<DaprClient>();
-
-                    await DaprStateReplicationAsync(daprClient, products, cancellationToken);
-                });
+                // await policy.ExecuteAsync(async () =>
+                // {
+                //     using var scope = _serviceProvider.CreateScope();
+                //
+                //     var daprClient = scope.ServiceProvider.GetRequiredService<DaprClient>();
+                //
+                //     await DaprStateReplicationAsync(daprClient, products, cancellationToken);
+                // });
             });
         }
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
-        private async ValueTask DaprStateReplicationAsync(DaprClient daprClient,
-            IEnumerable<ProductDto> products,
-            CancellationToken cancellationToken)
-        {
-            if (daprClient is null)
-            {
-                throw new Exception("Couldn't get DaprClient from scope.");
-            }
-
-            var @event = new ProductListReplicated();
-            @event.Products.AddRange(products);
-            //TODO: will remove it
-            await daprClient.SaveStateAsync("statestore", "products", @event,
-                cancellationToken: cancellationToken);
-
-            await daprClient.PublishEventAsync("pubsub", "products-sync", @event, cancellationToken);
-
-            _logger.LogInformation($"Put all products to dapr state completed.");
-        }
+        // private async ValueTask DaprStateReplicationAsync(DaprClient daprClient,
+        //     IEnumerable<ProductDto> products,
+        //     CancellationToken cancellationToken)
+        // {
+        //     if (daprClient is null)
+        //     {
+        //         throw new Exception("Couldn't get DaprClient from scope.");
+        //     }
+        //
+        //     var @event = new ProductListReplicated();
+        //     @event.Products.AddRange(products);
+        //
+        //     await daprClient.PublishEventAsync("pubsub", "products-sync", @event, cancellationToken);
+        //
+        //     _logger.LogInformation($"Put all products to dapr state completed.");
+        // }
 
         private async ValueTask ElastichSearchIndexingAsync(IConfiguration config, IEnumerable<ProductDto> products,
             CancellationToken cancellationToken)
@@ -126,18 +123,18 @@ namespace ProductCatalogService.Api.HostServices
                 .PrettyJson();
 
             var client = new ElasticClient(settings);
-            var clusterState = await client.Cluster.StateAsync(ct: cancellationToken);
-            _logger.LogInformation($"Cluster info is {JsonConvert.SerializeObject(clusterState)}");
+            //var clusterState = await client.Cluster.StateAsync(ct: cancellationToken);
+            //_logger.LogInformation($"Cluster info is {JsonSerializer.Serialize(clusterState)}");
 
             try
             {
                 //_logger.LogInformation($"Finish to transformation data into model");
                 //_logger.LogInformation(JsonConvert.SerializeObject(products));
-                foreach (var product in products)
-                {
-                    var forDebug = await client.IndexDocumentAsync(product, cancellationToken);
-                    _logger.LogDebug($"Index response info: {JsonConvert.SerializeObject(forDebug)}");
-                }
+                // foreach (var product in products)
+                // {
+                //     var forDebug = await client.IndexDocumentAsync(product, cancellationToken);
+                //     _logger.LogDebug($"Index response info: {JsonSerializer.Serialize(forDebug)}");
+                // }
 
                 _logger.LogInformation($"Finish to index data into ElasticSearch");
 
