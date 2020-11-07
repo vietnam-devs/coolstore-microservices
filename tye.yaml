@@ -64,6 +64,14 @@ services:
   bindings:
   - port: 5004
 
+- name: saleapp
+  project: src/Services/Sale/SaleService.Api/SaleService.Api.csproj
+  env:
+  - name: ConnectionStrings__postgres
+    value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
+  bindings:
+  - port: 5005
+
 - name: web
   # dockerFile: src/web/Dockerfile.tye
   image: web

@@ -35,19 +35,21 @@ Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://de
 
 Make sure you have [`dapr`](https://docs.dapr.io/getting-started/install-dapr/) and [`tye`](https://github.com/dotnet/tye/blob/master/docs/getting_started.md) installed on your machine!
 
-### Only wanna see it run
+### Only wanna see wth is it?
 
 ```
 $ tye run
 ```
 
-Go to `http://localhost:8000` => have fun :p
+Go to [`http://localhost:8000`](http://localhost:8000), and you're able to access to several endpoints whenevever it's ready as below:
 
-### Wanna go deep inside
+- Web App: [`http://localhost:3000`](http://localhost:3000)
+- Web Api Gateway: [`http://localhost:5000`](http://localhost:5000)
+- Identity Server: [`http://localhost:5001`](http://localhost:5001)
+
+### Wanna go deeply to see how can we built it!
 
 1. Start core components
-
-> Enabled `vm.max_map_count` for ElasticSearch via run `sysctl -w vm.max_map_count=262144`
 
 ```
 $ tye run tye.slim.yaml
@@ -72,6 +74,8 @@ $ dapr run --app-port 5004 --app-id shoppingcartapp dotnet run -- -p src\Service
 ```
 
 Now, you can start to develop, debug or explore more about `dapr` with `tye` via Coolstore Apps.
+
+> Enable `vm.max_map_count` for ElasticSearch via run `sysctl -w vm.max_map_count=262144`
 
 ## Screenshots
 
