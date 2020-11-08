@@ -12,6 +12,7 @@ export const LOAD_PRODUCT = 'LOAD_PRODUCT'
 export const LOAD_CART = 'LOAD_CART'
 export const UPDATE_PRODUCT_IN_CART = 'UPDATE_PRODUCT_IN_CART'
 export const DELETE_PRODUCT_IN_CART = 'DELETE_PRODUCT_IN_CART'
+export const CHECKOUT_CART = 'CHECKOUT_CART'
 export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION'
 export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION'
 
@@ -37,6 +38,7 @@ export const AppActions = {
   loadCart: createActionPayload<typeof LOAD_CART, ICart>(LOAD_CART),
   updateProductInCart: createActionPayload<typeof UPDATE_PRODUCT_IN_CART, IUpdateProductInCart>(UPDATE_PRODUCT_IN_CART),
   deleteProductInCart: createActionPayload<typeof DELETE_PRODUCT_IN_CART, string>(DELETE_PRODUCT_IN_CART),
+  checkoutCart: createActionPayload<typeof CHECKOUT_CART, ICart>(CHECKOUT_CART),
   showNotification: createActionPayload<typeof SHOW_NOTIFICATION, string>(SHOW_NOTIFICATION),
   hideNotification: createAction<typeof HIDE_NOTIFICATION>(HIDE_NOTIFICATION)
 }
@@ -105,6 +107,13 @@ const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => 
       }
 
       return { ...state }
+
+    case CHECKOUT_CART:
+      return {
+        ...state,
+        cart: action.payload,
+        isCartLoaded: true
+      }
 
     case SHOW_NOTIFICATION:
       return {

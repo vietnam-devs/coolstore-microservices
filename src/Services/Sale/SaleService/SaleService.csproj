@@ -28,7 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
+    <Folder Include="Application\CreateOrder\" />
+    <Folder Include="Application\CompleteOrder\" />
+    <Folder Include="Application\ProcessOrder\" />
+    <Folder Include="Infrastructure\Data\Migrations\" />
   </ItemGroup>
 
 </Project>  

@@ -28,11 +28,6 @@ namespace SaleService.Infrastructure.Data.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("uuid_generate_v4()");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("address");
-
                     b.Property<DateTime?>("CompleteDate")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("complete_date");
@@ -43,6 +38,16 @@ namespace SaleService.Infrastructure.Data.Migrations
                         .HasColumnName("created")
                         .HasDefaultValueSql("now()");
 
+                    b.Property<string>("CustomerAddress")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("customer_address");
+
+                    b.Property<string>("CustomerEmail")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("customer_email");
+
                     b.Property<string>("CustomerFullName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -52,15 +57,6 @@ namespace SaleService.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("customer_id");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("email");
-
-                    b.Property<Guid>("InventoryId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("inventory_id");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp without time zone")
@@ -106,6 +102,15 @@ namespace SaleService.Infrastructure.Data.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("numeric")
                         .HasColumnName("discount");
+
+                    b.Property<string>("InventoryFullInfo")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("inventory_full_info");
+
+                    b.Property<Guid>("InventoryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("inventory_id");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uuid")

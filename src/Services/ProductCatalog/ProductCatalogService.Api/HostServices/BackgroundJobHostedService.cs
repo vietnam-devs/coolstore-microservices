@@ -5,14 +5,11 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapr.Client;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using N8T.Infrastructure.App.Dtos;
-using N8T.Infrastructure.App.Events.ProductCatalog;
 using Nest;
 using Polly;
 using Polly.Retry;
@@ -80,37 +77,10 @@ namespace ProductCatalogService.Api.HostServices
 
                     await ElastichSearchIndexingAsync(config, products, cancellationToken);
                 });
-
-                // replication data to Dapr State
-                // await policy.ExecuteAsync(async () =>
-                // {
-                //     using var scope = _serviceProvider.CreateScope();
-                //
-                //     var daprClient = scope.ServiceProvider.GetRequiredService<DaprClient>();
-                //
-                //     await DaprStateReplicationAsync(daprClient, products, cancellationToken);
-                // });
             });
         }
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
-
-        // private async ValueTask DaprStateReplicationAsync(DaprClient daprClient,
-        //     IEnumerable<ProductDto> products,
-        //     CancellationToken cancellationToken)
-        // {
-        //     if (daprClient is null)
-        //     {
-        //         throw new Exception("Couldn't get DaprClient from scope.");
-        //     }
-        //
-        //     var @event = new ProductListReplicated();
-        //     @event.Products.AddRange(products);
-        //
-        //     await daprClient.PublishEventAsync("pubsub", "products-sync", @event, cancellationToken);
-        //
-        //     _logger.LogInformation($"Put all products to dapr state completed.");
-        // }
 
         private async ValueTask ElastichSearchIndexingAsync(IConfiguration config, IEnumerable<ProductDto> products,
             CancellationToken cancellationToken)
@@ -123,27 +93,23 @@ namespace ProductCatalogService.Api.HostServices
                 .PrettyJson();
 
             var client = new ElasticClient(settings);
-            //var clusterState = await client.Cluster.StateAsync(ct: cancellationToken);
-            //_logger.LogInformation($"Cluster info is {JsonSerializer.Serialize(clusterState)}");
 
             try
             {
-                //_logger.LogInformation($"Finish to transformation data into model");
-                //_logger.LogInformation(JsonConvert.SerializeObject(products));
-                // foreach (var product in products)
-                // {
-                //     var forDebug = await client.IndexDocumentAsync(product, cancellationToken);
-                //     _logger.LogDebug($"Index response info: {JsonSerializer.Serialize(forDebug)}");
-                // }
+                _logger.LogInformation($"Index data to ElasticSearch...");
 
-                _logger.LogInformation($"Finish to index data into ElasticSearch");
+                foreach (var product in products)
+                {
+                    await client.IndexDocumentAsync(product, cancellationToken);
+                }
+
+                _logger.LogInformation($"Finished indexing data to ElasticSearch");
 
                 var result = await client.SearchAsync<ProductDto>(s => s
                     .Query(q => q
                         .MatchAll()), cancellationToken);
 
                 _logger.LogInformation($"Number of items on product index: {result.Hits.Count}");
-                //_logger.LogInformation($"Search all items: {JsonConvert.SerializeObject(result)}");
             }
             catch (FileNotFoundException ex)
             {
@@ -157,7 +123,7 @@ namespace ProductCatalogService.Api.HostServices
 
         private static AsyncRetryPolicy CreatePolicy(int retries, ILogger logger, string prefix)
         {
-            return Policy.Handle<SqlException>().WaitAndRetryAsync(
+            return Policy.Handle<Exception>().WaitAndRetryAsync(
                 retries,
                 retry => TimeSpan.FromSeconds(5),
                 (exception, timeSpan, retry, ctx) =>

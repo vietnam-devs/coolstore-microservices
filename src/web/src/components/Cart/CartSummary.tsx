@@ -1,13 +1,14 @@
-import React from 'react'
-import { Button } from 'reactstrap'
+import React from "react";
+import { Button } from "reactstrap";
 
-import { ICart } from 'stores/types'
+import { ICart } from "stores/types";
 
 interface IProps {
-  cart: ICart
+  cart: ICart;
+  onCheckOut: () => void;
 }
 
-const CartSummary: React.FC<IProps> = ({ cart }) => {
+const CartSummary: React.FC<IProps> = ({ cart, onCheckOut }) => {
   return (
     <div className="card">
       <div className="card-header">
@@ -17,23 +18,40 @@ const CartSummary: React.FC<IProps> = ({ cart }) => {
       </div>
 
       <ul className="list-group list-group-flush">
-        <li className="list-group-item">Cart total: ${cart.cartTotal.toFixed(2)}</li>
-        <li className="list-group-item">Promotional item saving: ${cart.cartItemPromoSavings.toFixed(2)}</li>
-        <li className="list-group-item">Subtotal: ${cart.cartItemTotal.toFixed(2)}</li>
-        <li className="list-group-item">Shipping: ${cart.shippingTotal.toFixed(2)}</li>
-        <li className="list-group-item">Promotional shipping saving: ${cart.shippingPromoSavings.toFixed(2)}</li>
         <li className="list-group-item">
-          Total order mount: ${(cart.cartTotal + cart.cartItemTotal + cart.shippingTotal).toFixed(2)}
+          Cart total: ${cart.cartTotal.toFixed(2)}
+        </li>
+        <li className="list-group-item">
+          Promotional item saving: ${cart.cartItemPromoSavings.toFixed(2)}
+        </li>
+        <li className="list-group-item">
+          Subtotal: ${cart.cartItemTotal.toFixed(2)}
+        </li>
+        <li className="list-group-item">
+          Shipping: ${cart.shippingTotal.toFixed(2)}
+        </li>
+        <li className="list-group-item">
+          Promotional shipping saving: ${cart.shippingPromoSavings.toFixed(2)}
+        </li>
+        <li className="list-group-item">
+          Total order mount: $
+          {(cart.cartTotal + cart.cartItemTotal + cart.shippingTotal).toFixed(
+            2
+          )}
         </li>
       </ul>
 
       <div className="card-footer">
-        <Button color="primary" className="btn-block">
+        <Button
+          color="primary"
+          className="btn-block"
+          onClick={() => onCheckOut()}
+        >
           Checkout
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CartSummary
+export default CartSummary;

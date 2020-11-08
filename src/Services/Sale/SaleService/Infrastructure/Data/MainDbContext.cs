@@ -29,7 +29,6 @@ namespace SaleService.Infrastructure.Data
             modelBuilder.Entity<Order>().Property(x => x.Id).HasColumnType("uuid")
                 .HasDefaultValueSql(Consts.UuidAlgorithm);
 
-            modelBuilder.Entity<Order>().Property(x => x.InventoryId).HasColumnType("uuid");
             modelBuilder.Entity<Order>().Property(x => x.Created).HasDefaultValueSql(Consts.DateAlgorithm);
 
             modelBuilder.Entity<Order>().HasIndex(x => x.Id).IsUnique();
@@ -42,6 +41,7 @@ namespace SaleService.Infrastructure.Data
                 .HasDefaultValueSql(Consts.UuidAlgorithm);
 
             modelBuilder.Entity<OrderItem>().Property(x => x.ProductId).HasColumnType("uuid");
+            modelBuilder.Entity<OrderItem>().Property(x => x.InventoryId).HasColumnType("uuid");
             modelBuilder.Entity<OrderItem>().Property(x => x.Created).HasDefaultValueSql(Consts.DateAlgorithm);
 
             modelBuilder.Entity<OrderItem>().HasIndex(x => x.Id).IsUnique();

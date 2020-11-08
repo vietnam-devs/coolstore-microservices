@@ -1,9 +1,11 @@
-# CoolStore Web Application - :ferris_wheel: Kubernetes-based Microservices Application on Dapr :sailboat:
+# CoolStore Web Application - :ferris_wheel: Modern Application on Dapr and Tye :sailboat:
 
 ![Travis (.org)](https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?branch=master)
 [![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/vietnam-devs/coolstore-microservices/blob/master/LICENSE)
 
-CoolStore Website is a containerised microservices application consisting of services based on .NET Core running on Kubernetes with Dapr. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals. Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
+CoolStore Website is a containerised microservices application consisting of services based on .NET Core running on Dapr. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
+
+Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
 
 The business domain is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral).
 
@@ -19,8 +21,8 @@ Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://de
 # Table of contents
 
 - [Try it!](https://github.com/vietnam-devs/coolstore-microservices#try-it)
+- [Dapr Building Blocks](https://github.com/vietnam-devs/coolstore-microservices#dapr-building-blocks)
 - [Screenshots](https://github.com/vietnam-devs/coolstore-microservices#screenshots)
-- [Business Context](https://github.com/vietnam-devs/coolstore-microservices#business-context)
 - [OS, SDK, library, tooling and prerequisites](https://github.com/vietnam-devs/coolstore-microservices#os-sdk-library-tooling-and-prerequisites)
 - [High level software architecture](https://github.com/vietnam-devs/coolstore-microservices#high-level-software-architecture)
 - [µService development](https://github.com/vietnam-devs/coolstore-microservices#µmicroservice-development)
@@ -77,6 +79,48 @@ Now, you can start to develop, debug or explore more about `dapr` with `tye` via
 
 > Enable `vm.max_map_count` for ElasticSearch via run `sysctl -w vm.max_map_count=262144`
 
+## Dapr Building Blocks
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Usecase</th>
+    <th>Apps Participants</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Service-to-service invocation</b></td>
+      <td>User clicks to the detail product</td>
+      <td>productcatalogapp, inventoryapp</td>
+    </tr>
+    <tr>
+      <td><b>State management</b></td>
+      <td>Items in the shopping cart</td>
+      <td>shoppingcartapp</td>
+    </tr>
+    <tr>
+      <td><b>Publish and subscribe</b></td>
+      <td>User clicks checkout button, and the checkout process happens. It triggers the pub/sub flow in the system</td>
+      <td>shoppingcartapp, saleapp, identityapp</td>
+    </tr>
+    <tr>
+      <td><b>Resource bindings</b></td>
+      <td>Every 30 seconds and 1 minutes the validation process happens. It will change the status of order from Received to Process and Complete via Cron binding</td>
+      <td>productcatalogapp, inventoryapp</td>
+    </tr>
+    <tr>
+      <td><b>Actors</b></td>
+      <td>N/A</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td><b>Observability</b></td>
+      <td>All apps in the application are injected by daprd so that it's tracked and observed by dapr </td>
+      <td>identityapp, webapigatewayapp, inventoryapp, productcatalogapp, shoppingcartapp, saleapp, web</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Screenshots
 
 ### Home page
@@ -86,20 +130,6 @@ Now, you can start to develop, debug or explore more about `dapr` with `tye` via
 ### Shopping Cart page
 
 ![cart-page](assets/images/ui-screen-2.PNG?raw=true)
-
-## Business Context
-
-### Conceptual Model
-
-![conceptual-model](docs/.vuepress/public/conceptual-model.png?raw=true)
-
-### Event Storming
-
-![es-bc](docs/.vuepress/public/es-bounded-context.png?raw=true)
-
-### Context Map
-
-![es-context-map](docs/.vuepress/public/es-context-map-2.png?raw=true)
 
 ## OS, SDK, library, tooling and prerequisites
 
@@ -129,163 +159,6 @@ Now, you can start to develop, debug or explore more about `dapr` with `tye` via
 ## High level software architecture
 
 ![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
-
-There are several individual µservices and infrastructure components that make up this app:
-
-<table>
-  <thead>
-    <th>No.</th>
-    <th>Service</th>
-    <th>Description</th>
-    <th>Source</th>
-    <th>Endpoints</th>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="center">1.</td>
-      <td>
-        IdP (.NET Core + In-memory database)<br/>
-        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=4&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/identity?branchName=master" />
-        </a>
-      </td>
-      <td>Uses <a href="https://github.com/IdentityServer/IdentityServer4">IdentityServer4</a> to authentication with OAuth 2.0 and OpenID Connect for the whole stack</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/idp">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5001">dev</a> and <a href="http://id.coolstore.local">staging</a>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">2.</td>
-      <td>
-        GraphQL server (.NET Core)<br/>
-        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=12&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/graphql?branchName=master" />
-        </a>
-      </td>
-      <td>The GraphQL server for backoffice application</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/graphql">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5011">dev</a> and <a href="http://api.coolstore.local/graphql/playground">staging</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">3.</td>
-      <td>
-        OpenApi (.NET Core + envoy-proxy)<br/>
-        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=11&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/openapi?branchName=master" />
-        </a>
-      </td>
-      <td>The OpenAPI which generated from gRPC contract files, hosted in OpenAPI format, and used envoy-proxy to proxy it</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/openapi">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5010">dev</a> and <a href="http://api.coolstore.local/openapi/swagger">staging</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">4.</td>
-      <td>
-        Web (PWA - Vuejs + Node.js)<br/>
-        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=8&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/web?branchName=master" />
-        </a>
-      </td>
-      <td>Frontend based on <a href="https://vuejs.org">vuejs</a> and <a href="https://nodejs.org">Node.js</a></td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/web">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:8080">dev</a> and <a href="http://web.coolstore.local">staging</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">5.</td>
-      <td>
-        Backoffice (React + TypeScript + Apollo-client)<br/>
-        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=10&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/backoffice?branchName=master" />
-      </td>
-      <td>The back office application for management business entities in the system</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/backoffice">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:8081">dev</a> and <a href="http://backoffice.coolstore.local">staging</a>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">6.</td>
-      <td>
-        Catalog (Node.js + TypeScript + Mongo)<br/>
-        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=3&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/catalog?branchName=master" />
-        </a>
-      </td>
-      <td>Serves products and prices for retail products</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/catalog">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5002">dev</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">7.</td>
-      <td>
-        Cart (.NET Core + MySQL)<br/>
-        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=2&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/cart?branchName=master" />
-        </a>
-      </td>
-      <td>Manages shopping cart for each customer</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/cart">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5003">dev</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">8.</td>
-      <td>
-        Inventory (.NET Core + MySQL)<br/>
-        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=5&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/inventory?branchName=master" />
-        </a>
-      </td>
-      <td>Serves inventory and availability data for retail products</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/inventory">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5004">dev</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">9.</td>
-      <td>
-        Rating (Node.js + TypeScript + Mongo)<br/>
-        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=6&branchName=master">
-          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/rating?branchName=master" />
-        </a>
-      </td>
-      <td>Runs for rating products</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/rating">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5007">dev</a>
-      </td>
-     </tr>
-  </tbody>
-</table>
 
 ## µService development
 

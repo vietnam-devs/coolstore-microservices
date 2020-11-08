@@ -11,6 +11,8 @@ namespace SaleService.Domain.Model
         public int Quantity { get; set; }
         public decimal Price { get; set; } = default!;
         public decimal Discount { get; set; } = default!;
+        public Guid InventoryId { get; set; }
+        public string InventoryFullInfo { get; set; } = default!;
         public Order Order { get; set; }
         public Guid OrderId { get; set; }
     }

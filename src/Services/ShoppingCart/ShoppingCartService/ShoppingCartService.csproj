@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\..\BasicBuildingBlocks\N8T.Infrastructure.App\N8T.Infrastructure.App.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Event\" />
+  </ItemGroup>
+
 </Project>

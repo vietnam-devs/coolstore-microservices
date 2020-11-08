@@ -11,7 +11,9 @@ using N8T.Infrastructure.EfCore;
 using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
+using SaleService.Domain.Gateway;
 using SaleService.Infrastructure.Data;
+using SaleService.Infrastructure.Gateway;
 
 namespace SaleService.Api
 {
@@ -48,6 +50,8 @@ namespace SaleService.Api
                     ? $"{Config.GetServiceUri("identityservice")?.AbsoluteUri.TrimEnd('/')}/resources"
                     : options.Audience;
             });
+            
+            services.AddScoped<IUserGateway, UserGateway>();
 
             services.AddCustomOtelWithZipkin(Config,
                 o =>

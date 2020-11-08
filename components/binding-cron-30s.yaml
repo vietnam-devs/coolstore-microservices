@@ -1,0 +1,9 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: cron30s
+spec:
+  type: bindings.cron
+  metadata:
+  - name: schedule
+    value: "@every 30s"

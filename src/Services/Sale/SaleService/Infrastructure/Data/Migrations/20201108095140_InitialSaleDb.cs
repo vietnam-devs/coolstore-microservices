@@ -21,12 +21,11 @@ namespace SaleService.Infrastructure.Data.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     customer_id = table.Column<string>(type: "text", nullable: false),
                     customer_full_name = table.Column<string>(type: "text", nullable: false),
-                    email = table.Column<string>(type: "text", nullable: false),
-                    address = table.Column<string>(type: "text", nullable: false),
+                    customer_email = table.Column<string>(type: "text", nullable: false),
+                    customer_address = table.Column<string>(type: "text", nullable: false),
                     order_status = table.Column<int>(type: "integer", nullable: false),
                     order_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     complete_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    inventory_id = table.Column<Guid>(type: "uuid", nullable: false),
                     staff_full_name = table.Column<string>(type: "text", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()"),
                     updated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
@@ -47,6 +46,8 @@ namespace SaleService.Infrastructure.Data.Migrations
                     quantity = table.Column<int>(type: "integer", nullable: false),
                     price = table.Column<decimal>(type: "numeric", nullable: false),
                     discount = table.Column<decimal>(type: "numeric", nullable: false),
+                    inventory_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    inventory_full_info = table.Column<string>(type: "text", nullable: false),
                     order_id = table.Column<Guid>(type: "uuid", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()"),
                     updated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
