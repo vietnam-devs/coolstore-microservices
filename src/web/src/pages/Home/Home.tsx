@@ -5,7 +5,7 @@ import { ProductItem, Pagination, Filter } from 'components/Product'
 import { withLayout } from 'components/HOC'
 
 import { AppActions, useStore } from 'stores/store'
-import { getProducts, searchProducts } from 'services/ProductService'
+import { searchProducts } from 'services/ProductService'
 import { getCartForCurrentUser, createCartForCurrentUser, updateCartForCurrentUser } from 'services/CartService'
 
 interface IProps extends RouteComponentProps {}

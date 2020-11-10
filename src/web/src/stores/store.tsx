@@ -3,7 +3,7 @@ import React, { createContext, useContext, useReducer } from 'react'
 import _ from 'lodash'
 
 import { createAction, createActionPayload, ActionsUnion } from './actions'
-import { IAppState, IAppContextProps, IAppUser, IProduct, ICart, IUpdateProductInCart } from './types'
+import { IAppState, IAppContextProps, IAppUser, IProduct, ICart, IUpdateProductInCart, IOrder } from './types'
 
 export const LOAD_USER_LOGIN = 'LOAD_USER_LOGIN'
 export const UNLOAD_USER_LOGIN = 'UNLOAD_USER_LOGIN'
@@ -13,6 +13,7 @@ export const LOAD_CART = 'LOAD_CART'
 export const UPDATE_PRODUCT_IN_CART = 'UPDATE_PRODUCT_IN_CART'
 export const DELETE_PRODUCT_IN_CART = 'DELETE_PRODUCT_IN_CART'
 export const CHECKOUT_CART = 'CHECKOUT_CART'
+export const LOAD_ORDERS = 'LOAD_ORDERS'
 export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION'
 export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION'
 
@@ -26,6 +27,8 @@ const initialState: IAppState = {
   isProductLoaded: false,
   cart: null,
   isCartLoaded: false,
+  orders: [],
+  isOrdersLoaded: false,
   isShowNotification: false,
   notificationMessage: null
 }
@@ -39,6 +42,7 @@ export const AppActions = {
   updateProductInCart: createActionPayload<typeof UPDATE_PRODUCT_IN_CART, IUpdateProductInCart>(UPDATE_PRODUCT_IN_CART),
   deleteProductInCart: createActionPayload<typeof DELETE_PRODUCT_IN_CART, string>(DELETE_PRODUCT_IN_CART),
   checkoutCart: createActionPayload<typeof CHECKOUT_CART, ICart>(CHECKOUT_CART),
+  loadOrders: createActionPayload<typeof LOAD_ORDERS, IOrder[]>(LOAD_ORDERS),
   showNotification: createActionPayload<typeof SHOW_NOTIFICATION, string>(SHOW_NOTIFICATION),
   hideNotification: createAction<typeof HIDE_NOTIFICATION>(HIDE_NOTIFICATION)
 }
@@ -113,6 +117,13 @@ const reducers = (state: IAppState, action: ActionsUnion<typeof AppActions>) => 
         ...state,
         cart: action.payload,
         isCartLoaded: true
+      }
+
+    case LOAD_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
+        isOrdersLoaded: true
       }
 
     case SHOW_NOTIFICATION:

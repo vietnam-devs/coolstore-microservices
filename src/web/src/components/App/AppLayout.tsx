@@ -9,6 +9,7 @@ import NotFound from 'pages/404'
 const Home = lazy(() => import('pages/Home'))
 const ProductDetail = lazy(() => import('pages/ProductDetail'))
 const Cart = lazy(() => import('pages/Cart'))
+const Orders = lazy(() => import('pages/Order'))
 
 const AppLayout = ({ location }: any) => {
   return (
@@ -18,6 +19,7 @@ const AppLayout = ({ location }: any) => {
           <Route exact path={'/'} component={withAuth(Home)} />
           <Route path={'/product/:id'} component={withAuth(ProductDetail)} />
           <Route path={'/cart'} component={withAuth(Cart)} />
+          <Route path={'/orders'} component={withAuth(Orders)} />
           <Route path={'/auth/callback'} component={Callback} />
           <Route path={'/auth/silent-renew'} component={SilentCallback} />
           <Route path={'/401'} component={NotAuth} />

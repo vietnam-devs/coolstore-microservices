@@ -32,7 +32,7 @@ namespace WebApiGateway
                 });
             });
 
-            var isRunOnTye = Config.IsRunOnTye("inventoryservice");
+            var isRunOnTye = Config.IsRunOnTye("inventoryapp");
 
             // inventory
             var invRoute = new ProxyRoute
@@ -58,8 +58,8 @@ namespace WebApiGateway
                         "inv-svc-cluster/destination1", new Destination
                         {
                             Address = isRunOnTye
-                                ? $"{Config.GetServiceUri("inventoryservice")?.AbsoluteUri}"
-                                : Config.GetValue<string>("Services:inventoryservice")
+                                ? $"{Config.GetServiceUri("inventoryapp")?.AbsoluteUri}"
+                                : Config.GetValue<string>("Services:inventoryapp")
                         }
                     }
                 }
@@ -89,8 +89,8 @@ namespace WebApiGateway
                         "prod-svc-cluster/destination1", new Destination
                         {
                             Address = isRunOnTye
-                                ? $"{Config.GetServiceUri("productcatalogservice")?.AbsoluteUri}"
-                                : Config.GetValue<string>("Services:productcatalogservice")
+                                ? $"{Config.GetServiceUri("productcatalogapp")?.AbsoluteUri}"
+                                : Config.GetValue<string>("Services:productcatalogapp")
                         }
                     }
                 }
@@ -120,8 +120,40 @@ namespace WebApiGateway
                         "cart-svc-cluster/destination1", new Destination
                         {
                             Address = isRunOnTye
-                                ? $"{Config.GetServiceUri("shoppingcartservice")?.AbsoluteUri}"
-                                : Config.GetValue<string>("Services:shoppingcartservice")
+                                ? $"{Config.GetServiceUri("shoppingcartapp")?.AbsoluteUri}"
+                                : Config.GetValue<string>("Services:shoppingcartapp")
+                        }
+                    }
+                }
+            };
+
+
+            // sale
+            var saleRoute = new ProxyRoute
+            {
+                RouteId = "sale",
+                ClusterId = "sale-svc-cluster",
+                Match =
+                {
+                    Path = "/sale/{**catch-all}"
+                },
+                Transforms = new List<IDictionary<string, string>>()
+            };
+
+            saleRoute.AddTransformXForwarded();
+            saleRoute.AddTransformPathRemovePrefix("/sale");
+
+            var saleCluster = new Cluster
+            {
+                Id = "sale-svc-cluster",
+                Destinations =
+                {
+                    {
+                        "sale-svc-cluster/destination1", new Destination
+                        {
+                            Address = isRunOnTye
+                                ? $"{Config.GetServiceUri("saleapp")?.AbsoluteUri}"
+                                : Config.GetValue<string>("Services:saleapp")
                         }
                     }
                 }
@@ -132,14 +164,16 @@ namespace WebApiGateway
             {
                 invRoute,
                 prodRoute,
-                cartRoute
+                cartRoute,
+                saleRoute
             };
 
             var clusters = new[]
             {
                 invCluster,
                 prodCluster,
-                cartCluster
+                cartCluster,
+                saleCluster
             };
 
             services.AddHeaderPropagation(options =>
@@ -153,9 +187,9 @@ namespace WebApiGateway
             services.AddCustomOtelWithZipkin(Config,
                 o =>
                 {
-                    // o.Endpoint = isRunOnTye
-                    //     ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
-                    //     : o.Endpoint;
+                    o.Endpoint = isRunOnTye
+                        ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
+                        : o.Endpoint;
                 });
         }
 
@@ -178,9 +212,10 @@ namespace WebApiGateway
                     context.Response.ContentType = "text/html";
                     await context.Response.WriteAsync("<h3>WebApiGateway</h3>");
                     await context.Response.WriteAsync("<br>");
-                    await context.Response.WriteAsync("<a href='/inv/info'>Inventory&nbsp;</a>");
-                    await context.Response.WriteAsync("<a href='/prod/info'>Product Catalog&nbsp;</a>");
-                    await context.Response.WriteAsync("<a href='/cart/info'>Shopping Cart&nbsp;</a>");
+                    await context.Response.WriteAsync("<a href='/inv/info'>Inventory&nbsp;|&nbsp;</a>");
+                    await context.Response.WriteAsync("<a href='/prod/info'>Product Catalog&nbsp;|&nbsp;</a>");
+                    await context.Response.WriteAsync("<a href='/cart/info'>Shopping Cart&nbsp;|&nbsp;</a>");
+                    await context.Response.WriteAsync("<a href='/sale/info'>Sale&nbsp;</a>");
                 });
 
                 endpoints.MapReverseProxy(proxyPipeline =>

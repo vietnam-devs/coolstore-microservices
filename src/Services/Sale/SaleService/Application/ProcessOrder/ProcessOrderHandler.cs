@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using N8T.Infrastructure.Helpers;
 using SaleService.Domain.Model;
 using SaleService.Infrastructure.Data;
 
@@ -33,7 +34,13 @@ namespace SaleService.Application.ProcessOrder
 
             foreach (var order in orders)
             {
-                order.OrderStatus = OrderStatus.Processing;
+                var seconds = DateTimeHelper.NewDateTime().Subtract(order.Created).Seconds;
+                _logger.LogInformation("{Prefix} {Seconds}s until now...", nameof(ProcessOrderHandler), seconds);
+
+                if (seconds >= 30) // after 30 seconds
+                {
+                    order.OrderStatus = OrderStatus.Processing;
+                }
             }
 
             await dbContext.SaveChangesAsync(cancellationToken);

@@ -50,7 +50,8 @@ namespace SaleService.Api
                     ? $"{Config.GetServiceUri("identityservice")?.AbsoluteUri.TrimEnd('/')}/resources"
                     : options.Audience;
             });
-            
+
+            services.AddScoped<ISecurityContextAccessor, SecurityContextAccessor>();
             services.AddScoped<IUserGateway, UserGateway>();
 
             services.AddCustomOtelWithZipkin(Config,

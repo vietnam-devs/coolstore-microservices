@@ -73,8 +73,8 @@ services:
   - port: 5005
 
 - name: web
-  # dockerFile: src/web/Dockerfile.tye
-  image: web
+  dockerFile: src/web/Dockerfile.tye
+  # image: web
   env:
   - name: PORT
     value: 80

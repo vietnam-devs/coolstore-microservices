@@ -1,9 +1,9 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: cron1m
+  name: cron-complete-order
 spec:
   type: bindings.cron
   metadata:
   - name: schedule
-    value: "@every 1m"
+    value: "@every 30s"

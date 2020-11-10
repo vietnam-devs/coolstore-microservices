@@ -34,8 +34,14 @@ namespace SaleService.Application.CompleteOrder
 
             foreach (var order in orders)
             {
-                order.OrderStatus = OrderStatus.Complete;
-                order.CompleteDate = DateTimeHelper.NewDateTime();
+                var minutes = DateTimeHelper.NewDateTime().Subtract(order.Created).Minutes;
+                _logger.LogInformation("{Prefix} {Minutes}s until now...", nameof(CompleteOrderHandler), minutes);
+
+                if (minutes >= 1) // after 1 minute
+                {
+                    order.OrderStatus = OrderStatus.Complete;
+                    order.CompleteDate = DateTimeHelper.NewDateTime();
+                }
             }
 
             await dbContext.SaveChangesAsync(cancellationToken);

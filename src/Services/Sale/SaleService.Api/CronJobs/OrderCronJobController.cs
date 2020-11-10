@@ -20,18 +20,18 @@ namespace SaleService.Api.CronJobs
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpPost("cron30s")]
-        public async Task RunOnEvery30Seconds()
+        [HttpPost("cron-complete-order")]
+        public async Task ProcessOrder()
         {
             _logger.LogInformation($"[30s] Cron @{DateTime.Now}");
 
             await _mediator.Send(new ProcessOrderQuery());
         }
 
-        [HttpPost("cron1m")]
-        public async Task RunOnEvery1Minute()
+        [HttpPost("cron-process-order")]
+        public async Task CompleteOrder()
         {
-            _logger.LogInformation($"[1m] Cron @{DateTime.Now}");
+            _logger.LogInformation($"[30s] Cron @{DateTime.Now}");
 
             await _mediator.Send(new CompleteOrderQuery());
         }

@@ -40,6 +40,27 @@ export interface ICartItem {
   inventoryWebsite: string
 }
 
+export interface IOrder {
+  id: string
+  customerFullName: string
+  customerEmail: string
+  customerAddress: string
+  orderStatus: number
+  orderDate: Date
+  completeDate: Date
+  staffFullName: string
+  orderItems: IOrderItem[]
+}
+
+export interface IOrderItem {
+  id: string
+  productName: string
+  quantity: number
+  price: number
+  discount: number
+  inventoryFullInfo: string
+}
+
 export interface ICategoryTagModel {
   key: string
   count: number
@@ -76,6 +97,9 @@ export interface IAppState {
   cart: ICart
   isCartLoaded: boolean
 
+  orders: IOrder[]
+  isOrdersLoaded: boolean
+
   isShowNotification: boolean
   notificationMessage: string
 }
@@ -96,6 +120,11 @@ export interface IProductStore {
 export interface ICartStore {
   cart: ICart
   isCartLoaded: boolean
+}
+
+export interface IOrderStore {
+  orders: IOrder[]
+  isLoaded: boolean
 }
 
 export interface IAppContextProps {
