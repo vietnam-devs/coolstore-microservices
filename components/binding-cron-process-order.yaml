@@ -6,4 +6,4 @@ spec:
   type: bindings.cron
   metadata:
   - name: schedule
-    value: "@every 30s"
+    value: "@every 10s"

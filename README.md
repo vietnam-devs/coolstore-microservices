@@ -11,27 +11,76 @@ The business domain is inspired from [CoolStore project](https://github.com/jbos
 
 Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://dev.to/thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
 
-## Public presentation
-
-- [Service Mesh on AKS, the future is now - Microsoft Build event in May 2019](https://mybuild.techcommunity.microsoft.com/sessions/77172?source=TechCommunity)
-- [From Microservices to Service Mesh - DevCafe event in July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
-- [Service Mesh for Microservices- Vietnam Mobile Day event in June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
-- [Avoid SPOF in Cloud-native Apps - Vietnam Web Summit event in December 2018](https://www.slideshare.net/ThangChung/avoid-single-point-of-failure-in-cloud-native-application)
-
 # Table of contents
 
-- [Try it!](https://github.com/vietnam-devs/coolstore-microservices#try-it)
 - [Dapr Building Blocks](https://github.com/vietnam-devs/coolstore-microservices#dapr-building-blocks)
 - [Screenshots](https://github.com/vietnam-devs/coolstore-microservices#screenshots)
+- [Try it!](https://github.com/vietnam-devs/coolstore-microservices#try-it)
 - [OS, SDK, library, tooling and prerequisites](https://github.com/vietnam-devs/coolstore-microservices#os-sdk-library-tooling-and-prerequisites)
-- [High level software architecture](https://github.com/vietnam-devs/coolstore-microservices#high-level-software-architecture)
 - [µService development](https://github.com/vietnam-devs/coolstore-microservices#µmicroservice-development)
 - [Open API](https://github.com/vietnam-devs/coolstore-microservices#open-api)
 - [CI/CD](https://github.com/vietnam-devs/coolstore-microservices#ci-cd)
-- [Service mesh](https://github.com/vietnam-devs/coolstore-microservices#service-mesh)
+- [Public presentation](https://github.com/vietnam-devs/coolstore-microservices#public-presentation)
 - [Contributing](https://github.com/vietnam-devs/coolstore-microservices#contributing)
 - [Contributors](https://github.com/vietnam-devs/coolstore-microservices#contributors)
 - [Licence](https://github.com/vietnam-devs/coolstore-microservices#licence)
+
+## Dapr Building Blocks
+
+![](assets/dapr/dapr_platform.png)
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Usecase</th>
+    <th>Apps Participants</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Service-to-service invocation</b></td>
+      <td>
+         - User clicks to the detail product<br>
+         - Populate product information for shopping cart items
+      </td>
+      <td>productcatalogapp, inventoryapp, shoppingcartapp</td>
+    </tr>
+    <tr>
+      <td><b>State management</b></td>
+      <td>Items in the shopping cart</td>
+      <td>shoppingcartapp</td>
+    </tr>
+    <tr>
+      <td><b>Publish and subscribe</b></td>
+      <td>User clicks checkout button, and the checkout process happens. It triggers the pub/sub flow in the system</td>
+      <td>shoppingcartapp, saleapp, identityapp</td>
+    </tr>
+    <tr>
+      <td><b>Resource bindings</b></td>
+      <td>Every 30 seconds and 1 minutes the validation process happens. It will change the status of order from Received to Process and Complete via Cron binding</td>
+      <td>productcatalogapp, inventoryapp</td>
+    </tr>
+    <tr>
+      <td><b>Actors</b></td>
+      <td>N/A</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td><b>Observability</b></td>
+      <td>All apps in the application are injected by daprd so that it's tracked and observed by dapr </td>
+      <td>identityapp, webapigatewayapp, inventoryapp, productcatalogapp, shoppingcartapp, saleapp, web</td>
+    </tr>
+  </tbody>
+</table>
+
+## Screenshots
+
+### Home page
+
+![home-page](assets/images/ui-screen-1.PNG?raw=true)
+
+### Shopping Cart page
+
+![cart-page](assets/images/ui-screen-2.PNG?raw=true)
 
 ## Try it
 
@@ -79,86 +128,35 @@ Now, you can start to develop, debug or explore more about `dapr` with `tye` via
 
 > Enable `vm.max_map_count` for ElasticSearch via run `sysctl -w vm.max_map_count=262144`
 
-## Dapr Building Blocks
-
-<table>
-  <thead>
-    <th>Name</th>
-    <th>Usecase</th>
-    <th>Apps Participants</th>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>Service-to-service invocation</b></td>
-      <td>User clicks to the detail product</td>
-      <td>productcatalogapp, inventoryapp</td>
-    </tr>
-    <tr>
-      <td><b>State management</b></td>
-      <td>Items in the shopping cart</td>
-      <td>shoppingcartapp</td>
-    </tr>
-    <tr>
-      <td><b>Publish and subscribe</b></td>
-      <td>User clicks checkout button, and the checkout process happens. It triggers the pub/sub flow in the system</td>
-      <td>shoppingcartapp, saleapp, identityapp</td>
-    </tr>
-    <tr>
-      <td><b>Resource bindings</b></td>
-      <td>Every 30 seconds and 1 minutes the validation process happens. It will change the status of order from Received to Process and Complete via Cron binding</td>
-      <td>productcatalogapp, inventoryapp</td>
-    </tr>
-    <tr>
-      <td><b>Actors</b></td>
-      <td>N/A</td>
-      <td>N/A</td>
-    </tr>
-    <tr>
-      <td><b>Observability</b></td>
-      <td>All apps in the application are injected by daprd so that it's tracked and observed by dapr </td>
-      <td>identityapp, webapigatewayapp, inventoryapp, productcatalogapp, shoppingcartapp, saleapp, web</td>
-    </tr>
-  </tbody>
-</table>
-
-## Screenshots
-
-### Home page
-
-![home-page](assets/images/ui-screen-1.PNG?raw=true)
-
-### Shopping Cart page
-
-![cart-page](assets/images/ui-screen-2.PNG?raw=true)
-
 ## OS, SDK, library, tooling and prerequisites
 
 ### Infrastructure
 
-- **`Windows 10`** - the OS for developing and building this demo application.
-- **[`Windows subsystem Linux - Ubuntu OS`](https://docs.microsoft.com/en-us/windows/wsl/install-win10)** - the subsystem that helps to run easily the bash shell on Windows OS.
-- **[`Docker for desktop (Kubernetes enabled)`](https://www.docker.com/products/docker-desktop)** - the easiest tool to run Docker, Docker Swarm and Kubernetes on Mac and Windows.
-- **[`Kubernetes`](https://kubernetes.io) / [`AKS`](https://docs.microsoft.com/en-us/azure/aks)** - the app is designed to run on Kubernetes (both locally on "Docker for Desktop", as well as on the cloud with AKS).
-- **[`helm`](https://helm.sh)** - the best package manager to find, share, and use software built for Kubernetes.
-- **[`dapr`](https://dapr.io/)** - an event-driven, portable runtime for building microservices on cloud and edge.
+- **`Windows 10`** - The OS for developing and building this demo application.
+- **[`WSL2 - Ubuntu OS`](https://docs.microsoft.com/en-us/windows/wsl/install-win10)** - the subsystem that helps to run easily the bash shell on Windows OS
+- **[`Docker for desktop (Kubernetes enabled)`](https://www.docker.com/products/docker-desktop)** - The easiest tool to run Docker, Docker Swarm and Kubernetes on Mac and Windows
+- **[`Kubernetes`](https://kubernetes.io) / [`AKS`](https://docs.microsoft.com/en-us/azure/aks)** - The app is designed to run on Kubernetes (both locally on "Docker for Desktop" as well as on the cloud with AKS)
+- **[`helm`](https://helm.sh)** - Best package manager to find, share, and use software built for Kubernetes
+- **[`dapr`](https://dapr.io/)** - An event-driven, portable runtime for building microservices on cloud and edge
+- **[`tye`](https://github.com/dotnet/tye)** - A developer tool that makes developing, testing, and deploying microservices and distributed applications easier
 
 ### Back-end
 
-- **[`.NET Core 5.x`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core.
-- **[`IdentityServer4`](https://identityserver.io)** - the Identity and Access Control solution for .NET Core.
-- **[`gRPC`](https://grpc.io)** - a high-performance, open-source universal RPC framework.
-- **[`Redis`](https://github.com/StackExchange/StackExchange.Redis)** - General purpose redis client.
-- **[`NEST`](https://github.com/elastic/elasticsearch-net)** - Elasticsearch.Net & NEST.
+- **[`.NET Core 5`](https://dotnet.microsoft.com/download)** - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core
+- **[`IdentityServer4`](https://identityserver.io)** - Identity and Access Control solution for .NET Core
+- **[`YARP`](https://github.com/microsoft/reverse-proxy)** - A toolkit for developing high-performance HTTP reverse proxy applications
+- **[`FluentValidation`](https://github.com/FluentValidation/FluentValidation)** - Popular .NET validation library for building strongly-typed validation rules
+- **[`MediatR`](https://github.com/jbogard/MediatR)** - Simple, unambitious mediator implementation in .NET
+- **[`EF Core`](https://github.com/dotnet/efcore)** - Modern object-database mapper for .NET. It supports LINQ queries, change tracking, updates, and schema migrations
+- **[`Scrutor`](https://github.com/khellang/Scrutor)** - Assembly scanning and decoration extensions for Microsoft.Extensions.DependencyInjection
+- **[`serilog`](https://github.com/serilog/serilog)** - Simple .NET logging with fully-structured events
+- **[`NEST`](https://github.com/elastic/elasticsearch-net)** - Elasticsearch.Net & NEST
 
 ### Front-end
 
-- **[`nodejs 10.x`](https://nodejs.org/en/download)** - JavaScript runtime built on Chrome's V8 JavaScript engine.
-- **[`typescript`](https://www.typescriptlang.org)** - a typed superset of JavaScript that compiles to plain JavaScript.
-- **[`create-react-app`](https://facebook.github.io/create-react-app)** - a modern web app by running one command.
-
-## High level software architecture
-
-![Architecture Screenshot](assets/images/arch-diagram.png?raw=true 'Architecture Diagram')
+- **[`nodejs 10.x`](https://nodejs.org/en/download)** - JavaScript runtime built on Chrome's V8 JavaScript engine
+- **[`typescript`](https://www.typescriptlang.org)** - A typed superset of JavaScript that compiles to plain JavaScript
+- **[`create-react-app`](https://facebook.github.io/create-react-app)** - A modern web app by running one command
 
 ## µService development
 
@@ -176,10 +174,6 @@ https://documenter.getpostman.com/view/4847807/SVmvUeZv?version=latest#9f5ed7e4-
 
 ![Lift and Shift](assets/images/lift-and-shift.PNG?raw=true 'liftandshift')
 
-## Dapr components
-
-TODO
-
 ## Debug and Tracing Apps
 
 - Setup Kibana with `TraceId`, `HandlerName`, `RequestPath`, `level` and filter with `HandlerName`
@@ -189,6 +183,13 @@ TODO
 Then, you can find the exception happend in code via Kibana dashboard with settings above. Grab the `TraceId`, then paste it to `Zipkin` dashboard, then you can see the tracing of this request as the following picture
 
 ![](assets/dapr/tracing_zipkin.png)
+
+## Public presentation
+
+- [Service Mesh on AKS, the future is now - Microsoft Build event in May 2019](https://mybuild.techcommunity.microsoft.com/sessions/77172?source=TechCommunity)
+- [From Microservices to Service Mesh - DevCafe event in July 2018](https://www.slideshare.net/ThangChung/from-microservices-to-service-mesh-devcafe-event-july-2018)
+- [Service Mesh for Microservices- Vietnam Mobile Day event in June 2018](https://www.slideshare.net/ThangChung/service-mesh-for-microservices-vietnam-mobile-day-june-2017)
+- [Avoid SPOF in Cloud-native Apps - Vietnam Web Summit event in December 2018](https://www.slideshare.net/ThangChung/avoid-single-point-of-failure-in-cloud-native-application)
 
 ## Contributing
 

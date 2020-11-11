@@ -1,5 +1,4 @@
 using System;
-using OpenTelemetry.Trace;
 
 namespace N8T.Infrastructure.App.Dtos
 {

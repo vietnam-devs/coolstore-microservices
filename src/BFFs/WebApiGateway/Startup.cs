@@ -176,11 +176,6 @@ namespace WebApiGateway
                 saleCluster
             };
 
-            services.AddHeaderPropagation(options =>
-            {
-                options.Headers.Add("traceparent");
-            });
-
             services.AddReverseProxy()
                 .LoadFromMemory(routes, clusters);
 
@@ -202,7 +197,6 @@ namespace WebApiGateway
 
             app.UseCors("api");
 
-            app.UseHeaderPropagation();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
