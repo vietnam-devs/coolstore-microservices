@@ -41,8 +41,9 @@ Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://de
       <td>
          - User clicks to the detail product<br>
          - Populate product information for shopping cart items
+         - Order gets detail information of buyer
       </td>
-      <td>productcatalogapp, inventoryapp, shoppingcartapp</td>
+      <td>productcatalogapp, inventoryapp, shoppingcartapp, identityapp</td>
     </tr>
     <tr>
       <td><b>State management</b></td>
@@ -60,14 +61,19 @@ Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://de
       <td>productcatalogapp, inventoryapp</td>
     </tr>
     <tr>
-      <td><b>Actors</b></td>
-      <td>N/A</td>
-      <td>N/A</td>
-    </tr>
-    <tr>
       <td><b>Observability</b></td>
       <td>All apps in the application are injected by daprd so that it's tracked and observed by dapr </td>
       <td>identityapp, webapigatewayapp, inventoryapp, productcatalogapp, shoppingcartapp, saleapp, web</td>
+    </tr>
+    <tr>
+      <td><b>Secrets</b></td>
+      <td>Bind with local secret file to hide password of redis</td>
+      <td>inventoryapp, productcatalogapp, shoppingcartapp, saleapp</td>
+    </tr>
+    <tr>
+      <td><b>Actors</b></td>
+      <td>N/A</td>
+      <td>N/A</td>
     </tr>
   </tbody>
 </table>

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="3.1.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="3.1.2" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\N8T.Domain\N8T.Domain.csproj" />
     <ProjectReference Include="..\N8T.Infrastructure.EfCore\N8T.Infrastructure.EfCore.csproj" />
     <ProjectReference Include="..\N8T.Infrastructure.OTel\N8T.Infrastructure.OTel.csproj" />

@@ -4,7 +4,7 @@ extensions:
 - name: dapr
   log-level: debug
   config: appconfig
-  components-path: "./components/"
+  components-path: "./components/local/"
 - name: zipkin
 - name: elastic
   logPath: ./.logs

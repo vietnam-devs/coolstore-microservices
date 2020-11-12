@@ -14,10 +14,10 @@ namespace N8T.Infrastructure.OTel
             IConfiguration config, Action<ZipkinExporterOptions> configureZipkin = null)
         {
             services.AddOpenTelemetryTracing(b => b
-                .AddAspNetCoreInstrumentation()
+                .AddAspNetCoreInstrumentation(o => o.EnableGrpcAspNetCoreSupport = true)
                 .AddHttpClientInstrumentation()
                 .AddGrpcClientInstrumentation()
-                .AddSqlClientInstrumentation()
+                .AddSqlClientInstrumentation(o => o.SetTextCommandContent = true)
                 .AddMediatRInstrumentation()
                 .AddZipkinExporter(o =>
                 {
@@ -31,17 +31,14 @@ namespace N8T.Infrastructure.OTel
             return services;
         }
 
-        private static TracerProviderBuilder AddMediatRInstrumentation(
-            this TracerProviderBuilder builder)
+        private static TracerProviderBuilder AddMediatRInstrumentation(this TracerProviderBuilder builder)
         {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            builder
-                .AddInstrumentation(activitySourceAdapter => new OTelMediatRInstrumentation(activitySourceAdapter))
-                .AddSource(OTelMediatROptions.OTelMediatRName);
+            builder.AddSource(typeof(OTelMediatRTracingBehavior<,>).Name);
 
             return builder;
         }

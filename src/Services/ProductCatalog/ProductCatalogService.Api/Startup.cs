@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,6 @@ using N8T.Infrastructure.EfCore;
 using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
-using ProductCatalogService.Api.HostServices;
 using ProductCatalogService.Domain.Gateway;
 using ProductCatalogService.Infrastructure.Data;
 using ProductCatalogService.Infrastructure.Gateway;
@@ -32,6 +32,9 @@ namespace ProductCatalogService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             var isRunOnTye = Config.IsRunOnTye("identityservice");
+
+            services.AddHealthChecks()
+                .AddNpgSql(Config.GetConnectionString("postgres"));
 
             services.AddHttpContextAccessor()
                 .AddCustomMediatR<Anchor>()
@@ -61,7 +64,6 @@ namespace ProductCatalogService.Api
                 });
 
             services.AddScoped<IInventoryGateway, InventoryGateway>();
-            services.AddHostedService<BackgroundJobHostedService>();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -80,6 +82,13 @@ namespace ProductCatalogService.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions {
+                    Predicate = _ => true
+                });
+                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions {
+                    Predicate = r => r.Name.Contains("self")
+                });
+
                 endpoints.MapControllers();
                 endpoints.MapSubscribeHandler();
             });

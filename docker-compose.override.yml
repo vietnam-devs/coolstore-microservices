@@ -1,5 +1,3 @@
-# docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
-
 version: "3"
 
 services:
@@ -14,9 +12,10 @@ services:
 
   webapigatewayapp:
     environment:
-      - Services__inventoryservice=http://inventoryapp:5002
-      - Services__productcatalogservice=http://productcatalogapp:5003
-      - Services__shoppingcartservice=http://shoppingcartapp:5004
+      - Services__inventoryapp=http://inventoryapp:5002
+      - Services__productcatalogapp=http://productcatalogapp:5003
+      - Services__shoppingcartapp=http://shoppingcartapp:5004
+      - Services__saleapp=http://saleapp:5005
       - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
     ports:
       - "5000:5000"
@@ -43,10 +42,8 @@ services:
       - Authn__Authority=http://identityapp:5001
       - Authn__Audience=http://localhost:5001/resources
       - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
-      - ElasticSearch__Url=http://elasticsearch:9200
     ports:
       - "5003:5003"
-      - "50001:50001"
 
   shoppingcartapp:
     environment:
@@ -58,6 +55,16 @@ services:
     ports:
       - "5004:5004"
 
+  saleapp:
+    environment:
+      - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
+      - Redis__Url=redis:6379
+      - Authn__Authority=http://identityapp:5001
+      - Authn__Audience=http://localhost:5001/resources
+      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
+    ports:
+      - "5005:5005"
+
   postgresql:
     environment:
       - POSTGRES_DB=postgres
@@ -66,21 +73,13 @@ services:
     ports:
       - "5432:5432"
 
-  elasticsearch:
-    restart: unless-stopped
-    environment:
-      - node.name=elasticsearch
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - discovery.type=single-node
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+  # elk:
+  #   ports:
+  #     - "5601:5601"
+  #     - "9200:9200"
+  #   expose:
+  #     - 5601
+  #     - 9200
 
   zipkin:
     ports:

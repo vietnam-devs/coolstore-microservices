@@ -1,7 +1,4 @@
-# https://github.com/dapr/dapr/pull/1577
-# netstat -aon | find /i "listening"
-# docker rm $(docker ps -a -f status=exited -q)
-# sysctl -w vm.max_map_count=262144
+# docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
 version: "3"
 
@@ -44,8 +41,7 @@ services:
      "-app-id", "webapigatewayapp",
      "-app-port", "5000",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components",
-     "-log-level", "error"]
+     "-components-path", "/components"]
     volumes:
       - "./components/:/components"
     depends_on:
@@ -73,8 +69,7 @@ services:
      "-app-id", "identityapp",
      "-app-port", "5001",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components",
-     "-log-level", "error"]
+     "-components-path", "/components"]
     volumes:
       - "./components/:/components"
     depends_on:
@@ -122,7 +117,6 @@ services:
       - redis
       - placement
       - postgresql
-      - elasticsearch
       - identityapp
     networks:
       - coolstore-network
@@ -133,8 +127,7 @@ services:
      "-app-id", "productcatalogapp",
      "-app-port", "5003",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components",
-     "-log-level", "error"]
+     "-components-path", "/components"]
     volumes:
       - "./components/:/components"
     depends_on:
@@ -163,13 +156,41 @@ services:
      "-app-id", "shoppingcartapp",
      "-app-port", "5004",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components",
-     "-log-level", "debug"]
+     "-components-path", "/components"]
     volumes:
       - "./components/:/components"
     depends_on:
       - shoppingcartapp
     network_mode: "service:shoppingcartapp"
+
+  #################################################
+  # sale app + Dapr sidecar
+  #################################################
+  saleapp:
+    image: vndg/saleapp:latest
+    build:
+      context: .
+      dockerfile: src/Services/Sale/SaleService.Api/Dockerfile
+    depends_on:
+      - redis
+      - placement
+      - postgresql
+      - identityapp
+    networks:
+      - coolstore-network
+
+  saleapp-dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "-app-id", "saleapp",
+     "-app-port", "5005",
+     "-placement-host-address", "placement:50006",
+     "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - saleapp
+    network_mode: "service:saleapp"
 
   ############################
   # PostgresQL component
@@ -181,12 +202,14 @@ services:
       - coolstore-network
 
   ############################
-  # ElasticSearch component
+  # ELK component
   ############################
-  elasticsearch:
-    image: elasticsearch:7.6.2
-    networks:
-      - coolstore-network
+  # elk:
+  #   image: sebp/elk:latest
+  #   hostname: elk
+  #   container_name: elk
+  #   networks:
+  #     - coolstore-network
 
   ############################
   # Zipkin component

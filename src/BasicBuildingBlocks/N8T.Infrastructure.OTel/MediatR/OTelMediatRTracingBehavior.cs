@@ -12,6 +12,8 @@ namespace N8T.Infrastructure.OTel.MediatR
     public class OTelMediatRTracingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
+        private static readonly ActivitySource _activitySource = new(typeof(OTelMediatRTracingBehavior<,>).Name);
+
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<OTelMediatRTracingBehavior<TRequest, TResponse>> _logger;
 
@@ -34,20 +36,11 @@ namespace N8T.Infrastructure.OTel.MediatR
                 "[{Prefix}:{HandlerName}] Handle request={X-RequestData} with traceid={TraceId}",
                 prefix, handlerName, typeof(TRequest).Name, traceId);
 
-            using var activityListener = new DiagnosticListener(OTelMediatROptions.OTelMediatRName);
+            using var activity = _activitySource.StartActivity($"{OTelMediatROptions.OTelMediatRName}.{handlerName}", ActivityKind.Server);
 
-            if (!activityListener.IsEnabled() || !activityListener.IsEnabled(OTelMediatROptions.OTelMediatRName))
-            {
-                return await next();
-            }
-
-            var activity = new Activity($"{OTelMediatROptions.OTelMediatRName}.{handlerName}")
-                .SetIdFormat(ActivityIdFormat.W3C)
-                .AddEvent(new ActivityEvent(handlerName))
-                .AddTag("params.request.name", typeof(TRequest).Name)
-                .AddTag("params.response.name", typeof(TResponse).Name);
-
-            activityListener.StartActivity(activity, request);
+            activity?.AddEvent(new ActivityEvent(handlerName))
+                ?.AddTag("params.request.name", typeof(TRequest).Name)
+                ?.AddTag("params.response.name", typeof(TResponse).Name);
 
             try
             {
@@ -58,13 +51,10 @@ namespace N8T.Infrastructure.OTel.MediatR
                 activity.SetStatus(OpenTelemetry.Trace.Status.Error.WithDescription(ex.Message));
                 activity.RecordException(ex);
 
-                _logger.LogError(ex, "[{Prefix}:{HandlerName}] {ErrorMessage} with traceid={TraceId}", prefix, handlerName, ex.Message, traceId);
+                _logger.LogError(ex, "[{Prefix}:{HandlerName}] {ErrorMessage} with traceid={TraceId}", prefix,
+                    handlerName, ex.Message, traceId);
 
                 throw;
-            }
-            finally
-            {
-                activityListener.StopActivity(activity, request);
             }
         }
     }

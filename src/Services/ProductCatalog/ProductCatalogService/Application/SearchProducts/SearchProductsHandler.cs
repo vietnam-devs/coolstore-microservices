@@ -1,118 +1,93 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using N8T.Infrastructure.App.Dtos;
-using Nest;
 using ProductCatalogService.Application.Common;
+using ProductCatalogService.Domain.Gateway;
+using ProductCatalogService.Infrastructure.Data;
 
 namespace ProductCatalogService.Application.SearchProducts
 {
     public class SearchProductsHandler : IRequestHandler<SearchProductsQuery, SearchProductsResponse>
     {
-        private readonly IElasticClient _client;
+        private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
+        private readonly IInventoryGateway _inventoryGateway;
 
-        public SearchProductsHandler(IConfiguration config)
+        public SearchProductsHandler(IDbContextFactory<MainDbContext> dbContextFactory,
+            IInventoryGateway inventoryGateway)
         {
-            var connString = config.GetValue<string>("ElasticSearch:Url");
-            var settings = new ConnectionSettings(new Uri(connString))
-                .DefaultMappingFor<ProductDto>(i => i
-                    .IndexName("product")
-                )
-                .PrettyJson();
-            _client = new ElasticClient(settings);
+            _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
+            _inventoryGateway = inventoryGateway ?? throw new ArgumentNullException(nameof(inventoryGateway));
         }
 
         public async Task<SearchProductsResponse> Handle(SearchProductsQuery request,
             CancellationToken cancellationToken)
         {
-            Func<QueryContainerDescriptor<ProductDto>, QueryContainer> queryWithNameAndDesc = q => q
-                .MultiMatch(mm => mm
-                    .Query(request.Query)
-                    .Fields(f => f
-                        .Fields(f1 => f1.Name, f2 => f2.Description)));
+            await using var dbContext = _dbContextFactory.CreateDbContext();
 
-            var result = await _client.SearchAsync<ProductDto>(s => s
-                .Query(q =>
-                    request.Query != "*"
-                        ? queryWithNameAndDesc(q) && q.Range(ra => ra
-                            .Field(f => f.Price)
-                            .LessThanOrEquals(request.Price)
-                        )
-                        : q.Range(ra => ra
-                            .Field(f => f.Price)
-                            .LessThanOrEquals(request.Price))
-                )
-                .Aggregations(a => a
-                        .Terms("category_tags", t => t
-                            .Field(f => f.Category.Name.Suffix("keyword"))
-                        ) && a
-                        .Terms("inventory_tags", t => t
-                            .Field(f => f.Inventory.Location.Suffix("keyword"))
-                        )
-                )
-                .From(request.Page - 1)
-                .Size(request.PageSize), cancellationToken);
+            var products = await dbContext.Products
+                .Include(x => x.Category)
+                .AsNoTracking()
+                .Skip(request.Page - 1)
+                .Take(request.PageSize)
+                .Where(x => !x.IsDeleted && x.Price <= request.Price)
+                .OrderBy(x => x.Name)
+                .ToListAsync(cancellationToken);
 
-            if (result.ApiCall.HttpStatusCode != (int)HttpStatusCode.OK)
+            var total = await dbContext.Products.AsNoTracking()
+                .CountAsync(x => !x.IsDeleted, cancellationToken: cancellationToken);
+
+            var inventories = await _inventoryGateway.GetInventoryListAsync(cancellationToken: cancellationToken);
+
+            var items = products.Select(x =>
             {
-                throw new Exception("Couldn't query data.");
-            }
-
-            var categoryTags = result
-                .Aggregations
-                .Terms("category_tags")
-                .Buckets
-                .Select(b => new SearchAggsByTagsDto(b.Key, (int) b.DocCount))
-                .ToList();
-
-            var inventoryTags = result
-                .Aggregations
-                .Terms("inventory_tags")
-                .Buckets
-                .Select(b => new SearchAggsByTagsDto(b.Key, (int) b.DocCount))
-                .ToList();
-
-            var items = result
-                .Hits
-                .Select(x => new ProductDto
+                InventoryDto? inventory = null;
+                if (inventories.Any())
                 {
-                    Id = x.Source.Id,
-                    Name = x.Source.Name,
-                    Price = x.Source.Price,
-                    ImageUrl = x.Source.ImageUrl,
-                    Description = x.Source.Description,
+                    inventory = inventories.First(y => y.Id == x.InventoryId);
+                }
+
+                var product = new ProductDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Price = x.Price,
+                    ImageUrl = x.ImageUrl,
+                    Description = x.Description,
                     Category =
                         new CategoryDto
                         {
-                            Id = x.Source.Category != null ? x.Source.Category.Id : Guid.Empty,
-                            Name = x.Source.Category != null ? x.Source.Category.Name : string.Empty
+                            Id = x.Category != null ? x.Category.Id : Guid.Empty,
+                            Name = x.Category != null ? x.Category.Name : string.Empty
                         },
-                    Inventory =
-                        new InventoryDto
-                        {
-                            Id = x.Source.Inventory != null ? x.Source.Inventory.Id : Guid.Empty,
-                            Location = x.Source.Inventory != null ? x.Source.Inventory.Location : string.Empty,
-                            Website = x.Source.Inventory != null ? x.Source.Inventory.Website : string.Empty,
-                            Description = x.Source.Inventory != null ? x.Source.Inventory.Description : string.Empty
-                        }
-                })
-                .Where(x => x.Id != Guid.Empty)
-                .ToList();
+                };
 
-            var response = new SearchProductsResponse(
-                (int)(result.Total / request.PageSize) + 1,
-                result.Documents.Count,
-                items.ToArray(),
-                categoryTags.ToArray(),
-                inventoryTags.ToArray(),
-                (int)result.Took
-            );
+                if (inventory is null) return product;
 
-            return response;
+                product.Inventory = new InventoryDto
+                {
+                    Id = inventory.Id,
+                    Location = inventory.Location,
+                    Website = inventory.Website,
+                    Description = inventory.Description
+                };
+
+                return product;
+            });
+
+            var result = new SearchProductsResponse(
+                total,
+                request.Page,
+                items,
+                new List<SearchAggsByTagsDto>(), //TODO
+                new List<SearchAggsByTagsDto>(), //TODO
+                0);
+
+            return result;
         }
     }
 }
