@@ -29,6 +29,9 @@ namespace ProductCatalogService.Application.SearchProducts
         {
             await using var dbContext = _dbContextFactory.CreateDbContext();
 
+            var inventoryTags = new Dictionary<Guid, int>();
+            var categoryTags = new Dictionary<Guid, int>();
+
             var products = await dbContext.Products
                 .Include(x => x.Category)
                 .AsNoTracking()
@@ -38,19 +41,33 @@ namespace ProductCatalogService.Application.SearchProducts
                 .OrderBy(x => x.Name)
                 .ToListAsync(cancellationToken);
 
+            _ = products
+                .Select(x =>
+                {
+                    inventoryTags.TryAdd(x.InventoryId, 0);
+                    return x;
+                })
+                .ToList();
+
+            _ = products
+                .Select(x =>
+                {
+                    categoryTags.TryAdd(x.CategoryId, 0);
+                    return x;
+                })
+                .ToList();
+
             var total = await dbContext.Products.AsNoTracking()
                 .CountAsync(x => !x.IsDeleted, cancellationToken: cancellationToken);
 
             var inventories = await _inventoryGateway.GetInventoryListAsync(cancellationToken: cancellationToken);
+            var inventoryWithIndex = ReverseInventory(inventories);
+
+            var categories = products.Select(x => new CategoryDto {Id = x.Category.Id, Name = x.Category.Name});
+            var categoryWithIndex = ReverseCategory(categories);
 
             var items = products.Select(x =>
             {
-                InventoryDto? inventory = null;
-                if (inventories.Any())
-                {
-                    inventory = inventories.First(y => y.Id == x.InventoryId);
-                }
-
                 var product = new ProductDto
                 {
                     Id = x.Id,
@@ -58,15 +75,19 @@ namespace ProductCatalogService.Application.SearchProducts
                     Price = x.Price,
                     ImageUrl = x.ImageUrl,
                     Description = x.Description,
-                    Category =
-                        new CategoryDto
-                        {
-                            Id = x.Category != null ? x.Category.Id : Guid.Empty,
-                            Name = x.Category != null ? x.Category.Name : string.Empty
-                        },
+                    Category = new CategoryDto {Id = x.Category.Id, Name = x.Category.Name}
                 };
 
-                if (inventory is null) return product;
+                InventoryDto? inventory = default;
+                if (inventories.Any())
+                {
+                    inventory = inventories.FirstOrDefault(y => y.Id == x.InventoryId);
+                }
+
+                if (inventory is default(InventoryDto)) return product;
+
+                categoryTags[x.CategoryId] = categoryTags[x.CategoryId] + 1;
+                inventoryTags[inventory.Id] = inventoryTags[inventory.Id] + 1;
 
                 product.Inventory = new InventoryDto
                 {
@@ -82,12 +103,40 @@ namespace ProductCatalogService.Application.SearchProducts
             var result = new SearchProductsResponse(
                 total,
                 request.Page,
-                items,
-                new List<SearchAggsByTagsDto>(), //TODO
-                new List<SearchAggsByTagsDto>(), //TODO
+                items.ToList(),
+                new List<SearchAggsByTagsDto>(inventoryTags.Select(x =>
+                    new SearchAggsByTagsDto(inventoryWithIndex[x.Key].Location, x.Value))),
+                new List<SearchAggsByTagsDto>(categoryTags.Select(x =>
+                    new SearchAggsByTagsDto(categoryWithIndex[x.Key].Name, x.Value))),
                 0);
 
             return result;
+        }
+
+        private static IDictionary<Guid, InventoryDto> ReverseInventory(IEnumerable<InventoryDto> inventories)
+        {
+            var output = new Dictionary<Guid, InventoryDto>();
+            _ = inventories.Select(x =>
+                {
+                    output.TryAdd(x.Id, x);
+                    return x;
+                })
+                .ToList();
+
+            return output;
+        }
+
+        private static IDictionary<Guid, CategoryDto> ReverseCategory(IEnumerable<CategoryDto> categories)
+        {
+            var output = new Dictionary<Guid, CategoryDto>();
+            _ = categories.Select(x =>
+                {
+                    output.TryAdd(x.Id, x);
+                    return x;
+                })
+                .ToList();
+
+            return output;
         }
     }
 }

@@ -48,7 +48,7 @@ const Home: React.FC<IProps> = props => {
   }
 
   useEffect(() => {
-    fetchData(1, 1130)
+    fetchData(1, 3000)
   }, [state.isProductsLoaded, fetchData])
 
   return (
@@ -58,7 +58,7 @@ const Home: React.FC<IProps> = props => {
           <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
             <Filter
               onPriceFilterChange={onPriceFilterChange}
-              initPrice={1130}
+              initPrice={3000}
               maxPrice={10000}
               categoryTags={categoryTags}
               inventoryTags={inventoryTags}
