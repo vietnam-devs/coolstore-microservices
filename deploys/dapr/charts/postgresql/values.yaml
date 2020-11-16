@@ -1,0 +1,15 @@
+postgresqlUsername: postgres
+postgresqlDatabase: postgres
+postgresqlPassword: P@ssw0rd
+
+persistence:
+  enabled: true
+  existingClaim: postgresql-pvc
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 256Mi
+  requests:
+    cpu: 300m
+    memory: 256Mi

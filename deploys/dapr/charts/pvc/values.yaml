@@ -1,0 +1,7 @@
+postgresql:
+  enabled: true
+  storageClassName: default
+
+redis:
+  enabled: true
+  storageClassName: default
