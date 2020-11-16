@@ -40,7 +40,7 @@ Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://de
       <td><b>Service-to-service invocation</b></td>
       <td>
          - User clicks to the detail product<br>
-         - Populate product information for shopping cart items
+         - Populate product information for shopping cart items<br>
          - Order gets detail information of buyer
       </td>
       <td>productcatalogapp, inventoryapp, shoppingcartapp, identityapp</td>
@@ -82,11 +82,15 @@ Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://de
 
 ### Home page
 
-![home-page](assets/images/ui-screen-1.PNG?raw=true)
+![home-page](assets/dapr/ui_screen_1.png?raw=true)
 
 ### Shopping Cart page
 
-![cart-page](assets/images/ui-screen-2.PNG?raw=true)
+![cart-page](assets/dapr/ui_screen_2.png?raw=true)
+
+### Order page
+
+![order-page](assets/dapr/ui_screen_3.png?raw=true)
 
 ## Try it
 

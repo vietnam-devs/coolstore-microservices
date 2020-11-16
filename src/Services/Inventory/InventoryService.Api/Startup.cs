@@ -1,6 +1,7 @@
 using System;
 using InventoryService.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,9 @@ namespace InventoryService.Api
                 .AddCustomDaprClient()
                 .AddControllers()
                 .AddDapr();
+
+            services.AddHealthChecks()
+                .AddNpgSql(Config.GetConnectionString("postgres"));
 
             services.AddCustomAuth<Anchor>(Config, options =>
             {
@@ -76,6 +80,10 @@ namespace InventoryService.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions {Predicate = _ => true});
+                endpoints.MapHealthChecks("/liveness",
+                    new HealthCheckOptions {Predicate = r => r.Name.Contains("self")});
+
                 endpoints.MapControllers();
                 endpoints.MapSubscribeHandler();
             });

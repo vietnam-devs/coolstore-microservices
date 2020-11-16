@@ -7,6 +7,7 @@ using IdentityServer4.Services;
 using IdentityServerHost.Quickstart.UI;
 using IdentityService.Custom;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -69,6 +70,8 @@ namespace IdentityService
                     options.ClientSecret = "copy client secret from Google here";
                 });
 
+            services.AddHealthChecks();
+
             services.AddScoped<IProfileService, ProfileService>();
         }
 
@@ -87,6 +90,10 @@ namespace IdentityService
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions {Predicate = _ => true});
+                endpoints.MapHealthChecks("/liveness",
+                    new HealthCheckOptions {Predicate = r => r.Name.Contains("self")});
+
                 endpoints.MapDefaultControllerRoute();
             });
         }

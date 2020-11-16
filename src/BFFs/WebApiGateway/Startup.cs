@@ -24,6 +24,8 @@ namespace WebApiGateway
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("api", policy =>
@@ -35,6 +37,10 @@ namespace WebApiGateway
             var isRunOnTye = Config.IsRunOnTye("inventoryapp");
 
             // inventory
+            var inventoryUrl = isRunOnTye
+                ? $"{Config.GetServiceUri("inventoryapp")?.AbsoluteUri}"
+                : Config.GetValue<string>("Services:inventoryapp");
+
             var invRoute = new ProxyRoute
             {
                 RouteId = "inv",
@@ -57,15 +63,17 @@ namespace WebApiGateway
                     {
                         "inv-svc-cluster/destination1", new Destination
                         {
-                            Address = isRunOnTye
-                                ? $"{Config.GetServiceUri("inventoryapp")?.AbsoluteUri}"
-                                : Config.GetValue<string>("Services:inventoryapp")
+                            Address = inventoryUrl
                         }
                     }
                 }
             };
 
             // product catalog
+            var productCatalogUrl = isRunOnTye
+                ? $"{Config.GetServiceUri("productcatalogapp")?.AbsoluteUri}"
+                : Config.GetValue<string>("Services:productcatalogapp");
+
             var prodRoute = new ProxyRoute
             {
                 RouteId = "prod",
@@ -88,15 +96,17 @@ namespace WebApiGateway
                     {
                         "prod-svc-cluster/destination1", new Destination
                         {
-                            Address = isRunOnTye
-                                ? $"{Config.GetServiceUri("productcatalogapp")?.AbsoluteUri}"
-                                : Config.GetValue<string>("Services:productcatalogapp")
+                            Address = productCatalogUrl
                         }
                     }
                 }
             };
 
             // shopping cart
+            var shoppingCartUrl = isRunOnTye
+                ? $"{Config.GetServiceUri("shoppingcartapp")?.AbsoluteUri}"
+                : Config.GetValue<string>("Services:shoppingcartapp");
+
             var cartRoute = new ProxyRoute
             {
                 RouteId = "cart",
@@ -119,9 +129,7 @@ namespace WebApiGateway
                     {
                         "cart-svc-cluster/destination1", new Destination
                         {
-                            Address = isRunOnTye
-                                ? $"{Config.GetServiceUri("shoppingcartapp")?.AbsoluteUri}"
-                                : Config.GetValue<string>("Services:shoppingcartapp")
+                            Address = shoppingCartUrl
                         }
                     }
                 }
@@ -129,6 +137,10 @@ namespace WebApiGateway
 
 
             // sale
+            var saleUrl = isRunOnTye
+                ? $"{Config.GetServiceUri("saleapp")?.AbsoluteUri}"
+                : Config.GetValue<string>("Services:saleapp");
+
             var saleRoute = new ProxyRoute
             {
                 RouteId = "sale",
@@ -151,9 +163,7 @@ namespace WebApiGateway
                     {
                         "sale-svc-cluster/destination1", new Destination
                         {
-                            Address = isRunOnTye
-                                ? $"{Config.GetServiceUri("saleapp")?.AbsoluteUri}"
-                                : Config.GetValue<string>("Services:saleapp")
+                            Address = saleUrl
                         }
                     }
                 }
@@ -179,6 +189,16 @@ namespace WebApiGateway
             services.AddReverseProxy()
                 .LoadFromMemory(routes, clusters);
 
+            services.AddHealthChecks()
+                .AddUrlGroup(new Uri(System.IO.Path.Combine(inventoryUrl, "healthz")),
+                    name: "inventoryapp-check", tags: new[] { "inventoryapp" })
+                .AddUrlGroup(new Uri(System.IO.Path.Combine(productCatalogUrl, "healthz")),
+                    name: "productcatalogapp-check", tags: new[] { "productcatalogapp" })
+                .AddUrlGroup(new Uri(System.IO.Path.Combine(shoppingCartUrl, "healthz")),
+                    name: "shoppingcartapp-check", tags: new[] { "shoppingcartapp" })
+                .AddUrlGroup(new Uri(System.IO.Path.Combine(saleUrl, "healthz")),
+                    name: "saleapp-check", tags: new[] { "saleapp" });
+
             services.AddCustomOtelWithZipkin(Config,
                 o =>
                 {
@@ -201,6 +221,15 @@ namespace WebApiGateway
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/healthz",
+                    new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions {Predicate = _ => true});
+
+                endpoints.MapHealthChecks("/liveness",
+                    new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+                    {
+                        Predicate = r => r.Name.Contains("self")
+                    });
+
                 endpoints.MapGet("/", async context =>
                 {
                     context.Response.ContentType = "text/html";

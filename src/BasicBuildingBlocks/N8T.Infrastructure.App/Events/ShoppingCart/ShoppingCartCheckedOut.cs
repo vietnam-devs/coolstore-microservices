@@ -5,11 +5,6 @@ namespace N8T.Infrastructure.App.Events.ShoppingCart
 {
     public class ShoppingCartCheckedOut : DomainEventBase
     {
-        // public ShoppingCartCheckedOut(CartDto cart)
-        // {
-        //     Cart = cart;
-        // }
-
-        public CartDto Cart { get; set; }
+        public CartDto Cart { get; set; } = default!;
     }
 }
