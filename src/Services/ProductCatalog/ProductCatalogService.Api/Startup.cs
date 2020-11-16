@@ -33,9 +33,6 @@ namespace ProductCatalogService.Api
         {
             var isRunOnTye = Config.IsRunOnTye("identityservice");
 
-            services.AddHealthChecks()
-                .AddNpgSql(Config.GetConnectionString("postgres"));
-
             services.AddHttpContextAccessor()
                 .AddCustomMediatR<Anchor>()
                 .AddCustomValidators<Anchor>()
@@ -43,6 +40,9 @@ namespace ProductCatalogService.Api
                 .AddCustomDaprClient()
                 .AddControllers()
                 .AddDapr();
+
+            services.AddHealthChecks()
+                .AddNpgSql(Config.GetConnectionString("postgres"));
 
             services.AddCustomAuth<Anchor>(Config, options =>
             {
@@ -82,12 +82,9 @@ namespace ProductCatalogService.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions {
-                    Predicate = _ => true
-                });
-                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions {
-                    Predicate = r => r.Name.Contains("self")
-                });
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions {Predicate = _ => true});
+                endpoints.MapHealthChecks("/liveness",
+                    new HealthCheckOptions {Predicate = r => r.Name.Contains("self")});
 
                 endpoints.MapControllers();
                 endpoints.MapSubscribeHandler();

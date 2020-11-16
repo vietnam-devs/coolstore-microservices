@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +38,9 @@ namespace SaleService.Api
                 .AddCustomDaprClient()
                 .AddControllers()
                 .AddDapr();
+
+            services.AddHealthChecks()
+                .AddNpgSql(Config.GetConnectionString("postgres"));
 
             services.AddCustomAuth<Anchor>(Config, options =>
             {
@@ -81,6 +85,10 @@ namespace SaleService.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions {Predicate = _ => true});
+                endpoints.MapHealthChecks("/liveness",
+                    new HealthCheckOptions {Predicate = r => r.Name.Contains("self")});
+
                 endpoints.MapControllers();
                 endpoints.MapSubscribeHandler();
             });

@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +37,8 @@ namespace ShoppingCartService.Api
                 .AddCustomDaprClient()
                 .AddControllers()
                 .AddDapr();
+
+            services.AddHealthChecks();
 
             services.AddCustomAuth<Anchor>(Config, options =>
             {
@@ -78,6 +81,10 @@ namespace ShoppingCartService.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions {Predicate = _ => true});
+                endpoints.MapHealthChecks("/liveness",
+                    new HealthCheckOptions {Predicate = r => r.Name.Contains("self")});
+
                 endpoints.MapControllers();
                 endpoints.MapSubscribeHandler();
             });
