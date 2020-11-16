@@ -26,6 +26,7 @@ serviceAccount:
 podAnnotations: {
   dapr.io/enabled: "true",
   dapr.io/app-id: "webapigatewayapp",
+  dapr.io/log-as-json: "true",
   dapr.io/app-port: "5000"
 }
 
