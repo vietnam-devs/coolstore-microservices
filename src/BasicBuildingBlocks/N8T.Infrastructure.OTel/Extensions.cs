@@ -14,7 +14,19 @@ namespace N8T.Infrastructure.OTel
             IConfiguration config, Action<ZipkinExporterOptions> configureZipkin = null)
         {
             services.AddOpenTelemetryTracing(b => b
-                .AddAspNetCoreInstrumentation(o => o.EnableGrpcAspNetCoreSupport = true)
+                .AddAspNetCoreInstrumentation(o =>
+                {
+                    o.EnableGrpcAspNetCoreSupport = true;
+                    o.Filter = (httpContext) =>
+                    {
+                        if (httpContext.Request.Path.HasValue && (httpContext.Request.Path.Value.Contains("/healthz")
+                            || httpContext.Request.Path.Value.Contains("/liveness")))
+                        {
+                            return false;
+                        }
+                        return true;
+                    };
+                })
                 .AddHttpClientInstrumentation()
                 .AddGrpcClientInstrumentation()
                 .AddSqlClientInstrumentation(o => o.SetTextCommandContent = true)
