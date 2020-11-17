@@ -7,6 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using N8T.Infrastructure.Logging;
 using N8T.Infrastructure.Validator;
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
+using Serilog.Sinks.SystemConsole.Themes;
 
 namespace N8T.Infrastructure
 {
@@ -76,6 +80,25 @@ namespace N8T.Infrastructure
             var model = new TModel();
             configuration.GetSection(section).Bind(model);
             return model;
+        }
+
+        [DebuggerStepThrough]
+        public static ILogger ConfigureLogger(this ILogger logger)
+        {
+            logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
+                .Enrich.FromLogContext()
+                .WriteTo.Console(
+                    outputTemplate:
+                    "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                    theme: AnsiConsoleTheme.Code)
+                .CreateLogger();
+
+            return logger;
         }
     }
 }
