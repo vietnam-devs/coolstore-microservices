@@ -11,7 +11,8 @@ namespace IdentityServerHost.Quickstart.UI
     {
         public override void OnResultExecuting(ResultExecutingContext context)
         {
-            var result = context.Result;
+            // for demo only
+            /*var result = context.Result;
             if (result is ViewResult)
             {
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
@@ -50,7 +51,7 @@ namespace IdentityServerHost.Quickstart.UI
                 {
                     context.HttpContext.Response.Headers.Add("Referrer-Policy", referrer_policy);
                 }
-            }
+            }*/
         }
     }
 }

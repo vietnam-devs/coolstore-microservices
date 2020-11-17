@@ -25,7 +25,7 @@ namespace SaleService.Application.UpdateOrderStatus
 
         public async Task<bool> Handle(UpdateOrderStatusQuery request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("{Prefix} Handle ProcessOrderQuery", nameof(UpdateOrderStatusHandler));
+            _logger.LogInformation("{Prefix} Handle UpdateOrderStatusQuery", nameof(UpdateOrderStatusHandler));
 
             await using var dbContext = _dbContextFactory.CreateDbContext();
 
