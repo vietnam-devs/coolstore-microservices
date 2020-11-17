@@ -348,7 +348,7 @@ deploys/out/**/*.yaml
 
 # web host
 src/web/shrinkwrap.yaml
-**/dist/
+**/src/web/dist/
 
 **/*/*.env
 
