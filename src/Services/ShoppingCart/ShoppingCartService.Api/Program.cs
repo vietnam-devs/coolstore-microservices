@@ -1,24 +1,14 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using N8T.Infrastructure;
+using N8T.Infrastructure.Helpers;
 
 namespace ShoppingCartService.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            Activity.DefaultIdFormat = ActivityIdFormat.W3C;
-            Activity.ForceDefaultIdFormat = true;
-
-            CreateHostBuilder(args).Build().Run();
+            var (hostBuilder, isRunOnTye) = HostHelper.CreateHostBuilder<Startup>(args);
+            return hostBuilder.Run(isRunOnTye);
         }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
     }
 }

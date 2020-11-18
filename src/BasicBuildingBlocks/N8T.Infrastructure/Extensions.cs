@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using N8T.Infrastructure.Logging;
 using N8T.Infrastructure.Validator;
 using Serilog;
@@ -82,23 +83,29 @@ namespace N8T.Infrastructure
             return model;
         }
 
-        [DebuggerStepThrough]
-        public static ILogger ConfigureLogger(this ILogger logger)
+        public static int Run(this IHostBuilder hostBuilder, bool isRunOnTye = true)
         {
-            logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
-                .MinimumLevel.Override("System", LogEventLevel.Warning)
-                .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                .WriteTo.Console(
-                    outputTemplate:
-                    "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
-                    theme: AnsiConsoleTheme.Code)
-                .CreateLogger();
+            try
+            {
+                hostBuilder.Build().Run();
+                return 0;
+            }
+            catch (Exception exception)
+            {
+                if (isRunOnTye)
+                {
+                    Log.Fatal(exception, "Host terminated unexpectedly");
+                }
 
-            return logger;
+                return 1;
+            }
+            finally
+            {
+                if (isRunOnTye)
+                {
+                    Log.CloseAndFlush();
+                }
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ using N8T.Infrastructure;
 using N8T.Infrastructure.Auth;
 using N8T.Infrastructure.Dapr;
 using N8T.Infrastructure.EfCore;
+using N8T.Infrastructure.Logging;
 using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
@@ -28,6 +29,7 @@ namespace SaleService.Api
 
         private IConfiguration Config { get; }
         private IWebHostEnvironment Env { get; }
+        private bool IsRunOnTye => Config.IsRunOnTye();
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -44,14 +46,12 @@ namespace SaleService.Api
 
             services.AddCustomAuth<Anchor>(Config, options =>
             {
-                var isRunOnTye = Config.IsRunOnTye("identityservice");
-
-                options.Authority = isRunOnTye
-                    ? Config.GetServiceUri("identityservice")?.AbsoluteUri
+                options.Authority = IsRunOnTye
+                    ? Config.GetServiceUri("identityapp")?.AbsoluteUri
                     : options.Authority;
 
-                options.Audience = isRunOnTye
-                    ? $"{Config.GetServiceUri("identityservice")?.AbsoluteUri.TrimEnd('/')}/resources"
+                options.Audience = IsRunOnTye
+                    ? $"{Config.GetServiceUri("identityapp")?.AbsoluteUri.TrimEnd('/')}/resources"
                     : options.Audience;
             });
 
@@ -61,9 +61,7 @@ namespace SaleService.Api
             services.AddCustomOtelWithZipkin(Config,
                 o =>
                 {
-                    var isRunOnTye = Config.IsRunOnTye("zipkin");
-                    
-                    o.Endpoint = isRunOnTye
+                    o.Endpoint = IsRunOnTye
                         ? new Uri($"http://{Config.GetServiceUri("zipkin")?.DnsSafeHost}:9411/api/v2/spans")
                         : o.Endpoint;
                 });
@@ -92,6 +90,8 @@ namespace SaleService.Api
                 endpoints.MapControllers();
                 endpoints.MapSubscribeHandler();
             });
+
+            app.ApplicationServices.CreateLoggerConfiguration(IsRunOnTye);
         }
     }
 }

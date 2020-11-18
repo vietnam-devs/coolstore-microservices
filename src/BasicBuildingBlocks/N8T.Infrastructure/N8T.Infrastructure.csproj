@@ -40,6 +40,7 @@
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.1-dev-00188" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.2-dev-10281" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00839" />
+    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.5.0-alpha0003" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0-dev-00905" />
     <PackageReference Include="System.Linq.Async" Version="5.0.0" />
     <PackageReference Include="ValueTaskSupplement" Version="1.1.0" />

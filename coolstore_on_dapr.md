@@ -1,8 +1,8 @@
 # Sdks & Toolings
 
-> [dotnet](dot.net) --version 5.0.100-rc.2.20479.15
+> [dotnet](dot.net) --version 5.0.100
 
-> [dapr](https://github.com/dapr/dapr) --version CLI version: 0.11.0 Runtime version: 0.11.3
+> [dapr](https://github.com/dapr/dapr) --version CLI version: 1.0.0-rc.2 Runtime version: 0.11.3
 
 > [osm](https://github.com/openservicemesh/osm) version Version: v0.3.0; Commit: c91c782; Date: 2020-08-12-21:49
 
