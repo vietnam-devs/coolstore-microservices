@@ -5,6 +5,10 @@
 
 CoolStore Website is a containerised microservices application consisting of services based on .NET Core running on Dapr. It demonstrates how to wire up small microservices into a larger application using microservice architectural principals.
 
+> This repository based on some of the old libraries. So be careful if you use it in your production environment!!!
+>
+> We are working on [practical-clean-ddd](https://github.com/thangchung/practical-clean-ddd) for the new version of building the .NET apps with domain-driven design, clean architecture with Docker, Kubernetes, Tye, and Dapr in a practical way 👍
+
 Read [documentation](https://vietnam-devs.github.io/coolstore-microservices) for more information.
 
 The business domain is inspired from [CoolStore project](https://github.com/jbossdemocentral/coolstore-microservice) by [JBoss Demo Central](https://github.com/jbossdemocentral) and [Red Hat Demo Central](https://gitlab.com/redhatdemocentral).
