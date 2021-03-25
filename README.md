@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/vietnam-devs/coolstore-microservices)
+
 # CoolStore Web Application - :ferris_wheel: Modern Application on Dapr and Tye :sailboat:
 
 ![Travis (.org)](https://travis-ci.org/vietnam-devs/coolstore-microservices.svg?branch=master)
