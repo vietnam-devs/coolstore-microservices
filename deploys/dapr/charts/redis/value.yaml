@@ -1,0 +1,5 @@
+cluster:
+  enabled: false
+
+persistence:
+  existingClaim: redis-pvc

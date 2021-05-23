@@ -8,7 +8,7 @@ services:
   # Web - Reactjs
   ############################
   web:
-    image: vndg/web:latest
+    image: ${REGISTRY:-vndg}/web:${TAG:-latest}
     build:
       context: .
       dockerfile: src/web/Dockerfile
@@ -21,7 +21,7 @@ services:
   # webapigateway app + Dapr sidecar
   #######################################
   webapigatewayapp:
-    image: vndg/webapigatewayapp:latest
+    image: ${REGISTRY:-vndg}/webapigatewayapp:${TAG:-latest}
     build:
       context: .
       dockerfile: src/BFFs/WebApiGateway/Dockerfile
@@ -52,7 +52,7 @@ services:
   # identity app + Dapr sidecar
   #######################################
   identityapp:
-    image: vndg/identityapp:latest
+    image: ${REGISTRY:-vndg}/identityapp:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Identity/IdentityService/Dockerfile
@@ -80,7 +80,7 @@ services:
   # inventory app + Dapr sidecar
   #######################################
   inventoryapp:
-    image: vndg/inventoryapp:latest
+    image: ${REGISTRY:-vndg}/inventoryapp:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Inventory/InventoryService.Api/Dockerfile
@@ -109,7 +109,7 @@ services:
   # productcatalog app + Dapr sidecar
   #################################################
   productcatalogapp:
-    image: vndg/productcatalogapp:latest
+    image: ${REGISTRY:-vndg}/productcatalogapp:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/ProductCatalog/ProductCatalogService.Api/Dockerfile
@@ -138,7 +138,7 @@ services:
   # shoppingcart app + Dapr sidecar
   #################################################
   shoppingcartapp:
-    image: vndg/shoppingcartapp:latest
+    image: ${REGISTRY:-vndg}/shoppingcartapp:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/ShoppingCart/ShoppingCartService.Api/Dockerfile
@@ -167,7 +167,7 @@ services:
   # sale app + Dapr sidecar
   #################################################
   saleapp:
-    image: vndg/saleapp:latest
+    image: ${REGISTRY:-vndg}/saleapp:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Sale/SaleService.Api/Dockerfile

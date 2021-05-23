@@ -61,14 +61,18 @@ namespace IdentityService
                     RedirectUris =
                     {
                         "http://localhost:3000/auth/callback",
-                        "http://localhost:3000/auth/silent-renew"
+                        "http://localhost:3000/auth/silent-renew",
+                        "http://cool-store.ml/auth/callback",
+                        "http://cool-store.ml/auth/silent-renew"
                     },
                     PostLogoutRedirectUris =
                     {
+                        "http://cool-store.ml",
                         "http://localhost:3000"
                     },
                     AllowedCorsOrigins =
                     {
+                        "http://cool-store.ml",
                         "http://localhost:3000"
                     },
                     AllowedScopes = { "openid", "profile", "scope2" }
