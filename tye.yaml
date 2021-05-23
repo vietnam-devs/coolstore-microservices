@@ -25,12 +25,6 @@ services:
   bindings:
   - port: 6379
 
-- name: placement
-  image: daprio/dapr
-  args: ./placement
-  bindings:
-  - port: 50005
-
 - name: webapigatewayapp
   project: src/BFFs/WebApiGateway/WebApiGateway.csproj
   bindings:
@@ -54,8 +48,6 @@ services:
   env:
   - name: ConnectionStrings__postgres
     value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
-  - name: ElasticSearch__Url
-    value: http://localhost:9200
   bindings:
   - port: 5003
 
@@ -73,8 +65,8 @@ services:
   - port: 5005
 
 - name: web
-  # dockerFile: src/web/Dockerfile.tye
-  image: web
+  dockerFile: src/web/Dockerfile.tye
+  # image: web
   env:
   - name: PORT
     value: 80
