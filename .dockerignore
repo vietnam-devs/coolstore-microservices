@@ -19,7 +19,6 @@ README
 **/bower_components/
 **/appsettings.localhost.json
 **/build/
-**/dist/
 deployment
 assets
 docs
@@ -28,3 +27,4 @@ deploys/iac/
 !**/web/build/
 !**/netcorekit/build/
 .logs/
+**/src/web/dist/
