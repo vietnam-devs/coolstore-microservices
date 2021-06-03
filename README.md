@@ -102,7 +102,7 @@ Check out my [medium](https://medium.com/@thangchung), or my [dev.to](https://de
 Make sure you have [`dapr`](https://docs.dapr.io/getting-started/install-dapr/) and [`tye`](https://github.com/dotnet/tye/blob/master/docs/getting_started.md) installed on your machine!
 
 - `tye` version: 0.7.0-alpha.21257.1+0251fb2bb867ce37d96818a8034c0a05b9f93dca
-- `dapr` version: 1.1.0
+- `dapr` version: 1.2.0
 
 ### Only wanna see wth is it?
 

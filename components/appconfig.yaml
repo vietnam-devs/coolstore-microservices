@@ -4,8 +4,6 @@ metadata:
   name: appconfig
 spec:
   tracing:
-    enabled: true
-    exporterType: zipkin
-    exporterAddress: "http://zipkin:9411/api/v2/spans"
-    expandParams: true
-    includeBody: true
+    samplingRate: "1"
+    zipkin:
+      endpointAddress: "http://zipkin:9411/api/v2/spans"

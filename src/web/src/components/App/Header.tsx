@@ -82,7 +82,7 @@ const Header: React.FC<IProps> = ({ history }) => {
             </h1>
             <p className="lead">
               A modern store uses technologies such as .NET Core, Docker,
-              Kubernetes, Dapr, OSM, Tye etc.
+              Kubernetes, Dapr, Tye etc.
             </p>
           </div>
         </Container>
