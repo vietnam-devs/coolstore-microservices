@@ -13,6 +13,8 @@ services:
 
 - name: postgres
   image:  postgres
+  tags:
+    - infra
   env:
   - name: POSTGRES_PASSWORD
     value: "P@ssw0rd"
@@ -20,23 +22,24 @@ services:
   - port: 5432
     connectionString: Server=${host};Port=${port};User Id=postgres;Password=${env:POSTGRES_PASSWORD};
 
-- name: redis
-  image: redis
-  bindings:
-  - port: 6379
-
 - name: webapigatewayapp
   project: src/BFFs/WebApiGateway/WebApiGateway.csproj
+  tags:
+    - backend
   bindings:
   - port: 5000
 
 - name: identityapp
   project: src/Services/Identity/IdentityService/IdentityService.csproj
+  tags:
+    - backend
   bindings:
   - port: 5001
 
 - name: inventoryapp
   project: src/Services/Inventory/InventoryService.Api/InventoryService.Api.csproj
+  tags:
+    - backend
   env:
   - name: ConnectionStrings__postgres
     value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
@@ -45,6 +48,8 @@ services:
 
 - name: productcatalogapp
   project: src/Services/ProductCatalog/ProductCatalogService.Api/ProductCatalogService.Api.csproj
+  tags:
+    - backend
   env:
   - name: ConnectionStrings__postgres
     value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
@@ -53,11 +58,15 @@ services:
 
 - name: shoppingcartapp
   project: src/Services/ShoppingCart/ShoppingCartService.Api/ShoppingCartService.Api.csproj
+  tags:
+    - backend
   bindings:
   - port: 5004
 
 - name: saleapp
   project: src/Services/Sale/SaleService.Api/SaleService.Api.csproj
+  tags:
+    - backend
   env:
   - name: ConnectionStrings__postgres
     value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
@@ -67,6 +76,8 @@ services:
 - name: web
   dockerFile: src/web/Dockerfile.tye
   # image: web
+  tags:
+    - frontend
   env:
   - name: PORT
     value: 80

@@ -1,7 +1,7 @@
 postgresql:
   enabled: true
-  storageClassName: default
+  # storageClassName: standard
 
 redis:
   enabled: true
-  storageClassName: default
+  # storageClassName: standard

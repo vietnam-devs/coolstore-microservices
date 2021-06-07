@@ -10,7 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: "coolstore-pullimage"
 nameOverride: ""
 fullnameOverride: "identityapp"
 
@@ -27,7 +28,8 @@ podAnnotations: {
   dapr.io/enabled: "true",
   dapr.io/app-id: "identityapp",
   dapr.io/log-as-json: "true",
-  dapr.io/app-port: "5001"
+  dapr.io/app-port: "5001",
+  dapr.io/config: "appconfig",
 }
 
 podSecurityContext: {}

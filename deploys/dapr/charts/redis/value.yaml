@@ -3,3 +3,8 @@ cluster:
 
 persistence:
   existingClaim: redis-pvc
+
+architecture: standalone
+
+auth:
+  password: NlzIZvo8s2

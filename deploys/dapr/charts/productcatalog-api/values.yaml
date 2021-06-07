@@ -10,7 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: "coolstore-pullimage"
 nameOverride: ""
 fullnameOverride: "productcatalogapp"
 
@@ -27,7 +28,8 @@ podAnnotations: {
   dapr.io/enabled: "true",
   dapr.io/app-id: "productcatalogapp",
   dapr.io/log-as-json: "true",
-  dapr.io/app-port: "5003"
+  dapr.io/app-port: "5003",
+  dapr.io/config: "appconfig"
 }
 
 podSecurityContext: {}

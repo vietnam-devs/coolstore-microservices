@@ -5,7 +5,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgresql-pvc
 spec:
+  {{ if.Values.postgresql.storageClassName }}
   storageClassName: {{ .Values.postgresql.storageClassName }}
+  {{ end }}
   accessModes:
     - ReadWriteOnce
   resources:
@@ -20,7 +22,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: redis-pvc
 spec:
+  {{ if.Values.redis.storageClassName }}
   storageClassName: {{ .Values.redis.storageClassName }}
+  {{ end }}
   accessModes:
     - ReadWriteOnce
   resources:
