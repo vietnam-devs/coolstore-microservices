@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -16,11 +17,13 @@ namespace SaleService.Application.CreateOrder
     {
         private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
         private readonly IUserGateway _userGateway;
+        private readonly IOrderValidationService _orderValidationService;
 
-        public CreateOrderHandler(IDbContextFactory<MainDbContext> dbContextFactory, IUserGateway userGateway)
+        public CreateOrderHandler(IDbContextFactory<MainDbContext> dbContextFactory, IUserGateway userGateway, IOrderValidationService orderValidationService)
         {
             _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
             _userGateway = userGateway ?? throw new ArgumentNullException(nameof(userGateway));
+            _orderValidationService = orderValidationService ?? throw new ArgumentNullException(nameof(orderValidationService));
         }
 
         public async Task<bool> Handle(CreateOrderQuery request, CancellationToken cancellationToken)
@@ -30,13 +33,27 @@ namespace SaleService.Application.CreateOrder
             var cart = request.Cart;
             if (cart is null)
             {
-                throw new CoreException("Didn't find any cart.");
+                throw new CoreException("Couldn't find any cart information.");
             }
 
             var user = await _userGateway.GetUserInfo(cart.UserId, cancellationToken);
             if (user is null)
             {
                 throw new CoreException($"Couldn't find any user with id={cart.UserId}.");
+            }
+
+            var inventoryIds =  cart.Items.Select(x => x.InventoryId).Distinct();
+            var isInventoryValid = await _orderValidationService.ValidateInventoriesAsync(inventoryIds, cancellationToken);
+            if (!isInventoryValid)
+            {
+                throw new Exception("Invalid inventories in orders!");
+            }
+
+            var productIds = cart.Items.Select(x => x.ProductId).Distinct();
+            var isProductValid = await _orderValidationService.ValidateProductsAsync(productIds, cancellationToken);
+            if (!isProductValid)
+            {
+                throw new Exception("Invalid products in orders!");
             }
 
             var order = new Order

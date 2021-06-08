@@ -14,8 +14,10 @@ using N8T.Infrastructure.OTel;
 using N8T.Infrastructure.Tye;
 using N8T.Infrastructure.Validator;
 using SaleService.Domain.Gateway;
+using SaleService.Domain.Model;
 using SaleService.Infrastructure.Data;
 using SaleService.Infrastructure.Gateway;
+using SaleService.Infrastructure.Services;
 
 namespace SaleService.Api
 {
@@ -57,6 +59,9 @@ namespace SaleService.Api
 
             services.AddScoped<ISecurityContextAccessor, SecurityContextAccessor>();
             services.AddScoped<IUserGateway, UserGateway>();
+            services.AddScoped<IInventoryGateway, InventoryGateway>();
+            services.AddScoped<IProductCatalogGateway, ProductCatalogGateway>();
+            services.AddScoped<IOrderValidationService, OrderValidationService>();
 
             services.AddCustomOtelWithZipkin(Config,
                 o =>
