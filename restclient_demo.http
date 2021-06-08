@@ -1,0 +1,94 @@
+@host = "http://localhost:3500/v1.0"
+@contentType = "application/json"
+
+###
+GET {{host}}/invoke/productcatalogapp/method/info HTTP/1.1
+content-type: {{contentType}}
+
+###
+POST {{host}}/invoke/productcatalogapp/method/get-product-by-id HTTP/1.1
+content-type: {{contentType}}
+
+{
+  "id":"ba16da71-c7dd-4eac-9ead-5c2c2244e69f"
+}
+
+###
+POST {{host}}/invoke/inventoryapp/method/get-inventories-by-ids HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "InventoryIds": [
+    ]
+}
+
+###
+POST {{host}}/state/statestore HTTP/1.1
+content-type: {{contentType}}
+
+[
+  {
+    "key": "shopping-cart-88421115",
+    "value": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "userId": null,
+        "cartItemTotal": 2147,
+        "cartItemPromoSavings": 0,
+        "shippingTotal": 0,
+        "shippingPromoSavings": 0,
+        "cartTotal": 2147,
+        "isCheckOut": false,
+        "items": [
+          {
+            "quantity": 150,
+            "price": 0,
+            "promoSavings": 0,
+            "productId": "fee1fc67-7469-4490-b418-47f4732de53f",
+            "productName": "Bag - Regular Kraft 20 Lb",
+            "productPrice": 2147,
+            "productDescription": "Open periph nerve biopsy",
+            "inventoryId": "b8b62196-6369-409d-b709-11c112dd023f",
+            "inventoryLocation": "Seattle",
+            "inventoryDescription": "This store sells food and beverage products"
+          }
+        ]
+    }
+  }
+]
+
+###
+GET {{host}}/state/statestore/shopping-cart-88421115 HTTP/1.1
+content-type: {{contentType}}
+
+###
+POST {{host}}/publish/pubsub/processing-order HTTP/1.1
+content-type: {{contentType}}
+
+{
+  "cart": {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "userId": "88421113",
+    "cartItemTotal": 2147,
+    "cartItemPromoSavings": 0,
+    "shippingTotal": 0,
+    "shippingPromoSavings": 0,
+    "cartTotal": 2147,
+    "isCheckOut": false,
+    "items": [
+      {
+        "quantity": 100,
+        "price": 0,
+        "promoSavings": 0,
+        "productId": "fee1fc67-7469-4490-b418-47f4732de53f",
+        "productName": "Bag - Regular Kraft 20 Lb",
+        "productPrice": 2147,
+        "productDescription": "Open periph nerve biopsy",
+        "productImagePath": "https://picsum.photos/1200/900?image=7",
+        "inventoryId": "b8b62196-6369-409d-b709-11c112dd023f",
+        "inventoryLocation": "Seattle",
+        "inventoryWebsite": "https://coolstore-sea.com",
+        "inventoryDescription": "This store sells food and beverage products"
+      }
+    ]
+  }
+}
