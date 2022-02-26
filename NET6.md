@@ -1,7 +1,7 @@
 # APIs
 
 ## Inventory (Rust)
-### Internal HTTP
+### Internal HTTP (Dapr)
 
 - POST: get-inventories-by-ids
   - Request: InventoryByIdsRequest, GetAvailabilityInventoriesQuery 
@@ -26,7 +26,7 @@
   - Request: GetDetailOfSpecificProductQuery 
   - Response: FlatProductDto
 
-### Internal HTTP
+### Internal HTTP (Dapr)
 
 - POST: get-products-by-ids
   - Request: ProductByIdsRequest, GetProductsByIdsQuery 
@@ -36,7 +36,7 @@
   - Request: ProductByIdRequest, GetProductsByIdsQuery 
   - Response: ProductDto
 
-## Shopping Cart (Golang)
+## Shopping Cart (.NET 6)
 ### Public HTTP
 
 - GET: api/carts

@@ -357,3 +357,6 @@ src/web/shrinkwrap.yaml
 
 .tye/
 .logs/
+
+# rust
+**/*/target

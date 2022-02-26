@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "api-gateway\Gateway.csproj", "{877CD350-E9A4-4B93-80BA-4E404CD15FB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "identity-server\IdentityServer.csproj", "{57F7994E-8425-4D53-B45D-58138026970D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{877CD350-E9A4-4B93-80BA-4E404CD15FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{877CD350-E9A4-4B93-80BA-4E404CD15FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{877CD350-E9A4-4B93-80BA-4E404CD15FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{877CD350-E9A4-4B93-80BA-4E404CD15FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F7994E-8425-4D53-B45D-58138026970D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F7994E-8425-4D53-B45D-58138026970D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F7994E-8425-4D53-B45D-58138026970D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F7994E-8425-4D53-B45D-58138026970D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

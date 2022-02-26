@@ -1,0 +1,15 @@
+###
+POST http://localhost:5002/get-inventory-by-id
+content-type: application/json
+
+{
+  "id": "5e9f8f8f-c8e0-4b3f-b8f8-f8f8f8f8f8f8"
+}
+
+###
+POST http://localhost:5002/get-inventories-by-ids
+content-type: application/json
+
+{
+ "ids": "5e9f8f8f-c8e0-4b3f-b8f8-f8f8f8f8f8f8,5e9f8f8f-c8e0-4b3f-b8f8-f8f8f8f8f8f9"
+}

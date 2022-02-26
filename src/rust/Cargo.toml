@@ -1,0 +1,2 @@
+[workspace]
+members = ["inventory", "product_catalog"]
