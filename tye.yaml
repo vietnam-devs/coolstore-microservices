@@ -1,13 +1,14 @@
 name: coolstore-on-dapr
+containerEngine: docker
 
-extensions:
-- name: dapr
-  log-level: debug
-  config: appconfig
-  components-path: "./components/local/"
-- name: zipkin
-- name: elastic
-  logPath: ./.logs
+# extensions:
+# - name: dapr
+#   log-level: debug
+#   config: appconfig
+#   components-path: "./components/local/"
+# - name: zipkin
+# - name: elastic
+#   logPath: ./.logs
 
 services:
 
@@ -20,68 +21,66 @@ services:
   - port: 5432
     connectionString: Server=${host};Port=${port};User Id=postgres;Password=${env:POSTGRES_PASSWORD};
 
-- name: redis
-  image: redis
-  bindings:
-  - port: 6379
+# - name: redis
+#   image: redis
+#   bindings:
+#   - port: 6379
 
-- name: placement
-  image: daprio/dapr
-  args: ./placement
-  bindings:
-  - port: 50005
+# - name: webapigatewayapp
+#   project: src/BFFs/WebApiGateway/WebApiGateway.csproj
+#   bindings:
+#   - port: 5000
 
-- name: webapigatewayapp
-  project: src/BFFs/WebApiGateway/WebApiGateway.csproj
-  bindings:
-  - port: 5000
+# - name: identityapp
+#   project: src/Services/Identity/IdentityService/IdentityService.csproj
+#   bindings:
+#   - port: 5001
 
-- name: identityapp
-  project: src/Services/Identity/IdentityService/IdentityService.csproj
-  bindings:
-  - port: 5001
+# - name: inventoryapp
+#   project: src/Services/Inventory/InventoryService.Api/InventoryService.Api.csproj
+#   env:
+#   - name: ConnectionStrings__postgres
+#     value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
+#   bindings:
+#   - port: 5002
+
+# - name: productcatalogapp
+#   project: src/Services/ProductCatalog/ProductCatalogService.Api/ProductCatalogService.Api.csproj
+#   env:
+#   - name: ConnectionStrings__postgres
+#     value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
+#   - name: ElasticSearch__Url
+#     value: http://localhost:9200
+#   bindings:
+#   - port: 5003
+
+# - name: shoppingcartapp
+#   project: src/Services/ShoppingCart/ShoppingCartService.Api/ShoppingCartService.Api.csproj
+#   bindings:
+#   - port: 5004
 
 - name: inventoryapp
-  project: src/Services/Inventory/InventoryService.Api/InventoryService.Api.csproj
+  dockerFile: src/rust/inventory/Dockerfile
+  dockerFileContext: src/rust/inventory/
   env:
-  - name: ConnectionStrings__postgres
-    value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
+    - HOST=0.0.0.0
+    - PORT=80
+    - PG_USER=postgres
+    - PG_PASSWORD=P@ssw0rd
+    - PG_DATABASE=postgres
+    - PG_HOST=host.docker.internal
+    - PG_PORT=5432
+    - RUST_LOG="sqlx::query=error,tower_http=debug,info"
+    - RUST_BACKTRACE=1
   bindings:
-  - port: 5002
+    - port: 5002
+      containerPort: 80
+      protocol: http
 
-- name: productcatalogapp
-  project: src/Services/ProductCatalog/ProductCatalogService.Api/ProductCatalogService.Api.csproj
-  env:
-  - name: ConnectionStrings__postgres
-    value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
-  - name: ElasticSearch__Url
-    value: http://localhost:9200
-  bindings:
-  - port: 5003
-
-- name: shoppingcartapp
-  project: src/Services/ShoppingCart/ShoppingCartService.Api/ShoppingCartService.Api.csproj
-  bindings:
-  - port: 5004
-
-- name: saleapp
-  project: src/Services/Sale/SaleService.Api/SaleService.Api.csproj
-  env:
-  - name: ConnectionStrings__postgres
-    value: Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
-  bindings:
-  - port: 5005
-
-- name: web
-  dockerFile: src/web/Dockerfile.tye
-  # image: web
-  env:
-  - name: PORT
-    value: 80
-  - name: REACT_APP_AUTHORITY
-    value: http://localhost:5001
-  - name: REACT_APP_API
-    value: http://localhost:5000
-  bindings:
-  - protocol: http
-    port: 3000
+# - name: saleapp
+#   dockerFile: src/golang/docker/Dockerfile-sale
+#   dockerFileContext: src/golang/
+#   bindings:
+#     - port: 5005
+#       containerPort: 80
+#       protocol: http

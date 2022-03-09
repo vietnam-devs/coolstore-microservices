@@ -12,6 +12,7 @@ impl DbPool for PgPool {
             "postgres://{}:{}@{}:{}/{}",
             config.pg_user, config.pg_password, config.pg_host, config.pg_port, config.pg_database
         );
+        println!("connection string: {}", uri);
         PgPoolOptions::new()
             .connect(&uri)
             .await

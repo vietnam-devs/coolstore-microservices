@@ -16,7 +16,7 @@ pub struct PgConfig {
   pub pg_database: String,
 
   #[clap(default_value = "127.0.0.1", env)]
-  pub pg_host: IpAddr,
+  pub pg_host: String,
 
   #[clap(default_value = "5432", env)]
   pub pg_port: u16,
