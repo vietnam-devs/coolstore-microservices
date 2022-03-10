@@ -3,10 +3,9 @@ use slog::Logger;
 use sqlx::PgPool;
 use tower::ServiceBuilder;
 use tower_http::{cors::CorsLayer, trace::TraceLayer, ServiceBuilderExt};
+use anyhow::Context;
 
-pub mod config;
 mod handlers;
-pub mod logs;
 
 pub fn app(pg_pool: PgPool, log: Logger) -> Router {
     let middleware = ServiceBuilder::new()

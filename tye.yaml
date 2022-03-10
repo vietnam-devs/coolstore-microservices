@@ -60,8 +60,8 @@ services:
 #   - port: 5004
 
 - name: inventoryapp
-  dockerFile: src/rust/inventory/Dockerfile
-  dockerFileContext: src/rust/inventory/
+  dockerFile: src/rust/docker/Dockerfile-inventory
+  dockerFileContext: src/rust/
   env:
     - HOST=0.0.0.0
     - PORT=80

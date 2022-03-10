@@ -1,2 +1,2 @@
 [workspace]
-members = ["inventory", "product_catalog"]
+members = ["apis", "crates/inventory", "crates/common"]

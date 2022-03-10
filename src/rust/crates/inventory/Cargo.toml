@@ -1,9 +1,7 @@
 [package]
-name = "inventory_api"
+name = "inventory"
 version = "0.1.0"
-authors = ["Thang Chung <thangchung.onthenet@gmail.com>"]
 edition = "2021"
-license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -24,9 +22,10 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 uuid = { version = "0.8", features = ["serde", "v4"] }
 validator = { version = "0.14", features = ["derive"] }
 slog = "2.7"
+anyhow = "1.0"
 hyper = { version = "0.14", features = ["full"] }
 futures = "0.3.19"
-sqlx = { version = "0.5.10", features = [
+sqlx = { version = "0.5.10", default-features = false, features = [
   "runtime-tokio-rustls",
   "any",
   "postgres",
@@ -35,4 +34,9 @@ sqlx = { version = "0.5.10", features = [
   "uuid",
   "migrate",
   "offline",
+  "any"
 ] }
+
+[profile.release]
+opt-level = 2
+debug = true

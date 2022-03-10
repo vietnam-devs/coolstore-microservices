@@ -1,8 +1,9 @@
 use std::net::SocketAddr;
 
 use clap::StructOpt;
-use inventory_api::config::db::DbPool;
-use inventory_api::{config, logs::PrintlnDrain};
+use common::logs::PrintlnDrain;
+use common::config::db::DbPool;
+use common::{config};
 use slog::{info, o, Fuse, Logger};
 use tracing_subscriber::EnvFilter;
 
@@ -18,7 +19,7 @@ async fn main() {
         .init();
 
     let pg_pool = sqlx::PgPool::retrieve().await;
-    sqlx::migrate!("./src/migrations")
+    sqlx::migrate!("../crates/inventory/src/migrations")
         .run(&pg_pool)
         .await
         .expect("cannot do migrate");
@@ -30,7 +31,7 @@ async fn main() {
     info!(log, "listening on {addr}", addr = addr);
 
     let server =
-        axum::Server::bind(&addr).serve(inventory_api::app(pg_pool, log).into_make_service());
+        axum::Server::bind(&addr).serve(inventory::app(pg_pool, log).into_make_service());
 
     if let Err(err) = server.await {
         tracing::error!("server error: {}", err);

@@ -53,6 +53,40 @@ dependencies = [
 ]
 
 [[package]]
+name = "anyhow"
+version = "1.0.56"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4361135be9122e0870de935d7c439aef945b9f9ddd4199a553b5270b49c82a27"
+
+[[package]]
+name = "apis"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "clap",
+ "common",
+ "dotenv",
+ "futures",
+ "headers",
+ "hyper",
+ "inventory",
+ "lazy_static",
+ "openssl-probe",
+ "serde",
+ "serde_json",
+ "slog",
+ "sqlx",
+ "thiserror",
+ "tokio",
+ "tower",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+ "validator",
+]
+
+[[package]]
 name = "async-compression"
 version = "0.3.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -269,6 +303,17 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "common"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "clap",
+ "futures",
+ "slog",
+ "sqlx",
 ]
 
 [[package]]
@@ -774,9 +819,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "inventory_api"
+name = "inventory"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "axum",
  "clap",
  "dotenv",
@@ -1015,6 +1061,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "624a8340c38c1b80fd549087862da4ba43e08858af025b236e509b6649fc13d5"
 
 [[package]]
+name = "openssl-probe"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ff011a302c396a5197692431fc1948019154afc178baf7d8e37367442a4601cf"
+
+[[package]]
 name = "os_str_bytes"
 version = "6.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1153,10 +1205,6 @@ checksum = "c7342d5883fbccae1cc37a2353b09c87c9b0f3afd73f5fb9bba687a1f733b029"
 dependencies = [
  "unicode-xid",
 ]
-
-[[package]]
-name = "product_catalog_api"
-version = "0.1.0"
 
 [[package]]
 name = "quote"

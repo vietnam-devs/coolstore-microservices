@@ -6,8 +6,8 @@
     - Output offline data (deploy into docker)
       ```bash
       > # inventory
-      > SQLX_OFFLINE=true && cargo sqlx prepare --database-url postgres://postgres:P@ssw0rd@127.0.0.1:5432/test -- --manifest-path inventory/Cargo.toml --bin server
+      > SQLX_OFFLINE=true && cargo sqlx prepare --database-url postgres://postgres:P@ssw0rd@127.0.0.1:5432/postgres -- --manifest-path inventory/Cargo.toml --bin server
       > # product catalog
-      > SQLX_OFFLINE=true && cargo sqlx prepare --database-url postgres://postgres:P@ssw0rd@127.0.0.1:5432/test -- --manifest-path inventory/Cargo.toml --bin product_catalog_api
+      > SQLX_OFFLINE=true && cargo sqlx prepare --database-url postgres://postgres:P@ssw0rd@127.0.0.1:5432/postgres -- --manifest-path inventory/Cargo.toml --bin product_catalog_api
       ```
 - Or https://rustup.rs/
