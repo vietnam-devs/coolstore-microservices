@@ -7,10 +7,11 @@ license = "MIT"
 
 [[bin]]
 name = "inventory_api"
-path = "src/bin/inventory/server.rs"
+path = "src/cmd/inventory/server.rs"
 
-[profile.dev]
-debug = 0
+[[bin]]
+name = "product_catalog_api"
+path = "src/cmd/product_catalog/server.rs"
 
 [profile.release]
 opt-level = 2

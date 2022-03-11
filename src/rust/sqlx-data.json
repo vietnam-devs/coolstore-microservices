@@ -1,0 +1,23 @@
+{
+  "db": "PostgreSQL",
+  "bf54a84704792059fc3a494889dce274bb09f5cadc8c7be61a9b85abbceb001f": {
+    "describe": {
+      "columns": [
+        {
+          "name": "value",
+          "ordinal": 0,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        null
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT $1::INTEGER AS value"
+  }
+}

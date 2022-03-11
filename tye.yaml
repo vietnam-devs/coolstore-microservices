@@ -77,10 +77,28 @@ services:
       containerPort: 80
       protocol: http
 
-# - name: saleapp
-#   dockerFile: src/golang/docker/Dockerfile-sale
-#   dockerFileContext: src/golang/
-#   bindings:
-#     - port: 5005
-#       containerPort: 80
-#       protocol: http
+- name: productcatalogapp
+  dockerFile: src/rust/docker/Dockerfile-product-catalog
+  dockerFileContext: src/rust/
+  env:
+    - HOST=0.0.0.0
+    - PORT=80
+    - PG_USER=postgres
+    - PG_PASSWORD=P@ssw0rd
+    - PG_DATABASE=postgres
+    - PG_HOST=host.docker.internal
+    - PG_PORT=5432
+    - RUST_LOG="sqlx::query=error,tower_http=debug,info"
+    - RUST_BACKTRACE=1
+  bindings:
+    - port: 5003
+      containerPort: 80
+      protocol: http
+
+- name: saleapp
+  dockerFile: src/go/docker/Dockerfile-sale
+  dockerFileContext: src/go/
+  bindings:
+    - port: 5005
+      containerPort: 80
+      protocol: http

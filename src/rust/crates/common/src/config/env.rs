@@ -1,5 +1,5 @@
 use clap::Parser;
-use std::{env, net::IpAddr};
+use std::{net::IpAddr};
 
 #[derive(Debug, Parser)]
 pub struct ServerConfig {
