@@ -59,34 +59,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4361135be9122e0870de935d7c439aef945b9f9ddd4199a553b5270b49c82a27"
 
 [[package]]
-name = "apis"
-version = "0.1.0"
-dependencies = [
- "axum",
- "clap",
- "common",
- "dotenv",
- "futures",
- "headers",
- "hyper",
- "inventory",
- "lazy_static",
- "openssl-probe",
- "serde",
- "serde_json",
- "slog",
- "sqlx",
- "thiserror",
- "tokio",
- "tower",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "uuid",
- "validator",
-]
-
-[[package]]
 name = "async-compression"
 version = "0.3.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -314,6 +286,34 @@ dependencies = [
  "futures",
  "slog",
  "sqlx",
+]
+
+[[package]]
+name = "coolstore"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "clap",
+ "common",
+ "dotenv",
+ "futures",
+ "headers",
+ "hyper",
+ "inventory",
+ "lazy_static",
+ "openssl-probe",
+ "serde",
+ "serde_json",
+ "slog",
+ "sqlx",
+ "thiserror",
+ "tokio",
+ "tower",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+ "validator",
 ]
 
 [[package]]

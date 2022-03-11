@@ -19,7 +19,7 @@ async fn main() {
         .init();
 
     let pg_pool = sqlx::PgPool::retrieve().await;
-    sqlx::migrate!("../crates/inventory/src/migrations")
+    sqlx::migrate!("crates/inventory/migrations")
         .run(&pg_pool)
         .await
         .expect("cannot do migrate");

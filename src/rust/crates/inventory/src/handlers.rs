@@ -1,29 +1,20 @@
 use axum::extract::Extension;
 use hyper::StatusCode;
-use slog::Logger;
-use sqlx::{PgPool};
+use slog::{info, Logger};
+use sqlx::PgPool;
 
 pub async fn post_inventory_by_id(
     Extension(pool): Extension<PgPool>,
     Extension(log): Extension<Logger>,
 ) -> Result<String, (StatusCode, String)> {
-    //info!(log, "post post_inventory_by_id");
+    info!(log, "post post_inventory_by_id");
     // "post post_inventory_by_id"
 
-    // let row: i32 = sqlx::query!("SELECT $1::INTEGER AS value", 2i32)
-    //     .fetch_one(&pool)
-    //     .await.unwrap_or(2);
+    let result = sqlx::query!("SELECT $1::INTEGER AS value", 2i32)
+        .fetch_one(&pool)
+        .await;
 
-    // assert_eq!(row, 2);
-
-    // let result = sqlx::query!(r#"SELECT $1::INTEGER AS value"#, 2i32)
-    // .fetch_once(&pool)
-    // .await?;
-
-    // print!("{:?}", result);
-
-    // result
-
+    print!("{:?}", result);
     //assert_eq!(result.value, Some(2));
 
     sqlx::query_scalar("select 'hello world from pg'")

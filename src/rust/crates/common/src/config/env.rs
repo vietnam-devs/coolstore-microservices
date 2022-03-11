@@ -12,7 +12,7 @@ pub struct ServerConfig {
 
 #[derive(Debug, Parser)]
 pub struct PgConfig {
-  #[clap(default_value = "test", env)]
+  #[clap(default_value = "postgres", env)]
   pub pg_database: String,
 
   #[clap(default_value = "127.0.0.1", env)]

@@ -3,11 +3,11 @@
 ## Inventory (Rust)
 ### Internal HTTP (Dapr)
 
-- POST: get-inventories-by-ids
+- POST: get-inventories-by-ids (calls from `product-catalog`)
   - Request: InventoryByIdsRequest, GetAvailabilityInventoriesQuery 
   - Response: IEnumerable<InventoryDto>
 
-- POST: get-inventory-by-id
+- POST: get-inventory-by-id (calls from `product-catalog`)
   - Request: InventoryRequest, GetInventoryQuery 
   - Response: InventoryDto
 
@@ -28,11 +28,11 @@
 
 ### Internal HTTP (Dapr)
 
-- POST: get-products-by-ids
+- POST: get-products-by-ids (not found)
   - Request: ProductByIdsRequest, GetProductsByIdsQuery 
   - Response: IEnumerable<ProductDto>
 
-- POST: get-product-by-id
+- POST: get-product-by-id (calls from `shopping-cart`)
   - Request: ProductByIdRequest, GetProductsByIdsQuery 
   - Response: ProductDto
 
@@ -59,15 +59,13 @@
   - Request: GetOrderListByUserQuery
   - Response: IEnumerable<OrderDto>
 
-### Internal HTTP 
-
-- POST: update-order-status
+- POST: api/update-order-status
   - Request: OrderWithStatusRequest, UpdateOrderStatusQuery (TODO: Command)
   - bool
 
 ### Internal Subscriber
 
-- POST: processing-order
+- POST: processing-order (subscribe event from `shopping-cart`)
   - Request: ShoppingCartCheckedOut (event), CreateOrderQuery (TODO: Command)
 
 ### Internal Cron Job (TODO: Refactor to ServerlessWorkflow)
