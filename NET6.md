@@ -43,13 +43,13 @@
   - Request: GetCartByUserIdQuery
   - Response: CartDto
 - POST: api/carts
-  - Request: CreateShoppingCartWithProductQuery (TODO: Command)
+  - Request: CreateShoppingCartWithProductCommand
   - Response: CartDto
 - PUT: api/carts
-  - Request: UpdateAmountOfProductInShoppingCartQuery (TODO: Command)
+  - Request: UpdateAmountOfProductInShoppingCartCommand
   - Response: CartDto
 - PUT: api/carts/checkout
-  - Request: CheckOutQuery (TODO: Command)
+  - Request: CheckOutCommand
   - Response: CartDto
 
 ## Sale (Golang)

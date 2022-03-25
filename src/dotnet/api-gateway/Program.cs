@@ -18,7 +18,7 @@ var disco = await discoService.LoadDiscoveryDocument(config.Authority);
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetValue<string>("Redis");
-    options.InstanceName = "bff-authn";
+    options.InstanceName = "gw-authn";
 });
 builder.Services.AddTransient<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
 builder.AddGateway(config, disco);

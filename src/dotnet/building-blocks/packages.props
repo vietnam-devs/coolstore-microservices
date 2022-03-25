@@ -1,0 +1,13 @@
+<Project>
+
+  <PropertyGroup>
+    <Product>CleanArchitectureDotNet</Product>
+    <Authors>Thang Chung</Authors>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/thangchung/clean-architecture-dotnet.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/thangchung/clean-architecture-dotnet</PackageProjectUrl>
+    <PackageLicense>https://github.com/thangchung/clean-architecture-dotnet/blob/master/LICENSE</PackageLicense>
+    <Copyright>Copyright (c) Thang Chung - 2022</Copyright>
+  </PropertyGroup>
+
+</Project>
