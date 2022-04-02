@@ -16,6 +16,4 @@
     <ProjectReference Include="..\building-blocks\N8T.Infrastructure\N8T.Infrastructure.csproj" />
   </ItemGroup>
 
-  
-
 </Project>

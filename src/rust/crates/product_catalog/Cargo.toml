@@ -1,5 +1,5 @@
 [package]
-name = "inventory"
+name = "product_catalog"
 version = "0.1.0"
 edition = "2021"
 

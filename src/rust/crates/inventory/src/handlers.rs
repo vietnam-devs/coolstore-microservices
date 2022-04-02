@@ -1,40 +1,26 @@
 use axum::extract::Extension;
-use hyper::StatusCode;
-use slog::{info, Logger};
-use sqlx::PgPool;
+use common::ApiContext;
+use slog::info;
 
 pub async fn post_inventory_by_id(
-    Extension(pool): Extension<PgPool>,
-    Extension(log): Extension<Logger>,
-) -> Result<String, (StatusCode, String)> {
-    info!(log, "post post_inventory_by_id");
-    // "post post_inventory_by_id"
+    ctx: Extension<ApiContext>,
+) -> common::Result<axum::Json<i32>> {
+    info!(ctx.log, "POST: inventory_by_id");
 
-    let result = sqlx::query!("SELECT $1::INTEGER AS value", 2i32)
-        .fetch_one(&pool)
-        .await;
+    let result = sqlx::query!(r#"SELECT $1::INTEGER AS value"#, 2i32)
+        .fetch_one(&ctx.pg_pool)
+        .await?;
 
-    print!("{:?}", result);
-    //assert_eq!(result.value, Some(2));
-
-    sqlx::query_scalar("select 'hello world from pg'")
-        .fetch_one(&pool)
-        .await
-        .map_err(internal_error)
+    match result.value {
+        Some(value) => Ok(axum::Json(value)),
+        None => Err(common::error::Error::NotFound)
+    }
 }
 
 pub async fn post_inventories_by_ids(
-    Extension(pool): Extension<PgPool>,
-    Extension(log): Extension<Logger>,
+    ctx: Extension<ApiContext>,
 ) -> &'static str {
-    //info!(log, "post post_inventories_by_ids");
+    info!(ctx.log, "POST: inventories_by_ids");
 
-    "post post_inventories_by_ids"
-}
-
-fn internal_error<E>(err: E) -> (StatusCode, String)
-where
-    E: std::error::Error,
-{
-    (StatusCode::INTERNAL_SERVER_ERROR, err.to_string())
+    "POST: inventories_by_ids"
 }

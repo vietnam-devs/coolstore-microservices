@@ -111,9 +111,9 @@ checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 
 [[package]]
 name = "axum"
-version = "0.4.6"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "157d3c6bef9a248ecf0492f05bb91019ced3c5b0f4cd9ec09b16d06596e1e743"
+checksum = "5611d4977882c5af1c0f7a34d51b5d87f784f86912bb543986b014ea4995ef93"
 dependencies = [
  "async-trait",
  "axum-core",
@@ -124,6 +124,7 @@ dependencies = [
  "http",
  "http-body",
  "hyper",
+ "itoa",
  "matchit",
  "memchr",
  "mime",
@@ -142,9 +143,9 @@ dependencies = [
 
 [[package]]
 name = "axum-core"
-version = "0.1.2"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6dbcda393bef9c87572779cb8ef916f12d77750b27535dd6819fa86591627a51"
+checksum = "95cd109b3e93c9541dcce5b0219dcf89169dcc58c1bebed65082808324258afb"
 dependencies = [
  "async-trait",
  "bytes",
@@ -281,17 +282,24 @@ dependencies = [
 name = "common"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "axum",
  "clap",
  "futures",
+ "serde",
+ "serde_json",
  "slog",
  "sqlx",
+ "thiserror",
+ "tokio",
+ "validator",
 ]
 
 [[package]]
 name = "coolstore"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "axum",
  "clap",
  "common",
@@ -824,22 +832,14 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "axum",
- "clap",
- "dotenv",
+ "common",
  "futures",
- "headers",
  "hyper",
  "lazy_static",
- "serde",
- "serde_json",
  "slog",
  "sqlx",
- "thiserror",
- "tokio",
  "tower",
  "tower-http",
- "tracing",
- "tracing-subscriber",
  "uuid",
  "validator",
 ]
@@ -924,9 +924,9 @@ checksum = "a3e378b66a060d48947b590737b30a1be76706c8dd7b8ba0f2fe3989c68a853f"
 
 [[package]]
 name = "matchit"
-version = "0.4.6"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9376a4f0340565ad675d11fc1419227faf5f60cd7ac9cb2e7185a471f30af833"
+checksum = "73cbba799671b762df5a175adf59ce145165747bb891505c43d09aefbbf38beb"
 
 [[package]]
 name = "md-5"

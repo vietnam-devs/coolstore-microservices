@@ -1,5 +1,5 @@
 {
-	"name": "Rust and PostgreSQL",
+	"name": "coolstore-rs",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspace",
@@ -28,6 +28,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "rustc --version",
+  "postCreateCommand": "cargo install sqlx-cli --no-default-features --features native-tls,postgres",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"

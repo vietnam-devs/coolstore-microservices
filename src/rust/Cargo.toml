@@ -21,13 +21,14 @@ debug = true
 members = ["crates/inventory", "crates/common"]
 
 [dependencies]
-axum = { version = "0.4", features = ["headers"] }
+axum = { version = "0.5", features = ["headers"] }
 clap = { version = "3.0.0-rc.4", features = ["derive", "env"] }
 dotenv = "0.15"
 headers = "0.3"
 lazy_static = "1.4"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+anyhow = "1.0"
 thiserror = "1"
 tokio = { version = "1", features = ["full"] }
 tower = { version = "0.4", features = ["full"] }
