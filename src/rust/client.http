@@ -3,7 +3,7 @@ POST http://localhost:5002/get-inventory-by-id
 content-type: application/json
 
 {
-  "id": "5e9f8f8f-c8e0-4b3f-b8f8-f8f8f8f8f8f8"
+  "id": "90c9479e-a11c-4d6d-aaaa-0405b6c0efcd"
 }
 
 ###
@@ -11,5 +11,5 @@ POST http://localhost:5002/get-inventories-by-ids
 content-type: application/json
 
 {
- "ids": "5e9f8f8f-c8e0-4b3f-b8f8-f8f8f8f8f8f8,5e9f8f8f-c8e0-4b3f-b8f8-f8f8f8f8f8f9"
+ "ids": "90c9479e-a11c-4d6d-aaaa-0405b6c0efcd,b8b62196-6369-409d-b709-11c112dd023f,ec186ddf-f430-44ec-84e5-205c93d84f14"
 }

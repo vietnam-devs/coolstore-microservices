@@ -27,6 +27,10 @@ pub enum Error {
     #[error("request path not found")]
     NotFound,
 
+    /// Return a bad request
+    #[error("validate failed")]
+    ValidateFailed,
+
     /// Return `422 Unprocessable Entity`
     ///
     /// This also serializes the `errors` map to JSON to satisfy the requirement for
@@ -104,6 +108,7 @@ impl Error {
             Self::Unauthorized => StatusCode::UNAUTHORIZED,
             Self::Forbidden => StatusCode::FORBIDDEN,
             Self::NotFound => StatusCode::NOT_FOUND,
+            Self::ValidateFailed => StatusCode::BAD_REQUEST,
             Self::UnprocessableEntity { .. } => StatusCode::UNPROCESSABLE_ENTITY,
             Self::Sqlx(_) | Self::Anyhow(_) => StatusCode::INTERNAL_SERVER_ERROR,
         }
