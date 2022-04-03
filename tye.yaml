@@ -25,6 +25,9 @@ services:
   bindings:
   - port: 5432
     connectionString: Server=${host};Port=${port};User Id=postgres;Password=${env:POSTGRES_PASSWORD};
+  volumes:
+    - target: /docker-entrypoint-initdb.d/tye_postgres_init.sql
+      source: tye_postgres_init.sql
 
 - name: webapigatewayapp
   project: src/dotnet/api-gateway/Gateway.csproj
@@ -52,7 +55,7 @@ services:
     - PORT=80
     - PG_USER=postgres
     - PG_PASSWORD=P@ssw0rd
-    - PG_DATABASE=postgres
+    - PG_DATABASE=inv_db
     - PG_HOST=host.docker.internal
     - PG_PORT=5432
     - RUST_LOG="sqlx::query=error,tower_http=debug,info"
@@ -70,7 +73,7 @@ services:
     - PORT=80
     - PG_USER=postgres
     - PG_PASSWORD=P@ssw0rd
-    - PG_DATABASE=postgres
+    - PG_DATABASE=cat_db
     - PG_HOST=host.docker.internal
     - PG_PORT=5432
     - RUST_LOG="sqlx::query=error,tower_http=debug,info"

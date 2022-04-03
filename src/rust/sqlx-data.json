@@ -1,23 +1,105 @@
 {
   "db": "PostgreSQL",
-  "bf54a84704792059fc3a494889dce274bb09f5cadc8c7be61a9b85abbceb001f": {
+  "3a71c544cec3b24b7ffe48832afde748562661b960f6bf93835cbe8e4f2e13dd": {
+    "query": "SELECT id, location, description, website, created, updated\n        FROM inventory.inventories \n        WHERE id = ANY($1)",
     "describe": {
       "columns": [
         {
-          "name": "value",
           "ordinal": 0,
-          "type_info": "Int4"
+          "name": "id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 1,
+          "name": "location",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 2,
+          "name": "description",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 3,
+          "name": "website",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 4,
+          "name": "created",
+          "type_info": "Timestamp"
+        },
+        {
+          "ordinal": 5,
+          "name": "updated",
+          "type_info": "Timestamp"
         }
-      ],
-      "nullable": [
-        null
       ],
       "parameters": {
         "Left": [
-          "Int4"
+          "UuidArray"
         ]
-      }
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
     },
-    "query": "SELECT $1::INTEGER AS value"
+    "hash": "3a71c544cec3b24b7ffe48832afde748562661b960f6bf93835cbe8e4f2e13dd"
+  },
+  "c5a41d4980094b922b409febd6b39a88d1aedaff87345e59fcc636d250207751": {
+    "query": "\n                SELECT id, location, description, website, created, updated\n                FROM inventory.inventories \n                WHERE id = $1",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 1,
+          "name": "location",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 2,
+          "name": "description",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 3,
+          "name": "website",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 4,
+          "name": "created",
+          "type_info": "Timestamp"
+        },
+        {
+          "ordinal": 5,
+          "name": "updated",
+          "type_info": "Timestamp"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Uuid"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "hash": "c5a41d4980094b922b409febd6b39a88d1aedaff87345e59fcc636d250207751"
   }
 }

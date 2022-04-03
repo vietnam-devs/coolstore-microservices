@@ -1,22 +1,24 @@
-# Starting (for both on vscode remote container and on local)
-
-- https://github.com/microsoft/vscode-dev-containers/tree/main/containers/rust-postgres
-  - Then you only need remote containers to get starting this project (press F1, and type `remote container`, then open it up)
-  - Offline for Docker:
-    - Output offline data (deploy into docker)
-      ```bash
-      > # inventory
-      > SQLX_OFFLINE=true && cargo sqlx prepare --database-url postgres://postgres:P@ssw0rd@127.0.0.1:5432/postgres -- --manifest-path inventory/Cargo.toml --bin inventory_api
-      > # product catalog
-      > SQLX_OFFLINE=true && cargo sqlx prepare --database-url postgres://postgres:P@ssw0rd@127.0.0.1:5432/postgres -- --manifest-path inventory/Cargo.toml --bin product_catalog_api
-      ```
-- Or run on your own host with https://rustup.rs/
-
 # Require !!!
 - Because we use `sqlx macros` so we have to put the `.env` with value `DATABASE_URL=postgres://postgres:P@ssw0rd@localhost:5432/postgres` at the root folder of `rust`
   - If not, then you cannot compile the solution :|
 
-# Database migration
+# Get starting (for both on vscode remote container and on local)
+
+- Option 1: https://github.com/microsoft/vscode-dev-containers/tree/main/containers/rust-postgres
+  - Then you only need remote containers to get starting this project (press F1, and type `remote container`, then open it up)
+  - Offline for Docker: follow the guidance at https://github.com/launchbadge/sqlx/issues/1223
+    - At root, run `sqlx.sh`, and wait for the sqlx-data.json generating
+  - Below is just for reference (DON'T WORK):
+    - Output offline data (deploy into docker)
+      ```bash
+      > # inventory
+      > SQLX_OFFLINE=true && cargo sqlx prepare --database-url postgres://postgres:P@ssw0rd@127.0.0.1:5432/inv_db -- --bin inventory_api
+      > # product catalog
+      > SQLX_OFFLINE=true && cargo sqlx prepare --database-url postgres://postgres:P@ssw0rd@127.0.0.1:5432/postgres -- --bin product_catalog_api
+      ```
+- Option 2: run on your own host with https://rustup.rs/
+
+# Add database migration
 
 - Make sure you have sqlx cli installed
 - `cd` into project folder, such as `cd crates/inventory/src`

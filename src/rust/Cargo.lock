@@ -309,6 +309,7 @@ dependencies = [
  "headers",
  "inventory",
  "openssl-probe",
+ "product_catalog",
  "slog",
  "sqlx",
  "tokio",
@@ -1199,6 +1200,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c7342d5883fbccae1cc37a2353b09c87c9b0f3afd73f5fb9bba687a1f733b029"
 dependencies = [
  "unicode-xid",
+]
+
+[[package]]
+name = "product_catalog"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "axum",
+ "chrono",
+ "common",
+ "futures",
+ "hyper",
+ "lazy_static",
+ "serde",
+ "serde_json",
+ "slog",
+ "sqlx",
+ "tower",
+ "tower-http",
+ "uuid",
+ "validator",
 ]
 
 [[package]]

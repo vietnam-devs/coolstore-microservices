@@ -43,3 +43,4 @@ sqlx = { version = "0.5.10", default-features = false, features = [
 ] }
 common = { path = "crates/common", version = "0.1.0" }
 inventory = { path = "crates/inventory", version = "0.1.0" }
+product_catalog = { path = "crates/product_catalog", version = "0.1.0" }

@@ -19,7 +19,7 @@ async fn main() {
         .init();
 
     let pg_pool = sqlx::PgPool::retrieve().await;
-    sqlx::migrate!("crates/inventory/migrations")
+    sqlx::migrate!("crates/product_catalog/migrations")
         .run(&pg_pool)
         .await
         .expect("cannot do migrate");
@@ -32,7 +32,8 @@ async fn main() {
 
     info!(log, "listening on {addr}", addr = addr);
 
-    let server = axum::Server::bind(&addr).serve(inventory::app(server_config, pg_config, pg_pool, log).into_make_service());
+    let server = axum::Server::bind(&addr)
+        .serve(product_catalog::app(server_config, pg_config, pg_pool, log).into_make_service());
 
     if let Err(err) = server.await {
         tracing::error!("server error: {}", err);

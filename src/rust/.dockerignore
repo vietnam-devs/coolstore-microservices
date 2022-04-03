@@ -28,4 +28,10 @@ deploys/iac/
 !**/web/build/
 !**/netcorekit/build/
 .logs/
+
 .devcontainer/
+**/debug/
+**/target/
+**/Cargo.lock
+**/*.rs.bk
+**/*.pdb
