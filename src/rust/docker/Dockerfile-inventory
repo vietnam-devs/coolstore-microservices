@@ -12,8 +12,6 @@ FROM ${BASE_IMAGE} AS builder
 
 # Add our source code.
 ADD --chown=rust:rust . ./
-RUN ls -la
-RUN cat sqlx-data.json
 
 # Build our application.
 RUN cargo build --release --bin inventory_api

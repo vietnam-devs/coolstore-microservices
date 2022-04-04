@@ -33,7 +33,7 @@ tokio = { version = "1", features = ["full"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 slog = "2.7"
-openssl-probe = "0.1.5"
+openssl = { version = "0.10", features = ["vendored"] }
 sqlx = { version = "0.5.10", default-features = false, features = [
     "runtime-tokio-rustls",
     "any",

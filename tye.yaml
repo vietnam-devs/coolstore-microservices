@@ -50,9 +50,10 @@ services:
 - name: inventoryapp
   dockerFile: src/rust/docker/Dockerfile-inventory
   dockerFileContext: src/rust/
+  # image: inventoryapp
   env:
     - INVENTORY_HOST=0.0.0.0
-    - INVENTORY_PORT=80
+    - INVENTORY_PORT=5002
     - PG_USER=postgres
     - PG_PASSWORD=P@ssw0rd
     - PG_INVENTORY_DATABASE=inv_db
@@ -62,15 +63,16 @@ services:
     - RUST_BACKTRACE=1
   bindings:
     - port: 5002
-      containerPort: 80
+      containerPort: 5002
       protocol: http
 
 - name: productcatalogapp
   dockerFile: src/rust/docker/Dockerfile-product-catalog
   dockerFileContext: src/rust/
+  # image: productcatalogapp
   env:
     - PRODUCT_CATALOG_HOST=0.0.0.0
-    - PRODUCT_CATALOG_PORT=80
+    - PRODUCT_CATALOG_PORT=5003
     - PG_USER=postgres
     - PG_PASSWORD=P@ssw0rd
     - PG_PRODUCT_CATALOG_DATABASE=cat_db
@@ -78,10 +80,10 @@ services:
     - PG_PORT=5432
     - RUST_LOG="sqlx::query=error,tower_http=debug,info"
     - RUST_BACKTRACE=1
-    - INVENTORY_CLIENT_URI=http://localhost:5002
+    - INVENTORY_CLIENT_URI=http://host.docker.internal:5002
   bindings:
     - port: 5003
-      containerPort: 80
+      containerPort: 5003
       protocol: http
 
 - name: shoppingcartapp
