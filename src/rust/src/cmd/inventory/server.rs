@@ -20,16 +20,16 @@ async fn main() -> anyhow::Result<()> {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    let pg_pool = sqlx::PgPool::retrieve().await;
+    let pg_config = config::env::PgConfig::parse();
+    let server_config = config::env::ServerConfig::parse();
+
+    let pg_pool = sqlx::PgPool::retrieve(pg_config.pg_inventory_database.as_str()).await;
     sqlx::migrate!("crates/inventory/migrations")
         .run(&pg_pool)
         .await
         .expect("cannot do migrate");
 
-    let pg_config = config::env::PgConfig::parse();
-    let server_config = config::env::ServerConfig::parse();
-
-    let addr = SocketAddr::from((server_config.host, server_config.port));
+    let addr = SocketAddr::from((server_config.inventory_host, server_config.inventory_port));
     tracing::debug!("listening on {}", addr);
 
     info!(log, "listening on {addr}", addr = addr);

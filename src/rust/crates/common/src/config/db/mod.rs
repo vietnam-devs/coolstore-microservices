@@ -4,5 +4,5 @@ pub mod postgres;
 
 #[async_trait]
 pub trait DbPool {
-  async fn retrieve() -> Self;
+  async fn retrieve(pg_database: &str) -> Self;
 }

@@ -51,11 +51,11 @@ services:
   dockerFile: src/rust/docker/Dockerfile-inventory
   dockerFileContext: src/rust/
   env:
-    - HOST=0.0.0.0
-    - PORT=80
+    - INVENTORY_HOST=0.0.0.0
+    - INVENTORY_PORT=80
     - PG_USER=postgres
     - PG_PASSWORD=P@ssw0rd
-    - PG_DATABASE=inv_db
+    - PG_INVENTORY_DATABASE=inv_db
     - PG_HOST=host.docker.internal
     - PG_PORT=5432
     - RUST_LOG="sqlx::query=error,tower_http=debug,info"
@@ -69,15 +69,16 @@ services:
   dockerFile: src/rust/docker/Dockerfile-product-catalog
   dockerFileContext: src/rust/
   env:
-    - HOST=0.0.0.0
-    - PORT=80
+    - PRODUCT_CATALOG_HOST=0.0.0.0
+    - PRODUCT_CATALOG_PORT=80
     - PG_USER=postgres
     - PG_PASSWORD=P@ssw0rd
-    - PG_DATABASE=cat_db
+    - PG_PRODUCT_CATALOG_DATABASE=cat_db
     - PG_HOST=host.docker.internal
     - PG_PORT=5432
     - RUST_LOG="sqlx::query=error,tower_http=debug,info"
     - RUST_BACKTRACE=1
+    - INVENTORY_CLIENT_URI=http://localhost:5002
   bindings:
     - port: 5003
       containerPort: 80

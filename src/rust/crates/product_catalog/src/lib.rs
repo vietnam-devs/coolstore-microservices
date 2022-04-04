@@ -32,11 +32,11 @@ pub fn app(
 
     Router::new()
         .route(
-            "/api/product-search/:query/:price/:page/:page_size",
+            "/api/products/search/:price/:page/:page_size",
             get(handlers::get_product_search),
         )
         .route(
-            "/api/product-search-by-page-size/:page/:price",
+            "/api/products/by-page-and-price/:page/:price",
             get(handlers::get_products_by_page_price),
         )
         .route(

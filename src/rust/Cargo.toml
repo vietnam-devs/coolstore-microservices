@@ -17,6 +17,9 @@ path = "src/cmd/product_catalog/server.rs"
 opt-level = 2
 debug = true
 
+[profile.dev.package.sqlx-macros]
+opt-level = 3
+
 [workspace]
 members = ["crates/inventory", "crates/common"]
 

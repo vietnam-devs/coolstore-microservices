@@ -27,9 +27,10 @@ sqlx = { version = "0.5.10", default-features = false, features = [
   "uuid",
   "migrate",
   "offline",
-  "any"
+  "any",
 ] }
 chrono = { version = "0.4", features = ["serde"] }
+reqwest = { version = "0.11", features = ["json"] }
 common = { path = "../common", version = "0.1.0" }
 
 [profile.release]

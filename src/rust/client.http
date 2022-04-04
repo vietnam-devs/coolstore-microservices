@@ -15,11 +15,11 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:5003/api/product-search/a/100/1/10
+GET http://localhost:5003/api/products/search/5000/1/10
 content-type: application/json
 
 ###
-GET http://localhost:5003/api/product-search-by-page-size/1/100
+GET http://localhost:5003/api/products/by-page-and-price/1/1000
 content-type: application/json
 
 ###

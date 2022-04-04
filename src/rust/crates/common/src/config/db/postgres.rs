@@ -6,11 +6,11 @@ use crate::config::{db::DbPool, env::PgConfig};
 
 #[async_trait]
 impl DbPool for PgPool {
-    async fn retrieve() -> Self {
+    async fn retrieve(pg_database: &str) -> Self {
         let config = PgConfig::parse();
         let uri = format!(
             "postgres://{}:{}@{}:{}/{}",
-            config.pg_user, config.pg_password, config.pg_host, config.pg_port, config.pg_database
+            config.pg_user, config.pg_password, config.pg_host, config.pg_port, pg_database
         );
         println!("connection string: {}", uri);
         PgPoolOptions::new()

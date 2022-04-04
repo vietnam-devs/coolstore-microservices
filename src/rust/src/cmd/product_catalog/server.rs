@@ -18,16 +18,19 @@ async fn main() {
         .pretty()
         .init();
 
-    let pg_pool = sqlx::PgPool::retrieve().await;
+    let pg_config = config::env::PgConfig::parse();
+    let server_config = config::env::ServerConfig::parse();
+
+    let pg_pool = sqlx::PgPool::retrieve(pg_config.pg_product_catalog_database.as_str()).await;
     sqlx::migrate!("crates/product_catalog/migrations")
         .run(&pg_pool)
         .await
         .expect("cannot do migrate");
 
-    let pg_config = config::env::PgConfig::parse();
-    let server_config = config::env::ServerConfig::parse();
-
-    let addr = SocketAddr::from((server_config.host, server_config.port));
+    let addr = SocketAddr::from((
+        server_config.product_catalog_host,
+        server_config.product_catalog_port,
+    ));
     tracing::debug!("listening on {}", addr);
 
     info!(log, "listening on {addr}", addr = addr);

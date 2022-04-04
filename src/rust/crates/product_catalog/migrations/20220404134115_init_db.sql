@@ -1,3 +1,5 @@
+-- Add migration script here
+
 -- Add up migration script here
 
 START TRANSACTION;
