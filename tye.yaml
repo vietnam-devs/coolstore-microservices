@@ -34,10 +34,10 @@ services:
   env:
     - Redis=localhost
     - OpenIdConnect__Authority=https://localhost:5001
-    - ReverseProxy__Clusters__inventoryApiCluster__Destinations__destination1__Address=http://inventoryapp
-    - ReverseProxy__Clusters__productCatalogApiCluster__Destinations__destination1__Address=http://productcatalogapp
-    - ReverseProxy__Clusters__shoppingCartApiCluster__Destinations__destination1__Address=http://shoppingcartapp:5004
-    - ReverseProxy__Clusters__saleApiCluster__Destinations__destination1__Address=http://saleapp
+    - ReverseProxy__Clusters__inventoryApiCluster__Destinations__destination1__Address=http://host.docker.internal:5002
+    - ReverseProxy__Clusters__productCatalogApiCluster__Destinations__destination1__Address=http://host.docker.internal:5003
+    - ReverseProxy__Clusters__shoppingCartApiCluster__Destinations__destination1__Address=http://localhost:5004
+    - ReverseProxy__Clusters__saleApiCluster__Destinations__destination1__Address=http://host.docker.internal:5005
   bindings:
   - port: 5000
 
@@ -48,9 +48,9 @@ services:
     protocol: https
 
 - name: inventoryapp
-  dockerFile: src/rust/docker/Dockerfile-inventory
-  dockerFileContext: src/rust/
-  # image: inventoryapp
+  # dockerFile: src/rust/docker/Dockerfile-inventory
+  # dockerFileContext: src/rust/
+  image: inventoryapp
   env:
     - INVENTORY_HOST=0.0.0.0
     - INVENTORY_PORT=5002
@@ -67,9 +67,9 @@ services:
       protocol: http
 
 - name: productcatalogapp
-  dockerFile: src/rust/docker/Dockerfile-product-catalog
-  dockerFileContext: src/rust/
-  # image: productcatalogapp
+  # dockerFile: src/rust/docker/Dockerfile-product-catalog
+  # dockerFileContext: src/rust/
+  image: productcatalogapp
   env:
     - PRODUCT_CATALOG_HOST=0.0.0.0
     - PRODUCT_CATALOG_PORT=5003

@@ -308,7 +308,6 @@ dependencies = [
  "dotenv",
  "headers",
  "inventory",
- "openssl-probe",
  "product_catalog",
  "slog",
  "sqlx",

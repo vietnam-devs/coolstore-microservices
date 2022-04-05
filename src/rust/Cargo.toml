@@ -5,6 +5,8 @@ edition = "2021"
 description = "Rust coolstore services, e.g. inventory and product catalog"
 license = "MIT"
 
+default-run = "inventory_api"
+
 [[bin]]
 name = "inventory_api"
 path = "src/cmd/inventory/server.rs"

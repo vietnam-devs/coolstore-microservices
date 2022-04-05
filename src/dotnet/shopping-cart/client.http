@@ -1,0 +1,4 @@
+###
+@id = a7791191-ff4a-4938-a4ed-b9074e59a18b
+GET http://localhost:5004/api/carts/{{id}} HTTP/1.1
+content-type: application/json

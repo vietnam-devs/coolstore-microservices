@@ -6,14 +6,14 @@ public static class GatewayConfigReader
     {
         var result = new GatewayConfig
         {
-            Url = config.GetValue<string>("Gateway:Url", ""),
-            SessionTimeoutInMin = config.GetValue<int>("Gateway:SessionTimeoutInMin", 60),
-            ApiPath = config.GetValue<string>("Gateway:ApiPath", "/api/"),
+            Url = config.GetValue("Gateway:Url", ""),
+            SessionTimeoutInMin = config.GetValue("Gateway:SessionTimeoutInMin", 60),
+            ApiPath = config.GetValue("Gateway:ApiPath", "/api/"),
             Authority = config.GetValue<string>("OpenIdConnect:Authority"),
             ClientId = config.GetValue<string>("OpenIdConnect:ClientId"),
             ClientSecret = config.GetValue<string>("OpenIdConnect:ClientSecret"),
-            Scopes = config.GetValue<string>("OpenIdConnect:Scopes", ""),
-            LogoutUrl = config.GetValue<string>("OpenIdConnect:LogoutUrl", ""),
+            Scopes = config.GetValue("OpenIdConnect:Scopes", ""),
+            LogoutUrl = config.GetValue("OpenIdConnect:LogoutUrl", ""),
             DownStreamServices = config.GetSection("OpenIdConnect:DownStreamServices").Get<List<DownStreamServiceConfig>>()
         };
 

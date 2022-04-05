@@ -49,7 +49,7 @@ public static class GatewayPipeline
     public static void UseGatewayPipeline(this IReverseProxyApplicationBuilder pipeline)
     {
         var tokenRefreshService = pipeline.ApplicationServices.GetRequiredService<TokenRefreshService>();
-        var tokenExchangeService = pipeline.ApplicationServices.GetRequiredService<TokenExchangeService>();
+        //var tokenExchangeService = pipeline.ApplicationServices.GetRequiredService<TokenExchangeService>();
         var config = pipeline.ApplicationServices.GetRequiredService<GatewayConfig>();
 
         var apiPath = config.ApiPath;
@@ -66,22 +66,22 @@ public static class GatewayPipeline
 
             if (!string.IsNullOrEmpty(token))
             {
-                var currentDownStreamConfig = config.DownStreamServices.FirstOrDefault(x => currentUrl.Contains(x.ApiPath));
+                //var currentDownStreamConfig = config.DownStreamServices.FirstOrDefault(x => currentUrl.Contains(x.ApiPath));
 
-                if (currentDownStreamConfig is {})
-                {
-                    // RFC-8693 for token exchange
-                    var result = await tokenExchangeService.ExchangeAsync(
-                        currentDownStreamConfig?.ClientId,
-                        currentDownStreamConfig?.ClientSecret,
-                        currentDownStreamConfig?.Scope,
-                        token);
+                //if (currentDownStreamConfig is {})
+                //{
+                //    // RFC-8693 for token exchange
+                //    var result = await tokenExchangeService.ExchangeAsync(
+                //        currentDownStreamConfig?.ClientId,
+                //        currentDownStreamConfig?.ClientSecret,
+                //        currentDownStreamConfig?.Scope,
+                //        token);
 
-                    if (!string.IsNullOrEmpty(result?.AccessToken))
-                    {
-                        token = result.AccessToken;
-                    }
-                }
+                //    if (!string.IsNullOrEmpty(result?.AccessToken))
+                //    {
+                //        token = result.AccessToken;
+                //    }
+                //}
 
                 if (!string.IsNullOrEmpty(token) && currentUrl.StartsWith(apiPath))
                 {

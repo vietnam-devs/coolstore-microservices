@@ -1,4 +1,4 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
+// Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
 
@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Rsk.TokenExchange;
-using Rsk.TokenExchange.DuendeIdentityServer;
-using Rsk.TokenExchange.Validators;
-using Rsk.TokenExchange.Validators.Adaptors;
+//using Rsk.TokenExchange;
+//using Rsk.TokenExchange.DuendeIdentityServer;
+//using Rsk.TokenExchange.Validators;
+//using Rsk.TokenExchange.Validators.Adaptors;
 
 namespace IdentityServer
 {
@@ -32,13 +32,13 @@ namespace IdentityServer
             services.AddControllersWithViews();
 
             // RFC-8693
-            services.AddTransient<ITokenExchangeRequestParser, TokenExchangeRequestParser>();
-            services.AddTransient<ITokenExchangeRequestValidator, CustomTokenExchangeRequestValidator>();
-            services.AddTransient<ISubjectTokenValidator, DefaultSubjectTokenValidator>();
-            services.AddTransient<ITokenExchangeClaimsParser, TokenExchangeClaimsParser>();
+            //services.AddTransient<ITokenExchangeRequestParser, TokenExchangeRequestParser>();
+            //services.AddTransient<ITokenExchangeRequestValidator, CustomTokenExchangeRequestValidator>();
+            //services.AddTransient<ISubjectTokenValidator, DefaultSubjectTokenValidator>();
+            //services.AddTransient<ITokenExchangeClaimsParser, TokenExchangeClaimsParser>();
             
             // RFC-8693
-            services.AddTransient<ITokenValidatorAdaptor, IdentityServerSubjectTokenValidator>();
+            //services.AddTransient<ITokenValidatorAdaptor, IdentityServerSubjectTokenValidator>();
             
             var builder = services
                 .AddIdentityServer(options =>
@@ -63,7 +63,7 @@ namespace IdentityServer
             //builder.AddTokenExchange();
             
             // RFC-8693
-            builder.AddExtensionGrantValidator<TokenExchangeExtensionGrantValidator>();
+            //builder.AddExtensionGrantValidator<TokenExchangeExtensionGrantValidator>();
 
             services.AddAuthentication()
                 .AddGoogle(options =>

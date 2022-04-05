@@ -1,3 +1,0 @@
-namespace InventoryService.Application.Common
-{
-}

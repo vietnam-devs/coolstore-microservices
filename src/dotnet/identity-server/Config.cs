@@ -1,4 +1,4 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
+// Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
 
@@ -49,11 +49,11 @@ namespace IdentityServer
 
                     AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
 
-                    RedirectUris = { "https://localhost:8080/signin-oidc" },
+                    RedirectUris = { "http://localhost:5000/signin-oidc" },
 
-                    BackChannelLogoutUri = "https://localhost:8080/logout",
+                    BackChannelLogoutUri = "http://localhost:5000/logout",
 
-                    PostLogoutRedirectUris = { "https://localhost:8080/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { "http://localhost:5000/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
                     AllowedScopes = { "openid", "profile", "sale.all" }
