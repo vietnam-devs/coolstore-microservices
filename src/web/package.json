@@ -1,29 +1,38 @@
 {
   "name": "coolstore-web",
   "private": true,
-  "description": "This is a webpage for coolstore project",
+  "description": "",
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
+    "build": "run-s build:*",
+    "build:css": "npm run generate:css -- --minify",
+    "build:remix": "remix build",
+    "dev": "run-p dev:*",
+    "dev:css": "npm run generate:css -- --watch",
+    "dev:remix": "remix dev",
+    "generate:css": "npx tailwindcss -o ./app/tailwind.css",
     "start": "remix-serve build"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
     "@remix-run/node": "1.3.4",
     "@remix-run/react": "1.3.4",
     "@remix-run/serve": "1.3.4",
+    "@tailwindcss/forms": "^0.5.0",
+    "axios": "^0.26.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "styled-components": "^5.3.3"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@remix-run/dev": "1.3.4",
     "@remix-run/eslint-config": "1.3.4",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.13",
-    "@types/styled-components": "^5.1.24",
     "eslint": "^8.10.0",
+    "npm-run-all": "^4.1.5",
+    "prettier-plugin-tailwindcss": "^0.1.8",
+    "tailwindcss": "^3.0.23",
     "typescript": "^4.6.2"
   },
   "engines": {

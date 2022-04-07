@@ -1,21 +1,24 @@
-# Example app with [Styled Components](https://styled-components.com/)
+# Tailwindcss Example
 
-This example features how to use [Styled Components](https://styled-components.com/) with Remix.
+Integrate Remix with tailwindcss.
 
 ## Preview
 
-Open this example on [CodeSandbox](https://codesandbox.io/s/styled-components):
+Open this example on [CodeSandbox](https://codesandbox.io/s/remix-tailwind-2x8pg):
 
-[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/remix-run/remix/tree/main/examples/styled-components)
+[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/remix-run/remix/tree/main/examples/tailwindcss)
 
 ## Example
 
-This example shows how to use Styled Components with Remix. Relevant files:
+This example shows how to use Tailwind CSS (v3.0) with Remix. It follows the steps outlined in the official [Remix Styling docs](https://remix.run/guides/styling#tailwind).
 
-- [app/root.tsx](./app/root.tsx) - This is where we render the app and if we're rendering on the server we have placeholder text of `__STYLES__`.
-- [app/entry.server.tsx](./app/entry.server.tsx) - This is where we render the app on the server and replace `__STYLES__` with the styles that styled-components collect.
-- [app/routes/index.tsx](./app/routes/index.tsx) - Here's where we use the `styled` function to create a styled component.
+Relevant files:
+
+- [package.json](./package.json) where the tailwind CLI is used.
+- [tailwind.config.js](./tailwind.config.js) where tailwind is configured.
+- [app/root.tsx](./app/root.tsx) where tailwind is imported.
+- [.gitignore](.gitignore) where the generated tailwind.css is added to the ignore list.
 
 ## Related Links
 
-[Styled-Components](https://styled-components.com/)
+[Tailwind CSS](https://tailwindcss.com)

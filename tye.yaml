@@ -40,6 +40,7 @@ services:
     - ReverseProxy__Clusters__saleApiCluster__Destinations__destination1__Address=http://host.docker.internal:5005
   bindings:
   - port: 5000
+    protocol: https
 
 - name: identityapp
   project: src/dotnet/identity-server/IdentityServer.csproj
