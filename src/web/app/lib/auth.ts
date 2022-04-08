@@ -10,6 +10,18 @@ export type ProductModel = {
   description: string
 }
 
+export type ProductDetailModel = {
+  id: string
+  name: string
+  price: number
+  imageUrl: string
+  description: string
+  categoryId: string
+  categoryName: string
+  inventoryId: string
+  inventoryLocation: string
+}
+
 export type TagModel = {
   key: string
   text: string
@@ -93,8 +105,8 @@ export async function getProductById(request: Request, id: string) {
       } as any
     });
 
-  console.log(data);
-  return data;
+  // console.log(data as ProductDetailModel);
+  return data as ProductDetailModel;
 }
 
 export async function createUserSession(userId: string, redirectTo: string) {

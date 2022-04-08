@@ -1,7 +1,11 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-import { StarIcon, SearchIcon, HeartIcon } from "@heroicons/react/outline";
+import {
+  StarIcon,
+  SearchIcon,
+  ShoppingBagIcon,
+} from "@heroicons/react/outline";
 import SiteLayout from "~/components/SiteLayout";
 
 import { getUserInfo, searchProduct, ProductSearchResult } from "~/lib/auth";
@@ -30,7 +34,7 @@ export default function Index() {
               <div className="space-y-2">
                 {data.productSearchResult.categoryTags &&
                   data.productSearchResult.categoryTags.map((categoryTag) => (
-                    <div className="flex items-center">
+                    <div className="flex items-center" key={categoryTag.key}>
                       <input
                         type="checkbox"
                         id={categoryTag.key}
@@ -58,7 +62,7 @@ export default function Index() {
               <div className="space-y-2">
                 {data.productSearchResult.inventoryTags &&
                   data.productSearchResult.inventoryTags.map((inventoryTag) => (
-                    <div className="flex items-center">
+                    <div className="flex items-center" key={inventoryTag.key}>
                       <input
                         type="checkbox"
                         id={inventoryTag.key}
@@ -88,22 +92,29 @@ export default function Index() {
               {/* single product */}
               {data.productSearchResult.products &&
                 data.productSearchResult.products.map((product) => (
-                  <div className="group overflow-hidden rounded bg-white shadow">
+                  <div
+                    className="group overflow-hidden rounded bg-white shadow"
+                    key={product.id}
+                  >
                     {/* product image */}
                     <div className="relative">
-                      <img src={product.imageUrl} className="w-full" />
+                      <img
+                        src={product.imageUrl}
+                        className="w-full"
+                        loading="lazy"
+                      />
                       <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black bg-opacity-40 opacity-0 transition group-hover:opacity-100">
                         <a
                           href={`/product/${product.id}`}
                           className="bg-primary flex h-9 w-9 items-center justify-center rounded-full text-lg text-white transition hover:bg-gray-800"
                         >
-                          <SearchIcon className="h-5 w-5 text-blue-500"></SearchIcon>
+                          <SearchIcon className="h-5 w-5 text-red-500"></SearchIcon>
                         </a>
                         <a
                           href="#"
                           className="bg-primary flex h-9 w-9 items-center justify-center rounded-full text-lg text-white transition hover:bg-gray-800"
                         >
-                          <HeartIcon className="h-5 w-5 text-blue-500"></HeartIcon>
+                          <ShoppingBagIcon className="h-5 w-5 text-red-500"></ShoppingBagIcon>
                         </a>
                       </div>
                     </div>
@@ -123,19 +134,19 @@ export default function Index() {
                       <div className="flex items-center">
                         <div className="flex gap-1 text-sm text-yellow-400">
                           <span>
-                            <StarIcon className="h-5 w-5 text-blue-500"></StarIcon>
+                            <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
                           </span>
                           <span>
-                            <StarIcon className="h-5 w-5 text-blue-500"></StarIcon>
+                            <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
                           </span>
                           <span>
-                            <StarIcon className="h-5 w-5 text-blue-500"></StarIcon>
+                            <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
                           </span>
                           <span>
-                            <StarIcon className="h-5 w-5 text-blue-500"></StarIcon>
+                            <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
                           </span>
                           <span>
-                            <StarIcon className="h-5 w-5 text-blue-500"></StarIcon>
+                            <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
                           </span>
                         </div>
                       </div>
