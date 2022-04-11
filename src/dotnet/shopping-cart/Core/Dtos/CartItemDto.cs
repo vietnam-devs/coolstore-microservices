@@ -12,6 +12,4 @@ public class CartItemDto
     public string ProductImagePath { get; set; } = default!;
     public Guid InventoryId { get; set; }
     public string InventoryLocation { get; set; } = default!;
-    public string InventoryWebsite { get; set; } = default!;
-    public string InventoryDescription { get; set; } = default!;
 }

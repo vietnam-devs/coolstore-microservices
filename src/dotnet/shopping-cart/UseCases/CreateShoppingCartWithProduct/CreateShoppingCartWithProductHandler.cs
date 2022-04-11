@@ -30,7 +30,7 @@ public class CreateShoppingCartWithProductHandler : IRequestHandler<CreateShoppi
     {
         var currentUserId = _securityContextAccessor.UserId;
 
-        var cart = new CartDto {UserId = currentUserId};
+        var cart = new CartDto {Id = NewGuid(), UserId = currentUserId};
 
         await cart.InsertItemToCartAsync(request.Quantity, request.ProductId, _productCatalogGateway);
         await cart.CalculateCartAsync(_productCatalogGateway, _shippingGateway, _promoGateway);

@@ -32,7 +32,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   const userInfo = await getUserInfo(request);
   if (userInfo != null) {
     const session = await createUserSession(userInfo.sub, "/");
-    console.info("root-cookie", session.headers.get("set-cookie"));
+    // console.info("root-cookie", session.headers.get("set-cookie"));
   }
   return null;
 };
@@ -126,7 +126,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
           <hr />
           <p>
             Hey, developer, you should replace this with what you want your
-            users to see. <a href="https://localhost:5000/login">Log In</a> to the system please!
+            users to see. <a href="https://localhost:5000/login" className="text-red-500">Log In</a> to the system please!
           </p>
         </div>
       </Layout>

@@ -18,10 +18,8 @@ public static class CartDtoExtensions
             item.ProductPrice = product.Price;
             item.ProductImagePath = product.ImageUrl;
             item.ProductDescription = product.Description;
-            item.InventoryId = product.Inventory.Id;
-            item.InventoryLocation = product.Inventory.Location;
-            item.InventoryWebsite = product.Inventory.Website;
-            item.InventoryDescription = product.Inventory.Description;
+            item.InventoryId = product.InventoryId.ConvertTo<Guid>();
+            item.InventoryLocation = product.InventoryLocation;
         }
 
         cart.Items.Add(item);

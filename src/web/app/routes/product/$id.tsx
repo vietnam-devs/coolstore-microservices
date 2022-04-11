@@ -1,6 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { ShoppingBagIcon, HeartIcon } from "@heroicons/react/outline";
+import Image from "remix-image";
 
 import SiteLayout from "~/components/SiteLayout";
 
@@ -22,12 +23,7 @@ export default function ProductDetail() {
       <div className="container grid gap-6 pt-4 pb-6 lg:grid-cols-2">
         <div>
           <div>
-            <img
-              id="main-img"
-              src={product.imageUrl}
-              className="w-full"
-              loading="lazy"
-            />
+            <Image id="main-img" src={product.imageUrl} className="w-full" />
           </div>
           <div className="mt-4 grid grid-cols-5 gap-4"></div>
         </div>
@@ -80,7 +76,7 @@ export default function ProductDetail() {
               <div className="flex h-8 w-8 cursor-pointer select-none items-center justify-center text-xl">
                 -
               </div>
-              <div className="flex h-8 w-10 items-center justify-center">4</div>
+              <div className="flex h-8 w-10 items-center justify-center">8</div>
               <div className="flex h-8 w-8 cursor-pointer select-none items-center justify-center text-xl">
                 +
               </div>

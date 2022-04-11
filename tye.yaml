@@ -49,9 +49,9 @@ services:
     protocol: https
 
 - name: inventoryapp
-  # dockerFile: src/rust/docker/Dockerfile-inventory
-  # dockerFileContext: src/rust/
-  image: inventoryapp
+  dockerFile: src/rust/docker/Dockerfile-inventory
+  dockerFileContext: src/rust/
+  # image: inventoryapp
   env:
     - INVENTORY_HOST=0.0.0.0
     - INVENTORY_PORT=5002
@@ -68,9 +68,9 @@ services:
       protocol: http
 
 - name: productcatalogapp
-  # dockerFile: src/rust/docker/Dockerfile-product-catalog
-  # dockerFileContext: src/rust/
-  image: productcatalogapp
+  dockerFile: src/rust/docker/Dockerfile-product-catalog
+  dockerFileContext: src/rust/
+  # image: productcatalogapp
   env:
     - PRODUCT_CATALOG_HOST=0.0.0.0
     - PRODUCT_CATALOG_PORT=5003
