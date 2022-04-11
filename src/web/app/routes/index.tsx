@@ -4,7 +4,7 @@ import {
   LoaderFunction,
   redirect,
 } from "@remix-run/node";
-import { Form, Link, useLoaderData, useSubmit } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import { SearchIcon } from "@heroicons/react/outline";
 import Image from "remix-image";
 

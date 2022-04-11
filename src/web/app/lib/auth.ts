@@ -91,9 +91,7 @@ export const getUserInfo = async (request: Request) => {
   const { data } = await axios.get<any>(
     `${API_URL}/userinfo`
     , {
-      headers: {
-        cookie: request.headers.get("Cookie")?.toString()
-      } as any
+      headers: getHeaders(request)
     });
   if (Object.keys(data).length === 0) {
     return null;
@@ -105,9 +103,7 @@ export async function searchProduct(request: Request, query: string, price: numb
   const response = await axios.get<any>(
     `${PRODUCT_SEARCH_URL}/${price}/${page}/${pageSize}`
     , {
-      headers: {
-        cookie: request.headers.get("Cookie")?.toString()
-      } as any
+      headers: getHeaders(request)
     });
 
   const { data } = response;
@@ -127,9 +123,7 @@ export async function getProductById(request: Request, id: string) {
   const { data } = await axios.get<any>(
     `${PRODUCT_URL}/${id}`
     , {
-      headers: {
-        cookie: request.headers.get("Cookie")?.toString()
-      } as any
+      headers: getHeaders(request)
     });
   return data as ProductDetailModel;
 }
@@ -145,26 +139,21 @@ export async function createUserSession(userId: string, redirectTo: string) {
 }
 
 export async function getCartForCurrentUser(request: Request) {
-  const cookie = request.headers.get("Cookie")?.toString()!;
   const response = await axios.get<any>(
     CART_URL
     , {
-      headers: {
-        cookie: cookie
-      } as any
+      headers: getHeaders(request)
     });
 
   const { data } = response;
-  const xsrfToken = convertCookie(cookie)['XSRF-TOKEN'];
 
   console.log(data as CartModel);
-  return { cartData: data as CartModel, csrf: xsrfToken };
+  return { cartData: data as CartModel };
 }
 
 export async function updateCartForCurrentUser(request: Request, productId: string) {
   const userData = await getUserInfo(request);
-  const { cartData, csrf } = await getCartForCurrentUser(request);
-  const cookie = request.headers.get("Cookie")?.toString();
+  const { cartData } = await getCartForCurrentUser(request);
 
   if (cartData.id === null) {
     // create new cart
@@ -176,10 +165,7 @@ export async function updateCartForCurrentUser(request: Request, productId: stri
         quantity: 1,
       },
       {
-        headers: {
-          cookie: cookie,
-          "X-XSRF-TOKEN": csrf,
-        } as any
+        headers: getHeaders(request, true)
       });
     return data as CartModel;
   } else {
@@ -191,12 +177,24 @@ export async function updateCartForCurrentUser(request: Request, productId: stri
         quantity: 1,
       },
       {
-        headers: {
-          cookie: cookie,
-          "X-XSRF-TOKEN": csrf,
-        } as any
+        headers: getHeaders(request, true)
       });
     return data as CartModel;
+  }
+}
+
+function getHeaders(request: Request, isCsrf = false) {
+  const cookie = request.headers.get("Cookie")?.toString()!;
+  if (isCsrf) {
+    const csrf = convertCookie(cookie)['XSRF-TOKEN'];
+    return {
+      cookie: cookie,
+      "X-XSRF-TOKEN": csrf,
+    } as any;
+  } else {
+    return {
+      cookie: cookie
+    } as any;
   }
 }
 
