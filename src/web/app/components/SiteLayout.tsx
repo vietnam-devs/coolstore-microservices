@@ -5,15 +5,17 @@ import AppFooter from "./AppFooter";
 
 type SiteLayoutProps = {
   userInfo: any;
+  cartItemCount: number;
 };
 
 function SiteLayout({
   children,
   userInfo,
+  cartItemCount,
 }: PropsWithChildren<SiteLayoutProps>): ReactElement {
   return (
     <div className="remix-app">
-      <AppHeader userInfo={userInfo} />
+      <AppHeader userInfo={userInfo} cartItemCount={cartItemCount} />
       <div className="remix-app__main">
         <div className="remix-app__main-content container mx-auto">
           <div className="relative bg-cover bg-center bg-no-repeat py-10">
@@ -27,7 +29,6 @@ function SiteLayout({
               </p>
             </div>
           </div>
-
           {children}
         </div>
       </div>

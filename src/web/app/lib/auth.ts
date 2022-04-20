@@ -62,7 +62,7 @@ export type CartItem = {
   inventoryWebsite: string
 }
 
-const API_URL = "https://localhost:5000";
+const API_URL = process.env.API_URL || "https://localhost:5000";
 const PRODUCT_URL = `${API_URL}/api-gw/product-catalog/api/products`;
 const PRODUCT_SEARCH_URL = `${API_URL}/api-gw/product-catalog/api/products/search`;
 const CART_URL = `${API_URL}/api-gw/shopping-cart/api/carts`;
@@ -147,7 +147,7 @@ export async function getCartForCurrentUser(request: Request) {
 
   const { data } = response;
 
-  console.log(data as CartModel);
+  // console.log(data as CartModel);
   return { cartData: data as CartModel };
 }
 
@@ -181,6 +181,18 @@ export async function updateCartForCurrentUser(request: Request, productId: stri
       });
     return data as CartModel;
   }
+}
+
+export async function checkout(request: Request) {
+  const response = await axios.put<any>(
+    `${CART_URL}/checkout`
+    , {}, {
+    headers: getHeaders(request, true)
+  });
+
+  const { data } = response;
+
+  return { cartData: data as CartModel };
 }
 
 function getHeaders(request: Request, isCsrf = false) {

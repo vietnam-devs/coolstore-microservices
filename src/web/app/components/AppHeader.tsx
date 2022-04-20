@@ -2,9 +2,12 @@ import { PropsWithChildren, ReactElement } from "react";
 import { ShoppingCartIcon } from "@heroicons/react/outline";
 import { Link } from "@remix-run/react";
 
-type LoaderData = { userInfo: any };
+type LoaderData = { userInfo: any; cartItemCount: number };
 
-function AppHeader({ userInfo }: PropsWithChildren<LoaderData>): ReactElement {
+function AppHeader({
+  userInfo,
+  cartItemCount,
+}: PropsWithChildren<LoaderData>): ReactElement {
   return (
     <div className="remix-app__header">
       <div className="container mx-auto">
@@ -26,7 +29,7 @@ function AppHeader({ userInfo }: PropsWithChildren<LoaderData>): ReactElement {
               <Link to="/cart" role="button" className="relative flex">
                 <ShoppingCartIcon className="h-8 w-8 flex-1 fill-current"></ShoppingCartIcon>
                 <span className="top right absolute right-0 top-0 m-0 h-4 w-4 rounded-full bg-red-600 p-0 text-center font-mono text-sm  leading-tight text-white">
-                  0
+                  {cartItemCount}
                 </span>
               </Link>
             </span>

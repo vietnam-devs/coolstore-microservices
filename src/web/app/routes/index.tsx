@@ -14,12 +14,14 @@ import {
   updateCartForCurrentUser,
   searchProduct,
   ProductSearchResult,
+  CartModel,
+  getCartForCurrentUser,
 } from "~/lib/auth";
 
 type LoaderData = {
   userInfo: any;
   productSearchResult: ProductSearchResult;
-  xsrfToken: string;
+  cart: CartModel;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -31,7 +33,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     1,
     20
   );
-  return json({ userInfo, productSearchResult });
+  const { cartData } = await getCartForCurrentUser(request);
+  return json({ userInfo, productSearchResult, cart: cartData });
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -44,10 +47,10 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Index() {
-  const data = useLoaderData<LoaderData>();
+  const { userInfo, productSearchResult, cart } = useLoaderData<LoaderData>();
 
   return (
-    <SiteLayout userInfo={data.userInfo}>
+    <SiteLayout userInfo={userInfo} cartItemCount={cart.items.length}>
       <div className="container relative grid items-start gap-6 pt-4 pb-16 lg:grid-cols-4">
         {/* sidebar */}
         <div className="absolute left-4 top-16 z-10 col-span-1 w-72 overflow-hidden rounded bg-white px-4 pt-4 pb-6 shadow lg:static lg:block lg:w-full">
@@ -58,8 +61,8 @@ export default function Index() {
                 Category
               </h3>
               <div className="space-y-2">
-                {data.productSearchResult.categoryTags &&
-                  data.productSearchResult.categoryTags.map((categoryTag) => (
+                {productSearchResult.categoryTags &&
+                  productSearchResult.categoryTags.map((categoryTag) => (
                     <div className="flex items-center" key={categoryTag.key}>
                       <input
                         type="checkbox"
@@ -86,8 +89,8 @@ export default function Index() {
                 Inventory
               </h3>
               <div className="space-y-2">
-                {data.productSearchResult.inventoryTags &&
-                  data.productSearchResult.inventoryTags.map((inventoryTag) => (
+                {productSearchResult.inventoryTags &&
+                  productSearchResult.inventoryTags.map((inventoryTag) => (
                     <div className="flex items-center" key={inventoryTag.key}>
                       <input
                         type="checkbox"
@@ -116,8 +119,8 @@ export default function Index() {
             {/* product wrapper */}
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
               {/* single product */}
-              {data.productSearchResult.products &&
-                data.productSearchResult.products.map((product) => (
+              {productSearchResult.products &&
+                productSearchResult.products.map((product) => (
                   <Form method="post">
                     <input type="hidden" name="productId" value={product.id} />
                     <div

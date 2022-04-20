@@ -7,10 +7,7 @@ COPY . ./
 
 RUN CGO_ENABLED=0 go build ./cmd/sale
 
-RUN pwd
-RUN ls -la
-
 FROM scratch
 COPY --from=build /src/sale /bin/sale
-EXPOSE 80
+EXPOSE 5005
 ENTRYPOINT ["/bin/sale"]

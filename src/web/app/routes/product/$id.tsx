@@ -5,21 +5,32 @@ import Image from "remix-image";
 
 import SiteLayout from "~/components/SiteLayout";
 
-import { getUserInfo, getProductById, ProductDetailModel } from "~/lib/auth";
+import {
+  getUserInfo,
+  getProductById,
+  ProductDetailModel,
+  CartModel,
+  getCartForCurrentUser,
+} from "~/lib/auth";
 
-type LoaderData = { userInfo: any; product: ProductDetailModel };
+type LoaderData = {
+  userInfo: any;
+  product: ProductDetailModel;
+  cart: CartModel;
+};
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const userInfo = await getUserInfo(request);
   const product = await getProductById(request, params.id as string);
-  return { userInfo, product };
+  const { cartData } = await getCartForCurrentUser(request);
+  return { userInfo, product, cart: cartData };
 };
 
 export default function ProductDetail() {
-  const { userInfo, product } = useLoaderData<LoaderData>();
+  const { userInfo, product, cart } = useLoaderData<LoaderData>();
 
   return (
-    <SiteLayout userInfo={userInfo}>
+    <SiteLayout userInfo={userInfo} cartItemCount={cart.items.length}>
       <div className="container grid gap-6 pt-4 pb-6 lg:grid-cols-2">
         <div>
           <div>
@@ -69,19 +80,6 @@ export default function ProductDetail() {
           </div>
 
           <p className="mt-4 text-gray-600">{product.description}</p>
-
-          <div className="mt-4">
-            <h3 className="mb-1 text-base text-gray-800">Quantity</h3>
-            <div className="flex w-max divide-x divide-gray-300 border border-gray-300 text-gray-600">
-              <div className="flex h-8 w-8 cursor-pointer select-none items-center justify-center text-xl">
-                -
-              </div>
-              <div className="flex h-8 w-10 items-center justify-center">8</div>
-              <div className="flex h-8 w-8 cursor-pointer select-none items-center justify-center text-xl">
-                +
-              </div>
-            </div>
-          </div>
 
           <div className="mt-6 flex gap-3 border-b border-gray-200 pb-5">
             <a

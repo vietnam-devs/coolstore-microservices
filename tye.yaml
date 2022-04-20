@@ -6,16 +6,11 @@ extensions:
   log-level: debug
   config: appconfig
   components-path: "./components/local/"
-# - name: zipkin
+- name: zipkin
 # - name: elastic
 #   logPath: ./.logs
 
 services:
-
-# - name: redis
-#   image: redis
-#   bindings:
-#   - port: 6379
 
 - name: postgres
   image:  postgres
@@ -39,14 +34,14 @@ services:
     - ReverseProxy__Clusters__shoppingCartApiCluster__Destinations__destination1__Address=http://localhost:5004
     - ReverseProxy__Clusters__saleApiCluster__Destinations__destination1__Address=http://host.docker.internal:5005
   bindings:
-  - port: 5000
-    protocol: https
+    - port: 5000
+      protocol: https
 
 - name: identityapp
   project: src/dotnet/identity-server/IdentityServer.csproj
   bindings:
-  - port: 5001
-    protocol: https
+    - port: 5001
+      protocol: https
 
 - name: inventoryapp
   dockerFile: src/rust/docker/Dockerfile-inventory
@@ -90,12 +85,22 @@ services:
 - name: shoppingcartapp
   project: src/dotnet/shopping-cart/ShoppingCart.csproj
   bindings:
-  - port: 5004
+    - port: 5004
 
 - name: saleapp
   dockerFile: src/go/docker/Dockerfile-sale
   dockerFileContext: src/go/
   bindings:
     - port: 5005
-      containerPort: 80
+      containerPort: 5005
+      protocol: http
+
+- name: web
+  dockerFile: src/web/Dockerfile
+  dockerFileContext: src/web
+  env:
+    - API_URL=https://host.docker.internal:5000
+  bindings:
+    - port: 3000
+      containerPort: 3000
       protocol: http

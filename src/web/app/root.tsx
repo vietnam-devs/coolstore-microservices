@@ -126,7 +126,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
           <hr />
           <p>
             Hey, developer, you should replace this with what you want your
-            users to see. <a href="https://localhost:5000/login" className="text-red-500">Log In</a> to the system please!
+            users to see. <a href="/login" className="text-red-500">Log In</a> to the system please!
           </p>
         </div>
       </Layout>
