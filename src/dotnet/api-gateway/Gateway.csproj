@@ -10,7 +10,7 @@
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.3" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.3" />
       <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.3" />
-      <PackageReference Include="Yarp.ReverseProxy" Version="1.0.0" />
+      <PackageReference Include="Yarp.ReverseProxy" Version="1.0.1" />
     </ItemGroup>
 
 </Project>
