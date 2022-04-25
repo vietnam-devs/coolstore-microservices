@@ -2,7 +2,7 @@ namespace Gateway.Config;
 
 public static class GatewayConfigReader
 {
-    public static GatewayConfig GetGatewayConfig(this ConfigurationManager config)
+    public static GatewayConfig GetGatewayConfig(this IConfiguration config)
     {
         var result = new GatewayConfig
         {
@@ -10,6 +10,7 @@ public static class GatewayConfigReader
             SessionTimeoutInMin = config.GetValue("Gateway:SessionTimeoutInMin", 60),
             ApiPath = config.GetValue("Gateway:ApiPath", "/api/"),
             Authority = config.GetValue<string>("OpenIdConnect:Authority"),
+            ExternalAuthority = config.GetValue<string>("OpenIdConnect:ExternalAuthority"),
             ClientId = config.GetValue<string>("OpenIdConnect:ClientId"),
             ClientSecret = config.GetValue<string>("OpenIdConnect:ClientSecret"),
             Scopes = config.GetValue("OpenIdConnect:Scopes", ""),

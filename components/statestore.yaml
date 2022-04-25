@@ -4,9 +4,10 @@ metadata:
   name: statestore
 spec:
   type: state.redis
+  version: v1
   metadata:
   - name: redisHost
-    value: redis:6379
+    value: host.docker.internal:6379
   - name: redisPassword
     value: ""
   - name: actorStateStore

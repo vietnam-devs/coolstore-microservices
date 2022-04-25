@@ -2,8 +2,10 @@ using System.IdentityModel.Tokens.Jwt;
 using Gateway.Config;
 using Gateway.Middleware;
 using Gateway.Services;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.IdentityModel.Logging;
 
+IdentityModelEventSource.ShowPII = true; // for only
 // Disable claim mapping to get claims 1:1 from the tokens
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -11,8 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Read config and OIDC discovery document
 var config = builder.Configuration.GetGatewayConfig();
-var discoService = new DiscoveryService();
-var disco = await discoService.LoadDiscoveryDocument(config.Authority);
+builder.Services.AddSingleton<DiscoveryDocument>();
 
 // Configure Services
 builder.Services.AddStackExchangeRedisCache(options =>
@@ -20,8 +21,8 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetValue<string>("Redis");
     options.InstanceName = "gw-authn";
 });
-builder.Services.AddTransient<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
-builder.AddGateway(config, disco);
+//builder.Services.AddTransient<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
+builder.AddGateway(config);
 
 builder.Services.AddCors(options =>
 {
@@ -33,17 +34,32 @@ builder.Services.AddCors(options =>
     });
 }); // for demo only
 
+builder.Services.AddHttpClient("oidc")
+    .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() // insecure for development
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    });
+
 // Build App and add Middleware
 var app = builder.Build();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost,
+});
+
+app.UseHttpsRedirection();
 
 app.UseCors("api"); // for demo only
 
 app.UseGateway();
 
 // Start Gateway
-if (string.IsNullOrEmpty(config.Url)) {
+if (string.IsNullOrEmpty(config.Url))
+{
     app.Run();
 }
-else {
+else
+{
     app.Run(config.Url);
 }

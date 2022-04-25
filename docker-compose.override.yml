@@ -2,66 +2,87 @@ version: "3"
 
 services:
 
-  web:
+  webapp:
     environment:
-      - PORT=3000
-      - REACT_APP_AUTHORITY=http://localhost:5001
-      - REACT_APP_API=http://localhost:5000
+      - API_URL=https://web.cs.local:5000
     ports:
       - 3000:3000
 
   webapigatewayapp:
+    networks:
+      coolstore-network:
+        aliases:
+          - web.cs.local
     environment:
-      - Services__inventoryapp=http://inventoryapp:5002
-      - Services__productcatalogapp=http://productcatalogapp:5003
-      - Services__shoppingcartapp=http://shoppingcartapp:5004
-      - Services__saleapp=http://saleapp:5005
-      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
+      - Redis=host.docker.internal
+      - OpenIdConnect__Authority=https://id.cs.local:5001
+      - ReverseProxy__Clusters__inventoryApiCluster__Destinations__destination1__Address=http://inventoryapp:5002
+      - ReverseProxy__Clusters__productCatalogApiCluster__Destinations__destination1__Address=http://productcatalogapp:5003
+      - ReverseProxy__Clusters__shoppingCartApiCluster__Destinations__destination1__Address=http://shoppingcartapp:5004
+      - ReverseProxy__Clusters__saleApiCluster__Destinations__destination1__Address=http://saleapp:5005
+      - ReverseProxy__Clusters__appCluster__Destinations__destination1__Address=http://webapp:3000
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=localhost
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
     ports:
       - "5000:5000"
 
   identityapp:
+    networks:
+      coolstore-network:
+        aliases:
+          - id.cs.local
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5001
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=localhost
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
     ports:
       - "5001:5001"
 
   inventoryapp:
     environment:
-      - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
-      - Redis__Url=redis:6379
-      - Authn__Authority=http://identityapp:5001
-      - Authn__Audience=http://localhost:5001/resources
-      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
+      - INVENTORY_HOST=0.0.0.0
+      - INVENTORY_PORT=5002
+      - PG_USER=postgres
+      - PG_PASSWORD=P@ssw0rd
+      - PG_INVENTORY_DATABASE=inv_db
+      - PG_HOST=postgresql
+      - PG_PORT=5432
+      - RUST_LOG="sqlx::query=error,tower_http=debug,info"
+      - RUST_BACKTRACE=1
     ports:
       - "5002:5002"
 
   productcatalogapp:
     restart: always
     environment:
-      - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
-      - Redis__Url=redis:6379
-      - Authn__Authority=http://identityapp:5001
-      - Authn__Audience=http://localhost:5001/resources
-      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
+      - PRODUCT_CATALOG_HOST=0.0.0.0
+      - PRODUCT_CATALOG_PORT=5003
+      - PG_USER=postgres
+      - PG_PASSWORD=P@ssw0rd
+      - PG_PRODUCT_CATALOG_DATABASE=cat_db
+      - PG_HOST=postgresql
+      - PG_PORT=5432
+      - RUST_LOG="sqlx::query=error,tower_http=debug,info"
+      - RUST_BACKTRACE=1
+      - INVENTORY_CLIENT_URI=http://inventoryapp:5002
     ports:
       - "5003:5003"
 
   shoppingcartapp:
     environment:
-      - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
-      - Redis__Url=redis:6379
-      - Authn__Authority=http://identityapp:5001
-      - Authn__Audience=http://localhost:5001/resources
-      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5004
     ports:
       - "5004:5004"
 
   saleapp:
-    environment:
-      - ConnectionStrings__postgres=Server=postgresql;Port=5432;Database=postgres;User Id=postgres;Password=P@ssw0rd;
-      - Redis__Url=redis:6379
-      - Authn__Authority=http://identityapp:5001
-      - Authn__Audience=http://localhost:5001/resources
-      - OtelZipkin__Endpoint=http://zipkin:9411/api/v2/spans
     ports:
       - "5005:5005"
 
@@ -81,13 +102,13 @@ services:
   #     - 5601
   #     - 9200
 
-  zipkin:
-    ports:
-      - "9411:9411"
+  # zipkin:
+  #   ports:
+  #     - "9411:9411"
 
-  redis:
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-      - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
-    ports:
-      - "6379:6379"
+  # redis:
+  #   environment:
+  #     - ALLOW_EMPTY_PASSWORD=yes
+  #     - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
+  #   ports:
+  #     - "6379:6379"

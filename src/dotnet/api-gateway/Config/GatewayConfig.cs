@@ -14,6 +14,7 @@ public record GatewayConfig
     public int SessionTimeoutInMin { get; init; }
     public string ApiPath { get; init; } = "";
     public string Authority { get; init; } = "";
+    public string ExternalAuthority { get; init; } = "";
     public string ClientId { get; init; } = "";
     public string ClientSecret { get; init; } = "";
     public string Scopes { get; init; } = "";

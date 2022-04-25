@@ -74,3 +74,12 @@
   - Request: ProcessOrderQuery (TODO: Command)
 - POST: cron-complete-order
   - Request: CompleteOrderQuery (TODO: Command)
+
+
+## ASP.NET Core Cert with docker-compose
+
+```bash
+> dotnet dev-certs https -ep aspnetapp.pfx -p P@ssw0rd # then save it to %USERPROFILE%\.aspnet\https
+> dotnet dev-certs https --trust
+> docker compose up
+```

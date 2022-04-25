@@ -17,16 +17,20 @@ public class RefreshResponse
 public class TokenRefreshService
 {
     private readonly DiscoveryDocument _disco;
+    private readonly IHttpClientFactory _clientFactory;
     private readonly GatewayConfig _config;
 
-    public TokenRefreshService(GatewayConfig config, DiscoveryDocument disco)
+    public TokenRefreshService(GatewayConfig config, DiscoveryDocument disco, IHttpClientFactory clientFactory)
     {
         _disco = disco;
+        _clientFactory = clientFactory;
         _config = config;
     }
 
     public async Task<RefreshResponse?> RefreshAsync(string refreshToken)
     {
+        //await _disco.LoadDiscoveryDocument();
+        
         var payload = new Dictionary<string, string>
         {
             {"grant_type", "refresh_token"},
@@ -35,11 +39,12 @@ public class TokenRefreshService
             {"client_secret", _config.ClientSecret}
         };
 
-        var httpClient = new HttpClient();
+        // var httpClient = new HttpClient();
+        var httpClient = _clientFactory.CreateClient("oidc");        
 
         var request = new HttpRequestMessage
         {
-            RequestUri = new Uri(_disco.TokenEndpoint),
+            RequestUri = new Uri("https://localhost:5001/connect/token"),
             Method = HttpMethod.Post,
             Content = new FormUrlEncodedContent(payload)
         };

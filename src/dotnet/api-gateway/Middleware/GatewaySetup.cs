@@ -8,12 +8,11 @@ namespace Gateway.Middleware;
 
 public static class GatewaySetup
 {
-    public static void AddGateway(this WebApplicationBuilder builder, GatewayConfig config, DiscoveryDocument disco)
+    public static void AddGateway(this WebApplicationBuilder builder, GatewayConfig config)
     {
         builder.Services.AddReverseProxy()
             .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
-        builder.Services.AddSingleton(disco);
         builder.Services.AddSingleton(config);
         builder.Services.AddSingleton<TokenRefreshService>();
         // builder.Services.AddSingleton<TokenExchangeService>();
@@ -21,10 +20,12 @@ public static class GatewaySetup
         var sessionTimeoutInMin = config.SessionTimeoutInMin;
         builder.Services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(sessionTimeoutInMin); });
 
-        builder.Services.AddAntiforgery(setup => { setup.HeaderName = "X-XSRF-TOKEN"; });
+        builder.Services.AddAntiforgery(setup =>
+        {
+            setup.HeaderName = "X-XSRF-TOKEN";
+        });
 
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddSingleton<DiscoveryService>();
 
         builder.Services.AddAuthorization(options =>
         {
@@ -40,6 +41,7 @@ public static class GatewaySetup
         {
             setup.ExpireTimeSpan = TimeSpan.FromMinutes(sessionTimeoutInMin);
             setup.SlidingExpiration = true;
+            //setup.Cookie.SameSite = SameSiteMode.None;
         })
         .AddOpenIdConnect(options =>
         {
@@ -53,8 +55,14 @@ public static class GatewaySetup
             options.GetClaimsFromUserInfoEndpoint = true;
             options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
             options.NonceCookie.SecurePolicy = CookieSecurePolicy.Always;
-            options.RequireHttpsMetadata = false;
-            
+            options.RequireHttpsMetadata = true;
+
+            // insecure for development
+            options.BackchannelHttpHandler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
+
             var scopes = config.Scopes;
             var scopeArray = scopes.Split(" ");
             foreach (var scope in scopeArray)

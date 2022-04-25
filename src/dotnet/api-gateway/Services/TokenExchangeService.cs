@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using Gateway.Config;
 
 namespace Gateway.Services;
 
@@ -11,17 +10,19 @@ public class TokenExchangeResponse
 public class TokenExchangeService
 {
     private readonly DiscoveryDocument _disco;
-    private readonly GatewayConfig _config;
+    private readonly IHttpClientFactory _clientFactory;
 
-    public TokenExchangeService(GatewayConfig config, DiscoveryDocument disco)
+    public TokenExchangeService(DiscoveryDocument disco, IHttpClientFactory clientFactory)
     {
         _disco = disco;
-        _config = config;
+        _clientFactory = clientFactory;
     }
 
     public async Task<TokenExchangeResponse?> ExchangeAsync(string? clientId, string? clientSecret, string? scope,
         string? accessToken)
     {
+        //await _disco.LoadDiscoveryDocument();
+        
         var payload = new Dictionary<string, string?>
         {
             {"grant_type", "urn:ietf:params:oauth:grant-type:token-exchange"},
@@ -32,11 +33,12 @@ public class TokenExchangeService
             {"subject_token_type", "urn:ietf:params:oauth:token-type:access_token"}
         };
 
-        var httpClient = new HttpClient();
+        // var httpClient = new HttpClient();
+        var httpClient = _clientFactory.CreateClient("oidc");
 
         var request = new HttpRequestMessage
         {
-            RequestUri = new Uri(_disco.TokenEndpoint),
+            RequestUri = new Uri("https://localhost:5001/connect/token"),
             Method = HttpMethod.Post,
             Content = new FormUrlEncodedContent(payload)
         };

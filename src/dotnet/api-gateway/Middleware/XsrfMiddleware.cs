@@ -30,7 +30,9 @@ public static class XsrfMiddleware
             }
 
             ctx.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
-                new CookieOptions() {HttpOnly = false});
+                new CookieOptions() {
+                    HttpOnly = false,
+                });
 
             await next(ctx);
         });
