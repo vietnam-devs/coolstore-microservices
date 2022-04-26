@@ -69,7 +69,7 @@ namespace IdentityServer
             // in-memory, code config
             builder.AddInMemoryIdentityResources(Config.IdentityResources);
             builder.AddInMemoryApiScopes(Config.ApiScopes);
-            builder.AddInMemoryClients(Config.Clients);
+            builder.AddInMemoryClients(Config.Clients(Configuration));
             builder.AddInMemoryApiResources(Config.ApiResources);
 
             // RFC-8693

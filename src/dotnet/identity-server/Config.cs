@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Duende.IdentityServer.Models;
+using Microsoft.Extensions.Configuration;
 using Rsk.TokenExchange;
 using Rsk.TokenExchange.Validators;
 
@@ -38,8 +39,12 @@ namespace IdentityServer
                 }
             };
 
-        public static IEnumerable<Client> Clients =>
-            new Client[]
+        public static IEnumerable<Client> Clients(IConfiguration config)
+        {
+            var publicClientUrl = config.GetValue("PublicClientUrl", "https://web.cs.local:5000");
+            var internalClientUrl = config.GetValue("InternalClientUrl", "https://localhost:5000");
+            
+            return new Client[]
             {
                 // BFF gateway
                 new Client
@@ -49,11 +54,11 @@ namespace IdentityServer
 
                     AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
 
-                    RedirectUris = { "https://web.cs.local:5000/signin-oidc", "https://localhost:5000/signin-oidc" },
+                    RedirectUris = { $"{internalClientUrl}/signin-oidc", $"{publicClientUrl}/signin-oidc" },
 
-                    BackChannelLogoutUri = "https://web.cs.local:5000/logout",
+                    BackChannelLogoutUri = $"{internalClientUrl}/logout",
 
-                    PostLogoutRedirectUris = { "https://web.cs.local:5000/signout-callback-oidc", "https://localhost:5000/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { $"{internalClientUrl}/signout-callback-oidc", $"{internalClientUrl}/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
                     AllowedScopes = { "openid", "profile", "sale.all" }
@@ -66,6 +71,36 @@ namespace IdentityServer
                     AllowedScopes = new[] { "sale.read", "sale.write" }
                 }
             };
+        }
+
+        //public static IEnumerable<Client> Clients =>
+        //    new Client[]
+        //    {
+        //        // BFF gateway
+        //        new Client
+        //        {
+        //            ClientId = "gw-api",
+        //            ClientSecrets = { new Secret("secret".Sha256()) },
+
+        //            AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+
+        //            RedirectUris = { "https://web.cs.local:5000/signin-oidc", "https://localhost:5000/signin-oidc" },
+
+        //            BackChannelLogoutUri = "https://web.cs.local:5000/logout",
+
+        //            PostLogoutRedirectUris = { "https://web.cs.local:5000/signout-callback-oidc", "https://localhost:5000/signout-callback-oidc" },
+
+        //            AllowOfflineAccess = true,
+        //            AllowedScopes = { "openid", "profile", "sale.all" }
+        //        },
+        //        new Client
+        //        {
+        //            ClientId = "sale-api",
+        //            ClientSecrets = new[] {new Secret("secret".Sha256())},
+        //            AllowedGrantTypes = new[] {"urn:ietf:params:oauth:grant-type:token-exchange"},
+        //            AllowedScopes = new[] { "sale.read", "sale.write" }
+        //        }
+        //    };
     }
 
     public class CustomTokenExchangeRequestValidator : ITokenExchangeRequestValidator
