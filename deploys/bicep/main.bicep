@@ -3,7 +3,7 @@ param environmentName string = 'env-${uniqueString(resourceGroup().id)}'
 param appInsightsName string = 'app-insights-${uniqueString(resourceGroup().id)}'
 param logAnalyticsWorkspaceName string = 'log-analytics-workspace-${uniqueString(resourceGroup().id)}'
 
-param minReplicas int = 1
+param minReplicas int = 0
 
 // Web Api Gateway Service
 param webApiGatewayAppName string = 'webapigatewayapp'
@@ -27,12 +27,25 @@ param saleAppName string = 'saleapp'
 param saleAppImage string = 'ghcr.io/vietnam-devs/coolstore-microservices/saleapp-v6:0.1.0'
 param saleAppPort int = 5005
 
+// Web App Service
+param webAppName string = 'webapp'
+param webAppImage string = 'ghcr.io/vietnam-devs/coolstore-microservices/webapp-v6:0.1.0'
+param webAppPort int = 3000
+
+// Identity App Service
+param identityAppName string = 'identityapp'
+param identityAppImage string = 'ghcr.io/vietnam-devs/coolstore-microservices/identityapp-v6:0.1.0'
+param identityAppPort int = 80
+
 param inventoryPostgresHost string
 param productCategoryPostgresHost string
 
 @secure()
 param postgresDbPassword string
+//redis
 param redisConnection string
+param redisHost string
+param redisPassword string
 
 // Container Apps Environment
 module environment 'modules/environment.bicep' = {
@@ -42,6 +55,79 @@ module environment 'modules/environment.bicep' = {
     appInsightsName: appInsightsName
     logAnalyticsWorkspaceName: logAnalyticsWorkspaceName
     location: location
+  }
+}
+
+// Dapr statestore component
+resource stateDaprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-01-01-preview' = {
+  name: '${environmentName}/statestore'
+  dependsOn: [
+    identityApp
+    webApiGatewayApp
+    environment
+    inventoryApp
+    productCatalogApp
+    shoppingCartApp
+    saleApp
+  ]
+  properties: {
+    componentType: 'state.redis'
+    version: 'v1'
+    secrets: [
+      {
+        name: 'redis-password'
+        value: redisPassword
+      }
+    ]
+    metadata: [
+      {
+        name: 'redisHost'
+        value: redisHost
+      }
+      {
+        name: 'redisPassword'
+        secretRef: 'redis-password'
+      }
+      {
+        name: 'actorStateStore'
+        value: 'false'
+      }
+    ]
+    scopes: [
+      identityAppName
+      webApiGatewayAppName
+      inventoryAppName
+      productCatalogAppName
+      shoppingCartAppName
+      saleAppName
+    ]
+  }
+}
+
+// Dapr pubsub component
+resource pubsubDaprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-01-01-preview' = {
+  name: '${environmentName}/pubsub'
+  dependsOn: [
+    environment
+    identityApp
+    webApiGatewayApp
+    environment
+    inventoryApp
+    productCatalogApp
+    shoppingCartApp
+    saleApp
+  ]
+  properties: {
+    componentType: 'pubsub.in-memory'
+    version: 'v1'
+    scopes: [
+      identityAppName
+      webApiGatewayAppName
+      inventoryAppName
+      productCatalogAppName
+      shoppingCartAppName
+      saleAppName
+    ]
   }
 }
 
@@ -214,6 +300,11 @@ module saleApp 'modules/container-http.bicep' = {
 }
 
 // WebApiGateway App
+// TODO: we need to modify this gateway to add configurations for identityapp and webapp as below
+// az containerapp update `
+//  --name webapigatewayapp `
+//  --resource-group $rgName `
+//  --set-env-vars 'OpenIdConnect__Authority=https://<identityapp output>' 'ReverseProxy__Clusters__appCluster__Destinations__destination1__Address=<webapp output>'
 module webApiGatewayApp 'modules/container-http.bicep' = {
   name: '${deployment().name}--${webApiGatewayAppName}'
   dependsOn: [
@@ -262,9 +353,72 @@ module webApiGatewayApp 'modules/container-http.bicep' = {
   }
 }
 
+// Identity App
+module identityApp 'modules/container-http.bicep' = {
+  name: '${deployment().name}--${identityAppName}'
+  dependsOn: [
+    environment
+    webApiGatewayApp
+  ]
+  params: {
+    enableIngress: true
+    isExternalIngress: true
+    location: location
+    environmentName: environmentName
+    containerAppName: identityAppName
+    containerImage: identityAppImage
+    containerPort: identityAppPort
+    minReplicas: minReplicas
+    env: [
+      {
+        name: 'ASPNETCORE_ENVIRONMENT'
+        value: 'Development'
+      }
+      {
+        name: 'PublicClientUrl'
+        value: 'https://${webApiGatewayApp.outputs.fqdn}'
+      }
+      {
+        name: 'InternalClientUrl'
+        value: 'https://localhost'
+      }
+    ]
+    secrets: []
+  }
+}
+
+// Web App
+module webApp 'modules/container-http.bicep' = {
+  name: '${deployment().name}--${webAppName}'
+  dependsOn: [
+    environment
+    webApiGatewayApp
+  ]
+  params: {
+    enableIngress: true
+    isExternalIngress: true
+    enableDapr: false
+    location: location
+    environmentName: environmentName
+    containerAppName: webAppName
+    containerImage: webAppImage
+    containerPort: webAppPort
+    minReplicas: minReplicas
+    env: [
+      {
+        name: 'API_URL'
+        value: 'https://${webApiGatewayApp.outputs.fqdn}'
+      }
+    ]
+    secrets: []
+  }
+}
+
+output identityAppFqdn string = identityApp.outputs.fqdn
+output saleAppFqdn string = saleApp.outputs.fqdn
 output environmentName string = environmentName
 output webApiGatewayAppFqdn string = webApiGatewayApp.outputs.fqdn
+output webAppFqdn string = webApp.outputs.fqdn
 output inventoryAppFqdn string = inventoryApp.outputs.fqdn
 output productCatalogAppFqdn string = productCatalogApp.outputs.fqdn
 output shoppingCartAppFqdn string = shoppingCartApp.outputs.fqdn
-output saleAppFqdn string = saleApp.outputs.fqdn

@@ -1,3 +1,9 @@
+# TODO
+1. update refresh token flow in webapi, hard code now
+2. error when do checkout, double-check for saleapp
+3. scale rule with http concurrency (10)
+4. Traffic spliting (modify web to add rating and split traffic 50/50)
+
 # APIs
 
 ## Inventory (Rust)
@@ -82,4 +88,39 @@
 > dotnet dev-certs https -ep aspnetapp.pfx -p P@ssw0rd # then save it to %USERPROFILE%\.aspnet\https
 > dotnet dev-certs https --trust
 > docker compose up
+```
+
+# Get starting 
+
+```powershell
+> $rgName="coolstore-rg"
+> $location="eastus"
+```
+
+```powershell
+> az group create -n $rgName -l $location
+```
+
+```powershell
+> az deployment group create `
+  --resource-group $rgName `
+  --template-file core.bicep `
+  --parameters `
+      inventoryPostgresHost='<inventory postgres db>' `
+      productCategoryPostgresHost='<product catalog postgres db>' `
+      postgresDbPassword='<postgres password>' `
+      redisConnection='<full redis connection string>' `
+      redisHost='<redis host>' `
+      redisPassword='<redis password>'
+```
+
+```powershell
+> az containerapp update `
+  --name webapigatewayapp `
+  --resource-group $rgName `
+  --set-env-vars 'OpenIdConnect__Authority=https://<identityapp url>' 'ReverseProxy__Clusters__appCluster__Destinations__destination1__Address=https://<webapp url>'
+```
+
+```powershell
+> az group delete -n $rgName
 ```
