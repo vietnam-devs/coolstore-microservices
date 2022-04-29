@@ -4,8 +4,9 @@ param environmentName string
 param containerImage string
 param containerPort int
 param isExternalIngress bool
+param enableDapr bool = true
 param enableIngress bool
-param minReplicas int = 0
+param minReplicas int = 1
 param secrets array = []
 param env array = []
 
@@ -26,11 +27,12 @@ resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
         targetPort: containerPort
         transport: 'auto'
       } : null
-      dapr: {
+      dapr: enableDapr ? {
         enabled: true
         appPort: containerPort
         appId: containerAppName
-      }
+        appprotocol: 'http'
+      } : null
     }
     template: {
       containers: [
@@ -42,7 +44,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
       ]
       scale: {
         minReplicas: minReplicas
-        maxReplicas: 1
+        // maxReplicas: 1
       }
     }
   }

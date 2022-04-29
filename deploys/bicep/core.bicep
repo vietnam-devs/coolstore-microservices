@@ -3,7 +3,7 @@ param environmentName string = 'env-${uniqueString(resourceGroup().id)}'
 param appInsightsName string = 'app-insights-${uniqueString(resourceGroup().id)}'
 param logAnalyticsWorkspaceName string = 'log-analytics-workspace-${uniqueString(resourceGroup().id)}'
 
-param minReplicas int = 0
+param minReplicas int = 1
 
 // Web Api Gateway Service
 param webApiGatewayAppName string = 'webapigatewayapp'
@@ -107,6 +107,7 @@ module productCatalogApp 'modules/container-http.bicep' = {
   name: '${deployment().name}--${productCatalogAppName}'
   dependsOn: [
     environment
+    inventoryApp
   ]
   params: {
     enableIngress: true
@@ -153,6 +154,10 @@ module productCatalogApp 'modules/container-http.bicep' = {
       {
         name: 'RUST_BACKTRACE'
         value: '1'
+      }
+      {
+        name: 'INVENTORY_CLIENT_URI'
+        value: 'https://${inventoryApp.outputs.fqdn}'
       }
     ]
     secrets: []
@@ -238,19 +243,19 @@ module webApiGatewayApp 'modules/container-http.bicep' = {
       }
       {
         name: 'ReverseProxy__Clusters__inventoryApiCluster__Destinations__destination1__Address'
-        value: 'http://${inventoryApp.outputs.fqdn}:5002'
+        value: 'https://${inventoryApp.outputs.fqdn}'
       }
       {
         name: 'ReverseProxy__Clusters__productCatalogApiCluster__Destinations__destination1__Address'
-        value: 'http://${productCatalogApp.outputs.fqdn}:5003'
+        value: 'https://${productCatalogApp.outputs.fqdn}'
       }
       {
         name: 'ReverseProxy__Clusters__shoppingCartApiCluster__Destinations__destination1__Address'
-        value: 'http://${shoppingCartApp.outputs.fqdn}:5004'
+        value: 'https://${shoppingCartApp.outputs.fqdn}'
       }
       {
         name: 'ReverseProxy__Clusters__saleApiCluster__Destinations__destination1__Address'
-        value: 'http://${inventoryApp.outputs.fqdn}:5005'
+        value: 'https://${saleApp.outputs.fqdn}'
       }
     ]
     secrets: []

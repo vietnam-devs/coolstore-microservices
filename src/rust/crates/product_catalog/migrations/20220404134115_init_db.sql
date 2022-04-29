@@ -6,10 +6,11 @@ START TRANSACTION;
 
 CREATE SCHEMA IF NOT EXISTS catalog;
 
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE catalog.categories (
-    id uuid NOT NULL DEFAULT (uuid_generate_v4()),
+    -- id uuid NOT NULL DEFAULT (uuid_generate_v4()),
+    id uuid NOT NULL DEFAULT (md5(random()::text || clock_timestamp()::text)::uuid),
     name text NOT NULL,
     created timestamp without time zone NOT NULL,
     updated timestamp without time zone NULL,
@@ -17,7 +18,8 @@ CREATE TABLE catalog.categories (
 );
 
 CREATE TABLE catalog.products (
-    id uuid NOT NULL DEFAULT (uuid_generate_v4()),
+    -- id uuid NOT NULL DEFAULT (uuid_generate_v4()),
+    id uuid NOT NULL DEFAULT (md5(random()::text || clock_timestamp()::text)::uuid),
     name text NOT NULL,
     description text NOT NULL,
     price double precision NOT NULL,
@@ -40,14 +42,14 @@ COMMIT;
 
 START TRANSACTION;
 
-INSERT INTO catalog.categories (id,name,created,updated) VALUES 
+INSERT INTO catalog.categories (id,name,created,updated) VALUES
 ('77666AA8-682C-4047-B075-04839281630A','Beverage products','2011-08-21 09:27:19.085','1993-05-12 19:58:14.319')
 ,('1EBDD04F-A447-42A3-9E65-5697C1DACB09','Accessories','2011-08-21 09:27:19.085','1993-05-12 19:58:14.319')
 ,('664690EE-A647-4B12-B87F-AF5C511187EB','Food products','2011-08-21 09:27:19.085','1993-05-12 19:58:14.319')
 ,('80287EF3-987F-4312-A0C6-CCC2239AEEA3','Electronic Gadgets','2011-08-21 09:27:19.085','1993-05-12 19:58:14.319')
 ;
 
-INSERT INTO catalog.products (id,created,updated,name,description,price,image_url,inventory_id,is_deleted,category_id) VALUES 
+INSERT INTO catalog.products (id,created,updated,name,description,price,image_url,inventory_id,is_deleted,category_id) VALUES
 ('6B8D0110-E3E8-4727-A51E-06F38864E464','2011-08-21 09:27:19.085','1993-05-12 19:58:14.319','Ice Cream Bar - Oreo Cone','Proximal gastrectomy',2236,'https://picsum.photos/1200/900?image=21','B8B62196-6369-409D-B709-11C112DD023F','FALSE','77666AA8-682C-4047-B075-04839281630A')
 ,('FEE1FC67-7469-4490-B418-47F4732DE53F','2003-09-27 23:38:43.044','2010-09-18 14:00:34.626','Bag - Regular Kraft 20 Lb','Open periph nerve biopsy',2147,'https://picsum.photos/1200/900?image=7','B8B62196-6369-409D-B709-11C112DD023F','FALSE','1EBDD04F-A447-42A3-9E65-5697C1DACB09')
 ,('297C5959-4808-4F40-8D6A-4A899505E1F7','1989-07-28 11:42:10.666','1988-01-15 21:24:41.896','Oranges - Navel, 72','Remove bladder stimulat',1731,'https://picsum.photos/1200/900?image=10','B8B62196-6369-409D-B709-11C112DD023F','FALSE','77666AA8-682C-4047-B075-04839281630A')
@@ -59,7 +61,7 @@ INSERT INTO catalog.products (id,created,updated,name,description,price,image_ur
 ,('97AD5BF4-D153-41C5-A6E0-6D0BFBBB4F67','1992-07-03 17:49:58.096','1998-02-09 13:10:05.477','Oil - Olive','Skull plate removal',1124,'https://picsum.photos/1200/900?image=17','EC186DDF-F430-44EC-84E5-205C93D84F14','FALSE','664690EE-A647-4B12-B87F-AF5C511187EB')
 ,('2D2245E4-213A-49DE-93D3-79E9439400F5','2011-03-19 15:43:25.445','1995-04-01 09:47:41.323','Wonton Wrappers','Tibia/fibula inj op NOS',2200,'https://picsum.photos/1200/900?image=8','B8B62196-6369-409D-B709-11C112DD023F','FALSE','664690EE-A647-4B12-B87F-AF5C511187EB')
 ;
-INSERT INTO catalog.products (id,created,updated,name,description,price,image_url,inventory_id,is_deleted,category_id) VALUES 
+INSERT INTO catalog.products (id,created,updated,name,description,price,image_url,inventory_id,is_deleted,category_id) VALUES
 ('B243A35D-120A-4DB3-AD12-7B3FA80E6391','1985-01-29 08:40:58.052','1993-09-06 02:01:38.318','Soup - Campbells Chili','Implt/repl carddefib tot',3294,'https://picsum.photos/1200/900?image=25','B8B62196-6369-409D-B709-11C112DD023F','FALSE','664690EE-A647-4B12-B87F-AF5C511187EB')
 ,('6E3AC253-517D-48E5-96AD-800451F8591C','1992-07-03 17:49:58.096','1998-02-09 13:10:05.477','Longos - Penne With Pesto','Wound catheter irrigat',3639,'https://picsum.photos/1200/900?image=26','B8B62196-6369-409D-B709-11C112DD023F','FALSE','664690EE-A647-4B12-B87F-AF5C511187EB')
 ,('71C46659-9560-4D6A-AC18-893477ED6662','2011-08-21 09:27:19.085','1993-05-12 19:58:14.319','Lettuce - Boston Bib','Oth thorac op thymus NOS',3453,'https://picsum.photos/1200/900?image=12','EC186DDF-F430-44EC-84E5-205C93D84F14','FALSE','664690EE-A647-4B12-B87F-AF5C511187EB')
@@ -71,7 +73,7 @@ INSERT INTO catalog.products (id,created,updated,name,description,price,image_ur
 ,('1ADBC55A-4354-4205-B96D-C95E2DC806F4','2007-09-05 15:16:07.726','1992-02-25 23:43:45.169','Milk - Skim','Interat ven retrn transp',3310,'https://picsum.photos/1200/900?image=20','B8B62196-6369-409D-B709-11C112DD023F','FALSE','77666AA8-682C-4047-B075-04839281630A')
 ,('C3770B10-DD0F-4B1C-83AA-D424C175C087','1980-02-20 19:44:23.924','1981-02-17 03:20:56.856','Beef - Shank','Hepatic lobectomy',3196,'https://picsum.photos/1200/900?image=20','EC186DDF-F430-44EC-84E5-205C93D84F14','FALSE','664690EE-A647-4B12-B87F-AF5C511187EB')
 ;
-INSERT INTO catalog.products (id,created,updated,name,description,price,image_url,inventory_id,is_deleted,category_id) VALUES 
+INSERT INTO catalog.products (id,created,updated,name,description,price,image_url,inventory_id,is_deleted,category_id) VALUES
 ('FFD60654-1802-48BD-B4C3-D49831A8AB2C','1999-01-25 00:11:04.022','2006-12-03 03:01:37.382','Asus UX370U i7 8550U (C4217TS)','Asus UX370U i7 8550U (C4217TS)',500,'https://picsum.photos/1200/900?image=4','90C9479E-A11C-4D6D-AAAA-0405B6C0EFCD','FALSE','80287EF3-987F-4312-A0C6-CCC2239AEEA3')
 ,('386B04C6-303A-4840-8A51-D92B1EA2D339','2003-01-01 08:19:12.071','1980-12-03 15:01:03.026','Hersey Shakes','Removal of FB NOS',2441,'https://picsum.photos/1200/900?image=9','EC186DDF-F430-44EC-84E5-205C93D84F14','FALSE','77666AA8-682C-4047-B075-04839281630A')
 ,('89B46EA8-B9A6-40E5-8DF3-DBA1095695F7','2009-06-22 03:58:18.671','2019-09-24 08:36:42.855','Mushroom - Lg - Cello','Excision of wrist NEC',3318,'https://picsum.photos/1200/900?image=23','B8B62196-6369-409D-B709-11C112DD023F','FALSE','664690EE-A647-4B12-B87F-AF5C511187EB')

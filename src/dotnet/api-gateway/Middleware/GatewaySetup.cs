@@ -48,8 +48,8 @@ public static class GatewaySetup
             options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             options.Authority = config.Authority;
             options.ClientId = config.ClientId;
-            options.UsePkce = true;
             options.ClientSecret = config.ClientSecret;
+            options.UsePkce = true;
             options.ResponseType = OpenIdConnectResponseType.Code;
             options.SaveTokens = false;
             options.GetClaimsFromUserInfoEndpoint = true;

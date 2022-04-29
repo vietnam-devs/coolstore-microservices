@@ -99,6 +99,10 @@ export function CatchBoundary() {
         <p>Oops! Looks like you tried to visit a page that does not exist.</p>
       );
       break;
+    case 500:
+      message = (
+        <p>Oops! Something serious happened.</p>
+      );
 
     default:
       throw new Error(caught.data || caught.statusText);

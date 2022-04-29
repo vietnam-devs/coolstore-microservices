@@ -1,8 +1,12 @@
+// param environmentName string = 'env-${uniqueString(resourceGroup().id)}'
+// param appInsightsName string = 'app-insights-${uniqueString(resourceGroup().id)}'
+// param logAnalyticsWorkspaceName string = 'log-analytics-workspace-${uniqueString(resourceGroup().id)}'
+
 param environmentName string
 param webApiGatewayAppFqdn string
 
 param location string = resourceGroup().location
-param minReplicas int = 0
+param minReplicas int = 1
 
 // Web App Service
 param webAppName string = 'webapp'
@@ -17,6 +21,17 @@ param identityAppPort int = 80
 resource environment 'Microsoft.App/managedEnvironments@2022-01-01-preview' existing = {
   name: environmentName
 }
+
+// Container Apps Environment
+// module environment 'modules/environment.bicep' = {
+//   name: '${deployment().name}--environment'
+//   params: {
+//     environmentName: environmentName
+//     appInsightsName: appInsightsName
+//     logAnalyticsWorkspaceName: logAnalyticsWorkspaceName
+//     location: location
+//   }
+// }
 
 // Identity App
 module identityApp 'modules/container-http.bicep' = {
@@ -40,7 +55,7 @@ module identityApp 'modules/container-http.bicep' = {
       }
       {
         name: 'PublicClientUrl'
-        value: webApiGatewayAppFqdn
+        value: 'https://${webApiGatewayAppFqdn}'
       }
       {
         name: 'InternalClientUrl'
@@ -60,6 +75,7 @@ module webApp 'modules/container-http.bicep' = {
   params: {
     enableIngress: true
     isExternalIngress: true
+    enableDapr: false
     location: location
     environmentName: environmentName
     containerAppName: webAppName
@@ -69,7 +85,7 @@ module webApp 'modules/container-http.bicep' = {
     env: [
       {
         name: 'API_URL'
-        value: webApiGatewayAppFqdn
+        value: 'https://${webApiGatewayAppFqdn}'
       }
     ]
     secrets: []

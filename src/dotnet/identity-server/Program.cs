@@ -6,6 +6,7 @@ using System;
 using System.Security.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -16,6 +17,8 @@ namespace IdentityServer
     {
         public static int Main(string[] args)
         {
+            IdentityModelEventSource.ShowPII = true; // for dev only
+            
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)

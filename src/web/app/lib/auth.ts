@@ -68,9 +68,9 @@ const PRODUCT_SEARCH_URL = `${API_URL}/api-gw/product-catalog/api/products/searc
 const CART_URL = `${API_URL}/api-gw/shopping-cart/api/carts`;
 
 const axios = Axios.create({
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false,
-  }),
+  // httpsAgent: new https.Agent({
+  //   rejectUnauthorized: false,
+  // }),
 });
 
 const storage = createCookieSessionStorage({

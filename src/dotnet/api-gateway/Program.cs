@@ -2,10 +2,12 @@ using System.IdentityModel.Tokens.Jwt;
 using Gateway.Config;
 using Gateway.Middleware;
 using Gateway.Services;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Logging;
+using StackExchange.Redis;
 
-IdentityModelEventSource.ShowPII = true; // for only
+IdentityModelEventSource.ShowPII = true; // for dev only
 // Disable claim mapping to get claims 1:1 from the tokens
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -21,6 +23,10 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetValue<string>("Redis");
     options.InstanceName = "gw-authn";
 });
+var redis = ConnectionMultiplexer.Connect(builder.Configuration.GetValue<string>("Redis"));
+builder.Services.AddDataProtection()
+        .PersistKeysToStackExchangeRedis(redis, "DataProtection-Keys");
+
 //builder.Services.AddTransient<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
 builder.AddGateway(config);
 
@@ -34,19 +40,22 @@ builder.Services.AddCors(options =>
     });
 }); // for demo only
 
-builder.Services.AddHttpClient("oidc")
-    .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() // insecure for development
-    {
-        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-    });
+builder.Services.AddHttpClient("oidc");
+    //.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() // insecure for development
+    //{
+    //    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    //});
 
 // Build App and add Middleware
 var app = builder.Build();
 
-app.UseForwardedHeaders(new ForwardedHeadersOptions
+var fordwardedHeaderOptions = new ForwardedHeadersOptions
 {
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost,
-});
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+};
+fordwardedHeaderOptions.KnownNetworks.Clear();
+fordwardedHeaderOptions.KnownProxies.Clear();
+app.UseForwardedHeaders(fordwardedHeaderOptions);
 
 app.UseHttpsRedirection();
 

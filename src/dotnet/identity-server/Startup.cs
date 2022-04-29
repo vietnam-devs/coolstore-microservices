@@ -49,10 +49,10 @@ namespace IdentityServer
             //services.AddTransient<ITokenExchangeRequestValidator, CustomTokenExchangeRequestValidator>();
             //services.AddTransient<ISubjectTokenValidator, DefaultSubjectTokenValidator>();
             //services.AddTransient<ITokenExchangeClaimsParser, TokenExchangeClaimsParser>();
-            
+
             // RFC-8693
             //services.AddTransient<ITokenValidatorAdaptor, IdentityServerSubjectTokenValidator>();
-            
+
             var builder = services
                 .AddIdentityServer(options =>
                 {
@@ -91,7 +91,7 @@ namespace IdentityServer
                     options.ClientId = "copy client ID from Google here";
                     options.ClientSecret = "copy client secret from Google here";
                 });
-            
+
             // add CORS policy for non-IdentityServer endpoints
             services.AddCors(options =>
             {
@@ -104,16 +104,19 @@ namespace IdentityServer
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            var fordwardedHeaderOptions = new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-            
+            };
+            fordwardedHeaderOptions.KnownNetworks.Clear();
+            fordwardedHeaderOptions.KnownProxies.Clear();
+            app.UseForwardedHeaders(fordwardedHeaderOptions);
+
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseCors("api"); // for demo only
 
             app.UseStaticFiles();
@@ -122,7 +125,7 @@ namespace IdentityServer
 
             //set cookie policy before authentication/authorization setup
             app.UseCookiePolicy();
-            
+
             app.UseIdentityServer();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
@@ -169,7 +172,7 @@ namespace IdentityServer
             // This does not include:
             //   - Chrome on Mac OS X
             // because they do not use the Mac OS networking stack.
-            // Notes from Thinktecture: 
+            // Notes from Thinktecture:
             // Regarding https://caniuse.com/#search=samesite MacOS X versions lower
             // than 10.14 are not supporting SameSite at all. Starting with version
             // 10.15 unknown values are NOT treated as strict anymore. Therefore we
