@@ -16,7 +16,7 @@ resource environment 'Microsoft.App/managedEnvironments@2022-01-01-preview' exis
 }
 
 resource stateDaprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-01-01-preview' = {
-  name: '${environmentName}/state'
+  name: '${environmentName}/statestore'
   dependsOn: [
     environment
   ]

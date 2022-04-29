@@ -32,76 +32,76 @@ services:
     - port: 5001
       protocol: https
 
-# - name: inventoryapp
-#   dockerFile: src/rust/docker/Dockerfile-inventory
-#   dockerFileContext: src/rust/
-#   # image: inventoryapp
-#   env:
-#     - INVENTORY_HOST=0.0.0.0
-#     - INVENTORY_PORT=5002
-#     - PG_USER=postgres
-#     - PG_PASSWORD=P@ssw0rd
-#     - PG_INVENTORY_DATABASE=inv_db
-#     - PG_HOST=host.docker.internal
-#     - PG_PORT=5432
-#     - RUST_LOG="sqlx::query=error,tower_http=debug,info"
-#     - RUST_BACKTRACE=1
-#   bindings:
-#     - port: 5002
-#       containerPort: 5002
-#       protocol: http
+- name: inventoryapp
+  dockerFile: src/rust/docker/Dockerfile-inventory
+  dockerFileContext: src/rust/
+  # image: inventoryapp
+  env:
+    - INVENTORY_HOST=0.0.0.0
+    - INVENTORY_PORT=5002
+    - PG_USER=postgres
+    - PG_PASSWORD=P@ssw0rd
+    - PG_INVENTORY_DATABASE=inv_db
+    - PG_HOST=host.docker.internal
+    - PG_PORT=5432
+    - RUST_LOG="sqlx::query=error,tower_http=debug,info"
+    - RUST_BACKTRACE=1
+  bindings:
+    - port: 5002
+      containerPort: 5002
+      protocol: http
 
-# - name: productcatalogapp
-#   dockerFile: src/rust/docker/Dockerfile-product-catalog
-#   dockerFileContext: src/rust/
-#   # image: productcatalogapp
-#   env:
-#     - PRODUCT_CATALOG_HOST=0.0.0.0
-#     - PRODUCT_CATALOG_PORT=5003
-#     - PG_USER=postgres
-#     - PG_PASSWORD=P@ssw0rd
-#     - PG_PRODUCT_CATALOG_DATABASE=cat_db
-#     - PG_HOST=host.docker.internal
-#     - PG_PORT=5432
-#     - RUST_LOG="sqlx::query=error,tower_http=debug,info"
-#     - RUST_BACKTRACE=1
-#     - INVENTORY_CLIENT_URI=http://host.docker.internal:5002
-#   bindings:
-#     - port: 5003
-#       containerPort: 5003
-#       protocol: http
+- name: productcatalogapp
+  dockerFile: src/rust/docker/Dockerfile-product-catalog
+  dockerFileContext: src/rust/
+  # image: productcatalogapp
+  env:
+    - PRODUCT_CATALOG_HOST=0.0.0.0
+    - PRODUCT_CATALOG_PORT=5003
+    - PG_USER=postgres
+    - PG_PASSWORD=P@ssw0rd
+    - PG_PRODUCT_CATALOG_DATABASE=cat_db
+    - PG_HOST=host.docker.internal
+    - PG_PORT=5432
+    - RUST_LOG="sqlx::query=error,tower_http=debug,info"
+    - RUST_BACKTRACE=1
+    - INVENTORY_CLIENT_URI=http://host.docker.internal:5002
+  bindings:
+    - port: 5003
+      containerPort: 5003
+      protocol: http
 
-# - name: shoppingcartapp
-#   project: src/dotnet/shopping-cart/ShoppingCart.csproj
-#   bindings:
-#     - port: 5004
+- name: shoppingcartapp
+  project: src/dotnet/shopping-cart/ShoppingCart.csproj
+  bindings:
+    - port: 5004
 
-# - name: saleapp
-#   dockerFile: src/go/docker/Dockerfile-sale
-#   dockerFileContext: src/go/
-#   bindings:
-#     - port: 5005
-#       containerPort: 5005
-#       protocol: http
+- name: saleapp
+  dockerFile: src/go/docker/Dockerfile-sale
+  dockerFileContext: src/go/
+  bindings:
+    - port: 5005
+      containerPort: 5005
+      protocol: http
 
-# - name: web
-#   dockerFile: src/web/Dockerfile
-#   dockerFileContext: src/web
-#   env:
-#     - API_URL=https://host.docker.internal:5000
-#   bindings:
-#     - port: 3000
-#       containerPort: 3000
-#       protocol: http
+- name: web
+  dockerFile: src/web/Dockerfile
+  dockerFileContext: src/web
+  env:
+    - API_URL=https://host.docker.internal:5000
+  bindings:
+    - port: 3000
+      containerPort: 3000
+      protocol: http
 
-# - name: postgres
-#   image:  postgres
-#   env:
-#   - name: POSTGRES_PASSWORD
-#     value: "P@ssw0rd"
-#   bindings:
-#   - port: 5432
-#     connectionString: Server=${host};Port=${port};User Id=postgres;Password=${env:POSTGRES_PASSWORD};
-#   volumes:
-#     - target: /docker-entrypoint-initdb.d/tye_postgres_init.sql
-#       source: tye_postgres_init.sql
+- name: postgres
+  image:  postgres
+  env:
+  - name: POSTGRES_PASSWORD
+    value: "P@ssw0rd"
+  bindings:
+  - port: 5432
+    connectionString: Server=${host};Port=${port};User Id=postgres;Password=${env:POSTGRES_PASSWORD};
+  volumes:
+    - target: /docker-entrypoint-initdb.d/tye_postgres_init.sql
+      source: tye_postgres_init.sql
