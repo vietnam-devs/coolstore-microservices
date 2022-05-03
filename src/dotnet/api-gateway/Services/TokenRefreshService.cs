@@ -29,7 +29,7 @@ public class TokenRefreshService
 
     public async Task<RefreshResponse?> RefreshAsync(string refreshToken)
     {
-        //await _disco.LoadDiscoveryDocument();
+        await _disco.LoadDiscoveryDocument();
         
         var payload = new Dictionary<string, string>
         {
@@ -44,7 +44,8 @@ public class TokenRefreshService
 
         var request = new HttpRequestMessage
         {
-            RequestUri = new Uri("https://localhost:5001/connect/token"),
+            // RequestUri = new Uri("https://localhost:5001/connect/token"),
+            RequestUri = new Uri(_disco.TokenEndpoint),
             Method = HttpMethod.Post,
             Content = new FormUrlEncodedContent(payload)
         };

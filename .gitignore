@@ -355,6 +355,10 @@ src/web/shrinkwrap.yaml
 # git submodules
 **/*/healthchecksdb
 
+docker-compose.*.local.yml
+tye.*.local.yaml
+components/az/
+
 .tye/
 .logs/
 

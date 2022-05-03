@@ -1,7 +1,13 @@
 param location string = resourceGroup().location
-param environmentName string = 'env-${uniqueString(resourceGroup().id)}'
-param appInsightsName string = 'app-insights-${uniqueString(resourceGroup().id)}'
-param logAnalyticsWorkspaceName string = 'log-analytics-workspace-${uniqueString(resourceGroup().id)}'
+param uniqueSeed string = '${subscription().subscriptionId}-${resourceGroup().name}'
+param uniqueSuffix string = 'coolstore-${uniqueString(uniqueSeed)}'
+
+param environmentName string = 'env-${uniqueSuffix}'
+param appInsightsName string = 'app-insights-${uniqueSuffix}'
+param logAnalyticsWorkspaceName string = 'log-analytics-workspace-${uniqueSuffix}'
+
+param redisName string = 'redis-${uniqueSuffix}'
+param serviceBusNamespaceName string = 'sb-${uniqueSuffix}'
 
 param minReplicas int = 0
 
@@ -37,15 +43,42 @@ param identityAppName string = 'identityapp'
 param identityAppImage string = 'ghcr.io/vietnam-devs/coolstore-microservices/identityapp-v6:0.1.0'
 param identityAppPort int = 80
 
-param inventoryPostgresHost string
-param productCategoryPostgresHost string
-
 @secure()
 param postgresDbPassword string
-//redis
-param redisConnection string
-param redisHost string
-param redisPassword string
+
+module inventoryDb 'modules/postgres.bicep' = {
+  name: '${deployment().name}--inventory-db'
+  params: {
+    location: location
+    databaseName: 'inventory-db-${uniqueSuffix}'
+    postgresDbPassword: postgresDbPassword
+  }
+}
+
+module productCatalogDb 'modules/postgres.bicep' = {
+  name: '${deployment().name}--product-catalog-db'
+  params: {
+    location: location
+    databaseName: 'product--catalogdb-${uniqueSuffix}'
+    postgresDbPassword: postgresDbPassword
+  }
+}
+
+module serviceBusModule 'modules/servicebus.bicep' = {
+  name: '${deployment().name}--servicebus'
+  params: {
+    serviceBusNamespaceName: serviceBusNamespaceName
+    location: location
+  }
+}
+
+module redisModule 'modules/redis.bicep' = {
+  name: '${deployment().name}--redis'
+  params: {
+    redisName: redisName
+    location: location
+  }
+}
 
 // Container Apps Environment
 module environment 'modules/environment.bicep' = {
@@ -58,76 +91,30 @@ module environment 'modules/environment.bicep' = {
   }
 }
 
-// Dapr statestore component
-resource stateDaprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-01-01-preview' = {
-  name: '${environmentName}/statestore'
+module daprStateStore 'modules/dapr/statestore.bicep' = {
+  name: '${deployment().name}--dapr-statestore'
   dependsOn: [
-    identityApp
-    webApiGatewayApp
     environment
-    inventoryApp
-    productCatalogApp
-    shoppingCartApp
-    saleApp
+    redisModule
   ]
-  properties: {
-    componentType: 'state.redis'
-    version: 'v1'
-    secrets: [
-      {
-        name: 'redis-password'
-        value: redisPassword
-      }
-    ]
-    metadata: [
-      {
-        name: 'redisHost'
-        value: redisHost
-      }
-      {
-        name: 'redisPassword'
-        secretRef: 'redis-password'
-      }
-      {
-        name: 'actorStateStore'
-        value: 'false'
-      }
-    ]
-    scopes: [
-      identityAppName
-      webApiGatewayAppName
-      inventoryAppName
-      productCatalogAppName
-      shoppingCartAppName
-      saleAppName
-    ]
+  params: {
+    environmentName: environmentName
+    redisName: redisName
+    shoppingCartAppName: shoppingCartAppName
   }
 }
 
-// Dapr pubsub component
-resource pubsubDaprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-01-01-preview' = {
-  name: '${environmentName}/pubsub'
+module daprPubsub 'modules/dapr/pubsub.bicep' = {
+  name: '${deployment().name}--dapr-pubsub'
   dependsOn: [
     environment
-    identityApp
-    webApiGatewayApp
-    environment
-    inventoryApp
-    productCatalogApp
-    shoppingCartApp
-    saleApp
+    serviceBusModule
   ]
-  properties: {
-    componentType: 'pubsub.in-memory'
-    version: 'v1'
-    scopes: [
-      identityAppName
-      webApiGatewayAppName
-      inventoryAppName
-      productCatalogAppName
-      shoppingCartAppName
-      saleAppName
-    ]
+  params: {
+    environmentName: environmentName
+    serviceBusNamespaceName: serviceBusNamespaceName
+    saleAppName: saleAppName
+    shoppingCartAppName: shoppingCartAppName
   }
 }
 
@@ -136,6 +123,7 @@ module inventoryApp 'modules/container-http.bicep' = {
   name: '${deployment().name}--${inventoryAppName}'
   dependsOn: [
     environment
+    inventoryDb
   ]
   params: {
     enableIngress: true
@@ -157,7 +145,7 @@ module inventoryApp 'modules/container-http.bicep' = {
       }
       {
         name: 'PG_HOST'
-        value: inventoryPostgresHost
+        value: inventoryDb.outputs.postgresDbHost
       }
       {
         name: 'PG_PORT'
@@ -165,7 +153,7 @@ module inventoryApp 'modules/container-http.bicep' = {
       }
       {
         name: 'PG_USER'
-        value: 'coolstore'
+        value: inventoryDb.outputs.postgresDbUserName
       }
       {
         name: 'PG_PASSWORD'
@@ -193,6 +181,7 @@ module productCatalogApp 'modules/container-http.bicep' = {
   name: '${deployment().name}--${productCatalogAppName}'
   dependsOn: [
     environment
+    productCatalogDb
     inventoryApp
   ]
   params: {
@@ -215,7 +204,7 @@ module productCatalogApp 'modules/container-http.bicep' = {
       }
       {
         name: 'PG_HOST'
-        value: productCategoryPostgresHost
+        value: productCatalogDb.outputs.postgresDbHost
       }
       {
         name: 'PG_PORT'
@@ -223,7 +212,7 @@ module productCatalogApp 'modules/container-http.bicep' = {
       }
       {
         name: 'PG_USER'
-        value: 'coolstore'
+        value: productCatalogDb.outputs.postgresDbUserName
       }
       {
         name: 'PG_PASSWORD'
@@ -300,11 +289,6 @@ module saleApp 'modules/container-http.bicep' = {
 }
 
 // WebApiGateway App
-// TODO: we need to modify this gateway to add configurations for identityapp and webapp as below
-// az containerapp update `
-//  --name webapigatewayapp `
-//  --resource-group $rgName `
-//  --set-env-vars 'OpenIdConnect__Authority=https://<identityapp output>' 'ReverseProxy__Clusters__appCluster__Destinations__destination1__Address=<webapp output>'
 module webApiGatewayApp 'modules/container-http.bicep' = {
   name: '${deployment().name}--${webApiGatewayAppName}'
   dependsOn: [
@@ -326,7 +310,7 @@ module webApiGatewayApp 'modules/container-http.bicep' = {
     env: [
       {
         name: 'Redis'
-        value: redisConnection
+        value: redisModule.outputs.redisHost
       }
       {
         name: 'ASPNETCORE_ENVIRONMENT'

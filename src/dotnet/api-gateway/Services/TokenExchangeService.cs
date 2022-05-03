@@ -21,7 +21,7 @@ public class TokenExchangeService
     public async Task<TokenExchangeResponse?> ExchangeAsync(string? clientId, string? clientSecret, string? scope,
         string? accessToken)
     {
-        //await _disco.LoadDiscoveryDocument();
+        await _disco.LoadDiscoveryDocument();
         
         var payload = new Dictionary<string, string?>
         {
@@ -38,7 +38,8 @@ public class TokenExchangeService
 
         var request = new HttpRequestMessage
         {
-            RequestUri = new Uri("https://localhost:5001/connect/token"),
+            //RequestUri = new Uri("https://localhost:5001/connect/token"),
+            RequestUri = new Uri(_disco.TokenEndpoint),
             Method = HttpMethod.Post,
             Content = new FormUrlEncodedContent(payload)
         };

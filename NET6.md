@@ -1,8 +1,7 @@
 # TODO
-1. update refresh token flow in webapi, hard code now
-2. error when do checkout, double-check for saleapp
-3. scale rule with http concurrency (10)
-4. Traffic spliting (modify web to add rating and split traffic 50/50)
+1. error when do checkout, double-check for saleapp (we might add Azure Service Bus for pubsub)
+2. scale rule with http concurrency (10)
+3. Traffic spliting (modify web to add rating and split traffic 50/50)
 
 # APIs
 
@@ -81,16 +80,25 @@
 - POST: cron-complete-order
   - Request: CompleteOrderQuery (TODO: Command)
 
+# Get starting
 
-## ASP.NET Core Cert with docker-compose
+## docker-compose
+
+- Because dev cert isn't working in docker-compose env, so we need to generate the cert just like https://github.com/thangchung/Sample-Docker-Https, and maps it into docker-compose volume
+
+You need to copy the cert at `src/dotnet/certs/localhost.pfx` into `~/.aspnet/https` so that you can map the cert in local path into docker path when run `docker compose -f docker-compose.yml -f docker-compose.override.yml up -d`
+
+See more about this issue at https://github.com/MicrosoftDocs/visualstudio-docs/issues/5733
+
+## tye
 
 ```bash
 > dotnet dev-certs https -ep aspnetapp.pfx -p P@ssw0rd # then save it to %USERPROFILE%\.aspnet\https
 > dotnet dev-certs https --trust
-> docker compose up
+> tye run
 ```
 
-# Get starting 
+## Azure Container Apps with Bicep
 
 ```powershell
 > $rgName="coolstore-rg"
@@ -104,14 +112,8 @@
 ```powershell
 > az deployment group create `
   --resource-group $rgName `
-  --template-file core.bicep `
-  --parameters `
-      inventoryPostgresHost='<inventory postgres db>' `
-      productCategoryPostgresHost='<product catalog postgres db>' `
-      postgresDbPassword='<postgres password>' `
-      redisConnection='<full redis connection string>' `
-      redisHost='<redis host>' `
-      redisPassword='<redis password>'
+  --template-file main.bicep `
+  --parameters  postgresDbPassword='<postgres password>'
 ```
 
 ```powershell
