@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "api-gateway\Gateway.csproj", "{877CD350-E9A4-4B93-80BA-4E404CD15FB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "identity-server\IdentityServer.csproj", "{57F7994E-8425-4D53-B45D-58138026970D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart", "shopping-cart\ShoppingCart.csproj", "{CC17A944-2212-4B4C-8FF3-F477AC1F648F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{7A20377D-1EC0-4C7B-88CC-4672FAE3AF61}"
+	ProjectSection(SolutionItems) = preProject
+		building-blocks\packages.props = building-blocks\packages.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N8T.Core", "building-blocks\N8T.Core\N8T.Core.csproj", "{30772CFF-D410-42C6-AA55-3A485A12F777}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N8T.Infrastructure", "building-blocks\N8T.Infrastructure\N8T.Infrastructure.csproj", "{22D71A49-50FE-49D3-97A0-0EA3A95970EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N8T.Infrastructure.EfCore", "building-blocks\N8T.Infrastructure.EfCore\N8T.Infrastructure.EfCore.csproj", "{4F7F9C8F-8B55-4DC1-B996-15EEB7CF415F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Globals", "Globals", "{790B1256-59AB-4E7F-923E-DA64D131036E}"
+	ProjectSection(SolutionItems) = preProject
+		GlobalUsings.props = GlobalUsings.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{877CD350-E9A4-4B93-80BA-4E404CD15FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{877CD350-E9A4-4B93-80BA-4E404CD15FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{877CD350-E9A4-4B93-80BA-4E404CD15FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{877CD350-E9A4-4B93-80BA-4E404CD15FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F7994E-8425-4D53-B45D-58138026970D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F7994E-8425-4D53-B45D-58138026970D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F7994E-8425-4D53-B45D-58138026970D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F7994E-8425-4D53-B45D-58138026970D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC17A944-2212-4B4C-8FF3-F477AC1F648F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC17A944-2212-4B4C-8FF3-F477AC1F648F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC17A944-2212-4B4C-8FF3-F477AC1F648F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC17A944-2212-4B4C-8FF3-F477AC1F648F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30772CFF-D410-42C6-AA55-3A485A12F777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30772CFF-D410-42C6-AA55-3A485A12F777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30772CFF-D410-42C6-AA55-3A485A12F777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30772CFF-D410-42C6-AA55-3A485A12F777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22D71A49-50FE-49D3-97A0-0EA3A95970EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22D71A49-50FE-49D3-97A0-0EA3A95970EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22D71A49-50FE-49D3-97A0-0EA3A95970EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22D71A49-50FE-49D3-97A0-0EA3A95970EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F7F9C8F-8B55-4DC1-B996-15EEB7CF415F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F7F9C8F-8B55-4DC1-B996-15EEB7CF415F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F7F9C8F-8B55-4DC1-B996-15EEB7CF415F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F7F9C8F-8B55-4DC1-B996-15EEB7CF415F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{30772CFF-D410-42C6-AA55-3A485A12F777} = {7A20377D-1EC0-4C7B-88CC-4672FAE3AF61}
+		{22D71A49-50FE-49D3-97A0-0EA3A95970EA} = {7A20377D-1EC0-4C7B-88CC-4672FAE3AF61}
+		{4F7F9C8F-8B55-4DC1-B996-15EEB7CF415F} = {7A20377D-1EC0-4C7B-88CC-4672FAE3AF61}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,239 @@
+{
+  "db": "PostgreSQL",
+  "1f3eb71ed97bcdcf9fc83686324f260bd5b9bbc622c7a76d406595870b3794cd": {
+    "query": "\n        SELECT p.id, p.name, p.price, p.image_url, p.description, p.category_id, c.name category_name, p.inventory_id\n        FROM catalog.categories c \n            INNER JOIN catalog.products p ON c.id = p.category_id\n        WHERE p.is_deleted = false AND p.id = $1\n        ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 1,
+          "name": "name",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 2,
+          "name": "price",
+          "type_info": "Float8"
+        },
+        {
+          "ordinal": 3,
+          "name": "image_url",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 4,
+          "name": "description",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 5,
+          "name": "category_id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 6,
+          "name": "category_name",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 7,
+          "name": "inventory_id",
+          "type_info": "Uuid"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Uuid"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "hash": "1f3eb71ed97bcdcf9fc83686324f260bd5b9bbc622c7a76d406595870b3794cd"
+  },
+  "408c1af4817bb46eb6e699dcfc7c29c150ca5bc0070b07373cc651ae17087601": {
+    "query": "SELECT p.id, p.name, p.price, p.image_url, p.description, p.category_id, c.name category_name, p.inventory_id, count(*) OVER() AS total\n        FROM catalog.categories c \n            INNER JOIN catalog.products p ON c.id = p.category_id\n        WHERE p.is_deleted = false AND p.price <= $1\n        ORDER BY p.name\n        OFFSET $2\n        LIMIT $3",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 1,
+          "name": "name",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 2,
+          "name": "price",
+          "type_info": "Float8"
+        },
+        {
+          "ordinal": 3,
+          "name": "image_url",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 4,
+          "name": "description",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 5,
+          "name": "category_id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 6,
+          "name": "category_name",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 7,
+          "name": "inventory_id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 8,
+          "name": "total",
+          "type_info": "Int8"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Float8",
+          "Int8",
+          "Int8"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        null
+      ]
+    },
+    "hash": "408c1af4817bb46eb6e699dcfc7c29c150ca5bc0070b07373cc651ae17087601"
+  },
+  "3a71c544cec3b24b7ffe48832afde748562661b960f6bf93835cbe8e4f2e13dd": {
+    "query": "SELECT id, location, description, website, created, updated\n        FROM inventory.inventories \n        WHERE id = ANY($1)",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 1,
+          "name": "location",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 2,
+          "name": "description",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 3,
+          "name": "website",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 4,
+          "name": "created",
+          "type_info": "Timestamp"
+        },
+        {
+          "ordinal": 5,
+          "name": "updated",
+          "type_info": "Timestamp"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "UuidArray"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "hash": "3a71c544cec3b24b7ffe48832afde748562661b960f6bf93835cbe8e4f2e13dd"
+  },
+  "c5a41d4980094b922b409febd6b39a88d1aedaff87345e59fcc636d250207751": {
+    "query": "\n                SELECT id, location, description, website, created, updated\n                FROM inventory.inventories \n                WHERE id = $1",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 1,
+          "name": "location",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 2,
+          "name": "description",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 3,
+          "name": "website",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 4,
+          "name": "created",
+          "type_info": "Timestamp"
+        },
+        {
+          "ordinal": 5,
+          "name": "updated",
+          "type_info": "Timestamp"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Uuid"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "hash": "c5a41d4980094b922b409febd6b39a88d1aedaff87345e59fcc636d250207751"
+  }
+}

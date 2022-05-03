@@ -1,17 +1,14 @@
-# docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+# docker compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
 version: "3"
 
 services:
 
   ############################
-  # Web - Reactjs
+  # WebApp
   ############################
-  web:
-    image: vndg/web:latest
-    build:
-      context: .
-      dockerfile: src/web/Dockerfile
+  webapp:
+    image: ghcr.io/vietnam-devs/coolstore-microservices/webapp-v6:0.1.0
     depends_on:
       - webapigatewayapp
     networks:
@@ -21,12 +18,11 @@ services:
   # webapigateway app + Dapr sidecar
   #######################################
   webapigatewayapp:
-    image: vndg/webapigatewayapp:latest
+    image: ghcr.io/vietnam-devs/coolstore-microservices/webapigatewayapp-v6:0.1.0
     build:
       context: .
-      dockerfile: src/BFFs/WebApiGateway/Dockerfile
+      dockerfile: src/dotnet/api-gateway/Dockerfile
     depends_on:
-      - redis
       - placement
       - identityapp
       - inventoryapp
@@ -41,7 +37,7 @@ services:
      "-app-id", "webapigatewayapp",
      "-app-port", "5000",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components"]
+     "-components-path", "/components", "-app-ssl"]
     volumes:
       - "./components/:/components"
     depends_on:
@@ -52,12 +48,8 @@ services:
   # identity app + Dapr sidecar
   #######################################
   identityapp:
-    image: vndg/identityapp:latest
-    build:
-      context: .
-      dockerfile: src/Services/Identity/IdentityService/Dockerfile
+    image: ghcr.io/vietnam-devs/coolstore-microservices/identityapp-v6:0.1.0
     depends_on:
-      - redis
       - placement
       - postgresql
     networks:
@@ -69,7 +61,7 @@ services:
      "-app-id", "identityapp",
      "-app-port", "5001",
      "-placement-host-address", "placement:50006",
-     "-components-path", "/components"]
+     "-components-path", "/components", "-app-ssl"]
     volumes:
       - "./components/:/components"
     depends_on:
@@ -80,12 +72,8 @@ services:
   # inventory app + Dapr sidecar
   #######################################
   inventoryapp:
-    image: vndg/inventoryapp:latest
-    build:
-      context: .
-      dockerfile: src/Services/Inventory/InventoryService.Api/Dockerfile
+    image: ghcr.io/vietnam-devs/coolstore-microservices/inventoryapp-v6:0.1.0
     depends_on:
-      - redis
       - placement
       - postgresql
       - identityapp
@@ -109,12 +97,8 @@ services:
   # productcatalog app + Dapr sidecar
   #################################################
   productcatalogapp:
-    image: vndg/productcatalogapp:latest
-    build:
-      context: .
-      dockerfile: src/Services/ProductCatalog/ProductCatalogService.Api/Dockerfile
+    image: ghcr.io/vietnam-devs/coolstore-microservices/productcatalogapp-v6:0.1.0
     depends_on:
-      - redis
       - placement
       - postgresql
       - identityapp
@@ -138,12 +122,8 @@ services:
   # shoppingcart app + Dapr sidecar
   #################################################
   shoppingcartapp:
-    image: vndg/shoppingcartapp:latest
-    build:
-      context: .
-      dockerfile: src/Services/ShoppingCart/ShoppingCartService.Api/Dockerfile
+    image: ghcr.io/vietnam-devs/coolstore-microservices/shoppingcartapp-v6:0.1.0
     depends_on:
-      - redis
       - placement
       - postgresql
       - identityapp
@@ -167,12 +147,8 @@ services:
   # sale app + Dapr sidecar
   #################################################
   saleapp:
-    image: vndg/saleapp:latest
-    build:
-      context: .
-      dockerfile: src/Services/Sale/SaleService.Api/Dockerfile
+    image: ghcr.io/vietnam-devs/coolstore-microservices/saleapp-v6:0.1.0
     depends_on:
-      - redis
       - placement
       - postgresql
       - identityapp
@@ -198,6 +174,8 @@ services:
   postgresql:
     image: postgres:11-alpine
     container_name: postgresql
+    volumes:
+      - ./tye_postgres_init.sql:/docker-entrypoint-initdb.d/tye_postgres_init.sql
     networks:
       - coolstore-network
 
@@ -214,11 +192,11 @@ services:
   ############################
   # Zipkin component
   ############################
-  zipkin:
-    image: openzipkin/zipkin:latest
-    container_name: zipkin
-    networks:
-      - coolstore-network
+  # zipkin:
+  #   image: openzipkin/zipkin:latest
+  #   container_name: zipkin
+  #   networks:
+  #     - coolstore-network
 
   ############################
   # Dapr placement service
@@ -234,10 +212,10 @@ services:
   ############################
   # Redis state store
   ############################
-  redis:
-    image: "redis:alpine"
-    networks:
-      - coolstore-network
+  # redis:
+  #   image: "redis:alpine"
+  #   networks:
+  #     - coolstore-network
 
 networks:
   coolstore-network:

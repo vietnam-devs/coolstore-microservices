@@ -1,21 +1,11 @@
-# Docker Image which is used as foundation to create
-# a custom Docker Image with this Dockerfile
-FROM node:10.16
-# A directory within the virtualized Docker environment
-# Becomes more relevant when using Docker Compose later
-WORKDIR /usr/src/app
+FROM node:16-alpine
+WORKDIR /usr/server/app
 
-# Copies package.json and package-lock.json to Docker environment
-COPY src/web/package*.json ./
-
-# Installs all node packages
+COPY ./package.json ./
+RUN npm install -g npm@8.8.0
 RUN npm install
+COPY ./ .
+RUN npm run build
+ENV NODE_ENV=production
 
-# Copies everything over to Docker environment
-COPY src/web .
-
-# Uses port which is used by the actual application
-EXPOSE 3000
-
-# Finally runs the application
-CMD [ "npm", "start" ]
+CMD ["npm", "run" ,"start"]

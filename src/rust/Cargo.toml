@@ -1,0 +1,51 @@
+[package]
+name = "coolstore"
+version = "0.1.0"
+edition = "2021"
+description = "Rust coolstore services, e.g. inventory and product catalog"
+license = "MIT"
+
+default-run = "inventory_api"
+
+[[bin]]
+name = "inventory_api"
+path = "src/cmd/inventory/server.rs"
+
+[[bin]]
+name = "product_catalog_api"
+path = "src/cmd/product_catalog/server.rs"
+
+[profile.release]
+opt-level = 2
+debug = true
+
+[profile.dev.package.sqlx-macros]
+opt-level = 3
+
+[workspace]
+members = ["crates/inventory", "crates/common"]
+
+[dependencies]
+axum = { version = "0.5", features = ["headers"] }
+clap = { version = "3.0.0-rc.4", features = ["derive", "env"] }
+dotenv = "0.15"
+headers = "0.3"
+anyhow = "1.0"
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+slog = "2.7"
+openssl = { version = "0.10", features = ["vendored"] }
+sqlx = { version = "0.5.10", default-features = false, features = [
+    "runtime-tokio-rustls",
+    "any",
+    "postgres",
+    "macros",
+    "chrono",
+    "uuid",
+    "migrate",
+    "offline",
+] }
+common = { path = "crates/common", version = "0.1.0" }
+inventory = { path = "crates/inventory", version = "0.1.0" }
+product_catalog = { path = "crates/product_catalog", version = "0.1.0" }

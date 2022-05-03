@@ -1,0 +1,35 @@
+###
+POST https://inventoryapp.gentledesert-55de9ef7.eastus.azurecontainerapps.io/get-inventory-by-id
+content-type: application/json
+
+{
+  "id": "90c9479e-a11c-4d6d-aaaa-0405b6c0efcd"
+}
+
+###
+POST https://inventoryapp.greenbay-315f9914.eastus.azurecontainerapps.io/get-inventories-by-ids
+content-type: application/json
+
+{
+ "ids": "90c9479e-a11c-4d6d-aaaa-0405b6c0efcd,b8b62196-6369-409d-b709-11c112dd023f,ec186ddf-f430-44ec-84e5-205c93d84f14"
+}
+
+###
+GET https://productcatalogapp.gentledesert-55de9ef7.eastus.azurecontainerapps.io/api/products/search/5000/1/10
+content-type: application/json
+
+###
+GET http://localhost:5003/api/products/by-page-and-price/1/1000
+content-type: application/json
+
+###
+GET https://productcatalogapp.greenbay-315f9914.eastus.azurecontainerapps.io/api/products/6B8D0110-E3E8-4727-A51E-06F38864E464
+content-type: application/json
+
+###
+POST http://localhost:5003/get-product-by-id
+content-type: application/json
+
+{
+  "id": "6B8D0110-E3E8-4727-A51E-06F38864E464"
+}

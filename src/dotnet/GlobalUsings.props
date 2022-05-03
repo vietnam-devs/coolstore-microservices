@@ -1,0 +1,43 @@
+<Project>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.AspNetCore.Mvc" />
+    <Using Include="Microsoft.EntityFrameworkCore" />
+    <Using Include="System.Collections.ObjectModel" />
+    <Using Include="MediatR" />
+    <Using Include="FluentValidation" />
+    <Using Include="Dapr.Client" />
+    <Using Include="Serilog" />
+    <Using Include="N8T.Core.Domain" />
+    <Using Include="N8T.Core.Repository" />
+    <Using Include="N8T.Core.Specification" />
+    <Using Include="N8T.Core.Helpers" />
+    <Using Include="N8T.Core.Helpers.DateTimeHelper" Static="true" />
+    <Using Include="N8T.Core.Helpers.GuidHelper" Static="true" />
+    <Using Include="N8T.Infrastructure" />
+    <Using Include="N8T.Infrastructure.Bus" />
+    <Using Include="N8T.Infrastructure.DateTime" />
+    <Using Include="N8T.Infrastructure.Controller" />
+    <Using Include="N8T.Infrastructure.EfCore" />
+    <Using Include="N8T.Infrastructure.ErrorHandler" />
+    <Using Include="N8T.Infrastructure.SchemaRegistry" />
+    <Using Include="N8T.Infrastructure.SeriLog" />
+    <Using Include="N8T.Infrastructure.SeriLog.Extensions" Static="true" />
+    <Using Include="N8T.Infrastructure.Auth" />
+    <Using Include="N8T.Infrastructure.Status" />
+  </ItemGroup>
+
+</Project>

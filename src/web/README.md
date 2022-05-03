@@ -1,15 +1,24 @@
-# Get starting
+# Tailwindcss Example
 
-Create .env at the root of project
+Integrate Remix with tailwindcss.
 
-```
-PORT=31999
-REACT_APP_AUTHORITY=http://localhost:31888
-REACT_APP_API=http://localhost:31666
-```
+## Preview
 
-Then run the command
+Open this example on [CodeSandbox](https://codesandbox.io/s/remix-tailwind-2x8pg):
 
-```bash
-$ npm start
-```
+[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/remix-run/remix/tree/main/examples/tailwindcss)
+
+## Example
+
+This example shows how to use Tailwind CSS (v3.0) with Remix. It follows the steps outlined in the official [Remix Styling docs](https://remix.run/guides/styling#tailwind).
+
+Relevant files:
+
+- [package.json](./package.json) where the tailwind CLI is used.
+- [tailwind.config.js](./tailwind.config.js) where tailwind is configured.
+- [app/root.tsx](./app/root.tsx) where tailwind is imported.
+- [.gitignore](.gitignore) where the generated tailwind.css is added to the ignore list.
+
+## Related Links
+
+[Tailwind CSS](https://tailwindcss.com)
